@@ -1,0 +1,24 @@
+Missing end comment mark '*/'.
+Incorrect syntax near '*'.
+Msg 113, Level 15, State 1, Server DB4, Line 10
+Msg 102, Level 15, State 1, Server DB4, Line 2
+Incorrect syntax near ' 
+
+
+
+
+
+------------------------------------------------------------------------------
+-------------------------------------'.
+Unclosed quotation mark after the character string ') is not null
+	drop table tblCPAResults
+'.
+There is already an object named 'tblCPAResults' in the database.
+Column names in each table must be unique. Column name 'IMSProdCode' in table
+'tblCPAResults' is specified more than once.
+Msg 102, Level 15, State 1, Server DB4, Line 3
+Msg 105, Level 15, State 1, Server DB4, Line 15
+Msg 2714, Level 16, State 6, Server DB4, Line 1
+Msg 2705, Level 16, State 4, Server DB4, Line 2
+Incorrect syntax near the keyword 'where'.
+Msg 156, Level 15, State 1, Server DB4, Line 96

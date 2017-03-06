@@ -1,0 +1,50 @@
+1> 2> 1> 2> 3> 4> 5> 6> 7> 8> 9> 10> 11> 12> 1> 2> 3> 4> 5> 6> 7> (11409 rows affected)
+1> 2> 3> 4> 5> 6> 7> 8> (35537 rows affected)
+1> 2> 3> 4> 5> 1> 2> 3> 4> (10060 rows affected)
+1> 2> 3> 4> 5> 6> 7> 8> 9> 10> 11> 12> 13> 14> 15> 1> 2> 3> 4> 5> 6> 7> 8> 9> 10> 11> 12> 13> 14> 15> 16> 17> 18> (6136 rows affected)
+(6245 rows affected)
+(6249 rows affected)
+(6474 rows affected)
+(6790 rows affected)
+(6754 rows affected)
+(5963 rows affected)
+1> 2> 3> 1> 2> 3> 4> 5> 6> 7> 8> 9> (9347 rows affected)
+1> 2> 3> 4> 5> 6> 1> 2> 3> 4> 5> 6> 1> 2> 3> 4> 5> 6> 7> 8> 9> 10> 11> 12> 13> 14> 15> 16> 17> 18> insert into tempOutputRx
+select Lev,Geo,Product,Mkt,Prod,'9999' as department,
+sum(H7),sum(H6),sum(H5),sum(H4),sum(H3),sum(H2),sum(H1),99999 as H1Rank
+from tempRxRollup 
+where H1Rank > 4 and Mkt
+IN('NIAD','DPP4','ARV','ONCFCS','HYPFCS','HYP','Platinum','Eliquis
+vtep','CCB') AND PROD = '000'
+group by Lev,Geo,Product,Mkt,Prod
+1> 2> 3> 4> 5> 6> 7> 8> 1> 2> 3> 4> 5> 6> 7> 8> 9> 10> 11> 12> 13> 14> 15> 16> 17> 18> 19> 20> 21> insert into tempOutputRx
+select Lev,Geo,Product,Mkt,Prod,'9999' as department,
+sum(H7),sum(H6),sum(H5),sum(H4),sum(H3),sum(H2),sum(H1),99999 as H1Rank
+FROM tempRxRollup A
+WHERE  a.Mkt
+IN('NIAD','DPP4','ARV','ONCFCS','HYPFCS','HYP','Platinum','Eliquis
+vtep','CCB') and a.Prod <> '000' and not EXISTS(
+	SELECT * FROM tempOutputRx B WHERE a.Lev = b.Lev and a.Geo = b.Geo and
+a.Product = b.Product and a.mkt = b.Mkt and a.Department = b.Department
+)
+group by a.Lev, a.Geo, Product,Mkt,Prod
+1> 2> 3> 4> 5> 6> 7> 8> 9> 10> 11> 12> 13> 14> 15> 16> 1> 2> 3> 4> 5> 6> 7> 8> 9> 10> 11> 12> 13> 14> 15> 16> 1> 2> 3> 4> 5> 6> 7> 8> 9> 10> 11> 12> 13> 14> 15> 16> 17> 18> update tempOutputRx set
+HS7=case when b.H7=0 then 0 else a.H7/b.H7 end,
+HS6=case when b.H6=0 then 0 else a.H6/b.H6 end,
+HS5=case when b.H5=0 then 0 else a.H5/b.H5 end,
+HS4=case when b.H4=0 then 0 else a.H4/b.H4 end,
+HS3=case when b.H3=0 then 0 else a.H3/b.H3 end,
+HS2=case when b.H2=0 then 0 else a.H2/b.H2 end,
+HS1=case when b.H1=0 then 0 else a.H1/b.H1 end
+from tempOutputRx a
+inner join (select * from tempOutputRx where prod = '000') b on
+	a.Lev = b.Lev and a.Geo = b.Geo and a.Product = b.Product and a.Mkt = b.Mkt
+and a.Department = b.Department
+1> 2> 3> 4> 5> 6> 7> 8> 9> 10> 11> 12> 13> 14> 15> 16> update tempOutputRx set
+HG6=case when H7=0 then SIGN(H6) else H6/H7-1 end,
+HG5=case when H6=0 then SIGN(H5) else H5/H6-1 end,
+HG4=case when H5=0 then SIGN(H4) else H4/H5-1 end,
+HG3=case when H4=0 then SIGN(H3) else H3/H4-1 end,
+HG2=case when H3=0 then SIGN(H2) else H2/H3-1 end,
+HG1=case when H2=0 then SIGN(H1) else H1/H2-1 end
+1> 2> 3> 4> 5> 6> 1> 2> 3> 4> 5> 6> 7> 8> 9> 10> 11> 12> 13> 14> 15> 16> 17> 18> 19> 20> 21> 22> 23> 24> 25> 26> 27> 28> 29> 30> 31> 32> 33> 34> 35> 36> 37> 38> 39> 40> 41> 42> 43> 44> 45> 46> 47> 48> 1> 2> 3> 4> 5> 6> 7> 8> 9> 10> 11> 12> 13> 14> 15> 16> 

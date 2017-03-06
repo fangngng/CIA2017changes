@@ -1,0 +1,131 @@
+1> 2> 1> 2> 3> 4> 5> 6> 7> 8> 9> 10> 11> 12> 13> 14> 15> 16> 17> 18> 19> 20> 1> 2> 3> 4> 5> 6> 1> 2> 3> 4> 5> 6> 7> 8> 9> 10> 11> 1> 2> 3> 4> 5> 6> 7> 8> 9> 10> 11> 12> 13> 1> 2> 3> 4> 5> 6> 7> 1> 2> 3> 4> 5> 6> 7> 8> 1> 2> 3> 4> 5> 6> 7> 8> 9> 10> 1> 2> 3> 4> 5> 6> 7> 8> 9> 10> 11> 12> 1> 2> 3> 1> 2> 3> 1> 2> 3> 4> 5> 6> 1> 2> 3> 4> 5> 6> 7> 1> 2> 3> 1> 2> 3> 4> 5> 6> 1> 2> 3> 4> 5> 6> 1> 2> 3> 4> 5> 6> 1> 2> 3> 4> 5> 6> 1> 2> 3> 4> 5> 6> 7> 8> 9> 10> 11> 12> 13> 14> 15> 16> 17> 18> 19> 20> 21> 22> 23> 24> 25> 26> 27> 28> 29> 30> 31> 32> 33> 34> 35> 36> 37> 1> 2> 3> 4> 5> 6> 7> 8> 1> 2> 3> 4> 5> 1> 2> 3> 4> 5> 6> 7> 1> 2> 3> 4> 5> 6> 7> 1> 2> 3> 4> 5> 6> 7> 8> 9> 10> 1> 2> 3> 4> 5> 1> 2> 3> 4> 5> 6> 7> 8> 9> 1> 2> 3> 4> 5> 6> 7> 1> 2> 3> 4> 5> 6> 7> 8> 1> 2> 3> 4> 5> 6> 7> 8> 9> 10> 11> 12> 13> 14> 15> 16> 17> 18> 19> 20> 21> 22> 警报，本次PPT数量比上次少：   1330    张！
+1> 2> 3> 4> 5> 1> 2> 3> 4> 5> 6> 1> 2> 3> 4> 5> 6> 7> 8> 9> 10> 11> 12> 13> 14> 15> 16> 17> 18> 19> 20> 21> 22> 23> 24> 25> 26> 27> 28> 29> 30> 31> 32> 33> 34> 35> 36> 37> 38> 39> 40> 41> 42> 43> 44> 45> 46> 47> 48> 49> 50> 51> 52> 53> 54> 55> 56> 57> 58> 59> 60> 61> 62> 63> 64> 65> 66> 67> 68> 69> 70> 71> 72> 73> 74> 75> 76> 77> 78> 79> 80> 81> 82> 83> 84> 85> 86> 87> 88> 89> 90> 91> 92> 93> 94> 95> 96> 97> 98> 99> 100> 101> 102> 103> 104> 105> 106> 107> 108> 109> 110> 111> 请注意，China级别的PPT不是 12 张！ 数量为：20
+请注意， Monopril 产品的city不是 48 ！ 数量为：49
+请注意， Onglyza 产品的city不是 49 ！ 数量为：43
+请注意， Taxol 产品的city不是 49 ！ 数量为：47
+请注意， Baraclude 产品的Region不是 13 ！ 数量为：7
+请注意， Glucophage 产品的Region不是 7 ！ 数量为：5
+请注意， Monopril 产品的Region不是 4 ！ 数量为：7
+请注意， Onglyza 产品的Region不是 7 ！ 数量为：5
+请注意， Onglyza 产品的Region不是 5 ！ 数量为：7
+报警，产品code数量不对,相差数量：9
+查看 本次比上次 多的，请执行如下sql: 
+select distinct LinkChartCode,Product from output_PPT 
+except
+select distinct LinkChartCode,Product from BMSChina_bk.dbo.Output_PPT_201504
+
+查看 本次比上次 少的：，请执行如下sql: 
+select distinct LinkChartCode,Product from
+BMSChina_bk.dbo.Output_PPT_201504
+except
+select distinct LinkChartCode,Product from output_PPT 
+1> 2> 3> 4> 5> 6> 7> 8> 9> 10> 11> 12> 13> 14> 15> 16> 17> 18> 19> 20> 21> 22> 23> 24> 25> 26> 27> 1> 2> 3> 4> 5> 1> 2> 3> 4> 5> 1> 2> 3>                             
+ -------------- ----------- 
+ 201504, Max ID       24955 
+
+(1 row affected)
+1> 2> 3> 4> 5> 6> 7> 8> 9> 10> 11> 12> 13> 14> 15> 16> 17> 18> 19> 20> 21> (6106 rows affected)
+1> 2> 3> 4> 5> 6> (4744 rows affected)
+1> 2> 3> 4> 5> 6> 7> 8> 9> 10> 11> 12> 13> 14> (1362 rows affected)
+1> 2> 3>                                    
+ --------------------- ----------- 
+ Current Month Max ID:       26317 
+
+(1 row affected)
+1> 2> 3> 4> 5> 6> 7> 8> 9> 10> 11> 12> 13> (5337 rows affected)
+1> 2> 3> 4> 5> 6> 7> 8> 9> 10> 11> 12> 13> 14> 15> 16> 17> 18> 19> 20> 21> 22> (770 rows affected)
+(20 rows affected)
+ DateSource                                         
+	DateValue                                          
+ -------------------------------------------------- 
+	-------------------------------------------------- 
+ CAGRMATQuarterDate                                 
+	MAT 12Q4 to MAT 16Q4                               
+ Baraclude                                          
+	201612                                             
+ CAGR3MthsDate                                      
+	MQT Jun'14 to MQT Dec'16                           
+ CAGRMATDate                                        
+	MAT Dec'12 to MAT Dec'16                           
+ CPATime                                            
+	Dec'16                                             
+ CurrentMonthlyDate                                 
+	201612                                             
+ Glucophage                                         
+	201612                                             
+ HKAPITime                                          
+	Dec'16                                             
+ Monopril                                           
+	201612                                             
+ MonthDate                                          
+	Dec'16                                             
+ Onglyza                                            
+	201612                                             
+ RxCompareTime                                      
+	2014H2 vs. 2013H1                                  
+ Taxol                                              
+	201612                                             
+ CPAMATDate                                         
+	MAT Dec'14 to MAT Dec'16                           
+ CPAMATQuarterDate                                  
+	MAT 13Q1 to MAT 15Q1                               
+ Sprycel                                            
+	201612                                             
+ CurrVSLast                                         
+	Dec'16 vs. Dec'15                                  
+ Paraplatin                                         
+	201612                                             
+ Eliquis                                            
+	201612                                             
+ Coniel                                             
+	201612                                             
+
+(20 rows affected)
+1> 2> 1> 2> 3> (20 rows affected)
+1> 2>  DateSource                                         
+	DateValue                                          
+ -------------------------------------------------- 
+	-------------------------------------------------- 
+ CAGRMATQuarterDate                                 
+	MAT 12Q4 to MAT 16Q4                               
+ Baraclude                                          
+	201612                                             
+ CAGR3MthsDate                                      
+	MQT Jun'14 to MQT Dec'16                           
+ CAGRMATDate                                        
+	MAT Dec'12 to MAT Dec'16                           
+ CPATime                                            
+	Dec'16                                             
+ CurrentMonthlyDate                                 
+	201612                                             
+ Glucophage                                         
+	201612                                             
+ HKAPITime                                          
+	Dec'16                                             
+ Monopril                                           
+	201612                                             
+ MonthDate                                          
+	Dec'16                                             
+ Onglyza                                            
+	201612                                             
+ RxCompareTime                                      
+	2014H2 vs. 2013H1                                  
+ Taxol                                              
+	201612                                             
+ CPAMATDate                                         
+	MAT Dec'14 to MAT Dec'16                           
+ CPAMATQuarterDate                                  
+	MAT 13Q1 to MAT 15Q1                               
+ Sprycel                                            
+	201612                                             
+ CurrVSLast                                         
+	Dec'16 vs. Dec'15                                  
+ Paraplatin                                         
+	201612                                             
+ Eliquis                                            
+	201612                                             
+ Coniel                                             
+	201612                                             
+
+(20 rows affected)
+1> 2> 3> 4> 5> 6> 7> 8> 9> over!

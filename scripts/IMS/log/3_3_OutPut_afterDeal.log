@@ -1,0 +1,158 @@
+1> 2> 1> 2> 3> 4> 5> 6> (1 row affected)
+(185487 rows affected)
+1> 2> 3> 4> 5> 6> 7> 8> 9> 10> 11> 12> 13> 14> 15> 16> 17> 18> 19> 20> 21> 22> 23> 24> 25> 26> 27> 28> 29> 30> 31> 32> 33> 34> 35> 36> 37> 38> 39> 40> 41> 42> 43> 44> (185487 rows affected)
+(21227 rows affected)
+(496 rows affected)
+(2996 rows affected)
+1> 2> 3> 4> 5> 6> 7> 8> 9> 10> 11> 12> 13> 14> 15> 16> 17> 18> 19> 20> 21> 22> 23> 24> 25> 26> 27> 28> 29> 30> 31> 32> 33> 34> 35> 36> 37> 38> 39> 40> 41> 42> 43> 44> 45> 46> 47> 48> 49> 50> 51> 52> (364 rows affected)
+(0 rows affected)
+(9806 rows affected)
+(41554 rows affected)
+(3687 rows affected)
+1> 2> 3> 4> 5> 6> 7> 8> 9> 10> 11> 12> 13> 14> 15> 16> 17> 18> (280 rows affected)
+(555 rows affected)
+(126 rows affected)
+(0 rows affected)
+(234 rows affected)
+(1209 rows affected)
+1> 2> (18671 rows affected)
+1> 2> 3> 4> 5> 6> 7> 8> 9> 10> 11> 12> 13> 14> 15> 16> 17> 18> 19> 20> 21>  Category                                           
+	currency                                           
+ -------------------------------------------------- 
+	-------------------------------------------------- 
+ Value                                              
+	PN                                                 
+ Value                                              
+	USD                                                
+ Value                                              
+	UNIT                                               
+ Value                                              
+	RMB                                                
+ Adjusted patient number                            
+	UNIT                                               
+
+(5 rows affected)
+ Category                                           
+	currency                                           
+ -------------------------------------------------- 
+	-------------------------------------------------- 
+ NULL                                               
+	RMB                                                
+ NULL                                               
+	USD                                                
+ NULL                                               
+	UNIT                                               
+ Value                                              
+	USD                                                
+ Dosing Units                                       
+	UNIT                                               
+ Value                                              
+	UNIT                                               
+ Value                                              
+	RMB                                                
+ Units                                              
+	UNIT                                               
+
+(8 rows affected)
+(68994 rows affected)
+1> 2> 3> 4> 5> 6> 7> 8> (2636 rows affected)
+(2636 rows affected)
+1> 2> 3> 4> 5> 6> (18123 rows affected)
+1> 2> 3> 4> 5> 6> (94432 rows affected)
+1> 2> 3> 4> 5> 6> 7> 8> 9> 10> (252 rows affected)
+1> 2> 3> 4> (106005 rows affected)
+1> 2> 3> 4> (72412 rows affected)
+1> 2> 3> 4> (1071 rows affected)
+1> 2> 3> (145 rows affected)
+1> 2> 3> 4> (124 rows affected)
+1> 2> (3049 rows affected)
+1> 2> (1182 rows affected)
+1> 2> 3> 4> 5> 6> 7> 8> 9> 10> 11> 12> 13> 14> 15> 16> 17> 18> 19> 20> 21> 22> 23> 24> 25> 26> 27> 28> 29> 30> 31> 32> 33> 34> 35> 36> 37> 38> 39> 40> 41> 42> 43> 44> 45> 46> 47> 48> 49> 50> 51> 52> 53> 54> 55> 56> Warning: Null value is eliminated by an aggregate or other SET operation.
+Warning: Null value is eliminated by an aggregate or other SET operation.
+(670 rows affected)
+(670 rows affected)
+1> 2> 3> 4> 5> 6> (2093 rows affected)
+1> 2> 3> 4> 5> 6> 7> 8> (70261 rows affected)
+1> 2> 3> 4> 5> 6> 7> (67573 rows affected)
+1> 2> 3> 4> 5> 6> 7> 8> (5531 rows affected)
+1> 2> 3> 4> 5> 6> 7> 8> 9> 10> 11> 12> 13> 14> 15> 16> (126 rows affected)
+(126 rows affected)
+(126 rows affected)
+(14 rows affected)
+(14 rows affected)
+(14 rows affected)
+(14 rows affected)
+1> 2> 3> 4> 5> (30 rows affected)
+(30 rows affected)
+1> 2> 3> 4> 5> 6> 7> (362 rows affected)
+(362 rows affected)
+(196 rows affected)
+1> 2> 3> 4> 5> (33 rows affected)
+(33 rows affected)
+1> 2> 3> 4> 5> (0 rows affected)
+(0 rows affected)
+1> 2> 3> 4> 5> (0 rows affected)
+(0 rows affected)
+1> 2> 3> 4> 5> 6> 7> 8> 9> (60 rows affected)
+(60 rows affected)
+(60 rows affected)
+(60 rows affected)
+1> 2> 3> 4> 5> (378 rows affected)
+(378 rows affected)
+1> 2> 3> 4> 5> (54 rows affected)
+(90 rows affected)
+1> 2> 3> 4> 5> 6> 7> (167 rows affected)
+(167 rows affected)
+(167 rows affected)
+1> 2> 3> 4> 5> 6> 7> (42 rows affected)
+(42 rows affected)
+(42 rows affected)
+1> 2> 3> 4> 5> 6> 7> (84 rows affected)
+(84 rows affected)
+(84 rows affected)
+1> 2> 3> 4> 5> 6> 7> 8> 9> (36 rows affected)
+(36 rows affected)
+(36 rows affected)
+(36 rows affected)
+1> 2> 3> 4> 5> 6> 7> (594 rows affected)
+(594 rows affected)
+(594 rows affected)
+1> 2> 3> 4> 5> 6> 7> 8> 9> 10> 11> 12> (594 rows affected)
+(77640 rows affected)
+1> 2> 3> 4> 5> 6> 7> 8> 9> 10> 11> 12> 13> 14> 15> 16> 17> 18> 19> 20> 21> 22> 23> 24> 25> 26> 27> 28> 29> 30> 31> 32> 33> 34> 35> 36> 37> 38> 39> 40> 41> 42> 43> 44> 45> 46> 47> 48> 49> 50> 51> 52> 53> 54> 55> 56> 57> 58> 59> Warning: Null value is eliminated by an aggregate or other SET operation.
+(12755 rows affected)
+(30 rows affected)
+1> 2> 3> 4> 5> 6> 7> 8> 9> 10> 1> 2> 3> 4> 5> 6> 7> 8> 9> 10> 11> 12> 13> 14> 15> 16> 17> 18> 19> 20> 21> 22> 23> 24> 25> 26> 27> 28> 29> 30> 31> 32> 33> (4184 rows affected)
+1> 2> 3> 4> 5> 6> (44 rows affected)
+1> 2> 3> 4> 5> 6> 7> 8> 9> 10> 11> 12> 13> 14> (1848 rows affected)
+(6069 rows affected)
+1> 2> 3> 4> 5> 6> 7> 8> (98344 rows affected)
+1> 2> 3> 4> 5> 6> 7> (10629 rows affected)
+1> 2> 3> 4> (49508 rows affected)
+1> 2> 3> 4> 5> (5880 rows affected)
+1> 2> 3> 4> (53585 rows affected)
+1> 2>  geo                                                
+	lev                                                
+	parentgeo                                          
+	product                                            
+ -------------------------------------------------- 
+	-------------------------------------------------- 
+	-------------------------------------------------- 
+	-------------------------------------------------- 
+
+(0 rows affected)
+1> 2> 3> 4> 5> 6> 7> 8> 9> 10> 11> 12> 13> 14> 15> 16> 17> 18> 19> 20> 21> 22> 23> 24> 25> 26> 27> 28> 29> 30> 31> 32> 33> 34> 35> 36> 37> 38> 39> 40> 41> 42> 43> 44> 45> 46> 47> 48> 49> 50> 51> 52> 53> 54> 55> 56> (126 rows affected)
+(231 rows affected)
+(231 rows affected)
+(231 rows affected)
+(231 rows affected)
+(231 rows affected)
+(231 rows affected)
+(231 rows affected)
+(231 rows affected)
+(300 rows affected)
+(300 rows affected)
+(36 rows affected)
+(1253 rows affected)
+(32 rows affected)
+(1 row affected)

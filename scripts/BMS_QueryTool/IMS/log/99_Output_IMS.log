@@ -1,0 +1,108 @@
+1> 2> 1> 2> 3> 4> 5> 6> 7> (1 row affected)
+--dim_city
+1> 2> (8 rows affected)
+1> 2> 3> 4> 5> 6> 7> 8> --tblQueryTool_IMS_ATC_List
+1> 2> (534 rows affected)
+1> 2> 3> 4> 5> --tblQueryToolDriverIMS
+1> 2> 3> (77882 rows affected)
+1> 2> 3> 4> 5> --tblQueryToolDriverATC
+1> 2> 3> (73226 rows affected)
+1> 2> 3> 4> 5> --tblOutput_IMS_ATC_RMB_MAT
+1> 2> 3> (428146 rows affected)
+1> 2> 3> 4> 1> 2> 3> 4> 5> 6> 7> 8> 9> 10> 11> 12> 13> --tblOutput_IMS_ATC_RMB_MQT
+1> 2> 3> (428146 rows affected)
+1> 2> 3> 4> 1> 2> 3> 4> 5> 6> 7> 8> 9> 10> 11> --tblOutput_IMS_ATC_RMB_MTH
+1> 2> 3> (428146 rows affected)
+1> 2> 3> 4> 1> 2> 3> 4> 5> 6> 7> 8> 9> 10> --tblOutput_IMS_ATC_UNT_MAT
+1> 2> 3> (428146 rows affected)
+1> 2> 3> 4> 1> 2> 3> 4> 5> 6> 7> 8> 9> 10> --tblOutput_IMS_ATC_UNT_MQT
+1> 2> 3> (428146 rows affected)
+1> 2> 3> 4> 1> 2> 3> 4> 5> 6> 7> 8> 9> 10> --tblOutput_IMS_ATC_UNT_MTH
+1> 2> 3> (428146 rows affected)
+1> 2> 3> 4> 1> 2> 3> 4> 5> 6> 7> 8> 9> 10> --tblOutput_IMS_ATC_USD_MAT
+1> 2> 3> (428146 rows affected)
+1> 2> 3> 4> 1> 2> 3> 4> 5> 6> 7> 8> 9> 10> --tblOutput_IMS_ATC_USD_MQT
+1> 2> 3> (428146 rows affected)
+1> 2> 3> 4> 1> 2> 3> 4> 5> 6> 7> 8> 9> 10> --tblOutput_IMS_ATC_USD_MTH
+1> 2> 3> (428146 rows affected)
+1> 2> 3> 4> 1> 2> 3> 4> 5> 6> 7> 8> 9> 10> 11> --tblOutput_IMS_TA_RMB_MAT_Global
+1> 2> 3> (336799 rows affected)
+1> 2> 3> 4> 1> 2> 3> 4> 5> 6> 7> 8> 9> 10> --tblOutput_IMS_TA_RMB_MAT_Inline
+1> 2> 3> (27999 rows affected)
+1> 2> 3> 4> 1> 2> 3> 4> 5> 6> 7> 8> 9> 10> 11> --tblOutput_IMS_TA_Master_Inline_Mkt
+1> 2> 3> (960 rows affected)
+1> 2> 3> 4> --tblOutput_IMS_TA_RMB_MAT_Pipeline
+1> 2> 3> (10656 rows affected)
+1> 2> 3> 4> 1> 2> 3> 4> 5> 6> 7> 8> 9> 10> 11> --tblOutput_IMS_TA_RMB_MQT_Global
+1> 2> 3> (336799 rows affected)
+1> 2> 3> 4> 1> 2> 3> 4> 5> 6> 7> 8> 9> 10> 11> --tblOutput_IMS_TA_RMB_MQT_Inline
+1> 2> 3> (27999 rows affected)
+1> 2> 3> 4> 1> 2> 3> 4> 5> 6> 7> 8> 9> 10> 11> --tblOutput_IMS_TA_RMB_MQT_Pipeline
+1> 2> 3> (10656 rows affected)
+1> 2> 3> 4> 1> 2> 3> 4> 5> 6> 7> 8> 9> 10> 11> --tblOutput_IMS_TA_RMB_MTH_Global
+1> 2> 3> (336799 rows affected)
+1> 2> 3> 4> 1> 2> 3> 4> 5> 6> 7> 8> 9> 10> 11> --tblOutput_IMS_TA_RMB_MTH_Inline
+1> 2> 3> (27999 rows affected)
+1> 2> 3> 4> 1> 2> 3> 4> 5> 6> 7> 8> 9> 10> 11> --tblOutput_IMS_TA_RMB_MTH_Pipeline
+1> 2> 3> (10656 rows affected)
+1> 2> 3> 4> 1> 2> 3> 4> 5> 6> 7> 8> 9> 10> 11> --tblOutput_IMS_TA_UNT_MAT_Global
+1> 2> 3> (336799 rows affected)
+1> 2> 3> 4> 1> 2> 3> 4> 5> 6> 7> 8> 9> 10> 11> --tblOutput_IMS_TA_UNT_MAT_Inline
+1> 2> 3> (27999 rows affected)
+1> 2> 3> 4> 1> 2> 3> 4> 5> 6> 7> 8> 9> 10> 11> --tblOutput_IMS_TA_UNT_MAT_Pipeline
+1> 2> 3> (10656 rows affected)
+1> 2> 3> 4> 1> 2> 3> 4> 5> 6> 7> 8> 9> 10> 11> --tblOutput_IMS_TA_UNT_MQT_Global
+1> 2> 3> (336799 rows affected)
+1> 2> 3> 4> 1> 2> 3> 4> 5> 6> 7> 8> 9> 10> 11> --tblOutput_IMS_TA_UNT_MQT_Inline
+1> 2> 3> (27999 rows affected)
+1> 2> 3> 4> 1> 2> 3> 4> 5> 6> 7> 8> 9> 10> 11> --tblOutput_IMS_TA_UNT_MQT_Pipeline
+1> 2> 3> (10656 rows affected)
+1> 2> 3> 4> 1> 2> 3> 4> 5> 6> 7> 8> 9> 10> 11> --tblOutput_IMS_TA_UNT_MTH_Global
+1> 2> 3> (336799 rows affected)
+1> 2> 3> 4> 1> 2> 3> 4> 5> 6> 7> 8> 9> 10> 11> --tblOutput_IMS_TA_UNT_MTH_Inline
+1> 2> 3> (27999 rows affected)
+1> 2> 3> 4> 1> 2> 3> 4> 5> 6> 7> 8> 9> 10> 11> --tblOutput_IMS_TA_UNT_MTH_Pipeline
+1> 2> 3> (10656 rows affected)
+1> 2> 3> 4> 1> 2> 3> 4> 5> 6> 7> 8> 9> 10> 11> --tblOutput_IMS_TA_USD_MAT_Global
+1> 2> 3> (336799 rows affected)
+1> 2> 3> 4> 1> 2> 3> 4> 5> 6> 7> 8> 9> 10> 11> --tblOutput_IMS_TA_USD_MAT_Inline
+1> 2> 3> (27999 rows affected)
+1> 2> 3> 4> 1> 2> 3> 4> 5> 6> 7> 8> 9> 10> 11> --tblOutput_IMS_TA_USD_MAT_Pipeline
+1> 2> 3> (10656 rows affected)
+1> 2> 3> 4> 1> 2> 3> 4> 5> 6> 7> 8> 9> 10> 11> --tblOutput_IMS_TA_USD_MQT_Global
+1> 2> 3> (336799 rows affected)
+1> 2> 3> 4> 1> 2> 3> 4> 5> 6> 7> 8> 9> 10> 11> --tblOutput_IMS_TA_USD_MQT_Inline
+1> 2> 3> (27999 rows affected)
+1> 2> 3> 4> 1> 2> 3> 4> 5> 6> 7> 8> 9> 10> 11> --tblOutput_IMS_TA_USD_MQT_Pipeline
+1> 2> 3> (10656 rows affected)
+1> 2> 3> 4> 1> 2> 3> 4> 5> 6> 7> 8> 9> 10> 11> --tblOutput_IMS_TA_USD_MTH_Global
+1> 2> 3> (336799 rows affected)
+1> 2> 3> 4> 1> 2> 3> 4> 5> 6> 7> 8> 9> 10> 11> --tblOutput_IMS_TA_USD_MTH_Inline
+1> 2> 3> (27999 rows affected)
+1> 2> 3> 4> 1> 2> 3> 4> 5> 6> 7> 8> 9> 10> 11> --tblOutput_IMS_TA_USD_MTH_Pipeline
+1> 2> 3> (10656 rows affected)
+1> 2> 3> 4> 1> 2> 3> 4> 5> 6> 7> 8> 9> 10> 11> 12> 13> 14> 15> 16> 17> 18> 19> --tblOutput_IMS_TA_RMB_YTD_Inline
+1> 2> 3> (27999 rows affected)
+1> 2> 3> 4> 1> 2> 3> 4> 5> 6> 7> 8> 9> 10> 11> 12> --tblOutput_IMS_TA_USD_YTD_Inline
+1> 2> 3> (27999 rows affected)
+1> 2> 3> 4> 1> 2> 3> 4> 5> 6> 7> 8> 9> 10> 11> --tblOutput_IMS_TA_UNT_YTD_Inline
+1> 2> 3> (27999 rows affected)
+1> 2> 3> 4> 1> 2> 3> 4> 5> 6> 7> 8> 9> 10> 11> --tblOutput_IMS_TA_RMB_YTD_Pipeline
+1> 2> 3> (10656 rows affected)
+1> 2> 3> 4> 1> 2> 3> 4> 5> 6> 7> 8> 9> 10> 11> --tblOutput_IMS_TA_USD_YTD_Pipeline
+1> 2> 3> (10656 rows affected)
+1> 2> 3> 4> 1> 2> 3> 4> 5> 6> 7> 8> 9> 10> 11> --tblOutput_IMS_TA_UNT_YTD_Pipeline
+1> 2> 3> (10656 rows affected)
+1> 2> 3> 4> 1> 2> 3> 4> 5> 6> 7> 8> 9> 10> 11> --tblOutput_IMS_TA_RMB_YTD_Global
+1> 2> 3> (336799 rows affected)
+1> 2> 3> 4> 1> 2> 3> 4> 5> 6> 7> 8> 9> 10> 11> --tblOutput_IMS_TA_USD_YTD_Global
+1> 2> 3> (336799 rows affected)
+1> 2> 3> 4> 1> 2> 3> 4> 5> 6> 7> 8> 9> 10> 11> --tblOutput_IMS_TA_UNT_YTD_Global
+1> 2> 3> (336799 rows affected)
+1> 2> 3> 4> 1> 2> 3> 4> 5> 6> 7> 8> 9> 10> 11> --tblOutput_IMS_ATC_RMB_YTD
+1> 2> 3> (428146 rows affected)
+1> 2> 3> 4> 1> 2> 3> 4> 5> 6> 7> 8> 9> 10> 11> --tblOutput_IMS_ATC_USD_YTD
+1> 2> 3> (428146 rows affected)
+1> 2> 3> 4> 1> 2> 3> 4> 5> 6> 7> 8> 9> 10> 11> --tblOutput_IMS_ATC_UNT_YTD
+1> 2> 3> (428146 rows affected)
+1> 2> 3> 4> 1> 2> 3> 4> 5> 6> 7> 8> 9> 10> 11> 12> 13> 14> 15> 16> 17> 18> 19> 20> 21> 22> 23> 24> 25> 26> 27> 28> 29> 30> 31> 32> 33> 34> 35> 36> 37> 38> 39> 40> 41> 42> 43> 44> 45> 46> 47> 48> 49> 50> 51> 52> 53> 54> 55> 56> 57> 58> 59> 60> 61> 62> 63> 64> 65> 66> 67> 68> 69> 70> 71> 72> 73> 74> 75> 76> 77> 78> 79> 80> 81> 1> 2> 3> 4> 5> 6> 7> 8> 9> 10> 11> 12> 13> 14> 15> 16> 17> 18> 19> 20> 21> 22> 23> 24> 25> 26> 27> 28> 29> 30> 31> 32> 33> 34> 35> 36> 37> 38> 1> 2> 3> 4> 5> 6> 1> 2> 3> 4> 5> 6> 7> 8> 9> 10> 11> 12> 13> 14> 15> 16> 17> 18> 19> 20> 21> 22> 23> 24> 25> 26> 1> 2> 3> 4> 5> 6> 7> 1> 2> 3> 4> 5> 6> 7> 8> 9> 10> 11> 12> 13> 14> 15> 16> 17> 18> 19> 20> 21> 22> 23> 24> 25> 26> 1> 2> 3> 4> 5> 6> 7> 1> 2> 3> 4> 5> 6> 7> 8> 9> 10> 11> 12> 13> 14> 15> 16> 17> 18> 19> 20> 21> 22> 23> 24> 25> 26> 27> 28> 29> 30> 31> 32> 33> 34> 35> 36> 37> 38> 1> 2> 3> 4> 5> 1> 2> 3> 4> 5> 6> 7> 8> 9> 10> 11> 12> 13> 14> 15> 16> 17> 18> 19> 20> 21> 22> 23> 24> 25> 26> 1> 2> 3> 4> 5> 1> 2> 3> 4> 5> 6> 7> 8> 9> 10> 11> 12> 13> 14> 15> 16> 17> 18> 19> 20> 21> 22> 23> 24> 25> 26> 1> 2> 3> 4> 5> 6> 1> 2> 3> 4> 5> 6> 7> 8> 9> 10> 11> 12> 13> 14> 15> 16> 17> 18> 19> 20> 21> 22> 23> 24> 25> 26> 27> 28> 29> 30> 31> 32> 33> 34> 35> 36> 37> 38> 1> 2> 3> 4> 5> 6> 1> 2> 3> 4> 5> 6> 7> 8> 9> 10> 11> 12> 13> 14> 15> 16> 17> 18> 19> 20> 21> 22> 23> 24> 25> 26> 1> 2> 3> 4> 5> 6> 7> 1> 2> 3> 4> 5> 6> 7> 8> 9> 10> 11> 12> 13> 14> 15> 16> 17> 18> 19> 20> 21> 22> 23> 24> 25> 26> 1> 2> 3> 4> 5> 6> 7> 8> 9> 1> 2> 3> 4> 5> 6> 7> 8> 9> 10> 11> 12> 13> 14> 15> 16> 17> 18> 19> 20> 21> 22> 23> 24> 25> 26> 27> 28> 29> 30> 31> 32> 33> 34> 35> 36> 37> 38> 1> 2> 3> 4> 5> 6> 1> 2> 3> 4> 5> 6> 7> 8> 9> 10> 11> 12> 13> 14> 15> 16> 17> 18> 19> 20> 21> 22> 23> 24> 25> 26> 1> 2> 3> 4> 5> 6> 7> 1> 2> 3> 4> 5> 6> 7> 8> 9> 10> 11> 12> 13> 14> 15> 16> 17> 18> 19> 20> 21> 22> 23> 24> 25> 26> 1> 2> 3> 4> 5> 6> 7> 8> 9> 1> 2> 3> 4> 5> 6> 7> 8> 9> 10> 11> 12> 13> 14> 15> 16> 17> 18> 19> 20> 21> 22> 23> 24> 25> 26> 27> 1> 2> 3> 4> 5> 1> 2> 3> 4> 5> 6> 7> 8> 9> 10> 11> 12> 13> 14> 15> 16> 17> 18> 19> 20> 21> 22> 23> 24> 25> 26> 27> 1> 2> 3> 4> 5> 1> 2> 3> 4> 5> 6> 7> 8> 9> 10> 11> 12> 13> 14> 15> 16> 17> 18> 19> 20> 21> 22> 23> 24> 25> 26> 27> 28> 1> 2> 3> 4> 1> 2> 3> 4> 5> 6> 7> 8> 9> 10> 11> 12> 13> 14> 15> 16> 17> 18> 19> 20> 21> 22> 23> 24> 25> 26> 27> 1> 2> (1 row affected)

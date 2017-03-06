@@ -1,0 +1,140 @@
+1> 2> 3> 1> 2> 3> 4> 5> 6> 7> 8> 9> 10> 11> 12> 13> 14> 15> 16> 17> 18> 19> 20> (1 row affected)
+
+-----------------------------------------------------------
+inMonthlySales
+-----------------------------------------------------------
+1> 2> 3> 4> 5> 6> 7> 8> 9> 10> 11> 12> 13> 14> 15> 16> 17> 18> 19> 20> 21> 22> 23> 24> 25> 26> 27> 28> 29> 30> 31> 32> 33> 34> 35> 36> 37> 38> 39> (4550351 rows affected)
+1> 2> 3> 4> 5> 6> 7> 8> 9> 10> 11> 12> 13> 14> 15> 16> 17> 18> 19> 20> 1> 2> 3> 4> 5> 6> (4550351 rows affected)
+(4550351 rows affected)
+(4550351 rows affected)
+1> 2> 3> 4> 5> 6> 7> 8> 9> 10> 11> 12> 13> 14> 15> 16> 17> 18> (4550351 rows affected)
+1> 2> 3> 4> 5> 6> 7> 8> 9> 10> 11> 12> 13> 14> 15> 16> 17> 18> 19> 20> 21> 22> 23> 24> 25> 26> 27> 28> 29> 30> 31> 32> 33> 34> 35> 36> 37> 38> 39> 40> 41> 42> 43> 44> 45> 46> 47> 48> 49> 50> 51> 52> 53> 54> 55> 56> 57> 58> 59> 60> 61> 62> 63> 64> 65> 66> 67> 68> 69> 70> 71> 72> 73> 74> 75> 76> 77> 78> 79> 80> 81> 82> 83> 84> 85> 86> 87> 88> 89> 90> 91> 92> 93> 94> 95> 96> 97> 98> 99> 100> (90581 rows affected)
+(7359 rows affected)
+1> 2> 3> 4> (0 rows affected)
+1> 2> 3> 4> 5> 1> 2> 3> 4> 5> 6> 7> 8> 9> 10> 11> 12> 13> 14> 15> 
+-----------------------------------------------------------
+tempFactSales
+-----------------------------------------------------------
+(1 row affected)
+1> 2> 3> 4> 5> 6> 7> 8> 9> 10> 11> 12> 13> 14> 15> 16> 17> 18> 19> 20> 21> 22> 23> 24> 25> 26> 27> 28> 29> 30> 31> 32> 33> 34> 35> 36> 37> (142113 rows affected)
+1> 2> 3> 4> 5> 6> 7> 8> 9> 10> 11> 12> (1 row affected)
+
+-----------------------------------------------------------
+MTHCHPA_PKAU & MTHCITY_PKAU
+-----------------------------------------------------------
+1> 2> 3> 1> 2> 3> 4> (57178 rows affected)
+1> 2> 3> 4> 5> 6> (84935 rows affected)
+1> 2> 3> 4> 5> 6> 7> 8> 9> 10> Warning: The table "MTHCHPA_PKAU" has been created, but its maximum row size
+exceeds the allowed maximum of 8060 bytes. INSERT or UPDATE to this table will
+fail if the resulting row exceeds the size limit.
+1> 2> 3> 4> 5> 6> 7> 8> 9> (57178 rows affected)
+1> 2> 3> 4> 5> 6> 7> 8> 9> (57178 rows affected)
+1> 2> 3> 4> 5> 6> 7> 8> 9> (57178 rows affected)
+1> 2> 3> 4> 5> 6> 7> 8> 9> (57178 rows affected)
+1> 2> 3> 4> 5> 6> 7> 8> 9> 10> 11> Warning: The table "MTHCITY_PKAU" has been created, but its maximum row size
+exceeds the allowed maximum of 8060 bytes. INSERT or UPDATE to this table will
+fail if the resulting row exceeds the size limit.
+1> 2> 3> 4> 5> 6> 7> 8> 9> 10> (84935 rows affected)
+1> 2> 3> 4> 5> 6> 7> 8> 9> (84935 rows affected)
+1> 2> 3> 4> 5> 6> 7> 8> 9> (84935 rows affected)
+1> 2> 3> 4> 5> 6> 7> 8> 9> 10> Update MTHCITY_PKAU set 
+			MAT00PN=Mth00PN+Mth01PN+Mth02PN+Mth03PN+Mth04PN+Mth05PN+Mth06PN+Mth07PN+Mth
+08PN+Mth09PN+Mth10PN+Mth11PN,
+			MAT01PN=Mth01PN+Mth02PN+Mth03PN+Mth04PN+Mth05PN+Mth06PN+Mth07PN+Mth08PN+Mth
+09PN+Mth10PN+Mth11PN+Mth12PN,
+			MAT02PN=Mth02PN+Mth03PN+Mth04PN+Mth05PN+Mth06PN+Mth07PN+Mth08PN+Mth09PN+Mth
+10PN+Mth11PN+Mth12PN+Mth13PN,
+			MAT03PN=Mth03PN+Mth04PN+Mth05PN+Mth06PN+Mth07PN+Mth08PN+Mth09PN+Mth10PN+Mth
+11PN+Mth12PN+Mth13PN+Mth14PN,
+			MAT04PN=Mth04PN+Mth05PN+Mth06PN+Mth07PN+Mth08PN+Mth09PN+Mth10PN+Mth11PN+Mth
+12PN+Mth13PN+Mth14PN+Mth15PN,
+			MAT05PN=Mth05PN+Mth06PN+Mth07PN+Mth08PN+Mth09PN+Mth10PN+Mth11PN+Mth12PN+Mth
+13PN+Mth14PN+Mth15PN+Mth16PN,
+			MAT06PN=Mth06PN+Mth07PN+Mth08PN+Mth09PN+Mth10PN+Mth11PN+Mth12PN+Mth13PN+Mth
+14PN+Mth15PN+Mth16PN+Mth17PN,
+			MAT07PN=Mth07PN+Mth08PN+Mth09PN+Mth10PN+Mth11PN+Mth12PN+Mth13PN+Mth14PN+Mth
+15PN+Mth16PN+Mth17PN+Mth18PN,
+			MAT08PN=Mth08PN+Mth09PN+Mth10PN+Mth11PN+Mth12PN+Mth13PN+Mth14PN+Mth15PN+Mth
+16PN+Mth17PN+Mth18PN+Mth19PN,
+			MAT09PN=Mth09PN+Mth10PN+Mth11PN+Mth12PN+Mth13PN+Mth14PN+Mth15PN+Mth16PN+Mth
+17PN+Mth18PN+Mth19PN+Mth20PN,
+			MAT10PN=Mth10PN+Mth11PN+Mth12PN+Mth13PN+Mth14PN+Mth15PN+Mth16PN+Mth17PN+Mth
+18PN+Mth19PN+Mth20PN+Mth21PN,
+			MAT11PN=Mth11PN+Mth12PN+Mth13PN+Mth14PN+Mth15PN+Mth16PN+Mth17PN+Mth18PN+Mth
+19PN+Mth20PN+Mth21PN+Mth22PN,
+			MAT12PN=Mth12PN+Mth13PN+Mth14PN+Mth15PN+Mth16PN+Mth17PN+Mth18PN+Mth19PN+Mth
+20PN+Mth21PN+Mth22PN+Mth23PN,
+			MAT13PN=Mth13PN+Mth14PN+Mth15PN+Mth16PN+Mth17PN+Mth18PN+Mth19PN+Mth20PN+Mth
+21PN+Mth22PN+Mth23PN+Mth24PN,
+			MAT14PN=Mth14PN+Mth15PN+Mth16PN+Mth17PN+Mth18PN+Mth19PN+Mth20PN+Mth21PN+Mth
+22PN+Mth23PN+Mth24PN+Mth25PN,
+			MAT15PN=Mth15PN+Mth16PN+Mth17PN+Mth18PN+Mth19PN+Mth20PN+Mth21PN+Mth22PN+Mth
+23PN+Mth24PN+Mth25PN+Mth26PN,
+			MAT16PN=Mth16PN+Mth17PN+Mth18PN+Mth19PN+Mth20PN+Mth21PN+Mth22PN+Mth23PN+Mth
+24PN+Mth25PN+Mth26PN+Mth27PN,
+			MAT17PN=Mth17PN+Mth18PN+Mth19PN+Mth20PN+Mth21PN+Mth22PN+Mth23PN+Mth24PN+Mth
+25PN+Mth26PN+Mth27PN+Mth28PN,
+			MAT18PN=Mth18PN+Mth19PN+Mth20PN+Mth21PN+Mth22PN+Mth23PN+Mth24PN+Mth25PN+Mth
+26PN+Mth27PN+Mth28PN+Mth29PN,
+			MAT19PN=Mth19PN+Mth20PN+Mth21PN+Mth22PN+Mth23PN+Mth24PN+Mth25PN+Mth26PN+Mth
+27PN+Mth28PN+Mth29PN+Mth30PN,
+			MAT20PN=Mth20PN+Mth21PN+Mth22PN+Mth23PN+Mth24PN+Mth25PN+Mth26PN+Mth27PN+Mth
+28PN+Mth29PN+Mth30PN+Mth31PN,
+			MAT21PN=Mth21PN+Mth22PN+Mth23PN+Mth24PN+Mth25PN+Mth26PN+Mth27PN+Mth28PN+Mth
+29PN+Mth30PN+Mth31PN+Mth32PN,
+			MAT22PN=Mth22PN+Mth23PN+Mth24PN+Mth25PN+Mth26PN+Mth27PN+Mth28PN+Mth29PN+Mth
+30PN+Mth31PN+Mth32PN+Mth33PN,
+			MAT23PN=Mth23PN+Mth24PN+Mth25PN+Mth26PN+Mth27PN+Mth28PN+Mth29PN+Mth30PN+Mth
+31PN+Mth32PN+Mth33PN+Mth34PN,
+			MAT24PN=Mth24PN+Mth25PN+Mth26PN+Mth27PN+Mth28PN+Mth29PN+Mth30PN+Mth31PN+Mth
+32PN+Mth33PN+Mth34PN+Mth35PN,
+			MAT25PN=Mth25PN+Mth26PN+Mth27PN+Mth28PN+Mth29PN+Mth30PN+Mth31PN+Mth32PN+Mth
+33PN+Mth34PN+Mth35PN+Mth36PN,
+			MAT26PN=Mth26PN+Mth27PN+Mth28PN+Mth29PN+Mth30PN+Mth31PN+Mth32PN+Mth33PN+Mth
+34PN+Mth35PN+Mth36PN+Mth37PN,
+			MAT27PN=Mth27PN+Mth28PN+Mth29PN+Mth30PN+Mth31PN+Mth32PN+Mth33PN+Mth34PN+Mth
+35PN+Mth36PN+Mth37PN+Mth38PN,
+			MAT28PN=Mth28PN+Mth29PN+Mth30PN+Mth31PN+Mth32PN+Mth33PN+Mth34PN+Mth35PN+Mth
+36PN+Mth37PN+Mth38PN+Mth39PN,
+			MAT29PN=Mth29PN+Mth30PN+Mth31PN+Mth32PN+Mth33PN+Mth34PN+Mth35PN+Mth36PN+Mth
+37PN+Mth38PN+Mth39PN+Mth40PN,
+			MAT30PN=Mth30PN+Mth31PN+Mth32PN+Mth33PN+Mth34PN+Mth35PN+Mth36PN+Mth37PN+Mth
+38PN+Mth39PN+Mth40PN+Mth41PN,
+			MAT31PN=Mth31PN+Mth32PN+Mth33PN+Mth34PN+Mth35PN+Mth36PN+Mth37PN+Mth38PN+Mth
+39PN+Mth40PN+Mth41PN+Mth42PN,
+			MAT32PN=Mth32PN+Mth33PN+Mth34PN+Mth35PN+Mth36PN+Mth37PN+Mth38PN+Mth39PN+Mth
+40PN+Mth41PN+Mth42PN+Mth43PN,
+			MAT33PN=Mth33PN+Mth34PN+Mth35PN+Mth36PN+Mth37PN+Mth38PN+Mth39PN+Mth40PN+Mth
+41PN+Mth42PN+Mth43PN+Mth44PN,
+			MAT34PN=Mth34PN+Mth35PN+Mth36PN+Mth37PN+Mth38PN+Mth39PN+Mth40PN+Mth41PN+Mth
+42PN+Mth43PN+Mth44PN+Mth45PN,
+			MAT35PN=Mth35PN+Mth36PN+Mth37PN+Mth38PN+Mth39PN+Mth40PN+Mth41PN+Mth42PN+Mth
+43PN+Mth44PN+Mth45PN+Mth46PN,
+			MAT36PN=Mth36PN+Mth37PN+Mth38PN+Mth39PN+Mth40PN+Mth41PN+Mth42PN+Mth43PN+Mth
+44PN+Mth45PN+Mth46PN+Mth47PN,
+			MAT37PN=Mth37PN+Mth38PN+Mth39PN+Mth40PN+Mth41PN+Mth42PN+Mth43PN+Mth44PN+Mth
+45PN+Mth46PN+Mth47PN+Mth48PN,
+			MAT38PN=Mth38PN+Mth39PN+Mth40PN+Mth41PN+Mth42PN+Mth43PN+Mth44PN+Mth45PN+Mth
+46PN+Mth47PN+Mth48PN+Mth49PN,
+			MAT39PN=Mth39PN+Mth40PN+Mth41PN+Mth42PN+Mth43PN+Mth44PN+Mth45PN+Mth46PN+Mth
+47PN+Mth48PN+Mth49PN+Mth50PN,
+			MAT40PN=Mth40PN+Mth41PN+Mth42PN+Mth43PN+Mth44PN+Mth45PN+Mth46PN+Mth47PN+Mth
+48PN+Mth49PN+Mth50PN+Mth51PN,
+			MAT41PN=Mth41PN+Mth42PN+Mth43PN+Mth44PN+Mth45PN+Mth46PN+Mth47PN+Mth48PN+Mth
+49PN+Mth50PN+Mth51PN+Mth52PN,
+			MAT42PN=Mth42PN+Mth43PN+Mth44PN+Mth45PN+Mth46PN+Mth47PN+Mth48PN+Mth49PN+Mth
+50PN+Mth51PN+Mth52PN+Mth53PN,
+			MAT43PN=Mth43PN+Mth44PN+Mth45PN+Mth46PN+Mth47PN+Mth48PN+Mth49PN+Mth50PN+Mth
+51PN+Mth52PN+Mth53PN+Mth54PN,
+			MAT44PN=Mth44PN+Mth45PN+Mth46PN+Mth47PN+Mth48PN+Mth49PN+Mth50PN+Mth51PN+Mth
+52PN+Mth53PN+Mth54PN+Mth55PN,
+			MAT45PN=Mth45PN+Mth46PN+Mth47PN+Mth48PN+Mth49PN+Mth50PN+Mth51PN+Mth52PN+Mth
+53PN+Mth54PN+Mth55PN+Mth56PN,
+			MAT46PN=Mth46PN+Mth47PN+Mth48PN+Mth49PN+Mth50PN+Mth51PN+Mth52PN+Mth53PN+Mth
+54PN+Mth55PN+Mth56PN+Mth57PN,
+			MAT47PN=Mth47PN+Mth48PN+Mth49PN+Mth50PN+Mth51PN+Mth52PN+Mth53PN+Mth54PN+Mth
+55PN+Mth56PN+Mth57PN+Mth58PN,
+			MAT48PN=Mth48PN+Mth49PN+Mth50PN+Mth51PN+Mth52PN+Mth53PN+Mth54PN+Mth55PN+Mth
+56PN+Mth57PN+Mth58PN+Mth59PN,
+(84935 rows affected)
+1> 2> 3> 4> 1> 2> 1> 

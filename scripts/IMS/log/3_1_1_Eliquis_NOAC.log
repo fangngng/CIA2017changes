@@ -1,0 +1,834 @@
+1> 2> 1> 2> 3> 4> 5> 6> 7> 8> 9> 10> 11> (1 row affected)
+(0 rows affected)
+1> 2> 3> 4> 5> 6> 7> 8> 9> 10> 11> 12> 13> 14> 15> 16> 17> 18> 19> 20> 21> 22> 23> 24> 25> 26> 27> 28> 29> 30> 31> 32> 33> 34> 35> 36> 37> 38> 39> 40> 41> 42> 43> 44> 45> 46> 47> 48> 49> 50> 51> 52> 53> 54> 55> 56> 57> 58> 59> 60> 61> 62> 63> 64> 65> 66> (432 rows affected)
+(36 rows affected)
+(36 rows affected)
+(36 rows affected)
+(36 rows affected)
+(36 rows affected)
+(36 rows affected)
+(36 rows affected)
+(36 rows affected)
+(36 rows affected)
+(36 rows affected)
+(36 rows affected)
+(36 rows affected)
+1> 2> 3> 4> 5> 6> 7> 8> 9> (432 rows affected)
+(432 rows affected)
+1> 2> 3> (432 rows affected)
+1> 2> 3> 4> (432 rows affected)
+1> 2> 3> 4> 5> (432 rows affected)
+1> 2> (168 rows affected)
+1> 2> 3> 4> 5> 6> 7> 8> 9> 10> 11> 12> (120 rows affected)
+1> 2> 3> 4> 5> 6> 7> 8> 9> (120 rows affected)
+1> 2> 3> 4> 5> 6> 7> 8> 9> 10> 11> 12> 13> 14> 15> 16> 17> (144 rows affected)
+1> 2> 3> 4> 5> 6> 7> 8> 9> 10> 11> 12> 13> 14> 15> 16> (144 rows affected)
+1> 2> 3> 4> 5> 6> 7> (0 rows affected)
+1> 2> 3> 4> 5> 6> 7> (264 rows affected)
+1> 2> 3> 4> 5> 6> 7> 8> 9> 10> 11> 12> 13> 14> 15> 16> (0 rows affected)
+(0 rows affected)
+1> 2> 3> 4> 5> 6> 7> 8> 9> 10> 11> 12> 13> 14> 15> 16> 17> 18> 19> 20> 21> 22> 23> 24> 25> 26> 27> 28> 29> 30> 31> 32> 33> 34> 35> 36> 37> 38> 39> 40> 41> 42> 43> 44> 45> 46> 47> 48> 49> 50> 51> 52> 53> 54> 55> 56> 57> 58> 59> 60> 61> 62> 63> 64> 65> 66> 67> 68> 69> (900 rows affected)
+MAT05
+(36 rows affected)
+MAT01
+(36 rows affected)
+MAT07
+(36 rows affected)
+MAT12
+(36 rows affected)
+MAT21
+(36 rows affected)
+MAT11
+(36 rows affected)
+MAT02
+(36 rows affected)
+MAT15
+(36 rows affected)
+MAT09
+(36 rows affected)
+MAT18
+(36 rows affected)
+MAT04
+(36 rows affected)
+MAT23
+(36 rows affected)
+MAT00
+(36 rows affected)
+MAT06
+(36 rows affected)
+MAT13
+(36 rows affected)
+MAT20
+(36 rows affected)
+MAT03
+(36 rows affected)
+MAT24
+(36 rows affected)
+MAT16
+(36 rows affected)
+MAT19
+(36 rows affected)
+MAT10
+(36 rows affected)
+MAT14
+(36 rows affected)
+MAT22
+(36 rows affected)
+MAT08
+(36 rows affected)
+MAT17
+(36 rows affected)
+1> 2> 3> 4> (900 rows affected)
+1> 2> 3> 4> (900 rows affected)
+1> 2> 3> 4> (900 rows affected)
+1> 1> 2> 3> 4> 5> 6> 7> 8> 9> 10> 11> 12> 13> 14> (900 rows affected)
+1> 2> 3> 4> 5> 6> 7> 8> 9> 10> 11> 12> 13> 14> 15> 16> 17> 18> 19> 20> 21> 22> 23> 24> 25> 26> 27> 28> 29> 30> 31> 32> 33> 34> 35> 36> 37> 38> 39> 40> 41> 42> 43> 44> 45> 46> 47> 48> 49> 50> 51> 52> 53> 54> 55> 56> 57> 58> 59> 60> 61> 62> 63> 64> 65> 66> 67> 68> 69> 70> 71> 72> 73> 74> 75> 76> 77> 78> 79> 80> 81> 82> 83> 84> 85> 86> 87> 88> 89> 90> 91> 92> 93> 94> 95> 96> 97> 98> 99> 100> 101> 102> 103> 104> 105> 106> 107> 108> 109> 110> 111> 112> 113> 114> 115> 116> 117> 118> 119> 120> 121> 122> 123> 124> 125> 126> (0 rows affected)
+(368 rows affected)
+(92 rows affected)
+(92 rows affected)
+(92 rows affected)
+(92 rows affected)
+(368 rows affected)
+(92 rows affected)
+(92 rows affected)
+(92 rows affected)
+(92 rows affected)
+1> 2> 3> 4> 5> 6> 7> 8> 9> 10> 11> 12> 13> 14> 15> 16> 17> 18> 19> 20> 21> 22> 23> 24> 25> 26> 27> 28> 29> 30> 31> 32> 33> 34> 35> 36> 37> 38> 39> 40> 41> 42> 43> 44> 45> 46> 47> 48> 49> 50> 51> 52> 53> 54> 55> 56> 57> 58> 59> (0 rows affected)
+insert into [output_stage] (isshow,TimeFrame,LinkChartCode,Product, Series,
+SeriesIdx,Currency, X, XIdx,lev,geo)
+select isshow,A.Period, 'D023' as Code,
+Market,B.Audi_des,B.Audi_cod,MoneyType,a.Series,a.SeriesIdx, 'Region' as
+lev,B.region
+from (
+select  'MQT' as Period,'R3M00' as Series,'Y' as isshow,19 as SeriesIdx union
+all
+select  'MTH' as Period,'MTH00' as Series,'Y' as isshow,19 as SeriesIdx union
+all
+
+select  'MQT' as Period,'R3M01' as Series,'Y' as isshow,18 as SeriesIdx union
+all
+select  'MTH' as Period,'MTH01' as Series,'Y' as isshow,18 as SeriesIdx union
+all
+
+select  'MQT' as Period,'R3M02' as Series,'Y' as isshow,17 as SeriesIdx union
+all
+select  'MTH' as Period,'MTH02' as Series,'Y' as isshow,17 as SeriesIdx union
+all
+
+select  'MQT' as Period,'R3M03' as Series,'Y' as isshow,16 as SeriesIdx union
+all
+select  'MTH' as Period,'MTH03' as Series,'Y' as isshow,16 as SeriesIdx union
+all
+
+select  'MQT' as Period,'R3M04' as Series,'Y' as isshow,15 as SeriesIdx union
+all
+select  'MTH' as Period,'MTH04' as Series,'Y' as isshow,15 as SeriesIdx union
+all
+
+select  'MQT' as Period,'R3M05' as Series,'Y' as isshow,14 as SeriesIdx union
+all
+select  'MTH' as Period,'MTH05' as Series,'Y' as isshow,14 as SeriesIdx union
+all
+
+select  'MQT' as Period,'R3M06' as Series,'Y' as isshow,13 as SeriesIdx union
+all
+select  'MTH' as Period,'MTH06' as Series,'Y' as isshow,13 as SeriesIdx union
+all
+
+select  'MQT' as Period,'R3M07' as Series,'Y' as isshow,12 as SeriesIdx union
+all
+select  'MTH' as Period,'MTH07' as Series,'Y' as isshow,12 as SeriesIdx union
+all
+
+select  'MQT' as Period,'R3M08' as Series,'Y' as isshow,11 as SeriesIdx union
+all
+select  'MTH' as Period,'MTH08' as Series,'Y' as isshow,11 as SeriesIdx union
+all
+
+select  'MQT' as Period,'R3M09' as Series,'Y' as isshow,10 as SeriesIdx union
+all
+select  'MTH' as Period,'MTH09' as Series,'Y' as isshow,10 as SeriesIdx union
+all
+
+select  'MQT' as Period,'R3M10' as Series,'Y' as isshow,9 as SeriesIdx union
+all
+select  'MTH' as Period,'MTH10' as Series,'Y' as isshow,9 as SeriesIdx union
+all
+
+select  'MQT' as Period,'R3M11' as Series,'Y' as isshow,8 as SeriesIdx union
+all
+select  'MTH' as Period,'MTH11' as Series,'Y' as isshow,8 as SeriesIdx  Union
+all
+select  'YTD' as Period,'YTD00' as series,'D' as ishow,21 as SeriesIdx union
+all
+select  'YTD' as Period,'YTD12' as series,'D' as ishow,20 as SeriesIdx) a,
+(
+select distinct MoneyType,mkt,Market,Prod,Productname,Audi_cod,Audi_des,region
+
+from  dbo.OutputGeoHBVSummaryT1 where Class='N' and Market='eliquis noac'
+) b
+(728 rows affected)
+R3M09
+
+		update [output_stage]
+		set Y=B.[R3M09] from [output_stage] A inner join dbo.OutputGeoHBVSummaryT1
+B
+		on A.Product=B.Market and A.X='R3M09' and A.currency=b.Moneytype
+		and a.LinkChartCode = 'D023' and A.Series=B.Audi_des and A.geo=B.region and
+B.Class='N' and Mkt<>'DPP4'
+		
+(28 rows affected)
+R3M02
+
+		update [output_stage]
+		set Y=B.[R3M02] from [output_stage] A inner join dbo.OutputGeoHBVSummaryT1
+B
+		on A.Product=B.Market and A.X='R3M02' and A.currency=b.Moneytype
+		and a.LinkChartCode = 'D023' and A.Series=B.Audi_des and A.geo=B.region and
+B.Class='N' and Mkt<>'DPP4'
+		
+(28 rows affected)
+MTH01
+
+		update [output_stage]
+		set Y=B.[MTH01] from [output_stage] A inner join dbo.OutputGeoHBVSummaryT1
+B
+		on A.Product=B.Market and A.X='MTH01' and A.currency=b.Moneytype
+		and a.LinkChartCode = 'D023' and A.Series=B.Audi_des and A.geo=B.region and
+B.Class='N' and Mkt<>'DPP4'
+		
+(28 rows affected)
+MTH05
+
+		update [output_stage]
+		set Y=B.[MTH05] from [output_stage] A inner join dbo.OutputGeoHBVSummaryT1
+B
+		on A.Product=B.Market and A.X='MTH05' and A.currency=b.Moneytype
+		and a.LinkChartCode = 'D023' and A.Series=B.Audi_des and A.geo=B.region and
+B.Class='N' and Mkt<>'DPP4'
+		
+(28 rows affected)
+R3M11
+
+		update [output_stage]
+		set Y=B.[R3M11] from [output_stage] A inner join dbo.OutputGeoHBVSummaryT1
+B
+		on A.Product=B.Market and A.X='R3M11' and A.currency=b.Moneytype
+		and a.LinkChartCode = 'D023' and A.Series=B.Audi_des and A.geo=B.region and
+B.Class='N' and Mkt<>'DPP4'
+		
+(28 rows affected)
+MTH06
+
+		update [output_stage]
+		set Y=B.[MTH06] from [output_stage] A inner join dbo.OutputGeoHBVSummaryT1
+B
+		on A.Product=B.Market and A.X='MTH06' and A.currency=b.Moneytype
+		and a.LinkChartCode = 'D023' and A.Series=B.Audi_des and A.geo=B.region and
+B.Class='N' and Mkt<>'DPP4'
+		
+(28 rows affected)
+MTH03
+
+		update [output_stage]
+		set Y=B.[MTH03] from [output_stage] A inner join dbo.OutputGeoHBVSummaryT1
+B
+		on A.Product=B.Market and A.X='MTH03' and A.currency=b.Moneytype
+		and a.LinkChartCode = 'D023' and A.Series=B.Audi_des and A.geo=B.region and
+B.Class='N' and Mkt<>'DPP4'
+		
+(28 rows affected)
+MTH00
+
+		update [output_stage]
+		set Y=B.[MTH00] from [output_stage] A inner join dbo.OutputGeoHBVSummaryT1
+B
+		on A.Product=B.Market and A.X='MTH00' and A.currency=b.Moneytype
+		and a.LinkChartCode = 'D023' and A.Series=B.Audi_des and A.geo=B.region and
+B.Class='N' and Mkt<>'DPP4'
+		
+(28 rows affected)
+R3M04
+
+		update [output_stage]
+		set Y=B.[R3M04] from [output_stage] A inner join dbo.OutputGeoHBVSummaryT1
+B
+		on A.Product=B.Market and A.X='R3M04' and A.currency=b.Moneytype
+		and a.LinkChartCode = 'D023' and A.Series=B.Audi_des and A.geo=B.region and
+B.Class='N' and Mkt<>'DPP4'
+		
+(28 rows affected)
+MTH04
+
+		update [output_stage]
+		set Y=B.[MTH04] from [output_stage] A inner join dbo.OutputGeoHBVSummaryT1
+B
+		on A.Product=B.Market and A.X='MTH04' and A.currency=b.Moneytype
+		and a.LinkChartCode = 'D023' and A.Series=B.Audi_des and A.geo=B.region and
+B.Class='N' and Mkt<>'DPP4'
+		
+(28 rows affected)
+R3M01
+
+		update [output_stage]
+		set Y=B.[R3M01] from [output_stage] A inner join dbo.OutputGeoHBVSummaryT1
+B
+		on A.Product=B.Market and A.X='R3M01' and A.currency=b.Moneytype
+		and a.LinkChartCode = 'D023' and A.Series=B.Audi_des and A.geo=B.region and
+B.Class='N' and Mkt<>'DPP4'
+		
+(28 rows affected)
+R3M10
+
+		update [output_stage]
+		set Y=B.[R3M10] from [output_stage] A inner join dbo.OutputGeoHBVSummaryT1
+B
+		on A.Product=B.Market and A.X='R3M10' and A.currency=b.Moneytype
+		and a.LinkChartCode = 'D023' and A.Series=B.Audi_des and A.geo=B.region and
+B.Class='N' and Mkt<>'DPP4'
+		
+(28 rows affected)
+MTH09
+
+		update [output_stage]
+		set Y=B.[MTH09] from [output_stage] A inner join dbo.OutputGeoHBVSummaryT1
+B
+		on A.Product=B.Market and A.X='MTH09' and A.currency=b.Moneytype
+		and a.LinkChartCode = 'D023' and A.Series=B.Audi_des and A.geo=B.region and
+B.Class='N' and Mkt<>'DPP4'
+		
+(28 rows affected)
+R3M08
+
+		update [output_stage]
+		set Y=B.[R3M08] from [output_stage] A inner join dbo.OutputGeoHBVSummaryT1
+B
+		on A.Product=B.Market and A.X='R3M08' and A.currency=b.Moneytype
+		and a.LinkChartCode = 'D023' and A.Series=B.Audi_des and A.geo=B.region and
+B.Class='N' and Mkt<>'DPP4'
+		
+(28 rows affected)
+MTH07
+
+		update [output_stage]
+		set Y=B.[MTH07] from [output_stage] A inner join dbo.OutputGeoHBVSummaryT1
+B
+		on A.Product=B.Market and A.X='MTH07' and A.currency=b.Moneytype
+		and a.LinkChartCode = 'D023' and A.Series=B.Audi_des and A.geo=B.region and
+B.Class='N' and Mkt<>'DPP4'
+		
+(28 rows affected)
+R3M05
+
+		update [output_stage]
+		set Y=B.[R3M05] from [output_stage] A inner join dbo.OutputGeoHBVSummaryT1
+B
+		on A.Product=B.Market and A.X='R3M05' and A.currency=b.Moneytype
+		and a.LinkChartCode = 'D023' and A.Series=B.Audi_des and A.geo=B.region and
+B.Class='N' and Mkt<>'DPP4'
+		
+(28 rows affected)
+R3M06
+
+		update [output_stage]
+		set Y=B.[R3M06] from [output_stage] A inner join dbo.OutputGeoHBVSummaryT1
+B
+		on A.Product=B.Market and A.X='R3M06' and A.currency=b.Moneytype
+		and a.LinkChartCode = 'D023' and A.Series=B.Audi_des and A.geo=B.region and
+B.Class='N' and Mkt<>'DPP4'
+		
+(28 rows affected)
+MTH02
+
+		update [output_stage]
+		set Y=B.[MTH02] from [output_stage] A inner join dbo.OutputGeoHBVSummaryT1
+B
+		on A.Product=B.Market and A.X='MTH02' and A.currency=b.Moneytype
+		and a.LinkChartCode = 'D023' and A.Series=B.Audi_des and A.geo=B.region and
+B.Class='N' and Mkt<>'DPP4'
+		
+(28 rows affected)
+R3M03
+
+		update [output_stage]
+		set Y=B.[R3M03] from [output_stage] A inner join dbo.OutputGeoHBVSummaryT1
+B
+		on A.Product=B.Market and A.X='R3M03' and A.currency=b.Moneytype
+		and a.LinkChartCode = 'D023' and A.Series=B.Audi_des and A.geo=B.region and
+B.Class='N' and Mkt<>'DPP4'
+		
+(28 rows affected)
+YTD12
+
+		update [output_stage]
+		set Y=B.[YTD12] from [output_stage] A inner join dbo.OutputGeoHBVSummaryT1
+B
+		on A.Product=B.Market and A.X='YTD12' and A.currency=b.Moneytype
+		and a.LinkChartCode = 'D023' and A.Series=B.Audi_des and A.geo=B.region and
+B.Class='N' and Mkt<>'DPP4'
+		
+(28 rows affected)
+MTH10
+
+		update [output_stage]
+		set Y=B.[MTH10] from [output_stage] A inner join dbo.OutputGeoHBVSummaryT1
+B
+		on A.Product=B.Market and A.X='MTH10' and A.currency=b.Moneytype
+		and a.LinkChartCode = 'D023' and A.Series=B.Audi_des and A.geo=B.region and
+B.Class='N' and Mkt<>'DPP4'
+		
+(28 rows affected)
+R3M00
+
+		update [output_stage]
+		set Y=B.[R3M00] from [output_stage] A inner join dbo.OutputGeoHBVSummaryT1
+B
+		on A.Product=B.Market and A.X='R3M00' and A.currency=b.Moneytype
+		and a.LinkChartCode = 'D023' and A.Series=B.Audi_des and A.geo=B.region and
+B.Class='N' and Mkt<>'DPP4'
+		
+(28 rows affected)
+MTH11
+
+		update [output_stage]
+		set Y=B.[MTH11] from [output_stage] A inner join dbo.OutputGeoHBVSummaryT1
+B
+		on A.Product=B.Market and A.X='MTH11' and A.currency=b.Moneytype
+		and a.LinkChartCode = 'D023' and A.Series=B.Audi_des and A.geo=B.region and
+B.Class='N' and Mkt<>'DPP4'
+		
+(28 rows affected)
+MTH08
+
+		update [output_stage]
+		set Y=B.[MTH08] from [output_stage] A inner join dbo.OutputGeoHBVSummaryT1
+B
+		on A.Product=B.Market and A.X='MTH08' and A.currency=b.Moneytype
+		and a.LinkChartCode = 'D023' and A.Series=B.Audi_des and A.geo=B.region and
+B.Class='N' and Mkt<>'DPP4'
+		
+(28 rows affected)
+R3M07
+
+		update [output_stage]
+		set Y=B.[R3M07] from [output_stage] A inner join dbo.OutputGeoHBVSummaryT1
+B
+		on A.Product=B.Market and A.X='R3M07' and A.currency=b.Moneytype
+		and a.LinkChartCode = 'D023' and A.Series=B.Audi_des and A.geo=B.region and
+B.Class='N' and Mkt<>'DPP4'
+		
+(28 rows affected)
+YTD00
+
+		update [output_stage]
+		set Y=B.[YTD00] from [output_stage] A inner join dbo.OutputGeoHBVSummaryT1
+B
+		on A.Product=B.Market and A.X='YTD00' and A.currency=b.Moneytype
+		and a.LinkChartCode = 'D023' and A.Series=B.Audi_des and A.geo=B.region and
+B.Class='N' and Mkt<>'DPP4'
+		
+(28 rows affected)
+1> 1> 2> 3> (1120 rows affected)
+1> 2> 3> 4> (1120 rows affected)
+1> 2> 3> 4> (1120 rows affected)
+1> 2> 3> 4> 5> 6> 7> (0 rows affected)
+1> 2> 3> 4> 5> 6> 7> 8> 9> 10> 11> 12> 13> 14> 15> 16> 17> 18> 19> 20> 21> 22> 23> 24> 25> 26> 27> (784 rows affected)
+1> 2> 3> 4> 5> 6> 7> 8> 9> 10> 11> 12> 13> 14> 15> 16> 17> 18> 19> 20> 21> 22> 23> 24> 25> 26> 27> (336 rows affected)
+1> 2> 3> 4> 5> 6> 7> (0 rows affected)
+1> 2> 3> 4> 5> 6> 7> 8> 9> 10> 11> 12> 13> 14> 15> 16> 17> 18> 19> 20> 21> 22> 23> 24> 25> 26> 27> 28> 29> 30> 31> 32> 33> 34> 35> 36> 37> 38> 39> 40> 41> 42> 43> 44> 45> 46> 47> 48> 49> 50> 51> 52> 53> 54> 55> 56> 57> 58> 59> 60> 61> 62> 63> 64> 65> 66> 67> 68> 69> 70> 71> 72> 73> 74> 75> 76> 77> 78> 79> 80> 81> 82> 83> 84> 85> 86> 87> 88> 89> 90> 91> 92> 93> 94> 95> 96> 97> 98> 99> 100> 101> 102> 103> 104> 105> 106> 107> 108> 109> 110> 111> 112> 113> 114> 115> 116> 117> 118> 119> 120> 121> 122> 123> 124> 125> 126> 127> 128> 129> 130> 131> 132> 133> 134> 135> 136> 137> 138> 139> 140> 141> 142> 143> 144> 145> 146> 147> 148> 149> 150> 151> 152> (448 rows affected)
+(112 rows affected)
+(112 rows affected)
+(112 rows affected)
+(112 rows affected)
+(448 rows affected)
+(112 rows affected)
+(112 rows affected)
+(112 rows affected)
+(112 rows affected)
+1> 2> 1> 2> 3> (1728 rows affected)
+1> 2> 3> 4> 5> 6> 7> 8> 9> 10> (4084 rows affected)
+(4084 rows affected)
+(4084 rows affected)
+1> 2> 3> 4> (2356 rows affected)
+1> 2> 3> 1> 2> 3> 4> 5> 6> 7> 8> 9> 10> (496 rows affected)
+1> 2> 3> 4> 5> (204 rows affected)
+1> 2> 3> 4> 5> 6> 7> 8> 9> 10> 11> 12> (816 rows affected)
+1> 2> 3> (204 rows affected)
+1> 2> 3> 4> 5> 6> 7> 8> 9> 10> 11> 12> 13> 14> 15> 16> 17> 18> 19> 20> 21> 22> 23> 24> 25> 26> 27> 28> 29> 30> 31> 32> 33> 34> 35> 36> 37> 38> 39> 40> 41> 42> 43> 44> 45> 46> 47> 48> 49> 50> 51> 52> 53> 54> 55> (0 rows affected)
+(2156 rows affected)
+R3M02
+
+			update [output_stage]
+			set Y=B.R3M02 from [output_stage] A inner join
+dbo.OutputCityPerformanceByBrand_For_OtherETV B
+			on case B.Chart when 'Volume Trend' then 'Y' else 'N' end=A.isshow and
+A.Currency=B.MoneyType and A.X='R3M02'and B.Chart in('Volume Trend','CAGR')
+and B.Class='N' and B.molecule='N' and B.Mkt<>'DPP4'
+			and a.LinkChartCode = 'D085' and A.Series=B.Productname and
+A.ParentGeo=B.region and A.geo=B.audi_des
+(196 rows affected)
+YTD24
+
+			update [output_stage]
+			set Y=B.YTD24 from [output_stage] A inner join
+dbo.OutputCityPerformanceByBrand_For_OtherETV B
+			on case B.Chart when 'Volume Trend' then 'Y' else 'N' end=A.isshow and
+A.Currency=B.MoneyType and A.X='YTD24'and B.Chart in('Volume Trend','CAGR')
+and B.Class='N' and B.molecule='N' and B.Mkt<>'DPP4'
+			and a.LinkChartCode = 'D085' and A.Series=B.Productname and
+A.ParentGeo=B.region and A.geo=B.audi_des
+(196 rows affected)
+R3M04
+
+			update [output_stage]
+			set Y=B.R3M04 from [output_stage] A inner join
+dbo.OutputCityPerformanceByBrand_For_OtherETV B
+			on case B.Chart when 'Volume Trend' then 'Y' else 'N' end=A.isshow and
+A.Currency=B.MoneyType and A.X='R3M04'and B.Chart in('Volume Trend','CAGR')
+and B.Class='N' and B.molecule='N' and B.Mkt<>'DPP4'
+			and a.LinkChartCode = 'D085' and A.Series=B.Productname and
+A.ParentGeo=B.region and A.geo=B.audi_des
+(196 rows affected)
+R3M01
+
+			update [output_stage]
+			set Y=B.R3M01 from [output_stage] A inner join
+dbo.OutputCityPerformanceByBrand_For_OtherETV B
+			on case B.Chart when 'Volume Trend' then 'Y' else 'N' end=A.isshow and
+A.Currency=B.MoneyType and A.X='R3M01'and B.Chart in('Volume Trend','CAGR')
+and B.Class='N' and B.molecule='N' and B.Mkt<>'DPP4'
+			and a.LinkChartCode = 'D085' and A.Series=B.Productname and
+A.ParentGeo=B.region and A.geo=B.audi_des
+(196 rows affected)
+R3M05
+
+			update [output_stage]
+			set Y=B.R3M05 from [output_stage] A inner join
+dbo.OutputCityPerformanceByBrand_For_OtherETV B
+			on case B.Chart when 'Volume Trend' then 'Y' else 'N' end=A.isshow and
+A.Currency=B.MoneyType and A.X='R3M05'and B.Chart in('Volume Trend','CAGR')
+and B.Class='N' and B.molecule='N' and B.Mkt<>'DPP4'
+			and a.LinkChartCode = 'D085' and A.Series=B.Productname and
+A.ParentGeo=B.region and A.geo=B.audi_des
+(196 rows affected)
+R3M03
+
+			update [output_stage]
+			set Y=B.R3M03 from [output_stage] A inner join
+dbo.OutputCityPerformanceByBrand_For_OtherETV B
+			on case B.Chart when 'Volume Trend' then 'Y' else 'N' end=A.isshow and
+A.Currency=B.MoneyType and A.X='R3M03'and B.Chart in('Volume Trend','CAGR')
+and B.Class='N' and B.molecule='N' and B.Mkt<>'DPP4'
+			and a.LinkChartCode = 'D085' and A.Series=B.Productname and
+A.ParentGeo=B.region and A.geo=B.audi_des
+(196 rows affected)
+YTD12
+
+			update [output_stage]
+			set Y=B.YTD12 from [output_stage] A inner join
+dbo.OutputCityPerformanceByBrand_For_OtherETV B
+			on case B.Chart when 'Volume Trend' then 'Y' else 'N' end=A.isshow and
+A.Currency=B.MoneyType and A.X='YTD12'and B.Chart in('Volume Trend','CAGR')
+and B.Class='N' and B.molecule='N' and B.Mkt<>'DPP4'
+			and a.LinkChartCode = 'D085' and A.Series=B.Productname and
+A.ParentGeo=B.region and A.geo=B.audi_des
+(196 rows affected)
+R3M00
+
+			update [output_stage]
+			set Y=B.R3M00 from [output_stage] A inner join
+dbo.OutputCityPerformanceByBrand_For_OtherETV B
+			on case B.Chart when 'Volume Trend' then 'Y' else 'N' end=A.isshow and
+A.Currency=B.MoneyType and A.X='R3M00'and B.Chart in('Volume Trend','CAGR')
+and B.Class='N' and B.molecule='N' and B.Mkt<>'DPP4'
+			and a.LinkChartCode = 'D085' and A.Series=B.Productname and
+A.ParentGeo=B.region and A.geo=B.audi_des
+(196 rows affected)
+YTD36
+
+			update [output_stage]
+			set Y=B.YTD36 from [output_stage] A inner join
+dbo.OutputCityPerformanceByBrand_For_OtherETV B
+			on case B.Chart when 'Volume Trend' then 'Y' else 'N' end=A.isshow and
+A.Currency=B.MoneyType and A.X='YTD36'and B.Chart in('Volume Trend','CAGR')
+and B.Class='N' and B.molecule='N' and B.Mkt<>'DPP4'
+			and a.LinkChartCode = 'D085' and A.Series=B.Productname and
+A.ParentGeo=B.region and A.geo=B.audi_des
+(196 rows affected)
+YTD48
+
+			update [output_stage]
+			set Y=B.YTD48 from [output_stage] A inner join
+dbo.OutputCityPerformanceByBrand_For_OtherETV B
+			on case B.Chart when 'Volume Trend' then 'Y' else 'N' end=A.isshow and
+A.Currency=B.MoneyType and A.X='YTD48'and B.Chart in('Volume Trend','CAGR')
+and B.Class='N' and B.molecule='N' and B.Mkt<>'DPP4'
+			and a.LinkChartCode = 'D085' and A.Series=B.Productname and
+A.ParentGeo=B.region and A.geo=B.audi_des
+(196 rows affected)
+YTD00
+
+			update [output_stage]
+			set Y=B.YTD00 from [output_stage] A inner join
+dbo.OutputCityPerformanceByBrand_For_OtherETV B
+			on case B.Chart when 'Volume Trend' then 'Y' else 'N' end=A.isshow and
+A.Currency=B.MoneyType and A.X='YTD00'and B.Chart in('Volume Trend','CAGR')
+and B.Class='N' and B.molecule='N' and B.Mkt<>'DPP4'
+			and a.LinkChartCode = 'D085' and A.Series=B.Productname and
+A.ParentGeo=B.region and A.geo=B.audi_des
+(196 rows affected)
+1> 2> (756 rows affected)
+1> 2> 3> 4> 5> 6> 7> 8> 9> 10> 11> 12> 13> 14> 15> 16> 17> 18> 19> 20> 21> 22> 23> 24> 25> 26> 27> 28> 29> 30> 31> 32> 33> 34> 35> 36> 37> 38> 39> 40> 41> 42> 43> 44> 45> 46> 47> 48> 49> 50> 51> 52> 53> (0 rows affected)
+(1232 rows affected)
+R3M02
+
+			update [output_stage]
+			set Y=B.R3M02 from [output_stage] A inner join
+dbo.OutputCityPerformanceByBrand_For_OtherETV B
+			on A.Currency=B.MoneyType and A.X='R3M02'and B.Chart='Market Share Trend'
+and B.Class='N' and  B.molecule='N' and B.mkt='Eliquis NOAC'
+			and a.LinkChartCode = 'D086' and A.Series=B.Productname and
+A.ParentGeo=B.region and A.geo=B.audi_des
+(112 rows affected)
+YTD24
+
+			update [output_stage]
+			set Y=B.YTD24 from [output_stage] A inner join
+dbo.OutputCityPerformanceByBrand_For_OtherETV B
+			on A.Currency=B.MoneyType and A.X='YTD24'and B.Chart='Market Share Trend'
+and B.Class='N' and  B.molecule='N' and B.mkt='Eliquis NOAC'
+			and a.LinkChartCode = 'D086' and A.Series=B.Productname and
+A.ParentGeo=B.region and A.geo=B.audi_des
+(112 rows affected)
+R3M04
+
+			update [output_stage]
+			set Y=B.R3M04 from [output_stage] A inner join
+dbo.OutputCityPerformanceByBrand_For_OtherETV B
+			on A.Currency=B.MoneyType and A.X='R3M04'and B.Chart='Market Share Trend'
+and B.Class='N' and  B.molecule='N' and B.mkt='Eliquis NOAC'
+			and a.LinkChartCode = 'D086' and A.Series=B.Productname and
+A.ParentGeo=B.region and A.geo=B.audi_des
+(112 rows affected)
+R3M01
+
+			update [output_stage]
+			set Y=B.R3M01 from [output_stage] A inner join
+dbo.OutputCityPerformanceByBrand_For_OtherETV B
+			on A.Currency=B.MoneyType and A.X='R3M01'and B.Chart='Market Share Trend'
+and B.Class='N' and  B.molecule='N' and B.mkt='Eliquis NOAC'
+			and a.LinkChartCode = 'D086' and A.Series=B.Productname and
+A.ParentGeo=B.region and A.geo=B.audi_des
+(112 rows affected)
+R3M05
+
+			update [output_stage]
+			set Y=B.R3M05 from [output_stage] A inner join
+dbo.OutputCityPerformanceByBrand_For_OtherETV B
+			on A.Currency=B.MoneyType and A.X='R3M05'and B.Chart='Market Share Trend'
+and B.Class='N' and  B.molecule='N' and B.mkt='Eliquis NOAC'
+			and a.LinkChartCode = 'D086' and A.Series=B.Productname and
+A.ParentGeo=B.region and A.geo=B.audi_des
+(112 rows affected)
+R3M03
+
+			update [output_stage]
+			set Y=B.R3M03 from [output_stage] A inner join
+dbo.OutputCityPerformanceByBrand_For_OtherETV B
+			on A.Currency=B.MoneyType and A.X='R3M03'and B.Chart='Market Share Trend'
+and B.Class='N' and  B.molecule='N' and B.mkt='Eliquis NOAC'
+			and a.LinkChartCode = 'D086' and A.Series=B.Productname and
+A.ParentGeo=B.region and A.geo=B.audi_des
+(112 rows affected)
+YTD12
+
+			update [output_stage]
+			set Y=B.YTD12 from [output_stage] A inner join
+dbo.OutputCityPerformanceByBrand_For_OtherETV B
+			on A.Currency=B.MoneyType and A.X='YTD12'and B.Chart='Market Share Trend'
+and B.Class='N' and  B.molecule='N' and B.mkt='Eliquis NOAC'
+			and a.LinkChartCode = 'D086' and A.Series=B.Productname and
+A.ParentGeo=B.region and A.geo=B.audi_des
+(112 rows affected)
+R3M00
+
+			update [output_stage]
+			set Y=B.R3M00 from [output_stage] A inner join
+dbo.OutputCityPerformanceByBrand_For_OtherETV B
+			on A.Currency=B.MoneyType and A.X='R3M00'and B.Chart='Market Share Trend'
+and B.Class='N' and  B.molecule='N' and B.mkt='Eliquis NOAC'
+			and a.LinkChartCode = 'D086' and A.Series=B.Productname and
+A.ParentGeo=B.region and A.geo=B.audi_des
+(112 rows affected)
+YTD36
+
+			update [output_stage]
+			set Y=B.YTD36 from [output_stage] A inner join
+dbo.OutputCityPerformanceByBrand_For_OtherETV B
+			on A.Currency=B.MoneyType and A.X='YTD36'and B.Chart='Market Share Trend'
+and B.Class='N' and  B.molecule='N' and B.mkt='Eliquis NOAC'
+			and a.LinkChartCode = 'D086' and A.Series=B.Productname and
+A.ParentGeo=B.region and A.geo=B.audi_des
+(112 rows affected)
+YTD48
+
+			update [output_stage]
+			set Y=B.YTD48 from [output_stage] A inner join
+dbo.OutputCityPerformanceByBrand_For_OtherETV B
+			on A.Currency=B.MoneyType and A.X='YTD48'and B.Chart='Market Share Trend'
+and B.Class='N' and  B.molecule='N' and B.mkt='Eliquis NOAC'
+			and a.LinkChartCode = 'D086' and A.Series=B.Productname and
+A.ParentGeo=B.region and A.geo=B.audi_des
+(112 rows affected)
+YTD00
+
+			update [output_stage]
+			set Y=B.YTD00 from [output_stage] A inner join
+dbo.OutputCityPerformanceByBrand_For_OtherETV B
+			on A.Currency=B.MoneyType and A.X='YTD00'and B.Chart='Market Share Trend'
+and B.Class='N' and  B.molecule='N' and B.mkt='Eliquis NOAC'
+			and a.LinkChartCode = 'D086' and A.Series=B.Productname and
+A.ParentGeo=B.region and A.geo=B.audi_des
+(112 rows affected)
+1> 2> 3> 4> 5> 6> 7> 8> 9> 10> 11> 12> 13> 14> 15> 16> 17> 18> 19> 20> 21> 22> 23> 24> 25> 26> 27> 28> 29> 30> 31> 32> 33> 34> 35> 36> 37> 38> 39> 40> 41> 42> 43> 44> 45> 46> 47> 48> 49> 50> 51> 52> (0 rows affected)
+(1232 rows affected)
+R3M02
+
+			update [output_stage]
+			set Y=B.R3M02 from [output_stage] A inner join
+dbo.OutputCityPerformanceByBrand_For_OtherETV B
+			on A.Currency=B.MoneyType and A.X='R3M02'and B.Chart='Growth Trend' and
+B.Class='N' and  B.molecule='N' and B.Mkt='Eliquis NOAC'
+			and a.LinkChartCode = 'D087' and A.Series=B.Productname and
+A.ParentGeo=B.region and A.geo=B.audi_des
+(112 rows affected)
+YTD24
+
+			update [output_stage]
+			set Y=B.YTD24 from [output_stage] A inner join
+dbo.OutputCityPerformanceByBrand_For_OtherETV B
+			on A.Currency=B.MoneyType and A.X='YTD24'and B.Chart='Growth Trend' and
+B.Class='N' and  B.molecule='N' and B.Mkt='Eliquis NOAC'
+			and a.LinkChartCode = 'D087' and A.Series=B.Productname and
+A.ParentGeo=B.region and A.geo=B.audi_des
+(112 rows affected)
+R3M04
+
+			update [output_stage]
+			set Y=B.R3M04 from [output_stage] A inner join
+dbo.OutputCityPerformanceByBrand_For_OtherETV B
+			on A.Currency=B.MoneyType and A.X='R3M04'and B.Chart='Growth Trend' and
+B.Class='N' and  B.molecule='N' and B.Mkt='Eliquis NOAC'
+			and a.LinkChartCode = 'D087' and A.Series=B.Productname and
+A.ParentGeo=B.region and A.geo=B.audi_des
+(112 rows affected)
+R3M01
+
+			update [output_stage]
+			set Y=B.R3M01 from [output_stage] A inner join
+dbo.OutputCityPerformanceByBrand_For_OtherETV B
+			on A.Currency=B.MoneyType and A.X='R3M01'and B.Chart='Growth Trend' and
+B.Class='N' and  B.molecule='N' and B.Mkt='Eliquis NOAC'
+			and a.LinkChartCode = 'D087' and A.Series=B.Productname and
+A.ParentGeo=B.region and A.geo=B.audi_des
+(112 rows affected)
+R3M05
+
+			update [output_stage]
+			set Y=B.R3M05 from [output_stage] A inner join
+dbo.OutputCityPerformanceByBrand_For_OtherETV B
+			on A.Currency=B.MoneyType and A.X='R3M05'and B.Chart='Growth Trend' and
+B.Class='N' and  B.molecule='N' and B.Mkt='Eliquis NOAC'
+			and a.LinkChartCode = 'D087' and A.Series=B.Productname and
+A.ParentGeo=B.region and A.geo=B.audi_des
+(112 rows affected)
+R3M03
+
+			update [output_stage]
+			set Y=B.R3M03 from [output_stage] A inner join
+dbo.OutputCityPerformanceByBrand_For_OtherETV B
+			on A.Currency=B.MoneyType and A.X='R3M03'and B.Chart='Growth Trend' and
+B.Class='N' and  B.molecule='N' and B.Mkt='Eliquis NOAC'
+			and a.LinkChartCode = 'D087' and A.Series=B.Productname and
+A.ParentGeo=B.region and A.geo=B.audi_des
+(112 rows affected)
+YTD12
+
+			update [output_stage]
+			set Y=B.YTD12 from [output_stage] A inner join
+dbo.OutputCityPerformanceByBrand_For_OtherETV B
+			on A.Currency=B.MoneyType and A.X='YTD12'and B.Chart='Growth Trend' and
+B.Class='N' and  B.molecule='N' and B.Mkt='Eliquis NOAC'
+			and a.LinkChartCode = 'D087' and A.Series=B.Productname and
+A.ParentGeo=B.region and A.geo=B.audi_des
+(112 rows affected)
+R3M00
+
+			update [output_stage]
+			set Y=B.R3M00 from [output_stage] A inner join
+dbo.OutputCityPerformanceByBrand_For_OtherETV B
+			on A.Currency=B.MoneyType and A.X='R3M00'and B.Chart='Growth Trend' and
+B.Class='N' and  B.molecule='N' and B.Mkt='Eliquis NOAC'
+			and a.LinkChartCode = 'D087' and A.Series=B.Productname and
+A.ParentGeo=B.region and A.geo=B.audi_des
+(112 rows affected)
+YTD36
+
+			update [output_stage]
+			set Y=B.YTD36 from [output_stage] A inner join
+dbo.OutputCityPerformanceByBrand_For_OtherETV B
+			on A.Currency=B.MoneyType and A.X='YTD36'and B.Chart='Growth Trend' and
+B.Class='N' and  B.molecule='N' and B.Mkt='Eliquis NOAC'
+			and a.LinkChartCode = 'D087' and A.Series=B.Productname and
+A.ParentGeo=B.region and A.geo=B.audi_des
+(112 rows affected)
+YTD48
+
+			update [output_stage]
+			set Y=B.YTD48 from [output_stage] A inner join
+dbo.OutputCityPerformanceByBrand_For_OtherETV B
+			on A.Currency=B.MoneyType and A.X='YTD48'and B.Chart='Growth Trend' and
+B.Class='N' and  B.molecule='N' and B.Mkt='Eliquis NOAC'
+			and a.LinkChartCode = 'D087' and A.Series=B.Productname and
+A.ParentGeo=B.region and A.geo=B.audi_des
+(112 rows affected)
+YTD00
+
+			update [output_stage]
+			set Y=B.YTD00 from [output_stage] A inner join
+dbo.OutputCityPerformanceByBrand_For_OtherETV B
+			on A.Currency=B.MoneyType and A.X='YTD00'and B.Chart='Growth Trend' and
+B.Class='N' and  B.molecule='N' and B.Mkt='Eliquis NOAC'
+			and a.LinkChartCode = 'D087' and A.Series=B.Productname and
+A.ParentGeo=B.region and A.geo=B.audi_des
+(112 rows affected)
+1> 2> 3> 4> 5> 6> 7> 8> 9> 10> 11> 12> 13> 14> 15> 16> 17> 18> 19> 20> 21> 22> 23> 24> 25> 26> 27> 28> 29> 30> 31> 32> 33> 34> 35> 36> 37> 38> 39> 40> 41> 42> (0 rows affected)
+(168 rows affected)
+R3M00
+
+			update [output_stage]
+			set Y=B.R3M00 from [output_stage] A inner join
+dbo.OutputCityPerformanceByBrand_For_OtherETV B
+			on A.Currency=B.MoneyType and A.Series='R3M00'and B.Chart='Share of Growth
+Trend' and B.Class='N' and  B.molecule='N' and B.Mkt='eliquis noac'
+			and a.LinkChartCode = 'D088' and A.X=B.Productname and A.ParentGeo=B.region
+and A.geo=B.audi_des
+(84 rows affected)
+YTD00
+
+			update [output_stage]
+			set Y=B.YTD00 from [output_stage] A inner join
+dbo.OutputCityPerformanceByBrand_For_OtherETV B
+			on A.Currency=B.MoneyType and A.Series='YTD00'and B.Chart='Share of Growth
+Trend' and B.Class='N' and  B.molecule='N' and B.Mkt='eliquis noac'
+			and a.LinkChartCode = 'D088' and A.X=B.Productname and A.ParentGeo=B.region
+and A.geo=B.audi_des
+(84 rows affected)
+1> 2> 3> 4> 5> (73794 rows affected)
+1> 2> 3> 4> (73794 rows affected)
+1> 2> 3> 4> (73794 rows affected)
+1> 2> 3> 4> 5> 6> 7> 8> 9> 10> 11> 12> 13> 14> 15> 16> (73794 rows affected)
+1> 2> 3> (4620 rows affected)
+1> 2> 3> 4> (0 rows affected)
+1> 2> 3> 4> 5> (4663 rows affected)
+1> 2> 3> (2536 rows affected)

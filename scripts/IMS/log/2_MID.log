@@ -1,0 +1,2393 @@
+1> 2> 1> 2> 3> 4> 5> 6> 7> 8> 9> 10> 11> 12> 13> 14> 15> 16> 17> (1 row affected)
+
+------------------------------------------------------------------------------
+------------------------------
+1.                                   City
+------------------------------------------------------------------------------
+------------------------------
+1> 2> 3> 4> 5> 6> (0 rows affected)
+1> 2> 3> 4> 1> 2> 3> (57831 rows affected)
+1> 2> (57831 rows affected)
+1> 2> 3> 4> 1> 2> 3> 1> 2> 3> 4> 5> 6> 7> 8> 9> 10> 11> 12> 13> 14> 
+------------------------------------------------------------------------------
+------------------------------
+2.                                   Slide 3 
+------------------------------------------------------------------------------
+------------------------------
+1> 2> 3> 4> 5> 6> 7> 8> 9> 10> 11> 1> 2> 3> 4> 5> 6> 7> 8> 9> 10> 11> 12> 13> 14> 15> 16> 17> 18> 19> 20> 21> 22> 23> 24> 25> 26> 27> 28> 29> 30> 31> 32> 33> 34> 35> 36> 37> 38> 39> 40> 41> 42> 43> (10 rows affected)
+(10 rows affected)
+(10 rows affected)
+(10 rows affected)
+(10 rows affected)
+(10 rows affected)
+(10 rows affected)
+(10 rows affected)
+1> 2> 1> 2> 3> 4> 5> (80 rows affected)
+(80 rows affected)
+1> 2> 3> 4> 5> 6> 7> 1> 2> 3> 4> 5> (80 rows affected)
+1> 2> 3> 4> 5> 6> 7> 8> 9> 10> 11> 12> 13> 14> 
+------------------------------------------------------------------------------
+------------------------------
+3.                                   Slide 2 
+------------------------------------------------------------------------------
+------------------------------
+1> 2> 3> 1> 2> 3> 4> 5> 6> 7> 8> 9> 10> 11> 12> 13> 1> 1> 2> 3> 4> 5> 6> 7> 8> 9> 10> 11> 12> 13> 14> 15> 16> 17> 18> 19> 20> 21> 22> 23> 24> 25> 26> 27> 28> 29> 30> 31> 32> 33> (2 rows affected)
+(2 rows affected)
+(2 rows affected)
+(2 rows affected)
+1> 2> 3> 4> 5> 6> 7> (4 rows affected)
+1> 2> 3> 4> 5> 6> 7> 8> 9> (8 rows affected)
+1> 2> 3> 4> 5> 6> (8 rows affected)
+1> 2> 3> 4> 5> 6> 7> 8> 9> 10> 11> 12> 13> (1 row affected)
+
+------------------------------------------------------------------------------
+------------------------------
+4.                                   Slide 4 
+------------------------------------------------------------------------------
+------------------------------
+1> 2> 3> 4> 5> 6> 7> 8> 9> 10> 11> 12> 13> 1> 2> 3> 4> 5> 6> 7> 8> 9> 10> 11> 12> 13> 14> 15> 16> 17> 18> 19> 20> 21> 22> 23> 24> 25> 26> 27> 28> 29> 30> 31> 32> 33> 34> 35> 36> 37> 38> 39> 40> 41> 42> 43> 44> 45> 46> 47> 48> 49> 50> 51> 52> 53> 54> 55> 56> 57> 58> 59> 60> 61> 62> 63> 64> 65> 66> 67> 68> 69> 70> 71> 72> 73> 74> 75> 76> 77> 78> 79> 80> 81> 82> 83> 84> 85> 86> 87> 88> 89> 90> 91> 92> 93> 94> 95> 96> 97> 98> 99> 100> 101> 102> 103> 104> 105> 106> 107> 108> 109> 110> 111> 112> 113> 114> 115> 116> 117> 118> 119> 120> 121> 122> 123> 124> 125> 
+		insert into OutputKeyMNCsPerformance 
+		select top 10 cast('MAT' as varchar(20)) as [Period],'PN',1 as CurrRank,1 as
+PrevRank,CORP_cod,'',
+		sum(Mat00PN) as Mat00PN,sum(Mat12PN) as Mat12PN,0
+		from dbo.MTHCHPA_PKAU A where exists(select * from MTHCHPA_PKAU B  
+		where A.CORP_Cod=B.CORP_Cod and B.MNFL_COD='I')
+		group by CORP_cod
+		order by
+		sum(Mat00PN) desc
+
+		if exists(select * from OutputKeyMNCsPerformance 
+				  where CORP_Cod = 
+(select Corporation_ID from Dim_Manufacturer where Manufacturer_Abbr like
+'%BSG%')
+and Period='MAT' and MoneyType='PN'
+		)
+		print 'BMS COPR in Top 10 MAT PN'
+		else
+		insert into OutputKeyMNCsPerformance
+		select 'MAT','PN',1,1,CORP_cod,'',
+		sum(Mat00PN) as Mat00PN,sum(Mat12PN) as Mat12PN,0
+		from dbo.MTHCHPA_PKAU A where CORP_Cod = 
+(select Corporation_ID from Dim_Manufacturer where Manufacturer_Abbr like
+'%BSG%')
+		group by CORP_cod
+		order by
+		sum(Mat00PN) desc
+
+--Rolling 3 Month
+insert into OutputKeyMNCsPerformance 
+		select top 10 cast('MQT' as varchar(20)) as [Period],'PN',1 as CurrRank,1 as
+PrevRank,CORP_cod,'',
+		sum(R3M00PN) as R3M00PN,sum(R3M12PN) as R3M12PN,0
+		from dbo.MTHCHPA_PKAU A where 
+				exists(select * from MTHCHPA_PKAU B  
+						 where A.CORP_Cod=B.CORP_Cod and B.MNFL_COD='I')
+		group by CORP_cod
+		order by
+		sum(R3M00PN) desc
+
+		if exists(select * from OutputKeyMNCsPerformance 
+				  where CORP_Cod = 
+(select Corporation_ID from Dim_Manufacturer where Manufacturer_Abbr like
+'%BSG%')
+and Period='MQT' and MoneyType='PN'
+		)
+		print 'BMS COPR in Top 10 Rolling 3 Month PN'
+		else
+		insert into OutputKeyMNCsPerformance
+		select 'MQT','PN',1,1,CORP_cod,'',
+		sum(R3M00PN) as R3M00PN,sum(R3M12PN) as R3M12PN,0
+		from dbo.MTHCHPA_PKAU A where CORP_Cod = 
+(select Corporation_ID from Dim_Manufacturer where Manufacturer_Abbr like
+'%BSG%')
+		group by CORP_cod
+		order by
+		sum(R3M00PN) desc
+(10 rows affected)
+BMS COPR in Top 10 MAT PN
+(10 rows affected)
+BMS COPR in Top 10 Rolling 3 Month PN
+update OutputKeyMNCsPerformance
+		set CurrRank=B.Rank from OutputKeyMNCsPerformance A inner join (
+							select RANK ( )OVER (order by sum(Mat00PN) desc ) as
+Rank,CORP_cod,sum(Mat00PN) as Mat00PN 
+							from dbo.MTHCHPA_PKAU A where exists(select * from MTHCHPA_PKAU B  
+								where A.CORP_Cod=B.CORP_Cod and B.MNFL_COD='I')
+							group by CORP_cod) B
+		on A.CORP_cod=B.CORP_cod and A.[Period]='MAT' and MoneyType='PN'
+
+		update OutputKeyMNCsPerformance
+		set PrevRank=B.Rank from OutputKeyMNCsPerformance A inner join (
+							select RANK ( )OVER (order by sum(Mat12PN) desc ) as
+Rank,CORP_cod,sum(Mat12PN) as Mat12PN 
+							from dbo.MTHCHPA_PKAU A where exists(select * from MTHCHPA_PKAU B  
+								where A.CORP_Cod=B.CORP_Cod and B.MNFL_COD='I')
+							group by CORP_cod) B
+		on A.CORP_cod=B.CORP_cod and A.[Period]='MAT' and MoneyType='PN'
+
+		update OutputKeyMNCsPerformance
+		set CurrRank=B.Rank from OutputKeyMNCsPerformance A inner join (
+							select RANK ( )OVER (order by sum(R3M00PN) desc ) as
+Rank,CORP_cod,sum(R3M00PN) as R3M00PN 
+							from dbo.MTHCHPA_PKAU A where exists(select * from MTHCHPA_PKAU B  
+								where A.CORP_Cod=B.CORP_Cod and B.MNFL_COD='I')
+							group by CORP_cod) B
+		on A.CORP_cod=B.CORP_cod and A.[Period]='MQT' and MoneyType='PN'
+
+		update OutputKeyMNCsPerformance
+		set PrevRank=B.Rank from OutputKeyMNCsPerformance A inner join (
+							select RANK ( )OVER (order by sum(R3M12PN) desc ) as
+Rank,CORP_cod,sum(R3M12PN) as R3M12PN 
+							from dbo.MTHCHPA_PKAU A where exists(select * from MTHCHPA_PKAU B  
+								where A.CORP_Cod=B.CORP_Cod and B.MNFL_COD='I')
+							group by CORP_cod) B
+		on A.CORP_cod=B.CORP_cod and A.[Period]='MQT' and MoneyType='PN'
+		
+		update OutputKeyMNCsPerformance
+		set Total=B.Total from OutputKeyMNCsPerformance A,
+		(select sum(Mat00PN)  as Total from  dbo.MTHCHPA_PKAU A 
+		   where exists(select * from MTHCHPA_PKAU B  
+								where A.CORP_Cod=B.CORP_Cod and B.MNFL_COD='I')) B
+
+		where A.MoneyType='PN' and Period='MAT'
+	    
+		update OutputKeyMNCsPerformance
+		set Total=B.Total from OutputKeyMNCsPerformance A,
+		(select sum(R3M00PN)  as Total from  dbo.MTHCHPA_PKAU A 
+		   where exists(select * from MTHCHPA_PKAU B  
+								where A.CORP_Cod=B.CORP_Cod and B.MNFL_COD='I')) B
+
+		where A.MoneyType='PN' and Period='MQT'
+(10 rows affected)
+(10 rows affected)
+(10 rows affected)
+(10 rows affected)
+(10 rows affected)
+(10 rows affected)
+
+		insert into OutputKeyMNCsPerformance 
+		select top 10 cast('MAT' as varchar(20)) as [Period],'US',1 as CurrRank,1 as
+PrevRank,CORP_cod,'',
+		sum(Mat00US) as Mat00US,sum(Mat12US) as Mat12US,0
+		from dbo.MTHCHPA_PKAU A where exists(select * from MTHCHPA_PKAU B  
+		where A.CORP_Cod=B.CORP_Cod and B.MNFL_COD='I')
+		group by CORP_cod
+		order by
+		sum(Mat00US) desc
+
+		if exists(select * from OutputKeyMNCsPerformance 
+				  where CORP_Cod = 
+(select Corporation_ID from Dim_Manufacturer where Manufacturer_Abbr like
+'%BSG%')
+and Period='MAT' and MoneyType='US'
+		)
+		print 'BMS COPR in Top 10 MAT US'
+		else
+		insert into OutputKeyMNCsPerformance
+		select 'MAT','US',1,1,CORP_cod,'',
+		sum(Mat00US) as Mat00US,sum(Mat12US) as Mat12US,0
+		from dbo.MTHCHPA_PKAU A where CORP_Cod = 
+(select Corporation_ID from Dim_Manufacturer where Manufacturer_Abbr like
+'%BSG%')
+		group by CORP_cod
+		order by
+		sum(Mat00US) desc
+
+--Rolling 3 Month
+insert into OutputKeyMNCsPerformance 
+		select top 10 cast('MQT' as varchar(20)) as [Period],'US',1 as CurrRank,1 as
+PrevRank,CORP_cod,'',
+		sum(R3M00US) as R3M00US,sum(R3M12US) as R3M12US,0
+		from dbo.MTHCHPA_PKAU A where 
+				exists(select * from MTHCHPA_PKAU B  
+						 where A.CORP_Cod=B.CORP_Cod and B.MNFL_COD='I')
+		group by CORP_cod
+		order by
+		sum(R3M00US) desc
+
+		if exists(select * from OutputKeyMNCsPerformance 
+				  where CORP_Cod = 
+(select Corporation_ID from Dim_Manufacturer where Manufacturer_Abbr like
+'%BSG%')
+and Period='MQT' and MoneyType='US'
+		)
+		print 'BMS COPR in Top 10 Rolling 3 Month US'
+		else
+		insert into OutputKeyMNCsPerformance
+		select 'MQT','US',1,1,CORP_cod,'',
+		sum(R3M00US) as R3M00US,sum(R3M12US) as R3M12US,0
+		from dbo.MTHCHPA_PKAU A where CORP_Cod = 
+(select Corporation_ID from Dim_Manufacturer where Manufacturer_Abbr like
+'%BSG%')
+		group by CORP_cod
+		order by
+		sum(R3M00US) desc
+(10 rows affected)
+(1 row affected)
+(10 rows affected)
+(1 row affected)
+update OutputKeyMNCsPerformance
+		set CurrRank=B.Rank from OutputKeyMNCsPerformance A inner join (
+							select RANK ( )OVER (order by sum(Mat00US) desc ) as
+Rank,CORP_cod,sum(Mat00US) as Mat00US 
+							from dbo.MTHCHPA_PKAU A where exists(select * from MTHCHPA_PKAU B  
+								where A.CORP_Cod=B.CORP_Cod and B.MNFL_COD='I')
+							group by CORP_cod) B
+		on A.CORP_cod=B.CORP_cod and A.[Period]='MAT' and MoneyType='US'
+
+		update OutputKeyMNCsPerformance
+		set PrevRank=B.Rank from OutputKeyMNCsPerformance A inner join (
+							select RANK ( )OVER (order by sum(Mat12US) desc ) as
+Rank,CORP_cod,sum(Mat12US) as Mat12US 
+							from dbo.MTHCHPA_PKAU A where exists(select * from MTHCHPA_PKAU B  
+								where A.CORP_Cod=B.CORP_Cod and B.MNFL_COD='I')
+							group by CORP_cod) B
+		on A.CORP_cod=B.CORP_cod and A.[Period]='MAT' and MoneyType='US'
+
+		update OutputKeyMNCsPerformance
+		set CurrRank=B.Rank from OutputKeyMNCsPerformance A inner join (
+							select RANK ( )OVER (order by sum(R3M00US) desc ) as
+Rank,CORP_cod,sum(R3M00US) as R3M00US 
+							from dbo.MTHCHPA_PKAU A where exists(select * from MTHCHPA_PKAU B  
+								where A.CORP_Cod=B.CORP_Cod and B.MNFL_COD='I')
+							group by CORP_cod) B
+		on A.CORP_cod=B.CORP_cod and A.[Period]='MQT' and MoneyType='US'
+
+		update OutputKeyMNCsPerformance
+		set PrevRank=B.Rank from OutputKeyMNCsPerformance A inner join (
+							select RANK ( )OVER (order by sum(R3M12US) desc ) as
+Rank,CORP_cod,sum(R3M12US) as R3M12US 
+							from dbo.MTHCHPA_PKAU A where exists(select * from MTHCHPA_PKAU B  
+								where A.CORP_Cod=B.CORP_Cod and B.MNFL_COD='I')
+							group by CORP_cod) B
+		on A.CORP_cod=B.CORP_cod and A.[Period]='MQT' and MoneyType='US'
+		
+		update OutputKeyMNCsPerformance
+		set Total=B.Total from OutputKeyMNCsPerformance A,
+		(select sum(Mat00US)  as Total from  dbo.MTHCHPA_PKAU A 
+		   where exists(select * from MTHCHPA_PKAU B  
+								where A.CORP_Cod=B.CORP_Cod and B.MNFL_COD='I')) B
+
+		where A.MoneyType='US' and Period='MAT'
+	    
+		update OutputKeyMNCsPerformance
+		set Total=B.Total from OutputKeyMNCsPerformance A,
+		(select sum(R3M00US)  as Total from  dbo.MTHCHPA_PKAU A 
+		   where exists(select * from MTHCHPA_PKAU B  
+								where A.CORP_Cod=B.CORP_Cod and B.MNFL_COD='I')) B
+
+		where A.MoneyType='US' and Period='MQT'
+(11 rows affected)
+(11 rows affected)
+(11 rows affected)
+(11 rows affected)
+(11 rows affected)
+(11 rows affected)
+
+		insert into OutputKeyMNCsPerformance 
+		select top 10 cast('MAT' as varchar(20)) as [Period],'LC',1 as CurrRank,1 as
+PrevRank,CORP_cod,'',
+		sum(Mat00LC) as Mat00LC,sum(Mat12LC) as Mat12LC,0
+		from dbo.MTHCHPA_PKAU A where exists(select * from MTHCHPA_PKAU B  
+		where A.CORP_Cod=B.CORP_Cod and B.MNFL_COD='I')
+		group by CORP_cod
+		order by
+		sum(Mat00LC) desc
+
+		if exists(select * from OutputKeyMNCsPerformance 
+				  where CORP_Cod = 
+(select Corporation_ID from Dim_Manufacturer where Manufacturer_Abbr like
+'%BSG%')
+and Period='MAT' and MoneyType='LC'
+		)
+		print 'BMS COPR in Top 10 MAT LC'
+		else
+		insert into OutputKeyMNCsPerformance
+		select 'MAT','LC',1,1,CORP_cod,'',
+		sum(Mat00LC) as Mat00LC,sum(Mat12LC) as Mat12LC,0
+		from dbo.MTHCHPA_PKAU A where CORP_Cod = 
+(select Corporation_ID from Dim_Manufacturer where Manufacturer_Abbr like
+'%BSG%')
+		group by CORP_cod
+		order by
+		sum(Mat00LC) desc
+
+--Rolling 3 Month
+insert into OutputKeyMNCsPerformance 
+		select top 10 cast('MQT' as varchar(20)) as [Period],'LC',1 as CurrRank,1 as
+PrevRank,CORP_cod,'',
+		sum(R3M00LC) as R3M00LC,sum(R3M12LC) as R3M12LC,0
+		from dbo.MTHCHPA_PKAU A where 
+				exists(select * from MTHCHPA_PKAU B  
+						 where A.CORP_Cod=B.CORP_Cod and B.MNFL_COD='I')
+		group by CORP_cod
+		order by
+		sum(R3M00LC) desc
+
+		if exists(select * from OutputKeyMNCsPerformance 
+				  where CORP_Cod = 
+(select Corporation_ID from Dim_Manufacturer where Manufacturer_Abbr like
+'%BSG%')
+and Period='MQT' and MoneyType='LC'
+		)
+		print 'BMS COPR in Top 10 Rolling 3 Month LC'
+		else
+		insert into OutputKeyMNCsPerformance
+		select 'MQT','LC',1,1,CORP_cod,'',
+		sum(R3M00LC) as R3M00LC,sum(R3M12LC) as R3M12LC,0
+		from dbo.MTHCHPA_PKAU A where CORP_Cod = 
+(select Corporation_ID from Dim_Manufacturer where Manufacturer_Abbr like
+'%BSG%')
+		group by CORP_cod
+		order by
+		sum(R3M00LC) desc
+(10 rows affected)
+(1 row affected)
+(10 rows affected)
+(1 row affected)
+update OutputKeyMNCsPerformance
+		set CurrRank=B.Rank from OutputKeyMNCsPerformance A inner join (
+							select RANK ( )OVER (order by sum(Mat00LC) desc ) as
+Rank,CORP_cod,sum(Mat00LC) as Mat00LC 
+							from dbo.MTHCHPA_PKAU A where exists(select * from MTHCHPA_PKAU B  
+								where A.CORP_Cod=B.CORP_Cod and B.MNFL_COD='I')
+							group by CORP_cod) B
+		on A.CORP_cod=B.CORP_cod and A.[Period]='MAT' and MoneyType='LC'
+
+		update OutputKeyMNCsPerformance
+		set PrevRank=B.Rank from OutputKeyMNCsPerformance A inner join (
+							select RANK ( )OVER (order by sum(Mat12LC) desc ) as
+Rank,CORP_cod,sum(Mat12LC) as Mat12LC 
+							from dbo.MTHCHPA_PKAU A where exists(select * from MTHCHPA_PKAU B  
+								where A.CORP_Cod=B.CORP_Cod and B.MNFL_COD='I')
+							group by CORP_cod) B
+		on A.CORP_cod=B.CORP_cod and A.[Period]='MAT' and MoneyType='LC'
+
+		update OutputKeyMNCsPerformance
+		set CurrRank=B.Rank from OutputKeyMNCsPerformance A inner join (
+							select RANK ( )OVER (order by sum(R3M00LC) desc ) as
+Rank,CORP_cod,sum(R3M00LC) as R3M00LC 
+							from dbo.MTHCHPA_PKAU A where exists(select * from MTHCHPA_PKAU B  
+								where A.CORP_Cod=B.CORP_Cod and B.MNFL_COD='I')
+							group by CORP_cod) B
+		on A.CORP_cod=B.CORP_cod and A.[Period]='MQT' and MoneyType='LC'
+
+		update OutputKeyMNCsPerformance
+		set PrevRank=B.Rank from OutputKeyMNCsPerformance A inner join (
+							select RANK ( )OVER (order by sum(R3M12LC) desc ) as
+Rank,CORP_cod,sum(R3M12LC) as R3M12LC 
+							from dbo.MTHCHPA_PKAU A where exists(select * from MTHCHPA_PKAU B  
+								where A.CORP_Cod=B.CORP_Cod and B.MNFL_COD='I')
+							group by CORP_cod) B
+		on A.CORP_cod=B.CORP_cod and A.[Period]='MQT' and MoneyType='LC'
+		
+		update OutputKeyMNCsPerformance
+		set Total=B.Total from OutputKeyMNCsPerformance A,
+		(select sum(Mat00LC)  as Total from  dbo.MTHCHPA_PKAU A 
+		   where exists(select * from MTHCHPA_PKAU B  
+								where A.CORP_Cod=B.CORP_Cod and B.MNFL_COD='I')) B
+
+		where A.MoneyType='LC' and Period='MAT'
+	    
+		update OutputKeyMNCsPerformance
+		set Total=B.Total from OutputKeyMNCsPerformance A,
+		(select sum(R3M00LC)  as Total from  dbo.MTHCHPA_PKAU A 
+		   where exists(select * from MTHCHPA_PKAU B  
+								where A.CORP_Cod=B.CORP_Cod and B.MNFL_COD='I')) B
+
+		where A.MoneyType='LC' and Period='MQT'
+(11 rows affected)
+(11 rows affected)
+(11 rows affected)
+(11 rows affected)
+(11 rows affected)
+(11 rows affected)
+
+		insert into OutputKeyMNCsPerformance 
+		select top 10 cast('MAT' as varchar(20)) as [Period],'UN',1 as CurrRank,1 as
+PrevRank,CORP_cod,'',
+		sum(Mat00UN) as Mat00UN,sum(Mat12UN) as Mat12UN,0
+		from dbo.MTHCHPA_PKAU A where exists(select * from MTHCHPA_PKAU B  
+		where A.CORP_Cod=B.CORP_Cod and B.MNFL_COD='I')
+		group by CORP_cod
+		order by
+		sum(Mat00UN) desc
+
+		if exists(select * from OutputKeyMNCsPerformance 
+				  where CORP_Cod = 
+(select Corporation_ID from Dim_Manufacturer where Manufacturer_Abbr like
+'%BSG%')
+and Period='MAT' and MoneyType='UN'
+		)
+		print 'BMS COPR in Top 10 MAT UN'
+		else
+		insert into OutputKeyMNCsPerformance
+		select 'MAT','UN',1,1,CORP_cod,'',
+		sum(Mat00UN) as Mat00UN,sum(Mat12UN) as Mat12UN,0
+		from dbo.MTHCHPA_PKAU A where CORP_Cod = 
+(select Corporation_ID from Dim_Manufacturer where Manufacturer_Abbr like
+'%BSG%')
+		group by CORP_cod
+		order by
+		sum(Mat00UN) desc
+
+--Rolling 3 Month
+insert into OutputKeyMNCsPerformance 
+		select top 10 cast('MQT' as varchar(20)) as [Period],'UN',1 as CurrRank,1 as
+PrevRank,CORP_cod,'',
+		sum(R3M00UN) as R3M00UN,sum(R3M12UN) as R3M12UN,0
+		from dbo.MTHCHPA_PKAU A where 
+				exists(select * from MTHCHPA_PKAU B  
+						 where A.CORP_Cod=B.CORP_Cod and B.MNFL_COD='I')
+		group by CORP_cod
+		order by
+		sum(R3M00UN) desc
+
+		if exists(select * from OutputKeyMNCsPerformance 
+				  where CORP_Cod = 
+(select Corporation_ID from Dim_Manufacturer where Manufacturer_Abbr like
+'%BSG%')
+and Period='MQT' and MoneyType='UN'
+		)
+		print 'BMS COPR in Top 10 Rolling 3 Month UN'
+		else
+		insert into OutputKeyMNCsPerformance
+		select 'MQT','UN',1,1,CORP_cod,'',
+		sum(R3M00UN) as R3M00UN,sum(R3M12UN) as R3M12UN,0
+		from dbo.MTHCHPA_PKAU A where CORP_Cod = 
+(select Corporation_ID from Dim_Manufacturer where Manufacturer_Abbr like
+'%BSG%')
+		group by CORP_cod
+		order by
+		sum(R3M00UN) desc
+(10 rows affected)
+(1 row affected)
+(10 rows affected)
+BMS COPR in Top 10 Rolling 3 Month UN
+update OutputKeyMNCsPerformance
+		set CurrRank=B.Rank from OutputKeyMNCsPerformance A inner join (
+							select RANK ( )OVER (order by sum(Mat00UN) desc ) as
+Rank,CORP_cod,sum(Mat00UN) as Mat00UN 
+							from dbo.MTHCHPA_PKAU A where exists(select * from MTHCHPA_PKAU B  
+								where A.CORP_Cod=B.CORP_Cod and B.MNFL_COD='I')
+							group by CORP_cod) B
+		on A.CORP_cod=B.CORP_cod and A.[Period]='MAT' and MoneyType='UN'
+
+		update OutputKeyMNCsPerformance
+		set PrevRank=B.Rank from OutputKeyMNCsPerformance A inner join (
+							select RANK ( )OVER (order by sum(Mat12UN) desc ) as
+Rank,CORP_cod,sum(Mat12UN) as Mat12UN 
+							from dbo.MTHCHPA_PKAU A where exists(select * from MTHCHPA_PKAU B  
+								where A.CORP_Cod=B.CORP_Cod and B.MNFL_COD='I')
+							group by CORP_cod) B
+		on A.CORP_cod=B.CORP_cod and A.[Period]='MAT' and MoneyType='UN'
+
+		update OutputKeyMNCsPerformance
+		set CurrRank=B.Rank from OutputKeyMNCsPerformance A inner join (
+							select RANK ( )OVER (order by sum(R3M00UN) desc ) as
+Rank,CORP_cod,sum(R3M00UN) as R3M00UN 
+							from dbo.MTHCHPA_PKAU A where exists(select * from MTHCHPA_PKAU B  
+								where A.CORP_Cod=B.CORP_Cod and B.MNFL_COD='I')
+							group by CORP_cod) B
+		on A.CORP_cod=B.CORP_cod and A.[Period]='MQT' and MoneyType='UN'
+
+		update OutputKeyMNCsPerformance
+		set PrevRank=B.Rank from OutputKeyMNCsPerformance A inner join (
+							select RANK ( )OVER (order by sum(R3M12UN) desc ) as
+Rank,CORP_cod,sum(R3M12UN) as R3M12UN 
+							from dbo.MTHCHPA_PKAU A where exists(select * from MTHCHPA_PKAU B  
+								where A.CORP_Cod=B.CORP_Cod and B.MNFL_COD='I')
+							group by CORP_cod) B
+		on A.CORP_cod=B.CORP_cod and A.[Period]='MQT' and MoneyType='UN'
+		
+		update OutputKeyMNCsPerformance
+		set Total=B.Total from OutputKeyMNCsPerformance A,
+		(select sum(Mat00UN)  as Total from  dbo.MTHCHPA_PKAU A 
+		   where exists(select * from MTHCHPA_PKAU B  
+								where A.CORP_Cod=B.CORP_Cod and B.MNFL_COD='I')) B
+
+		where A.MoneyType='UN' and Period='MAT'
+	    
+		update OutputKeyMNCsPerformance
+		set Total=B.Total from OutputKeyMNCsPerformance A,
+		(select sum(R3M00UN)  as Total from  dbo.MTHCHPA_PKAU A 
+		   where exists(select * from MTHCHPA_PKAU B  
+								where A.CORP_Cod=B.CORP_Cod and B.MNFL_COD='I')) B
+
+		where A.MoneyType='UN' and Period='MQT'
+(11 rows affected)
+(11 rows affected)
+(10 rows affected)
+(10 rows affected)
+(11 rows affected)
+(10 rows affected)
+1> 2> 1> 2> 3> 4> 5> 6> 7> 8> 9> 10> 11> 12> 13> (85 rows affected)
+(85 rows affected)
+(85 rows affected)
+1> 2> 3> 4> 5> (85 rows affected)
+1> 2> 3> 4> 5> 1> 2> 1> 2> 3> (85 rows affected)
+1> 2> 3> 4> (21 rows affected)
+1> 2> 3> 4> 5> 6> 7> 8> 9> 1> 2> 3> 4> 5> 6> 7> 8> 9> 10> 11> 12> 13> 1> 2> 3> 4> 5> 6> 7> 8> 9> 10> 11> 12> 13> 14> 15> 16> 17> 18> 19> 20> 21> 22> 23> 24> 25> 26> 27> 28> 29> 30> 31> 32> 33> 34> 35> 36> 37> 38> 39> 40> 41> 42> 43> 44> 45> 46> 47> 48> 49> 50> 51> 52> 53> 54> 55> 56> 57> 58> 59> 60> 61> 62> 63> 64> 65> 66> 67> 68> 69> 70> 71> 72> 73> 74> 75> (10 rows affected)
+BMS COPR in Top 10 MAT PN
+(10 rows affected)
+(10 rows affected)
+(10 rows affected)
+(10 rows affected)
+(1 row affected)
+(11 rows affected)
+(11 rows affected)
+(11 rows affected)
+(10 rows affected)
+(1 row affected)
+(11 rows affected)
+(11 rows affected)
+(11 rows affected)
+(10 rows affected)
+(1 row affected)
+(11 rows affected)
+(11 rows affected)
+(11 rows affected)
+1> 2> 1> 2> 3> 4> 5> 6> 7> 8> 9> 10> 11> 12> 13> (43 rows affected)
+(43 rows affected)
+(43 rows affected)
+1> 2> 3> 4> 5> (43 rows affected)
+1> 2> 3> 1> 2> 3> (43 rows affected)
+1> 2> 3> 4> (7 rows affected)
+1> 2> 3> 4> 5> 6> 7> 8> 9> 10> 11> 12> (1 row affected)
+
+------------------------------------------------------------------------------
+------------------------------
+5.                                   Slide 5
+------------------------------------------------------------------------------
+------------------------------
+1> 2> 3> 4> 5> 6> 7> 8> 9> 10> 11> 12> 13> 1> 2> 3> 4> 5> 6> 7> 8> 9> 10> 11> 12> 13> 14> 15> 16> 17> 18> 19> 20> 21> 22> 23> 24> 25> 26> 27> 28> 29> 30> 31> 32> 33> 34> 35> 36> 37> 38> 39> 40> 41> 42> 43> 44> 45> 46> 47> 48> 49> 50> 51> 52> 53> 54> 55> 56> 57> 58> 59> 60> 61> 62> 63> 64> 65> 66> 67> 68> 69> 70> 71> 72> 73> 74> 75> 76> 77> 78> 79> 80> 81> 82> 83> 84> 85> 86> 87> 88> 89> 90> 91> 92> 93> 94> 95> 96> 97> 98> 99> 100> 101> 102> 103> 104> 105> 106> 107> 108> 109> 110> PN
+(10 rows affected)
+(1 row affected)
+(10 rows affected)
+(1 row affected)
+(11 rows affected)
+(11 rows affected)
+(11 rows affected)
+(11 rows affected)
+(11 rows affected)
+(11 rows affected)
+US
+(10 rows affected)
+Baraclude COPR in Top 10 MAT US
+(10 rows affected)
+Baraclude COPR in Top 10 MQT US
+(10 rows affected)
+(10 rows affected)
+(10 rows affected)
+(10 rows affected)
+(10 rows affected)
+(10 rows affected)
+LC
+(10 rows affected)
+Baraclude COPR in Top 10 MAT LC
+(10 rows affected)
+Baraclude COPR in Top 10 MQT LC
+(10 rows affected)
+(10 rows affected)
+(10 rows affected)
+(10 rows affected)
+(10 rows affected)
+(10 rows affected)
+UN
+(10 rows affected)
+(1 row affected)
+(10 rows affected)
+(1 row affected)
+(11 rows affected)
+(11 rows affected)
+(11 rows affected)
+(11 rows affected)
+(11 rows affected)
+(11 rows affected)
+1> 2> 3> 1> 2> 3> (84 rows affected)
+1> 2> 3> (84 rows affected)
+1> 2> 3> 4> 5> 6> (84 rows affected)
+1> 2> 3> 4> (84 rows affected)
+1> 2> 1> 2> 3> (84 rows affected)
+1> 2> 3> 4> (0 rows affected)
+1> 2> 3> 4> 5> 6> 7> 8> 9> 10> 11> 12> 13> 14> 15> 16> 17> (1 row affected)
+
+------------------------------------------------------------------------------
+------------------------------
+6.                                   Slide 6
+------------------------------------------------------------------------------
+------------------------------
+1> 2> 3> 4> 5> 6> 7> 8> 9> 10> 1> 2> 3> 4> 5> 6> 7> 8> 9> 10> 11> 12> 13> 14> 15> 16> 17> 18> 19> 20> 21> 22> 23> 24> 25> 26> 27> 28> 29> 30> 31> 32> 33> 34> PN
+(7 rows affected)
+(7 rows affected)
+US
+(7 rows affected)
+(7 rows affected)
+LC
+(7 rows affected)
+(7 rows affected)
+UN
+(7 rows affected)
+(7 rows affected)
+1> 2> 3> 1> 2> 3> 4> 5> 6> 7> 8> 9> 10> 11> 12> 13> 14> 15> 16> 17> 18> 19> 20> 21> 22> 23> 24> 25> 26> 27> 28> 29> 30> 31> 32> 33> 34> 35> 36> 37> 38> 39> 40> 41> 42> 43> 44> 45> 46> 47> 48> 49> 50> 51> 52> 53> 54> 55> 56> PN
+(14 rows affected)
+(14 rows affected)
+(14 rows affected)
+US
+(14 rows affected)
+(14 rows affected)
+(14 rows affected)
+LC
+(14 rows affected)
+(14 rows affected)
+(14 rows affected)
+UN
+(14 rows affected)
+(14 rows affected)
+(14 rows affected)
+1> 2> 3> 4> 5> (56 rows affected)
+1> 2> 3> 4> (56 rows affected)
+1> 2> 3> 4> 5> 6> 1> 2> 3> (56 rows affected)
+1> 2> 3> 1> 2> 3> 4> 5> (56 rows affected)
+1> 2> 3> 4> 5> (56 rows affected)
+1> 2> 3> (56 rows affected)
+1> 2> 3> 1> 2> 3> 4> 5> 6> 7> 8> 9> 10> 11> 12> 13> 14> 15> 16> 17> 18> 19> 20> 21> 22> 23> 24> (56 rows affected)
+(1 row affected)
+
+------------------------------------------------------------------------------
+------------------------------
+7.                                   Slide 7 :
+OutputCityPerformance_BMS10TA
+------------------------------------------------------------------------------
+------------------------------
+1> 2> 3> 4> 5> 6> 7> 8> 9> 10> 1> 2> 3> 4> 5> 6> 7> 8> 9> 10> 11> 12> 13> 14> 15> 16> 17> 18> 19> 20> 21> 22> 23> 24> 25> 26> 27> 28> 29> 30> 31> 32> 33> 34> 35> 36> 37> PN
+(7 rows affected)
+(7 rows affected)
+US
+(7 rows affected)
+(7 rows affected)
+LC
+(7 rows affected)
+(7 rows affected)
+UN
+(7 rows affected)
+(7 rows affected)
+1> 2> 3> 1> 2> 3> 4> 5> 6> 7> 8> 9> 10> 11> 12> 13> 14> 15> 16> 17> 18> 19> 20> 21> 22> 23> 24> 25> 26> 27> 28> 29> 30> 31> 32> 33> 34> 35> 36> 37> 38> 39> 40> 41> 42> 43> 44> 45> 46> 47> 48> 49> 50> 51> 52> 53> 54> 55> 56> (14 rows affected)
+(14 rows affected)
+(14 rows affected)
+(14 rows affected)
+(14 rows affected)
+(14 rows affected)
+(14 rows affected)
+(14 rows affected)
+(14 rows affected)
+(14 rows affected)
+(14 rows affected)
+(14 rows affected)
+1> 2> 3> 4> (56 rows affected)
+1> 2> 3> (56 rows affected)
+1> 2> 3> 4> 5> 6> 7> 1> 2> 3> (56 rows affected)
+1> 2> 3> 4> 1> 2> 3> 4> 5> 6> 7> 8> 9> 10> 11> (56 rows affected)
+1> 2> 3> 4> 5> 6> 7> 8> 9> 10> 11> (56 rows affected)
+1> 2> 3> 4> (56 rows affected)
+1> 2> 3> 4> 1> 2> 3> 4> 5> 6> 7> 8> 9> 10> 11> 12> 13> 14> 15> 16> 17> 18> 19> 20> 21> 22> 23> (56 rows affected)
+(1 row affected)
+
+------------------------------------------------------------------------------
+------------------------------
+8.                                   Slide 8 : OutputBMSProdSummaryInChina
+------------------------------------------------------------------------------
+------------------------------
+1> 2> 3> 4> 5> 6> 7> 8> 9> 10> 11> 1> 2> 3> 4> 5> 6> 7> 8> 9> 10> 11> 12> 13> 14> 15> 16> 17> 18> 19> 20> 21> 22> 23> 24> 25> 26> 27> 28> 29> 30> 31> 32> 33> 34> 35> 36> 37> 38> 39> 40> 41> 42> 43> 44> 45> 46> 47> 48> 49> 50> 51> 52> 53> 54> 55> 56> 57> (7 rows affected)
+(6 rows affected)
+(7 rows affected)
+(6 rows affected)
+(7 rows affected)
+(6 rows affected)
+(7 rows affected)
+(6 rows affected)
+(7 rows affected)
+(6 rows affected)
+(7 rows affected)
+(6 rows affected)
+(7 rows affected)
+(6 rows affected)
+(7 rows affected)
+(6 rows affected)
+1> 2> (0 rows affected)
+1> 2> 3> 1> 2> 3> (104 rows affected)
+1> 2> 3> 4> 5> 6> 7> 8> 9> 10> (104 rows affected)
+1> 2> 3> 4> 5> 6> 7> 8> (104 rows affected)
+1> 2> 3> 4> 5> (56 rows affected)
+1> 2> 3> 1> 2> 3> 4> 5> 6> (22 rows affected)
+1> 2> 3> 4> 5> 6> 7> 8> 9> 10> 11> 12> (38 rows affected)
+1> 2> 3> 4> 5> 6> 7> 8> 9> 10> 11> 12> 13> 14> 15> 16> 17> (1 row affected)
+
+------------------------------------------------------------------------------
+------------------------------
+9.                                   Slide 10 : inHKAPI_New
+------------------------------------------------------------------------------
+------------------------------
+1> 2> (844 rows affected)
+1> 2> 3> (0 rows affected)
+1> 2> 3> 4> 5> 6> 7> 8> 9> 10> 11> 12> 13> 14> 15> 16> 17> 18> 19> 20> 21> 1> 2> 3> 4> 5> 6> 7> 8> 9> 10> 11> 12> 13> 14> 15> 16> 17> 18> 19> 20> 21> 22> 23> 24> 25> 26> 27> 28> 29> 30> 31> 32> 33> 34> (844 rows affected)
+1> 2> 3> 4> 5> 6> 7> 8> 9> 10> 11> 12> 13> 1> 2> 3> 4> 5> 6> 7> 8> 9> 10> 11> 12> 13> 14> 15> 16> (10 rows affected)
+1> 2> 3> 4> 5> 6> 7> 8> 9> 10> 11> 12> BMS COPR in Top 10 YTD
+1> 2> 3> 4> 5> 6> 7> (10 rows affected)
+1> 2> 3> 4> 5> 6> 7> 8> 9> 10> 11> 12> 13> 14> 15> (10 rows affected)
+1> 2> 3> 4> 5> 6> 7> 8> 9> 10> 11> 12> 13> 14> 15> 16> 17> 18> 19> 20> BMS COPR in Top 10 LastYear
+1> 2> 3> 4> 5> 6> (10 rows affected)
+1> 2> 3> 4> 5> 6> 7> 8> (20 rows affected)
+1> 2> 3> 4> 5> 6> 7> (20 rows affected)
+1> 2> 1> 2> 3> 4> 5> 6> 7> 8> 9> 10> 11> 12> 13> (20 rows affected)
+(20 rows affected)
+(20 rows affected)
+1> 2> 3> 4> 5> (20 rows affected)
+1> 2> 1> 2> 3> (20 rows affected)
+1> 2> 3> 4> 5> 6> 7> 8> 9> 10> 11> 12> 13> 14> 15> 16> 17> (20 rows affected)
+1> 2> 3> 4> (30 rows affected)
+1> 2> 3> 4> 5> 6> 7> 8> 9> 10> 11> 12> 13> 14> 
+------------------------------------------------------------------------------
+------------------------------
+10.                                   Slide 11 :
+OutputKeyMNCsProdPerformance_HKAPI
+------------------------------------------------------------------------------
+------------------------------
+1> 2> 3> 4> 5> 6> 7> 8> 9> 10> 11> 12> 13> 1> 2> 3> 4> 5> 6> 7> 8> 9> (10 rows affected)
+1> 2> 3> 4> 5> 6> 7> 8> 9> 10> 11> 12> (1 row affected)
+1> 2> 3> 4> 5> 6> 7> 8> 9> 10> 11> 12> 13> 14> 15> 16> 17> (11 rows affected)
+(10 rows affected)
+1> 2> 3> 4> 5> 6> 7> 8> 9> 10> 11> 12> BARACLUDE Prod in Top 10 LastYear
+1> 2> 3> 4> 5> 6> 7> 8> 9> (10 rows affected)
+1> 2> 3> 4> 5> 6> 7> 8> 9> (21 rows affected)
+1> 2> 3> 4> 5> 6> 7> 8> 9> 10> (21 rows affected)
+1> 2> 1> 2> 3> 4> 5> 6> 7> 8> 9> 10> 11> 12> 13> 14> 15> 16> (21 rows affected)
+(21 rows affected)
+(21 rows affected)
+1> 2> 3> (21 rows affected)
+1> 2> 1> 2> 3> (21 rows affected)
+1> 2> 3> 4> 5> 6> 7> 8> 9> 10> 11> 12> 13> 14> 15> 16> (21 rows affected)
+1> 2> 3> 4> (8 rows affected)
+1> 2> 3> 4> 5> 6> 7> 8> 9> 10> 11> 12> 13> 14> 15> 16> 17> 18> (1 row affected)
+
+------------------------------------------------------------------------------
+------------------------------
+11.                                   Slide 12 :
+OutputProdSalesPerformanceInChina
+------------------------------------------------------------------------------
+------------------------------
+1> 2> 3> 4> 5> 6> 7> 8> 9> 10> 11> 12> 13> 14> 15> 16> 17> 18> 19> 20> 21> 22> 23> 24> 25> 26> 27> 28> 29> 30> 31> 32> 33> 34> 35> 1> 2> 3> 4> 5> 6> 7> 8> 9> 10> 11> 12> 13> 14> 15> 16> 17> 18> 19> 20> 21> 22> 23> 24> 25> 26> 27> 28> 29> 30> 31> 32> 33> 34> 35> 36> 37> 38> 39> 40> 41> 42> 43> 44> 45> 46> 47> 48> 49> 50> 51> 52> 53> 54> 55> 56> 57> 58> 59> 60> 61> 62> 63> 64> 65> 66> 67> 68> 69> 70> 71> 72> 73> 74> 75> 76> 77> 78> 79> 80> 81> 82> 83> 84> 85> 86> 87> 88> 89> 90> 91> 92> 93> 94> 95> 96> 97> 98> 99> 100> 101> 102> 103> 104> 105> 106> 107> 108> 109> 110> 111> 112> 113> 114> 115> 116> 117> 118> 119> 120> 121> 122> 123> 124> 125> 126> 127> 128> 129> 130> 131> 132> 133> 134> 135> 136> PN
+
+		insert into OutputProdSalesPerformanceInChina([TypeIdx],[Type]
+,[Period],[MoneyType],Market,[Prod_cod],[Prod_des],[Mat00],[Mat12],[Mat24],[Ma
+t36],[Mat48])
+		select 1,'Product','MAT','PN',B.mkt,a.prod_cod,''
+			,sum(mat00PN),sum(mat12PN),sum(mat24PN)
+			,sum(mat36PN) ,sum(mat48PN)
+		from mthchpa_pkau A inner join
+		(select distinct A.mkt,B.PRod_cod,a.pack_cod,a.Rat from tblMktDef_MRBIChina
+A inner join tblProddef B
+		on A.productname=B.Product
+		where A.prod='100' and a.mkt not like 'eliquis%') B
+on A.pack_cod=B.pack_cod
+group by B.mkt,a.prod_cod
+
+		insert into OutputProdSalesPerformanceInChina([TypeIdx],[Type]
+,[Period],[MoneyType],Market,[Prod_cod],[Prod_des],[Mat00],[Mat12],[Mat24],[Ma
+t36],[Mat48])
+		select 3,'Market Size','MAT','PN',B.mkt,B.mkt,''
+			,sum(mat00PN),sum(mat12PN),sum(mat24PN)
+			,sum(mat36PN) ,sum(mat48PN)
+		from mthchpa_pkau A inner join tblMktDef_MRBIChina B
+		on A.pack_cod=b.pack_cod
+		where B.prod='000' and B.mkt
+in('DPP4','NIAD','ARV','ONCFCS','HYP','CCB','Platinum') and Molecule='N' and
+Class='N' and B.Active='Y'
+		group by B.mkt
+
+		insert into OutputProdSalesPerformanceInChina([TypeIdx],[Type]
+,[Period],[MoneyType],Market,[Prod_cod],[Prod_des],[Mat00],[Mat12],[Mat24],[Ma
+t36],[Mat48])
+		select 1,'Product','YTD','PN',B.mkt,a.prod_cod,''
+			,sum(YTD00PN),sum(YTD12PN) ,sum(YTD24PN)
+			,sum(YTD36PN) ,sum(YTD48PN)
+		from mthchpa_pkau A inner join
+		(select distinct A.mkt,B.PRod_cod,a.pack_cod,a.Rat from tblMktDef_MRBIChina
+A inner join tblProddef B
+		on A.productname=B.Product
+		where A.prod='100'and a.mkt not like 'eliquis%') B
+on A.pack_cod=B.pack_cod
+group by B.mkt,a.prod_cod
+
+
+		insert into OutputProdSalesPerformanceInChina([TypeIdx],[Type]
+,[Period],[MoneyType],Market,[Prod_cod],[Prod_des],[Mat00],[Mat12],[Mat24],[Ma
+t36],[Mat48])
+		select 3, 'Market Size','YTD','PN',B.mkt,B.mkt,''
+			,sum(YTD00PN),sum(YTD12PN) ,sum(YTD24PN)
+			,sum(YTD36PN) ,sum(YTD48PN)
+		from mthchpa_pkau A inner join tblMktDef_MRBIChina B
+		on A.pack_cod=b.pack_cod
+		where B.prod='000' and B.mkt
+in('DPP4','NIAD','ARV','ONCFCS','HYP','CCB','Platinum') and Molecule='N' and
+Class='N'and B.Active='Y'
+		group by B.mkt
+(8 rows affected)
+(7 rows affected)
+(8 rows affected)
+(7 rows affected)
+insert into OutputProdSalesPerformanceInChina
+		select 1,'Product','MTH','PN',B.mkt,a.prod_cod,'',sum(MTH00PN)
+		,sum(MTH01PN)
+		,sum(MTH02PN)
+		,sum(MTH03PN)
+		,sum(MTH04PN)
+		,sum(MTH05PN)
+		,sum(MTH06PN)
+		,sum(MTH07PN)
+		,sum(MTH08PN)
+		,sum(MTH09PN)
+		,sum(MTH10PN)
+		,sum(MTH11PN)
+		
+		,sum(MTH12PN)		
+		,sum(MTH13PN)
+		,sum(MTH14PN)
+		,sum(MTH15PN)
+		,sum(MTH16PN)
+		,sum(MTH17PN)
+		,sum(MTH18PN)
+		,sum(MTH19PN)
+		,sum(MTH20PN)
+		,sum(MTH21PN)
+		,sum(MTH22PN)
+		,sum(MTH23PN)		
+		from mthchpa_pkau A inner join
+		(select distinct A.mkt,B.PRod_cod ,a.pack_cod,a.Rat from tblMktDef_MRBIChina
+A inner join tblProddef B
+		on A.productname=B.Product
+		where A.prod='100' and a.mkt not like 'eliquis%') B
+on A.pack_cod=B.pack_cod
+group by B.mkt,a.prod_cod
+
+
+		insert into OutputProdSalesPerformanceInChina
+		select 3,'Market Size','MTH','PN',B.mkt,B.mkt,'',sum(MTH00PN)
+,sum(MTH01PN)
+		,sum(MTH02PN)
+		,sum(MTH03PN)
+		,sum(MTH04PN)
+		,sum(MTH05PN)
+		,sum(MTH06PN)
+		,sum(MTH07PN)
+		,sum(MTH08PN)
+		,sum(MTH09PN)
+		,sum(MTH10PN)
+		,sum(MTH11PN)
+		
+		,sum(MTH12PN)		
+		,sum(MTH13PN)
+		,sum(MTH14PN)
+		,sum(MTH15PN)
+		,sum(MTH16PN)
+		,sum(MTH17PN)
+		,sum(MTH18PN)
+		,sum(MTH19PN)
+		,sum(MTH20PN)
+		,sum(MTH21PN)
+		,sum(MTH22PN)
+		,sum(MTH23PN)			
+		from mthchpa_pkau A inner join tblMktDef_MRBIChina B
+		on A.pack_cod=b.pack_cod
+		where B.prod='000' and B.mkt
+in('DPP4','NIAD','ARV','ONCFCS','HYP','CCB','Platinum') and Molecule='N' and
+Class='N'and B.Active='Y'
+		group by B.mkt
+(8 rows affected)
+(7 rows affected)
+US
+
+		insert into OutputProdSalesPerformanceInChina([TypeIdx],[Type]
+,[Period],[MoneyType],Market,[Prod_cod],[Prod_des],[Mat00],[Mat12],[Mat24],[Ma
+t36],[Mat48])
+		select 1,'Product','MAT','US',B.mkt,a.prod_cod,''
+			,sum(mat00US),sum(mat12US),sum(mat24US)
+			,sum(mat36US) ,sum(mat48US)
+		from mthchpa_pkau A inner join
+		(select distinct A.mkt,B.PRod_cod,a.pack_cod,a.Rat from tblMktDef_MRBIChina
+A inner join tblProddef B
+		on A.productname=B.Product
+		where A.prod='100' and a.mkt not like 'eliquis%') B
+on A.pack_cod=B.pack_cod
+group by B.mkt,a.prod_cod
+
+		insert into OutputProdSalesPerformanceInChina([TypeIdx],[Type]
+,[Period],[MoneyType],Market,[Prod_cod],[Prod_des],[Mat00],[Mat12],[Mat24],[Ma
+t36],[Mat48])
+		select 3,'Market Size','MAT','US',B.mkt,B.mkt,''
+			,sum(mat00US),sum(mat12US),sum(mat24US)
+			,sum(mat36US) ,sum(mat48US)
+		from mthchpa_pkau A inner join tblMktDef_MRBIChina B
+		on A.pack_cod=b.pack_cod
+		where B.prod='000' and B.mkt
+in('DPP4','NIAD','ARV','ONCFCS','HYP','CCB','Platinum') and Molecule='N' and
+Class='N' and B.Active='Y'
+		group by B.mkt
+
+		insert into OutputProdSalesPerformanceInChina([TypeIdx],[Type]
+,[Period],[MoneyType],Market,[Prod_cod],[Prod_des],[Mat00],[Mat12],[Mat24],[Ma
+t36],[Mat48])
+		select 1,'Product','YTD','US',B.mkt,a.prod_cod,''
+			,sum(YTD00US),sum(YTD12US) ,sum(YTD24US)
+			,sum(YTD36US) ,sum(YTD48US)
+		from mthchpa_pkau A inner join
+		(select distinct A.mkt,B.PRod_cod,a.pack_cod,a.Rat from tblMktDef_MRBIChina
+A inner join tblProddef B
+		on A.productname=B.Product
+		where A.prod='100'and a.mkt not like 'eliquis%') B
+on A.pack_cod=B.pack_cod
+group by B.mkt,a.prod_cod
+
+
+		insert into OutputProdSalesPerformanceInChina([TypeIdx],[Type]
+,[Period],[MoneyType],Market,[Prod_cod],[Prod_des],[Mat00],[Mat12],[Mat24],[Ma
+t36],[Mat48])
+		select 3, 'Market Size','YTD','US',B.mkt,B.mkt,''
+			,sum(YTD00US),sum(YTD12US) ,sum(YTD24US)
+			,sum(YTD36US) ,sum(YTD48US)
+		from mthchpa_pkau A inner join tblMktDef_MRBIChina B
+		on A.pack_cod=b.pack_cod
+		where B.prod='000' and B.mkt
+in('DPP4','NIAD','ARV','ONCFCS','HYP','CCB','Platinum') and Molecule='N' and
+Class='N'and B.Active='Y'
+		group by B.mkt
+(8 rows affected)
+(7 rows affected)
+(8 rows affected)
+(7 rows affected)
+insert into OutputProdSalesPerformanceInChina
+		select 1,'Product','MTH','US',B.mkt,a.prod_cod,'',sum(MTH00US)
+		,sum(MTH01US)
+		,sum(MTH02US)
+		,sum(MTH03US)
+		,sum(MTH04US)
+		,sum(MTH05US)
+		,sum(MTH06US)
+		,sum(MTH07US)
+		,sum(MTH08US)
+		,sum(MTH09US)
+		,sum(MTH10US)
+		,sum(MTH11US)
+		
+		,sum(MTH12US)		
+		,sum(MTH13US)
+		,sum(MTH14US)
+		,sum(MTH15US)
+		,sum(MTH16US)
+		,sum(MTH17US)
+		,sum(MTH18US)
+		,sum(MTH19US)
+		,sum(MTH20US)
+		,sum(MTH21US)
+		,sum(MTH22US)
+		,sum(MTH23US)		
+		from mthchpa_pkau A inner join
+		(select distinct A.mkt,B.PRod_cod ,a.pack_cod,a.Rat from tblMktDef_MRBIChina
+A inner join tblProddef B
+		on A.productname=B.Product
+		where A.prod='100' and a.mkt not like 'eliquis%') B
+on A.pack_cod=B.pack_cod
+group by B.mkt,a.prod_cod
+
+
+		insert into OutputProdSalesPerformanceInChina
+		select 3,'Market Size','MTH','US',B.mkt,B.mkt,'',sum(MTH00US)
+,sum(MTH01US)
+		,sum(MTH02US)
+		,sum(MTH03US)
+		,sum(MTH04US)
+		,sum(MTH05US)
+		,sum(MTH06US)
+		,sum(MTH07US)
+		,sum(MTH08US)
+		,sum(MTH09US)
+		,sum(MTH10US)
+		,sum(MTH11US)
+		
+		,sum(MTH12US)		
+		,sum(MTH13US)
+		,sum(MTH14US)
+		,sum(MTH15US)
+		,sum(MTH16US)
+		,sum(MTH17US)
+		,sum(MTH18US)
+		,sum(MTH19US)
+		,sum(MTH20US)
+		,sum(MTH21US)
+		,sum(MTH22US)
+		,sum(MTH23US)			
+		from mthchpa_pkau A inner join tblMktDef_MRBIChina B
+		on A.pack_cod=b.pack_cod
+		where B.prod='000' and B.mkt
+in('DPP4','NIAD','ARV','ONCFCS','HYP','CCB','Platinum') and Molecule='N' and
+Class='N'and B.Active='Y'
+		group by B.mkt
+(8 rows affected)
+(7 rows affected)
+LC
+
+		insert into OutputProdSalesPerformanceInChina([TypeIdx],[Type]
+,[Period],[MoneyType],Market,[Prod_cod],[Prod_des],[Mat00],[Mat12],[Mat24],[Ma
+t36],[Mat48])
+		select 1,'Product','MAT','LC',B.mkt,a.prod_cod,''
+			,sum(mat00LC),sum(mat12LC),sum(mat24LC)
+			,sum(mat36LC) ,sum(mat48LC)
+		from mthchpa_pkau A inner join
+		(select distinct A.mkt,B.PRod_cod,a.pack_cod,a.Rat from tblMktDef_MRBIChina
+A inner join tblProddef B
+		on A.productname=B.Product
+		where A.prod='100' and a.mkt not like 'eliquis%') B
+on A.pack_cod=B.pack_cod
+group by B.mkt,a.prod_cod
+
+		insert into OutputProdSalesPerformanceInChina([TypeIdx],[Type]
+,[Period],[MoneyType],Market,[Prod_cod],[Prod_des],[Mat00],[Mat12],[Mat24],[Ma
+t36],[Mat48])
+		select 3,'Market Size','MAT','LC',B.mkt,B.mkt,''
+			,sum(mat00LC),sum(mat12LC),sum(mat24LC)
+			,sum(mat36LC) ,sum(mat48LC)
+		from mthchpa_pkau A inner join tblMktDef_MRBIChina B
+		on A.pack_cod=b.pack_cod
+		where B.prod='000' and B.mkt
+in('DPP4','NIAD','ARV','ONCFCS','HYP','CCB','Platinum') and Molecule='N' and
+Class='N' and B.Active='Y'
+		group by B.mkt
+
+		insert into OutputProdSalesPerformanceInChina([TypeIdx],[Type]
+,[Period],[MoneyType],Market,[Prod_cod],[Prod_des],[Mat00],[Mat12],[Mat24],[Ma
+t36],[Mat48])
+		select 1,'Product','YTD','LC',B.mkt,a.prod_cod,''
+			,sum(YTD00LC),sum(YTD12LC) ,sum(YTD24LC)
+			,sum(YTD36LC) ,sum(YTD48LC)
+		from mthchpa_pkau A inner join
+		(select distinct A.mkt,B.PRod_cod,a.pack_cod,a.Rat from tblMktDef_MRBIChina
+A inner join tblProddef B
+		on A.productname=B.Product
+		where A.prod='100'and a.mkt not like 'eliquis%') B
+on A.pack_cod=B.pack_cod
+group by B.mkt,a.prod_cod
+
+
+		insert into OutputProdSalesPerformanceInChina([TypeIdx],[Type]
+,[Period],[MoneyType],Market,[Prod_cod],[Prod_des],[Mat00],[Mat12],[Mat24],[Ma
+t36],[Mat48])
+		select 3, 'Market Size','YTD','LC',B.mkt,B.mkt,''
+			,sum(YTD00LC),sum(YTD12LC) ,sum(YTD24LC)
+			,sum(YTD36LC) ,sum(YTD48LC)
+		from mthchpa_pkau A inner join tblMktDef_MRBIChina B
+		on A.pack_cod=b.pack_cod
+		where B.prod='000' and B.mkt
+in('DPP4','NIAD','ARV','ONCFCS','HYP','CCB','Platinum') and Molecule='N' and
+Class='N'and B.Active='Y'
+		group by B.mkt
+(8 rows affected)
+(7 rows affected)
+(8 rows affected)
+(7 rows affected)
+insert into OutputProdSalesPerformanceInChina
+		select 1,'Product','MTH','LC',B.mkt,a.prod_cod,'',sum(MTH00LC)
+		,sum(MTH01LC)
+		,sum(MTH02LC)
+		,sum(MTH03LC)
+		,sum(MTH04LC)
+		,sum(MTH05LC)
+		,sum(MTH06LC)
+		,sum(MTH07LC)
+		,sum(MTH08LC)
+		,sum(MTH09LC)
+		,sum(MTH10LC)
+		,sum(MTH11LC)
+		
+		,sum(MTH12LC)		
+		,sum(MTH13LC)
+		,sum(MTH14LC)
+		,sum(MTH15LC)
+		,sum(MTH16LC)
+		,sum(MTH17LC)
+		,sum(MTH18LC)
+		,sum(MTH19LC)
+		,sum(MTH20LC)
+		,sum(MTH21LC)
+		,sum(MTH22LC)
+		,sum(MTH23LC)		
+		from mthchpa_pkau A inner join
+		(select distinct A.mkt,B.PRod_cod ,a.pack_cod,a.Rat from tblMktDef_MRBIChina
+A inner join tblProddef B
+		on A.productname=B.Product
+		where A.prod='100' and a.mkt not like 'eliquis%') B
+on A.pack_cod=B.pack_cod
+group by B.mkt,a.prod_cod
+
+
+		insert into OutputProdSalesPerformanceInChina
+		select 3,'Market Size','MTH','LC',B.mkt,B.mkt,'',sum(MTH00LC)
+,sum(MTH01LC)
+		,sum(MTH02LC)
+		,sum(MTH03LC)
+		,sum(MTH04LC)
+		,sum(MTH05LC)
+		,sum(MTH06LC)
+		,sum(MTH07LC)
+		,sum(MTH08LC)
+		,sum(MTH09LC)
+		,sum(MTH10LC)
+		,sum(MTH11LC)
+		
+		,sum(MTH12LC)		
+		,sum(MTH13LC)
+		,sum(MTH14LC)
+		,sum(MTH15LC)
+		,sum(MTH16LC)
+		,sum(MTH17LC)
+		,sum(MTH18LC)
+		,sum(MTH19LC)
+		,sum(MTH20LC)
+		,sum(MTH21LC)
+		,sum(MTH22LC)
+		,sum(MTH23LC)			
+		from mthchpa_pkau A inner join tblMktDef_MRBIChina B
+		on A.pack_cod=b.pack_cod
+		where B.prod='000' and B.mkt
+in('DPP4','NIAD','ARV','ONCFCS','HYP','CCB','Platinum') and Molecule='N' and
+Class='N'and B.Active='Y'
+		group by B.mkt
+(8 rows affected)
+(7 rows affected)
+UN
+
+		insert into OutputProdSalesPerformanceInChina([TypeIdx],[Type]
+,[Period],[MoneyType],Market,[Prod_cod],[Prod_des],[Mat00],[Mat12],[Mat24],[Ma
+t36],[Mat48])
+		select 1,'Product','MAT','UN',B.mkt,a.prod_cod,''
+			,sum(mat00UN/(b.Rat)),sum(mat12UN/(b.Rat)),sum(mat24UN/(b.Rat))
+			,sum(mat36UN/(b.Rat)) ,sum(mat48UN/(b.Rat))
+		from mthchpa_pkau A inner join
+		(select distinct A.mkt,B.PRod_cod,a.pack_cod,a.Rat from tblMktDef_MRBIChina
+A inner join tblProddef B
+		on A.productname=B.Product
+		where A.prod='100' and a.mkt not like 'eliquis%') B
+on A.pack_cod=B.pack_cod
+group by B.mkt,a.prod_cod
+
+		insert into OutputProdSalesPerformanceInChina([TypeIdx],[Type]
+,[Period],[MoneyType],Market,[Prod_cod],[Prod_des],[Mat00],[Mat12],[Mat24],[Ma
+t36],[Mat48])
+		select 3,'Market Size','MAT','UN',B.mkt,B.mkt,''
+			,sum(mat00UN/(b.Rat)),sum(mat12UN/(b.Rat)),sum(mat24UN/(b.Rat))
+			,sum(mat36UN/(b.Rat)) ,sum(mat48UN/(b.Rat))
+		from mthchpa_pkau A inner join tblMktDef_MRBIChina B
+		on A.pack_cod=b.pack_cod
+		where B.prod='000' and B.mkt
+in('DPP4','NIAD','ARV','ONCFCS','HYP','CCB','Platinum') and Molecule='N' and
+Class='N' and B.Active='Y'
+		group by B.mkt
+
+		insert into OutputProdSalesPerformanceInChina([TypeIdx],[Type]
+,[Period],[MoneyType],Market,[Prod_cod],[Prod_des],[Mat00],[Mat12],[Mat24],[Ma
+t36],[Mat48])
+		select 1,'Product','YTD','UN',B.mkt,a.prod_cod,''
+			,sum(YTD00UN/(b.Rat)),sum(YTD12UN/(b.Rat)) ,sum(YTD24UN/(b.Rat))
+			,sum(YTD36UN/(b.Rat)) ,sum(YTD48UN/(b.Rat))
+		from mthchpa_pkau A inner join
+		(select distinct A.mkt,B.PRod_cod,a.pack_cod,a.Rat from tblMktDef_MRBIChina
+A inner join tblProddef B
+		on A.productname=B.Product
+		where A.prod='100'and a.mkt not like 'eliquis%') B
+on A.pack_cod=B.pack_cod
+group by B.mkt,a.prod_cod
+
+
+		insert into OutputProdSalesPerformanceInChina([TypeIdx],[Type]
+,[Period],[MoneyType],Market,[Prod_cod],[Prod_des],[Mat00],[Mat12],[Mat24],[Ma
+t36],[Mat48])
+		select 3, 'Market Size','YTD','UN',B.mkt,B.mkt,''
+			,sum(YTD00UN/(b.Rat)),sum(YTD12UN/(b.Rat)) ,sum(YTD24UN/(b.Rat))
+			,sum(YTD36UN/(b.Rat)) ,sum(YTD48UN/(b.Rat))
+		from mthchpa_pkau A inner join tblMktDef_MRBIChina B
+		on A.pack_cod=b.pack_cod
+		where B.prod='000' and B.mkt
+in('DPP4','NIAD','ARV','ONCFCS','HYP','CCB','Platinum') and Molecule='N' and
+Class='N'and B.Active='Y'
+		group by B.mkt
+(8 rows affected)
+(7 rows affected)
+(8 rows affected)
+(7 rows affected)
+insert into OutputProdSalesPerformanceInChina
+		select 1,'Product','MTH','UN',B.mkt,a.prod_cod,'',sum(MTH00UN/(b.Rat))
+		,sum(MTH01UN/(b.Rat))
+		,sum(MTH02UN/(b.Rat))
+		,sum(MTH03UN/(b.Rat))
+		,sum(MTH04UN/(b.Rat))
+		,sum(MTH05UN/(b.Rat))
+		,sum(MTH06UN/(b.Rat))
+		,sum(MTH07UN/(b.Rat))
+		,sum(MTH08UN/(b.Rat))
+		,sum(MTH09UN/(b.Rat))
+		,sum(MTH10UN/(b.Rat))
+		,sum(MTH11UN/(b.Rat))
+		
+		,sum(MTH12UN/(b.Rat))		
+		,sum(MTH13UN/(b.Rat))
+		,sum(MTH14UN/(b.Rat))
+		,sum(MTH15UN/(b.Rat))
+		,sum(MTH16UN/(b.Rat))
+		,sum(MTH17UN/(b.Rat))
+		,sum(MTH18UN/(b.Rat))
+		,sum(MTH19UN/(b.Rat))
+		,sum(MTH20UN/(b.Rat))
+		,sum(MTH21UN/(b.Rat))
+		,sum(MTH22UN/(b.Rat))
+		,sum(MTH23UN/(b.Rat))		
+		from mthchpa_pkau A inner join
+		(select distinct A.mkt,B.PRod_cod ,a.pack_cod,a.Rat from tblMktDef_MRBIChina
+A inner join tblProddef B
+		on A.productname=B.Product
+		where A.prod='100' and a.mkt not like 'eliquis%') B
+on A.pack_cod=B.pack_cod
+group by B.mkt,a.prod_cod
+
+
+		insert into OutputProdSalesPerformanceInChina
+		select 3,'Market Size','MTH','UN',B.mkt,B.mkt,'',sum(MTH00UN/(b.Rat))
+,sum(MTH01UN/(b.Rat))
+		,sum(MTH02UN/(b.Rat))
+		,sum(MTH03UN/(b.Rat))
+		,sum(MTH04UN/(b.Rat))
+		,sum(MTH05UN/(b.Rat))
+		,sum(MTH06UN/(b.Rat))
+		,sum(MTH07UN/(b.Rat))
+		,sum(MTH08UN/(b.Rat))
+		,sum(MTH09UN/(b.Rat))
+		,sum(MTH10UN/(b.Rat))
+		,sum(MTH11UN/(b.Rat))
+		
+		,sum(MTH12UN/(b.Rat))		
+		,sum(MTH13UN/(b.Rat))
+		,sum(MTH14UN/(b.Rat))
+		,sum(MTH15UN/(b.Rat))
+		,sum(MTH16UN/(b.Rat))
+		,sum(MTH17UN/(b.Rat))
+		,sum(MTH18UN/(b.Rat))
+		,sum(MTH19UN/(b.Rat))
+		,sum(MTH20UN/(b.Rat))
+		,sum(MTH21UN/(b.Rat))
+		,sum(MTH22UN/(b.Rat))
+		,sum(MTH23UN/(b.Rat))			
+		from mthchpa_pkau A inner join tblMktDef_MRBIChina B
+		on A.pack_cod=b.pack_cod
+		where B.prod='000' and B.mkt
+in('DPP4','NIAD','ARV','ONCFCS','HYP','CCB','Platinum') and Molecule='N' and
+Class='N'and B.Active='Y'
+		group by B.mkt
+(8 rows affected)
+(7 rows affected)
+1> 2> 3> 4> 5> 6> 7> 8> 9> 10> 11> 12> 13> 14> 15> 16> 17> 18> 19> 20> 21> 22> 23> 24> 25> 26> 27> 28> 29> 30> 31> 32> 33> 34> 35> 36> 37> 38> 39> 40> 41> 42> 43> 44> 45> 46> 47> 48> 49> 50> 51> 52> 53> 54> 55> 56> 57> 58> 59> 60> 61> 62> 63> 64> 65> 66> 67> 68> 69> 70> 71> 72> 73> 74> 75> 76> 77> 78> 79> 80> 81> 82> 83> 84> 85> 86> 87> 88> 89> 90> 91> 92> 93> 94> 95> 96> 97> 98> 99> 100> 101> 102> 103> 104> 105> 106> 107> 108> 109> 110> 111> 112> 113> 114> 115> 116> 117> 118> 119> 120> 121> 122> 123> 124> 125> 126> 127> 128> 129> 130> 131> 132> 133> 134> 135> PN
+
+		insert into OutputProdSalesPerformanceInChina([TypeIdx],[Type]
+,[Period],[MoneyType],Market,[Prod_cod],[Prod_des],[Mat00],[Mat12],[Mat24],[Ma
+t36],[Mat48])
+		select 1,'Product','MAT','PN',B.mkt,a.prod_cod,''
+			,sum(mat00PN*b.Rat),sum(mat12PN*b.Rat),sum(mat24PN*b.Rat)
+			,sum(mat36PN*b.Rat) ,sum(mat48PN*b.Rat)
+		from mthchpa_pkau A inner join
+		(	select distinct A.mkt,B.PRod_cod,a.pack_cod,a.Rat from tblMktDef_MRBIChina
+A inner join tblProddef B
+			on A.productname=B.Product
+			where A.prod='100' and a.mkt like 'eliquis%') B
+on A.pack_cod=B.pack_cod
+group by B.mkt,a.prod_cod
+
+		insert into OutputProdSalesPerformanceInChina([TypeIdx],[Type]
+,[Period],[MoneyType],Market,[Prod_cod],[Prod_des],[Mat00],[Mat12],[Mat24],[Ma
+t36],[Mat48])
+		select 3,'Market Size','MAT','PN',B.mkt,B.mkt,''
+			,sum(mat00PN*b.Rat),sum(mat12PN*b.Rat),sum(mat24PN*b.Rat)
+			,sum(mat36PN*b.Rat) ,sum(mat48PN*b.Rat)
+		from mthchpa_pkau A inner join tblMktDef_MRBIChina B
+		on A.pack_cod=b.pack_cod
+		where B.prod='000' and B.mkt in('ELIQUIS VTEp','ELIQUIS VTEt','ELIQUIS
+NOAC') and Molecule='N' and Class='N' and B.Active='Y'
+		group by B.mkt
+
+		insert into OutputProdSalesPerformanceInChina([TypeIdx],[Type]
+,[Period],[MoneyType],Market,[Prod_cod],[Prod_des],[Mat00],[Mat12],[Mat24],[Ma
+t36],[Mat48])
+		select 1,'Product','YTD','PN',B.mkt,a.prod_cod,''
+			,sum(YTD00PN*b.Rat),sum(YTD12PN*b.Rat) ,sum(YTD24PN*b.Rat)
+			,sum(YTD36PN*b.Rat) ,sum(YTD48PN*b.Rat)
+		from mthchpa_pkau A inner join
+		(	select distinct A.mkt,B.PRod_cod,a.pack_cod,a.Rat from tblMktDef_MRBIChina
+A inner join tblProddef B
+			on A.productname=B.Product
+			where A.prod='100' and a.mkt like 'eliquis%') B
+on A.pack_cod=B.pack_cod
+group by B.mkt,a.prod_cod
+
+
+		insert into OutputProdSalesPerformanceInChina([TypeIdx],[Type]
+,[Period],[MoneyType],Market,[Prod_cod],[Prod_des],[Mat00],[Mat12],[Mat24],[Ma
+t36],[Mat48])
+		select 3, 'Market Size','YTD','PN',B.mkt,B.mkt,''
+			,sum(YTD00PN*b.Rat),sum(YTD12PN*b.Rat) ,sum(YTD24PN*b.Rat)
+			,sum(YTD36PN*b.Rat) ,sum(YTD48PN*b.Rat)
+		from mthchpa_pkau A inner join tblMktDef_MRBIChina B
+		on A.pack_cod=b.pack_cod
+		where B.prod='000' and B.mkt in('ELIQUIS VTEp','ELIQUIS VTEt','ELIQUIS
+NOAC') and Molecule='N' and Class='N'and B.Active='Y'
+		group by B.mkt
+(2 rows affected)
+(3 rows affected)
+(2 rows affected)
+(3 rows affected)
+insert into OutputProdSalesPerformanceInChina
+		select 1,'Product','MTH','PN',B.mkt,a.prod_cod,'',sum(MTH00PN*b.Rat)
+			,sum(MTH01PN*b.Rat)
+			,sum(MTH02PN*b.Rat)
+			,sum(MTH03PN*b.Rat)
+			,sum(MTH04PN*b.Rat)
+			,sum(MTH05PN*b.Rat)
+			,sum(MTH06PN*b.Rat)
+			,sum(MTH07PN*b.Rat)
+			,sum(MTH08PN*b.Rat)
+			,sum(MTH09PN*b.Rat)
+			,sum(MTH10PN*b.Rat)
+			,sum(MTH11PN*b.Rat)
+			
+			,sum(MTH12PN*b.Rat)		
+			,sum(MTH13PN*b.Rat)
+			,sum(MTH14PN*b.Rat)
+			,sum(MTH15PN*b.Rat)
+			,sum(MTH16PN*b.Rat)
+			,sum(MTH17PN*b.Rat)
+			,sum(MTH18PN*b.Rat)
+			,sum(MTH19PN*b.Rat)
+			,sum(MTH20PN*b.Rat)
+			,sum(MTH21PN*b.Rat)
+			,sum(MTH22PN*b.Rat)
+			,sum(MTH23PN*b.Rat)			
+		from mthchpa_pkau A inner join
+		(select distinct A.mkt,B.PRod_cod ,a.pack_cod,a.Rat from tblMktDef_MRBIChina
+A inner join tblProddef B
+		on A.productname=B.Product
+		where A.prod='100' and a.mkt like 'eliquis%') B
+on A.pack_cod=B.pack_cod
+group by B.mkt,a.prod_cod
+
+
+		insert into OutputProdSalesPerformanceInChina
+		select 3,'Market Size','MTH','PN',B.mkt,B.mkt,'',sum(MTH00PN*b.Rat)
+			,sum(MTH01PN*b.Rat)
+			,sum(MTH02PN*b.Rat)
+			,sum(MTH03PN*b.Rat)
+			,sum(MTH04PN*b.Rat)
+			,sum(MTH05PN*b.Rat)
+			,sum(MTH06PN*b.Rat)
+			,sum(MTH07PN*b.Rat)
+			,sum(MTH08PN*b.Rat)
+			,sum(MTH09PN*b.Rat)
+			,sum(MTH10PN*b.Rat)
+			,sum(MTH11PN*b.Rat)
+			
+			,sum(MTH12PN*b.Rat)		
+			,sum(MTH13PN*b.Rat)
+			,sum(MTH14PN*b.Rat)
+			,sum(MTH15PN*b.Rat)
+			,sum(MTH16PN*b.Rat)
+			,sum(MTH17PN*b.Rat)
+			,sum(MTH18PN*b.Rat)
+			,sum(MTH19PN*b.Rat)
+			,sum(MTH20PN*b.Rat)
+			,sum(MTH21PN*b.Rat)
+			,sum(MTH22PN*b.Rat)
+			,sum(MTH23PN*b.Rat)			
+		from mthchpa_pkau A inner join tblMktDef_MRBIChina B
+		on A.pack_cod=b.pack_cod
+		where B.prod='000' and B.mkt in('ELIQUIS VTEp','ELIQUIS VTEt','ELIQUIS
+NOAC') 
+			and Molecule='N' and Class='N'and B.Active='Y'
+		group by B.mkt
+(2 rows affected)
+(3 rows affected)
+US
+
+		insert into OutputProdSalesPerformanceInChina([TypeIdx],[Type]
+,[Period],[MoneyType],Market,[Prod_cod],[Prod_des],[Mat00],[Mat12],[Mat24],[Ma
+t36],[Mat48])
+		select 1,'Product','MAT','US',B.mkt,a.prod_cod,''
+			,sum(mat00US*b.Rat),sum(mat12US*b.Rat),sum(mat24US*b.Rat)
+			,sum(mat36US*b.Rat) ,sum(mat48US*b.Rat)
+		from mthchpa_pkau A inner join
+		(	select distinct A.mkt,B.PRod_cod,a.pack_cod,a.Rat from tblMktDef_MRBIChina
+A inner join tblProddef B
+			on A.productname=B.Product
+			where A.prod='100' and a.mkt like 'eliquis%') B
+on A.pack_cod=B.pack_cod
+group by B.mkt,a.prod_cod
+
+		insert into OutputProdSalesPerformanceInChina([TypeIdx],[Type]
+,[Period],[MoneyType],Market,[Prod_cod],[Prod_des],[Mat00],[Mat12],[Mat24],[Ma
+t36],[Mat48])
+		select 3,'Market Size','MAT','US',B.mkt,B.mkt,''
+			,sum(mat00US*b.Rat),sum(mat12US*b.Rat),sum(mat24US*b.Rat)
+			,sum(mat36US*b.Rat) ,sum(mat48US*b.Rat)
+		from mthchpa_pkau A inner join tblMktDef_MRBIChina B
+		on A.pack_cod=b.pack_cod
+		where B.prod='000' and B.mkt in('ELIQUIS VTEp','ELIQUIS VTEt','ELIQUIS
+NOAC') and Molecule='N' and Class='N' and B.Active='Y'
+		group by B.mkt
+
+		insert into OutputProdSalesPerformanceInChina([TypeIdx],[Type]
+,[Period],[MoneyType],Market,[Prod_cod],[Prod_des],[Mat00],[Mat12],[Mat24],[Ma
+t36],[Mat48])
+		select 1,'Product','YTD','US',B.mkt,a.prod_cod,''
+			,sum(YTD00US*b.Rat),sum(YTD12US*b.Rat) ,sum(YTD24US*b.Rat)
+			,sum(YTD36US*b.Rat) ,sum(YTD48US*b.Rat)
+		from mthchpa_pkau A inner join
+		(	select distinct A.mkt,B.PRod_cod,a.pack_cod,a.Rat from tblMktDef_MRBIChina
+A inner join tblProddef B
+			on A.productname=B.Product
+			where A.prod='100' and a.mkt like 'eliquis%') B
+on A.pack_cod=B.pack_cod
+group by B.mkt,a.prod_cod
+
+
+		insert into OutputProdSalesPerformanceInChina([TypeIdx],[Type]
+,[Period],[MoneyType],Market,[Prod_cod],[Prod_des],[Mat00],[Mat12],[Mat24],[Ma
+t36],[Mat48])
+		select 3, 'Market Size','YTD','US',B.mkt,B.mkt,''
+			,sum(YTD00US*b.Rat),sum(YTD12US*b.Rat) ,sum(YTD24US*b.Rat)
+			,sum(YTD36US*b.Rat) ,sum(YTD48US*b.Rat)
+		from mthchpa_pkau A inner join tblMktDef_MRBIChina B
+		on A.pack_cod=b.pack_cod
+		where B.prod='000' and B.mkt in('ELIQUIS VTEp','ELIQUIS VTEt','ELIQUIS
+NOAC') and Molecule='N' and Class='N'and B.Active='Y'
+		group by B.mkt
+(2 rows affected)
+(3 rows affected)
+(2 rows affected)
+(3 rows affected)
+insert into OutputProdSalesPerformanceInChina
+		select 1,'Product','MTH','US',B.mkt,a.prod_cod,'',sum(MTH00US*b.Rat)
+			,sum(MTH01US*b.Rat)
+			,sum(MTH02US*b.Rat)
+			,sum(MTH03US*b.Rat)
+			,sum(MTH04US*b.Rat)
+			,sum(MTH05US*b.Rat)
+			,sum(MTH06US*b.Rat)
+			,sum(MTH07US*b.Rat)
+			,sum(MTH08US*b.Rat)
+			,sum(MTH09US*b.Rat)
+			,sum(MTH10US*b.Rat)
+			,sum(MTH11US*b.Rat)
+			
+			,sum(MTH12US*b.Rat)		
+			,sum(MTH13US*b.Rat)
+			,sum(MTH14US*b.Rat)
+			,sum(MTH15US*b.Rat)
+			,sum(MTH16US*b.Rat)
+			,sum(MTH17US*b.Rat)
+			,sum(MTH18US*b.Rat)
+			,sum(MTH19US*b.Rat)
+			,sum(MTH20US*b.Rat)
+			,sum(MTH21US*b.Rat)
+			,sum(MTH22US*b.Rat)
+			,sum(MTH23US*b.Rat)			
+		from mthchpa_pkau A inner join
+		(select distinct A.mkt,B.PRod_cod ,a.pack_cod,a.Rat from tblMktDef_MRBIChina
+A inner join tblProddef B
+		on A.productname=B.Product
+		where A.prod='100' and a.mkt like 'eliquis%') B
+on A.pack_cod=B.pack_cod
+group by B.mkt,a.prod_cod
+
+
+		insert into OutputProdSalesPerformanceInChina
+		select 3,'Market Size','MTH','US',B.mkt,B.mkt,'',sum(MTH00US*b.Rat)
+			,sum(MTH01US*b.Rat)
+			,sum(MTH02US*b.Rat)
+			,sum(MTH03US*b.Rat)
+			,sum(MTH04US*b.Rat)
+			,sum(MTH05US*b.Rat)
+			,sum(MTH06US*b.Rat)
+			,sum(MTH07US*b.Rat)
+			,sum(MTH08US*b.Rat)
+			,sum(MTH09US*b.Rat)
+			,sum(MTH10US*b.Rat)
+			,sum(MTH11US*b.Rat)
+			
+			,sum(MTH12US*b.Rat)		
+			,sum(MTH13US*b.Rat)
+			,sum(MTH14US*b.Rat)
+			,sum(MTH15US*b.Rat)
+			,sum(MTH16US*b.Rat)
+			,sum(MTH17US*b.Rat)
+			,sum(MTH18US*b.Rat)
+			,sum(MTH19US*b.Rat)
+			,sum(MTH20US*b.Rat)
+			,sum(MTH21US*b.Rat)
+			,sum(MTH22US*b.Rat)
+			,sum(MTH23US*b.Rat)			
+		from mthchpa_pkau A inner join tblMktDef_MRBIChina B
+		on A.pack_cod=b.pack_cod
+		where B.prod='000' and B.mkt in('ELIQUIS VTEp','ELIQUIS VTEt','ELIQUIS
+NOAC') 
+			and Molecule='N' and Class='N'and B.Active='Y'
+		group by B.mkt
+(2 rows affected)
+(3 rows affected)
+LC
+
+		insert into OutputProdSalesPerformanceInChina([TypeIdx],[Type]
+,[Period],[MoneyType],Market,[Prod_cod],[Prod_des],[Mat00],[Mat12],[Mat24],[Ma
+t36],[Mat48])
+		select 1,'Product','MAT','LC',B.mkt,a.prod_cod,''
+			,sum(mat00LC*b.Rat),sum(mat12LC*b.Rat),sum(mat24LC*b.Rat)
+			,sum(mat36LC*b.Rat) ,sum(mat48LC*b.Rat)
+		from mthchpa_pkau A inner join
+		(	select distinct A.mkt,B.PRod_cod,a.pack_cod,a.Rat from tblMktDef_MRBIChina
+A inner join tblProddef B
+			on A.productname=B.Product
+			where A.prod='100' and a.mkt like 'eliquis%') B
+on A.pack_cod=B.pack_cod
+group by B.mkt,a.prod_cod
+
+		insert into OutputProdSalesPerformanceInChina([TypeIdx],[Type]
+,[Period],[MoneyType],Market,[Prod_cod],[Prod_des],[Mat00],[Mat12],[Mat24],[Ma
+t36],[Mat48])
+		select 3,'Market Size','MAT','LC',B.mkt,B.mkt,''
+			,sum(mat00LC*b.Rat),sum(mat12LC*b.Rat),sum(mat24LC*b.Rat)
+			,sum(mat36LC*b.Rat) ,sum(mat48LC*b.Rat)
+		from mthchpa_pkau A inner join tblMktDef_MRBIChina B
+		on A.pack_cod=b.pack_cod
+		where B.prod='000' and B.mkt in('ELIQUIS VTEp','ELIQUIS VTEt','ELIQUIS
+NOAC') and Molecule='N' and Class='N' and B.Active='Y'
+		group by B.mkt
+
+		insert into OutputProdSalesPerformanceInChina([TypeIdx],[Type]
+,[Period],[MoneyType],Market,[Prod_cod],[Prod_des],[Mat00],[Mat12],[Mat24],[Ma
+t36],[Mat48])
+		select 1,'Product','YTD','LC',B.mkt,a.prod_cod,''
+			,sum(YTD00LC*b.Rat),sum(YTD12LC*b.Rat) ,sum(YTD24LC*b.Rat)
+			,sum(YTD36LC*b.Rat) ,sum(YTD48LC*b.Rat)
+		from mthchpa_pkau A inner join
+		(	select distinct A.mkt,B.PRod_cod,a.pack_cod,a.Rat from tblMktDef_MRBIChina
+A inner join tblProddef B
+			on A.productname=B.Product
+			where A.prod='100' and a.mkt like 'eliquis%') B
+on A.pack_cod=B.pack_cod
+group by B.mkt,a.prod_cod
+
+
+		insert into OutputProdSalesPerformanceInChina([TypeIdx],[Type]
+,[Period],[MoneyType],Market,[Prod_cod],[Prod_des],[Mat00],[Mat12],[Mat24],[Ma
+t36],[Mat48])
+		select 3, 'Market Size','YTD','LC',B.mkt,B.mkt,''
+			,sum(YTD00LC*b.Rat),sum(YTD12LC*b.Rat) ,sum(YTD24LC*b.Rat)
+			,sum(YTD36LC*b.Rat) ,sum(YTD48LC*b.Rat)
+		from mthchpa_pkau A inner join tblMktDef_MRBIChina B
+		on A.pack_cod=b.pack_cod
+		where B.prod='000' and B.mkt in('ELIQUIS VTEp','ELIQUIS VTEt','ELIQUIS
+NOAC') and Molecule='N' and Class='N'and B.Active='Y'
+		group by B.mkt
+(2 rows affected)
+(3 rows affected)
+(2 rows affected)
+(3 rows affected)
+insert into OutputProdSalesPerformanceInChina
+		select 1,'Product','MTH','LC',B.mkt,a.prod_cod,'',sum(MTH00LC*b.Rat)
+			,sum(MTH01LC*b.Rat)
+			,sum(MTH02LC*b.Rat)
+			,sum(MTH03LC*b.Rat)
+			,sum(MTH04LC*b.Rat)
+			,sum(MTH05LC*b.Rat)
+			,sum(MTH06LC*b.Rat)
+			,sum(MTH07LC*b.Rat)
+			,sum(MTH08LC*b.Rat)
+			,sum(MTH09LC*b.Rat)
+			,sum(MTH10LC*b.Rat)
+			,sum(MTH11LC*b.Rat)
+			
+			,sum(MTH12LC*b.Rat)		
+			,sum(MTH13LC*b.Rat)
+			,sum(MTH14LC*b.Rat)
+			,sum(MTH15LC*b.Rat)
+			,sum(MTH16LC*b.Rat)
+			,sum(MTH17LC*b.Rat)
+			,sum(MTH18LC*b.Rat)
+			,sum(MTH19LC*b.Rat)
+			,sum(MTH20LC*b.Rat)
+			,sum(MTH21LC*b.Rat)
+			,sum(MTH22LC*b.Rat)
+			,sum(MTH23LC*b.Rat)			
+		from mthchpa_pkau A inner join
+		(select distinct A.mkt,B.PRod_cod ,a.pack_cod,a.Rat from tblMktDef_MRBIChina
+A inner join tblProddef B
+		on A.productname=B.Product
+		where A.prod='100' and a.mkt like 'eliquis%') B
+on A.pack_cod=B.pack_cod
+group by B.mkt,a.prod_cod
+
+
+		insert into OutputProdSalesPerformanceInChina
+		select 3,'Market Size','MTH','LC',B.mkt,B.mkt,'',sum(MTH00LC*b.Rat)
+			,sum(MTH01LC*b.Rat)
+			,sum(MTH02LC*b.Rat)
+			,sum(MTH03LC*b.Rat)
+			,sum(MTH04LC*b.Rat)
+			,sum(MTH05LC*b.Rat)
+			,sum(MTH06LC*b.Rat)
+			,sum(MTH07LC*b.Rat)
+			,sum(MTH08LC*b.Rat)
+			,sum(MTH09LC*b.Rat)
+			,sum(MTH10LC*b.Rat)
+			,sum(MTH11LC*b.Rat)
+			
+			,sum(MTH12LC*b.Rat)		
+			,sum(MTH13LC*b.Rat)
+			,sum(MTH14LC*b.Rat)
+			,sum(MTH15LC*b.Rat)
+			,sum(MTH16LC*b.Rat)
+			,sum(MTH17LC*b.Rat)
+			,sum(MTH18LC*b.Rat)
+			,sum(MTH19LC*b.Rat)
+			,sum(MTH20LC*b.Rat)
+			,sum(MTH21LC*b.Rat)
+			,sum(MTH22LC*b.Rat)
+			,sum(MTH23LC*b.Rat)			
+		from mthchpa_pkau A inner join tblMktDef_MRBIChina B
+		on A.pack_cod=b.pack_cod
+		where B.prod='000' and B.mkt in('ELIQUIS VTEp','ELIQUIS VTEt','ELIQUIS
+NOAC') 
+			and Molecule='N' and Class='N'and B.Active='Y'
+		group by B.mkt
+(2 rows affected)
+(3 rows affected)
+UN
+
+		insert into OutputProdSalesPerformanceInChina([TypeIdx],[Type]
+,[Period],[MoneyType],Market,[Prod_cod],[Prod_des],[Mat00],[Mat12],[Mat24],[Ma
+t36],[Mat48])
+		select 1,'Product','MAT','UN',B.mkt,a.prod_cod,''
+			,sum(mat00UN*b.Rat),sum(mat12UN*b.Rat),sum(mat24UN*b.Rat)
+			,sum(mat36UN*b.Rat) ,sum(mat48UN*b.Rat)
+		from mthchpa_pkau A inner join
+		(	select distinct A.mkt,B.PRod_cod,a.pack_cod,a.Rat from tblMktDef_MRBIChina
+A inner join tblProddef B
+			on A.productname=B.Product
+			where A.prod='100' and a.mkt like 'eliquis%') B
+on A.pack_cod=B.pack_cod
+group by B.mkt,a.prod_cod
+
+		insert into OutputProdSalesPerformanceInChina([TypeIdx],[Type]
+,[Period],[MoneyType],Market,[Prod_cod],[Prod_des],[Mat00],[Mat12],[Mat24],[Ma
+t36],[Mat48])
+		select 3,'Market Size','MAT','UN',B.mkt,B.mkt,''
+			,sum(mat00UN*b.Rat),sum(mat12UN*b.Rat),sum(mat24UN*b.Rat)
+			,sum(mat36UN*b.Rat) ,sum(mat48UN*b.Rat)
+		from mthchpa_pkau A inner join tblMktDef_MRBIChina B
+		on A.pack_cod=b.pack_cod
+		where B.prod='000' and B.mkt in('ELIQUIS VTEp','ELIQUIS VTEt','ELIQUIS
+NOAC') and Molecule='N' and Class='N' and B.Active='Y'
+		group by B.mkt
+
+		insert into OutputProdSalesPerformanceInChina([TypeIdx],[Type]
+,[Period],[MoneyType],Market,[Prod_cod],[Prod_des],[Mat00],[Mat12],[Mat24],[Ma
+t36],[Mat48])
+		select 1,'Product','YTD','UN',B.mkt,a.prod_cod,''
+			,sum(YTD00UN*b.Rat),sum(YTD12UN*b.Rat) ,sum(YTD24UN*b.Rat)
+			,sum(YTD36UN*b.Rat) ,sum(YTD48UN*b.Rat)
+		from mthchpa_pkau A inner join
+		(	select distinct A.mkt,B.PRod_cod,a.pack_cod,a.Rat from tblMktDef_MRBIChina
+A inner join tblProddef B
+			on A.productname=B.Product
+			where A.prod='100' and a.mkt like 'eliquis%') B
+on A.pack_cod=B.pack_cod
+group by B.mkt,a.prod_cod
+
+
+		insert into OutputProdSalesPerformanceInChina([TypeIdx],[Type]
+,[Period],[MoneyType],Market,[Prod_cod],[Prod_des],[Mat00],[Mat12],[Mat24],[Ma
+t36],[Mat48])
+		select 3, 'Market Size','YTD','UN',B.mkt,B.mkt,''
+			,sum(YTD00UN*b.Rat),sum(YTD12UN*b.Rat) ,sum(YTD24UN*b.Rat)
+			,sum(YTD36UN*b.Rat) ,sum(YTD48UN*b.Rat)
+		from mthchpa_pkau A inner join tblMktDef_MRBIChina B
+		on A.pack_cod=b.pack_cod
+		where B.prod='000' and B.mkt in('ELIQUIS VTEp','ELIQUIS VTEt','ELIQUIS
+NOAC') and Molecule='N' and Class='N'and B.Active='Y'
+		group by B.mkt
+(2 rows affected)
+(3 rows affected)
+(2 rows affected)
+(3 rows affected)
+insert into OutputProdSalesPerformanceInChina
+		select 1,'Product','MTH','UN',B.mkt,a.prod_cod,'',sum(MTH00UN*b.Rat)
+			,sum(MTH01UN*b.Rat)
+			,sum(MTH02UN*b.Rat)
+			,sum(MTH03UN*b.Rat)
+			,sum(MTH04UN*b.Rat)
+			,sum(MTH05UN*b.Rat)
+			,sum(MTH06UN*b.Rat)
+			,sum(MTH07UN*b.Rat)
+			,sum(MTH08UN*b.Rat)
+			,sum(MTH09UN*b.Rat)
+			,sum(MTH10UN*b.Rat)
+			,sum(MTH11UN*b.Rat)
+			
+			,sum(MTH12UN*b.Rat)		
+			,sum(MTH13UN*b.Rat)
+			,sum(MTH14UN*b.Rat)
+			,sum(MTH15UN*b.Rat)
+			,sum(MTH16UN*b.Rat)
+			,sum(MTH17UN*b.Rat)
+			,sum(MTH18UN*b.Rat)
+			,sum(MTH19UN*b.Rat)
+			,sum(MTH20UN*b.Rat)
+			,sum(MTH21UN*b.Rat)
+			,sum(MTH22UN*b.Rat)
+			,sum(MTH23UN*b.Rat)			
+		from mthchpa_pkau A inner join
+		(select distinct A.mkt,B.PRod_cod ,a.pack_cod,a.Rat from tblMktDef_MRBIChina
+A inner join tblProddef B
+		on A.productname=B.Product
+		where A.prod='100' and a.mkt like 'eliquis%') B
+on A.pack_cod=B.pack_cod
+group by B.mkt,a.prod_cod
+
+
+		insert into OutputProdSalesPerformanceInChina
+		select 3,'Market Size','MTH','UN',B.mkt,B.mkt,'',sum(MTH00UN*b.Rat)
+			,sum(MTH01UN*b.Rat)
+			,sum(MTH02UN*b.Rat)
+			,sum(MTH03UN*b.Rat)
+			,sum(MTH04UN*b.Rat)
+			,sum(MTH05UN*b.Rat)
+			,sum(MTH06UN*b.Rat)
+			,sum(MTH07UN*b.Rat)
+			,sum(MTH08UN*b.Rat)
+			,sum(MTH09UN*b.Rat)
+			,sum(MTH10UN*b.Rat)
+			,sum(MTH11UN*b.Rat)
+			
+			,sum(MTH12UN*b.Rat)		
+			,sum(MTH13UN*b.Rat)
+			,sum(MTH14UN*b.Rat)
+			,sum(MTH15UN*b.Rat)
+			,sum(MTH16UN*b.Rat)
+			,sum(MTH17UN*b.Rat)
+			,sum(MTH18UN*b.Rat)
+			,sum(MTH19UN*b.Rat)
+			,sum(MTH20UN*b.Rat)
+			,sum(MTH21UN*b.Rat)
+			,sum(MTH22UN*b.Rat)
+			,sum(MTH23UN*b.Rat)			
+		from mthchpa_pkau A inner join tblMktDef_MRBIChina B
+		on A.pack_cod=b.pack_cod
+		where B.prod='000' and B.mkt in('ELIQUIS VTEp','ELIQUIS VTEt','ELIQUIS
+NOAC') 
+			and Molecule='N' and Class='N'and B.Active='Y'
+		group by B.mkt
+(2 rows affected)
+(3 rows affected)
+1> 2> 3> 4> 5> 6> 7> 8> 9> 10> 11> 12> 13> 14> 15> 16> 17> 18> 19> (120 rows affected)
+(120 rows affected)
+1> 2> (12 rows affected)
+1> 2> 3> 4> 5> 6> 7> 8> 9> 10> 11> 12> 13> 14> (228 rows affected)
+1> 2> 3> 4> 5> 6> 7> 8> 9> 10> 11> 12> 13> 14> 15> 16> 17> (80 rows affected)
+1> 2> 3> 4> 5> 6> 7> 8> 9> 10> 11> 12> 13> 14> 15> 16> 17> (72 rows affected)
+1> 2> 3> 4> 5> 6> 7> 8> 9> 10> 11> 12> 13> 14> 15> 16> 17> (40 rows affected)
+1> 2> 3> 4> 5> 6> 7> 8> 9> 10> 11> 12> 13> 14> 15> 16> 17> (36 rows affected)
+1> 2> 3> 4> 5> (108 rows affected)
+1> 2> 3> 4> 5> 6> 7> 8> 9> 10> 11> 1> 2> 3> 1> 2> 3> 1> 2> 3> 4> 5> 6> 7> 8> 9> 10> 11> 12> 13> 14> 15> 16> 17> 18> 19> 20> 21> 22> 23> 24> 25> 26> 27> 28> 29> 30> 31> 32> 33> 34> 35> 36> 37> 38> 39> 40> 41> 42> 43> 44> 45> 46> 47> 48> 49> 50> 51> 52> 53> 54> 55> 56> 57> 58> 59> 60> 61> 62> 63> 64> 65> 66> 67> 68> 69> 70> 71> 72> 73> 74> 75> 76> 77> 78> 79> 80> 81> 82> 83> 84> 85> 86> 87> 88> 89> 90> 91> 92> 93> 94> 95> 96> 97> 98> 99> 100> 101> 102> 103> 104> 105> 106> 107> 108> 109> 110> 111> 112> 113> 114> 115> 116> 117> 118> 119> 120> 121> 122> 123> 124> 125> 126> 127> 128> 129> 130> 131> 132> 133> 134> 135> 136> 137> 138> 139> 140> 141> 142> 143> 144> 145> 146> 147> 148> 149> 150> 151> 152> 153> 154> 155> 156> 157> 158> 159> 160> 161> 162> 163> 164> 165> 166> 167> 168> 169> 170> 171> 172> 173> 174> 175> 176> 177> 178> 179> 180> 181> 182> 183> 184> 185> 186> 187> 188> 189> 190> 191> 192> 193> 194> 195> 196> 197> 198> 199> 200> 201> 202> 203> 204> 205> 206> 207> 208> 209> 210> 211> 212> 213> 214> 215> 216> 217> 218> 219> 220> 221> 222> 223> 224> 225> 226> 227> 228> 229> 230> 231> 232> 233> 234> 235> 236> 237> 238> 239> 240> 241> 1> 2> 3> (0 rows affected)
+(0 rows affected)
+1> 2> 3> 1> 2> 3> 4> 5> 6> 7> 8> 9> 10> 11> 12> 13> 14> 15> 16> 17> 18> 19> 20> 21> 22> 23> 24> 25> 26> 27> 28> 29> 30> 31> 32> 33> 34> 35> 36> 37> 38> 39> 40> 41> 42> 43> 44> 45> 46> 47> 48> 49> 50> 51> 52> 53> 54> 55> 56> 57> 58> 59> 60> 61> 62> 63> 64> 65> 66> 67> 68> 69> 70> 71> 72> 73> 74> 75> 76> 77> 78> (1 row affected)
+PN
+insert into TempCHPAPreReportsByMNC 
+		select  B.Molecule,B.Class,B.mkt,B.mktname,B.mkt,B.prod,B.Productname,
+			A.MNFL_COD,
+			'PN' as Moneytype, sum(isnull(R3M00PN,0)) as R3M00,sum(isnull(R3M01PN,0))
+as R3M01,sum(isnull(R3M02PN,0)) as R3M02,sum(isnull(R3M03PN,0)) as
+R3M03,sum(isnull(R3M04PN,0)) as R3M04,sum(isnull(R3M05PN,0)) as
+R3M05,sum(isnull(R3M06PN,0)) as R3M06,sum(isnull(R3M07PN,0)) as
+R3M07,sum(isnull(R3M08PN,0)) as R3M08,sum(isnull(R3M09PN,0)) as
+R3M09,sum(isnull(R3M10PN,0)) as R3M10,sum(isnull(R3M11PN,0)) as
+R3M11,sum(isnull(R3M12PN,0)) as R3M12,sum(isnull(R3M13PN,0)) as
+R3M13,sum(isnull(R3M14PN,0)) as R3M14,sum(isnull(R3M15PN,0)) as
+R3M15,sum(isnull(R3M16PN,0)) as R3M16,sum(isnull(R3M17PN,0)) as
+R3M17,sum(isnull(R3M18PN,0)) as R3M18,sum(isnull(R3M19PN,0)) as
+R3M19,sum(isnull(R3M20PN,0)) as R3M20,sum(isnull(R3M21PN,0)) as
+R3M21,sum(isnull(R3M22PN,0)) as R3M22,sum(isnull(R3M23PN,0)) as
+R3M23,sum(isnull(R3M24PN,0)) as R3M24,sum(isnull(R3M25PN,0)) as
+R3M25,sum(isnull(R3M26PN,0)) as R3M26,sum(isnull(R3M27PN,0)) as
+R3M27,sum(isnull(R3M28PN,0)) as R3M28,sum(isnull(R3M29PN,0)) as
+R3M29,sum(isnull(R3M30PN,0)) as R3M30,sum(isnull(R3M31PN,0)) as
+R3M31,sum(isnull(R3M32PN,0)) as R3M32,sum(isnull(R3M33PN,0)) as
+R3M33,sum(isnull(R3M34PN,0)) as R3M34,sum(isnull(R3M35PN,0)) as
+R3M35,sum(isnull(R3M36PN,0)) as R3M36,sum(isnull(R3M37PN,0)) as
+R3M37,sum(isnull(R3M38PN,0)) as R3M38,sum(isnull(R3M39PN,0)) as
+R3M39,sum(isnull(R3M40PN,0)) as R3M40,sum(isnull(R3M41PN,0)) as
+R3M41,sum(isnull(R3M42PN,0)) as R3M42,sum(isnull(R3M43PN,0)) as
+R3M43,sum(isnull(R3M44PN,0)) as R3M44,sum(isnull(R3M45PN,0)) as
+R3M45,sum(isnull(R3M46PN,0)) as R3M46,sum(isnull(R3M47PN,0)) as
+R3M47,sum(isnull(R3M48PN,0)) as R3M48, sum(isnull(MTH00PN,0)) as
+MTH00,sum(isnull(MTH01PN,0)) as MTH01,sum(isnull(MTH02PN,0)) as
+MTH02,sum(isnull(MTH03PN,0)) as MTH03,sum(isnull(MTH04PN,0)) as
+MTH04,sum(isnull(MTH05PN,0)) as MTH05,sum(isnull(MTH06PN,0)) as
+MTH06,sum(isnull(MTH07PN,0)) as MTH07,sum(isnull(MTH08PN,0)) as
+MTH08,sum(isnull(MTH09PN,0)) as MTH09,sum(isnull(MTH10PN,0)) as
+MTH10,sum(isnull(MTH11PN,0)) as MTH11,sum(isnull(MTH12PN,0)) as
+MTH12,sum(isnull(MTH13PN,0)) as MTH13,sum(isnull(MTH14PN,0)) as
+MTH14,sum(isnull(MTH15PN,0)) as MTH15,sum(isnull(MTH16PN,0)) as
+MTH16,sum(isnull(MTH17PN,0)) as MTH17,sum(isnull(MTH18PN,0)) as
+MTH18,sum(isnull(MTH19PN,0)) as MTH19,sum(isnull(MTH20PN,0)) as
+MTH20,sum(isnull(MTH21PN,0)) as MTH21,sum(isnull(MTH22PN,0)) as
+MTH22,sum(isnull(MTH23PN,0)) as MTH23,sum(isnull(MTH24PN,0)) as
+MTH24,sum(isnull(MTH25PN,0)) as MTH25,sum(isnull(MTH26PN,0)) as
+MTH26,sum(isnull(MTH27PN,0)) as MTH27,sum(isnull(MTH28PN,0)) as
+MTH28,sum(isnull(MTH29PN,0)) as MTH29,sum(isnull(MTH30PN,0)) as
+MTH30,sum(isnull(MTH31PN,0)) as MTH31,sum(isnull(MTH32PN,0)) as
+MTH32,sum(isnull(MTH33PN,0)) as MTH33,sum(isnull(MTH34PN,0)) as
+MTH34,sum(isnull(MTH35PN,0)) as MTH35,sum(isnull(MTH36PN,0)) as
+MTH36,sum(isnull(MTH37PN,0)) as MTH37,sum(isnull(MTH38PN,0)) as
+MTH38,sum(isnull(MTH39PN,0)) as MTH39,sum(isnull(MTH40PN,0)) as
+MTH40,sum(isnull(MTH41PN,0)) as MTH41,sum(isnull(MTH42PN,0)) as
+MTH42,sum(isnull(MTH43PN,0)) as MTH43,sum(isnull(MTH44PN,0)) as
+MTH44,sum(isnull(MTH45PN,0)) as MTH45,sum(isnull(MTH46PN,0)) as
+MTH46,sum(isnull(MTH47PN,0)) as MTH47,sum(isnull(MTH48PN,0)) as MTH48,
+sum(isnull(MAT00PN,0)) as MAT00,sum(isnull(MAT01PN,0)) as
+MAT01,sum(isnull(MAT02PN,0)) as MAT02,sum(isnull(MAT03PN,0)) as
+MAT03,sum(isnull(MAT04PN,0)) as MAT04,sum(isnull(MAT05PN,0)) as
+MAT05,sum(isnull(MAT06PN,0)) as MAT06,sum(isnull(MAT07PN,0)) as
+MAT07,sum(isnull(MAT08PN,0)) as MAT08,sum(isnull(MAT09PN,0)) as
+MAT09,sum(isnull(MAT10PN,0)) as MAT10,sum(isnull(MAT11PN,0)) as
+MAT11,sum(isnull(MAT12PN,0)) as MAT12,sum(isnull(MAT13PN,0)) as
+MAT13,sum(isnull(MAT14PN,0)) as MAT14,sum(isnull(MAT15PN,0)) as
+MAT15,sum(isnull(MAT16PN,0)) as MAT16,sum(isnull(MAT17PN,0)) as
+MAT17,sum(isnull(MAT18PN,0)) as MAT18,sum(isnull(MAT19PN,0)) as
+MAT19,sum(isnull(MAT20PN,0)) as MAT20,sum(isnull(MAT21PN,0)) as
+MAT21,sum(isnull(MAT22PN,0)) as MAT22,sum(isnull(MAT23PN,0)) as
+MAT23,sum(isnull(MAT24PN,0)) as MAT24,sum(isnull(MAT25PN,0)) as
+MAT25,sum(isnull(MAT26PN,0)) as MAT26,sum(isnull(MAT27PN,0)) as
+MAT27,sum(isnull(MAT28PN,0)) as MAT28,sum(isnull(MAT29PN,0)) as
+MAT29,sum(isnull(MAT30PN,0)) as MAT30,sum(isnull(MAT31PN,0)) as
+MAT31,sum(isnull(MAT32PN,0)) as MAT32,sum(isnull(MAT33PN,0)) as
+MAT33,sum(isnull(MAT34PN,0)) as MAT34,sum(isnull(MAT35PN,0)) as
+MAT35,sum(isnull(MAT36PN,0)) as MAT36,sum(isnull(MAT37PN,0)) as
+MAT37,sum(isnull(MAT38PN,0)) as MAT38,sum(isnull(MAT39PN,0)) as
+MAT39,sum(isnull(MAT40PN,0)) as MAT40,sum(isnull(MAT41PN,0)) as
+MAT41,sum(isnull(MAT42PN,0)) as MAT42,sum(isnull(MAT43PN,0)) as
+MAT43,sum(isnull(MAT44PN,0)) as MAT44,sum(isnull(MAT45PN,0)) as
+MAT45,sum(isnull(MAT46PN,0)) as MAT46,sum(isnull(MAT47PN,0)) as
+MAT47,sum(isnull(MAT48PN,0)) as MAT48, sum(isnull(YTD00PN,0)) as
+YTD00,sum(isnull(YTD01PN,0)) as YTD01,sum(isnull(YTD02PN,0)) as
+YTD02,sum(isnull(YTD03PN,0)) as YTD03,sum(isnull(YTD04PN,0)) as
+YTD04,sum(isnull(YTD05PN,0)) as YTD05,sum(isnull(YTD06PN,0)) as
+YTD06,sum(isnull(YTD07PN,0)) as YTD07,sum(isnull(YTD08PN,0)) as
+YTD08,sum(isnull(YTD09PN,0)) as YTD09,sum(isnull(YTD10PN,0)) as
+YTD10,sum(isnull(YTD11PN,0)) as YTD11,sum(isnull(YTD12PN,0)) as
+YTD12,sum(isnull(YTD13PN,0)) as YTD13,sum(isnull(YTD14PN,0)) as
+YTD14,sum(isnull(YTD15PN,0)) as YTD15,sum(isnull(YTD16PN,0)) as
+YTD16,sum(isnull(YTD17PN,0)) as YTD17,sum(isnull(YTD18PN,0)) as
+YTD18,sum(isnull(YTD19PN,0)) as YTD19,sum(isnull(YTD20PN,0)) as
+YTD20,sum(isnull(YTD21PN,0)) as YTD21,sum(isnull(YTD22PN,0)) as
+YTD22,sum(isnull(YTD23PN,0)) as YTD23,sum(isnull(YTD24PN,0)) as
+YTD24,sum(isnull(YTD25PN,0)) as YTD25,sum(isnull(YTD26PN,0)) as
+YTD26,sum(isnull(YTD27PN,0)) as YTD27,sum(isnull(YTD28PN,0)) as
+YTD28,sum(isnull(YTD29PN,0)) as YTD29,sum(isnull(YTD30PN,0)) as
+YTD30,sum(isnull(YTD31PN,0)) as YTD31,sum(isnull(YTD32PN,0)) as
+YTD32,sum(isnull(YTD33PN,0)) as YTD33,sum(isnull(YTD34PN,0)) as
+YTD34,sum(isnull(YTD35PN,0)) as YTD35,sum(isnull(YTD36PN,0)) as
+YTD36,sum(isnull(YTD37PN,0)) as YTD37,sum(isnull(YTD38PN,0)) as
+YTD38,sum(isnull(YTD39PN,0)) as YTD39,sum(isnull(YTD40PN,0)) as
+YTD40,sum(isnull(YTD41PN,0)) as YTD41,sum(isnull(YTD42PN,0)) as
+YTD42,sum(isnull(YTD43PN,0)) as YTD43,sum(isnull(YTD44PN,0)) as
+YTD44,sum(isnull(YTD45PN,0)) as YTD45,sum(isnull(YTD46PN,0)) as
+YTD46,sum(isnull(YTD47PN,0)) as YTD47,sum(isnull(YTD48PN,0)) as YTD48,
+sum(isnull(Qtr00PN,0)) as Qtr00,sum(isnull(Qtr01PN,0)) as
+Qtr01,sum(isnull(Qtr02PN,0)) as Qtr02,sum(isnull(Qtr03PN,0)) as
+Qtr03,sum(isnull(Qtr04PN,0)) as Qtr04,sum(isnull(Qtr05PN,0)) as
+Qtr05,sum(isnull(Qtr06PN,0)) as Qtr06,sum(isnull(Qtr07PN,0)) as
+Qtr07,sum(isnull(Qtr08PN,0)) as Qtr08,sum(isnull(Qtr09PN,0)) as
+Qtr09,sum(isnull(Qtr10PN,0)) as Qtr10,sum(isnull(Qtr11PN,0)) as
+Qtr11,sum(isnull(Qtr12PN,0)) as Qtr12,sum(isnull(Qtr13PN,0)) as
+Qtr13,sum(isnull(Qtr14PN,0)) as Qtr14,sum(isnull(Qtr15PN,0)) as
+Qtr15,sum(isnull(Qtr16PN,0)) as Qtr16,sum(isnull(Qtr17PN,0)) as
+Qtr17,sum(isnull(Qtr18PN,0)) as Qtr18,sum(isnull(Qtr19PN,0)) as Qtr19
+		from mthCHPA_pkau A inner join tblMktDef_MRBIChina B
+on A.pack_cod=B.pack_cod where B.Active='Y'
+		group by B.Molecule,B.Class,B.mkt,B.mktname,B.prod,B.Productname, A.MNFL_COD
+(272 rows affected)
+US
+insert into TempCHPAPreReportsByMNC 
+		select  B.Molecule,B.Class,B.mkt,B.mktname,B.mkt,B.prod,B.Productname,
+			A.MNFL_COD,
+			'US' as Moneytype, sum(isnull(R3M00US,0)) as R3M00,sum(isnull(R3M01US,0))
+as R3M01,sum(isnull(R3M02US,0)) as R3M02,sum(isnull(R3M03US,0)) as
+R3M03,sum(isnull(R3M04US,0)) as R3M04,sum(isnull(R3M05US,0)) as
+R3M05,sum(isnull(R3M06US,0)) as R3M06,sum(isnull(R3M07US,0)) as
+R3M07,sum(isnull(R3M08US,0)) as R3M08,sum(isnull(R3M09US,0)) as
+R3M09,sum(isnull(R3M10US,0)) as R3M10,sum(isnull(R3M11US,0)) as
+R3M11,sum(isnull(R3M12US,0)) as R3M12,sum(isnull(R3M13US,0)) as
+R3M13,sum(isnull(R3M14US,0)) as R3M14,sum(isnull(R3M15US,0)) as
+R3M15,sum(isnull(R3M16US,0)) as R3M16,sum(isnull(R3M17US,0)) as
+R3M17,sum(isnull(R3M18US,0)) as R3M18,sum(isnull(R3M19US,0)) as
+R3M19,sum(isnull(R3M20US,0)) as R3M20,sum(isnull(R3M21US,0)) as
+R3M21,sum(isnull(R3M22US,0)) as R3M22,sum(isnull(R3M23US,0)) as
+R3M23,sum(isnull(R3M24US,0)) as R3M24,sum(isnull(R3M25US,0)) as
+R3M25,sum(isnull(R3M26US,0)) as R3M26,sum(isnull(R3M27US,0)) as
+R3M27,sum(isnull(R3M28US,0)) as R3M28,sum(isnull(R3M29US,0)) as
+R3M29,sum(isnull(R3M30US,0)) as R3M30,sum(isnull(R3M31US,0)) as
+R3M31,sum(isnull(R3M32US,0)) as R3M32,sum(isnull(R3M33US,0)) as
+R3M33,sum(isnull(R3M34US,0)) as R3M34,sum(isnull(R3M35US,0)) as
+R3M35,sum(isnull(R3M36US,0)) as R3M36,sum(isnull(R3M37US,0)) as
+R3M37,sum(isnull(R3M38US,0)) as R3M38,sum(isnull(R3M39US,0)) as
+R3M39,sum(isnull(R3M40US,0)) as R3M40,sum(isnull(R3M41US,0)) as
+R3M41,sum(isnull(R3M42US,0)) as R3M42,sum(isnull(R3M43US,0)) as
+R3M43,sum(isnull(R3M44US,0)) as R3M44,sum(isnull(R3M45US,0)) as
+R3M45,sum(isnull(R3M46US,0)) as R3M46,sum(isnull(R3M47US,0)) as
+R3M47,sum(isnull(R3M48US,0)) as R3M48, sum(isnull(MTH00US,0)) as
+MTH00,sum(isnull(MTH01US,0)) as MTH01,sum(isnull(MTH02US,0)) as
+MTH02,sum(isnull(MTH03US,0)) as MTH03,sum(isnull(MTH04US,0)) as
+MTH04,sum(isnull(MTH05US,0)) as MTH05,sum(isnull(MTH06US,0)) as
+MTH06,sum(isnull(MTH07US,0)) as MTH07,sum(isnull(MTH08US,0)) as
+MTH08,sum(isnull(MTH09US,0)) as MTH09,sum(isnull(MTH10US,0)) as
+MTH10,sum(isnull(MTH11US,0)) as MTH11,sum(isnull(MTH12US,0)) as
+MTH12,sum(isnull(MTH13US,0)) as MTH13,sum(isnull(MTH14US,0)) as
+MTH14,sum(isnull(MTH15US,0)) as MTH15,sum(isnull(MTH16US,0)) as
+MTH16,sum(isnull(MTH17US,0)) as MTH17,sum(isnull(MTH18US,0)) as
+MTH18,sum(isnull(MTH19US,0)) as MTH19,sum(isnull(MTH20US,0)) as
+MTH20,sum(isnull(MTH21US,0)) as MTH21,sum(isnull(MTH22US,0)) as
+MTH22,sum(isnull(MTH23US,0)) as MTH23,sum(isnull(MTH24US,0)) as
+MTH24,sum(isnull(MTH25US,0)) as MTH25,sum(isnull(MTH26US,0)) as
+MTH26,sum(isnull(MTH27US,0)) as MTH27,sum(isnull(MTH28US,0)) as
+MTH28,sum(isnull(MTH29US,0)) as MTH29,sum(isnull(MTH30US,0)) as
+MTH30,sum(isnull(MTH31US,0)) as MTH31,sum(isnull(MTH32US,0)) as
+MTH32,sum(isnull(MTH33US,0)) as MTH33,sum(isnull(MTH34US,0)) as
+MTH34,sum(isnull(MTH35US,0)) as MTH35,sum(isnull(MTH36US,0)) as
+MTH36,sum(isnull(MTH37US,0)) as MTH37,sum(isnull(MTH38US,0)) as
+MTH38,sum(isnull(MTH39US,0)) as MTH39,sum(isnull(MTH40US,0)) as
+MTH40,sum(isnull(MTH41US,0)) as MTH41,sum(isnull(MTH42US,0)) as
+MTH42,sum(isnull(MTH43US,0)) as MTH43,sum(isnull(MTH44US,0)) as
+MTH44,sum(isnull(MTH45US,0)) as MTH45,sum(isnull(MTH46US,0)) as
+MTH46,sum(isnull(MTH47US,0)) as MTH47,sum(isnull(MTH48US,0)) as MTH48,
+sum(isnull(MAT00US,0)) as MAT00,sum(isnull(MAT01US,0)) as
+MAT01,sum(isnull(MAT02US,0)) as MAT02,sum(isnull(MAT03US,0)) as
+MAT03,sum(isnull(MAT04US,0)) as MAT04,sum(isnull(MAT05US,0)) as
+MAT05,sum(isnull(MAT06US,0)) as MAT06,sum(isnull(MAT07US,0)) as
+MAT07,sum(isnull(MAT08US,0)) as MAT08,sum(isnull(MAT09US,0)) as
+MAT09,sum(isnull(MAT10US,0)) as MAT10,sum(isnull(MAT11US,0)) as
+MAT11,sum(isnull(MAT12US,0)) as MAT12,sum(isnull(MAT13US,0)) as
+MAT13,sum(isnull(MAT14US,0)) as MAT14,sum(isnull(MAT15US,0)) as
+MAT15,sum(isnull(MAT16US,0)) as MAT16,sum(isnull(MAT17US,0)) as
+MAT17,sum(isnull(MAT18US,0)) as MAT18,sum(isnull(MAT19US,0)) as
+MAT19,sum(isnull(MAT20US,0)) as MAT20,sum(isnull(MAT21US,0)) as
+MAT21,sum(isnull(MAT22US,0)) as MAT22,sum(isnull(MAT23US,0)) as
+MAT23,sum(isnull(MAT24US,0)) as MAT24,sum(isnull(MAT25US,0)) as
+MAT25,sum(isnull(MAT26US,0)) as MAT26,sum(isnull(MAT27US,0)) as
+MAT27,sum(isnull(MAT28US,0)) as MAT28,sum(isnull(MAT29US,0)) as
+MAT29,sum(isnull(MAT30US,0)) as MAT30,sum(isnull(MAT31US,0)) as
+MAT31,sum(isnull(MAT32US,0)) as MAT32,sum(isnull(MAT33US,0)) as
+MAT33,sum(isnull(MAT34US,0)) as MAT34,sum(isnull(MAT35US,0)) as
+MAT35,sum(isnull(MAT36US,0)) as MAT36,sum(isnull(MAT37US,0)) as
+MAT37,sum(isnull(MAT38US,0)) as MAT38,sum(isnull(MAT39US,0)) as
+MAT39,sum(isnull(MAT40US,0)) as MAT40,sum(isnull(MAT41US,0)) as
+MAT41,sum(isnull(MAT42US,0)) as MAT42,sum(isnull(MAT43US,0)) as
+MAT43,sum(isnull(MAT44US,0)) as MAT44,sum(isnull(MAT45US,0)) as
+MAT45,sum(isnull(MAT46US,0)) as MAT46,sum(isnull(MAT47US,0)) as
+MAT47,sum(isnull(MAT48US,0)) as MAT48, sum(isnull(YTD00US,0)) as
+YTD00,sum(isnull(YTD01US,0)) as YTD01,sum(isnull(YTD02US,0)) as
+YTD02,sum(isnull(YTD03US,0)) as YTD03,sum(isnull(YTD04US,0)) as
+YTD04,sum(isnull(YTD05US,0)) as YTD05,sum(isnull(YTD06US,0)) as
+YTD06,sum(isnull(YTD07US,0)) as YTD07,sum(isnull(YTD08US,0)) as
+YTD08,sum(isnull(YTD09US,0)) as YTD09,sum(isnull(YTD10US,0)) as
+YTD10,sum(isnull(YTD11US,0)) as YTD11,sum(isnull(YTD12US,0)) as
+YTD12,sum(isnull(YTD13US,0)) as YTD13,sum(isnull(YTD14US,0)) as
+YTD14,sum(isnull(YTD15US,0)) as YTD15,sum(isnull(YTD16US,0)) as
+YTD16,sum(isnull(YTD17US,0)) as YTD17,sum(isnull(YTD18US,0)) as
+YTD18,sum(isnull(YTD19US,0)) as YTD19,sum(isnull(YTD20US,0)) as
+YTD20,sum(isnull(YTD21US,0)) as YTD21,sum(isnull(YTD22US,0)) as
+YTD22,sum(isnull(YTD23US,0)) as YTD23,sum(isnull(YTD24US,0)) as
+YTD24,sum(isnull(YTD25US,0)) as YTD25,sum(isnull(YTD26US,0)) as
+YTD26,sum(isnull(YTD27US,0)) as YTD27,sum(isnull(YTD28US,0)) as
+YTD28,sum(isnull(YTD29US,0)) as YTD29,sum(isnull(YTD30US,0)) as
+YTD30,sum(isnull(YTD31US,0)) as YTD31,sum(isnull(YTD32US,0)) as
+YTD32,sum(isnull(YTD33US,0)) as YTD33,sum(isnull(YTD34US,0)) as
+YTD34,sum(isnull(YTD35US,0)) as YTD35,sum(isnull(YTD36US,0)) as
+YTD36,sum(isnull(YTD37US,0)) as YTD37,sum(isnull(YTD38US,0)) as
+YTD38,sum(isnull(YTD39US,0)) as YTD39,sum(isnull(YTD40US,0)) as
+YTD40,sum(isnull(YTD41US,0)) as YTD41,sum(isnull(YTD42US,0)) as
+YTD42,sum(isnull(YTD43US,0)) as YTD43,sum(isnull(YTD44US,0)) as
+YTD44,sum(isnull(YTD45US,0)) as YTD45,sum(isnull(YTD46US,0)) as
+YTD46,sum(isnull(YTD47US,0)) as YTD47,sum(isnull(YTD48US,0)) as YTD48,
+sum(isnull(Qtr00US,0)) as Qtr00,sum(isnull(Qtr01US,0)) as
+Qtr01,sum(isnull(Qtr02US,0)) as Qtr02,sum(isnull(Qtr03US,0)) as
+Qtr03,sum(isnull(Qtr04US,0)) as Qtr04,sum(isnull(Qtr05US,0)) as
+Qtr05,sum(isnull(Qtr06US,0)) as Qtr06,sum(isnull(Qtr07US,0)) as
+Qtr07,sum(isnull(Qtr08US,0)) as Qtr08,sum(isnull(Qtr09US,0)) as
+Qtr09,sum(isnull(Qtr10US,0)) as Qtr10,sum(isnull(Qtr11US,0)) as
+Qtr11,sum(isnull(Qtr12US,0)) as Qtr12,sum(isnull(Qtr13US,0)) as
+Qtr13,sum(isnull(Qtr14US,0)) as Qtr14,sum(isnull(Qtr15US,0)) as
+Qtr15,sum(isnull(Qtr16US,0)) as Qtr16,sum(isnull(Qtr17US,0)) as
+Qtr17,sum(isnull(Qtr18US,0)) as Qtr18,sum(isnull(Qtr19US,0)) as Qtr19
+		from mthCHPA_pkau A inner join tblMktDef_MRBIChina B
+on A.pack_cod=B.pack_cod where B.Active='Y'
+		group by B.Molecule,B.Class,B.mkt,B.mktname,B.prod,B.Productname, A.MNFL_COD
+(272 rows affected)
+LC
+insert into TempCHPAPreReportsByMNC 
+		select  B.Molecule,B.Class,B.mkt,B.mktname,B.mkt,B.prod,B.Productname,
+			A.MNFL_COD,
+			'LC' as Moneytype, sum(isnull(R3M00LC,0)) as R3M00,sum(isnull(R3M01LC,0))
+as R3M01,sum(isnull(R3M02LC,0)) as R3M02,sum(isnull(R3M03LC,0)) as
+R3M03,sum(isnull(R3M04LC,0)) as R3M04,sum(isnull(R3M05LC,0)) as
+R3M05,sum(isnull(R3M06LC,0)) as R3M06,sum(isnull(R3M07LC,0)) as
+R3M07,sum(isnull(R3M08LC,0)) as R3M08,sum(isnull(R3M09LC,0)) as
+R3M09,sum(isnull(R3M10LC,0)) as R3M10,sum(isnull(R3M11LC,0)) as
+R3M11,sum(isnull(R3M12LC,0)) as R3M12,sum(isnull(R3M13LC,0)) as
+R3M13,sum(isnull(R3M14LC,0)) as R3M14,sum(isnull(R3M15LC,0)) as
+R3M15,sum(isnull(R3M16LC,0)) as R3M16,sum(isnull(R3M17LC,0)) as
+R3M17,sum(isnull(R3M18LC,0)) as R3M18,sum(isnull(R3M19LC,0)) as
+R3M19,sum(isnull(R3M20LC,0)) as R3M20,sum(isnull(R3M21LC,0)) as
+R3M21,sum(isnull(R3M22LC,0)) as R3M22,sum(isnull(R3M23LC,0)) as
+R3M23,sum(isnull(R3M24LC,0)) as R3M24,sum(isnull(R3M25LC,0)) as
+R3M25,sum(isnull(R3M26LC,0)) as R3M26,sum(isnull(R3M27LC,0)) as
+R3M27,sum(isnull(R3M28LC,0)) as R3M28,sum(isnull(R3M29LC,0)) as
+R3M29,sum(isnull(R3M30LC,0)) as R3M30,sum(isnull(R3M31LC,0)) as
+R3M31,sum(isnull(R3M32LC,0)) as R3M32,sum(isnull(R3M33LC,0)) as
+R3M33,sum(isnull(R3M34LC,0)) as R3M34,sum(isnull(R3M35LC,0)) as
+R3M35,sum(isnull(R3M36LC,0)) as R3M36,sum(isnull(R3M37LC,0)) as
+R3M37,sum(isnull(R3M38LC,0)) as R3M38,sum(isnull(R3M39LC,0)) as
+R3M39,sum(isnull(R3M40LC,0)) as R3M40,sum(isnull(R3M41LC,0)) as
+R3M41,sum(isnull(R3M42LC,0)) as R3M42,sum(isnull(R3M43LC,0)) as
+R3M43,sum(isnull(R3M44LC,0)) as R3M44,sum(isnull(R3M45LC,0)) as
+R3M45,sum(isnull(R3M46LC,0)) as R3M46,sum(isnull(R3M47LC,0)) as
+R3M47,sum(isnull(R3M48LC,0)) as R3M48, sum(isnull(MTH00LC,0)) as
+MTH00,sum(isnull(MTH01LC,0)) as MTH01,sum(isnull(MTH02LC,0)) as
+MTH02,sum(isnull(MTH03LC,0)) as MTH03,sum(isnull(MTH04LC,0)) as
+MTH04,sum(isnull(MTH05LC,0)) as MTH05,sum(isnull(MTH06LC,0)) as
+MTH06,sum(isnull(MTH07LC,0)) as MTH07,sum(isnull(MTH08LC,0)) as
+MTH08,sum(isnull(MTH09LC,0)) as MTH09,sum(isnull(MTH10LC,0)) as
+MTH10,sum(isnull(MTH11LC,0)) as MTH11,sum(isnull(MTH12LC,0)) as
+MTH12,sum(isnull(MTH13LC,0)) as MTH13,sum(isnull(MTH14LC,0)) as
+MTH14,sum(isnull(MTH15LC,0)) as MTH15,sum(isnull(MTH16LC,0)) as
+MTH16,sum(isnull(MTH17LC,0)) as MTH17,sum(isnull(MTH18LC,0)) as
+MTH18,sum(isnull(MTH19LC,0)) as MTH19,sum(isnull(MTH20LC,0)) as
+MTH20,sum(isnull(MTH21LC,0)) as MTH21,sum(isnull(MTH22LC,0)) as
+MTH22,sum(isnull(MTH23LC,0)) as MTH23,sum(isnull(MTH24LC,0)) as
+MTH24,sum(isnull(MTH25LC,0)) as MTH25,sum(isnull(MTH26LC,0)) as
+MTH26,sum(isnull(MTH27LC,0)) as MTH27,sum(isnull(MTH28LC,0)) as
+MTH28,sum(isnull(MTH29LC,0)) as MTH29,sum(isnull(MTH30LC,0)) as
+MTH30,sum(isnull(MTH31LC,0)) as MTH31,sum(isnull(MTH32LC,0)) as
+MTH32,sum(isnull(MTH33LC,0)) as MTH33,sum(isnull(MTH34LC,0)) as
+MTH34,sum(isnull(MTH35LC,0)) as MTH35,sum(isnull(MTH36LC,0)) as
+MTH36,sum(isnull(MTH37LC,0)) as MTH37,sum(isnull(MTH38LC,0)) as
+MTH38,sum(isnull(MTH39LC,0)) as MTH39,sum(isnull(MTH40LC,0)) as
+MTH40,sum(isnull(MTH41LC,0)) as MTH41,sum(isnull(MTH42LC,0)) as
+MTH42,sum(isnull(MTH43LC,0)) as MTH43,sum(isnull(MTH44LC,0)) as
+MTH44,sum(isnull(MTH45LC,0)) as MTH45,sum(isnull(MTH46LC,0)) as
+MTH46,sum(isnull(MTH47LC,0)) as MTH47,sum(isnull(MTH48LC,0)) as MTH48,
+sum(isnull(MAT00LC,0)) as MAT00,sum(isnull(MAT01LC,0)) as
+MAT01,sum(isnull(MAT02LC,0)) as MAT02,sum(isnull(MAT03LC,0)) as
+MAT03,sum(isnull(MAT04LC,0)) as MAT04,sum(isnull(MAT05LC,0)) as
+MAT05,sum(isnull(MAT06LC,0)) as MAT06,sum(isnull(MAT07LC,0)) as
+MAT07,sum(isnull(MAT08LC,0)) as MAT08,sum(isnull(MAT09LC,0)) as
+MAT09,sum(isnull(MAT10LC,0)) as MAT10,sum(isnull(MAT11LC,0)) as
+MAT11,sum(isnull(MAT12LC,0)) as MAT12,sum(isnull(MAT13LC,0)) as
+MAT13,sum(isnull(MAT14LC,0)) as MAT14,sum(isnull(MAT15LC,0)) as
+MAT15,sum(isnull(MAT16LC,0)) as MAT16,sum(isnull(MAT17LC,0)) as
+MAT17,sum(isnull(MAT18LC,0)) as MAT18,sum(isnull(MAT19LC,0)) as
+MAT19,sum(isnull(MAT20LC,0)) as MAT20,sum(isnull(MAT21LC,0)) as
+MAT21,sum(isnull(MAT22LC,0)) as MAT22,sum(isnull(MAT23LC,0)) as
+MAT23,sum(isnull(MAT24LC,0)) as MAT24,sum(isnull(MAT25LC,0)) as
+MAT25,sum(isnull(MAT26LC,0)) as MAT26,sum(isnull(MAT27LC,0)) as
+MAT27,sum(isnull(MAT28LC,0)) as MAT28,sum(isnull(MAT29LC,0)) as
+MAT29,sum(isnull(MAT30LC,0)) as MAT30,sum(isnull(MAT31LC,0)) as
+MAT31,sum(isnull(MAT32LC,0)) as MAT32,sum(isnull(MAT33LC,0)) as
+MAT33,sum(isnull(MAT34LC,0)) as MAT34,sum(isnull(MAT35LC,0)) as
+MAT35,sum(isnull(MAT36LC,0)) as MAT36,sum(isnull(MAT37LC,0)) as
+MAT37,sum(isnull(MAT38LC,0)) as MAT38,sum(isnull(MAT39LC,0)) as
+MAT39,sum(isnull(MAT40LC,0)) as MAT40,sum(isnull(MAT41LC,0)) as
+MAT41,sum(isnull(MAT42LC,0)) as MAT42,sum(isnull(MAT43LC,0)) as
+MAT43,sum(isnull(MAT44LC,0)) as MAT44,sum(isnull(MAT45LC,0)) as
+MAT45,sum(isnull(MAT46LC,0)) as MAT46,sum(isnull(MAT47LC,0)) as
+MAT47,sum(isnull(MAT48LC,0)) as MAT48, sum(isnull(YTD00LC,0)) as
+YTD00,sum(isnull(YTD01LC,0)) as YTD01,sum(isnull(YTD02LC,0)) as
+YTD02,sum(isnull(YTD03LC,0)) as YTD03,sum(isnull(YTD04LC,0)) as
+YTD04,sum(isnull(YTD05LC,0)) as YTD05,sum(isnull(YTD06LC,0)) as
+YTD06,sum(isnull(YTD07LC,0)) as YTD07,sum(isnull(YTD08LC,0)) as
+YTD08,sum(isnull(YTD09LC,0)) as YTD09,sum(isnull(YTD10LC,0)) as
+YTD10,sum(isnull(YTD11LC,0)) as YTD11,sum(isnull(YTD12LC,0)) as
+YTD12,sum(isnull(YTD13LC,0)) as YTD13,sum(isnull(YTD14LC,0)) as
+YTD14,sum(isnull(YTD15LC,0)) as YTD15,sum(isnull(YTD16LC,0)) as
+YTD16,sum(isnull(YTD17LC,0)) as YTD17,sum(isnull(YTD18LC,0)) as
+YTD18,sum(isnull(YTD19LC,0)) as YTD19,sum(isnull(YTD20LC,0)) as
+YTD20,sum(isnull(YTD21LC,0)) as YTD21,sum(isnull(YTD22LC,0)) as
+YTD22,sum(isnull(YTD23LC,0)) as YTD23,sum(isnull(YTD24LC,0)) as
+YTD24,sum(isnull(YTD25LC,0)) as YTD25,sum(isnull(YTD26LC,0)) as
+YTD26,sum(isnull(YTD27LC,0)) as YTD27,sum(isnull(YTD28LC,0)) as
+YTD28,sum(isnull(YTD29LC,0)) as YTD29,sum(isnull(YTD30LC,0)) as
+YTD30,sum(isnull(YTD31LC,0)) as YTD31,sum(isnull(YTD32LC,0)) as
+YTD32,sum(isnull(YTD33LC,0)) as YTD33,sum(isnull(YTD34LC,0)) as
+YTD34,sum(isnull(YTD35LC,0)) as YTD35,sum(isnull(YTD36LC,0)) as
+YTD36,sum(isnull(YTD37LC,0)) as YTD37,sum(isnull(YTD38LC,0)) as
+YTD38,sum(isnull(YTD39LC,0)) as YTD39,sum(isnull(YTD40LC,0)) as
+YTD40,sum(isnull(YTD41LC,0)) as YTD41,sum(isnull(YTD42LC,0)) as
+YTD42,sum(isnull(YTD43LC,0)) as YTD43,sum(isnull(YTD44LC,0)) as
+YTD44,sum(isnull(YTD45LC,0)) as YTD45,sum(isnull(YTD46LC,0)) as
+YTD46,sum(isnull(YTD47LC,0)) as YTD47,sum(isnull(YTD48LC,0)) as YTD48,
+sum(isnull(Qtr00LC,0)) as Qtr00,sum(isnull(Qtr01LC,0)) as
+Qtr01,sum(isnull(Qtr02LC,0)) as Qtr02,sum(isnull(Qtr03LC,0)) as
+Qtr03,sum(isnull(Qtr04LC,0)) as Qtr04,sum(isnull(Qtr05LC,0)) as
+Qtr05,sum(isnull(Qtr06LC,0)) as Qtr06,sum(isnull(Qtr07LC,0)) as
+Qtr07,sum(isnull(Qtr08LC,0)) as Qtr08,sum(isnull(Qtr09LC,0)) as
+Qtr09,sum(isnull(Qtr10LC,0)) as Qtr10,sum(isnull(Qtr11LC,0)) as
+Qtr11,sum(isnull(Qtr12LC,0)) as Qtr12,sum(isnull(Qtr13LC,0)) as
+Qtr13,sum(isnull(Qtr14LC,0)) as Qtr14,sum(isnull(Qtr15LC,0)) as
+Qtr15,sum(isnull(Qtr16LC,0)) as Qtr16,sum(isnull(Qtr17LC,0)) as
+Qtr17,sum(isnull(Qtr18LC,0)) as Qtr18,sum(isnull(Qtr19LC,0)) as Qtr19
+		from mthCHPA_pkau A inner join tblMktDef_MRBIChina B
+on A.pack_cod=B.pack_cod where B.Active='Y'
+		group by B.Molecule,B.Class,B.mkt,B.mktname,B.prod,B.Productname, A.MNFL_COD
+(272 rows affected)
+UN
+insert into TempCHPAPreReportsByMNC 
+		select  B.Molecule,B.Class,B.mkt,B.mktname,B.mkt,B.prod,B.Productname,
+			A.MNFL_COD,
+			'UN' as Moneytype, sum(isnull(R3M00UN/b.rat,0)) as
+R3M00,sum(isnull(R3M01UN/b.rat,0)) as R3M01,sum(isnull(R3M02UN/b.rat,0)) as
+R3M02,sum(isnull(R3M03UN/b.rat,0)) as R3M03,sum(isnull(R3M04UN/b.rat,0)) as
+R3M04,sum(isnull(R3M05UN/b.rat,0)) as R3M05,sum(isnull(R3M06UN/b.rat,0)) as
+R3M06,sum(isnull(R3M07UN/b.rat,0)) as R3M07,sum(isnull(R3M08UN/b.rat,0)) as
+R3M08,sum(isnull(R3M09UN/b.rat,0)) as R3M09,sum(isnull(R3M10UN/b.rat,0)) as
+R3M10,sum(isnull(R3M11UN/b.rat,0)) as R3M11,sum(isnull(R3M12UN/b.rat,0)) as
+R3M12,sum(isnull(R3M13UN/b.rat,0)) as R3M13,sum(isnull(R3M14UN/b.rat,0)) as
+R3M14,sum(isnull(R3M15UN/b.rat,0)) as R3M15,sum(isnull(R3M16UN/b.rat,0)) as
+R3M16,sum(isnull(R3M17UN/b.rat,0)) as R3M17,sum(isnull(R3M18UN/b.rat,0)) as
+R3M18,sum(isnull(R3M19UN/b.rat,0)) as R3M19,sum(isnull(R3M20UN/b.rat,0)) as
+R3M20,sum(isnull(R3M21UN/b.rat,0)) as R3M21,sum(isnull(R3M22UN/b.rat,0)) as
+R3M22,sum(isnull(R3M23UN/b.rat,0)) as R3M23,sum(isnull(R3M24UN/b.rat,0)) as
+R3M24,sum(isnull(R3M25UN/b.rat,0)) as R3M25,sum(isnull(R3M26UN/b.rat,0)) as
+R3M26,sum(isnull(R3M27UN/b.rat,0)) as R3M27,sum(isnull(R3M28UN/b.rat,0)) as
+R3M28,sum(isnull(R3M29UN/b.rat,0)) as R3M29,sum(isnull(R3M30UN/b.rat,0)) as
+R3M30,sum(isnull(R3M31UN/b.rat,0)) as R3M31,sum(isnull(R3M32UN/b.rat,0)) as
+R3M32,sum(isnull(R3M33UN/b.rat,0)) as R3M33,sum(isnull(R3M34UN/b.rat,0)) as
+R3M34,sum(isnull(R3M35UN/b.rat,0)) as R3M35,sum(isnull(R3M36UN/b.rat,0)) as
+R3M36,sum(isnull(R3M37UN/b.rat,0)) as R3M37,sum(isnull(R3M38UN/b.rat,0)) as
+R3M38,sum(isnull(R3M39UN/b.rat,0)) as R3M39,sum(isnull(R3M40UN/b.rat,0)) as
+R3M40,sum(isnull(R3M41UN/b.rat,0)) as R3M41,sum(isnull(R3M42UN/b.rat,0)) as
+R3M42,sum(isnull(R3M43UN/b.rat,0)) as R3M43,sum(isnull(R3M44UN/b.rat,0)) as
+R3M44,sum(isnull(R3M45UN/b.rat,0)) as R3M45,sum(isnull(R3M46UN/b.rat,0)) as
+R3M46,sum(isnull(R3M47UN/b.rat,0)) as R3M47,sum(isnull(R3M48UN/b.rat,0)) as
+R3M48, sum(isnull(MTH00UN/b.rat,0)) as MTH00,sum(isnull(MTH01UN/b.rat,0)) as
+MTH01,sum(isnull(MTH02UN/b.rat,0)) as MTH02,sum(isnull(MTH03UN/b.rat,0)) as
+MTH03,sum(isnull(MTH04UN/b.rat,0)) as MTH04,sum(isnull(MTH05UN/b.rat,0)) as
+MTH05,sum(isnull(MTH06UN/b.rat,0)) as MTH06,sum(isnull(MTH07UN/b.rat,0)) as
+MTH07,sum(isnull(MTH08UN/b.rat,0)) as MTH08,sum(isnull(MTH09UN/b.rat,0)) as
+MTH09,sum(isnull(MTH10UN/b.rat,0)) as MTH10,sum(isnull(MTH11UN/b.rat,0)) as
+MTH11,sum(isnull(MTH12UN/b.rat,0)) as MTH12,sum(isnull(MTH13UN/b.rat,0)) as
+MTH13,sum(isnull(MTH14UN/b.rat,0)) as MTH14,sum(isnull(MTH15UN/b.rat,0)) as
+MTH15,sum(isnull(MTH16UN/b.rat,0)) as MTH16,sum(isnull(MTH17UN/b.rat,0)) as
+MTH17,sum(isnull(MTH18UN/b.rat,0)) as MTH18,sum(isnull(MTH19UN/b.rat,0)) as
+MTH19,sum(isnull(MTH20UN/b.rat,0)) as MTH20,sum(isnull(MTH21UN/b.rat,0)) as
+MTH21,sum(isnull(MTH22UN/b.rat,0)) as MTH22,sum(isnull(MTH23UN/b.rat,0)) as
+MTH23,sum(isnull(MTH24UN/b.rat,0)) as MTH24,sum(isnull(MTH25UN/b.rat,0)) as
+MTH25,sum(isnull(MTH26UN/b.rat,0)) as MTH26,sum(isnull(MTH27UN/b.rat,0)) as
+MTH27,sum(isnull(MTH28UN/b.rat,0)) as MTH28,sum(isnull(MTH29UN/b.rat,0)) as
+MTH29,sum(isnull(MTH30UN/b.rat,0)) as MTH30,sum(isnull(MTH31UN/b.rat,0)) as
+MTH31,sum(isnull(MTH32UN/b.rat,0)) as MTH32,sum(isnull(MTH33UN/b.rat,0)) as
+MTH33,sum(isnull(MTH34UN/b.rat,0)) as MTH34,sum(isnull(MTH35UN/b.rat,0)) as
+MTH35,sum(isnull(MTH36UN/b.rat,0)) as MTH36,sum(isnull(MTH37UN/b.rat,0)) as
+MTH37,sum(isnull(MTH38UN/b.rat,0)) as MTH38,sum(isnull(MTH39UN/b.rat,0)) as
+MTH39,sum(isnull(MTH40UN/b.rat,0)) as MTH40,sum(isnull(MTH41UN/b.rat,0)) as
+MTH41,sum(isnull(MTH42UN/b.rat,0)) as MTH42,sum(isnull(MTH43UN/b.rat,0)) as
+MTH43,sum(isnull(MTH44UN/b.rat,0)) as MTH44,sum(isnull(MTH45UN/b.rat,0)) as
+MTH45,sum(isnull(MTH46UN/b.rat,0)) as MTH46,sum(isnull(MTH47UN/b.rat,0)) as
+MTH47,sum(isnull(MTH48UN/b.rat,0)) as MTH48, sum(isnull(MAT00UN/b.rat,0)) as
+MAT00,sum(isnull(MAT01UN/b.rat,0)) as MAT01,sum(isnull(MAT02UN/b.rat,0)) as
+MAT02,sum(isnull(MAT03UN/b.rat,0)) as MAT03,sum(isnull(MAT04UN/b.rat,0)) as
+MAT04,sum(isnull(MAT05UN/b.rat,0)) as MAT05,sum(isnull(MAT06UN/b.rat,0)) as
+MAT06,sum(isnull(MAT07UN/b.rat,0)) as MAT07,sum(isnull(MAT08UN/b.rat,0)) as
+MAT08,sum(isnull(MAT09UN/b.rat,0)) as MAT09,sum(isnull(MAT10UN/b.rat,0)) as
+MAT10,sum(isnull(MAT11UN/b.rat,0)) as MAT11,sum(isnull(MAT12UN/b.rat,0)) as
+MAT12,sum(isnull(MAT13UN/b.rat,0)) as MAT13,sum(isnull(MAT14UN/b.rat,0)) as
+MAT14,sum(isnull(MAT15UN/b.rat,0)) as MAT15,sum(isnull(MAT16UN/b.rat,0)) as
+MAT16,sum(isnull(MAT17UN/b.rat,0)) as MAT17,sum(isnull(MAT18UN/b.rat,0)) as
+MAT18,sum(isnull(MAT19UN/b.rat,0)) as MAT19,sum(isnull(MAT20UN/b.rat,0)) as
+MAT20,sum(isnull(MAT21UN/b.rat,0)) as MAT21,sum(isnull(MAT22UN/b.rat,0)) as
+MAT22,sum(isnull(MAT23UN/b.rat,0)) as MAT23,sum(isnull(MAT24UN/b.rat,0)) as
+MAT24,sum(isnull(MAT25UN/b.rat,0)) as MAT25,sum(isnull(MAT26UN/b.rat,0)) as
+MAT26,sum(isnull(MAT27UN/b.rat,0)) as MAT27,sum(isnull(MAT28UN/b.rat,0)) as
+MAT28,sum(isnull(MAT29UN/b.rat,0)) as MAT29,sum(isnull(MAT30UN/b.rat,0)) as
+MAT30,sum(isnull(MAT31UN/b.rat,0)) as MAT31,sum(isnull(MAT32UN/b.rat,0)) as
+MAT32,sum(isnull(MAT33UN/b.rat,0)) as MAT33,sum(isnull(MAT34UN/b.rat,0)) as
+MAT34,sum(isnull(MAT35UN/b.rat,0)) as MAT35,sum(isnull(MAT36UN/b.rat,0)) as
+MAT36,sum(isnull(MAT37UN/b.rat,0)) as MAT37,sum(isnull(MAT38UN/b.rat,0)) as
+MAT38,sum(isnull(MAT39UN/b.rat,0)) as MAT39,sum(isnull(MAT40UN/b.rat,0)) as
+MAT40,sum(isnull(MAT41UN/b.rat,0)) as MAT41,sum(isnull(MAT42UN/b.rat,0)) as
+MAT42,sum(isnull(MAT43UN/b.rat,0)) as MAT43,sum(isnull(MAT44UN/b.rat,0)) as
+MAT44,sum(isnull(MAT45UN/b.rat,0)) as MAT45,sum(isnull(MAT46UN/b.rat,0)) as
+MAT46,sum(isnull(MAT47UN/b.rat,0)) as MAT47,sum(isnull(MAT48UN/b.rat,0)) as
+MAT48, sum(isnull(YTD00UN/b.rat,0)) as YTD00,sum(isnull(YTD01UN/b.rat,0)) as
+YTD01,sum(isnull(YTD02UN/b.rat,0)) as YTD02,sum(isnull(YTD03UN/b.rat,0)) as
+YTD03,sum(isnull(YTD04UN/b.rat,0)) as YTD04,sum(isnull(YTD05UN/b.rat,0)) as
+YTD05,sum(isnull(YTD06UN/b.rat,0)) as YTD06,sum(isnull(YTD07UN/b.rat,0)) as
+YTD07,sum(isnull(YTD08UN/b.rat,0)) as YTD08,sum(isnull(YTD09UN/b.rat,0)) as
+YTD09,sum(isnull(YTD10UN/b.rat,0)) as YTD10,sum(isnull(YTD11UN/b.rat,0)) as
+YTD11,sum(isnull(YTD12UN/b.rat,0)) as YTD12,sum(isnull(YTD13UN/b.rat,0)) as
+YTD13,sum(isnull(YTD14UN/b.rat,0)) as YTD14,sum(isnull(YTD15UN/b.rat,0)) as
+YTD15,sum(isnull(YTD16UN/b.rat,0)) as YTD16,sum(isnull(YTD17UN/b.rat,0)) as
+YTD17,sum(isnull(YTD18UN/b.rat,0)) as YTD18,sum(isnull(YTD19UN/b.rat,0)) as
+YTD19,sum(isnull(YTD20UN/b.rat,0)) as YTD20,sum(isnull(YTD21UN/b.rat,0)) as
+YTD21,sum(isnull(YTD22UN/b.rat,0)) as YTD22,sum(isnull(YTD23UN/b.rat,0)) as
+YTD23,sum(isnull(YTD24UN/b.rat,0)) as YTD24,sum(isnull(YTD25UN/b.rat,0)) as
+YTD25,sum(isnull(YTD26UN/b.rat,0)) as YTD26,sum(isnull(YTD27UN/b.rat,0)) as
+YTD27,sum(isnull(YTD28UN/b.rat,0)) as YTD28,sum(isnull(YTD29UN/b.rat,0)) as
+YTD29,sum(isnull(YTD30UN/b.rat,0)) as YTD30,sum(isnull(YTD31UN/b.rat,0)) as
+YTD31,sum(isnull(YTD32UN/b.rat,0)) as YTD32,sum(isnull(YTD33UN/b.rat,0)) as
+YTD33,sum(isnull(YTD34UN/b.rat,0)) as YTD34,sum(isnull(YTD35UN/b.rat,0)) as
+YTD35,sum(isnull(YTD36UN/b.rat,0)) as YTD36,sum(isnull(YTD37UN/b.rat,0)) as
+YTD37,sum(isnull(YTD38UN/b.rat,0)) as YTD38,sum(isnull(YTD39UN/b.rat,0)) as
+YTD39,sum(isnull(YTD40UN/b.rat,0)) as YTD40,sum(isnull(YTD41UN/b.rat,0)) as
+YTD41,sum(isnull(YTD42UN/b.rat,0)) as YTD42,sum(isnull(YTD43UN/b.rat,0)) as
+YTD43,sum(isnull(YTD44UN/b.rat,0)) as YTD44,sum(isnull(YTD45UN/b.rat,0)) as
+YTD45,sum(isnull(YTD46UN/b.rat,0)) as YTD46,sum(isnull(YTD47UN/b.rat,0)) as
+YTD47,sum(isnull(YTD48UN/b.rat,0)) as YTD48, sum(isnull(Qtr00UN/b.rat,0)) as
+Qtr00,sum(isnull(Qtr01UN/b.rat,0)) as Qtr01,sum(isnull(Qtr02UN/b.rat,0)) as
+Qtr02,sum(isnull(Qtr03UN/b.rat,0)) as Qtr03,sum(isnull(Qtr04UN/b.rat,0)) as
+Qtr04,sum(isnull(Qtr05UN/b.rat,0)) as Qtr05,sum(isnull(Qtr06UN/b.rat,0)) as
+Qtr06,sum(isnull(Qtr07UN/b.rat,0)) as Qtr07,sum(isnull(Qtr08UN/b.rat,0)) as
+Qtr08,sum(isnull(Qtr09UN/b.rat,0)) as Qtr09,sum(isnull(Qtr10UN
+(272 rows affected)
+1> 2> 3> 4> 5> 6> 7> 8> 9> 10> 11> 12> 13> 14> 15> 16> 17> 18> 19> 20> 21> 22> 23> 24> 25> 26> 27> 28> 29> 30> 31> 32> 33> 34> 35> 36> 37> 38> 39> 40> 41> 42> 43> 44> 45> 46> 47> 48> 49> 50> 51> 52> 53> 54> 55> 56> 57> 58> 59> 60> 61> 62> 63> 64> 65> 66> 67> 68> 69> 70> 71> 72> 73> 74> 75> 76> 77> 78> 79> 80> 81> 82> 83> 84> 85> 86> 87> 88> 89> 90> 91> 92> (1088 rows affected)
+(1 row affected)
+PN
+insert into TempCHPAPreReports 
+		select  B.Molecule,B.Class,B.mkt,B.mktname,B.mkt,B.prod,B.Productname,
+--         A.MNFL_COD,B.Gene_cod,
+'PN' as Moneytype, sum(isnull(R3M00PN,0)) as R3M00,sum(isnull(R3M01PN,0)) as
+R3M01,sum(isnull(R3M02PN,0)) as R3M02,sum(isnull(R3M03PN,0)) as
+R3M03,sum(isnull(R3M04PN,0)) as R3M04,sum(isnull(R3M05PN,0)) as
+R3M05,sum(isnull(R3M06PN,0)) as R3M06,sum(isnull(R3M07PN,0)) as
+R3M07,sum(isnull(R3M08PN,0)) as R3M08,sum(isnull(R3M09PN,0)) as
+R3M09,sum(isnull(R3M10PN,0)) as R3M10,sum(isnull(R3M11PN,0)) as
+R3M11,sum(isnull(R3M12PN,0)) as R3M12,sum(isnull(R3M13PN,0)) as
+R3M13,sum(isnull(R3M14PN,0)) as R3M14,sum(isnull(R3M15PN,0)) as
+R3M15,sum(isnull(R3M16PN,0)) as R3M16,sum(isnull(R3M17PN,0)) as
+R3M17,sum(isnull(R3M18PN,0)) as R3M18,sum(isnull(R3M19PN,0)) as
+R3M19,sum(isnull(R3M20PN,0)) as R3M20,sum(isnull(R3M21PN,0)) as
+R3M21,sum(isnull(R3M22PN,0)) as R3M22,sum(isnull(R3M23PN,0)) as
+R3M23,sum(isnull(R3M24PN,0)) as R3M24,sum(isnull(R3M25PN,0)) as
+R3M25,sum(isnull(R3M26PN,0)) as R3M26,sum(isnull(R3M27PN,0)) as
+R3M27,sum(isnull(R3M28PN,0)) as R3M28,sum(isnull(R3M29PN,0)) as
+R3M29,sum(isnull(R3M30PN,0)) as R3M30,sum(isnull(R3M31PN,0)) as
+R3M31,sum(isnull(R3M32PN,0)) as R3M32,sum(isnull(R3M33PN,0)) as
+R3M33,sum(isnull(R3M34PN,0)) as R3M34,sum(isnull(R3M35PN,0)) as
+R3M35,sum(isnull(R3M36PN,0)) as R3M36,sum(isnull(R3M37PN,0)) as
+R3M37,sum(isnull(R3M38PN,0)) as R3M38,sum(isnull(R3M39PN,0)) as
+R3M39,sum(isnull(R3M40PN,0)) as R3M40,sum(isnull(R3M41PN,0)) as
+R3M41,sum(isnull(R3M42PN,0)) as R3M42,sum(isnull(R3M43PN,0)) as
+R3M43,sum(isnull(R3M44PN,0)) as R3M44,sum(isnull(R3M45PN,0)) as
+R3M45,sum(isnull(R3M46PN,0)) as R3M46,sum(isnull(R3M47PN,0)) as
+R3M47,sum(isnull(R3M48PN,0)) as R3M48, sum(isnull(MTH00PN,0)) as
+MTH00,sum(isnull(MTH01PN,0)) as MTH01,sum(isnull(MTH02PN,0)) as
+MTH02,sum(isnull(MTH03PN,0)) as MTH03,sum(isnull(MTH04PN,0)) as
+MTH04,sum(isnull(MTH05PN,0)) as MTH05,sum(isnull(MTH06PN,0)) as
+MTH06,sum(isnull(MTH07PN,0)) as MTH07,sum(isnull(MTH08PN,0)) as
+MTH08,sum(isnull(MTH09PN,0)) as MTH09,sum(isnull(MTH10PN,0)) as
+MTH10,sum(isnull(MTH11PN,0)) as MTH11,sum(isnull(MTH12PN,0)) as
+MTH12,sum(isnull(MTH13PN,0)) as MTH13,sum(isnull(MTH14PN,0)) as
+MTH14,sum(isnull(MTH15PN,0)) as MTH15,sum(isnull(MTH16PN,0)) as
+MTH16,sum(isnull(MTH17PN,0)) as MTH17,sum(isnull(MTH18PN,0)) as
+MTH18,sum(isnull(MTH19PN,0)) as MTH19,sum(isnull(MTH20PN,0)) as
+MTH20,sum(isnull(MTH21PN,0)) as MTH21,sum(isnull(MTH22PN,0)) as
+MTH22,sum(isnull(MTH23PN,0)) as MTH23,sum(isnull(MTH24PN,0)) as
+MTH24,sum(isnull(MTH25PN,0)) as MTH25,sum(isnull(MTH26PN,0)) as
+MTH26,sum(isnull(MTH27PN,0)) as MTH27,sum(isnull(MTH28PN,0)) as
+MTH28,sum(isnull(MTH29PN,0)) as MTH29,sum(isnull(MTH30PN,0)) as
+MTH30,sum(isnull(MTH31PN,0)) as MTH31,sum(isnull(MTH32PN,0)) as
+MTH32,sum(isnull(MTH33PN,0)) as MTH33,sum(isnull(MTH34PN,0)) as
+MTH34,sum(isnull(MTH35PN,0)) as MTH35,sum(isnull(MTH36PN,0)) as
+MTH36,sum(isnull(MTH37PN,0)) as MTH37,sum(isnull(MTH38PN,0)) as
+MTH38,sum(isnull(MTH39PN,0)) as MTH39,sum(isnull(MTH40PN,0)) as
+MTH40,sum(isnull(MTH41PN,0)) as MTH41,sum(isnull(MTH42PN,0)) as
+MTH42,sum(isnull(MTH43PN,0)) as MTH43,sum(isnull(MTH44PN,0)) as
+MTH44,sum(isnull(MTH45PN,0)) as MTH45,sum(isnull(MTH46PN,0)) as
+MTH46,sum(isnull(MTH47PN,0)) as MTH47,sum(isnull(MTH48PN,0)) as MTH48,
+sum(isnull(MAT00PN,0)) as MAT00,sum(isnull(MAT01PN,0)) as
+MAT01,sum(isnull(MAT02PN,0)) as MAT02,sum(isnull(MAT03PN,0)) as
+MAT03,sum(isnull(MAT04PN,0)) as MAT04,sum(isnull(MAT05PN,0)) as
+MAT05,sum(isnull(MAT06PN,0)) as MAT06,sum(isnull(MAT07PN,0)) as
+MAT07,sum(isnull(MAT08PN,0)) as MAT08,sum(isnull(MAT09PN,0)) as
+MAT09,sum(isnull(MAT10PN,0)) as MAT10,sum(isnull(MAT11PN,0)) as
+MAT11,sum(isnull(MAT12PN,0)) as MAT12,sum(isnull(MAT13PN,0)) as
+MAT13,sum(isnull(MAT14PN,0)) as MAT14,sum(isnull(MAT15PN,0)) as
+MAT15,sum(isnull(MAT16PN,0)) as MAT16,sum(isnull(MAT17PN,0)) as
+MAT17,sum(isnull(MAT18PN,0)) as MAT18,sum(isnull(MAT19PN,0)) as
+MAT19,sum(isnull(MAT20PN,0)) as MAT20,sum(isnull(MAT21PN,0)) as
+MAT21,sum(isnull(MAT22PN,0)) as MAT22,sum(isnull(MAT23PN,0)) as
+MAT23,sum(isnull(MAT24PN,0)) as MAT24,sum(isnull(MAT25PN,0)) as
+MAT25,sum(isnull(MAT26PN,0)) as MAT26,sum(isnull(MAT27PN,0)) as
+MAT27,sum(isnull(MAT28PN,0)) as MAT28,sum(isnull(MAT29PN,0)) as
+MAT29,sum(isnull(MAT30PN,0)) as MAT30,sum(isnull(MAT31PN,0)) as
+MAT31,sum(isnull(MAT32PN,0)) as MAT32,sum(isnull(MAT33PN,0)) as
+MAT33,sum(isnull(MAT34PN,0)) as MAT34,sum(isnull(MAT35PN,0)) as
+MAT35,sum(isnull(MAT36PN,0)) as MAT36,sum(isnull(MAT37PN,0)) as
+MAT37,sum(isnull(MAT38PN,0)) as MAT38,sum(isnull(MAT39PN,0)) as
+MAT39,sum(isnull(MAT40PN,0)) as MAT40,sum(isnull(MAT41PN,0)) as
+MAT41,sum(isnull(MAT42PN,0)) as MAT42,sum(isnull(MAT43PN,0)) as
+MAT43,sum(isnull(MAT44PN,0)) as MAT44,sum(isnull(MAT45PN,0)) as
+MAT45,sum(isnull(MAT46PN,0)) as MAT46,sum(isnull(MAT47PN,0)) as
+MAT47,sum(isnull(MAT48PN,0)) as MAT48, sum(isnull(YTD00PN,0)) as
+YTD00,sum(isnull(YTD01PN,0)) as YTD01,sum(isnull(YTD02PN,0)) as
+YTD02,sum(isnull(YTD03PN,0)) as YTD03,sum(isnull(YTD04PN,0)) as
+YTD04,sum(isnull(YTD05PN,0)) as YTD05,sum(isnull(YTD06PN,0)) as
+YTD06,sum(isnull(YTD07PN,0)) as YTD07,sum(isnull(YTD08PN,0)) as
+YTD08,sum(isnull(YTD09PN,0)) as YTD09,sum(isnull(YTD10PN,0)) as
+YTD10,sum(isnull(YTD11PN,0)) as YTD11,sum(isnull(YTD12PN,0)) as
+YTD12,sum(isnull(YTD13PN,0)) as YTD13,sum(isnull(YTD14PN,0)) as
+YTD14,sum(isnull(YTD15PN,0)) as YTD15,sum(isnull(YTD16PN,0)) as
+YTD16,sum(isnull(YTD17PN,0)) as YTD17,sum(isnull(YTD18PN,0)) as
+YTD18,sum(isnull(YTD19PN,0)) as YTD19,sum(isnull(YTD20PN,0)) as
+YTD20,sum(isnull(YTD21PN,0)) as YTD21,sum(isnull(YTD22PN,0)) as
+YTD22,sum(isnull(YTD23PN,0)) as YTD23,sum(isnull(YTD24PN,0)) as
+YTD24,sum(isnull(YTD25PN,0)) as YTD25,sum(isnull(YTD26PN,0)) as
+YTD26,sum(isnull(YTD27PN,0)) as YTD27,sum(isnull(YTD28PN,0)) as
+YTD28,sum(isnull(YTD29PN,0)) as YTD29,sum(isnull(YTD30PN,0)) as
+YTD30,sum(isnull(YTD31PN,0)) as YTD31,sum(isnull(YTD32PN,0)) as
+YTD32,sum(isnull(YTD33PN,0)) as YTD33,sum(isnull(YTD34PN,0)) as
+YTD34,sum(isnull(YTD35PN,0)) as YTD35,sum(isnull(YTD36PN,0)) as
+YTD36,sum(isnull(YTD37PN,0)) as YTD37,sum(isnull(YTD38PN,0)) as
+YTD38,sum(isnull(YTD39PN,0)) as YTD39,sum(isnull(YTD40PN,0)) as
+YTD40,sum(isnull(YTD41PN,0)) as YTD41,sum(isnull(YTD42PN,0)) as
+YTD42,sum(isnull(YTD43PN,0)) as YTD43,sum(isnull(YTD44PN,0)) as
+YTD44,sum(isnull(YTD45PN,0)) as YTD45,sum(isnull(YTD46PN,0)) as
+YTD46,sum(isnull(YTD47PN,0)) as YTD47,sum(isnull(YTD48PN,0)) as YTD48,
+sum(isnull(Qtr00PN,0)) as Qtr00,sum(isnull(Qtr01PN,0)) as
+Qtr01,sum(isnull(Qtr02PN,0)) as Qtr02,sum(isnull(Qtr03PN,0)) as
+Qtr03,sum(isnull(Qtr04PN,0)) as Qtr04,sum(isnull(Qtr05PN,0)) as
+Qtr05,sum(isnull(Qtr06PN,0)) as Qtr06,sum(isnull(Qtr07PN,0)) as
+Qtr07,sum(isnull(Qtr08PN,0)) as Qtr08,sum(isnull(Qtr09PN,0)) as
+Qtr09,sum(isnull(Qtr10PN,0)) as Qtr10,sum(isnull(Qtr11PN,0)) as
+Qtr11,sum(isnull(Qtr12PN,0)) as Qtr12,sum(isnull(Qtr13PN,0)) as
+Qtr13,sum(isnull(Qtr14PN,0)) as Qtr14,sum(isnull(Qtr15PN,0)) as
+Qtr15,sum(isnull(Qtr16PN,0)) as Qtr16,sum(isnull(Qtr17PN,0)) as
+Qtr17,sum(isnull(Qtr18PN,0)) as Qtr18,sum(isnull(Qtr19PN,0)) as Qtr19
+		from mthCHPA_pkau A inner join tblMktDef_MRBIChina B
+on A.pack_cod=B.pack_cod where B.Active='Y' and b.mkt not like 'eliquis%'
+		group by B.Molecule,B.Class,B.mkt,B.mktname,B.prod,B.Productname
+(107 rows affected)
+US
+[SQL Server Native Client 11.0]TCP Provider: The semaphore timeout period has
+expired.
+[SQL Server Native Client 11.0]Communication link failure

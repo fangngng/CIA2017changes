@@ -1,0 +1,1650 @@
+1> 2> 1> 2> 3> 4> 5> 6> 7> 8> 9> 10> 11> 12> 13> 14> 15> 16> 17> 18> 19> 20> 21> 22> 23> 24> 25> 26> 27> 28> 29> 30> 31> 32> 33> 34> 35> 36> 37> 38> 39> 40> 41> 42> 43> 44> 45> 46> 47> 48> 49> 50> 51> 52> 53> (1 row affected)
+update HKAPI_2016Q2 
+			   set [product name]='PLAQUENIL(ABBV)'
+			   where [company name]='ABBV' and [product name] ='PLAQUENIL(ABBV)'
+(1 row affected)
+update HKAPI_2016Q2STLY 
+				   set [product name]='PLAQUENIL(ABBV)'
+				   where [company name]='ABBV' and [product name] ='PLAQUENIL(ABBV)'
+(1 row affected)
+update HKAPI_2016Q2 
+			   set [product name]='KALETRA SOLUTION'
+			   where [company name]='ABT' and [product name] ='KALETRA'
+(0 rows affected)
+update HKAPI_2016Q2STLY 
+				   set [product name]='KALETRA SOLUTION'
+				   where [company name]='ABT' and [product name] ='KALETRA'
+(0 rows affected)
+update HKAPI_2016Q2 
+			   set [product name]='NIMBEX(ABBV)'
+			   where [company name]='ABT' and [product name] ='NIMBEX'
+(0 rows affected)
+update HKAPI_2016Q2STLY 
+				   set [product name]='NIMBEX(ABBV)'
+				   where [company name]='ABT' and [product name] ='NIMBEX'
+(0 rows affected)
+update HKAPI_2016Q2 
+			   set [product name]='NIMBEX(ABBV)'
+			   where [company name]='ABT' and [product name] ='NIMBEX(ABT)'
+(0 rows affected)
+update HKAPI_2016Q2STLY 
+				   set [product name]='NIMBEX(ABBV)'
+				   where [company name]='ABT' and [product name] ='NIMBEX(ABT)'
+(0 rows affected)
+update HKAPI_2016Q2 
+			   set [product name]='PLAQUENIL(ABBV)'
+			   where [company name]='ABT' and [product name] ='PLAQUENIL'
+(0 rows affected)
+update HKAPI_2016Q2STLY 
+				   set [product name]='PLAQUENIL(ABBV)'
+				   where [company name]='ABT' and [product name] ='PLAQUENIL'
+(0 rows affected)
+update HKAPI_2016Q2 
+			   set [product name]='PLAQUENIL(ABBV)'
+			   where [company name]='ABT' and [product name] ='PLAQUENIL(ABT)'
+(0 rows affected)
+update HKAPI_2016Q2STLY 
+				   set [product name]='PLAQUENIL(ABBV)'
+				   where [company name]='ABT' and [product name] ='PLAQUENIL(ABT)'
+(0 rows affected)
+update HKAPI_2016Q2 
+			   set [product name]='SEVOFRANE'
+			   where [company name]='ABT' and [product name] ='SEVO'
+(0 rows affected)
+update HKAPI_2016Q2STLY 
+				   set [product name]='SEVOFRANE'
+				   where [company name]='ABT' and [product name] ='SEVO'
+(0 rows affected)
+update HKAPI_2016Q2 
+			   set [product name]='OXIS TURBUHALER'
+			   where [company name]='ASZ' and [product name] ='OXIS. TUR'
+(0 rows affected)
+update HKAPI_2016Q2STLY 
+				   set [product name]='OXIS TURBUHALER'
+				   where [company name]='ASZ' and [product name] ='OXIS. TUR'
+(0 rows affected)
+update HKAPI_2016Q2 
+			   set [product name]='BAYASPIRIN'
+			   where [company name]='BHC' and [product name] ='BAYASPIRIN PROTECT'
+(0 rows affected)
+update HKAPI_2016Q2STLY 
+				   set [product name]='BAYASPIRIN'
+				   where [company name]='BHC' and [product name] ='BAYASPIRIN PROTECT'
+(0 rows affected)
+update HKAPI_2016Q2 
+			   set [product name]='FLUDARA(BHC)'
+			   where [company name]='BHC' and [product name] ='FLUDARA'
+(0 rows affected)
+update HKAPI_2016Q2STLY 
+				   set [product name]='FLUDARA(BHC)'
+				   where [company name]='BHC' and [product name] ='FLUDARA'
+(0 rows affected)
+update HKAPI_2016Q2 
+			   set [product name]='FLUDARA(BHC)'
+			   where [company name]='BHC' and [product name] ='FLUDARA(BSP)'
+(0 rows affected)
+update HKAPI_2016Q2STLY 
+				   set [product name]='FLUDARA(BHC)'
+				   where [company name]='BHC' and [product name] ='FLUDARA(BSP)'
+(0 rows affected)
+update HKAPI_2016Q2 
+			   set [product name]='NIMOTOP'
+			   where [company name]='BHC' and [product name] ='NIMOTOP IV'
+(0 rows affected)
+update HKAPI_2016Q2STLY 
+				   set [product name]='NIMOTOP'
+				   where [company name]='BHC' and [product name] ='NIMOTOP IV'
+(0 rows affected)
+update HKAPI_2016Q2 
+			   set [product name]='NT30MG 20''S'
+			   where [company name]='BHC' and [product name] ='NT30MG  20''S'
+(0 rows affected)
+update HKAPI_2016Q2STLY 
+				   set [product name]='NT30MG 20''S'
+				   where [company name]='BHC' and [product name] ='NT30MG  20''S'
+(0 rows affected)
+update HKAPI_2016Q2 
+			   set [product name]='MUCOSOLVAN AMP.'
+			   where [company name]='BI' and [product name] ='MUCOSOLVAN AMP'
+(0 rows affected)
+update HKAPI_2016Q2STLY 
+				   set [product name]='MUCOSOLVAN AMP.'
+				   where [company name]='BI' and [product name] ='MUCOSOLVAN AMP'
+(0 rows affected)
+update HKAPI_2016Q2 
+			   set [product name]='MUCOSOLVAN TAB.'
+			   where [company name]='BI' and [product name] ='MUCOSOLVAN TAB'
+(0 rows affected)
+update HKAPI_2016Q2STLY 
+				   set [product name]='MUCOSOLVAN TAB.'
+				   where [company name]='BI' and [product name] ='MUCOSOLVAN TAB'
+(0 rows affected)
+update HKAPI_2016Q2 
+			   set [product name]='ONGLYZA'
+			   where [company name]='BMS' and [product name] ='ONGLYZA(BMS)'
+(0 rows affected)
+update HKAPI_2016Q2STLY 
+				   set [product name]='ONGLYZA'
+				   where [company name]='BMS' and [product name] ='ONGLYZA(BMS)'
+(0 rows affected)
+update HKAPI_2016Q2 
+			   set [product name]='BAYASPIRIN'
+			   where [company name]='BSP' and [product name] ='BAYASPIRIN PROTECT'
+(0 rows affected)
+update HKAPI_2016Q2STLY 
+				   set [product name]='BAYASPIRIN'
+				   where [company name]='BSP' and [product name] ='BAYASPIRIN PROTECT'
+(0 rows affected)
+update HKAPI_2016Q2 
+			   set [product name]='FLUDARA(BHC)'
+			   where [company name]='BSP' and [product name] ='FLUDARA'
+(0 rows affected)
+update HKAPI_2016Q2STLY 
+				   set [product name]='FLUDARA(BHC)'
+				   where [company name]='BSP' and [product name] ='FLUDARA'
+(0 rows affected)
+update HKAPI_2016Q2 
+			   set [product name]='FLUDARA(BHC)'
+			   where [company name]='BSP' and [product name] ='FLUDARA(BSP)'
+(0 rows affected)
+update HKAPI_2016Q2STLY 
+				   set [product name]='FLUDARA(BHC)'
+				   where [company name]='BSP' and [product name] ='FLUDARA(BSP)'
+(0 rows affected)
+update HKAPI_2016Q2 
+			   set [product name]='NIMOTOP'
+			   where [company name]='BSP' and [product name] ='NIMOTOP IV'
+(0 rows affected)
+update HKAPI_2016Q2STLY 
+				   set [product name]='NIMOTOP'
+				   where [company name]='BSP' and [product name] ='NIMOTOP IV'
+(0 rows affected)
+update HKAPI_2016Q2 
+			   set [product name]='NT30MG 20''S'
+			   where [company name]='BSP' and [product name] ='NT30MG  20''S'
+(0 rows affected)
+update HKAPI_2016Q2STLY 
+				   set [product name]='NT30MG 20''S'
+				   where [company name]='BSP' and [product name] ='NT30MG  20''S'
+(0 rows affected)
+update HKAPI_2016Q2 
+			   set [product name]='OLMETEC(DSC)'
+			   where [company name]='DSS' and [product name] ='OLMETEC'
+(0 rows affected)
+update HKAPI_2016Q2STLY 
+				   set [product name]='OLMETEC(DSC)'
+				   where [company name]='DSS' and [product name] ='OLMETEC'
+(0 rows affected)
+update HKAPI_2016Q2 
+			   set [product name]='OLMETEC(DSC)'
+			   where [company name]='DSS' and [product name] ='OLMETEC(DSS)'
+(0 rows affected)
+update HKAPI_2016Q2STLY 
+				   set [product name]='OLMETEC(DSC)'
+				   where [company name]='DSS' and [product name] ='OLMETEC(DSS)'
+(0 rows affected)
+update HKAPI_2016Q2 
+			   set [product name]='MIZOLLEN(JSN)'
+			   where [company name]='JSN' and [product name] ='MIZOLLEN'
+(0 rows affected)
+update HKAPI_2016Q2STLY 
+				   set [product name]='MIZOLLEN(JSN)'
+				   where [company name]='JSN' and [product name] ='MIZOLLEN'
+(0 rows affected)
+update HKAPI_2016Q2 
+			   set [product name]='BYETTA(LLY)'
+			   where [company name]='LLY' and [product name] ='BYETTA'
+(0 rows affected)
+update HKAPI_2016Q2STLY 
+				   set [product name]='BYETTA(LLY)'
+				   where [company name]='LLY' and [product name] ='BYETTA'
+(0 rows affected)
+update HKAPI_2016Q2 
+			   set [product name]='CYMBALTA(LLY)'
+			   where [company name]='LLY' and [product name] ='CYMBALTA'
+(0 rows affected)
+update HKAPI_2016Q2STLY 
+				   set [product name]='CYMBALTA(LLY)'
+				   where [company name]='LLY' and [product name] ='CYMBALTA'
+(0 rows affected)
+update HKAPI_2016Q2 
+			   set [product name]='VANCOCIN'
+			   where [company name]='LLY' and [product name] ='VANCO'
+(0 rows affected)
+update HKAPI_2016Q2STLY 
+				   set [product name]='VANCOCIN'
+				   where [company name]='LLY' and [product name] ='VANCO'
+(0 rows affected)
+update HKAPI_2016Q2 
+			   set [product name]='ISOTREX(NVT)'
+			   where [company name]='NVT' and [product name] ='ISOTREX'
+(0 rows affected)
+update HKAPI_2016Q2STLY 
+				   set [product name]='ISOTREX(NVT)'
+				   where [company name]='NVT' and [product name] ='ISOTREX'
+(0 rows affected)
+update HKAPI_2016Q2 
+			   set [product name]='VENOFER(NVT)'
+			   where [company name]='NVT' and [product name] ='VENOFER'
+(0 rows affected)
+update HKAPI_2016Q2STLY 
+				   set [product name]='VENOFER(NVT)'
+				   where [company name]='NVT' and [product name] ='VENOFER'
+(0 rows affected)
+update HKAPI_2016Q2 
+			   set [product name]='ACTOS(PFZ)'
+			   where [company name]='PFZ' and [product name] ='ACTOS'
+(0 rows affected)
+update HKAPI_2016Q2STLY 
+				   set [product name]='ACTOS(PFZ)'
+				   where [company name]='PFZ' and [product name] ='ACTOS'
+(0 rows affected)
+update HKAPI_2016Q2 
+			   set [product name]='ACTOS(PFZ)'
+			   where [company name]='PFZ' and [product name] ='ACTOS(PFZ)'
+(1 row affected)
+update HKAPI_2016Q2STLY 
+				   set [product name]='ACTOS(PFZ)'
+				   where [company name]='PFZ' and [product name] ='ACTOS(PFZ)'
+(1 row affected)
+update HKAPI_2016Q2 
+			   set [product name]='CEEON&HEALON'
+			   where [company name]='PFZ' and [product name] ='CEEON & HEALON'
+(0 rows affected)
+update HKAPI_2016Q2STLY 
+				   set [product name]='CEEON&HEALON'
+				   where [company name]='PFZ' and [product name] ='CEEON & HEALON'
+(0 rows affected)
+update HKAPI_2016Q2 
+			   set [product name]='CHAMPIX'
+			   where [company name]='PFZ' and [product name] ='CHAMPIX (VERENICILINE)'
+(0 rows affected)
+update HKAPI_2016Q2STLY 
+				   set [product name]='CHAMPIX'
+				   where [company name]='PFZ' and [product name] ='CHAMPIX (VERENICILINE)'
+(0 rows affected)
+update HKAPI_2016Q2 
+			   set [product name]='XYZAL'
+			   where [company name]='UCB' and [product name] ='XYZAL TABLET'
+(0 rows affected)
+update HKAPI_2016Q2STLY 
+				   set [product name]='XYZAL'
+				   where [company name]='UCB' and [product name] ='XYZAL TABLET'
+(0 rows affected)
+1> 2> 3> 4> 5> 6> 7> 8> 9> 10> 11> 12> 13> 14> 15> 16> 17> 18> 19> 20> 21> 22> 23> 24> 25> 26> 27> 28> 29> 30> 31> 32> 33> 34> 35> 36> 37> 38> 39> 2016Q2
+update HKAPI_2016Q2 
+			   set [company name]='BHC'
+			   where [company name]='BSP'
+(0 rows affected)
+update HKAPI_2016Q2STLY 
+				   set [company name]='BHC'
+				   where [company name]='BSP'
+(0 rows affected)
+update HKAPI_2016Q2 
+			   set [company name]='DSC'
+			   where [company name]='DSS'
+(0 rows affected)
+update HKAPI_2016Q2STLY 
+				   set [company name]='DSC'
+				   where [company name]='DSS'
+(0 rows affected)
+1> 2> 3> 4> 5> 6> 7> 8> 9> 10> 11> 12> 13> 14> 15> 16> 17> 18> 19> 20> 21> 22> 23> 24> 25> 26> 27> 28> 29> 30> 31> 32> 33> 34> 35> 36> 37> 38> 39> 40> 41> 42> 43> 44> 45> 46> 47> 48> 49> 50> 51> 52> 53> 54> 55> 56> 57> 58> 59> 60> 61> 62> 63> 64> 65> 66> 67> 68> 69> 70> 71> 72> 73> 74> 
+if object_id(N'inHKAPI_Linda',N'U') is not null
+	drop table inHKAPI_Linda
+select * into dbo.inHKAPI_Linda from dbo.inHKAPI_2016Q1
+(841 rows affected)
+
+	delete from HKAPI_2011H1STLY where [company name] is null
+
+	if exists(	select * 
+				from dbo.HKAPI_2011H1STLY A 
+				where not exists(	select * from 
+									inHKAPI_Linda B
+									where A.[Company Name]=B.[Company Name] and A.[Product
+Name]=B.[Product Name]
+								)
+			)
+
+	insert into inHKAPI_Linda ([Company Name],[Product Name])
+	select distinct [Company Name]
+		  ,[Product Name]
+	from dbo.HKAPI_2011H1STLY A 
+	where not exists(
+					select * from inHKAPI_Linda B
+					where A.[Company Name]=B.[Company Name] and A.[Product Name]=B.[Product
+Name]
+	)
+(0 rows affected)
+
+	delete from HKAPI_2011H1 where [company name] is null
+	if exists(	select * 
+				from dbo.HKAPI_2011H1 A 
+				where not exists(	select * from 
+									inHKAPI_Linda B
+									where A.[Company Name]=B.[Company Name] and A.[Product
+Name]=B.[Product Name]
+								)
+			)
+
+	insert into inHKAPI_Linda ([Company Name],[Product Name])
+	select distinct [Company Name]
+		  ,[Product Name]
+	from dbo.HKAPI_2011H1 A 
+	where not exists(
+					select * from inHKAPI_Linda B
+					where A.[Company Name]=B.[Company Name] and A.[Product Name]=B.[Product
+Name]
+	)
+(0 rows affected)
+
+	delete from HKAPI_2011Q1STLY where [company name] is null
+
+	if exists(	select * 
+				from dbo.HKAPI_2011Q1STLY A 
+				where not exists(	select * from 
+									inHKAPI_Linda B
+									where A.[Company Name]=B.[Company Name] and A.[Product
+Name]=B.[Product Name]
+								)
+			)
+
+	insert into inHKAPI_Linda ([Company Name],[Product Name])
+	select distinct [Company Name]
+		  ,[Product Name]
+	from dbo.HKAPI_2011Q1STLY A 
+	where not exists(
+					select * from inHKAPI_Linda B
+					where A.[Company Name]=B.[Company Name] and A.[Product Name]=B.[Product
+Name]
+	)
+(0 rows affected)
+
+	delete from HKAPI_2011Q1 where [company name] is null
+	if exists(	select * 
+				from dbo.HKAPI_2011Q1 A 
+				where not exists(	select * from 
+									inHKAPI_Linda B
+									where A.[Company Name]=B.[Company Name] and A.[Product
+Name]=B.[Product Name]
+								)
+			)
+
+	insert into inHKAPI_Linda ([Company Name],[Product Name])
+	select distinct [Company Name]
+		  ,[Product Name]
+	from dbo.HKAPI_2011Q1 A 
+	where not exists(
+					select * from inHKAPI_Linda B
+					where A.[Company Name]=B.[Company Name] and A.[Product Name]=B.[Product
+Name]
+	)
+(0 rows affected)
+
+	delete from HKAPI_2011Q3STLY where [company name] is null
+
+	if exists(	select * 
+				from dbo.HKAPI_2011Q3STLY A 
+				where not exists(	select * from 
+									inHKAPI_Linda B
+									where A.[Company Name]=B.[Company Name] and A.[Product
+Name]=B.[Product Name]
+								)
+			)
+
+	insert into inHKAPI_Linda ([Company Name],[Product Name])
+	select distinct [Company Name]
+		  ,[Product Name]
+	from dbo.HKAPI_2011Q3STLY A 
+	where not exists(
+					select * from inHKAPI_Linda B
+					where A.[Company Name]=B.[Company Name] and A.[Product Name]=B.[Product
+Name]
+	)
+(0 rows affected)
+
+	delete from HKAPI_2011Q3 where [company name] is null
+	if exists(	select * 
+				from dbo.HKAPI_2011Q3 A 
+				where not exists(	select * from 
+									inHKAPI_Linda B
+									where A.[Company Name]=B.[Company Name] and A.[Product
+Name]=B.[Product Name]
+								)
+			)
+
+	insert into inHKAPI_Linda ([Company Name],[Product Name])
+	select distinct [Company Name]
+		  ,[Product Name]
+	from dbo.HKAPI_2011Q3 A 
+	where not exists(
+					select * from inHKAPI_Linda B
+					where A.[Company Name]=B.[Company Name] and A.[Product Name]=B.[Product
+Name]
+	)
+(0 rows affected)
+
+	delete from HKAPI_2011Q4STLY where [company name] is null
+
+	if exists(	select * 
+				from dbo.HKAPI_2011Q4STLY A 
+				where not exists(	select * from 
+									inHKAPI_Linda B
+									where A.[Company Name]=B.[Company Name] and A.[Product
+Name]=B.[Product Name]
+								)
+			)
+
+	insert into inHKAPI_Linda ([Company Name],[Product Name])
+	select distinct [Company Name]
+		  ,[Product Name]
+	from dbo.HKAPI_2011Q4STLY A 
+	where not exists(
+					select * from inHKAPI_Linda B
+					where A.[Company Name]=B.[Company Name] and A.[Product Name]=B.[Product
+Name]
+	)
+(0 rows affected)
+
+	delete from HKAPI_2011Q4 where [company name] is null
+	if exists(	select * 
+				from dbo.HKAPI_2011Q4 A 
+				where not exists(	select * from 
+									inHKAPI_Linda B
+									where A.[Company Name]=B.[Company Name] and A.[Product
+Name]=B.[Product Name]
+								)
+			)
+
+	insert into inHKAPI_Linda ([Company Name],[Product Name])
+	select distinct [Company Name]
+		  ,[Product Name]
+	from dbo.HKAPI_2011Q4 A 
+	where not exists(
+					select * from inHKAPI_Linda B
+					where A.[Company Name]=B.[Company Name] and A.[Product Name]=B.[Product
+Name]
+	)
+(0 rows affected)
+
+	delete from HKAPI_2012Q1STLY where [company name] is null
+
+	if exists(	select * 
+				from dbo.HKAPI_2012Q1STLY A 
+				where not exists(	select * from 
+									inHKAPI_Linda B
+									where A.[Company Name]=B.[Company Name] and A.[Product
+Name]=B.[Product Name]
+								)
+			)
+
+	insert into inHKAPI_Linda ([Company Name],[Product Name])
+	select distinct [Company Name]
+		  ,[Product Name]
+	from dbo.HKAPI_2012Q1STLY A 
+	where not exists(
+					select * from inHKAPI_Linda B
+					where A.[Company Name]=B.[Company Name] and A.[Product Name]=B.[Product
+Name]
+	)
+(0 rows affected)
+
+	delete from HKAPI_2012Q1 where [company name] is null
+	if exists(	select * 
+				from dbo.HKAPI_2012Q1 A 
+				where not exists(	select * from 
+									inHKAPI_Linda B
+									where A.[Company Name]=B.[Company Name] and A.[Product
+Name]=B.[Product Name]
+								)
+			)
+
+	insert into inHKAPI_Linda ([Company Name],[Product Name])
+	select distinct [Company Name]
+		  ,[Product Name]
+	from dbo.HKAPI_2012Q1 A 
+	where not exists(
+					select * from inHKAPI_Linda B
+					where A.[Company Name]=B.[Company Name] and A.[Product Name]=B.[Product
+Name]
+	)
+(0 rows affected)
+
+	delete from HKAPI_2012Q2STLY where [company name] is null
+
+	if exists(	select * 
+				from dbo.HKAPI_2012Q2STLY A 
+				where not exists(	select * from 
+									inHKAPI_Linda B
+									where A.[Company Name]=B.[Company Name] and A.[Product
+Name]=B.[Product Name]
+								)
+			)
+
+	insert into inHKAPI_Linda ([Company Name],[Product Name])
+	select distinct [Company Name]
+		  ,[Product Name]
+	from dbo.HKAPI_2012Q2STLY A 
+	where not exists(
+					select * from inHKAPI_Linda B
+					where A.[Company Name]=B.[Company Name] and A.[Product Name]=B.[Product
+Name]
+	)
+(0 rows affected)
+
+	delete from HKAPI_2012Q2 where [company name] is null
+	if exists(	select * 
+				from dbo.HKAPI_2012Q2 A 
+				where not exists(	select * from 
+									inHKAPI_Linda B
+									where A.[Company Name]=B.[Company Name] and A.[Product
+Name]=B.[Product Name]
+								)
+			)
+
+	insert into inHKAPI_Linda ([Company Name],[Product Name])
+	select distinct [Company Name]
+		  ,[Product Name]
+	from dbo.HKAPI_2012Q2 A 
+	where not exists(
+					select * from inHKAPI_Linda B
+					where A.[Company Name]=B.[Company Name] and A.[Product Name]=B.[Product
+Name]
+	)
+(0 rows affected)
+
+	delete from HKAPI_2012Q3STLY where [company name] is null
+
+	if exists(	select * 
+				from dbo.HKAPI_2012Q3STLY A 
+				where not exists(	select * from 
+									inHKAPI_Linda B
+									where A.[Company Name]=B.[Company Name] and A.[Product
+Name]=B.[Product Name]
+								)
+			)
+
+	insert into inHKAPI_Linda ([Company Name],[Product Name])
+	select distinct [Company Name]
+		  ,[Product Name]
+	from dbo.HKAPI_2012Q3STLY A 
+	where not exists(
+					select * from inHKAPI_Linda B
+					where A.[Company Name]=B.[Company Name] and A.[Product Name]=B.[Product
+Name]
+	)
+(0 rows affected)
+
+	delete from HKAPI_2012Q3 where [company name] is null
+	if exists(	select * 
+				from dbo.HKAPI_2012Q3 A 
+				where not exists(	select * from 
+									inHKAPI_Linda B
+									where A.[Company Name]=B.[Company Name] and A.[Product
+Name]=B.[Product Name]
+								)
+			)
+
+	insert into inHKAPI_Linda ([Company Name],[Product Name])
+	select distinct [Company Name]
+		  ,[Product Name]
+	from dbo.HKAPI_2012Q3 A 
+	where not exists(
+					select * from inHKAPI_Linda B
+					where A.[Company Name]=B.[Company Name] and A.[Product Name]=B.[Product
+Name]
+	)
+(0 rows affected)
+
+	delete from HKAPI_2012Q4STLY where [company name] is null
+
+	if exists(	select * 
+				from dbo.HKAPI_2012Q4STLY A 
+				where not exists(	select * from 
+									inHKAPI_Linda B
+									where A.[Company Name]=B.[Company Name] and A.[Product
+Name]=B.[Product Name]
+								)
+			)
+
+	insert into inHKAPI_Linda ([Company Name],[Product Name])
+	select distinct [Company Name]
+		  ,[Product Name]
+	from dbo.HKAPI_2012Q4STLY A 
+	where not exists(
+					select * from inHKAPI_Linda B
+					where A.[Company Name]=B.[Company Name] and A.[Product Name]=B.[Product
+Name]
+	)
+(0 rows affected)
+
+	delete from HKAPI_2012Q4 where [company name] is null
+	if exists(	select * 
+				from dbo.HKAPI_2012Q4 A 
+				where not exists(	select * from 
+									inHKAPI_Linda B
+									where A.[Company Name]=B.[Company Name] and A.[Product
+Name]=B.[Product Name]
+								)
+			)
+
+	insert into inHKAPI_Linda ([Company Name],[Product Name])
+	select distinct [Company Name]
+		  ,[Product Name]
+	from dbo.HKAPI_2012Q4 A 
+	where not exists(
+					select * from inHKAPI_Linda B
+					where A.[Company Name]=B.[Company Name] and A.[Product Name]=B.[Product
+Name]
+	)
+(0 rows affected)
+
+	delete from HKAPI_2013Q1STLY where [company name] is null
+
+	if exists(	select * 
+				from dbo.HKAPI_2013Q1STLY A 
+				where not exists(	select * from 
+									inHKAPI_Linda B
+									where A.[Company Name]=B.[Company Name] and A.[Product
+Name]=B.[Product Name]
+								)
+			)
+
+	insert into inHKAPI_Linda ([Company Name],[Product Name])
+	select distinct [Company Name]
+		  ,[Product Name]
+	from dbo.HKAPI_2013Q1STLY A 
+	where not exists(
+					select * from inHKAPI_Linda B
+					where A.[Company Name]=B.[Company Name] and A.[Product Name]=B.[Product
+Name]
+	)
+(0 rows affected)
+
+	delete from HKAPI_2013Q1 where [company name] is null
+	if exists(	select * 
+				from dbo.HKAPI_2013Q1 A 
+				where not exists(	select * from 
+									inHKAPI_Linda B
+									where A.[Company Name]=B.[Company Name] and A.[Product
+Name]=B.[Product Name]
+								)
+			)
+
+	insert into inHKAPI_Linda ([Company Name],[Product Name])
+	select distinct [Company Name]
+		  ,[Product Name]
+	from dbo.HKAPI_2013Q1 A 
+	where not exists(
+					select * from inHKAPI_Linda B
+					where A.[Company Name]=B.[Company Name] and A.[Product Name]=B.[Product
+Name]
+	)
+(0 rows affected)
+
+	delete from HKAPI_2013Q2STLY where [company name] is null
+
+	if exists(	select * 
+				from dbo.HKAPI_2013Q2STLY A 
+				where not exists(	select * from 
+									inHKAPI_Linda B
+									where A.[Company Name]=B.[Company Name] and A.[Product
+Name]=B.[Product Name]
+								)
+			)
+
+	insert into inHKAPI_Linda ([Company Name],[Product Name])
+	select distinct [Company Name]
+		  ,[Product Name]
+	from dbo.HKAPI_2013Q2STLY A 
+	where not exists(
+					select * from inHKAPI_Linda B
+					where A.[Company Name]=B.[Company Name] and A.[Product Name]=B.[Product
+Name]
+	)
+(0 rows affected)
+
+	delete from HKAPI_2013Q2 where [company name] is null
+	if exists(	select * 
+				from dbo.HKAPI_2013Q2 A 
+				where not exists(	select * from 
+									inHKAPI_Linda B
+									where A.[Company Name]=B.[Company Name] and A.[Product
+Name]=B.[Product Name]
+								)
+			)
+
+	insert into inHKAPI_Linda ([Company Name],[Product Name])
+	select distinct [Company Name]
+		  ,[Product Name]
+	from dbo.HKAPI_2013Q2 A 
+	where not exists(
+					select * from inHKAPI_Linda B
+					where A.[Company Name]=B.[Company Name] and A.[Product Name]=B.[Product
+Name]
+	)
+(0 rows affected)
+
+	delete from HKAPI_2013Q3STLY where [company name] is null
+
+	if exists(	select * 
+				from dbo.HKAPI_2013Q3STLY A 
+				where not exists(	select * from 
+									inHKAPI_Linda B
+									where A.[Company Name]=B.[Company Name] and A.[Product
+Name]=B.[Product Name]
+								)
+			)
+
+	insert into inHKAPI_Linda ([Company Name],[Product Name])
+	select distinct [Company Name]
+		  ,[Product Name]
+	from dbo.HKAPI_2013Q3STLY A 
+	where not exists(
+					select * from inHKAPI_Linda B
+					where A.[Company Name]=B.[Company Name] and A.[Product Name]=B.[Product
+Name]
+	)
+(0 rows affected)
+
+	delete from HKAPI_2013Q3 where [company name] is null
+	if exists(	select * 
+				from dbo.HKAPI_2013Q3 A 
+				where not exists(	select * from 
+									inHKAPI_Linda B
+									where A.[Company Name]=B.[Company Name] and A.[Product
+Name]=B.[Product Name]
+								)
+			)
+
+	insert into inHKAPI_Linda ([Company Name],[Product Name])
+	select distinct [Company Name]
+		  ,[Product Name]
+	from dbo.HKAPI_2013Q3 A 
+	where not exists(
+					select * from inHKAPI_Linda B
+					where A.[Company Name]=B.[Company Name] and A.[Product Name]=B.[Product
+Name]
+	)
+(0 rows affected)
+
+	delete from HKAPI_2013Q4STLY where [company name] is null
+
+	if exists(	select * 
+				from dbo.HKAPI_2013Q4STLY A 
+				where not exists(	select * from 
+									inHKAPI_Linda B
+									where A.[Company Name]=B.[Company Name] and A.[Product
+Name]=B.[Product Name]
+								)
+			)
+
+	insert into inHKAPI_Linda ([Company Name],[Product Name])
+	select distinct [Company Name]
+		  ,[Product Name]
+	from dbo.HKAPI_2013Q4STLY A 
+	where not exists(
+					select * from inHKAPI_Linda B
+					where A.[Company Name]=B.[Company Name] and A.[Product Name]=B.[Product
+Name]
+	)
+(0 rows affected)
+
+	delete from HKAPI_2013Q4 where [company name] is null
+	if exists(	select * 
+				from dbo.HKAPI_2013Q4 A 
+				where not exists(	select * from 
+									inHKAPI_Linda B
+									where A.[Company Name]=B.[Company Name] and A.[Product
+Name]=B.[Product Name]
+								)
+			)
+
+	insert into inHKAPI_Linda ([Company Name],[Product Name])
+	select distinct [Company Name]
+		  ,[Product Name]
+	from dbo.HKAPI_2013Q4 A 
+	where not exists(
+					select * from inHKAPI_Linda B
+					where A.[Company Name]=B.[Company Name] and A.[Product Name]=B.[Product
+Name]
+	)
+(0 rows affected)
+
+	delete from HKAPI_2014Q1STLY where [company name] is null
+
+	if exists(	select * 
+				from dbo.HKAPI_2014Q1STLY A 
+				where not exists(	select * from 
+									inHKAPI_Linda B
+									where A.[Company Name]=B.[Company Name] and A.[Product
+Name]=B.[Product Name]
+								)
+			)
+
+	insert into inHKAPI_Linda ([Company Name],[Product Name])
+	select distinct [Company Name]
+		  ,[Product Name]
+	from dbo.HKAPI_2014Q1STLY A 
+	where not exists(
+					select * from inHKAPI_Linda B
+					where A.[Company Name]=B.[Company Name] and A.[Product Name]=B.[Product
+Name]
+	)
+(0 rows affected)
+
+	delete from HKAPI_2014Q1 where [company name] is null
+	if exists(	select * 
+				from dbo.HKAPI_2014Q1 A 
+				where not exists(	select * from 
+									inHKAPI_Linda B
+									where A.[Company Name]=B.[Company Name] and A.[Product
+Name]=B.[Product Name]
+								)
+			)
+
+	insert into inHKAPI_Linda ([Company Name],[Product Name])
+	select distinct [Company Name]
+		  ,[Product Name]
+	from dbo.HKAPI_2014Q1 A 
+	where not exists(
+					select * from inHKAPI_Linda B
+					where A.[Company Name]=B.[Company Name] and A.[Product Name]=B.[Product
+Name]
+	)
+(0 rows affected)
+
+	delete from HKAPI_2014Q2STLY where [company name] is null
+
+	if exists(	select * 
+				from dbo.HKAPI_2014Q2STLY A 
+				where not exists(	select * from 
+									inHKAPI_Linda B
+									where A.[Company Name]=B.[Company Name] and A.[Product
+Name]=B.[Product Name]
+								)
+			)
+
+	insert into inHKAPI_Linda ([Company Name],[Product Name])
+	select distinct [Company Name]
+		  ,[Product Name]
+	from dbo.HKAPI_2014Q2STLY A 
+	where not exists(
+					select * from inHKAPI_Linda B
+					where A.[Company Name]=B.[Company Name] and A.[Product Name]=B.[Product
+Name]
+	)
+(0 rows affected)
+
+	delete from HKAPI_2014Q2 where [company name] is null
+	if exists(	select * 
+				from dbo.HKAPI_2014Q2 A 
+				where not exists(	select * from 
+									inHKAPI_Linda B
+									where A.[Company Name]=B.[Company Name] and A.[Product
+Name]=B.[Product Name]
+								)
+			)
+
+	insert into inHKAPI_Linda ([Company Name],[Product Name])
+	select distinct [Company Name]
+		  ,[Product Name]
+	from dbo.HKAPI_2014Q2 A 
+	where not exists(
+					select * from inHKAPI_Linda B
+					where A.[Company Name]=B.[Company Name] and A.[Product Name]=B.[Product
+Name]
+	)
+(0 rows affected)
+
+	delete from HKAPI_2014Q3STLY where [company name] is null
+
+	if exists(	select * 
+				from dbo.HKAPI_2014Q3STLY A 
+				where not exists(	select * from 
+									inHKAPI_Linda B
+									where A.[Company Name]=B.[Company Name] and A.[Product
+Name]=B.[Product Name]
+								)
+			)
+
+	insert into inHKAPI_Linda ([Company Name],[Product Name])
+	select distinct [Company Name]
+		  ,[Product Name]
+	from dbo.HKAPI_2014Q3STLY A 
+	where not exists(
+					select * from inHKAPI_Linda B
+					where A.[Company Name]=B.[Company Name] and A.[Product Name]=B.[Product
+Name]
+	)
+(0 rows affected)
+
+	delete from HKAPI_2014Q3 where [company name] is null
+	if exists(	select * 
+				from dbo.HKAPI_2014Q3 A 
+				where not exists(	select * from 
+									inHKAPI_Linda B
+									where A.[Company Name]=B.[Company Name] and A.[Product
+Name]=B.[Product Name]
+								)
+			)
+
+	insert into inHKAPI_Linda ([Company Name],[Product Name])
+	select distinct [Company Name]
+		  ,[Product Name]
+	from dbo.HKAPI_2014Q3 A 
+	where not exists(
+					select * from inHKAPI_Linda B
+					where A.[Company Name]=B.[Company Name] and A.[Product Name]=B.[Product
+Name]
+	)
+(0 rows affected)
+
+	delete from HKAPI_2014Q4STLY where [company name] is null
+
+	if exists(	select * 
+				from dbo.HKAPI_2014Q4STLY A 
+				where not exists(	select * from 
+									inHKAPI_Linda B
+									where A.[Company Name]=B.[Company Name] and A.[Product
+Name]=B.[Product Name]
+								)
+			)
+
+	insert into inHKAPI_Linda ([Company Name],[Product Name])
+	select distinct [Company Name]
+		  ,[Product Name]
+	from dbo.HKAPI_2014Q4STLY A 
+	where not exists(
+					select * from inHKAPI_Linda B
+					where A.[Company Name]=B.[Company Name] and A.[Product Name]=B.[Product
+Name]
+	)
+(0 rows affected)
+
+	delete from HKAPI_2014Q4 where [company name] is null
+	if exists(	select * 
+				from dbo.HKAPI_2014Q4 A 
+				where not exists(	select * from 
+									inHKAPI_Linda B
+									where A.[Company Name]=B.[Company Name] and A.[Product
+Name]=B.[Product Name]
+								)
+			)
+
+	insert into inHKAPI_Linda ([Company Name],[Product Name])
+	select distinct [Company Name]
+		  ,[Product Name]
+	from dbo.HKAPI_2014Q4 A 
+	where not exists(
+					select * from inHKAPI_Linda B
+					where A.[Company Name]=B.[Company Name] and A.[Product Name]=B.[Product
+Name]
+	)
+(0 rows affected)
+
+	delete from HKAPI_2015Q1STLY where [company name] is null
+
+	if exists(	select * 
+				from dbo.HKAPI_2015Q1STLY A 
+				where not exists(	select * from 
+									inHKAPI_Linda B
+									where A.[Company Name]=B.[Company Name] and A.[Product
+Name]=B.[Product Name]
+								)
+			)
+
+	insert into inHKAPI_Linda ([Company Name],[Product Name])
+	select distinct [Company Name]
+		  ,[Product Name]
+	from dbo.HKAPI_2015Q1STLY A 
+	where not exists(
+					select * from inHKAPI_Linda B
+					where A.[Company Name]=B.[Company Name] and A.[Product Name]=B.[Product
+Name]
+	)
+(0 rows affected)
+
+	delete from HKAPI_2015Q1 where [company name] is null
+	if exists(	select * 
+				from dbo.HKAPI_2015Q1 A 
+				where not exists(	select * from 
+									inHKAPI_Linda B
+									where A.[Company Name]=B.[Company Name] and A.[Product
+Name]=B.[Product Name]
+								)
+			)
+
+	insert into inHKAPI_Linda ([Company Name],[Product Name])
+	select distinct [Company Name]
+		  ,[Product Name]
+	from dbo.HKAPI_2015Q1 A 
+	where not exists(
+					select * from inHKAPI_Linda B
+					where A.[Company Name]=B.[Company Name] and A.[Product Name]=B.[Product
+Name]
+	)
+(0 rows affected)
+
+	delete from HKAPI_2015Q2STLY where [company name] is null
+
+	if exists(	select * 
+				from dbo.HKAPI_2015Q2STLY A 
+				where not exists(	select * from 
+									inHKAPI_Linda B
+									where A.[Company Name]=B.[Company Name] and A.[Product
+Name]=B.[Product Name]
+								)
+			)
+
+	insert into inHKAPI_Linda ([Company Name],[Product Name])
+	select distinct [Company Name]
+		  ,[Product Name]
+	from dbo.HKAPI_2015Q2STLY A 
+	where not exists(
+					select * from inHKAPI_Linda B
+					where A.[Company Name]=B.[Company Name] and A.[Product Name]=B.[Product
+Name]
+	)
+(0 rows affected)
+
+	delete from HKAPI_2015Q2 where [company name] is null
+	if exists(	select * 
+				from dbo.HKAPI_2015Q2 A 
+				where not exists(	select * from 
+									inHKAPI_Linda B
+									where A.[Company Name]=B.[Company Name] and A.[Product
+Name]=B.[Product Name]
+								)
+			)
+
+	insert into inHKAPI_Linda ([Company Name],[Product Name])
+	select distinct [Company Name]
+		  ,[Product Name]
+	from dbo.HKAPI_2015Q2 A 
+	where not exists(
+					select * from inHKAPI_Linda B
+					where A.[Company Name]=B.[Company Name] and A.[Product Name]=B.[Product
+Name]
+	)
+(0 rows affected)
+
+	delete from HKAPI_2015Q3STLY where [company name] is null
+
+	if exists(	select * 
+				from dbo.HKAPI_2015Q3STLY A 
+				where not exists(	select * from 
+									inHKAPI_Linda B
+									where A.[Company Name]=B.[Company Name] and A.[Product
+Name]=B.[Product Name]
+								)
+			)
+
+	insert into inHKAPI_Linda ([Company Name],[Product Name])
+	select distinct [Company Name]
+		  ,[Product Name]
+	from dbo.HKAPI_2015Q3STLY A 
+	where not exists(
+					select * from inHKAPI_Linda B
+					where A.[Company Name]=B.[Company Name] and A.[Product Name]=B.[Product
+Name]
+	)
+(0 rows affected)
+
+	delete from HKAPI_2015Q3 where [company name] is null
+	if exists(	select * 
+				from dbo.HKAPI_2015Q3 A 
+				where not exists(	select * from 
+									inHKAPI_Linda B
+									where A.[Company Name]=B.[Company Name] and A.[Product
+Name]=B.[Product Name]
+								)
+			)
+
+	insert into inHKAPI_Linda ([Company Name],[Product Name])
+	select distinct [Company Name]
+		  ,[Product Name]
+	from dbo.HKAPI_2015Q3 A 
+	where not exists(
+					select * from inHKAPI_Linda B
+					where A.[Company Name]=B.[Company Name] and A.[Product Name]=B.[Product
+Name]
+	)
+(0 rows affected)
+
+	delete from HKAPI_2015Q4STLY where [company name] is null
+
+	if exists(	select * 
+				from dbo.HKAPI_2015Q4STLY A 
+				where not exists(	select * from 
+									inHKAPI_Linda B
+									where A.[Company Name]=B.[Company Name] and A.[Product
+Name]=B.[Product Name]
+								)
+			)
+
+	insert into inHKAPI_Linda ([Company Name],[Product Name])
+	select distinct [Company Name]
+		  ,[Product Name]
+	from dbo.HKAPI_2015Q4STLY A 
+	where not exists(
+					select * from inHKAPI_Linda B
+					where A.[Company Name]=B.[Company Name] and A.[Product Name]=B.[Product
+Name]
+	)
+(0 rows affected)
+
+	delete from HKAPI_2015Q4 where [company name] is null
+	if exists(	select * 
+				from dbo.HKAPI_2015Q4 A 
+				where not exists(	select * from 
+									inHKAPI_Linda B
+									where A.[Company Name]=B.[Company Name] and A.[Product
+Name]=B.[Product Name]
+								)
+			)
+
+	insert into inHKAPI_Linda ([Company Name],[Product Name])
+	select distinct [Company Name]
+		  ,[Product Name]
+	from dbo.HKAPI_2015Q4 A 
+	where not exists(
+					select * from inHKAPI_Linda B
+					where A.[Company Name]=B.[Company Name] and A.[Product Name]=B.[Product
+Name]
+	)
+(0 rows affected)
+
+	delete from HKAPI_2016Q1STLY where [company name] is null
+
+	if exists(	select * 
+				from dbo.HKAPI_2016Q1STLY A 
+				where not exists(	select * from 
+									inHKAPI_Linda B
+									where A.[Company Name]=B.[Company Name] and A.[Product
+Name]=B.[Product Name]
+								)
+			)
+
+	insert into inHKAPI_Linda ([Company Name],[Product Name])
+	select distinct [Company Name]
+		  ,[Product Name]
+	from dbo.HKAPI_2016Q1STLY A 
+	where not exists(
+					select * from inHKAPI_Linda B
+					where A.[Company Name]=B.[Company Name] and A.[Product Name]=B.[Product
+Name]
+	)
+(0 rows affected)
+
+	delete from HKAPI_2016Q1 where [company name] is null
+	if exists(	select * 
+				from dbo.HKAPI_2016Q1 A 
+				where not exists(	select * from 
+									inHKAPI_Linda B
+									where A.[Company Name]=B.[Company Name] and A.[Product
+Name]=B.[Product Name]
+								)
+			)
+
+	insert into inHKAPI_Linda ([Company Name],[Product Name])
+	select distinct [Company Name]
+		  ,[Product Name]
+	from dbo.HKAPI_2016Q1 A 
+	where not exists(
+					select * from inHKAPI_Linda B
+					where A.[Company Name]=B.[Company Name] and A.[Product Name]=B.[Product
+Name]
+	)
+(0 rows affected)
+
+	delete from HKAPI_2016Q2STLY where [company name] is null
+
+	if exists(	select * 
+				from dbo.HKAPI_2016Q2STLY A 
+				where not exists(	select * from 
+									inHKAPI_Linda B
+									where A.[Company Name]=B.[Company Name] and A.[Product
+Name]=B.[Product Name]
+								)
+			)
+
+	insert into inHKAPI_Linda ([Company Name],[Product Name])
+	select distinct [Company Name]
+		  ,[Product Name]
+	from dbo.HKAPI_2016Q2STLY A 
+	where not exists(
+					select * from inHKAPI_Linda B
+					where A.[Company Name]=B.[Company Name] and A.[Product Name]=B.[Product
+Name]
+	)
+(0 rows affected)
+(2 rows affected)
+
+	delete from HKAPI_2016Q2 where [company name] is null
+	if exists(	select * 
+				from dbo.HKAPI_2016Q2 A 
+				where not exists(	select * from 
+									inHKAPI_Linda B
+									where A.[Company Name]=B.[Company Name] and A.[Product
+Name]=B.[Product Name]
+								)
+			)
+
+	insert into inHKAPI_Linda ([Company Name],[Product Name])
+	select distinct [Company Name]
+		  ,[Product Name]
+	from dbo.HKAPI_2016Q2 A 
+	where not exists(
+					select * from inHKAPI_Linda B
+					where A.[Company Name]=B.[Company Name] and A.[Product Name]=B.[Product
+Name]
+	)
+(0 rows affected)
+1> 2> 3> 4> 5> 6> 7> 8> 9> 10> 11> 12> 13> 14> 15> 16> 17> 18> 19> 20> 21> 22> 23> 24> 25> 26> 27> 28> 29> 30> 31> 32> 33> 34> 35> 36> 37> 38> 39> 40> 41> 42> 43> 44> 45> 46> 47> 48> 49> 50> 51> 52> 53> 54> 55> 56> 57> 58> 59> 60> 61> 62> 63> 64> 65> 66> 67> 68> 69> 70> 71> 72> 73> 74> 75> 76> 77> 78> 79> 80> 81> 82> 83> 84> 85> 86> 87> 88> 89> 90> 91> 92> 93> 94> 95> 96> 97> 98> 99> 100> 101> 102> 103> 104> 105> 106> 107> 108> 109> 110> 111> 112> 113> 114> 115> 116> 117> 118> 119> 120> 121> 122> 123> 124> 125> 126> 127> 128> 129> 130> 131> 132> 133> 134> 135> 136> 137> 138> 139> 140> 141> 142> 143> 144> 16Q2
+15Q2
+
+
+IF EXISTS ( SELECT 1 FROM SYSOBJECTS T1  
+INNER JOIN SYSCOLUMNS T2 ON T1.ID=T2.ID  
+WHERE T1.NAME='inHKAPI_Linda' AND T2.NAME='16Q2LC'  ) 
+BEGIN
+alter table inHKAPI_Linda drop column [16Q2LC],[YTD 16Q2LC],[16Q2US]
+
+alter table inHKAPI_Linda 
+add [16Q2LC] [float] NULL ,
+[YTD 16Q2LC] [float] NULL ,
+[16Q2US] [float] NULL 
+
+end
+else
+begin
+alter table inHKAPI_Linda 
+add [16Q2LC] [float] NULL ,
+[YTD 16Q2LC] [float] NULL ,
+[16Q2US] [float] NULL 
+end
+
+update inHKAPI_Linda
+set [YTD 15Q2LC]=B.Sales from inHKAPI_Linda A inner join 
+(select [Company Name]
+,[Product Name]
+,sum(isnull([Imported (RMB)],0)+isnull([Local Manufactured (RMB)],0)) as
+Sales
+from BMSChinaOtherDB.dbo.HKAPI_2016Q2STLY group by [Company Name]
+,[Product Name]
+) B
+on A.[Company Name]=B.[Company Name] and A.[Product Name]=B.[Product Name]
+(637 rows affected)
+
+update inHKAPI_Linda
+set [YTD 16Q2LC]=B.Sales from inHKAPI_Linda A inner join 
+(select [Company Name]
+,[Product Name]
+,sum(isnull([Imported (RMB)],0)+isnull([Local Manufactured (RMB)],0)) as
+Sales
+from BMSChinaOtherDB.dbo.HKAPI_2016Q2 group by [Company Name]
+,[Product Name]
+) B
+on A.[Company Name]=B.[Company Name] and A.[Product Name]=B.[Product Name]
+
+(637 rows affected)
+
+update inHKAPI_Linda set [YTD 16Q2LC]=case when [YTD 16Q2LC] is null then 0
+else [YTD 16Q2LC] end,
+						[16Q2LC]=case when left(right('16Q2LC',4),2)='Q1' then [YTD 16Q2LC] else
+[YTD 16Q2LC]-[YTD 16Q1LC] end,
+						[15Q2LC]=case when left(right('16Q2LC',4),2)='Q1' then [YTD 15Q2LC] else
+[YTD 15Q2LC]-[YTD 15Q1LC] end
+
+
+(843 rows affected)
+
+	update inHKAPI_Linda set [16Q2LC]=case when  [16Q2LC] is null then 0 else
+[16Q2LC] end,
+							 [16Q2US]=case when  [16Q2US] is null then 0 else  [16Q2US] end,
+							 [YTD 16Q2LC]=case when  [YTD 16Q2LC] is null then 0 else  [YTD 16Q2LC]
+end
+	
+(843 rows affected)
+
+	update inHKAPI_Linda set [16Q1LC]=case when  [16Q1LC] is null then 0 else
+[16Q1LC] end,
+							 [16Q1US]=case when  [16Q1US] is null then 0 else  [16Q1US] end,
+							 [YTD 16Q1LC]=case when  [YTD 16Q1LC] is null then 0 else  [YTD 16Q1LC]
+end
+	
+(843 rows affected)
+
+	update inHKAPI_Linda set [15Q4LC]=case when  [15Q4LC] is null then 0 else
+[15Q4LC] end,
+							 [15Q4US]=case when  [15Q4US] is null then 0 else  [15Q4US] end,
+							 [YTD 15Q4LC]=case when  [YTD 15Q4LC] is null then 0 else  [YTD 15Q4LC]
+end
+	
+(843 rows affected)
+
+	update inHKAPI_Linda set [15Q3LC]=case when  [15Q3LC] is null then 0 else
+[15Q3LC] end,
+							 [15Q3US]=case when  [15Q3US] is null then 0 else  [15Q3US] end,
+							 [YTD 15Q3LC]=case when  [YTD 15Q3LC] is null then 0 else  [YTD 15Q3LC]
+end
+	
+(843 rows affected)
+
+	update inHKAPI_Linda set [15Q2LC]=case when  [15Q2LC] is null then 0 else
+[15Q2LC] end,
+							 [15Q2US]=case when  [15Q2US] is null then 0 else  [15Q2US] end,
+							 [YTD 15Q2LC]=case when  [YTD 15Q2LC] is null then 0 else  [YTD 15Q2LC]
+end
+	
+(843 rows affected)
+
+	update inHKAPI_Linda set [15Q1LC]=case when  [15Q1LC] is null then 0 else
+[15Q1LC] end,
+							 [15Q1US]=case when  [15Q1US] is null then 0 else  [15Q1US] end,
+							 [YTD 15Q1LC]=case when  [YTD 15Q1LC] is null then 0 else  [YTD 15Q1LC]
+end
+	
+(843 rows affected)
+
+	update inHKAPI_Linda set [14Q4LC]=case when  [14Q4LC] is null then 0 else
+[14Q4LC] end,
+							 [14Q4US]=case when  [14Q4US] is null then 0 else  [14Q4US] end,
+							 [YTD 14Q4LC]=case when  [YTD 14Q4LC] is null then 0 else  [YTD 14Q4LC]
+end
+	
+(843 rows affected)
+
+	update inHKAPI_Linda set [14Q3LC]=case when  [14Q3LC] is null then 0 else
+[14Q3LC] end,
+							 [14Q3US]=case when  [14Q3US] is null then 0 else  [14Q3US] end,
+							 [YTD 14Q3LC]=case when  [YTD 14Q3LC] is null then 0 else  [YTD 14Q3LC]
+end
+	
+(843 rows affected)
+
+	update inHKAPI_Linda set [14Q2LC]=case when  [14Q2LC] is null then 0 else
+[14Q2LC] end,
+							 [14Q2US]=case when  [14Q2US] is null then 0 else  [14Q2US] end,
+							 [YTD 14Q2LC]=case when  [YTD 14Q2LC] is null then 0 else  [YTD 14Q2LC]
+end
+	
+(843 rows affected)
+
+	update inHKAPI_Linda set [14Q1LC]=case when  [14Q1LC] is null then 0 else
+[14Q1LC] end,
+							 [14Q1US]=case when  [14Q1US] is null then 0 else  [14Q1US] end,
+							 [YTD 14Q1LC]=case when  [YTD 14Q1LC] is null then 0 else  [YTD 14Q1LC]
+end
+	
+(843 rows affected)
+
+	update inHKAPI_Linda set [13Q4LC]=case when  [13Q4LC] is null then 0 else
+[13Q4LC] end,
+							 [13Q4US]=case when  [13Q4US] is null then 0 else  [13Q4US] end,
+							 [YTD 13Q4LC]=case when  [YTD 13Q4LC] is null then 0 else  [YTD 13Q4LC]
+end
+	
+(843 rows affected)
+
+	update inHKAPI_Linda set [13Q3LC]=case when  [13Q3LC] is null then 0 else
+[13Q3LC] end,
+							 [13Q3US]=case when  [13Q3US] is null then 0 else  [13Q3US] end,
+							 [YTD 13Q3LC]=case when  [YTD 13Q3LC] is null then 0 else  [YTD 13Q3LC]
+end
+	
+(843 rows affected)
+
+	update inHKAPI_Linda set [13Q2LC]=case when  [13Q2LC] is null then 0 else
+[13Q2LC] end,
+							 [13Q2US]=case when  [13Q2US] is null then 0 else  [13Q2US] end,
+							 [YTD 13Q2LC]=case when  [YTD 13Q2LC] is null then 0 else  [YTD 13Q2LC]
+end
+	
+(843 rows affected)
+
+	update inHKAPI_Linda set [13Q1LC]=case when  [13Q1LC] is null then 0 else
+[13Q1LC] end,
+							 [13Q1US]=case when  [13Q1US] is null then 0 else  [13Q1US] end,
+							 [YTD 13Q1LC]=case when  [YTD 13Q1LC] is null then 0 else  [YTD 13Q1LC]
+end
+	
+(843 rows affected)
+
+	update inHKAPI_Linda set [12Q4LC]=case when  [12Q4LC] is null then 0 else
+[12Q4LC] end,
+							 [12Q4US]=case when  [12Q4US] is null then 0 else  [12Q4US] end,
+							 [YTD 12Q4LC]=case when  [YTD 12Q4LC] is null then 0 else  [YTD 12Q4LC]
+end
+	
+(843 rows affected)
+
+	update inHKAPI_Linda set [12Q3LC]=case when  [12Q3LC] is null then 0 else
+[12Q3LC] end,
+							 [12Q3US]=case when  [12Q3US] is null then 0 else  [12Q3US] end,
+							 [YTD 12Q3LC]=case when  [YTD 12Q3LC] is null then 0 else  [YTD 12Q3LC]
+end
+	
+(843 rows affected)
+
+	update inHKAPI_Linda set [12Q2LC]=case when  [12Q2LC] is null then 0 else
+[12Q2LC] end,
+							 [12Q2US]=case when  [12Q2US] is null then 0 else  [12Q2US] end,
+							 [YTD 12Q2LC]=case when  [YTD 12Q2LC] is null then 0 else  [YTD 12Q2LC]
+end
+	
+(843 rows affected)
+
+	update inHKAPI_Linda set [12Q1LC]=case when  [12Q1LC] is null then 0 else
+[12Q1LC] end,
+							 [12Q1US]=case when  [12Q1US] is null then 0 else  [12Q1US] end,
+							 [YTD 12Q1LC]=case when  [YTD 12Q1LC] is null then 0 else  [YTD 12Q1LC]
+end
+	
+(843 rows affected)
+
+	update inHKAPI_Linda set [11Q4LC]=case when  [11Q4LC] is null then 0 else
+[11Q4LC] end,
+							 [11Q4US]=case when  [11Q4US] is null then 0 else  [11Q4US] end,
+							 [YTD 11Q4LC]=case when  [YTD 11Q4LC] is null then 0 else  [YTD 11Q4LC]
+end
+	
+(843 rows affected)
+
+	update inHKAPI_Linda set [11Q3LC]=case when  [11Q3LC] is null then 0 else
+[11Q3LC] end,
+							 [11Q3US]=case when  [11Q3US] is null then 0 else  [11Q3US] end,
+							 [YTD 11Q3LC]=case when  [YTD 11Q3LC] is null then 0 else  [YTD 11Q3LC]
+end
+	
+(843 rows affected)
+
+	update inHKAPI_Linda set [11Q2LC]=case when  [11Q2LC] is null then 0 else
+[11Q2LC] end,
+							 [11Q2US]=case when  [11Q2US] is null then 0 else  [11Q2US] end,
+							 [YTD 11Q2LC]=case when  [YTD 11Q2LC] is null then 0 else  [YTD 11Q2LC]
+end
+	
+(843 rows affected)
+
+	update inHKAPI_Linda set [11Q1LC]=case when  [11Q1LC] is null then 0 else
+[11Q1LC] end,
+							 [11Q1US]=case when  [11Q1US] is null then 0 else  [11Q1US] end,
+							 [YTD 11Q1LC]=case when  [YTD 11Q1LC] is null then 0 else  [YTD 11Q1LC]
+end
+	
+(843 rows affected)
+
+	update inHKAPI_Linda set [10Q4LC]=case when  [10Q4LC] is null then 0 else
+[10Q4LC] end,
+							 [10Q4US]=case when  [10Q4US] is null then 0 else  [10Q4US] end,
+							 [YTD 10Q4LC]=case when  [YTD 10Q4LC] is null then 0 else  [YTD 10Q4LC]
+end
+	
+(843 rows affected)
+
+	update inHKAPI_Linda set [10Q3LC]=case when  [10Q3LC] is null then 0 else
+[10Q3LC] end,
+							 [10Q3US]=case when  [10Q3US] is null then 0 else  [10Q3US] end,
+							 [YTD 10Q3LC]=case when  [YTD 10Q3LC] is null then 0 else  [YTD 10Q3LC]
+end
+	
+(843 rows affected)
+
+	update inHKAPI_Linda set [10Q2LC]=case when  [10Q2LC] is null then 0 else
+[10Q2LC] end,
+							 [10Q2US]=case when  [10Q2US] is null then 0 else  [10Q2US] end,
+							 [YTD 10Q2LC]=case when  [YTD 10Q2LC] is null then 0 else  [YTD 10Q2LC]
+end
+	
+(843 rows affected)
+
+	update inHKAPI_Linda set [10Q1LC]=case when  [10Q1LC] is null then 0 else
+[10Q1LC] end,
+							 [10Q1US]=case when  [10Q1US] is null then 0 else  [10Q1US] end,
+							 [YTD 10Q1LC]=case when  [YTD 10Q1LC] is null then 0 else  [YTD 10Q1LC]
+end
+	
+(843 rows affected)
+
+	update inHKAPI_Linda set [09Q4LC]=case when  [09Q4LC] is null then 0 else
+[09Q4LC] end,
+							 [09Q4US]=case when  [09Q4US] is null then 0 else  [09Q4US] end,
+							 [YTD 09Q4LC]=case when  [YTD 09Q4LC] is null then 0 else  [YTD 09Q4LC]
+end
+	
+(843 rows affected)
+
+	update inHKAPI_Linda set [09Q3LC]=case when  [09Q3LC] is null then 0 else
+[09Q3LC] end,
+							 [09Q3US]=case when  [09Q3US] is null then 0 else  [09Q3US] end,
+							 [YTD 09Q3LC]=case when  [YTD 09Q3LC] is null then 0 else  [YTD 09Q3LC]
+end
+	
+(843 rows affected)
+
+	update inHKAPI_Linda set [09Q2LC]=case when  [09Q2LC] is null then 0 else
+[09Q2LC] end,
+							 [09Q2US]=case when  [09Q2US] is null then 0 else  [09Q2US] end,
+							 [YTD 09Q2LC]=case when  [YTD 09Q2LC] is null then 0 else  [YTD 09Q2LC]
+end
+	
+(843 rows affected)
+
+	update inHKAPI_Linda set [09Q1LC]=case when  [09Q1LC] is null then 0 else
+[09Q1LC] end,
+							 [09Q1US]=case when  [09Q1US] is null then 0 else  [09Q1US] end,
+							 [YTD 09Q1LC]=case when  [YTD 09Q1LC] is null then 0 else  [YTD 09Q1LC]
+end
+	
+(843 rows affected)
+
+	update inHKAPI_Linda set [08Q4LC]=case when  [08Q4LC] is null then 0 else
+[08Q4LC] end,
+							 [08Q4US]=case when  [08Q4US] is null then 0 else  [08Q4US] end,
+							 [YTD 08Q4LC]=case when  [YTD 08Q4LC] is null then 0 else  [YTD 08Q4LC]
+end
+	
+(843 rows affected)
+
+	update inHKAPI_Linda set [08Q3LC]=case when  [08Q3LC] is null then 0 else
+[08Q3LC] end,
+							 [08Q3US]=case when  [08Q3US] is null then 0 else  [08Q3US] end,
+							 [YTD 08Q3LC]=case when  [YTD 08Q3LC] is null then 0 else  [YTD 08Q3LC]
+end
+	
+(843 rows affected)
+
+	update inHKAPI_Linda set [08Q2LC]=case when  [08Q2LC] is null then 0 else
+[08Q2LC] end,
+							 [08Q2US]=case when  [08Q2US] is null then 0 else  [08Q2US] end,
+							 [YTD 08Q2LC]=case when  [YTD 08Q2LC] is null then 0 else  [YTD 08Q2LC]
+end
+	
+(843 rows affected)
+
+	update inHKAPI_Linda set [08Q1LC]=case when  [08Q1LC] is null then 0 else
+[08Q1LC] end,
+							 [08Q1US]=case when  [08Q1US] is null then 0 else  [08Q1US] end,
+							 [YTD 08Q1LC]=case when  [YTD 08Q1LC] is null then 0 else  [YTD 08Q1LC]
+end
+	
+(843 rows affected)
+
+	update inHKAPI_Linda set [07Q4LC]=case when  [07Q4LC] is null then 0 else
+[07Q4LC] end,
+							 [07Q4US]=case when  [07Q4US] is null then 0 else  [07Q4US] end,
+							 [YTD 07Q4LC]=case when  [YTD 07Q4LC] is null then 0 else  [YTD 07Q4LC]
+end
+	
+(843 rows affected)
+
+	update inHKAPI_Linda set [07Q3LC]=case when  [07Q3LC] is null then 0 else
+[07Q3LC] end,
+							 [07Q3US]=case when  [07Q3US] is null then 0 else  [07Q3US] end,
+							 [YTD 07Q3LC]=case when  [YTD 07Q3LC] is null then 0 else  [YTD 07Q3LC]
+end
+	
+(843 rows affected)
+
+	update inHKAPI_Linda set [07Q2LC]=case when  [07Q2LC] is null then 0 else
+[07Q2LC] end,
+							 [07Q2US]=case when  [07Q2US] is null then 0 else  [07Q2US] end,
+							 [YTD 07Q2LC]=case when  [YTD 07Q2LC] is null then 0 else  [YTD 07Q2LC]
+end
+	
+(843 rows affected)
+
+	update inHKAPI_Linda set [07Q1LC]=case when  [07Q1LC] is null then 0 else
+[07Q1LC] end,
+							 [07Q1US]=case when  [07Q1US] is null then 0 else  [07Q1US] end,
+							 [YTD 07Q1LC]=case when  [YTD 07Q1LC] is null then 0 else  [YTD 07Q1LC]
+end
+	
+(843 rows affected)
+
+	update inHKAPI_Linda set [06Q4LC]=case when  [06Q4LC] is null then 0 else
+[06Q4LC] end,
+							 [06Q4US]=case when  [06Q4US] is null then 0 else  [06Q4US] end,
+							 [YTD 06Q4LC]=case when  [YTD 06Q4LC] is null then 0 else  [YTD 06Q4LC]
+end
+	
+(843 rows affected)
+
+	update inHKAPI_Linda set [06Q3LC]=case when  [06Q3LC] is null then 0 else
+[06Q3LC] end,
+							 [06Q3US]=case when  [06Q3US] is null then 0 else  [06Q3US] end,
+							 [YTD 06Q3LC]=case when  [YTD 06Q3LC] is null then 0 else  [YTD 06Q3LC]
+end
+	
+(843 rows affected)
+
+	update inHKAPI_Linda set [06Q2LC]=case when  [06Q2LC] is null then 0 else
+[06Q2LC] end,
+							 [06Q2US]=case when  [06Q2US] is null then 0 else  [06Q2US] end,
+							 [YTD 06Q2LC]=case when  [YTD 06Q2LC] is null then 0 else  [YTD 06Q2LC]
+end
+	
+(843 rows affected)
+
+	update inHKAPI_Linda set [06Q1LC]=case when  [06Q1LC] is null then 0 else
+[06Q1LC] end,
+							 [06Q1US]=case when  [06Q1US] is null then 0 else  [06Q1US] end,
+							 [YTD 06Q1LC]=case when  [YTD 06Q1LC] is null then 0 else  [YTD 06Q1LC]
+end
+	
+(843 rows affected)
+
+update inHKAPI_Linda set
+[16Q2US]=A.[16Q2LC]/B.Rate,[15Q2US]=A.[15Q2LC]/B.Rate
+from inHKAPI_Linda A,db4.BMSChinaCIA_IMS.dbo.tblRate B
+(843 rows affected)
+
+
+if object_id(N'inHKAPI_2016Q2',N'U') is not null
+	drop table inHKAPI_2016Q2
+select * into dbo.inHKAPI_2016Q2 from dbo.inHKAPI_Linda
+
+
+(843 rows affected)
+(843 rows affected)

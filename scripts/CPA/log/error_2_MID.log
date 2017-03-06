@@ -1,0 +1,36 @@
+Missing end comment mark '*/'.
+Incorrect syntax near '*'.
+Msg 113, Level 15, State 1, Server DB4, Line 23
+Msg 102, Level 15, State 1, Server DB4, Line 2
+Unclosed quotation mark after the character string '奈达�?)
+group by c.Mkt,c.Prod,a.cpa_id,a.Tier,a.YM
+'.
+Incorrect syntax near '奈达�?)
+group by c.Mkt,c.Prod,a.cpa_id,a.Tier,a.YM
+'.
+Unclosed quotation mark after the character string '奈达�?)
+group by c.Mkt,c.Prod,a.cpa_id,a.Tier,a.YM
+'.
+Incorrect syntax near '奈达�?)
+group by c.Mkt,c.Prod,a.cpa_id,a.Tier,a.YM
+'.
+Unclosed quotation mark after the character string '奈达�?)
+group by a.cpa_id, a.Tier,a.YM
+'.
+Incorrect syntax near '奈达�?)
+group by a.cpa_id, a.Tier,a.YM
+'.
+Unclosed quotation mark after the character string '奈达�?)
+group by a.cpa_id, a.Tier,a.YM
+'.
+Incorrect syntax near '奈达�?)
+group by a.cpa_id, a.Tier,a.YM
+'.
+Msg 105, Level 15, State 1, Server DB4, Line 17
+Msg 102, Level 15, State 1, Server DB4, Line 17
+Msg 105, Level 15, State 1, Server DB4, Line 10
+Msg 102, Level 15, State 1, Server DB4, Line 10
+Msg 105, Level 15, State 1, Server DB4, Line 8
+Msg 102, Level 15, State 1, Server DB4, Line 8
+Msg 105, Level 15, State 1, Server DB4, Line 7
+Msg 102, Level 15, State 1, Server DB4, Line 7

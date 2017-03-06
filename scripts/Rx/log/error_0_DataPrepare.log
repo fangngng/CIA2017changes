@@ -1,0 +1,8 @@
+Missing end comment mark '*/'.
+Invalid object name 'inRx_history_2012H2all_Aric20130524'.
+Incorrect syntax near the keyword 'as'.
+Incorrect syntax near '*'.
+Msg 113, Level 15, State 1, Server DB4, Line 65
+Msg 208, Level 16, State 1, Server DB4, Line 2
+Msg 156, Level 15, State 1, Server DB4, Line 9
+Msg 102, Level 15, State 1, Server DB4, Line 3

@@ -1,0 +1,4 @@
+osql -r -S 192.168.1.32 -U sa -P love2you -d BMSCNProc2 -i "IMS\Step_2_1_Create_IMS_TA_Output_Master_Tables.sql" 	1>"IMS\log\Step_2_1_Create_IMS_TA_Output_Master_Tables.log" 2>"IMS\log\ERROR_Step_2_1_Create_IMS_TA_Output_Master_Tables.log"
+osql -r -S 192.168.1.32 -U sa -P love2you -d BMSCNProc2 -i "IMS\Step_2_2_Create_IMS_TA_Final_Output_Tables.sql" 	1>"IMS\log\Step_2_2_Create_IMS_TA_Final_Output_Tables.log" 2>"IMS\log\ERROR_Step_2_2_Create_IMS_TA_Final_Output_Tables.log"
+osql -r -S 192.168.1.32 -U sa -P love2you -d BMSCNProc2 -i "IMS\Step_3_1_Create_IMS_ATC_Output_Master_Table.sql" 	1>"IMS\log\Step_3_1_Create_IMS_ATC_Output_Master_Table.log" 2>"IMS\log\ERROR_Step_3_1_Create_IMS_ATC_Output_Master_Table.log"
+osql -r -S 192.168.1.32 -U sa -P love2you -d BMSCNProc2 -i "IMS\Step_3_2_Create_IMS_ATC_Final_Output_Tables.sql" 	1>"IMS\log\Step_3_2_Create_IMS_ATC_Final_Output_Tables.log" 2>"IMS\log\ERROR_Step_3_2_Create_IMS_ATC_Final_Output_Tables.log"

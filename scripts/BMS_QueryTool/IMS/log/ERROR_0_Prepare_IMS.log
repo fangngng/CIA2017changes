@@ -1,0 +1,19 @@
+Incorrect syntax near 'BMSCNProc_bak'.
+Incorrect syntax near '+@lastIMSMth+'.
+Incorrect syntax near 'BMSCNProc_bak'.
+Incorrect syntax near '+@lastIMSMth+'.
+Unclosed quotation mark after the character string ');
+'.
+Msg 102, Level 15, State 1, Server QA82, Line 28
+Msg 102, Level 15, State 1, Server QA82, Line 29
+Msg 102, Level 15, State 1, Server QA82, Line 32
+Msg 102, Level 15, State 1, Server QA82, Line 33
+Msg 105, Level 15, State 1, Server QA82, Line 34
+Invalid object name 'BMSCNProc_bak.dbo.tblQueryToolDriverATC_201611'.
+Msg 208, Level 16, State 1, Server QA82, Line 1
+Invalid object name 'BMSCNProc_bak.dbo.tblQueryToolDriverIMS_201611'.
+Msg 208, Level 16, State 1, Server QA82, Line 2
+Invalid object name 'BMSCNProc_bak.dbo.tblQueryToolDriverIMS_201611'.
+Msg 208, Level 16, State 1, Server QA82, Line 2
+Invalid object name 'BMSCNProc_bak.dbo.tblQueryToolDriverIMS_201611'.
+Msg 208, Level 16, State 1, Server QA82, Line 2

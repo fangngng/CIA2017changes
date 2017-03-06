@@ -1,0 +1,18 @@
+1> 2> 1> 2> 3> 4> 5> 6> 7> 8> 9> (1 row affected)
+--tblQueryToolDriverHK
+1> 2> 3> OLE DB provider "SQLNCLI11" for linked server "db33" returned message "Login
+timeout expired".
+OLE DB provider "SQLNCLI11" for linked server "db33" returned message "A
+network-related or instance-specific error has occurred while establishing a
+connection to SQL Server. Server is not found or not accessible. Check if
+instance name is correct and if SQL Server is configured to allow remote
+connections. For more information see SQL Server Books Online.".
+1> 2> 3> 4> --tblOutput_HKAPI
+1> 2> 3> OLE DB provider "SQLNCLI11" for linked server "db33" returned message "Login
+timeout expired".
+OLE DB provider "SQLNCLI11" for linked server "db33" returned message "A
+network-related or instance-specific error has occurred while establishing a
+connection to SQL Server. Server is not found or not accessible. Check if
+instance name is correct and if SQL Server is configured to allow remote
+connections. For more information see SQL Server Books Online.".
+1> 2> 3> (1 row affected)

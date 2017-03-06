@@ -1,0 +1,9 @@
+Missing end comment mark '*/'.
+Incorrect syntax near '*'.
+Cannot create an instance of OLE DB provider "Microsoft.Jet.OLEDB.4.0" for
+linked server "(null)".
+Incorrect syntax near 'GO'.
+Msg 113, Level 15, State 1, Server QA82, Line 8
+Msg 102, Level 15, State 1, Server QA82, Line 1
+Msg 7302, Level 16, State 1, Server QA82, Line 3
+Msg 102, Level 15, State 1, Server QA82, Line 8

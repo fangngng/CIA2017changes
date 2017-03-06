@@ -1,0 +1,2253 @@
+1> 2> 3> 4> 5> 6> 7> 8> 1> 2> 3> 4> 5> 6> 7> 8> 9> 10> 11> (1 row affected)
+(0 rows affected)
+1> 2> 3> 4> 5> 6> 7> 8> 9> 10> (0 rows affected)
+1> 2> 3> 4> 5> 6> 7> 8> 9> 10> 11> 12> 13> 14> 15> 16> 17> 18> 19> 20> 21> 22> 23> 24> 25> 26> 27> 28> 29> 30> 31> 32> 33> 34> 35> 36> 37> 38> 39> 40> 41> 42> 43> 44> 45> 46> 47> 48> 49> 50> (30 rows affected)
+(6 rows affected)
+(6 rows affected)
+(6 rows affected)
+(6 rows affected)
+(6 rows affected)
+1> 2> 3> 4> 5> 6> 7> 8> 9> (0 rows affected)
+1> 2> 3> 4> 5> 6> 7> 8> 9> 10> 11> 12> 13> 14> 15> 16> 17> (33 rows affected)
+1> 2> 3> 4> 5> 6> 7> 8> 9> 10> 11> 12> (33 rows affected)
+1> 2> (33 rows affected)
+1> 2> 3> (33 rows affected)
+1> 2> 3> (33 rows affected)
+1> 2> 3> 4> 5> 6> 7> 8> 9> 10> 11> 12> 13> 14> 15> 16> 17> 18> 19> 20> 21> 22> 23> 24> 25> 26> 27> 28> 29> 30> 31> 32> 33> 34> 35> 36> 37> 38> 39> 40> 41> 42> 43> 44> 45> 46> 47> 48> 49> 50> 51> 52> 53> 54> 55> 56> 57> 58> 59> 60> 61> 62> 63> 64> (0 rows affected)
+insert into [output_stage] (isshow,TimeFrame,LinkChartCode,Product, Series,
+SeriesIdx,Currency, X, XIdx,lev,geo)
+	select isshow,A.Period, 'R020' as Code,
+Market,B.Productname,B.prod,MoneyType,a.Series,a.SeriesIdx, 'China','China'
+	from (
+		select 'MAT' as Period, 'MAT00' as Series, 5 as SeriesIdx union all
+		select 'MAT' as Period, 'MAT12' as Series, 4 as SeriesIdx union all
+		select 'MAT' as Period, 'MAT24' as Series, 3 as SeriesIdx union all
+		select 'MAT' as Period, 'MAT36' as Series, 2 as SeriesIdx union all
+		select 'MAT' as Period, 'MAT48' as Series, 1 as SeriesIdx union all
+		select 'YTD' as Period, 'YTD00' as Series, 5 as SeriesIdx union all
+		select 'YTD' as Period, 'YTD12' as Series, 4 as SeriesIdx union all
+		select 'YTD' as Period, 'YTD24' as Series, 3 as SeriesIdx union all
+		select 'YTD' as Period, 'YTD36' as Series, 2 as SeriesIdx union all
+		select 'YTD' as Period, 'YTD48' as Series, 1 as SeriesIdx
+	) a, (
+		select distinct case type when 'Sales' then 'Y' when 'Market Share' then 'L'
+when 'Growth' then 'D' else 'N' end as
+isshow,MoneyType,mkt,Market,Prod,Productname from
+dbo.[OurputPreMarketTrendT1] where mkt<>'NIAD'
+	) b where b.market not like 'Eliquis%'
+(4000 rows affected)
+MAT12
+
+		update [output_stage]
+		set Y=B.[MAT12] from [output_stage] A inner join
+dbo.[OurputPreMarketTrendT1] B
+		on case B.type when 'Sales' then 'Y' when 'Market Share' then 'L' when
+'Growth' then 'D' else 'N' end=A.isshow and A.Product=B.Market and A.X='MAT12'
+and A.currency=b.Moneytype
+		and a.LinkChartCode = 'R020' and A.Series=B.Productname  and  B.mkt<>'NIAD'
+(400 rows affected)
+YTD24
+
+		update [output_stage]
+		set Y=B.[YTD24] from [output_stage] A inner join
+dbo.[OurputPreMarketTrendT1] B
+		on case B.type when 'Sales' then 'Y' when 'Market Share' then 'L' when
+'Growth' then 'D' else 'N' end=A.isshow and A.Product=B.Market and A.X='YTD24'
+and A.currency=b.Moneytype
+		and a.LinkChartCode = 'R020' and A.Series=B.Productname  and  B.mkt<>'NIAD'
+(400 rows affected)
+MAT00
+
+		update [output_stage]
+		set Y=B.[MAT00] from [output_stage] A inner join
+dbo.[OurputPreMarketTrendT1] B
+		on case B.type when 'Sales' then 'Y' when 'Market Share' then 'L' when
+'Growth' then 'D' else 'N' end=A.isshow and A.Product=B.Market and A.X='MAT00'
+and A.currency=b.Moneytype
+		and a.LinkChartCode = 'R020' and A.Series=B.Productname  and  B.mkt<>'NIAD'
+(400 rows affected)
+MAT48
+
+		update [output_stage]
+		set Y=B.[MAT48] from [output_stage] A inner join
+dbo.[OurputPreMarketTrendT1] B
+		on case B.type when 'Sales' then 'Y' when 'Market Share' then 'L' when
+'Growth' then 'D' else 'N' end=A.isshow and A.Product=B.Market and A.X='MAT48'
+and A.currency=b.Moneytype
+		and a.LinkChartCode = 'R020' and A.Series=B.Productname  and  B.mkt<>'NIAD'
+(400 rows affected)
+MAT36
+
+		update [output_stage]
+		set Y=B.[MAT36] from [output_stage] A inner join
+dbo.[OurputPreMarketTrendT1] B
+		on case B.type when 'Sales' then 'Y' when 'Market Share' then 'L' when
+'Growth' then 'D' else 'N' end=A.isshow and A.Product=B.Market and A.X='MAT36'
+and A.currency=b.Moneytype
+		and a.LinkChartCode = 'R020' and A.Series=B.Productname  and  B.mkt<>'NIAD'
+(400 rows affected)
+MAT24
+
+		update [output_stage]
+		set Y=B.[MAT24] from [output_stage] A inner join
+dbo.[OurputPreMarketTrendT1] B
+		on case B.type when 'Sales' then 'Y' when 'Market Share' then 'L' when
+'Growth' then 'D' else 'N' end=A.isshow and A.Product=B.Market and A.X='MAT24'
+and A.currency=b.Moneytype
+		and a.LinkChartCode = 'R020' and A.Series=B.Productname  and  B.mkt<>'NIAD'
+(400 rows affected)
+YTD12
+
+		update [output_stage]
+		set Y=B.[YTD12] from [output_stage] A inner join
+dbo.[OurputPreMarketTrendT1] B
+		on case B.type when 'Sales' then 'Y' when 'Market Share' then 'L' when
+'Growth' then 'D' else 'N' end=A.isshow and A.Product=B.Market and A.X='YTD12'
+and A.currency=b.Moneytype
+		and a.LinkChartCode = 'R020' and A.Series=B.Productname  and  B.mkt<>'NIAD'
+(400 rows affected)
+YTD36
+
+		update [output_stage]
+		set Y=B.[YTD36] from [output_stage] A inner join
+dbo.[OurputPreMarketTrendT1] B
+		on case B.type when 'Sales' then 'Y' when 'Market Share' then 'L' when
+'Growth' then 'D' else 'N' end=A.isshow and A.Product=B.Market and A.X='YTD36'
+and A.currency=b.Moneytype
+		and a.LinkChartCode = 'R020' and A.Series=B.Productname  and  B.mkt<>'NIAD'
+(400 rows affected)
+YTD48
+
+		update [output_stage]
+		set Y=B.[YTD48] from [output_stage] A inner join
+dbo.[OurputPreMarketTrendT1] B
+		on case B.type when 'Sales' then 'Y' when 'Market Share' then 'L' when
+'Growth' then 'D' else 'N' end=A.isshow and A.Product=B.Market and A.X='YTD48'
+and A.currency=b.Moneytype
+		and a.LinkChartCode = 'R020' and A.Series=B.Productname  and  B.mkt<>'NIAD'
+(400 rows affected)
+YTD00
+
+		update [output_stage]
+		set Y=B.[YTD00] from [output_stage] A inner join
+dbo.[OurputPreMarketTrendT1] B
+		on case B.type when 'Sales' then 'Y' when 'Market Share' then 'L' when
+'Growth' then 'D' else 'N' end=A.isshow and A.Product=B.Market and A.X='YTD00'
+and A.currency=b.Moneytype
+		and a.LinkChartCode = 'R020' and A.Series=B.Productname  and  B.mkt<>'NIAD'
+(400 rows affected)
+1> 2> 3> 4> 5> 6> (48 rows affected)
+1> 2> 3> 4> 5> 6> (60 rows affected)
+1> 2> 3> (30 rows affected)
+1> 2> 3> 4> 5> 6> 7> 8> 9> 10> 11> 12> 13> 14> 15> 16> 17> 18> 19> 20> 21> 22> 23> 24> 25> 26> 27> 28> 29> 30> 31> 32> 33> 34> 35> 36> 37> 38> 39> 40> 41> 42> 43> 44> 45> 46> 47> 48> 49> 50> 51> 52> 53> 54> 55> 56> (0 rows affected)
+insert into [output_stage] (isshow,TimeFrame,LinkChartCode,Product, Series,
+SeriesIdx,Currency, X, XIdx,lev,geo)
+select isshow,A.Period, 'R030' as Code,
+Market,B.Productname,B.prod,MoneyType,a.Series,a.SeriesIdx, 'China','China'
+from (select  'MAT' as Period,'MAT00' as Series,49 as SeriesIdx union all
+select  'MAT' as Period,'MAT12' as Series,37 as SeriesIdx union all
+select  'MAT' as Period,'MAT24' as Series,25 as SeriesIdx union all
+select  'MAT' as Period,'MAT36' as Series,13 as SeriesIdx union all
+select  'MAT' as Period,'MAT48' as Series,1 as SeriesIdx ) a, (
+	select distinct case type when 'Sales' then 'Y' when 'Market Share' then 'L'
+when 'Growth' then 'D' else 'N' end as
+isshow,MoneyType,mkt,Market,Prod,Productname from
+dbo.[OurputPreMarketTrendT1] where mkt='NIAD'
+) b
+(315 rows affected)
+MAT12
+
+		update [output_stage]
+		set Y=B.[MAT12] from [output_stage] A inner join
+dbo.[OurputPreMarketTrendT1] B
+		on case B.type when 'Sales' then 'Y' when 'Market Share' then 'L' when
+'Growth' then 'D' else 'N' end=A.isshow and A.Product=B.Market and A.X='MAT12'
+and A.currency=b.Moneytype
+		and a.LinkChartCode = 'R030' and A.Series=B.Productname  and  B.mkt='NIAD'
+(63 rows affected)
+MAT00
+
+		update [output_stage]
+		set Y=B.[MAT00] from [output_stage] A inner join
+dbo.[OurputPreMarketTrendT1] B
+		on case B.type when 'Sales' then 'Y' when 'Market Share' then 'L' when
+'Growth' then 'D' else 'N' end=A.isshow and A.Product=B.Market and A.X='MAT00'
+and A.currency=b.Moneytype
+		and a.LinkChartCode = 'R030' and A.Series=B.Productname  and  B.mkt='NIAD'
+(63 rows affected)
+MAT48
+
+		update [output_stage]
+		set Y=B.[MAT48] from [output_stage] A inner join
+dbo.[OurputPreMarketTrendT1] B
+		on case B.type when 'Sales' then 'Y' when 'Market Share' then 'L' when
+'Growth' then 'D' else 'N' end=A.isshow and A.Product=B.Market and A.X='MAT48'
+and A.currency=b.Moneytype
+		and a.LinkChartCode = 'R030' and A.Series=B.Productname  and  B.mkt='NIAD'
+(63 rows affected)
+MAT36
+
+		update [output_stage]
+		set Y=B.[MAT36] from [output_stage] A inner join
+dbo.[OurputPreMarketTrendT1] B
+		on case B.type when 'Sales' then 'Y' when 'Market Share' then 'L' when
+'Growth' then 'D' else 'N' end=A.isshow and A.Product=B.Market and A.X='MAT36'
+and A.currency=b.Moneytype
+		and a.LinkChartCode = 'R030' and A.Series=B.Productname  and  B.mkt='NIAD'
+(63 rows affected)
+MAT24
+
+		update [output_stage]
+		set Y=B.[MAT24] from [output_stage] A inner join
+dbo.[OurputPreMarketTrendT1] B
+		on case B.type when 'Sales' then 'Y' when 'Market Share' then 'L' when
+'Growth' then 'D' else 'N' end=A.isshow and A.Product=B.Market and A.X='MAT24'
+and A.currency=b.Moneytype
+		and a.LinkChartCode = 'R030' and A.Series=B.Productname  and  B.mkt='NIAD'
+(63 rows affected)
+1> 2> 3> 4> 5> 6> 7> 8> 9> 10> 11> 12> 13> 14> 15> 16> 17> 18> 19> 20> 21> 22> 23> 24> 25> 26> 27> 28> 29> 30> 31> 32> 33> 34> 35> 36> 37> 38> 39> 40> 41> 42> 43> 44> 45> 46> 47> 48> 49> 50> 51> (0 rows affected)
+(1746 rows affected)
+MAT12
+
+		update [output_stage]
+		set Y=B.MAT12 from [output_stage] A inner join
+dbo.[OurputPreBrandTotalPerformance] B
+		on case B.type when 'Sales' then 'Y' when 'Market Share' then 'L' else 'N'
+end=A.isshow  and A.Currency=B.MoneyType and A.Series='MAT12'
+		and a.LinkChartCode = 'R040' and A.X=B.productname
+(291 rows affected)
+MAT00
+
+		update [output_stage]
+		set Y=B.MAT00 from [output_stage] A inner join
+dbo.[OurputPreBrandTotalPerformance] B
+		on case B.type when 'Sales' then 'Y' when 'Market Share' then 'L' else 'N'
+end=A.isshow  and A.Currency=B.MoneyType and A.Series='MAT00'
+		and a.LinkChartCode = 'R040' and A.X=B.productname
+(291 rows affected)
+MAT00Growth
+
+		update [output_stage]
+		set Y=B.MAT00Growth from [output_stage] A inner join
+dbo.[OurputPreBrandTotalPerformance] B
+		on case B.type when 'Sales' then 'Y' when 'Market Share' then 'L' else 'N'
+end=A.isshow  and A.Currency=B.MoneyType and A.Series='MAT00Growth'
+		and a.LinkChartCode = 'R040' and A.X=B.productname
+(291 rows affected)
+YTD00Growth
+
+		update [output_stage]
+		set Y=B.YTD00Growth from [output_stage] A inner join
+dbo.[OurputPreBrandTotalPerformance] B
+		on case B.type when 'Sales' then 'Y' when 'Market Share' then 'L' else 'N'
+end=A.isshow  and A.Currency=B.MoneyType and A.Series='YTD00Growth'
+		and a.LinkChartCode = 'R040' and A.X=B.productname
+(291 rows affected)
+YTD12
+
+		update [output_stage]
+		set Y=B.YTD12 from [output_stage] A inner join
+dbo.[OurputPreBrandTotalPerformance] B
+		on case B.type when 'Sales' then 'Y' when 'Market Share' then 'L' else 'N'
+end=A.isshow  and A.Currency=B.MoneyType and A.Series='YTD12'
+		and a.LinkChartCode = 'R040' and A.X=B.productname
+(291 rows affected)
+YTD00
+
+		update [output_stage]
+		set Y=B.YTD00 from [output_stage] A inner join
+dbo.[OurputPreBrandTotalPerformance] B
+		on case B.type when 'Sales' then 'Y' when 'Market Share' then 'L' else 'N'
+end=A.isshow  and A.Currency=B.MoneyType and A.Series='YTD00'
+		and a.LinkChartCode = 'R040' and A.X=B.productname
+(291 rows affected)
+1> 2> 3> (316 rows affected)
+1> 2> 3> 4> 5> 6> 7> 8> 9> 10> 11> 12> 13> 14> 15> 16> 17> 18> 19> 20> 21> 22> 23> 24> 25> 26> 27> 28> 29> 30> 31> 32> 33> 34> 35> 36> 37> 38> 39> 40> 41> 42> 43> 44> 45> 46> 47> 48> 49> 50> 51> 52> 53> 54> 55> 56> 57> 58> 59> 60> 61> 62> 63> 64> 65> 66> 67> 68> 69> 70> 71> 72> 73> 74> 75> (632 rows affected)
+(0 rows affected)
+(2046 rows affected)
+R3M02
+
+		update [output_stage]
+		set Y=B.R3M02 from [output_stage] A inner join [OurputPreMarketPerformance]
+B 
+		on case B.type when 'sales' then 'Y' else 'N' end=A.isshow and
+A.Currency=B.MoneyType and A.X='R3M02'
+		and a.LinkChartCode = 'R051' and A.Series=B.Productname and B.type
+in('Sales','CAGR') 
+and (molecule='N' and class='N') and mkt not in('Dia','ACE','DPP4')
+(186 rows affected)
+YTD24
+
+		update [output_stage]
+		set Y=B.YTD24 from [output_stage] A inner join [OurputPreMarketPerformance]
+B 
+		on case B.type when 'sales' then 'Y' else 'N' end=A.isshow and
+A.Currency=B.MoneyType and A.X='YTD24'
+		and a.LinkChartCode = 'R051' and A.Series=B.Productname and B.type
+in('Sales','CAGR') 
+and (molecule='N' and class='N') and mkt not in('Dia','ACE','DPP4')
+(186 rows affected)
+R3M04
+
+		update [output_stage]
+		set Y=B.R3M04 from [output_stage] A inner join [OurputPreMarketPerformance]
+B 
+		on case B.type when 'sales' then 'Y' else 'N' end=A.isshow and
+A.Currency=B.MoneyType and A.X='R3M04'
+		and a.LinkChartCode = 'R051' and A.Series=B.Productname and B.type
+in('Sales','CAGR') 
+and (molecule='N' and class='N') and mkt not in('Dia','ACE','DPP4')
+(186 rows affected)
+R3M01
+
+		update [output_stage]
+		set Y=B.R3M01 from [output_stage] A inner join [OurputPreMarketPerformance]
+B 
+		on case B.type when 'sales' then 'Y' else 'N' end=A.isshow and
+A.Currency=B.MoneyType and A.X='R3M01'
+		and a.LinkChartCode = 'R051' and A.Series=B.Productname and B.type
+in('Sales','CAGR') 
+and (molecule='N' and class='N') and mkt not in('Dia','ACE','DPP4')
+(186 rows affected)
+R3M05
+
+		update [output_stage]
+		set Y=B.R3M05 from [output_stage] A inner join [OurputPreMarketPerformance]
+B 
+		on case B.type when 'sales' then 'Y' else 'N' end=A.isshow and
+A.Currency=B.MoneyType and A.X='R3M05'
+		and a.LinkChartCode = 'R051' and A.Series=B.Productname and B.type
+in('Sales','CAGR') 
+and (molecule='N' and class='N') and mkt not in('Dia','ACE','DPP4')
+(186 rows affected)
+R3M03
+
+		update [output_stage]
+		set Y=B.R3M03 from [output_stage] A inner join [OurputPreMarketPerformance]
+B 
+		on case B.type when 'sales' then 'Y' else 'N' end=A.isshow and
+A.Currency=B.MoneyType and A.X='R3M03'
+		and a.LinkChartCode = 'R051' and A.Series=B.Productname and B.type
+in('Sales','CAGR') 
+and (molecule='N' and class='N') and mkt not in('Dia','ACE','DPP4')
+(186 rows affected)
+YTD12
+
+		update [output_stage]
+		set Y=B.YTD12 from [output_stage] A inner join [OurputPreMarketPerformance]
+B 
+		on case B.type when 'sales' then 'Y' else 'N' end=A.isshow and
+A.Currency=B.MoneyType and A.X='YTD12'
+		and a.LinkChartCode = 'R051' and A.Series=B.Productname and B.type
+in('Sales','CAGR') 
+and (molecule='N' and class='N') and mkt not in('Dia','ACE','DPP4')
+(186 rows affected)
+R3M00
+
+		update [output_stage]
+		set Y=B.R3M00 from [output_stage] A inner join [OurputPreMarketPerformance]
+B 
+		on case B.type when 'sales' then 'Y' else 'N' end=A.isshow and
+A.Currency=B.MoneyType and A.X='R3M00'
+		and a.LinkChartCode = 'R051' and A.Series=B.Productname and B.type
+in('Sales','CAGR') 
+and (molecule='N' and class='N') and mkt not in('Dia','ACE','DPP4')
+(186 rows affected)
+YTD36
+
+		update [output_stage]
+		set Y=B.YTD36 from [output_stage] A inner join [OurputPreMarketPerformance]
+B 
+		on case B.type when 'sales' then 'Y' else 'N' end=A.isshow and
+A.Currency=B.MoneyType and A.X='YTD36'
+		and a.LinkChartCode = 'R051' and A.Series=B.Productname and B.type
+in('Sales','CAGR') 
+and (molecule='N' and class='N') and mkt not in('Dia','ACE','DPP4')
+(186 rows affected)
+YTD48
+
+		update [output_stage]
+		set Y=B.YTD48 from [output_stage] A inner join [OurputPreMarketPerformance]
+B 
+		on case B.type when 'sales' then 'Y' else 'N' end=A.isshow and
+A.Currency=B.MoneyType and A.X='YTD48'
+		and a.LinkChartCode = 'R051' and A.Series=B.Productname and B.type
+in('Sales','CAGR') 
+and (molecule='N' and class='N') and mkt not in('Dia','ACE','DPP4')
+(186 rows affected)
+YTD00
+
+		update [output_stage]
+		set Y=B.YTD00 from [output_stage] A inner join [OurputPreMarketPerformance]
+B 
+		on case B.type when 'sales' then 'Y' else 'N' end=A.isshow and
+A.Currency=B.MoneyType and A.X='YTD00'
+		and a.LinkChartCode = 'R051' and A.Series=B.Productname and B.type
+in('Sales','CAGR') 
+and (molecule='N' and class='N') and mkt not in('Dia','ACE','DPP4')
+(186 rows affected)
+1> 2> 3> 4> 5> 6> 7> 8> 9> 10> 11> 12> 13> 14> 15> 16> 17> 18> 19> 20> 21> 22> 23> 24> 25> 26> 27> 28> 29> 30> 31> 32> 33> 34> 35> 36> 37> 38> 39> 40> 41> 42> 43> 44> 45> 46> 47> 48> 49> 50> 51> 52> 53> 54> 55> 56> 57> (837 rows affected)
+(0 rows affected)
+(2211 rows affected)
+R3M02
+
+		update [output_stage]
+		set Y=B.R3M02 from [output_stage] A inner join [OurputPreMarketPerformance]
+B 
+		on  A.Currency=B.MoneyType and A.X='R3M02'
+		and a.LinkChartCode = 'R052' and A.Series=B.Productname and B.type
+in('Market Share') 
+and (molecule='N' and class='N') and mkt not in('Dia','ACE','DPP4')
+(201 rows affected)
+YTD24
+
+		update [output_stage]
+		set Y=B.YTD24 from [output_stage] A inner join [OurputPreMarketPerformance]
+B 
+		on  A.Currency=B.MoneyType and A.X='YTD24'
+		and a.LinkChartCode = 'R052' and A.Series=B.Productname and B.type
+in('Market Share') 
+and (molecule='N' and class='N') and mkt not in('Dia','ACE','DPP4')
+(201 rows affected)
+R3M04
+
+		update [output_stage]
+		set Y=B.R3M04 from [output_stage] A inner join [OurputPreMarketPerformance]
+B 
+		on  A.Currency=B.MoneyType and A.X='R3M04'
+		and a.LinkChartCode = 'R052' and A.Series=B.Productname and B.type
+in('Market Share') 
+and (molecule='N' and class='N') and mkt not in('Dia','ACE','DPP4')
+(201 rows affected)
+R3M01
+
+		update [output_stage]
+		set Y=B.R3M01 from [output_stage] A inner join [OurputPreMarketPerformance]
+B 
+		on  A.Currency=B.MoneyType and A.X='R3M01'
+		and a.LinkChartCode = 'R052' and A.Series=B.Productname and B.type
+in('Market Share') 
+and (molecule='N' and class='N') and mkt not in('Dia','ACE','DPP4')
+(201 rows affected)
+R3M05
+
+		update [output_stage]
+		set Y=B.R3M05 from [output_stage] A inner join [OurputPreMarketPerformance]
+B 
+		on  A.Currency=B.MoneyType and A.X='R3M05'
+		and a.LinkChartCode = 'R052' and A.Series=B.Productname and B.type
+in('Market Share') 
+and (molecule='N' and class='N') and mkt not in('Dia','ACE','DPP4')
+(201 rows affected)
+R3M03
+
+		update [output_stage]
+		set Y=B.R3M03 from [output_stage] A inner join [OurputPreMarketPerformance]
+B 
+		on  A.Currency=B.MoneyType and A.X='R3M03'
+		and a.LinkChartCode = 'R052' and A.Series=B.Productname and B.type
+in('Market Share') 
+and (molecule='N' and class='N') and mkt not in('Dia','ACE','DPP4')
+(201 rows affected)
+YTD12
+
+		update [output_stage]
+		set Y=B.YTD12 from [output_stage] A inner join [OurputPreMarketPerformance]
+B 
+		on  A.Currency=B.MoneyType and A.X='YTD12'
+		and a.LinkChartCode = 'R052' and A.Series=B.Productname and B.type
+in('Market Share') 
+and (molecule='N' and class='N') and mkt not in('Dia','ACE','DPP4')
+(201 rows affected)
+R3M00
+
+		update [output_stage]
+		set Y=B.R3M00 from [output_stage] A inner join [OurputPreMarketPerformance]
+B 
+		on  A.Currency=B.MoneyType and A.X='R3M00'
+		and a.LinkChartCode = 'R052' and A.Series=B.Productname and B.type
+in('Market Share') 
+and (molecule='N' and class='N') and mkt not in('Dia','ACE','DPP4')
+(201 rows affected)
+YTD36
+
+		update [output_stage]
+		set Y=B.YTD36 from [output_stage] A inner join [OurputPreMarketPerformance]
+B 
+		on  A.Currency=B.MoneyType and A.X='YTD36'
+		and a.LinkChartCode = 'R052' and A.Series=B.Productname and B.type
+in('Market Share') 
+and (molecule='N' and class='N') and mkt not in('Dia','ACE','DPP4')
+(201 rows affected)
+YTD48
+
+		update [output_stage]
+		set Y=B.YTD48 from [output_stage] A inner join [OurputPreMarketPerformance]
+B 
+		on  A.Currency=B.MoneyType and A.X='YTD48'
+		and a.LinkChartCode = 'R052' and A.Series=B.Productname and B.type
+in('Market Share') 
+and (molecule='N' and class='N') and mkt not in('Dia','ACE','DPP4')
+(201 rows affected)
+YTD00
+
+		update [output_stage]
+		set Y=B.YTD00 from [output_stage] A inner join [OurputPreMarketPerformance]
+B 
+		on  A.Currency=B.MoneyType and A.X='YTD00'
+		and a.LinkChartCode = 'R052' and A.Series=B.Productname and B.type
+in('Market Share') 
+and (molecule='N' and class='N') and mkt not in('Dia','ACE','DPP4')
+(201 rows affected)
+1> 2> 3> 4> 5> 6> 7> 8> 9> 10> 11> 12> 13> 14> 15> 16> 17> 18> 19> 20> 21> 22> 23> 24> 25> 26> 27> 28> 29> 30> 31> 32> 33> 34> 35> 36> 37> 38> 39> 40> 41> 42> 43> 44> 45> 46> 47> 48> 49> 50> 51> 52> 53> 54> 55> (0 rows affected)
+(2211 rows affected)
+R3M02
+
+		update [output_stage]
+		set Y=B.R3M02 from [output_stage] A inner join [OurputPreMarketPerformance]
+B 
+		on  A.Currency=B.MoneyType and A.X='R3M02'
+		and a.LinkChartCode = 'R053' and A.Series=B.Productname and B.type
+in('Growth') 
+and (molecule='N' and class='N') and mkt not in('Dia','ACE','DPP4')
+(201 rows affected)
+YTD24
+
+		update [output_stage]
+		set Y=B.YTD24 from [output_stage] A inner join [OurputPreMarketPerformance]
+B 
+		on  A.Currency=B.MoneyType and A.X='YTD24'
+		and a.LinkChartCode = 'R053' and A.Series=B.Productname and B.type
+in('Growth') 
+and (molecule='N' and class='N') and mkt not in('Dia','ACE','DPP4')
+(201 rows affected)
+R3M04
+
+		update [output_stage]
+		set Y=B.R3M04 from [output_stage] A inner join [OurputPreMarketPerformance]
+B 
+		on  A.Currency=B.MoneyType and A.X='R3M04'
+		and a.LinkChartCode = 'R053' and A.Series=B.Productname and B.type
+in('Growth') 
+and (molecule='N' and class='N') and mkt not in('Dia','ACE','DPP4')
+(201 rows affected)
+R3M01
+
+		update [output_stage]
+		set Y=B.R3M01 from [output_stage] A inner join [OurputPreMarketPerformance]
+B 
+		on  A.Currency=B.MoneyType and A.X='R3M01'
+		and a.LinkChartCode = 'R053' and A.Series=B.Productname and B.type
+in('Growth') 
+and (molecule='N' and class='N') and mkt not in('Dia','ACE','DPP4')
+(201 rows affected)
+R3M05
+
+		update [output_stage]
+		set Y=B.R3M05 from [output_stage] A inner join [OurputPreMarketPerformance]
+B 
+		on  A.Currency=B.MoneyType and A.X='R3M05'
+		and a.LinkChartCode = 'R053' and A.Series=B.Productname and B.type
+in('Growth') 
+and (molecule='N' and class='N') and mkt not in('Dia','ACE','DPP4')
+(201 rows affected)
+R3M03
+
+		update [output_stage]
+		set Y=B.R3M03 from [output_stage] A inner join [OurputPreMarketPerformance]
+B 
+		on  A.Currency=B.MoneyType and A.X='R3M03'
+		and a.LinkChartCode = 'R053' and A.Series=B.Productname and B.type
+in('Growth') 
+and (molecule='N' and class='N') and mkt not in('Dia','ACE','DPP4')
+(201 rows affected)
+YTD12
+
+		update [output_stage]
+		set Y=B.YTD12 from [output_stage] A inner join [OurputPreMarketPerformance]
+B 
+		on  A.Currency=B.MoneyType and A.X='YTD12'
+		and a.LinkChartCode = 'R053' and A.Series=B.Productname and B.type
+in('Growth') 
+and (molecule='N' and class='N') and mkt not in('Dia','ACE','DPP4')
+(201 rows affected)
+R3M00
+
+		update [output_stage]
+		set Y=B.R3M00 from [output_stage] A inner join [OurputPreMarketPerformance]
+B 
+		on  A.Currency=B.MoneyType and A.X='R3M00'
+		and a.LinkChartCode = 'R053' and A.Series=B.Productname and B.type
+in('Growth') 
+and (molecule='N' and class='N') and mkt not in('Dia','ACE','DPP4')
+(201 rows affected)
+YTD36
+
+		update [output_stage]
+		set Y=B.YTD36 from [output_stage] A inner join [OurputPreMarketPerformance]
+B 
+		on  A.Currency=B.MoneyType and A.X='YTD36'
+		and a.LinkChartCode = 'R053' and A.Series=B.Productname and B.type
+in('Growth') 
+and (molecule='N' and class='N') and mkt not in('Dia','ACE','DPP4')
+(201 rows affected)
+YTD48
+
+		update [output_stage]
+		set Y=B.YTD48 from [output_stage] A inner join [OurputPreMarketPerformance]
+B 
+		on  A.Currency=B.MoneyType and A.X='YTD48'
+		and a.LinkChartCode = 'R053' and A.Series=B.Productname and B.type
+in('Growth') 
+and (molecule='N' and class='N') and mkt not in('Dia','ACE','DPP4')
+(201 rows affected)
+YTD00
+
+		update [output_stage]
+		set Y=B.YTD00 from [output_stage] A inner join [OurputPreMarketPerformance]
+B 
+		on  A.Currency=B.MoneyType and A.X='YTD00'
+		and a.LinkChartCode = 'R053' and A.Series=B.Productname and B.type
+in('Growth') 
+and (molecule='N' and class='N') and mkt not in('Dia','ACE','DPP4')
+(201 rows affected)
+1> 2> 3> 4> 5> 6> 7> 8> 9> 10> 11> 12> 13> 14> 15> 16> 17> 18> 19> 20> 21> 22> 23> 24> 25> 26> 27> 28> 29> 30> 31> 32> 33> 34> 35> 36> 37> 38> 39> 40> 41> 42> 43> 44> 45> 46> (0 rows affected)
+(358 rows affected)
+R3M00
+
+		update [output_stage]
+		set Y=B.R3M00 from [output_stage] A inner join [OurputPreMarketPerformance]
+B 
+		on  A.Currency=B.MoneyType and A.Series='R3M00'
+		and a.LinkChartCode = 'R054' and A.X=B.Productname and B.type in('Share of
+Growth') 
+and (molecule='N' and class='N') and mkt not in('Dia','ACE','DPP4')
+(179 rows affected)
+YTD00
+
+		update [output_stage]
+		set Y=B.YTD00 from [output_stage] A inner join [OurputPreMarketPerformance]
+B 
+		on  A.Currency=B.MoneyType and A.Series='YTD00'
+		and a.LinkChartCode = 'R054' and A.X=B.Productname and B.type in('Share of
+Growth') 
+and (molecule='N' and class='N') and mkt not in('Dia','ACE','DPP4')
+(179 rows affected)
+1> 2> 3> 4> 5> 6> 7> 8> 9> 10> 11> 12> 13> 14> 15> 16> 17> 18> 19> 20> 21> 22> 23> 24> 25> 26> 27> 28> 29> 30> 31> 32> 33> 34> 35> 36> 37> 38> 39> 40> 41> 42> 43> 44> 45> 46> 47> 48> 49> 50> 51> 52> 53> 54> (0 rows affected)
+(72 rows affected)
+R3M02
+
+		update [output_stage]
+		set Y=B.R3M02 from [output_stage] A inner join [OurputPreMarketPerformance]
+B 
+		on case B.type when 'sales' then 'Y' else 'N' end=A.isshow and
+A.Currency=B.MoneyType and A.X='R3M02'
+		and a.LinkChartCode = 'R081' and A.Series=B.Productname and B.type
+in('Sales','CAGR') 
+and (molecule='N' and class='N') and mkt ='DPP4'
+(12 rows affected)
+R3M04
+
+		update [output_stage]
+		set Y=B.R3M04 from [output_stage] A inner join [OurputPreMarketPerformance]
+B 
+		on case B.type when 'sales' then 'Y' else 'N' end=A.isshow and
+A.Currency=B.MoneyType and A.X='R3M04'
+		and a.LinkChartCode = 'R081' and A.Series=B.Productname and B.type
+in('Sales','CAGR') 
+and (molecule='N' and class='N') and mkt ='DPP4'
+(12 rows affected)
+R3M01
+
+		update [output_stage]
+		set Y=B.R3M01 from [output_stage] A inner join [OurputPreMarketPerformance]
+B 
+		on case B.type when 'sales' then 'Y' else 'N' end=A.isshow and
+A.Currency=B.MoneyType and A.X='R3M01'
+		and a.LinkChartCode = 'R081' and A.Series=B.Productname and B.type
+in('Sales','CAGR') 
+and (molecule='N' and class='N') and mkt ='DPP4'
+(12 rows affected)
+R3M05
+
+		update [output_stage]
+		set Y=B.R3M05 from [output_stage] A inner join [OurputPreMarketPerformance]
+B 
+		on case B.type when 'sales' then 'Y' else 'N' end=A.isshow and
+A.Currency=B.MoneyType and A.X='R3M05'
+		and a.LinkChartCode = 'R081' and A.Series=B.Productname and B.type
+in('Sales','CAGR') 
+and (molecule='N' and class='N') and mkt ='DPP4'
+(12 rows affected)
+R3M03
+
+		update [output_stage]
+		set Y=B.R3M03 from [output_stage] A inner join [OurputPreMarketPerformance]
+B 
+		on case B.type when 'sales' then 'Y' else 'N' end=A.isshow and
+A.Currency=B.MoneyType and A.X='R3M03'
+		and a.LinkChartCode = 'R081' and A.Series=B.Productname and B.type
+in('Sales','CAGR') 
+and (molecule='N' and class='N') and mkt ='DPP4'
+(12 rows affected)
+R3M00
+
+		update [output_stage]
+		set Y=B.R3M00 from [output_stage] A inner join [OurputPreMarketPerformance]
+B 
+		on case B.type when 'sales' then 'Y' else 'N' end=A.isshow and
+A.Currency=B.MoneyType and A.X='R3M00'
+		and a.LinkChartCode = 'R081' and A.Series=B.Productname and B.type
+in('Sales','CAGR') 
+and (molecule='N' and class='N') and mkt ='DPP4'
+(12 rows affected)
+1> 2> 3> (30 rows affected)
+1> 2> 3> 4> 5> 6> 7> 8> 9> 10> 11> 12> 13> 14> 15> 16> 17> 18> 19> 20> 21> 22> 23> 24> 25> 26> 27> 28> 29> 30> 31> 32> 33> 34> 35> 36> 37> 38> 39> 40> 41> 42> 43> 44> 45> 46> 47> 48> 49> 50> 51> 52> 53> 54> 55> (0 rows affected)
+(880 rows affected)
+R3M02
+
+		update [output_stage]
+		set Y=B.R3M02 from [output_stage] A inner join [OurputPreMarketPerformance]
+B 
+		on case B.type when 'sales' then 'Y' else 'N' end=A.isshow and
+A.Currency=B.MoneyType and A.X='R3M02'
+		and a.LinkChartCode = 'R061' and A.Series=B.Productname and B.type
+in('Sales','CAGR') 
+and (molecule='Y' or class='Y') and mkt not in('Dia','ACE','ONCFCS')
+(80 rows affected)
+YTD24
+
+		update [output_stage]
+		set Y=B.YTD24 from [output_stage] A inner join [OurputPreMarketPerformance]
+B 
+		on case B.type when 'sales' then 'Y' else 'N' end=A.isshow and
+A.Currency=B.MoneyType and A.X='YTD24'
+		and a.LinkChartCode = 'R061' and A.Series=B.Productname and B.type
+in('Sales','CAGR') 
+and (molecule='Y' or class='Y') and mkt not in('Dia','ACE','ONCFCS')
+(80 rows affected)
+R3M04
+
+		update [output_stage]
+		set Y=B.R3M04 from [output_stage] A inner join [OurputPreMarketPerformance]
+B 
+		on case B.type when 'sales' then 'Y' else 'N' end=A.isshow and
+A.Currency=B.MoneyType and A.X='R3M04'
+		and a.LinkChartCode = 'R061' and A.Series=B.Productname and B.type
+in('Sales','CAGR') 
+and (molecule='Y' or class='Y') and mkt not in('Dia','ACE','ONCFCS')
+(80 rows affected)
+R3M01
+
+		update [output_stage]
+		set Y=B.R3M01 from [output_stage] A inner join [OurputPreMarketPerformance]
+B 
+		on case B.type when 'sales' then 'Y' else 'N' end=A.isshow and
+A.Currency=B.MoneyType and A.X='R3M01'
+		and a.LinkChartCode = 'R061' and A.Series=B.Productname and B.type
+in('Sales','CAGR') 
+and (molecule='Y' or class='Y') and mkt not in('Dia','ACE','ONCFCS')
+(80 rows affected)
+R3M05
+
+		update [output_stage]
+		set Y=B.R3M05 from [output_stage] A inner join [OurputPreMarketPerformance]
+B 
+		on case B.type when 'sales' then 'Y' else 'N' end=A.isshow and
+A.Currency=B.MoneyType and A.X='R3M05'
+		and a.LinkChartCode = 'R061' and A.Series=B.Productname and B.type
+in('Sales','CAGR') 
+and (molecule='Y' or class='Y') and mkt not in('Dia','ACE','ONCFCS')
+(80 rows affected)
+R3M03
+
+		update [output_stage]
+		set Y=B.R3M03 from [output_stage] A inner join [OurputPreMarketPerformance]
+B 
+		on case B.type when 'sales' then 'Y' else 'N' end=A.isshow and
+A.Currency=B.MoneyType and A.X='R3M03'
+		and a.LinkChartCode = 'R061' and A.Series=B.Productname and B.type
+in('Sales','CAGR') 
+and (molecule='Y' or class='Y') and mkt not in('Dia','ACE','ONCFCS')
+(80 rows affected)
+YTD12
+
+		update [output_stage]
+		set Y=B.YTD12 from [output_stage] A inner join [OurputPreMarketPerformance]
+B 
+		on case B.type when 'sales' then 'Y' else 'N' end=A.isshow and
+A.Currency=B.MoneyType and A.X='YTD12'
+		and a.LinkChartCode = 'R061' and A.Series=B.Productname and B.type
+in('Sales','CAGR') 
+and (molecule='Y' or class='Y') and mkt not in('Dia','ACE','ONCFCS')
+(80 rows affected)
+R3M00
+
+		update [output_stage]
+		set Y=B.R3M00 from [output_stage] A inner join [OurputPreMarketPerformance]
+B 
+		on case B.type when 'sales' then 'Y' else 'N' end=A.isshow and
+A.Currency=B.MoneyType and A.X='R3M00'
+		and a.LinkChartCode = 'R061' and A.Series=B.Productname and B.type
+in('Sales','CAGR') 
+and (molecule='Y' or class='Y') and mkt not in('Dia','ACE','ONCFCS')
+(80 rows affected)
+YTD36
+
+		update [output_stage]
+		set Y=B.YTD36 from [output_stage] A inner join [OurputPreMarketPerformance]
+B 
+		on case B.type when 'sales' then 'Y' else 'N' end=A.isshow and
+A.Currency=B.MoneyType and A.X='YTD36'
+		and a.LinkChartCode = 'R061' and A.Series=B.Productname and B.type
+in('Sales','CAGR') 
+and (molecule='Y' or class='Y') and mkt not in('Dia','ACE','ONCFCS')
+(80 rows affected)
+YTD48
+
+		update [output_stage]
+		set Y=B.YTD48 from [output_stage] A inner join [OurputPreMarketPerformance]
+B 
+		on case B.type when 'sales' then 'Y' else 'N' end=A.isshow and
+A.Currency=B.MoneyType and A.X='YTD48'
+		and a.LinkChartCode = 'R061' and A.Series=B.Productname and B.type
+in('Sales','CAGR') 
+and (molecule='Y' or class='Y') and mkt not in('Dia','ACE','ONCFCS')
+(80 rows affected)
+YTD00
+
+		update [output_stage]
+		set Y=B.YTD00 from [output_stage] A inner join [OurputPreMarketPerformance]
+B 
+		on case B.type when 'sales' then 'Y' else 'N' end=A.isshow and
+A.Currency=B.MoneyType and A.X='YTD00'
+		and a.LinkChartCode = 'R061' and A.Series=B.Productname and B.type
+in('Sales','CAGR') 
+and (molecule='Y' or class='Y') and mkt not in('Dia','ACE','ONCFCS')
+(80 rows affected)
+1> 2> 3> (360 rows affected)
+1> 2> 3> 4> 5> 6> 7> 8> 9> 10> 11> 12> 13> 14> 15> 16> 17> 18> 19> 20> 21> 22> 23> 24> 25> 26> 27> 28> 29> 30> 31> 32> 33> 34> 35> 36> 37> 38> 39> 40> 41> 42> 43> 44> 45> 46> 47> 48> (0 rows affected)
+(162 rows affected)
+R3M02
+
+		update [output_stage]
+		set Y=B.R3M02 from [output_stage] A inner join [OurputPreMarketPerformance]
+B 
+		on case B.type when 'sales' then 'Y' else 'N' end=A.isshow and
+A.Currency=B.MoneyType and A.X='R3M02'
+		and a.LinkChartCode = 'R071' and A.Series=B.Productname and B.type
+in('Sales','CAGR') 
+and mkt in('Dia','ACE')
+(27 rows affected)
+R3M04
+
+		update [output_stage]
+		set Y=B.R3M04 from [output_stage] A inner join [OurputPreMarketPerformance]
+B 
+		on case B.type when 'sales' then 'Y' else 'N' end=A.isshow and
+A.Currency=B.MoneyType and A.X='R3M04'
+		and a.LinkChartCode = 'R071' and A.Series=B.Productname and B.type
+in('Sales','CAGR') 
+and mkt in('Dia','ACE')
+(27 rows affected)
+R3M01
+
+		update [output_stage]
+		set Y=B.R3M01 from [output_stage] A inner join [OurputPreMarketPerformance]
+B 
+		on case B.type when 'sales' then 'Y' else 'N' end=A.isshow and
+A.Currency=B.MoneyType and A.X='R3M01'
+		and a.LinkChartCode = 'R071' and A.Series=B.Productname and B.type
+in('Sales','CAGR') 
+and mkt in('Dia','ACE')
+(27 rows affected)
+R3M05
+
+		update [output_stage]
+		set Y=B.R3M05 from [output_stage] A inner join [OurputPreMarketPerformance]
+B 
+		on case B.type when 'sales' then 'Y' else 'N' end=A.isshow and
+A.Currency=B.MoneyType and A.X='R3M05'
+		and a.LinkChartCode = 'R071' and A.Series=B.Productname and B.type
+in('Sales','CAGR') 
+and mkt in('Dia','ACE')
+(27 rows affected)
+R3M03
+
+		update [output_stage]
+		set Y=B.R3M03 from [output_stage] A inner join [OurputPreMarketPerformance]
+B 
+		on case B.type when 'sales' then 'Y' else 'N' end=A.isshow and
+A.Currency=B.MoneyType and A.X='R3M03'
+		and a.LinkChartCode = 'R071' and A.Series=B.Productname and B.type
+in('Sales','CAGR') 
+and mkt in('Dia','ACE')
+(27 rows affected)
+R3M00
+
+		update [output_stage]
+		set Y=B.R3M00 from [output_stage] A inner join [OurputPreMarketPerformance]
+B 
+		on case B.type when 'sales' then 'Y' else 'N' end=A.isshow and
+A.Currency=B.MoneyType and A.X='R3M00'
+		and a.LinkChartCode = 'R071' and A.Series=B.Productname and B.type
+in('Sales','CAGR') 
+and mkt in('Dia','ACE')
+(27 rows affected)
+1> 2> 3> 4> 5> 6> 7> 8> 9> 10> 11> 12> 13> 14> 15> 16> 17> 18> 19> 20> 21> 22> 23> 24> 25> 26> 27> 28> 29> 30> 31> 32> 33> 34> 35> 36> 37> 38> 39> 40> 41> 42> 43> 44> 45> 46> 47> 48> 49> 50> 51> 52> (60 rows affected)
+(0 rows affected)
+(72 rows affected)
+R3M02
+
+		update [output_stage]
+		set Y=B.R3M02 from [output_stage] A inner join [OurputPreMarketPerformance]
+B 
+		on  A.Currency=B.MoneyType and A.X='R3M02'
+		and a.LinkChartCode = 'R082' and A.Series=B.Productname and B.type
+in('Market Share') 
+and (molecule='N' and class='N') and mkt='DPP4'
+(12 rows affected)
+R3M04
+
+		update [output_stage]
+		set Y=B.R3M04 from [output_stage] A inner join [OurputPreMarketPerformance]
+B 
+		on  A.Currency=B.MoneyType and A.X='R3M04'
+		and a.LinkChartCode = 'R082' and A.Series=B.Productname and B.type
+in('Market Share') 
+and (molecule='N' and class='N') and mkt='DPP4'
+(12 rows affected)
+R3M01
+
+		update [output_stage]
+		set Y=B.R3M01 from [output_stage] A inner join [OurputPreMarketPerformance]
+B 
+		on  A.Currency=B.MoneyType and A.X='R3M01'
+		and a.LinkChartCode = 'R082' and A.Series=B.Productname and B.type
+in('Market Share') 
+and (molecule='N' and class='N') and mkt='DPP4'
+(12 rows affected)
+R3M05
+
+		update [output_stage]
+		set Y=B.R3M05 from [output_stage] A inner join [OurputPreMarketPerformance]
+B 
+		on  A.Currency=B.MoneyType and A.X='R3M05'
+		and a.LinkChartCode = 'R082' and A.Series=B.Productname and B.type
+in('Market Share') 
+and (molecule='N' and class='N') and mkt='DPP4'
+(12 rows affected)
+R3M03
+
+		update [output_stage]
+		set Y=B.R3M03 from [output_stage] A inner join [OurputPreMarketPerformance]
+B 
+		on  A.Currency=B.MoneyType and A.X='R3M03'
+		and a.LinkChartCode = 'R082' and A.Series=B.Productname and B.type
+in('Market Share') 
+and (molecule='N' and class='N') and mkt='DPP4'
+(12 rows affected)
+R3M00
+
+		update [output_stage]
+		set Y=B.R3M00 from [output_stage] A inner join [OurputPreMarketPerformance]
+B 
+		on  A.Currency=B.MoneyType and A.X='R3M00'
+		and a.LinkChartCode = 'R082' and A.Series=B.Productname and B.type
+in('Market Share') 
+and (molecule='N' and class='N') and mkt='DPP4'
+(12 rows affected)
+1> 2> 3> 4> 5> 6> 7> 8> 9> 10> 11> 12> 13> 14> 15> 16> 17> 18> 19> 20> 21> 22> 23> 24> 25> 26> 27> 28> 29> 30> 31> 32> 33> 34> 35> 36> 37> 38> 39> 40> 41> 42> 43> 44> 45> 46> 47> 48> 49> 50> 51> 52> 53> 54> (0 rows affected)
+(836 rows affected)
+R3M02
+
+		update [output_stage]
+		set Y=B.R3M02 from [output_stage] A inner join [OurputPreMarketPerformance]
+B 
+		on A.Currency=B.MoneyType and A.X='R3M02'
+		and a.LinkChartCode = 'R062' and A.Series=B.Productname and B.type
+in('Market Share') 
+and (molecule='Y' or class='Y') and mkt not in('Dia','ACE','ONCFCS')
+(76 rows affected)
+YTD24
+
+		update [output_stage]
+		set Y=B.YTD24 from [output_stage] A inner join [OurputPreMarketPerformance]
+B 
+		on A.Currency=B.MoneyType and A.X='YTD24'
+		and a.LinkChartCode = 'R062' and A.Series=B.Productname and B.type
+in('Market Share') 
+and (molecule='Y' or class='Y') and mkt not in('Dia','ACE','ONCFCS')
+(76 rows affected)
+R3M04
+
+		update [output_stage]
+		set Y=B.R3M04 from [output_stage] A inner join [OurputPreMarketPerformance]
+B 
+		on A.Currency=B.MoneyType and A.X='R3M04'
+		and a.LinkChartCode = 'R062' and A.Series=B.Productname and B.type
+in('Market Share') 
+and (molecule='Y' or class='Y') and mkt not in('Dia','ACE','ONCFCS')
+(76 rows affected)
+R3M01
+
+		update [output_stage]
+		set Y=B.R3M01 from [output_stage] A inner join [OurputPreMarketPerformance]
+B 
+		on A.Currency=B.MoneyType and A.X='R3M01'
+		and a.LinkChartCode = 'R062' and A.Series=B.Productname and B.type
+in('Market Share') 
+and (molecule='Y' or class='Y') and mkt not in('Dia','ACE','ONCFCS')
+(76 rows affected)
+R3M05
+
+		update [output_stage]
+		set Y=B.R3M05 from [output_stage] A inner join [OurputPreMarketPerformance]
+B 
+		on A.Currency=B.MoneyType and A.X='R3M05'
+		and a.LinkChartCode = 'R062' and A.Series=B.Productname and B.type
+in('Market Share') 
+and (molecule='Y' or class='Y') and mkt not in('Dia','ACE','ONCFCS')
+(76 rows affected)
+R3M03
+
+		update [output_stage]
+		set Y=B.R3M03 from [output_stage] A inner join [OurputPreMarketPerformance]
+B 
+		on A.Currency=B.MoneyType and A.X='R3M03'
+		and a.LinkChartCode = 'R062' and A.Series=B.Productname and B.type
+in('Market Share') 
+and (molecule='Y' or class='Y') and mkt not in('Dia','ACE','ONCFCS')
+(76 rows affected)
+YTD12
+
+		update [output_stage]
+		set Y=B.YTD12 from [output_stage] A inner join [OurputPreMarketPerformance]
+B 
+		on A.Currency=B.MoneyType and A.X='YTD12'
+		and a.LinkChartCode = 'R062' and A.Series=B.Productname and B.type
+in('Market Share') 
+and (molecule='Y' or class='Y') and mkt not in('Dia','ACE','ONCFCS')
+(76 rows affected)
+R3M00
+
+		update [output_stage]
+		set Y=B.R3M00 from [output_stage] A inner join [OurputPreMarketPerformance]
+B 
+		on A.Currency=B.MoneyType and A.X='R3M00'
+		and a.LinkChartCode = 'R062' and A.Series=B.Productname and B.type
+in('Market Share') 
+and (molecule='Y' or class='Y') and mkt not in('Dia','ACE','ONCFCS')
+(76 rows affected)
+YTD36
+
+		update [output_stage]
+		set Y=B.YTD36 from [output_stage] A inner join [OurputPreMarketPerformance]
+B 
+		on A.Currency=B.MoneyType and A.X='YTD36'
+		and a.LinkChartCode = 'R062' and A.Series=B.Productname and B.type
+in('Market Share') 
+and (molecule='Y' or class='Y') and mkt not in('Dia','ACE','ONCFCS')
+(76 rows affected)
+YTD48
+
+		update [output_stage]
+		set Y=B.YTD48 from [output_stage] A inner join [OurputPreMarketPerformance]
+B 
+		on A.Currency=B.MoneyType and A.X='YTD48'
+		and a.LinkChartCode = 'R062' and A.Series=B.Productname and B.type
+in('Market Share') 
+and (molecule='Y' or class='Y') and mkt not in('Dia','ACE','ONCFCS')
+(76 rows affected)
+YTD00
+
+		update [output_stage]
+		set Y=B.YTD00 from [output_stage] A inner join [OurputPreMarketPerformance]
+B 
+		on A.Currency=B.MoneyType and A.X='YTD00'
+		and a.LinkChartCode = 'R062' and A.Series=B.Productname and B.type
+in('Market Share') 
+and (molecule='Y' or class='Y') and mkt not in('Dia','ACE','ONCFCS')
+(76 rows affected)
+1> 2> 3> 4> 5> 6> 7> 8> 9> 10> 11> 12> 13> 14> 15> 16> 17> 18> 19> 20> 21> 22> 23> 24> 25> 26> 27> 28> 29> 30> 31> 32> 33> 34> 35> 36> 37> 38> 39> 40> 41> 42> 43> 44> 45> 46> 47> 48> (0 rows affected)
+(180 rows affected)
+R3M02
+
+		update [output_stage]
+		set Y=B.R3M02 from [output_stage] A inner join [OurputPreMarketPerformance]
+B 
+		on  A.Currency=B.MoneyType and A.X='R3M02'
+		and a.LinkChartCode = 'R072' and A.Series=B.Productname and B.type
+in('Market Share') 
+and mkt in('Dia','ACE')
+(30 rows affected)
+R3M04
+
+		update [output_stage]
+		set Y=B.R3M04 from [output_stage] A inner join [OurputPreMarketPerformance]
+B 
+		on  A.Currency=B.MoneyType and A.X='R3M04'
+		and a.LinkChartCode = 'R072' and A.Series=B.Productname and B.type
+in('Market Share') 
+and mkt in('Dia','ACE')
+(30 rows affected)
+R3M01
+
+		update [output_stage]
+		set Y=B.R3M01 from [output_stage] A inner join [OurputPreMarketPerformance]
+B 
+		on  A.Currency=B.MoneyType and A.X='R3M01'
+		and a.LinkChartCode = 'R072' and A.Series=B.Productname and B.type
+in('Market Share') 
+and mkt in('Dia','ACE')
+(30 rows affected)
+R3M05
+
+		update [output_stage]
+		set Y=B.R3M05 from [output_stage] A inner join [OurputPreMarketPerformance]
+B 
+		on  A.Currency=B.MoneyType and A.X='R3M05'
+		and a.LinkChartCode = 'R072' and A.Series=B.Productname and B.type
+in('Market Share') 
+and mkt in('Dia','ACE')
+(30 rows affected)
+R3M03
+
+		update [output_stage]
+		set Y=B.R3M03 from [output_stage] A inner join [OurputPreMarketPerformance]
+B 
+		on  A.Currency=B.MoneyType and A.X='R3M03'
+		and a.LinkChartCode = 'R072' and A.Series=B.Productname and B.type
+in('Market Share') 
+and mkt in('Dia','ACE')
+(30 rows affected)
+R3M00
+
+		update [output_stage]
+		set Y=B.R3M00 from [output_stage] A inner join [OurputPreMarketPerformance]
+B 
+		on  A.Currency=B.MoneyType and A.X='R3M00'
+		and a.LinkChartCode = 'R072' and A.Series=B.Productname and B.type
+in('Market Share') 
+and mkt in('Dia','ACE')
+(30 rows affected)
+1> 2> 3> 4> 5> 6> 7> 8> 9> 10> 11> 12> 13> 14> 15> 16> 17> 18> 19> 20> 21> 22> 23> 24> 25> 26> 27> 28> 29> 30> 31> 32> 33> 34> 35> 36> 37> 38> 39> 40> 41> 42> 43> 44> 45> 46> 47> 48> 49> 50> 51> 52> (0 rows affected)
+(72 rows affected)
+R3M02
+
+		update [output_stage]
+		set Y=B.R3M02 from [output_stage] A inner join [OurputPreMarketPerformance]
+B 
+		on  A.Currency=B.MoneyType and A.X='R3M02'
+		and a.LinkChartCode = 'R083' and A.Series=B.Productname and B.type
+in('Growth') 
+and (molecule='N' and class='N') and mkt ='DPP4'
+(12 rows affected)
+R3M04
+
+		update [output_stage]
+		set Y=B.R3M04 from [output_stage] A inner join [OurputPreMarketPerformance]
+B 
+		on  A.Currency=B.MoneyType and A.X='R3M04'
+		and a.LinkChartCode = 'R083' and A.Series=B.Productname and B.type
+in('Growth') 
+and (molecule='N' and class='N') and mkt ='DPP4'
+(12 rows affected)
+R3M01
+
+		update [output_stage]
+		set Y=B.R3M01 from [output_stage] A inner join [OurputPreMarketPerformance]
+B 
+		on  A.Currency=B.MoneyType and A.X='R3M01'
+		and a.LinkChartCode = 'R083' and A.Series=B.Productname and B.type
+in('Growth') 
+and (molecule='N' and class='N') and mkt ='DPP4'
+(12 rows affected)
+R3M05
+
+		update [output_stage]
+		set Y=B.R3M05 from [output_stage] A inner join [OurputPreMarketPerformance]
+B 
+		on  A.Currency=B.MoneyType and A.X='R3M05'
+		and a.LinkChartCode = 'R083' and A.Series=B.Productname and B.type
+in('Growth') 
+and (molecule='N' and class='N') and mkt ='DPP4'
+(12 rows affected)
+R3M03
+
+		update [output_stage]
+		set Y=B.R3M03 from [output_stage] A inner join [OurputPreMarketPerformance]
+B 
+		on  A.Currency=B.MoneyType and A.X='R3M03'
+		and a.LinkChartCode = 'R083' and A.Series=B.Productname and B.type
+in('Growth') 
+and (molecule='N' and class='N') and mkt ='DPP4'
+(12 rows affected)
+R3M00
+
+		update [output_stage]
+		set Y=B.R3M00 from [output_stage] A inner join [OurputPreMarketPerformance]
+B 
+		on  A.Currency=B.MoneyType and A.X='R3M00'
+		and a.LinkChartCode = 'R083' and A.Series=B.Productname and B.type
+in('Growth') 
+and (molecule='N' and class='N') and mkt ='DPP4'
+(12 rows affected)
+1> 2> 3> 4> 5> 6> 7> 8> 9> 10> 11> 12> 13> 14> 15> 16> 17> 18> 19> 20> 21> 22> 23> 24> 25> 26> 27> 28> 29> 30> 31> 32> 33> 34> 35> 36> 37> 38> 39> 40> 41> 42> 43> 44> 45> 46> 47> 48> 49> 50> 51> 52> 53> 54> (0 rows affected)
+(836 rows affected)
+R3M02
+
+		update [output_stage]
+		set Y=B.R3M02 from [output_stage] A inner join [OurputPreMarketPerformance]
+B 
+		on  A.Currency=B.MoneyType and A.X='R3M02'
+		and a.LinkChartCode = 'R063' and A.Series=B.Productname and B.type
+in('Growth') 
+and (molecule='Y' or class='Y') and mkt not in('Dia','ACE','ONCFCS')
+(76 rows affected)
+YTD24
+
+		update [output_stage]
+		set Y=B.YTD24 from [output_stage] A inner join [OurputPreMarketPerformance]
+B 
+		on  A.Currency=B.MoneyType and A.X='YTD24'
+		and a.LinkChartCode = 'R063' and A.Series=B.Productname and B.type
+in('Growth') 
+and (molecule='Y' or class='Y') and mkt not in('Dia','ACE','ONCFCS')
+(76 rows affected)
+R3M04
+
+		update [output_stage]
+		set Y=B.R3M04 from [output_stage] A inner join [OurputPreMarketPerformance]
+B 
+		on  A.Currency=B.MoneyType and A.X='R3M04'
+		and a.LinkChartCode = 'R063' and A.Series=B.Productname and B.type
+in('Growth') 
+and (molecule='Y' or class='Y') and mkt not in('Dia','ACE','ONCFCS')
+(76 rows affected)
+R3M01
+
+		update [output_stage]
+		set Y=B.R3M01 from [output_stage] A inner join [OurputPreMarketPerformance]
+B 
+		on  A.Currency=B.MoneyType and A.X='R3M01'
+		and a.LinkChartCode = 'R063' and A.Series=B.Productname and B.type
+in('Growth') 
+and (molecule='Y' or class='Y') and mkt not in('Dia','ACE','ONCFCS')
+(76 rows affected)
+R3M05
+
+		update [output_stage]
+		set Y=B.R3M05 from [output_stage] A inner join [OurputPreMarketPerformance]
+B 
+		on  A.Currency=B.MoneyType and A.X='R3M05'
+		and a.LinkChartCode = 'R063' and A.Series=B.Productname and B.type
+in('Growth') 
+and (molecule='Y' or class='Y') and mkt not in('Dia','ACE','ONCFCS')
+(76 rows affected)
+R3M03
+
+		update [output_stage]
+		set Y=B.R3M03 from [output_stage] A inner join [OurputPreMarketPerformance]
+B 
+		on  A.Currency=B.MoneyType and A.X='R3M03'
+		and a.LinkChartCode = 'R063' and A.Series=B.Productname and B.type
+in('Growth') 
+and (molecule='Y' or class='Y') and mkt not in('Dia','ACE','ONCFCS')
+(76 rows affected)
+YTD12
+
+		update [output_stage]
+		set Y=B.YTD12 from [output_stage] A inner join [OurputPreMarketPerformance]
+B 
+		on  A.Currency=B.MoneyType and A.X='YTD12'
+		and a.LinkChartCode = 'R063' and A.Series=B.Productname and B.type
+in('Growth') 
+and (molecule='Y' or class='Y') and mkt not in('Dia','ACE','ONCFCS')
+(76 rows affected)
+R3M00
+
+		update [output_stage]
+		set Y=B.R3M00 from [output_stage] A inner join [OurputPreMarketPerformance]
+B 
+		on  A.Currency=B.MoneyType and A.X='R3M00'
+		and a.LinkChartCode = 'R063' and A.Series=B.Productname and B.type
+in('Growth') 
+and (molecule='Y' or class='Y') and mkt not in('Dia','ACE','ONCFCS')
+(76 rows affected)
+YTD36
+
+		update [output_stage]
+		set Y=B.YTD36 from [output_stage] A inner join [OurputPreMarketPerformance]
+B 
+		on  A.Currency=B.MoneyType and A.X='YTD36'
+		and a.LinkChartCode = 'R063' and A.Series=B.Productname and B.type
+in('Growth') 
+and (molecule='Y' or class='Y') and mkt not in('Dia','ACE','ONCFCS')
+(76 rows affected)
+YTD48
+
+		update [output_stage]
+		set Y=B.YTD48 from [output_stage] A inner join [OurputPreMarketPerformance]
+B 
+		on  A.Currency=B.MoneyType and A.X='YTD48'
+		and a.LinkChartCode = 'R063' and A.Series=B.Productname and B.type
+in('Growth') 
+and (molecule='Y' or class='Y') and mkt not in('Dia','ACE','ONCFCS')
+(76 rows affected)
+YTD00
+
+		update [output_stage]
+		set Y=B.YTD00 from [output_stage] A inner join [OurputPreMarketPerformance]
+B 
+		on  A.Currency=B.MoneyType and A.X='YTD00'
+		and a.LinkChartCode = 'R063' and A.Series=B.Productname and B.type
+in('Growth') 
+and (molecule='Y' or class='Y') and mkt not in('Dia','ACE','ONCFCS')
+(76 rows affected)
+1> 2> 3> 4> 5> 6> 7> 8> 9> 10> 11> 12> 13> 14> 15> 16> 17> 18> 19> 20> 21> 22> 23> 24> 25> 26> 27> 28> 29> 30> 31> 32> 33> 34> 35> 36> 37> 38> 39> 40> 41> 42> 43> 44> 45> 46> 47> 48> (0 rows affected)
+(180 rows affected)
+R3M02
+
+		update [output_stage]
+		set Y=B.R3M02 from [output_stage] A inner join [OurputPreMarketPerformance]
+B 
+		on  A.Currency=B.MoneyType and A.X='R3M02'
+		and a.LinkChartCode = 'R073' and A.Series=B.Productname and B.type
+in('Growth') 
+and mkt in('Dia','ACE')
+(30 rows affected)
+R3M04
+
+		update [output_stage]
+		set Y=B.R3M04 from [output_stage] A inner join [OurputPreMarketPerformance]
+B 
+		on  A.Currency=B.MoneyType and A.X='R3M04'
+		and a.LinkChartCode = 'R073' and A.Series=B.Productname and B.type
+in('Growth') 
+and mkt in('Dia','ACE')
+(30 rows affected)
+R3M01
+
+		update [output_stage]
+		set Y=B.R3M01 from [output_stage] A inner join [OurputPreMarketPerformance]
+B 
+		on  A.Currency=B.MoneyType and A.X='R3M01'
+		and a.LinkChartCode = 'R073' and A.Series=B.Productname and B.type
+in('Growth') 
+and mkt in('Dia','ACE')
+(30 rows affected)
+R3M05
+
+		update [output_stage]
+		set Y=B.R3M05 from [output_stage] A inner join [OurputPreMarketPerformance]
+B 
+		on  A.Currency=B.MoneyType and A.X='R3M05'
+		and a.LinkChartCode = 'R073' and A.Series=B.Productname and B.type
+in('Growth') 
+and mkt in('Dia','ACE')
+(30 rows affected)
+R3M03
+
+		update [output_stage]
+		set Y=B.R3M03 from [output_stage] A inner join [OurputPreMarketPerformance]
+B 
+		on  A.Currency=B.MoneyType and A.X='R3M03'
+		and a.LinkChartCode = 'R073' and A.Series=B.Productname and B.type
+in('Growth') 
+and mkt in('Dia','ACE')
+(30 rows affected)
+R3M00
+
+		update [output_stage]
+		set Y=B.R3M00 from [output_stage] A inner join [OurputPreMarketPerformance]
+B 
+		on  A.Currency=B.MoneyType and A.X='R3M00'
+		and a.LinkChartCode = 'R073' and A.Series=B.Productname and B.type
+in('Growth') 
+and mkt in('Dia','ACE')
+(30 rows affected)
+1> 2> 1> 2> 3> 4> 5> 6> 7> 8> 9> 10> 11> 12> 13> 14> 15> 16> 17> 18> 19> 20> 21> 22> 23> 24> 25> 26> 27> 28> 29> 30> 31> 32> 33> 34> 35> 36> 37> 38> 39> 40> 41> 42> 43> 44> (0 rows affected)
+(9 rows affected)
+R3M00
+
+		update [output_stage]
+		set Y=B.R3M00 from [output_stage] A inner join [OurputPreMarketPerformance]
+B 
+		on  A.Currency=B.MoneyType and A.Series='R3M00'
+		and a.LinkChartCode = 'R084' and A.X=B.Productname and B.type in('Share of
+Growth') 
+and (molecule='N' and class='N') and mkt='DPP4'
+(9 rows affected)
+1> 2> 3> 4> 5> 6> 7> 8> 9> 10> 11> 12> 13> 14> 15> 16> 17> 18> 19> 20> 21> 22> 23> 24> 25> 26> 27> 28> 29> 30> 31> 32> 33> 34> 35> 36> 37> 38> 39> 40> 41> 42> 43> 44> (0 rows affected)
+(126 rows affected)
+R3M00
+
+		update [output_stage]
+		set Y=B.R3M00 from [output_stage] A inner join [OurputPreMarketPerformance]
+B 
+		on  A.Currency=B.MoneyType and A.Series='R3M00'
+		and a.LinkChartCode = 'R064' and A.X=B.Productname and B.type in('Share of
+Growth') 
+and (molecule='Y' or class='Y') and mkt not in('Dia','ACE','ONCFCS')
+(63 rows affected)
+YTD00
+
+		update [output_stage]
+		set Y=B.YTD00 from [output_stage] A inner join [OurputPreMarketPerformance]
+B 
+		on  A.Currency=B.MoneyType and A.Series='YTD00'
+		and a.LinkChartCode = 'R064' and A.X=B.Productname and B.type in('Share of
+Growth') 
+and (molecule='Y' or class='Y') and mkt not in('Dia','ACE','ONCFCS')
+(63 rows affected)
+1> 2> 3> 4> 5> 6> 7> 8> 9> 10> 11> 12> 13> 14> 15> 16> 17> 18> 19> 20> 21> 22> 23> 24> 25> 26> 27> 28> 29> 30> 31> 32> 33> 34> 35> 36> 37> 38> 39> 40> 41> 42> 43> (0 rows affected)
+(24 rows affected)
+R3M00
+
+		update [output_stage]
+		set Y=B.R3M00 from [output_stage] A inner join [OurputPreMarketPerformance]
+B 
+		on  A.Currency=B.MoneyType and A.Series='R3M00'
+		and a.LinkChartCode = 'R074' and A.X=B.Productname and B.type in('Share of
+Growth') 
+and mkt in('Dia','ACE')
+(24 rows affected)
+1> 2> 3> 4> 5> 6> 7> 8> 9> 10> 11> 12> 13> 14> 15> 16> 17> 18> 19> 20> 21> 22> 23> 24> 25> 26> 27> 28> 29> 30> 31> 32> 33> 34> 35> 36> 37> 38> 39> 40> 41> 42> 43> 44> 45> 46> 47> 48> 49> 50> 51> 52> 53> 54> 55> 56> (0 rows affected)
+(1764 rows affected)
+Qtr00
+
+		update [output_stage]
+		set Y=B.[Qtr00] from [output_stage] A inner join
+dbo.OutputPreCityPerformance B
+		on A.TimeFrame=B.Period and A.Currency=B.MoneyType and A.X=B.Audi_des and
+A.product=B.Market
+		and a.LinkChartCode = 'R090' and A.Series='Qtr00' and mkt not in
+('Dia','ACE','DPP4') and prod='000'
+(252 rows affected)
+TotalContribution
+
+		update [output_stage]
+		set Y=B.[TotalContribution] from [output_stage] A inner join
+dbo.OutputPreCityPerformance B
+		on A.TimeFrame=B.Period and A.Currency=B.MoneyType and A.X=B.Audi_des and
+A.product=B.Market
+		and a.LinkChartCode = 'R090' and A.Series='TotalContribution' and mkt not in
+('Dia','ACE','DPP4') and prod='000'
+(252 rows affected)
+Contribution
+
+		update [output_stage]
+		set Y=B.[Contribution] from [output_stage] A inner join
+dbo.OutputPreCityPerformance B
+		on A.TimeFrame=B.Period and A.Currency=B.MoneyType and A.X=B.Audi_des and
+A.product=B.Market
+		and a.LinkChartCode = 'R090' and A.Series='Contribution' and mkt not in
+('Dia','ACE','DPP4') and prod='000'
+(252 rows affected)
+CurrRank
+
+		update [output_stage]
+		set Y=B.[CurrRank] from [output_stage] A inner join
+dbo.OutputPreCityPerformance B
+		on A.TimeFrame=B.Period and A.Currency=B.MoneyType and A.X=B.Audi_des and
+A.product=B.Market
+		and a.LinkChartCode = 'R090' and A.Series='CurrRank' and mkt not in
+('Dia','ACE','DPP4') and prod='000'
+(252 rows affected)
+Avg.Growth
+
+		update [output_stage]
+		set Y=B.[Avg.Growth] from [output_stage] A inner join
+dbo.OutputPreCityPerformance B
+		on A.TimeFrame=B.Period and A.Currency=B.MoneyType and A.X=B.Audi_des and
+A.product=B.Market
+		and a.LinkChartCode = 'R090' and A.Series='Avg.Growth' and mkt not in
+('Dia','ACE','DPP4') and prod='000'
+(252 rows affected)
+ChangeRank
+
+		update [output_stage]
+		set Y=B.[ChangeRank] from [output_stage] A inner join
+dbo.OutputPreCityPerformance B
+		on A.TimeFrame=B.Period and A.Currency=B.MoneyType and A.X=B.Audi_des and
+A.product=B.Market
+		and a.LinkChartCode = 'R090' and A.Series='ChangeRank' and mkt not in
+('Dia','ACE','DPP4') and prod='000'
+(252 rows affected)
+Growth
+
+		update [output_stage]
+		set Y=B.[Growth] from [output_stage] A inner join
+dbo.OutputPreCityPerformance B
+		on A.TimeFrame=B.Period and A.Currency=B.MoneyType and A.X=B.Audi_des and
+A.product=B.Market
+		and a.LinkChartCode = 'R090' and A.Series='Growth' and mkt not in
+('Dia','ACE','DPP4') and prod='000'
+(252 rows affected)
+1> 2> 3> 4> 5> 6> 7> 8> 9> 10> 11> 12> 13> 14> 15> 16> 17> 18> 19> 20> 21> 22> 23> 24> 25> 26> 27> 28> 29> 30> 31> 32> 33> 34> 35> 36> 37> 38> 39> 40> 41> 42> 43> 44> 45> 46> 47> 48> 49> 50> 51> 52> 53> (0 rows affected)
+(147 rows affected)
+Qtr00
+
+		update [output_stage]
+		set Y=B.[Qtr00] from [output_stage] A inner join
+dbo.OutputPreCityPerformance B
+		on A.TimeFrame=B.Period and A.Currency=B.MoneyType and A.X=B.Audi_des and
+A.product=B.Market
+		and a.LinkChartCode = 'R100' and A.Series='Qtr00' and mkt in ('ACE') and
+prod='000'
+(21 rows affected)
+TotalContribution
+
+		update [output_stage]
+		set Y=B.[TotalContribution] from [output_stage] A inner join
+dbo.OutputPreCityPerformance B
+		on A.TimeFrame=B.Period and A.Currency=B.MoneyType and A.X=B.Audi_des and
+A.product=B.Market
+		and a.LinkChartCode = 'R100' and A.Series='TotalContribution' and mkt in
+('ACE') and prod='000'
+(21 rows affected)
+Contribution
+
+		update [output_stage]
+		set Y=B.[Contribution] from [output_stage] A inner join
+dbo.OutputPreCityPerformance B
+		on A.TimeFrame=B.Period and A.Currency=B.MoneyType and A.X=B.Audi_des and
+A.product=B.Market
+		and a.LinkChartCode = 'R100' and A.Series='Contribution' and mkt in ('ACE')
+and prod='000'
+(21 rows affected)
+CurrRank
+
+		update [output_stage]
+		set Y=B.[CurrRank] from [output_stage] A inner join
+dbo.OutputPreCityPerformance B
+		on A.TimeFrame=B.Period and A.Currency=B.MoneyType and A.X=B.Audi_des and
+A.product=B.Market
+		and a.LinkChartCode = 'R100' and A.Series='CurrRank' and mkt in ('ACE') and
+prod='000'
+(21 rows affected)
+Avg.Growth
+
+		update [output_stage]
+		set Y=B.[Avg.Growth] from [output_stage] A inner join
+dbo.OutputPreCityPerformance B
+		on A.TimeFrame=B.Period and A.Currency=B.MoneyType and A.X=B.Audi_des and
+A.product=B.Market
+		and a.LinkChartCode = 'R100' and A.Series='Avg.Growth' and mkt in ('ACE')
+and prod='000'
+(21 rows affected)
+ChangeRank
+
+		update [output_stage]
+		set Y=B.[ChangeRank] from [output_stage] A inner join
+dbo.OutputPreCityPerformance B
+		on A.TimeFrame=B.Period and A.Currency=B.MoneyType and A.X=B.Audi_des and
+A.product=B.Market
+		and a.LinkChartCode = 'R100' and A.Series='ChangeRank' and mkt in ('ACE')
+and prod='000'
+(21 rows affected)
+Growth
+
+		update [output_stage]
+		set Y=B.[Growth] from [output_stage] A inner join
+dbo.OutputPreCityPerformance B
+		on A.TimeFrame=B.Period and A.Currency=B.MoneyType and A.X=B.Audi_des and
+A.product=B.Market
+		and a.LinkChartCode = 'R100' and A.Series='Growth' and mkt in ('ACE') and
+prod='000'
+(21 rows affected)
+1> 2> 3> 4> 5> 6> 7> 8> 9> 10> 11> 12> 13> 14> 15> 16> 17> 18> 19> 20> 21> 22> 23> 24> 25> 26> 27> 28> 29> 30> 31> 32> 33> 34> 35> 36> 37> 38> 39> 40> 41> 42> 43> 44> 45> 46> 47> 48> 49> 50> (84 rows affected)
+Avg.Growth
+
+		update [output_stage]
+		set Y=B.[Avg.Growth] from [output_stage] A inner join
+dbo.OutputPreCityPerformance B
+		on A.TimeFrame=B.Period and A.Currency=B.MoneyType and A.X=B.Audi_des and
+A.product=B.Market
+		and a.LinkChartCode = 'R100' and A.Series='Avg.Growth'and 
+case when A.Seriesidx in (1) then 'NIAD' when A.Seriesidx in (2) then
+'Insulin' else 'Diabetes Market' end=B.Productname and B.mkt='Dia'
+(21 rows affected)
+Growth
+
+		update [output_stage]
+		set Y=B.[Growth] from [output_stage] A inner join
+dbo.OutputPreCityPerformance B
+		on A.TimeFrame=B.Period and A.Currency=B.MoneyType and A.X=B.Audi_des and
+A.product=B.Market
+		and a.LinkChartCode = 'R100' and A.Series='Growth'and 
+case when A.Seriesidx in (1) then 'NIAD' when A.Seriesidx in (2) then
+'Insulin' else 'Diabetes Market' end=B.Productname and B.mkt='Dia'
+(21 rows affected)
+Qtr00
+
+		update [output_stage]
+		set Y=B.[Qtr00] from [output_stage] A inner join
+dbo.OutputPreCityPerformance B
+		on A.TimeFrame=B.Period and A.Currency=B.MoneyType and A.X=B.Audi_des and
+A.product=B.Market
+		and a.LinkChartCode = 'R100' and A.Series='Qtr00'and 
+case when A.Seriesidx in (1) then 'NIAD' when A.Seriesidx in (2) then
+'Insulin' else 'Diabetes Market' end=B.Productname and B.mkt='Dia'
+(42 rows affected)
+1> 1> 2> 3> 4> 5> (21 rows affected)
+1> 2> 3> 4> 5> (21 rows affected)
+1> 2> 3> 4> 5> 6> 7> 8> 9> 10> 11> 12> 13> 14> 15> 16> 17> 18> 19> 20> 21> 22> 23> 24> 25> 26> 27> 28> 29> 30> 31> 32> 33> 34> 35> 36> 37> 38> 39> 40> 41> 42> 43> 44> 45> 46> 47> 48> 49> 50> 51> 52> (0 rows affected)
+(147 rows affected)
+Qtr00
+
+		update [output_stage]
+		set Y=B.[Qtr00] from [output_stage] A inner join
+dbo.OutputPreCityPerformance B
+		on A.TimeFrame=B.Period and A.Currency=B.MoneyType and A.X=B.Audi_des and
+A.product=B.Market
+		and a.LinkChartCode = 'R110' and A.Series='Qtr00' and B.productname like
+'%DPP%'
+(21 rows affected)
+TotalContribution
+
+		update [output_stage]
+		set Y=B.[TotalContribution] from [output_stage] A inner join
+dbo.OutputPreCityPerformance B
+		on A.TimeFrame=B.Period and A.Currency=B.MoneyType and A.X=B.Audi_des and
+A.product=B.Market
+		and a.LinkChartCode = 'R110' and A.Series='TotalContribution' and
+B.productname like '%DPP%'
+(21 rows affected)
+Contribution
+
+		update [output_stage]
+		set Y=B.[Contribution] from [output_stage] A inner join
+dbo.OutputPreCityPerformance B
+		on A.TimeFrame=B.Period and A.Currency=B.MoneyType and A.X=B.Audi_des and
+A.product=B.Market
+		and a.LinkChartCode = 'R110' and A.Series='Contribution' and B.productname
+like '%DPP%'
+(21 rows affected)
+CurrRank
+
+		update [output_stage]
+		set Y=B.[CurrRank] from [output_stage] A inner join
+dbo.OutputPreCityPerformance B
+		on A.TimeFrame=B.Period and A.Currency=B.MoneyType and A.X=B.Audi_des and
+A.product=B.Market
+		and a.LinkChartCode = 'R110' and A.Series='CurrRank' and B.productname like
+'%DPP%'
+(21 rows affected)
+Avg.Growth
+
+		update [output_stage]
+		set Y=B.[Avg.Growth] from [output_stage] A inner join
+dbo.OutputPreCityPerformance B
+		on A.TimeFrame=B.Period and A.Currency=B.MoneyType and A.X=B.Audi_des and
+A.product=B.Market
+		and a.LinkChartCode = 'R110' and A.Series='Avg.Growth' and B.productname
+like '%DPP%'
+(21 rows affected)
+ChangeRank
+
+		update [output_stage]
+		set Y=B.[ChangeRank] from [output_stage] A inner join
+dbo.OutputPreCityPerformance B
+		on A.TimeFrame=B.Period and A.Currency=B.MoneyType and A.X=B.Audi_des and
+A.product=B.Market
+		and a.LinkChartCode = 'R110' and A.Series='ChangeRank' and B.productname
+like '%DPP%'
+(21 rows affected)
+Growth
+
+		update [output_stage]
+		set Y=B.[Growth] from [output_stage] A inner join
+dbo.OutputPreCityPerformance B
+		on A.TimeFrame=B.Period and A.Currency=B.MoneyType and A.X=B.Audi_des and
+A.product=B.Market
+		and a.LinkChartCode = 'R110' and A.Series='Growth' and B.productname like
+'%DPP%'
+(21 rows affected)
+1> 2> 3> 4> 5> 6> 7> 8> 9> 10> 11> 12> (0 rows affected)
+(154 rows affected)
+1> 2> 3> (0 rows affected)
+1> 2> 3> 4> 5> 6> 7> 8> 9> 10> 11> 12> 13> 14> 15> 16> 17> 18> 19> 20> 21> 22> 23> 24> 25> 26> 27> 28> 29> 30> 31> 32> 33> 34> 35> 36> 37> 38> 39> 40> 41> 42> 43> (174 rows affected)
+YTD12
+
+		update [output_stage]
+		set Y=B.YTD12 from [output_stage] A inner join
+dbo.OutputPreHKAPIBrandPerformance B
+		on A.TimeFrame=B.Period and A.Currency=B.MoneyType and A.X=B.Productname and
+B.Market<>'Eliquis' 
+		and a.LinkChartCode = 'R320' and A.Series='YTD12'
+(58 rows affected)
+Growth
+
+		update [output_stage]
+		set Y=B.Growth from [output_stage] A inner join
+dbo.OutputPreHKAPIBrandPerformance B
+		on A.TimeFrame=B.Period and A.Currency=B.MoneyType and A.X=B.Productname and
+B.Market<>'Eliquis' 
+		and a.LinkChartCode = 'R320' and A.Series='Growth'
+(58 rows affected)
+YTD00
+
+		update [output_stage]
+		set Y=B.YTD00 from [output_stage] A inner join
+dbo.OutputPreHKAPIBrandPerformance B
+		on A.TimeFrame=B.Period and A.Currency=B.MoneyType and A.X=B.Productname and
+B.Market<>'Eliquis' 
+		and a.LinkChartCode = 'R320' and A.Series='YTD00'
+(58 rows affected)
+1> 2> 3> 4> 5> 6> 7> 8> 9> 10> 11> 12> 13> 14> 15> 16> 17> 18> 19> 20> 21> 22> 23> 24> 25> 26> 27> 28> 29> 30> 31> 32> 33> 34> 35> 36> 37> 38> 39> 40> 41> 42> 43> 44> 45> 46> 47> 48> 49> 50> 51> 52> 53> 54> 55> 56> 57> 58> 59> 60> 61> 62> 63> 64> 65> (0 rows affected)
+(1716 rows affected)
+R3M09
+
+		update [output_stage]
+		set Y=B.R3M09 from [output_stage] A inner join
+dbo.OutputKeyMoleculeBrandPerformance B
+		on A.Product=B.Market and A.Currency=B.MoneyType and A.X='R3M09' and
+B.molecule='Y'
+		and a.LinkChartCode = 'R401' and A.Series=B.Productname and
+A.TimeFrame=B.TimeFrame
+(132 rows affected)
+R3M02
+
+		update [output_stage]
+		set Y=B.R3M02 from [output_stage] A inner join
+dbo.OutputKeyMoleculeBrandPerformance B
+		on A.Product=B.Market and A.Currency=B.MoneyType and A.X='R3M02' and
+B.molecule='Y'
+		and a.LinkChartCode = 'R401' and A.Series=B.Productname and
+A.TimeFrame=B.TimeFrame
+(132 rows affected)
+R3M11
+
+		update [output_stage]
+		set Y=B.R3M11 from [output_stage] A inner join
+dbo.OutputKeyMoleculeBrandPerformance B
+		on A.Product=B.Market and A.Currency=B.MoneyType and A.X='R3M11' and
+B.molecule='Y'
+		and a.LinkChartCode = 'R401' and A.Series=B.Productname and
+A.TimeFrame=B.TimeFrame
+(132 rows affected)
+R3M04
+
+		update [output_stage]
+		set Y=B.R3M04 from [output_stage] A inner join
+dbo.OutputKeyMoleculeBrandPerformance B
+		on A.Product=B.Market and A.Currency=B.MoneyType and A.X='R3M04' and
+B.molecule='Y'
+		and a.LinkChartCode = 'R401' and A.Series=B.Productname and
+A.TimeFrame=B.TimeFrame
+(132 rows affected)
+R3M01
+
+		update [output_stage]
+		set Y=B.R3M01 from [output_stage] A inner join
+dbo.OutputKeyMoleculeBrandPerformance B
+		on A.Product=B.Market and A.Currency=B.MoneyType and A.X='R3M01' and
+B.molecule='Y'
+		and a.LinkChartCode = 'R401' and A.Series=B.Productname and
+A.TimeFrame=B.TimeFrame
+(132 rows affected)
+CAGR
+
+		update [output_stage]
+		set Y=B.CAGR from [output_stage] A inner join
+dbo.OutputKeyMoleculeBrandPerformance B
+		on A.Product=B.Market and A.Currency=B.MoneyType and A.X='CAGR' and
+B.molecule='Y'
+		and a.LinkChartCode = 'R401' and A.Series=B.Productname and
+A.TimeFrame=B.TimeFrame
+(132 rows affected)
+R3M10
+
+		update [output_stage]
+		set Y=B.R3M10 from [output_stage] A inner join
+dbo.OutputKeyMoleculeBrandPerformance B
+		on A.Product=B.Market and A.Currency=B.MoneyType and A.X='R3M10' and
+B.molecule='Y'
+		and a.LinkChartCode = 'R401' and A.Series=B.Productname and
+A.TimeFrame=B.TimeFrame
+(132 rows affected)
+R3M08
+
+		update [output_stage]
+		set Y=B.R3M08 from [output_stage] A inner join
+dbo.OutputKeyMoleculeBrandPerformance B
+		on A.Product=B.Market and A.Currency=B.MoneyType and A.X='R3M08' and
+B.molecule='Y'
+		and a.LinkChartCode = 'R401' and A.Series=B.Productname and
+A.TimeFrame=B.TimeFrame
+(132 rows affected)
+R3M05
+
+		update [output_stage]
+		set Y=B.R3M05 from [output_stage] A inner join
+dbo.OutputKeyMoleculeBrandPerformance B
+		on A.Product=B.Market and A.Currency=B.MoneyType and A.X='R3M05' and
+B.molecule='Y'
+		and a.LinkChartCode = 'R401' and A.Series=B.Productname and
+A.TimeFrame=B.TimeFrame
+(132 rows affected)
+R3M06
+
+		update [output_stage]
+		set Y=B.R3M06 from [output_stage] A inner join
+dbo.OutputKeyMoleculeBrandPerformance B
+		on A.Product=B.Market and A.Currency=B.MoneyType and A.X='R3M06' and
+B.molecule='Y'
+		and a.LinkChartCode = 'R401' and A.Series=B.Productname and
+A.TimeFrame=B.TimeFrame
+(132 rows affected)
+R3M03
+
+		update [output_stage]
+		set Y=B.R3M03 from [output_stage] A inner join
+dbo.OutputKeyMoleculeBrandPerformance B
+		on A.Product=B.Market and A.Currency=B.MoneyType and A.X='R3M03' and
+B.molecule='Y'
+		and a.LinkChartCode = 'R401' and A.Series=B.Productname and
+A.TimeFrame=B.TimeFrame
+(132 rows affected)
+R3M00
+
+		update [output_stage]
+		set Y=B.R3M00 from [output_stage] A inner join
+dbo.OutputKeyMoleculeBrandPerformance B
+		on A.Product=B.Market and A.Currency=B.MoneyType and A.X='R3M00' and
+B.molecule='Y'
+		and a.LinkChartCode = 'R401' and A.Series=B.Productname and
+A.TimeFrame=B.TimeFrame
+(132 rows affected)
+R3M07
+
+		update [output_stage]
+		set Y=B.R3M07 from [output_stage] A inner join
+dbo.OutputKeyMoleculeBrandPerformance B
+		on A.Product=B.Market and A.Currency=B.MoneyType and A.X='R3M07' and
+B.molecule='Y'
+		and a.LinkChartCode = 'R401' and A.Series=B.Productname and
+A.TimeFrame=B.TimeFrame
+(132 rows affected)
+1> 2> 3> 4> 5> (0 rows affected)
+1> 2> 3> 4> 5> 6> 7> 8> 9> 10> 11> 12> 13> 14> 15> 16> 17> 18> 19> 20> 21> 22> 23> 24> 25> (1008 rows affected)
+1> 2> 3> 4> 5> 6> 7> 8> 9> 10> 11> 12> 13> 14> 15> 16> 17> 18> 19> 20> 21> 22> 23> 24> 25> 26> 27> 28> (2520 rows affected)
+1> 2> 3> 4> 5> 6> 7> 8> 9> 10> 11> 12> 13> 14> 15> 16> 17> 18> 19> 20> 21> 22> 23> 24> 25> 26> 27> 28> 29> 30> 31> 32> 33> 34> 35> (252 rows affected)
+(252 rows affected)
+(252 rows affected)
+(180 rows affected)
+(252 rows affected)
+(252 rows affected)
+(72 rows affected)
+(252 rows affected)
+(252 rows affected)
+(252 rows affected)
+(252 rows affected)
+(252 rows affected)
+(252 rows affected)
+(252 rows affected)
+(252 rows affected)
+1> 2> 3> 4> 5> 6> 7> (735 rows affected)
+(735 rows affected)
+(159 rows affected)
+(447 rows affected)
+1> 2> 3> 4> 5> 6> 7> 8> 9> 10> 11> 12> (576 rows affected)
+1> 2> 3> 4> 5> 6> 7> 8> 9> 10> (576 rows affected)
+1> 2> 3> 4> 5> 6> 7> 8> 9> 10> 11> 12> 13> 14> 15> 16> 17> (1152 rows affected)
+1> 2> 3> 4> 5> 6> 7> 8> 9> 10> 11> 12> 13> 14> 15> 16> 17> 18> 19> (864 rows affected)
+1> 2> 3> 4> 5> 6> (342 rows affected)
+1> 2> 3> (636 rows affected)
+1> 2> 3> 4> 5> 6> 7> 8> 9> 10> 11> (234 rows affected)
+1> 2> 3> 4> 5> (50 rows affected)
+1> 2> 3> (28 rows affected)
+1> 2> 3> 4> 5> 6> 7> (50 rows affected)
+1> 2> 3> 4> 5> 6> 7> 8> 9> 10> 11> 12> (28 rows affected)
+(312 rows affected)
+1> 2> 3> 4> 5> 6> 7> 8> 9> 10> 11> 12> 13> 14> 15> 16> 17> 18> 19> 20> 21> 22> 23> 24> 25> 26> 27> 28> 29> 30> 31> 32> 33> 34> 35> 36> 37> 38> 39> 40> 41> 42> 43> 44> 45> 46> 47> 48> 49> 50> 51> 52> 53> 54> 55> 56> 57> 58> 59> 60> 61> 62> 63> 64> 65> 66> 67> 68> 69> 70> 71> 72> 73> 74> 75> 76> 77> (0 rows affected)
+(3840 rows affected)
+MAT12
+
+		update [output_stage]
+		set Y=B.MAT12 from [output_stage] A inner join dbo.OutputBrandvGene B
+		on A.Product=B.Market and A.Currency=B.MoneyType and A.X='MAT12' 
+		and a.LinkChartCode = 'R420' and A.Series=B.MNFL_cod
+(384 rows affected)
+YTD24
+
+		update [output_stage]
+		set Y=B.YTD24 from [output_stage] A inner join dbo.OutputBrandvGene B
+		on A.Product=B.Market and A.Currency=B.MoneyType and A.X='YTD24' 
+		and a.LinkChartCode = 'R420' and A.Series=B.MNFL_cod
+(384 rows affected)
+MAT00
+
+		update [output_stage]
+		set Y=B.MAT00 from [output_stage] A inner join dbo.OutputBrandvGene B
+		on A.Product=B.Market and A.Currency=B.MoneyType and A.X='MAT00' 
+		and a.LinkChartCode = 'R420' and A.Series=B.MNFL_cod
+(384 rows affected)
+MAT48
+
+		update [output_stage]
+		set Y=B.MAT48 from [output_stage] A inner join dbo.OutputBrandvGene B
+		on A.Product=B.Market and A.Currency=B.MoneyType and A.X='MAT48' 
+		and a.LinkChartCode = 'R420' and A.Series=B.MNFL_cod
+(384 rows affected)
+MAT36
+
+		update [output_stage]
+		set Y=B.MAT36 from [output_stage] A inner join dbo.OutputBrandvGene B
+		on A.Product=B.Market and A.Currency=B.MoneyType and A.X='MAT36' 
+		and a.LinkChartCode = 'R420' and A.Series=B.MNFL_cod
+(384 rows affected)
+MAT24
+
+		update [output_stage]
+		set Y=B.MAT24 from [output_stage] A inner join dbo.OutputBrandvGene B
+		on A.Product=B.Market and A.Currency=B.MoneyType and A.X='MAT24' 
+		and a.LinkChartCode = 'R420' and A.Series=B.MNFL_cod
+(384 rows affected)
+YTD12
+
+		update [output_stage]
+		set Y=B.YTD12 from [output_stage] A inner join dbo.OutputBrandvGene B
+		on A.Product=B.Market and A.Currency=B.MoneyType and A.X='YTD12' 
+		and a.LinkChartCode = 'R420' and A.Series=B.MNFL_cod
+(384 rows affected)
+YTD36
+
+		update [output_stage]
+		set Y=B.YTD36 from [output_stage] A inner join dbo.OutputBrandvGene B
+		on A.Product=B.Market and A.Currency=B.MoneyType and A.X='YTD36' 
+		and a.LinkChartCode = 'R420' and A.Series=B.MNFL_cod
+(384 rows affected)
+YTD48
+
+		update [output_stage]
+		set Y=B.YTD48 from [output_stage] A inner join dbo.OutputBrandvGene B
+		on A.Product=B.Market and A.Currency=B.MoneyType and A.X='YTD48' 
+		and a.LinkChartCode = 'R420' and A.Series=B.MNFL_cod
+(384 rows affected)
+YTD00
+
+		update [output_stage]
+		set Y=B.YTD00 from [output_stage] A inner join dbo.OutputBrandvGene B
+		on A.Product=B.Market and A.Currency=B.MoneyType and A.X='YTD00' 
+		and a.LinkChartCode = 'R420' and A.Series=B.MNFL_cod
+(384 rows affected)
+(374 rows affected)
+(4214 rows affected)
+1> 2> 3> 4> 5> 6> 7> 8> 9> 10> 11> 12> 13> (5382 rows affected)
+1> 2> 3> 4> 5> 6> 7> 8> 9> 10> 11> (5382 rows affected)
+1> 2> 3> 4> 5> 6> 7> 8> 9> 10> 11> 12> 13> 14> 15> 16> 17> 18> 19> 20> 21> 22> 23> 24> 25> 26> 27> 28> 29> 30> 31> 32> 33> 34> 35> 36> 37> 38> 39> 40> 41> 42> 43> (0 rows affected)
+(191 rows affected)
+(120 rows affected)
+(191 rows affected)
+(120 rows affected)
+(622 rows affected)
+1> 2> 3> 4> 5> 6> 7> 8> 9> (382 rows affected)
+1> 2> 3> (138 rows affected)
+1> 2> 3> 4> 5> 6> 7> 8> 9> 10> 11> 12> 13> 14> 15> 16> 17> 18> (0 rows affected)
+(1988 rows affected)
+(1988 rows affected)
+(1988 rows affected)
+1> 2> 3> 4> 5> 6> 7> 8> 9> 10> 11> 12> 13> 14> 15> 16> 17> (0 rows affected)
+(1344 rows affected)
+(1344 rows affected)
+(1344 rows affected)
+1> 2> 3> 4> 5> 6> 7> 8> 9> 10> 11> 12> 13> 14> 15> 16> (0 rows affected)
+(0 rows affected)
+(0 rows affected)
+(0 rows affected)
+1> 2> 3> 4> 5> 6> 7> 8> 9> 10> 11> 12> 13> (0 rows affected)
+(1344 rows affected)
+(1344 rows affected)
+1> 2> 3> 4> 5> 6> 7> 8> 9> 10> 11> 12> 13> 14> 15> 16> 17> (0 rows affected)
+(1344 rows affected)
+(1344 rows affected)
+(1344 rows affected)
+1> 2> 3> 4> 5> 6> 7> 8> 9> 10> 11> 12> 13> 14> 15> 16> (0 rows affected)
+(0 rows affected)
+(0 rows affected)
+(0 rows affected)
+1> 2> 3> 4> 5> 6> 7> 8> 9> 10> 11> 12> 13> 14> 15> 16> (0 rows affected)
+(1344 rows affected)
+(1344 rows affected)
+(1344 rows affected)
+1> 2> 3> 4> 5> 6> 7> 8> 9> 10> 11> 12> 13> 14> 15> 16> (0 rows affected)
+(0 rows affected)
+(0 rows affected)
+(0 rows affected)
+1> 2> 3> 4> 5> 6> 7> 8> 9> 10> 11> 12> 13> 14> 15> 16> (0 rows affected)
+(536 rows affected)
+(536 rows affected)
+(536 rows affected)
+1> 2> 3> (744 rows affected)
+1> 2> 3> 4> 5> 6> 7> 8> 9> 10> 11> 12> 13> 14> (0 rows affected)
+(747 rows affected)
+(536 rows affected)
+1> 2> 3> 4> 5> 6> 7> 8> 9> 10> 11> 12> 13> 14> 15> 16> 17> 18> 19> 20> 21> 22> (0 rows affected)
+(75 rows affected)
+(67 rows affected)
+(31758 rows affected)
+1> 2> 3> 4> (31758 rows affected)
+1> 2> 3> 4> (31758 rows affected)
+1> 2> 3> 4> 5> (2142 rows affected)
+1> 2> 3> 4> (48943 rows affected)
+1> 2> 3> 4> (17185 rows affected)
+1> 2> 3> 4> (17185 rows affected)
+1> 2> 3> 4> 5> 6> 7> 8> 9> 10> 11> 12> 13> 14> 15> 16> 17> 18> (17011 rows affected)
+1> 2> 3> 4> 5> 6> 7> (17011 rows affected)
+1> 2> 3> 4> 5> 6> 7> 8> (174 rows affected)
+1> 2> 3> 4> 5> 6> 7> 8> 9> 10> 11> 12> 13> 14> 15> 16> 17> 18> (17011 rows affected)
+1> 2> 3> 4> 5> 6> 7> 8> 9> 10> 11> 12> 13> 14> 15> 16> 17> (8988 rows affected)
+1> 2> 3> 4> 5> 6> 7> (0 rows affected)
+1> 2> 3> 4> 5> 6> 7> 8> 9> 10> 11> 12> 13> 14> 15> 16> 17> 18> 19> 20> 21> 22> 23> 24> 25> 26> 27> 28> 29> 30> 31> 32> 33> 34> 35> 36> 37> 38> 39> 40> 41> 42> 43> 44> 45> 46> 47> 48> 49> 50> 51> 52> 53> 54> 55> 56> 57> 58> 59> 60> 61> 62> 63> 64> 65> 66> 67> 68> 69> 70> 71> 72> 73> 74> 75> 76> 77> 78> 79> 80> 81> 82> 83> 84> 85> 86> 87> 88> 89> 90> 91> 92> 93> 94> 95> 96> 97> 98> 99> 100> 101> 102> 103> 104> 105> 106> 107> 108> 109> 110> 111> 112> 113> 114> 115> 116> 117> 118> 119> 120> 121> 122> 123> 124> 125> 126> 127> 128> 129> 130> 131> 132> 133> 134> 135> 136> 137> 138> 139> 140> 141> 142> 143> 144> 145> 146> 147> 148> 149> 150> 151> 152> 153> 154> 155> 156> 157> 158> 159> 160> 161> 162> 163> 164> 165> 166> 167> 168> 169> 170> 171> 172> 173> (108 rows affected)
+(108 rows affected)
+MTH28
+(3 rows affected)
+MTH01
+(3 rows affected)
+MTH30
+(3 rows affected)
+MTH12
+(3 rows affected)
+MTH19
+(3 rows affected)
+MTH05
+(3 rows affected)
+MTH18
+(3 rows affected)
+MTH34
+(3 rows affected)
+MTH22
+(3 rows affected)
+MTH06
+(3 rows affected)
+MTH03
+(3 rows affected)
+MTH25
+(3 rows affected)
+MTH00
+(3 rows affected)
+MTH04
+(3 rows affected)
+MTH35
+(3 rows affected)
+MTH09
+(3 rows affected)
+MTH21
+(3 rows affected)
+MTH13
+(3 rows affected)
+MTH07
+(3 rows affected)
+MTH31
+(3 rows affected)
+MTH24
+(3 rows affected)
+MTH15
+(3 rows affected)
+MTH27
+(3 rows affected)
+MTH14
+(3 rows affected)
+MTH02
+(3 rows affected)
+MTH33
+(3 rows affected)
+MTH10
+(3 rows affected)
+MTH29
+(3 rows affected)
+MTH16
+(3 rows affected)
+MTH11
+(3 rows affected)
+MTH08
+(3 rows affected)
+MTH20
+(3 rows affected)
+MTH23
+(3 rows affected)
+MTH26
+(3 rows affected)
+MTH17
+(3 rows affected)
+MTH32
+(3 rows affected)
+MTH00
+(3 rows affected)
+MTH01
+(3 rows affected)
+MTH02
+(3 rows affected)
+MTH03
+(3 rows affected)
+MTH04
+(3 rows affected)
+MTH05
+(3 rows affected)
+MTH06
+(3 rows affected)
+MTH07
+(3 rows affected)
+MTH08
+(3 rows affected)
+MTH09
+(3 rows affected)
+MTH10
+(3 rows affected)
+MTH11
+(3 rows affected)
+MTH12
+(3 rows affected)
+MTH13
+(3 rows affected)
+MTH14
+(3 rows affected)
+MTH15
+(3 rows affected)
+MTH16
+(3 rows affected)
+MTH17
+(3 rows affected)
+MTH18
+(3 rows affected)
+MTH19
+(3 rows affected)
+MTH20
+(3 rows affected)
+MTH21
+(3 rows affected)
+MTH22
+(3 rows affected)
+MTH23
+(3 rows affected)
+MTH24
+(3 rows affected)
+MTH25
+(3 rows affected)
+MTH26
+(3 rows affected)
+MTH27
+(3 rows affected)
+MTH28
+(3 rows affected)
+MTH29
+(3 rows affected)
+MTH30
+(3 rows affected)
+MTH31
+(3 rows affected)
+MTH32
+(3 rows affected)
+MTH33
+(3 rows affected)
+MTH34
+(3 rows affected)
+MTH35
+(3 rows affected)
+1> 2> 3> 4> 5> 6> 7> (108 rows affected)
+(108 rows affected)
+1> 2> 3> 4> (216 rows affected)
+1> 2> 3> 4> (216 rows affected)
+1> 1> 2> 3> 4> 5> 6> 7> 8> 9> 10> 11> 12> 13> 14> (108 rows affected)
+1> 2> 3> 4> 5> 6> 7> 8> 9> 10> 11> 12> 13> 14> 15> 16> 17> 18> 19> 20> 21> 22> 23> 24> 25> 26> 27> 28> 29> 30> 31> 32> 33> 34> 35> 36> 37> 38> 39> 40> 41> 42> 43> 44> 45> 46> 47> 48> 49> 50> 51> 52> 53> 54> 55> 56> 57> 58> 59> 60> 61> 62> 63> 64> 65> 66> 67> 68> 69> 70> 71> 72> 73> 74> 75> 76> 77> 78> 79> 80> 81> 82> 83> 84> 85> 86> 87> 88> 89> 90> 91> 92> 93> 94> 95> 96> 97> 98> 99> 100> 101> 102> 103> 104> 105> 106> 107> 108> 109> 110> 111> 112> 113> 114> 115> 116> 117> 118> 119> 120> 121> 122> 123> 124> 125> 126> 127> 128> 129> 130> 131> 132> 133> 134> 135> 136> 137> 138> 139> (0 rows affected)
+(56 rows affected)
+(56 rows affected)
+(28 rows affected)
+(17 rows affected)
+(48 rows affected)
+(24 rows affected)
+(24 rows affected)
+(16 rows affected)
+(96 rows affected)
+1> 2> 3> 4> 5> 6> 7> 8> 9> 10> 11> 12> 13> 14> 15> 16> 17> 18> 19> 20> 21> 22> 23> 24> 25> 26> 27> 28> 29> 30> 31> 32> 33> 34> 35> 36> 37> 38> 39> 40> 41> 42> 43> 44> 45> 46> 47> 48> 49> 50> 51> 52> 53> 54> 55> 56> 57> 58> 59> 60> 61> 62> 63> 64> 65> 66> 67> 68> 69> 70> 71> 72> 73> 74> 75> 76> 77> 78> 79> 80> 81> 82> 83> 84> 85> 86> 87> 88> 89> 90> 91> 92> 93> 94> 95> 96> 97> 98> 99> 100> 101> 102> 103> 104> 105> 106> 107> 108> 109> 110> 111> 112> 113> 114> 115> 116> 117> 118> 119> 120> 121> 122> 123> 124> 125> 126> 127> 128> 129> 130> 131> 132> 133> 134> 135> 136> 137> 138> 139> 140> 141> 142> 143> 144> 145> 146> 147> 148> 149> 150> 151> 152> 153> 154> 155> 156> 157> 158> 159> 160> 161> 162> 163> 164> 165> 166> 167> 168> 169> (0 rows affected)
+(72 rows affected)
+(72 rows affected)
+(104 rows affected)
+(248 rows affected)
+1> 2> 3> 4> 5> 6> 7> 8> 9> 10> 11> 12> 13> 14> 15> 16> 17> 18> 19> 20> 21> 22> 23> 24> 25> 26> 27> 28> 29> 30> 31> 32> 33> 34> 35> 36> 37> 38> 39> 40> 41> 42> 43> 44> 45> 46> 47> 48> 49> 50> 51> 52> 53> 54> 55> 56> 57> 58> 59> 60> 61> 62> 63> 64> 65> 66> 67> 68> 69> 70> 71> 72> 73> 74> 75> 76> 77> 78> 79> 80> 81> 82> 83> 84> 85> 86> 87> 88> 89> 90> 91> 92> 93> 94> 95> 96> 97> 98> 99> 100> 101> 102> 103> 104> 105> 106> 107> 108> 109> 110> 111> 112> 113> 114> 115> 116> 117> 118> 119> 120> 121> 122> 123> 124> 125> 126> 127> 128> 129> 130> 131> 132> 133> 134> 135> 136> 137> 138> 139> 140> 141> 142> 143> 144> 145> 146> 147> 148> 149> 150> 151> 152> 153> 154> 155> 156> 157> 158> 159> 160> 161> 162> 163> 164> 165> 166> 167> 168> (0 rows affected)
+(0 rows affected)
+(0 rows affected)
+(0 rows affected)
+(0 rows affected)
+1> 2> 3> 4> 5> 6> 7> 8> 9> 10> 11> 12> 13> 14> 15> 16> 17> 18> 19> 20> 21> 22> 23> 24> 25> 26> 27> 28> 29> 30> 31> 32> 33> 34> 35> 36> 37> 38> 39> 40> 41> 42> 43> 44> 45> 46> 47> 48> 49> 50> 51> 52> 53> 54> 55> 56> 57> 58> 59> 60> 61> 62> 63> 64> 65> 66> 67> 68> 69> 70> 71> 72> 73> 74> 75> (0 rows affected)
+(88 rows affected)
+(88 rows affected)
+1> 2> 3> 4> 5> 6> 7> 8> 9> 10> 11> 12> 13> 14> 15> 16> 17> 18> 19> 20> 21> 22> 23> 24> 25> 26> 27> 28> 29> 30> 31> 32> 33> 34> 35> 36> 37> 38> 39> 40> 41> 42> 43> 44> 45> 46> 47> 48> 49> 50> 51> 52> 53> 54> 55> 56> 57> 58> 59> 60> 61> 62> 63> 64> 65> 66> 67> 68> 69> 70> 71> 72> 73> 74> 75> (0 rows affected)
+(0 rows affected)
+(0 rows affected)
+1> 2> 3> 1> 2> 3> 4> 5> 6> 7> 8> 9> 10> 11> 12> 13> 14> 15> 16> 17> 18> 19> 20> 21> 22> 23> 24> 25> 26> 27> 28> 29> 30> 31> 32> 33> 34> 35> 36> 37> 38> 39> 40> 41> 42> 43> 44> 45> 46> 47> 48> 49> (0 rows affected)
+(195 rows affected)
+(195 rows affected)
+1> 2> 3> 4> 5> 6> 7> 8> 9> 10> 11> 12> 13> 14> 15> 16> 17> 18> 19> 20> 21> 22> 23> 24> 25> 26> 27> 28> 29> 30> 31> 32> 33> 34> 35> 36> 37> 38> 39> 40> 41> 42> 43> 44> 45> 46> (0 rows affected)
+(195 rows affected)
+(195 rows affected)
+1> 2> 3> 4> 5> 6> 7> 8> 9> 10> 11> 12> 13> 14> 15> 16> 17> 18> 19> 20> 21> 22> 23> 24> 25> 26> 27> 28> 29> 30> 31> 32> 33> 34> 35> 36> 37> 38> 39> 40> 41> 42> 43> 44> 45> 46> 47> 48> 49> 50> 51> 52> 53> 54> 55> 56> (0 rows affected)
+(39 rows affected)
+(39 rows affected)
+1> 2> 3> 4> 5> 6> 7> 8> 9> 10> 11> 12> 13> 14> 15> 16> 17> 18> 19> 20> 21> 22> 23> 24> 25> 26> 27> 28> 29> 30> 31> 32> 33> 34> 35> 36> 37> 38> 39> 40> 41> 42> 43> 44> 45> 46> 47> 48> 49> 50> 51> 52> 53> 54> (0 rows affected)
+(39 rows affected)
+(39 rows affected)
+1> 2> 3> 4> 5> 6> 7> 8> 9> 10> 11> 12> 13> 14> 15> 16> 17> 18> 19> 20> 21> 22> 23> 24> 25> 26> 27> 28> 29> 30> 31> 32> 33> 34> 35> 36> 37> 38> 39> 40> 41> 42> 43> 44> 45> 46> 47> 48> 49> 50> 51> 52> 53> 54> 55> 56> 57> 58> 59> 60> 61> (0 rows affected)
+(189 rows affected)
+(315 rows affected)
+(189 rows affected)
+(315 rows affected)
+1> 2> 3> 4> 5> 6> 7> 8> 9> 10> 11> 12> 13> 14> 15> 16> 17> 18> 19> 20> 21> 22> 23> 24> 25> 26> 27> 28> 29> 30> 31> 32> 33> 34> 35> 36> 37> 38> 39> 40> 41> 42> 43> 44> 45> 46> 47> 48> 49> 50> 51> 52> 53> 54> 55> (0 rows affected)
+(63 rows affected)
+(378 rows affected)
+(63 rows affected)
+(378 rows affected)
+1> 2> 3> 4> 5> 6> 7> 8> 9> 10> 11> 12> 13> 14> 15> 16> 17> 18> 19> 20> 21> 22> 23> 24> 25> 26> 27> 28> 29> 30> 31> 32> 33> 34> 35> 36> 37> 38> 39> 40> 41> 42> 43> 44> 45> 46> 47> 48> 49> 50> 51> 52> 53> 54> 55> 56> 57> 58> 59> 60> 61> 62> 63> 64> 65> 66> 67> 68> 
+------------------------------------------------------------------------
+	1. Insert valuse into output_stage table: Growth Trend of Monopril Region
+------------------------------------------------------------------------	
+(0 rows affected)
+[mqt00],[mqt01],[mqt02],[mqt03],[mqt04],[mqt05],[mqt06],[mqt07],[mqt08],[mqt09
+],[mqt10],[mqt11],[mqt12],[mqt13],[mqt14],[mqt15],[mqt16],[mqt17],[mqt18],[mqt
+19],[mqt20],[mqt21],[mqt22],[mqt23],[mqt24]
+,case when sum(r3m12) =0 or sum(r3m12) is null then 10000 else 1.0*(sum(r3m00)
+- SUM(r3m12))/sum(r3m12) end as mqt00,case when sum(r3m13) =0 or sum(r3m13) is
+null then 10000 else 1.0*(sum(r3m01) - SUM(r3m13))/sum(r3m13) end as
+mqt01,case when sum(r3m14) =0 or sum(r3m14) is null then 10000 else
+1.0*(sum(r3m02) - SUM(r3m14))/sum(r3m14) end as mqt02,case when sum(r3m15) =0
+or sum(r3m15) is null then 10000 else 1.0*(sum(r3m03) - SUM(r3m15))/sum(r3m15)
+end as mqt03,case when sum(r3m16) =0 or sum(r3m16) is null then 10000 else
+1.0*(sum(r3m04) - SUM(r3m16))/sum(r3m16) end as mqt04,case when sum(r3m17) =0
+or sum(r3m17) is null then 10000 else 1.0*(sum(r3m05) - SUM(r3m17))/sum(r3m17)
+end as mqt05,case when sum(r3m18) =0 or sum(r3m18) is null then 10000 else
+1.0*(sum(r3m06) - SUM(r3m18))/sum(r3m18) end as mqt06,case when sum(r3m19) =0
+or sum(r3m19) is null then 10000 else 1.0*(sum(r3m07) - SUM(r3m19))/sum(r3m19)
+end as mqt07,case when sum(r3m20) =0 or sum(r3m20) is null then 10000 else
+1.0*(sum(r3m08) - SUM(r3m20))/sum(r3m20) end as mqt08,case when sum(r3m21) =0
+or sum(r3m21) is null then 10000 else 1.0*(sum(r3m09) - SUM(r3m21))/sum(r3m21)
+end as mqt09,case when sum(r3m22) =0 or sum(r3m22) is null then 10000 else
+1.0*(sum(r3m10) - SUM(r3m22))/sum(r3m22) end as mqt10,case when sum(r3m23) =0
+or sum(r3m23) is null then 10000 else 1.0*(sum(r3m11) - SUM(r3m23))/sum(r3m23)
+end as mqt11,case when sum(r3m24) =0 or sum(r3m24) is null then 10000 else
+1.0*(sum(r3m12) - SUM(r3m24))/sum(r3m24) end as mqt12,case when sum(r3m25) =0
+or sum(r3m25) is null then 10000 else 1.0*(sum(r3m13) - SUM(r3m25))/sum(r3m25)
+end as mqt13,case when sum(r3m26) =0 or sum(r3m26) is null then 10000 else
+1.0*(sum(r3m14) - SUM(r3m26))/sum(r3m26) end as mqt14,case when sum(r3m27) =0
+or sum(r3m27) is null then 10000 else 1.0*(sum(r3m15) - SUM(r3m27))/sum(r3m27)
+end as mqt15,case when sum(r3m28) =0 or sum(r3m28) is null then 10000 else
+1.0*(sum(r3m16) - SUM(r3m28))/sum(r3m28) end as mqt16,case when sum(r3m29) =0
+or sum(r3m29) is null then 10000 else 1.0*(sum(r3m17) - SUM(r3m29))/sum(r3m29)
+end as mqt17,case when sum(r3m30) =0 or sum(r3m30) is null then 10000 else
+1.0*(sum(r3m18) - SUM(r3m30))/sum(r3m30) end as mqt18,case when sum(r3m31) =0
+or sum(r3m31) is null then 10000 else 1.0*(sum(r3m19) - SUM(r3m31))/sum(r3m31)
+end as mqt19,case when sum(r3m32) =0 or sum(r3m32) is null then 10000 else
+1.0*(sum(r3m20) - SUM(r3m32))/sum(r3m32) end as mqt20,case when sum(r3m33) =0
+or sum(r3m33) is null then 10000 else 1.0*(sum(r3m21) - SUM(r3m33))/sum(r3m33)
+end as mqt21,case when sum(r3m34) =0 or sum(r3m34) is null then 10000 else
+1.0*(sum(r3m22) - SUM(r3m34))/sum(r3m34) end as mqt22,case when sum(r3m35) =0
+or sum(r3m35) is null then 10000 else 1.0*(sum(r3m23) - SUM(r3m35))/sum(r3m35)
+end as mqt23,case when sum(r3m36) =0 or sum(r3m36) is null then 10000 else
+1.0*(sum(r3m24) - SUM(r3m36))/sum(r3m36) end as mqt24
+(7200 rows affected)
+(168 rows affected)
+(7200 rows affected)
+(185487 rows affected)
+(1 row affected)
