@@ -62,23 +62,24 @@ left join tblMonthList i on a.[Year] = i.[Year] and a.[Month] = i.[Month]
 GO
 
 
-alter table inMonthlySales add
-CUF float not null default 0,
-SUF float not null default 0,
-AUDI_COD varchar(10),
-PACK_COD varchar(10),
-PACK_DES varchar(200),
-PROD_COD varchar(10),
-ATC1_COD varchar(10),
-ATC2_COD varchar(10),
-ATC3_COD varchar(10),
-ATC4_COD varchar(10),
-MANU_ID  varchar(20),
-MANU_COD varchar(20),
-MNFL_ID  varchar(20),
-MNFL_COD varchar(20),
-CORP_ID  varchar(20),
-CORP_COD varchar(20)
+alter table inMonthlySales 
+add
+  CUF float not null default 0,
+  SUF float not null default 0,
+  AUDI_COD varchar(10),
+  PACK_COD varchar(10),
+  PACK_DES varchar(200),
+  PROD_COD varchar(10),
+  ATC1_COD varchar(10),
+  ATC2_COD varchar(10),
+  ATC3_COD varchar(10),
+  ATC4_COD varchar(10),
+  MANU_ID  varchar(20),
+  MANU_COD varchar(20),
+  MNFL_ID  varchar(20),
+  MNFL_COD varchar(20),
+  CORP_ID  varchar(20),
+  CORP_COD varchar(20)
 GO
 
 --SUF/CUF
@@ -88,26 +89,28 @@ update inMonthlySales set Quantity_DosingUnits = Quantity_UN * CUF/SUF where SUF
 go
 
 
-update inMonthlySales set 
-AUDI_COD = City_Code + '_',
-PACK_COD = Pack_Code, 
-PACK_DES = Pack_Description,
-PROD_COD = Product_Code,
-MANU_ID  = Manufacturer_ID,
-MANU_COD = Manufacturer_Code,
-ATC4_COD = Therapeutic_Code,
-ATC3_COD = left(Therapeutic_Code,4),
-ATC2_COD = left(Therapeutic_Code,3),
-ATC1_COD = left(Therapeutic_Code,1),
-CORP_ID  = Corporation_ID,
-CORP_COD = Corporation_ID,
-MNFL_ID  = ManufacturerType_ID,
-MNFL_COD = ManufacturerType_Code
+update inMonthlySales 
+set 
+  AUDI_COD = City_Code + '_',
+  PACK_COD = Pack_Code, 
+  PACK_DES = Pack_Description,
+  PROD_COD = Product_Code,
+  MANU_ID  = Manufacturer_ID,
+  MANU_COD = Manufacturer_Code,
+  ATC4_COD = Therapeutic_Code,
+  ATC3_COD = left(Therapeutic_Code,4),
+  ATC2_COD = left(Therapeutic_Code,3),
+  ATC1_COD = left(Therapeutic_Code,1),
+  CORP_ID  = Corporation_ID,
+  CORP_COD = Corporation_ID,
+  MNFL_ID  = ManufacturerType_ID,
+  MNFL_COD = ManufacturerType_Code
 go
 
 
 -- Add history data of Nanchang city, from 201212 rawdata
-update inMonthlySales_NanChang set MonSeq = b.MonSeq 
+update inMonthlySales_NanChang 
+set MonSeq = b.MonSeq 
 from inMonthlySales_NanChang a 
 left join tblMonthList b on a.[Year] = b.[Year] and a.[Month] = b.[Month]
 --go

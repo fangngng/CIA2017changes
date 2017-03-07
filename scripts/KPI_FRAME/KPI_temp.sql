@@ -447,7 +447,7 @@ while @i < @QtrNum
 BEGIN
     set @Qtr = (    select distinct right(convert(varchar(4), year), 2) + quarter 
                     from dbo.tblMonthList where QtrSeq = @QtrNum - @i )
-    set @sql = @sql + '[' + @Qtr + 'US] * 1000, '
+    set @sql = @sql + '[' + @Qtr + 'US] * 1000 as [' + @Qtr + 'US] , '
     set @i = @i + 1
 END 
 set @sql = @sql + 'YTD00US, YTD12US 

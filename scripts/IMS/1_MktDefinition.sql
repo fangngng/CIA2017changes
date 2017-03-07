@@ -22,11 +22,13 @@ if object_id(N'Dim_Gene', N'U') is not null
 	Drop table Dim_Gene
 go
 
-select distinct PROD_COD, GENE_COD into Dim_Gene 
+select distinct PROD_COD, GENE_COD 
+into Dim_Gene 
 from (
      select distinct PROD_COD, GENE_COD from DB82.TempOutput.DBO.MTHCHPA_PKAU
      union all
-     select distinct PROD_COD, GENE_COD from DB82.TempOutput.DBO.MTHCITY_PKAU
+    --  select distinct PROD_COD, GENE_COD from DB82.TempOutput.DBO.MTHCITY_PKAU
+     select distinct PROD_COD, GENE_COD from DB4.BMSChinaCIA_IMS.dbo.Max_Data
      ) a 
 go
 

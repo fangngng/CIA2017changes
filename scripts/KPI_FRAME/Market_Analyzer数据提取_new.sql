@@ -1738,7 +1738,7 @@ set ConfigValue= (select max(date) from tblMonthList)
 where configkey='DataMonth'
 
 update tblExcelConfig											--todo time config table update
-set ConfigValue='Nov.16 vs. Nov.15'
+set ConfigValue='Dec.16 vs. Dec.15'
 where configkey in('Brandview__product_X','Brandview_X')
 
 go
