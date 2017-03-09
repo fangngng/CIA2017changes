@@ -352,8 +352,9 @@ from (
 	select 'YTD' as Period, 'YTD48' as Series,	2 as SeriesIdx 
 ) a, (
 	select distinct case type when 'sales' then 'Y' else 'N' end as isshow,MoneyType,market,mkt,Productname,Prod 
-	from [OurputPreMarketPerformance] where type in('Sales','CAGR') 
-and (molecule='N' and class='N') and mkt not in('Dia','ACE','DPP4')
+	from [OurputPreMarketPerformance] 
+	where type in('Sales','CAGR') 
+		and (molecule='N' and class='N') and mkt not in('Dia','ACE','DPP4')
 ) b
 
 DECLARE TMP_CURSOR CURSOR
