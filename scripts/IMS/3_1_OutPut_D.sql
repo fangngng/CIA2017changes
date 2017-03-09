@@ -371,33 +371,33 @@ from (
 	from dbo.OutputBMSProdSummaryInChina where [Type]='Market' and MoneyType<>'PN'
 ) b
 
-	update [output_stage]
-	set Y=B.MAT00 
-	from [output_stage] A 
-	inner join dbo.OutputBMSProdSummaryInChina B
-	on A.TimeFrame=B.Period and A.Currency=B.MoneyType and A.X=B.Prod_des
-		and a.LinkChartCode =@code and A.Series='Product Sales' and B.[Type]='Product'
+update [output_stage]
+set Y=B.MAT00 
+from [output_stage] A 
+inner join dbo.OutputBMSProdSummaryInChina B
+on A.TimeFrame=B.Period and A.Currency=B.MoneyType and A.X=B.Prod_des
+	and a.LinkChartCode =@code and A.Series='Product Sales' and B.[Type]='Product'
 
-	update [output_stage]
-	set Y=B.Growth 
-	from [output_stage] A 
-	inner join dbo.OutputBMSProdSummaryInChina B
-	on A.TimeFrame=B.Period and A.Currency=B.MoneyType and A.X=B.Prod_des
-		and a.LinkChartCode =@code and A.Series='Product Growth' and B.[Type]='Product'
+update [output_stage]
+set Y=B.Growth 
+from [output_stage] A 
+inner join dbo.OutputBMSProdSummaryInChina B
+on A.TimeFrame=B.Period and A.Currency=B.MoneyType and A.X=B.Prod_des
+	and a.LinkChartCode =@code and A.Series='Product Growth' and B.[Type]='Product'
 
-	update [output_stage]
-	set Y=B.Growth 
-	from [output_stage] A 
-	inner join dbo.OutputBMSProdSummaryInChina B
-	on A.TimeFrame=B.Period and A.Currency=B.MoneyType and A.X=B.Prod_des
-		and a.LinkChartCode =@code and A.Series='Market Growth' and B.[Type]='Market'
+update [output_stage]
+set Y=B.Growth 
+from [output_stage] A 
+inner join dbo.OutputBMSProdSummaryInChina B
+on A.TimeFrame=B.Period and A.Currency=B.MoneyType and A.X=B.Prod_des
+	and a.LinkChartCode =@code and A.Series='Market Growth' and B.[Type]='Market'
 
-	update [output_stage]
-	set Y=B.MarketShare 
-	from [output_stage] A 
-	inner join dbo.OutputBMSProdSummaryInChina B
-	on A.TimeFrame=B.Period and A.Currency=B.MoneyType and A.X=B.Prod_des
-		and a.LinkChartCode =@code and A.Series='Market Share' and B.[Type]='Market'
+update [output_stage]
+set Y=B.MarketShare 
+from [output_stage] A 
+inner join dbo.OutputBMSProdSummaryInChina B
+on A.TimeFrame=B.Period and A.Currency=B.MoneyType and A.X=B.Prod_des
+	and a.LinkChartCode =@code and A.Series='Market Share' and B.[Type]='Market'
 
 
 
@@ -832,14 +832,17 @@ from (
 	select 'MAT23' as Series,	2 as SeriesIdx union all
 	select 'MAT24' as Series,	1 as SeriesIdx
 ) a, (
-	select distinct Productname, Prod,Period,MoneyType,market from dbo.OutputKeyBrandPerformance_For_OtherETV 
+	select distinct Productname, Prod,Period,MoneyType,market 
+	from dbo.OutputKeyBrandPerformance_For_OtherETV 
 	where market not in ('Taxol','Paraplatin','eliquis noac','Eliquis VTEt') 
 		and not (market = 'Eliquis VTep' and Prod = '600' ) and MoneyType<>'PN'
 	union all
-		select distinct Productname, Prod,Period,MoneyType,market from dbo.OutputKeyBrandPerformance_For_OtherETV 
+		select distinct Productname, Prod,Period,MoneyType,market 
+		from dbo.OutputKeyBrandPerformance_For_OtherETV 
 		where market = 'Taxol' and Period<>'MQT' and MoneyType<>'PN' 
 	union all
-		select distinct Productname, Prod,Period,MoneyType,market from dbo.OutputKeyBrandPerformance_For_OtherETV 
+		select distinct Productname, Prod,Period,MoneyType,market 
+		from dbo.OutputKeyBrandPerformance_For_OtherETV 
 		where market = 'Paraplatin' and Period<>'MQT' and MoneyType<>'UN' 
 ) b
 
@@ -1959,65 +1962,91 @@ go
 
 	update [output_stage]
 	set Y=case B.type when 'Market Total' then convert(varchar(50),cast(B.R3M00 as float),1) else B.R3M00 end,
-		IntY=case B.type when 'Market Total' then cast(B.R3M00 as float) end   from [output_stage] A inner join dbo.OutputKeyBrandPerformanceByRegion_For_OtherETV B
+		IntY=case B.type when 'Market Total' then cast(B.R3M00 as float) end   
+	from [output_stage] A 
+	inner join dbo.OutputKeyBrandPerformanceByRegion_For_OtherETV B
 	on A.X=B.audi_des and A.Series=B.Productname and a.Product = B.market and A.Currency=B.moneytype
-		and A.timeFrame='MQT'where B.Class='N'and A.LinkChartCode=@code and A.ISshow='Y'
+		and A.timeFrame='MQT'
+	where B.Class='N'and A.LinkChartCode=@code and A.ISshow='Y'
 
 	update [output_stage]
 	set Y=case B.type when 'Market Total' then convert(varchar(50),cast(B.MTH00 as float),1) else B.MTH00 end,
-		IntY=case B.type when 'Market Total' then cast(B.MTH00 as float) end  from [output_stage] A inner join dbo.OutputKeyBrandPerformanceByRegion_For_OtherETV B
+		IntY=case B.type when 'Market Total' then cast(B.MTH00 as float) end  
+	from [output_stage] A 
+	inner join dbo.OutputKeyBrandPerformanceByRegion_For_OtherETV B
 	on A.X=B.audi_des and A.Series=B.Productname and a.Product = B.market and A.Currency=B.moneytype
-		and A.timeFrame='MTH'where B.Class='N'and A.LinkChartCode=@code and A.ISshow='Y'
+		and A.timeFrame='MTH'
+	where B.Class='N'and A.LinkChartCode=@code and A.ISshow='Y'
 
 	update [output_stage]
 	set Y=B.MAT00,
-		IntY=B.MAT00 from [output_stage] A inner join dbo.OutputKeyBrandPerformanceByRegion_For_OtherETV B
+		IntY=B.MAT00 
+	from [output_stage] A  
+	inner join dbo.OutputKeyBrandPerformanceByRegion_For_OtherETV B
 	on A.X=B.audi_des and A.Series=B.Productname  and a.Product = B.market and A.Currency=B.moneytype
-		and A.timeFrame='MAT' where B.Class='N'and A.LinkChartCode=@code and A.ISshow='Y'
+		and A.timeFrame='MAT' 
+	where B.Class='N'and A.LinkChartCode=@code and A.ISshow='Y'
 
 	update [output_stage]
 	set Y=B.YTD00,
-		IntY=B.YTD00 from [output_stage] A inner join dbo.OutputKeyBrandPerformanceByRegion_For_OtherETV B
+		IntY=B.YTD00 
+	from [output_stage] A 
+	inner join dbo.OutputKeyBrandPerformanceByRegion_For_OtherETV B
 	on A.X=B.audi_des and A.Series=B.Productname  and a.Product = B.market and A.Currency=B.moneytype
-		and A.timeFrame='YTD' where B.Class='N'and A.LinkChartCode=@code and A.ISshow='Y'
+		and A.timeFrame='YTD' 
+	where B.Class='N'and A.LinkChartCode=@code and A.ISshow='Y'
 
 	insert into [output_stage] (isshow,TimeFrame,LinkChartCode,Product, Series, SeriesIdx,Currency, X, XIdx,lev,geo)
 	select 'L',B.Period, @code as Code, A.Market,A.Productname,A.Prod,moneytype, a.Audi_des,a.Audi_cod,'China' as lev,'China'
 	from (
-		select A.*,b.Audi_cod,B.Audi_des from (
+		select A.*,b.Audi_cod,B.Audi_des 
+		from (
 			select distinct MoneyType,mkt,Market,Prod,Productname,region
 			from dbo.OutputKeyBrandPerformanceByRegionGrowth where Class='N' --and Mkt<>'DPP4'
-		) A inner join
+		) A 
+		inner join
 		(	select distinct MoneyType,mkt,Market,Audi_cod,Audi_des,region
 			from dbo.OutputKeyBrandPerformanceByRegionGrowth where Class='N') B
 		on A.moneytype=b.moneytype and a.mkt=b.mkt and a.market=b.market and a.region=b.region
-	) a ,(select 'MQT' as Period union all
-								 select 'MTH' as Period union all
-								 select 'MAT' as Period union all
-								select 'YTD' as Period  ) B
+	) a ,
+	(		select 'MQT' as Period union all
+			select 'MTH' as Period union all
+			select 'MAT' as Period union all
+			select 'YTD' as Period  ) B
 	where a.Market<>'Eliquis noac'  and a.Market<>'Eliquis VTet'	
 		and not (a.Market = 'Eliquis VTep' and a.Prod = '600'  )							
 
 	update [output_stage]
 	set Y=B.R3M00,
-	IntY=B.R3M00 from [output_stage] A inner join dbo.OutputKeyBrandPerformanceByRegionGrowth B
+		IntY=B.R3M00 
+	from [output_stage] A 
+	inner join dbo.OutputKeyBrandPerformanceByRegionGrowth B
 	on A.X=B.audi_des and A.Series=B.Productname and a.Product = B.market and A.Currency=B.moneytype
-	and A.timeFrame='MQT'where B.Class='N'and A.LinkChartCode=@code and A.ISshow='L' --and B.Mkt<>'DPP4'
+		and A.timeFrame='MQT'where B.Class='N'and A.LinkChartCode=@code and A.ISshow='L' --and B.Mkt<>'DPP4'
+	
 	update [output_stage]
 	set Y=B.MTH00,
-	IntY=B.MTH00 from [output_stage] A inner join dbo.OutputKeyBrandPerformanceByRegionGrowth B
+		IntY=B.MTH00 
+	from [output_stage] A 
+	inner join dbo.OutputKeyBrandPerformanceByRegionGrowth B
 	on A.X=B.audi_des and A.Series=B.Productname and a.Product = B.market and A.Currency=B.moneytype
-	and A.timeFrame='MTH'where B.Class='N'and A.LinkChartCode=@code and A.ISshow='L' --and B.Mkt<>'DPP4'
+		and A.timeFrame='MTH'where B.Class='N'and A.LinkChartCode=@code and A.ISshow='L' --and B.Mkt<>'DPP4'
+	
 	update [output_stage]
 	set Y=B.MAT00,
-	IntY=B.MAT00 from [output_stage] A inner join dbo.OutputKeyBrandPerformanceByRegionGrowth B
+		IntY=B.MAT00 
+	from [output_stage] A 
+	inner join dbo.OutputKeyBrandPerformanceByRegionGrowth B
 	on A.X=B.audi_des and A.Series=B.Productname and a.Product = B.market and A.Currency=B.moneytype
-	and A.timeFrame='MAT' where B.Class='N'and A.LinkChartCode=@code and A.ISshow='L' --and B.Mkt<>'DPP4'
+		and A.timeFrame='MAT' where B.Class='N'and A.LinkChartCode=@code and A.ISshow='L' --and B.Mkt<>'DPP4'
+	
 	update [output_stage]
 	set Y=B.YTD00,
-	IntY=B.YTD00 from [output_stage] A inner join dbo.OutputKeyBrandPerformanceByRegionGrowth B
+		IntY=B.YTD00 
+	from [output_stage] A 
+	inner join dbo.OutputKeyBrandPerformanceByRegionGrowth B
 	on A.X=B.audi_des and A.Series=B.Productname and a.Product = B.market and A.Currency=B.moneytype
-	and A.timeFrame='YTD' where B.Class='N'and A.LinkChartCode=@code and A.ISshow='L' --and B.Mkt<>'DPP4'
+		and A.timeFrame='YTD' where B.Class='N'and A.LinkChartCode=@code and A.ISshow='L' --and B.Mkt<>'DPP4'
 
 
 	Go
@@ -2034,15 +2063,20 @@ go
 	insert into [output_stage] (isshow,TimeFrame,LinkChartCode,Product, Series, SeriesIdx,Currency, X, XIdx,lev,geo)
 	select 'Y',B.Period, @code as Code, A.Market,A.Productname,A.Prod,moneytype, a.Audi_des,a.Audi_cod,'China' as lev,'China'
 	from (
-	select A.*,b.Audi_cod,B.Audi_des from (
-	select distinct MoneyType,mkt,Market,Prod,Productname,region
-	 from dbo.OutputKeyBrandPerformanceByRegion_For_Baraclude_Slide6 where Class='N'
-	) A inner join
-	(select distinct MoneyType,mkt,Market,Audi_cod,Audi_des,region
-	 from dbo.OutputKeyBrandPerformanceByRegion_For_Baraclude_Slide6 where Class='N' ) B
-	on A.moneytype=b.moneytype and a.mkt=b.mkt and a.market=b.market and a.region=b.region
-	) a ,(					select 'MQT' as Period union all
-							select 'MTH' as Period 
+		select A.*,b.Audi_cod,B.Audi_des 
+		from (
+			select distinct MoneyType,mkt,Market,Prod,Productname,region
+			from dbo.OutputKeyBrandPerformanceByRegion_For_Baraclude_Slide6 where Class='N'
+		) A 
+		inner join
+		(	select distinct MoneyType,mkt,Market,Audi_cod,Audi_des,region
+			from dbo.OutputKeyBrandPerformanceByRegion_For_Baraclude_Slide6 
+			where Class='N' 
+		) B
+		on A.moneytype=b.moneytype and a.mkt=b.mkt and a.market=b.market and a.region=b.region
+	) a ,(					
+		select 'MQT' as Period union all
+		select 'MTH' as Period 
 	--												union all
 	--						select 'MAT' as Period union all
 	--						select 'YTD' as Period 
@@ -2050,14 +2084,19 @@ go
 
 	update [output_stage]
 	set Y=case B.type when 'Market Total' then convert(varchar(50),cast(B.R3M00 as float),1) else B.R3M00 end,
-	IntY=case B.type when 'Market Total' then cast(B.R3M00 as float) end   from [output_stage] A inner join dbo.OutputKeyBrandPerformanceByRegion_For_Baraclude_Slide6 B
+		IntY=case B.type when 'Market Total' then cast(B.R3M00 as float) end   
+	from [output_stage] A 
+	inner join dbo.OutputKeyBrandPerformanceByRegion_For_Baraclude_Slide6 B
 	on A.X=B.audi_des and A.Series=B.Productname and a.Product = B.market and A.Currency=B.moneytype
-	and A.timeFrame='MQT'where B.Class='N'and A.LinkChartCode=@code and A.ISshow='Y'
+		and A.timeFrame='MQT'where B.Class='N'and A.LinkChartCode=@code and A.ISshow='Y'
+
 	update [output_stage]
 	set Y=case B.type when 'Market Total' then convert(varchar(50),cast(B.MTH00 as float),1) else B.MTH00 end,
-	IntY=case B.type when 'Market Total' then cast(B.MTH00 as float) end  from [output_stage] A inner join dbo.OutputKeyBrandPerformanceByRegion_For_Baraclude_Slide6 B
+		IntY=case B.type when 'Market Total' then cast(B.MTH00 as float) end  
+	from [output_stage] A 
+	inner join dbo.OutputKeyBrandPerformanceByRegion_For_Baraclude_Slide6 B
 	on A.X=B.audi_des and A.Series=B.Productname and a.Product = B.market and A.Currency=B.moneytype
-	and A.timeFrame='MTH'where B.Class='N'and A.LinkChartCode=@code and A.ISshow='Y'
+		and A.timeFrame='MTH'where B.Class='N'and A.LinkChartCode=@code and A.ISshow='Y'
 	--update [output_stage]
 	--set Y=B.MAT00,
 	--IntY=B.MAT00 from [output_stage] A inner join dbo.OutputKeyBrandPerformanceByRegion_For_Baraclude_Slide6 B
@@ -2072,15 +2111,17 @@ go
 	insert into [output_stage] (isshow,TimeFrame,LinkChartCode,Product, Series, SeriesIdx,Currency, X, XIdx,lev,geo)
 	select 'L',B.Period, @code as Code, A.Market,A.Productname,A.Prod,moneytype, a.Audi_des,a.Audi_cod,'China' as lev,'China'
 	from (
-	select A.*,b.Audi_cod,B.Audi_des from (
-	select distinct MoneyType,mkt,Market,Prod,Productname,region
-	 from dbo.OutputKeyBrandPerformanceByRegionGrowth_For_Baraclude_Slide6 where Class='N' --and Mkt<>'DPP4'
-	) A inner join
-	(select distinct MoneyType,mkt,Market,Audi_cod,Audi_des,region
-	 from dbo.OutputKeyBrandPerformanceByRegionGrowth_For_Baraclude_Slide6 where Class='N') B
-	on A.moneytype=b.moneytype and a.mkt=b.mkt and a.market=b.market and a.region=b.region
-	) a ,(select 'MQT' as Period union all
-								 select 'MTH' as Period 
+		select A.*,b.Audi_cod,B.Audi_des 
+		from (
+			select distinct MoneyType,mkt,Market,Prod,Productname,region
+			from dbo.OutputKeyBrandPerformanceByRegionGrowth_For_Baraclude_Slide6 where Class='N' --and Mkt<>'DPP4'
+		) A inner join
+		(	select distinct MoneyType,mkt,Market,Audi_cod,Audi_des,region
+			from dbo.OutputKeyBrandPerformanceByRegionGrowth_For_Baraclude_Slide6 where Class='N'
+		) B
+		on A.moneytype=b.moneytype and a.mkt=b.mkt and a.market=b.market and a.region=b.region
+	) a ,(	select 'MQT' as Period union all
+			select 'MTH' as Period 
 	--													union all
 	--							 select 'MAT' as Period union all
 	--							select 'YTD' as Period  
@@ -2088,14 +2129,19 @@ go
 
 	update [output_stage]
 	set Y=B.R3M00,
-	IntY=B.R3M00 from [output_stage] A inner join dbo.OutputKeyBrandPerformanceByRegionGrowth_For_Baraclude_Slide6 B
+		IntY=B.R3M00 
+	from [output_stage] A 
+	inner join dbo.OutputKeyBrandPerformanceByRegionGrowth_For_Baraclude_Slide6 B
 	on A.X=B.audi_des and A.Series=B.Productname and a.Product = B.market and A.Currency=B.moneytype
-	and A.timeFrame='MQT'where B.Class='N'and A.LinkChartCode=@code and A.ISshow='L' --and B.Mkt<>'DPP4'
+		and A.timeFrame='MQT'where B.Class='N'and A.LinkChartCode=@code and A.ISshow='L' --and B.Mkt<>'DPP4'
+	
 	update [output_stage]
 	set Y=B.MTH00,
-	IntY=B.MTH00 from [output_stage] A inner join dbo.OutputKeyBrandPerformanceByRegionGrowth_For_Baraclude_Slide6 B
+		IntY=B.MTH00 
+	from [output_stage] A 
+	inner join dbo.OutputKeyBrandPerformanceByRegionGrowth_For_Baraclude_Slide6 B
 	on A.X=B.audi_des and A.Series=B.Productname and a.Product = B.market and A.Currency=B.moneytype
-	and A.timeFrame='MTH'where B.Class='N'and A.LinkChartCode=@code and A.ISshow='L' --and B.Mkt<>'DPP4'
+		and A.timeFrame='MTH'where B.Class='N'and A.LinkChartCode=@code and A.ISshow='L' --and B.Mkt<>'DPP4'
 	--update [output_stage]
 	--set Y=B.MAT00,
 	--IntY=B.MAT00 from [output_stage] A inner join dbo.OutputKeyBrandPerformanceByRegionGrowth_For_Baraclude_Slide6 B
@@ -2106,10 +2152,6 @@ go
 	--IntY=B.YTD00 from [output_stage] A inner join dbo.OutputKeyBrandPerformanceByRegionGrowth_For_Baraclude_Slide6 B
 	--on A.X=B.audi_des and A.Series=B.Productname and a.Product = B.market and A.Currency=B.moneytype
 	--and A.timeFrame='YTD' where B.Class='N'and A.LinkChartCode=@code and A.ISshow='L' --and B.Mkt<>'DPP4'
-
-
-
-
 
 
 

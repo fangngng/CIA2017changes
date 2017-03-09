@@ -1784,14 +1784,8 @@ GO
 --YTD
 insert into [OutputKeyMNCsPerformance_HKAPI]
 ([Period],[MoneyType],[CORP_cod],[CurrRank],[PrevRank],[Mat00],[Mat12])
-select top 10 
- 'YTD'
- ,'RMB'
- ,[company name]
- ,1
- ,1
- ,sum(isnull([YTD00LC],0))*1000
- ,sum(isnull([YTD12LC],0))*1000
+select top 10
+	'YTD', 'RMB', [company name], 1, 1, sum(isnull([YTD00LC],0))*1000, sum(isnull([YTD12LC],0))*1000
 from inHKAPI_New
 group by [company name]
 order by sum(isnull([YTD00LC],0)) desc
@@ -1799,18 +1793,20 @@ go
 if exists(select * from OutputKeyMNCsPerformance_HKAPI 
 				  where CORP_Cod like '%BMS%' and Period='YTD' and MoneyType='RMB'
 		)
-print 'BMS COPR in Top 10 YTD'
+	print 'BMS COPR in Top 10 YTD'
 else
-insert into [OutputKeyMNCsPerformance_HKAPI]
-([Period],[MoneyType],[CORP_cod],[CurrRank],[PrevRank],[Mat00],[Mat12])
-select 'YTD','RMB', [company name],1,1,sum(isnull([YTD00LC],0))*1000,sum(isnull([YTD12LC],0))*1000
-from inHKAPI_New
-where [company name] like '%BMS%'
-group by [company name]
+	insert into [OutputKeyMNCsPerformance_HKAPI]
+	([Period],[MoneyType],[CORP_cod],[CurrRank],[PrevRank],[Mat00],[Mat12])
+	select 'YTD','RMB', [company name],1,1,sum(isnull([YTD00LC],0))*1000,sum(isnull([YTD12LC],0))*1000
+	from inHKAPI_New
+	where [company name] like '%BMS%'
+	group by [company name]
 go
+
 update [OutputKeyMNCsPerformance_HKAPI]
-set [Total]=B.sales from [OutputKeyMNCsPerformance_HKAPI] A ,
-(select sum(isnull([YTD00LC],0))*1000 as sales from inHKAPI_New
+set [Total]=B.sales 
+from [OutputKeyMNCsPerformance_HKAPI] A ,
+(	select sum(isnull([YTD00LC],0))*1000 as sales from inHKAPI_New
 ) B
 where A.[Period]='YTD'
 
@@ -1832,8 +1828,8 @@ order by sum(isnull([LastYear00LC],0)) desc
 go
 
 if exists(
-select * from OutputKeyMNCsPerformance_HKAPI 
-where CORP_Cod like '%BMS%' and Period='Last Year' and MoneyType='RMB'
+	select * from OutputKeyMNCsPerformance_HKAPI 
+	where CORP_Cod like '%BMS%' and Period='Last Year' and MoneyType='RMB'
 )
 print 'BMS COPR in Top 10 LastYear'
 else
@@ -2121,6 +2117,7 @@ CREATE TABLE [dbo].OutputProdSalesPerformanceInChina(
 ) ON [PRIMARY]
 
 GO
+-- for not eliquis mkt 
 DECLARE TMP_CURSOR CURSOR
 READ_ONLY
 FOR select [Type]  from dbo.tblMoneyType
@@ -2145,10 +2142,12 @@ BEGIN
 		select 1,''Product'',''MAT'','+'''' +@MoneyType+''''+',B.mkt,a.prod_cod,''''
 			,sum(mat00' +@MoneyType+@Rat+'),sum(mat12' +@MoneyType+@Rat+'),sum(mat24' +@MoneyType+@Rat+')
 			,sum(mat36' +@MoneyType+@Rat+') ,sum(mat48' +@MoneyType+@Rat+')
-		from mthchpa_pkau A inner join
-		(select distinct A.mkt,B.PRod_cod,a.pack_cod,a.Rat from tblMktDef_MRBIChina A inner join tblProddef B
-		on A.productname=B.Product
-		where A.prod=''100'' and a.mkt not like ''eliquis%'') B
+		from mthchpa_pkau A 
+		inner join
+		(	select distinct A.mkt,B.PRod_cod,a.pack_cod,a.Rat 
+			from tblMktDef_MRBIChina A 
+			inner join tblProddef B on A.productname=B.Product
+			where A.prod=''100'' and a.mkt not like ''eliquis%'') B
         on A.pack_cod=B.pack_cod
         group by B.mkt,a.prod_cod
 
@@ -2156,8 +2155,30 @@ BEGIN
 		select 3,''Market Size'',''MAT'','+'''' +@MoneyType+''''+',B.mkt,B.mkt,''''
 			,sum(mat00' +@MoneyType+@Rat+'),sum(mat12' +@MoneyType+@Rat+'),sum(mat24' +@MoneyType+@Rat+')
 			,sum(mat36' +@MoneyType+@Rat+') ,sum(mat48' +@MoneyType+@Rat+')
-		from mthchpa_pkau A inner join tblMktDef_MRBIChina B
-		on A.pack_cod=b.pack_cod
+		from mthchpa_pkau A 
+		inner join tblMktDef_MRBIChina B on A.pack_cod=b.pack_cod
+		where B.prod=''000'' and B.mkt in(''DPP4'',''NIAD'',''ARV'',''ONCFCS'',''HYP'',''CCB'',''Platinum'') and Molecule=''N'' and Class=''N'' and B.Active=''Y''
+		group by B.mkt
+
+		insert into OutputProdSalesPerformanceInChina([TypeIdx],[Type] ,[Period],[MoneyType],Market,[Prod_cod],[Prod_des],[Mat00],[Mat12],[Mat24],[Mat36],[Mat48])
+		select 1,''Product'',''MQT'','+'''' +@MoneyType+''''+',B.mkt,a.prod_cod,''''
+			,sum(R3M00' +@MoneyType+@Rat+'),sum(R3M12' +@MoneyType+@Rat+'),sum(R3M24' +@MoneyType+@Rat+')
+			,sum(R3M36' +@MoneyType+@Rat+') ,sum(R3M48' +@MoneyType+@Rat+')
+		from mthchpa_pkau A 
+		inner join
+		(	select distinct A.mkt,B.PRod_cod,a.pack_cod,a.Rat 
+			from tblMktDef_MRBIChina A 
+			inner join tblProddef B on A.productname=B.Product
+			where A.prod=''100'' and a.mkt not like ''eliquis%'') B
+        on A.pack_cod=B.pack_cod
+        group by B.mkt,a.prod_cod
+
+		insert into OutputProdSalesPerformanceInChina([TypeIdx],[Type] ,[Period],[MoneyType],Market,[Prod_cod],[Prod_des],[Mat00],[Mat12],[Mat24],[Mat36],[Mat48])
+		select 3,''Market Size'',''MQT'','+'''' +@MoneyType+''''+',B.mkt,B.mkt,''''
+			,sum(R3M00' +@MoneyType+@Rat+'),sum(R3M12' +@MoneyType+@Rat+'),sum(R3M24' +@MoneyType+@Rat+')
+			,sum(R3M36' +@MoneyType+@Rat+') ,sum(R3M48' +@MoneyType+@Rat+')
+		from mthchpa_pkau A 
+		inner join tblMktDef_MRBIChina B on A.pack_cod=b.pack_cod
 		where B.prod=''000'' and B.mkt in(''DPP4'',''NIAD'',''ARV'',''ONCFCS'',''HYP'',''CCB'',''Platinum'') and Molecule=''N'' and Class=''N'' and B.Active=''Y''
 		group by B.mkt
 
@@ -2165,10 +2186,12 @@ BEGIN
 		select 1,''Product'',''YTD'','+'''' +@MoneyType+''''+',B.mkt,a.prod_cod,''''
 			,sum(YTD00' +@MoneyType+@Rat+'),sum(YTD12' +@MoneyType+@Rat+') ,sum(YTD24' +@MoneyType+@Rat+')
 			,sum(YTD36' +@MoneyType+@Rat+') ,sum(YTD48' +@MoneyType+@Rat+')
-		from mthchpa_pkau A inner join
-		(select distinct A.mkt,B.PRod_cod,a.pack_cod,a.Rat from tblMktDef_MRBIChina A inner join tblProddef B
-		on A.productname=B.Product
-		where A.prod=''100''and a.mkt not like ''eliquis%'') B
+		from mthchpa_pkau A 
+		inner join
+		(	select distinct A.mkt,B.PRod_cod,a.pack_cod,a.Rat 
+			from tblMktDef_MRBIChina A inner join tblProddef B
+			on A.productname=B.Product
+			where A.prod=''100''and a.mkt not like ''eliquis%'') B
         on A.pack_cod=B.pack_cod
         group by B.mkt,a.prod_cod
 
@@ -2177,74 +2200,82 @@ BEGIN
 		select 3, ''Market Size'',''YTD'','+'''' +@MoneyType+''''+',B.mkt,B.mkt,''''
 			,sum(YTD00' +@MoneyType+@Rat+'),sum(YTD12' +@MoneyType+@Rat+') ,sum(YTD24' +@MoneyType+@Rat+')
 			,sum(YTD36' +@MoneyType+@Rat+') ,sum(YTD48' +@MoneyType+@Rat+')
-		from mthchpa_pkau A inner join tblMktDef_MRBIChina B
-		on A.pack_cod=b.pack_cod
+		from mthchpa_pkau A 
+		inner join tblMktDef_MRBIChina B on A.pack_cod=b.pack_cod
 		where B.prod=''000'' and B.mkt in(''DPP4'',''NIAD'',''ARV'',''ONCFCS'',''HYP'',''CCB'',''Platinum'') and Molecule=''N'' and Class=''N''and B.Active=''Y''
-		group by B.mkt'
+		group by B.mkt
+		'
 	    print @SQL2
 		exec( @SQL2)
 
        set @SQL2='insert into OutputProdSalesPerformanceInChina
-		select 1,''Product'',''MTH'','+'''' +@MoneyType+''''+',B.mkt,a.prod_cod,'''',sum(MTH00' +@MoneyType+@Rat+')
-		,sum(MTH01' +@MoneyType+@Rat+')
-		,sum(MTH02' +@MoneyType+@Rat+')
-		,sum(MTH03' +@MoneyType+@Rat+')
-		,sum(MTH04' +@MoneyType+@Rat+')
-		,sum(MTH05' +@MoneyType+@Rat+')
-		,sum(MTH06' +@MoneyType+@Rat+')
-		,sum(MTH07' +@MoneyType+@Rat+')
-		,sum(MTH08' +@MoneyType+@Rat+')
-		,sum(MTH09' +@MoneyType+@Rat+')
-		,sum(MTH10' +@MoneyType+@Rat+')
-		,sum(MTH11' +@MoneyType+@Rat+')
-		
-		,sum(MTH12' +@MoneyType+@Rat+')		
-		,sum(MTH13' +@MoneyType+@Rat+')
-		,sum(MTH14' +@MoneyType+@Rat+')
-		,sum(MTH15' +@MoneyType+@Rat+')
-		,sum(MTH16' +@MoneyType+@Rat+')
-		,sum(MTH17' +@MoneyType+@Rat+')
-		,sum(MTH18' +@MoneyType+@Rat+')
-		,sum(MTH19' +@MoneyType+@Rat+')
-		,sum(MTH20' +@MoneyType+@Rat+')
-		,sum(MTH21' +@MoneyType+@Rat+')
-		,sum(MTH22' +@MoneyType+@Rat+')
-		,sum(MTH23' +@MoneyType+@Rat+')		
-		from mthchpa_pkau A inner join
-		(select distinct A.mkt,B.PRod_cod ,a.pack_cod,a.Rat from tblMktDef_MRBIChina A inner join tblProddef B
-		on A.productname=B.Product
-		where A.prod=''100'' and a.mkt not like ''eliquis%'') B
+		select 1,''Product'',''MTH'','+'''' +@MoneyType+''''+',B.mkt,a.prod_cod,''''
+			,sum(MTH00' +@MoneyType+@Rat+')
+			,sum(MTH01' +@MoneyType+@Rat+')
+			,sum(MTH02' +@MoneyType+@Rat+')
+			,sum(MTH03' +@MoneyType+@Rat+')
+			,sum(MTH04' +@MoneyType+@Rat+')
+			,sum(MTH05' +@MoneyType+@Rat+')
+			,sum(MTH06' +@MoneyType+@Rat+')
+			,sum(MTH07' +@MoneyType+@Rat+')
+			,sum(MTH08' +@MoneyType+@Rat+')
+			,sum(MTH09' +@MoneyType+@Rat+')
+			,sum(MTH10' +@MoneyType+@Rat+')
+			,sum(MTH11' +@MoneyType+@Rat+')
+			
+			,sum(MTH12' +@MoneyType+@Rat+')		
+			,sum(MTH13' +@MoneyType+@Rat+')
+			,sum(MTH14' +@MoneyType+@Rat+')
+			,sum(MTH15' +@MoneyType+@Rat+')
+			,sum(MTH16' +@MoneyType+@Rat+')
+			,sum(MTH17' +@MoneyType+@Rat+')
+			,sum(MTH18' +@MoneyType+@Rat+')
+			,sum(MTH19' +@MoneyType+@Rat+')
+			,sum(MTH20' +@MoneyType+@Rat+')
+			,sum(MTH21' +@MoneyType+@Rat+')
+			,sum(MTH22' +@MoneyType+@Rat+')
+			,sum(MTH23' +@MoneyType+@Rat+')		
+		from mthchpa_pkau A 
+		inner join
+		(	select distinct A.mkt,B.PRod_cod ,a.pack_cod,a.Rat 
+			from tblMktDef_MRBIChina A 
+			inner join tblProddef B
+			on A.productname=B.Product
+			where A.prod=''100'' and a.mkt not like ''eliquis%'' 
+		) B
         on A.pack_cod=B.pack_cod
         group by B.mkt,a.prod_cod
 
 
 		insert into OutputProdSalesPerformanceInChina
-		select 3,''Market Size'',''MTH'','+'''' +@MoneyType+''''+',B.mkt,B.mkt,'''',sum(MTH00' +@MoneyType+@Rat+')
-       ,sum(MTH01' +@MoneyType+@Rat+')
-		,sum(MTH02' +@MoneyType+@Rat+')
-		,sum(MTH03' +@MoneyType+@Rat+')
-		,sum(MTH04' +@MoneyType+@Rat+')
-		,sum(MTH05' +@MoneyType+@Rat+')
-		,sum(MTH06' +@MoneyType+@Rat+')
-		,sum(MTH07' +@MoneyType+@Rat+')
-		,sum(MTH08' +@MoneyType+@Rat+')
-		,sum(MTH09' +@MoneyType+@Rat+')
-		,sum(MTH10' +@MoneyType+@Rat+')
-		,sum(MTH11' +@MoneyType+@Rat+')
-		
-		,sum(MTH12' +@MoneyType+@Rat+')		
-		,sum(MTH13' +@MoneyType+@Rat+')
-		,sum(MTH14' +@MoneyType+@Rat+')
-		,sum(MTH15' +@MoneyType+@Rat+')
-		,sum(MTH16' +@MoneyType+@Rat+')
-		,sum(MTH17' +@MoneyType+@Rat+')
-		,sum(MTH18' +@MoneyType+@Rat+')
-		,sum(MTH19' +@MoneyType+@Rat+')
-		,sum(MTH20' +@MoneyType+@Rat+')
-		,sum(MTH21' +@MoneyType+@Rat+')
-		,sum(MTH22' +@MoneyType+@Rat+')
-		,sum(MTH23' +@MoneyType+@Rat+')			
-		from mthchpa_pkau A inner join tblMktDef_MRBIChina B
+		select 3,''Market Size'',''MTH'','+'''' +@MoneyType+''''+',B.mkt,B.mkt,''''
+			,sum(MTH00' +@MoneyType+@Rat+')
+			,sum(MTH01' +@MoneyType+@Rat+')
+			,sum(MTH02' +@MoneyType+@Rat+')
+			,sum(MTH03' +@MoneyType+@Rat+')
+			,sum(MTH04' +@MoneyType+@Rat+')
+			,sum(MTH05' +@MoneyType+@Rat+')
+			,sum(MTH06' +@MoneyType+@Rat+')
+			,sum(MTH07' +@MoneyType+@Rat+')
+			,sum(MTH08' +@MoneyType+@Rat+')
+			,sum(MTH09' +@MoneyType+@Rat+')
+			,sum(MTH10' +@MoneyType+@Rat+')
+			,sum(MTH11' +@MoneyType+@Rat+')
+			
+			,sum(MTH12' +@MoneyType+@Rat+')		
+			,sum(MTH13' +@MoneyType+@Rat+')
+			,sum(MTH14' +@MoneyType+@Rat+')
+			,sum(MTH15' +@MoneyType+@Rat+')
+			,sum(MTH16' +@MoneyType+@Rat+')
+			,sum(MTH17' +@MoneyType+@Rat+')
+			,sum(MTH18' +@MoneyType+@Rat+')
+			,sum(MTH19' +@MoneyType+@Rat+')
+			,sum(MTH20' +@MoneyType+@Rat+')
+			,sum(MTH21' +@MoneyType+@Rat+')
+			,sum(MTH22' +@MoneyType+@Rat+')
+			,sum(MTH23' +@MoneyType+@Rat+')			
+		from mthchpa_pkau A 
+		inner join tblMktDef_MRBIChina B
 		on A.pack_cod=b.pack_cod
 		where B.prod=''000'' and B.mkt in(''DPP4'',''NIAD'',''ARV'',''ONCFCS'',''HYP'',''CCB'',''Platinum'') and Molecule=''N'' and Class=''N''and B.Active=''Y''
 		group by B.mkt'
@@ -2257,6 +2288,7 @@ END
 CLOSE TMP_CURSOR
 DEALLOCATE TMP_CURSOR
 go
+-- for eliquis mkt 
 DECLARE TMP_CURSOR CURSOR
 READ_ONLY
 FOR select [Type]  from dbo.tblMoneyType
@@ -2279,7 +2311,8 @@ BEGIN
 		select 1,''Product'',''MAT'','+'''' +@MoneyType+''''+',B.mkt,a.prod_cod,''''
 			,sum(mat00' +@MoneyType+@Rat+'),sum(mat12' +@MoneyType+@Rat+'),sum(mat24' +@MoneyType+@Rat+')
 			,sum(mat36' +@MoneyType+@Rat+') ,sum(mat48' +@MoneyType+@Rat+')
-		from mthchpa_pkau A inner join
+		from mthchpa_pkau A 
+		inner join
 		(	select distinct A.mkt,B.PRod_cod,a.pack_cod,a.Rat from tblMktDef_MRBIChina A inner join tblProddef B
 			on A.productname=B.Product
 			where A.prod=''100'' and a.mkt like ''eliquis%'') B
@@ -2290,7 +2323,30 @@ BEGIN
 		select 3,''Market Size'',''MAT'','+'''' +@MoneyType+''''+',B.mkt,B.mkt,''''
 			,sum(mat00' +@MoneyType+@Rat+'),sum(mat12' +@MoneyType+@Rat+'),sum(mat24' +@MoneyType+@Rat+')
 			,sum(mat36' +@MoneyType+@Rat+') ,sum(mat48' +@MoneyType+@Rat+')
-		from mthchpa_pkau A inner join tblMktDef_MRBIChina B
+		from mthchpa_pkau A 
+		inner join tblMktDef_MRBIChina B
+		on A.pack_cod=b.pack_cod
+		where B.prod=''000'' and B.mkt in(''ELIQUIS VTEp'',''ELIQUIS VTEt'',''ELIQUIS NOAC'') and Molecule=''N'' and Class=''N'' and B.Active=''Y''
+		group by B.mkt
+
+		insert into OutputProdSalesPerformanceInChina([TypeIdx],[Type] ,[Period],[MoneyType],Market,[Prod_cod],[Prod_des],[Mat00],[Mat12],[Mat24],[Mat36],[Mat48])
+		select 1,''Product'',''MQT'','+'''' +@MoneyType+''''+',B.mkt,a.prod_cod,''''
+			,sum(R3M00' +@MoneyType+@Rat+'),sum(R3M12' +@MoneyType+@Rat+'),sum(R3M24' +@MoneyType+@Rat+')
+			,sum(R3M36' +@MoneyType+@Rat+') ,sum(R3M48' +@MoneyType+@Rat+')
+		from mthchpa_pkau A 
+		inner join
+		(	select distinct A.mkt,B.PRod_cod,a.pack_cod,a.Rat from tblMktDef_MRBIChina A inner join tblProddef B
+			on A.productname=B.Product
+			where A.prod=''100'' and a.mkt like ''eliquis%'') B
+        on A.pack_cod=B.pack_cod
+        group by B.mkt,a.prod_cod
+
+		insert into OutputProdSalesPerformanceInChina([TypeIdx],[Type] ,[Period],[MoneyType],Market,[Prod_cod],[Prod_des],[Mat00],[Mat12],[Mat24],[Mat36],[Mat48])
+		select 3,''Market Size'',''MQT'','+'''' +@MoneyType+''''+',B.mkt,B.mkt,''''
+			,sum(R3M00' +@MoneyType+@Rat+'),sum(R3M12' +@MoneyType+@Rat+'),sum(R3M24' +@MoneyType+@Rat+')
+			,sum(R3M36' +@MoneyType+@Rat+') ,sum(R3M48' +@MoneyType+@Rat+')
+		from mthchpa_pkau A 
+		inner join tblMktDef_MRBIChina B
 		on A.pack_cod=b.pack_cod
 		where B.prod=''000'' and B.mkt in(''ELIQUIS VTEp'',''ELIQUIS VTEt'',''ELIQUIS NOAC'') and Molecule=''N'' and Class=''N'' and B.Active=''Y''
 		group by B.mkt
@@ -3550,7 +3606,8 @@ BEGIN
         	select  B.Molecule,B.Class,B.mkt,B.mktname,B.mkt,B.prod,B.Productname,'+'''' +left(@MoneyType,2)
 			+''''+' as Moneytype, A.audi_cod,'''',''City'',null,'+@sql1+', '+@sql3+', '
         set @sql4=@sqlMAT+', '+@sqlYTD+', '+@sqlQtr+'
-			from mthcity_pkau A inner join tblMktDef_MRBIChina B
+			from mthcity_pkau A 
+			inner join tblMktDef_MRBIChina B
 			on A.pack_cod=B.pack_cod where B.Active=''Y'' and A.audi_cod<>''ZJH_'' and b.mkt like''eliquis%''
 			group by B.Molecule,B.Class,B.mkt,B.mktname,B.prod,B.Productname,A.audi_cod'
 		exec (@sql2+@sql4)
@@ -3563,7 +3620,9 @@ go
 
 
 update TempCityDashboard
-set AUDI_des=City_Name from TempCityDashboard A inner join dbo.Dim_City B
+set AUDI_des=City_Name 
+from TempCityDashboard A 
+inner join dbo.Dim_City B
 on A.AUDI_cod=B.City_Code+'_'
 go
 
@@ -3581,9 +3640,9 @@ set Market=case
 go
 
 insert into TempCityDashboard (Molecule,Class,mkt,mktname,Market,Prod,productname,Moneytype,
-Audi_cod,audi_des,lev)
+	Audi_cod,audi_des,lev)
 select  Molecule,Class,mkt,mktname,Market,Prod,productname,Moneytype,
-Audi_cod,audi_des,lev 
+	Audi_cod,audi_des,lev 
 from (
 		select A.*,Audi_cod,audi_des,lev 
 		from 
@@ -3599,7 +3658,9 @@ where not exists(
 		and a.Moneytype=b.Moneytype and a.audi_cod=b.audi_cod and a.Prod=B.Prod)
 go
 update TempCityDashboard
-set Tier=B.Tier from TempCityDashboard A inner join Dim_City B
+set Tier=B.Tier 
+from TempCityDashboard A 
+inner join Dim_City B
 on A.Audi_cod=B.CIty_Code+'_'
 go
 
@@ -3746,7 +3807,8 @@ go
 
 --select  market,count(distinct audi_des) from TempCityDashboard
 --group by market
-delete TempCityDashboard from TempCityDashboard A
+delete TempCityDashboard 
+from TempCityDashboard A
 where not exists(
 		select * from dbo.outputgeo B
 		where A.Market=B.Product and A.audi_des=b.geo
@@ -3766,12 +3828,16 @@ go
 Alter table TempRegionCityDashboard add Region varchar(200)
 go
 insert into TempRegionCityDashboard
-select A.*,B.ParentGeo from TempCityDashboard A inner join dbo.outputgeo B
+select A.*,B.ParentGeo 
+from TempCityDashboard A 
+inner join dbo.outputgeo B
 on A.Market=B.Product and A.audi_des=b.geo
 go
 
 insert into TempRegionCityDashboard
-select A.*,B.ParentGeo from TempCityDashboard A inner join dbo.outputgeo B
+select A.*,B.ParentGeo 
+from TempCityDashboard A 
+inner join dbo.outputgeo B
 on left(A.Market,7)=B.Product and A.audi_des=b.geo
 where a.mkt in ('Eliquis NOAC','Eliquis VTEt','Eliquis VTEp')
 go
@@ -3834,7 +3900,8 @@ DECLARE @SQL2 VARCHAR(8000)
 		exec('
 		insert into TempRegionCityDashboard
 		select [Molecule],[Class],[mkt],[mktname],Market,[prod],[Productname],MoneyType,
-			[Region],[Region],''Region'','+@sql1+', '+@sql3+', '+@sqlMAT+', '+@sqlYTD+', '+@sqlQtr+',[Region] from TempRegionCityDashboard A
+			[Region],[Region],''Region'','+@sql1+', '+@sql3+', '+@sqlMAT+', '+@sqlYTD+', '+@sqlQtr+',[Region] 
+		from TempRegionCityDashboard A
 		group by [Molecule],[Class],[mkt],[mktname],Market,[prod],[Productname],[Moneytype],[Region]')
 go
 declare @i int,@sql varchar(8000),@sql1 varchar(8000),@sql3 varchar(8000),@sqlMAT varchar(2000),@sqlYTD varchar(2000),@sqlQtr varchar(2000)
@@ -3891,7 +3958,8 @@ DECLARE @SQL2 VARCHAR(8000)
 		exec('
 		insert into TempRegionCityDashboard
 		select [Molecule],[Class],[mkt],[mktname],Market,[prod],[Productname],MoneyType,
-			''China'',''China'',''China'','+@sql1+', '+@sql3+', '+@sqlMAT+', '+@sqlYTD+', '+@sqlQtr+',''China'' from TempCityDashboard A
+			''China'',''China'',''China'','+@sql1+', '+@sql3+', '+@sqlMAT+', '+@sqlYTD+', '+@sqlQtr+',''China'' 
+		from TempCityDashboard A
         where exists(select * from dbo.outputgeo B where A.Market=B.Product and A.audi_des=b.geo)
 		group by [Molecule],[Class],[mkt],[mktname],Market,[prod],[Productname],[Moneytype]')
 go
@@ -4450,8 +4518,9 @@ select B.[Molecule],B.[Class],B.[mkt],B.Market,B.[mktname],B.[prod],B.[Productna
 	case isnull(A.YTD36,0) when 0 then 0 else isnull(B.YTD36,0)*1.0/isnull(A.YTD36,0) end as YTD36,
 	case isnull(A.YTD48,0) when 0 then 0 else isnull(B.YTD48,0)*1.0/isnull(A.YTD48,0) end as YTD48
 	--case isnull(A.YTD60,0) when 0 then 0 else isnull(B.YTD60,0)*1.0/isnull(A.YTD60,0) end as YTD60
-into OutputGeoHBVSummaryT1_MTH from
-TempRegionCityDashboard A inner join TempRegionCityDashboard B
+into OutputGeoHBVSummaryT1_MTH 
+from TempRegionCityDashboard A 
+inner join TempRegionCityDashboard B
 on A.mkt=b.mkt and A.Moneytype=b.Moneytype and A.class=B.class and A.Molecule=B.Molecule
 	and A.[Audi_cod]=B.[Audi_cod] and A.Region=B.Region
 	and A.prod='000' and B.prod<>'000'
@@ -4489,9 +4558,8 @@ exec dbo.sp_Log_Event 'MID','CIA','2_MID.sql','OutputGeoHBVSummaryT2',null,null
 --------------------------------------------
 --OutputGeoHBVSummaryT2
 --------------------------------------------
-if exists (select * from dbo.sysobjects where id = object_id(N'OutputGeoHBVSummaryT2') and OBJECTPROPERTY(id, N'IsUserTable') = 1
-)
-drop table OutputGeoHBVSummaryT2
+if exists (select * from dbo.sysobjects where id = object_id(N'OutputGeoHBVSummaryT2') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
+	drop table OutputGeoHBVSummaryT2
 GO
 
 select 
@@ -7404,46 +7472,46 @@ select lev, type, molecule,class,mkt,market,mktname,prod,Productname,moneyType,A
 into dbo.OutputKeyBrandPerformanceByRegion_For_Baraclude_Slide6_1
 from (
 	select 
-	lev, type, molecule,class,mkt,market,mktname,
-	case when Productname in ('Other Entecavir','ARV Others') then '900' else Prod end prod,
-	case when Productname in ('Other Entecavir','ARV Others') then 'Others' else Productname end Productname,
-	moneyType, 
-    case when Audi_des like 'E%' then '1'
-		 when Audi_des like 'S%' then '2'
-		 when Audi_des like 'N%' and Audi_des <> 'National' then '3'
-		 when Audi_des like 'Cen%' then '4'
-		 when Audi_des like 'W%' then '5'
-		 else Audi_cod
-    end as Audi_cod,
-    
-    case when Audi_des like 'E%' then 'East'
-		 when Audi_des like 'S%' then 'South'
-		 when Audi_des like 'N%' and Audi_des <> 'National' then 'North'
-		 when Audi_des like 'Cen%' then 'Central'
-		 when Audi_des like 'W%' then 'West'
-		 else Audi_des
-    end as Audi_des,
-    
-	--case when Audi_des like 'E%' then 'East'
-	--	 when Audi_des like 'S%' then 'South'
-	--	 when Audi_des like 'N%' and Audi_des <> 'National' then 'North'
-	--	 else Audi_des
-	--end as Audi_des,
-	case when Audi_des like 'E%' then 'East'
-		 when Audi_des like 'S%' then 'South'
-		 when Audi_des like 'N%' and Audi_des <> 'National' then 'North'
-		 when Audi_des like 'Cen%' then 'Central'
-		 when Audi_des like 'W%' then 'West'
-		 else Audi_des
-    end as Region,
-	[R3M00],[YTD00],[MAT00],[MTH00],[R3M12],[YTD12],[MAT12],[MTH12]
+		lev, type, molecule,class,mkt,market,mktname,
+		case when Productname in ('Other Entecavir','ARV Others') then '900' else Prod end prod,
+		case when Productname in ('Other Entecavir','ARV Others') then 'Others' else Productname end Productname,
+		moneyType, 
+		case when Audi_des like 'E%' then '1'
+			when Audi_des like 'S%' then '2'
+			when Audi_des like 'N%' and Audi_des <> 'National' then '3'
+			when Audi_des like 'Cen%' then '4'
+			when Audi_des like 'W%' then '5'
+			else Audi_cod
+		end as Audi_cod,
+		
+		case when Audi_des like 'E%' then 'East'
+			when Audi_des like 'S%' then 'South'
+			when Audi_des like 'N%' and Audi_des <> 'National' then 'North'
+			when Audi_des like 'Cen%' then 'Central'
+			when Audi_des like 'W%' then 'West'
+			else Audi_des
+		end as Audi_des,
+		
+		--case when Audi_des like 'E%' then 'East'
+		--	 when Audi_des like 'S%' then 'South'
+		--	 when Audi_des like 'N%' and Audi_des <> 'National' then 'North'
+		--	 else Audi_des
+		--end as Audi_des,
+		case when Audi_des like 'E%' then 'East'
+			when Audi_des like 'S%' then 'South'
+			when Audi_des like 'N%' and Audi_des <> 'National' then 'North'
+			when Audi_des like 'Cen%' then 'Central'
+			when Audi_des like 'W%' then 'West'
+			else Audi_des
+		end as Region,
+		[R3M00],[YTD00],[MAT00],[MTH00],[R3M12],[YTD12],[MAT12],[MTH12]
 	from 
 	(
 		select  a.lev, b.type,
-		--a.Type as volume_Type, b.Type as share_Type,
-		a.molecule,a.class,a.mkt,b.market,b.mktname,b.prod,b.Productname,b.moneytype,b.audi_cod,b.audi_des,b.region,
-		b.R3M00*a.R3M00 as R3M00,b.YTD00*a.YTD00 as YTD00, b.MAT00*a.MAT00 as MAT00,b.MTH00*a.MTH00 as MTH00,
-		b.R3M12*a.R3M12 as R3M12,b.YTD12*a.YTD12 as YTD12, b.MAT12*a.MAT12 as MAT12,b.MTH12*a.MTH12 as MTH12
+			--a.Type as volume_Type, b.Type as share_Type,
+			a.molecule,a.class,a.mkt,b.market,b.mktname,b.prod,b.Productname,b.moneytype,b.audi_cod,b.audi_des,b.region,
+			b.R3M00*a.R3M00 as R3M00,b.YTD00*a.YTD00 as YTD00, b.MAT00*a.MAT00 as MAT00,b.MTH00*a.MTH00 as MTH00,
+			b.R3M12*a.R3M12 as R3M12,b.YTD12*a.YTD12 as YTD12, b.MAT12*a.MAT12 as MAT12,b.MTH12*a.MTH12 as MTH12
 		from (
 			select * 
 			from OutputKeyBrandPerformanceByRegion 
@@ -7468,37 +7536,37 @@ select lev,type,molecule,class,mkt,market,mktname,prod,ProductName,
 		SUM(R3M00) AS R3M00,SUM(YTD00) AS YTD00,SUM(MAT00) AS MAT00,SUM(MTH00) AS MTH00,SUM(R3M12) AS R3M12,
 		SUM(YTD12) AS YTD12,SUM(MAT12) AS MAT12,SUM(MTH12) AS MTH12
 from (
-	  select 
+	select 
 		lev, type, molecule,class,mkt,market,mktname,
 		Prod,Productname,moneyType, 		
-    case when Audi_des like 'E%' then '1'
-		 when Audi_des like 'S%' then '2'
-		 when Audi_des like 'N%' and Audi_des <> 'National' then '3'
-		 when Audi_des like 'Cen%' then '4'
-		 when Audi_des like 'W%' then '5'
-		 else Audi_cod
-    end as Audi_cod,
-    
-    case when Audi_des like 'E%' then 'East'
-		 when Audi_des like 'S%' then 'South'
-		 when Audi_des like 'N%' and Audi_des <> 'National' then 'North'
-		 when Audi_des like 'Cen%' then 'Central'
-		 when Audi_des like 'W%' then 'West'
-		 else Audi_des
-    end as Audi_des,
-    
-	--case when Audi_des like 'E%' then 'East'
-	--	 when Audi_des like 'S%' then 'South'
-	--	 when Audi_des like 'N%' and Audi_des <> 'National' then 'North'
-	--	 else Audi_des
-	--end as Audi_des,
-	case when Audi_des like 'E%' then 'East'
-		 when Audi_des like 'S%' then 'South'
-		 when Audi_des like 'N%' and Audi_des <> 'National' then 'North'
-		 when Audi_des like 'Cen%' then 'Central'
-		 when Audi_des like 'W%' then 'West'
-		 else Audi_des
-    end as Region,
+		case when Audi_des like 'E%' then '1'
+			when Audi_des like 'S%' then '2'
+			when Audi_des like 'N%' and Audi_des <> 'National' then '3'
+			when Audi_des like 'Cen%' then '4'
+			when Audi_des like 'W%' then '5'
+			else Audi_cod
+		end as Audi_cod,
+		
+		case when Audi_des like 'E%' then 'East'
+			when Audi_des like 'S%' then 'South'
+			when Audi_des like 'N%' and Audi_des <> 'National' then 'North'
+			when Audi_des like 'Cen%' then 'Central'
+			when Audi_des like 'W%' then 'West'
+			else Audi_des
+		end as Audi_des,
+		
+		--case when Audi_des like 'E%' then 'East'
+		--	 when Audi_des like 'S%' then 'South'
+		--	 when Audi_des like 'N%' and Audi_des <> 'National' then 'North'
+		--	 else Audi_des
+		--end as Audi_des,
+		case when Audi_des like 'E%' then 'East'
+			when Audi_des like 'S%' then 'South'
+			when Audi_des like 'N%' and Audi_des <> 'National' then 'North'
+			when Audi_des like 'Cen%' then 'Central'
+			when Audi_des like 'W%' then 'West'
+			else Audi_des
+		end as Region,
 		[R3M00],[YTD00],[MAT00],[MTH00],[R3M12],[YTD12],[MAT12],[MTH12]
 	from	OutputKeyBrandPerformanceByRegion where market = 'baraclude' and Type = 'Market Total'
 ) A
@@ -9996,7 +10064,8 @@ go
 
 select * 
 into OutputKeyBrandPerformanceByRegion_For_OtherETV
-from [OutputGeoHBVSummaryT2_For_OtherETV] where lev='Region'
+from [OutputGeoHBVSummaryT2_For_OtherETV] 
+where lev='Region'
 go
 
 delete from [OutputGeoHBVSummaryT2_For_OtherETV] where lev='Region'
@@ -10018,9 +10087,12 @@ begin
 end
 set @sqlR='
 	select ''MAT'' as Period,B.Moneytype,B.Molecule,B.Class,B.Mkt,B.Mktname,B.Market,B.Prod,B.Productname,'+
-	left(@sql,len(@sql)-1)+' into OutputKeyBrandPerformance_For_OtherETV from TempCHPAPreReports_For_OtherETV A inner join TempCHPAPreReports_For_OtherETV B
+		left(@sql,len(@sql)-1)+' 
+	into OutputKeyBrandPerformance_For_OtherETV 
+	from TempCHPAPreReports_For_OtherETV A 
+	inner join TempCHPAPreReports_For_OtherETV B
 	on A.mkt=b.mkt and A.Moneytype=b.Moneytype and A.class=B.class and A.Molecule=B.Molecule
-	and A.Market=B.Market and A.prod=''000'' and B.prod<>''000''
+		and A.Market=B.Market and A.prod=''000'' and B.prod<>''000''
 	where B.class=''N'' and B.Molecule=''N''
 	group by B.Moneytype,B.Molecule,B.Class,B.Mkt,B.Mktname,B.Market,B.Prod,B.Productname'
 print @sqlR
@@ -10035,9 +10107,12 @@ begin
 	case sum(A.R3M'+right('00'+cast(@i as varchar(2)),2)+') when 0 then null else sum(B.R3M'+right('00'+cast(@i as varchar(2)),2)+')*1.0/sum(A.R3M'+right('00'+cast(@i as varchar(2)),2)+') end,'
 	set @i=@i+1
 end
-set @sqlR='insert into OutputKeyBrandPerformance_For_OtherETV
+set @sqlR='
+	insert into OutputKeyBrandPerformance_For_OtherETV
 	select ''MQT'' as Period,B.Moneytype,B.Molecule,B.Class,B.Mkt,B.Mktname,B.Market,B.Prod,B.Productname,'+
-	left(@sql,len(@sql)-1)+' from TempCHPAPreReports_For_OtherETV A inner join TempCHPAPreReports_For_OtherETV B
+	left(@sql,len(@sql)-1)+' 
+	from TempCHPAPreReports_For_OtherETV A 
+	inner join TempCHPAPreReports_For_OtherETV B
 	on A.mkt=b.mkt and A.Moneytype=b.Moneytype and A.class=B.class and A.Molecule=B.Molecule
 	and A.Market=B.Market and A.prod=''000'' and B.prod<>''000''
 	where B.class=''N'' and B.Molecule=''N''
@@ -10056,9 +10131,11 @@ begin
 end
 set @sqlR='insert into OutputKeyBrandPerformance_For_OtherETV
 	select ''MTH'' as Period,B.Moneytype,B.Molecule,B.Class,B.Mkt,B.Mktname,B.Market,B.Prod,B.Productname,'+
-	left(@sql,len(@sql)-1)+' from TempCHPAPreReports_For_OtherETV A inner join TempCHPAPreReports_For_OtherETV B
+	left(@sql,len(@sql)-1)+' 
+	from TempCHPAPreReports_For_OtherETV A 
+	inner join TempCHPAPreReports_For_OtherETV B
 	on A.mkt=b.mkt and A.Moneytype=b.Moneytype and A.class=B.class and A.Molecule=B.Molecule
-	and A.Market=B.Market and A.prod=''000'' and B.prod<>''000''
+		and A.Market=B.Market and A.prod=''000'' and B.prod<>''000''
 	where B.class=''N'' and B.Molecule=''N''
 	group by B.Moneytype,B.Molecule,B.Class,B.Mkt,B.Mktname,B.Market,B.Prod,B.Productname'
 print @sqlR
@@ -10078,7 +10155,9 @@ set @i=@i+1
 end
 set @sqlR='insert into OutputKeyBrandPerformance_For_OtherETV
 select ''YTD'' as Period,B.Moneytype,B.Molecule,B.Class,B.Mkt,B.Mktname,B.Market,B.Prod,B.Productname,'+
-left(@sql,len(@sql)-1)+' from TempCHPAPreReports_For_OtherETV A inner join TempCHPAPreReports_For_OtherETV B
+left(@sql,len(@sql)-1)+' 
+from TempCHPAPreReports_For_OtherETV A 
+inner join TempCHPAPreReports_For_OtherETV B
 on A.mkt=b.mkt and A.Moneytype=b.Moneytype and A.class=B.class and A.Molecule=B.Molecule
 	and A.Market=B.Market and A.prod=''000'' and B.prod<>''000''
 where B.class=''N'' and B.Molecule=''N''
