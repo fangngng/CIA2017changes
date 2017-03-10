@@ -2,10 +2,10 @@ use BMSChinaOtherDB
 GO
 
 --Time: 00:12
-exec BMSChinaCIA_IMS.dbo.sp_Log_Event 'In','CIA','0_2_in_HKAPI.sql','Start',null,null
+exec BMSChinaCIA_IMS_test.dbo.sp_Log_Event 'In','CIA','0_2_in_HKAPI.sql','Start',null,null
 declare @currQuarter varchar(10)
 select @currQuarter = convert(varchar(6),Year)+Qtr
-from BMSChinaCIA_IMS.dbo.tblDateHKAPI 
+from BMSChinaCIA_IMS_test.dbo.tblDateHKAPI 
 
 --update product name and companyname
 
@@ -56,7 +56,7 @@ GO
 
 declare @currQuarter varchar(10)
 select @currQuarter = convert(varchar(6),Year)+Qtr
-from BMSChinaCIA_IMS.dbo.tblDateHKAPI 
+from BMSChinaCIA_IMS_test.dbo.tblDateHKAPI 
 print @currQuarter
 
 
@@ -102,8 +102,8 @@ select quarter from BMSChinaOtherDB.dbo.hkapi_Time_Config where Quarter<>'2010Q4
 declare @Quarter varchar(10),@column_last varchar(20)
 declare @sql varchar(max)
 set @sql=' '
-select @column_last=right(year,2)+quarter from [BMSChinaCIA_IMS].[dbo].[tblMonthList] where monseq in (
-	select a.monseq+3 as monseq from [BMSChinaCIA_IMS].[dbo].[tblMonthList] a
+select @column_last=right(year,2)+quarter from [BMSChinaCIA_IMS_test].[dbo].[tblMonthList] where monseq in (
+	select a.monseq+3 as monseq from [BMSChinaCIA_IMS_test].[dbo].[tblMonthList] a
 	inner join (select max(quarter)as quarter  from BMSChinaOtherDB.dbo.hkapi_Time_Config) b
 	on a.year=left(b.quarter,4) and a.quarter=right(b.quarter,2) and right(a.date,2)%3=0 
 	)	
@@ -171,10 +171,10 @@ GO
 
 declare @sql varchar(max),@column_last varchar(20),@column_STLY_last varchar(20),@column varchar(20),@column_STLY varchar(20)
 select @column_last=right(year,2)+quarter 
-from [BMSChinaCIA_IMS].[dbo].[tblMonthList] 
+from [BMSChinaCIA_IMS_test].[dbo].[tblMonthList] 
 where monseq in (
 	select a.monseq+3 as monseq 
-	from [BMSChinaCIA_IMS].[dbo].[tblMonthList] a
+	from [BMSChinaCIA_IMS_test].[dbo].[tblMonthList] a
 	inner join (
 			select max(quarter)as quarter  
 			from BMSChinaOtherDB.dbo.hkapi_Time_Config ) b
@@ -185,19 +185,19 @@ where monseq in (
 select @column=right(max(quarter),4) from BMSChinaOtherDB.dbo.hkapi_Time_Config
 
 select @column_STLY_last=right(year,2)+quarter 
-from [BMSChinaCIA_IMS].[dbo].[tblMonthList] 
+from [BMSChinaCIA_IMS_test].[dbo].[tblMonthList] 
 where monseq in (
 	select a.monseq+15 as monseq 
-	from [BMSChinaCIA_IMS].[dbo].[tblMonthList] a
+	from [BMSChinaCIA_IMS_test].[dbo].[tblMonthList] a
 	inner join ( select max(quarter)as quarter  from BMSChinaOtherDB.dbo.hkapi_Time_Config ) b
 	on a.year=left(b.quarter,4) and a.quarter=right(b.quarter,2) and right(a.date,2)%3=0 
 	)
 
 select @column_STLY=right(year,2)+quarter 
-from [BMSChinaCIA_IMS].[dbo].[tblMonthList] 
+from [BMSChinaCIA_IMS_test].[dbo].[tblMonthList] 
 where monseq in (
 	select a.monseq+12 as monseq 
-	from [BMSChinaCIA_IMS].[dbo].[tblMonthList] a
+	from [BMSChinaCIA_IMS_test].[dbo].[tblMonthList] a
 	inner join (select max(quarter)as quarter  from BMSChinaOtherDB.dbo.hkapi_Time_Config) b
 	on a.year=left(b.quarter,4) and a.quarter=right(b.quarter,2) and right(a.date,2)%3=0 
 	)
@@ -277,7 +277,7 @@ exec (@sql)
 
 
 declare cursor_HKAPI_update_null cursor for 
-select right(year,2)+quarter as quarter from [BMSChinaCIA_IMS].[dbo].[tblMonthList] where right(date,2)%3=0 
+select right(year,2)+quarter as quarter from [BMSChinaCIA_IMS_test].[dbo].[tblMonthList] where right(date,2)%3=0 
 declare @quarter_all varchar(20)
 --declare @sql varchar(max)
 --set @sql=''
@@ -300,7 +300,7 @@ deallocate cursor_HKAPI_update_null
 
 set @sql='
 update inHKAPI_Linda set ['+@column+'US]=A.['+@column+'LC]/B.Rate,['+@column_STLY+'US]=A.['+@column_STLY+'LC]/B.Rate
-from inHKAPI_Linda A,db4.BMSChinaCIA_IMS.dbo.tblRate B
+from inHKAPI_Linda A,db4.BMSChinaCIA_IMS_test.dbo.tblRate B
 '
 print @sql
 exec(@sql)

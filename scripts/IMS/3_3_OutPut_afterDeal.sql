@@ -1,6 +1,6 @@
-use BMSChinaCIA_IMS --db4
+use BMSChinaCIA_IMS_test --db4
 GO
---2·Ö23Ãë
+--2ï¿½ï¿½23ï¿½ï¿½
 exec dbo.sp_Log_Event 'Output','CIA','3_3_OutPut_afterDeal.sql','Start',null,null
 
 update output_stage
@@ -549,7 +549,7 @@ GO
 
 
 
---ÑÕÉ«µ÷Õû
+--ï¿½ï¿½É«ï¿½ï¿½ï¿½ï¿½
 
 update output set Color = 'CCCCFF' -- select  * from output
 where LinkChartCode in ('D082','D084','R054') and Product = 'Taxol' and Series = 'ANZATAX'

@@ -1,4 +1,4 @@
-use BMSChinaCIA_IMS --db4
+use BMSChinaCIA_IMS_test --db4
 GO
 
 --17分钟
@@ -4382,7 +4382,7 @@ GO
 --select * from TempRegionCityDashboard
 exec dbo.sp_Log_Event 'MID','CIA','2_MID.sql','OutputGeoHBVSummaryT1',null,null
 if exists (select * from dbo.sysobjects where id = object_id(N'[OutputGeoHBVSummaryT1]') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
-drop table [OutputGeoHBVSummaryT1]
+	drop table [OutputGeoHBVSummaryT1]
 GO
 select B.[Molecule],B.[Class],B.[mkt],B.Market,B.[mktname],B.[prod],B.[Productname],B.[Moneytype]
       ,B.[Audi_cod],B.[Audi_des],B.[Region],
@@ -4411,6 +4411,7 @@ select B.[Molecule],B.[Class],B.[mkt],B.Market,B.[mktname],B.[prod],B.[Productna
 	case isnull(A.R3M22,0) when 0 then 0 else isnull(B.R3M22,0)*1.0/isnull(A.R3M22,0) end  as R3M22,
 	case isnull(A.R3M23,0) when 0 then 0 else isnull(B.R3M23,0)*1.0/isnull(A.R3M23,0) end  as R3M23,
 	case isnull(A.R3M24,0) when 0 then 0 else isnull(B.R3M24,0)*1.0/isnull(A.R3M24,0) end  as R3M24,
+	
 	case isnull(A.MTH00,0) when 0 then 0 else isnull(B.MTH00,0)*1.0/isnull(A.MTH00,0) end  as MTH00,
 	case isnull(A.MTH01,0) when 0 then 0 else isnull(B.MTH01,0)*1.0/isnull(A.MTH01,0) end  as MTH01,
 	case isnull(A.MTH02,0) when 0 then 0 else isnull(B.MTH02,0)*1.0/isnull(A.MTH02,0) end  as MTH02,
@@ -4436,23 +4437,54 @@ select B.[Molecule],B.[Class],B.[mkt],B.Market,B.[mktname],B.[prod],B.[Productna
 	case isnull(A.MTH22,0) when 0 then 0 else isnull(B.MTH22,0)*1.0/isnull(A.MTH22,0) end  as MTH22,
 	case isnull(A.MTH23,0) when 0 then 0 else isnull(B.MTH23,0)*1.0/isnull(A.MTH23,0) end  as MTH23,
 	case isnull(A.MTH24,0) when 0 then 0 else isnull(B.MTH24,0)*1.0/isnull(A.MTH24,0) end  as MTH24,
+
+	case isnull(A.MAT00,0) when 0 then 0 else isnull(B.MAT00,0)*1.0/isnull(A.MAT00,0) end  as MAT00,
+	case isnull(A.MAT01,0) when 0 then 0 else isnull(B.MAT01,0)*1.0/isnull(A.MAT01,0) end  as MAT01,
+	case isnull(A.MAT02,0) when 0 then 0 else isnull(B.MAT02,0)*1.0/isnull(A.MAT02,0) end  as MAT02,
+	case isnull(A.MAT03,0) when 0 then 0 else isnull(B.MAT03,0)*1.0/isnull(A.MAT03,0) end  as MAT03,
+	case isnull(A.MAT04,0) when 0 then 0 else isnull(B.MAT04,0)*1.0/isnull(A.MAT04,0) end  as MAT04,
+	case isnull(A.MAT05,0) when 0 then 0 else isnull(B.MAT05,0)*1.0/isnull(A.MAT05,0) end  as MAT05,
+	case isnull(A.MAT06,0) when 0 then 0 else isnull(B.MAT06,0)*1.0/isnull(A.MAT06,0) end  as MAT06,
+	case isnull(A.MAT07,0) when 0 then 0 else isnull(B.MAT07,0)*1.0/isnull(A.MAT07,0) end  as MAT07,
+	case isnull(A.MAT08,0) when 0 then 0 else isnull(B.MAT08,0)*1.0/isnull(A.MAT08,0) end  as MAT08,
+	case isnull(A.MAT09,0) when 0 then 0 else isnull(B.MAT09,0)*1.0/isnull(A.MAT09,0) end  as MAT09,
+	case isnull(A.MAT10,0) when 0 then 0 else isnull(B.MAT10,0)*1.0/isnull(A.MAT10,0) end  as MAT10,
+	case isnull(A.MAT11,0) when 0 then 0 else isnull(B.MAT11,0)*1.0/isnull(A.MAT11,0) end  as MAT11,
+	case isnull(A.MAT12,0) when 0 then 0 else isnull(B.MAT12,0)*1.0/isnull(A.MAT12,0) end  as MAT12,
+	case isnull(A.MAT13,0) when 0 then 0 else isnull(B.MAT13,0)*1.0/isnull(A.MAT13,0) end  as MAT13,
+	case isnull(A.MAT14,0) when 0 then 0 else isnull(B.MAT14,0)*1.0/isnull(A.MAT14,0) end  as MAT14,
+	case isnull(A.MAT15,0) when 0 then 0 else isnull(B.MAT15,0)*1.0/isnull(A.MAT15,0) end  as MAT15,
+	case isnull(A.MAT16,0) when 0 then 0 else isnull(B.MAT16,0)*1.0/isnull(A.MAT16,0) end  as MAT16,
+	case isnull(A.MAT17,0) when 0 then 0 else isnull(B.MAT17,0)*1.0/isnull(A.MAT17,0) end  as MAT17,
+	case isnull(A.MAT18,0) when 0 then 0 else isnull(B.MAT18,0)*1.0/isnull(A.MAT18,0) end  as MAT18,
+	case isnull(A.MAT19,0) when 0 then 0 else isnull(B.MAT19,0)*1.0/isnull(A.MAT19,0) end  as MAT19,
+	case isnull(A.MAT20,0) when 0 then 0 else isnull(B.MAT20,0)*1.0/isnull(A.MAT20,0) end  as MAT20,
+	case isnull(A.MAT21,0) when 0 then 0 else isnull(B.MAT21,0)*1.0/isnull(A.MAT21,0) end  as MAT21,
+	case isnull(A.MAT22,0) when 0 then 0 else isnull(B.MAT22,0)*1.0/isnull(A.MAT22,0) end  as MAT22,
+	case isnull(A.MAT23,0) when 0 then 0 else isnull(B.MAT23,0)*1.0/isnull(A.MAT23,0) end  as MAT23,
+	case isnull(A.MAT24,0) when 0 then 0 else isnull(B.MAT24,0)*1.0/isnull(A.MAT24,0) end  as MAT24,
+
 	case isnull(A.YTD00,0) when 0 then 0 else isnull(B.YTD00,0)*1.0/isnull(A.YTD00,0) end as YTD00,
 	case isnull(A.YTD12,0) when 0 then 0 else isnull(B.YTD12,0)*1.0/isnull(A.YTD12,0) end as YTD12,
 	case isnull(A.YTD24,0) when 0 then 0 else isnull(B.YTD24,0)*1.0/isnull(A.YTD24,0) end as YTD24,
 	case isnull(A.YTD36,0) when 0 then 0 else isnull(B.YTD36,0)*1.0/isnull(A.YTD36,0) end as YTD36,
 	case isnull(A.YTD48,0) when 0 then 0 else isnull(B.YTD48,0)*1.0/isnull(A.YTD48,0) end as YTD48
 	--case isnull(A.YTD60,0) when 0 then 0 else isnull(B.YTD60,0)*1.0/isnull(A.YTD60,0) end as YTD60
-into OutputGeoHBVSummaryT1 from
-TempRegionCityDashboard A inner join TempRegionCityDashboard B
+into OutputGeoHBVSummaryT1 
+from TempRegionCityDashboard A 
+inner join TempRegionCityDashboard B
 on A.mkt=b.mkt and A.Moneytype=b.Moneytype and A.class=B.class and A.Molecule=B.Molecule
 	and A.[Audi_cod]=B.[Audi_cod] and A.Region=B.Region
 	and A.prod='000' and B.prod<>'000'
 	and A.lev=B.lev and A.lev='City'
 go
 update OutputGeoHBVSummaryT1
-set audi_cod=B.rank from OutputGeoHBVSummaryT1 A inner join 
-(select A.*,dense_Rank ( )OVER (PARTITION BY Region order by audi_des) as Rank 
-from OutputGeoHBVSummaryT1 A) B
+set audi_cod=B.rank 
+from OutputGeoHBVSummaryT1 A 
+inner join 
+(	select A.*,dense_Rank ( )OVER (PARTITION BY Region order by audi_des) as Rank 
+	from OutputGeoHBVSummaryT1 A
+) B
 on A.mkt=b.mkt and A.Moneytype=b.Moneytype and A.class=B.class and A.Molecule=B.Molecule
 	and A.[Audi_cod]=B.[Audi_cod] and A.Region=B.Region
 go
@@ -7206,6 +7238,8 @@ go
 select 
 	cast('Sales' as varchar(10)) as [Type],cast('MAT Month' as varchar(20)) as Period,Moneytype,mkt,mktname,Market,cast(Prod as int) as ProdIdx,Prod,Productname,Molecule,Class,
 	sum(Mat00) as Mat00,sum(Mat12) as Mat12,sum(Mat24) as Mat24,sum(Mat36) as Mat36,sum(Mat48) as Mat48,
+	sum(MTH00) as MTH00,sum(MTH12) as MTH12,sum(MTH24) as MTH24,sum(MTH36) as MTH36,sum(MTH48) as MTH48,
+	sum(MQT00) as MQT00,sum(MQT12) as MQT12,sum(MQT24) as MQT24,sum(MQT36) as MQT36,sum(MQT48) as MQT48,
 	sum(YTD00) as YTD00,sum(YTD12) as YTD12,sum(YTD24) as YTD24,sum(YTD36) as YTD36,sum(YTD48) as YTD48--, sum(YTD60) as YTD60
 into OutputCMLChinaMarketTrend
 from TempCHPAPreReports where mkt='CML'
@@ -7222,22 +7256,24 @@ delete from OutputCMLChinaMarketTrend where MoneyType='PN'
 --由于上面一段代码被注释，漏掉，最终导致C201这种PPT跑不出来，报BUG.
 
 --处理如下：
---select * into OutputCMLChinaMarketTrend_2013Q1 from BMSChinaCIA_IMS_201303.dbo.OutputCMLChinaMarketTrend
+--select * into OutputCMLChinaMarketTrend_2013Q1 from BMSChinaCIA_IMS_test_201303.dbo.OutputCMLChinaMarketTrend
 
 --select * into dbo.OutputCMLChinaMarketTrend_2012Q2 from IMSDBPlus.dbo.OutputCMLChinaMarketTrend_2012Q2
 --select * into dbo.OutputCMLChinaMarketTrend_2012Q3 from IMSDBPlus.dbo.OutputCMLChinaMarketTrend_2012Q3
 --select * into dbo.OutputCMLChinaMarketTrend_2012Q4 from IMSDBPlus.dbo.OutputCMLChinaMarketTrend_2012Q4
---select * into dbo.OutputCMLChinaMarketTrend_2013Q1 from BMSChinaCIA_IMS.dbo.OutputCMLChinaMarketTrend_2013Q1
+--select * into dbo.OutputCMLChinaMarketTrend_2013Q1 from BMSChinaCIA_IMS_test.dbo.OutputCMLChinaMarketTrend_2013Q1
 --GO
 
 if exists(select * from tblmonthlist where Month%3=0 and monseq=1)
 begin 
 	insert into OutputCMLChinaMarketTrend
 	select 
-    cast('Sales' as varchar(10)) as [Type],'MAT Quarter' as Period,Moneytype,mkt,mktname,Market,
-	cast(Prod as int) as ProdIdx,Prod,Productname,Molecule,Class,
-	sum(Mat00) as Mat00,sum(Mat12) as Mat12,sum(Mat24) as Mat24,sum(Mat36) as Mat36,sum(Mat48) as Mat48,
-	sum(YTD00) as YTD00,sum(YTD12) as YTD12,sum(YTD24) as YTD24,sum(YTD36) as YTD36,sum(YTD48) as YTD48--, sum(YTD60) as YTD60
+		cast('Sales' as varchar(10)) as [Type],'MAT Quarter' as Period,Moneytype,mkt,mktname,Market,
+		cast(Prod as int) as ProdIdx,Prod,Productname,Molecule,Class,
+		sum(Mat00) as Mat00,sum(Mat12) as Mat12,sum(Mat24) as Mat24,sum(Mat36) as Mat36,sum(Mat48) as Mat48,
+		sum(MTH00) as MTH00,sum(MTH12) as MTH12,sum(MTH24) as MTH24,sum(MTH36) as MTH36,sum(MTH48) as MTH48,
+		sum(MQT00) as MQT00,sum(MQT12) as MQT12,sum(MQT24) as MQT24,sum(MQT36) as MQT36,sum(MQT48) as MQT48,
+		sum(YTD00) as YTD00,sum(YTD12) as YTD12,sum(YTD24) as YTD24,sum(YTD36) as YTD36,sum(YTD48) as YTD48--, sum(YTD60) as YTD60
 	from TempCHPAPreReports where mkt='CML'
 	group by Moneytype,mkt,mktname,Market,Prod,Productname,Molecule,Class
 end 
@@ -7247,10 +7283,16 @@ begin
     declare @Y varchar(4), @Q  varchar(2),@sql nvarchar(1000)
 	select @Y = [year] from tblmonthlist where QtrSeq = '1'
 	select @Q = [Quarter] from tblmonthlist where QtrSeq = '1'
-	set @sql='insert into OutputCMLChinaMarketTrend
-select [Type],[Period],[Moneytype],[mkt],[mktname],[Market],[ProdIdx],[Prod],[Productname]
-	,[Molecule],[Class],[Mat00],[Mat12],[Mat24],[Mat36],[Mat48],[YTD00],[YTD12],[YTD24],[YTD36],[YTD48]
-from OutputCMLChinaMarketTrend_' + @Y + @Q + ' where period = ''MAT Quarter''
+	set @sql='
+	insert into OutputCMLChinaMarketTrend
+	select [Type],[Period],[Moneytype],[mkt],[mktname],[Market],[ProdIdx],[Prod],[Productname]
+		,[Molecule],[Class]
+		,[Mat00],[Mat12],[Mat24],[Mat36],[Mat48]
+		,0 ,0 ,0 ,0 ,0
+		,0 ,0 ,0 ,0 ,0
+		,[YTD00],[YTD12],[YTD24],[YTD36],[YTD48]
+	from OutputCMLChinaMarketTrend_' + @Y + @Q + ' 
+	where period = ''MAT Quarter''
 	'
 	print @sql
 	exec(@sql)
@@ -7268,6 +7310,16 @@ select 'Growth',Period,Moneytype,mkt,mktname,Market,(Prod+1)*100,Prod,Productnam
 	case Mat36 when 0 then case Mat24 when 0 then 0 else null end else (Mat24-Mat36)*1.0/Mat36 end,
 	case Mat48 when 0 then case Mat36 when 0 then 0 else null end else (Mat36-Mat48)*1.0/Mat48 end,
 	null,
+	case MTH12 when 0 then case MTH00 when 0 then 0 else null end else (MTH00-MTH12)*1.0/MTH12 end,
+	case MTH24 when 0 then case MTH12 when 0 then 0 else null end else (MTH12-MTH24)*1.0/MTH24 end,
+	case MTH36 when 0 then case MTH24 when 0 then 0 else null end else (MTH24-MTH36)*1.0/MTH36 end,
+	case MTH48 when 0 then case MTH36 when 0 then 0 else null end else (MTH36-MTH48)*1.0/MTH48 end,
+	null,
+	case MQT12 when 0 then case MQT00 when 0 then 0 else null end else (MQT00-MQT12)*1.0/MQT12 end,
+	case MQT24 when 0 then case MQT12 when 0 then 0 else null end else (MQT12-MQT24)*1.0/MQT24 end,
+	case MQT36 when 0 then case MQT24 when 0 then 0 else null end else (MQT24-MQT36)*1.0/MQT36 end,
+	case MQT48 when 0 then case MQT36 when 0 then 0 else null end else (MQT36-MQT48)*1.0/MQT48 end,
+	null,
 	case YTD12 when 0 then case YTD00 when 0 then 0 else null end else (YTD00-YTD12)*1.0/YTD12 end,
 	case YTD24 when 0 then case YTD12 when 0 then 0 else null end else (YTD12-YTD24)*1.0/YTD24 end,
 	case YTD36 when 0 then case YTD24 when 0 then 0 else null end else (YTD24-YTD36)*1.0/YTD36 end,
@@ -7278,7 +7330,10 @@ from OutputCMLChinaMarketTrend where Prod='000' and [Type]='Sales'
 go
 insert into OutputCMLChinaMarketTrend
 select 'CAGR',Period,Moneytype,mkt,mktname,Market,900,Prod,Productname,Molecule,Class,
-	Power((MAT00/MAT48),1.0/4)-1,0,0,0,0,0,0,0,0,0--,0
+	Power((MAT00/MAT48),1.0/4)-1,0,0,0,0,
+	Power((MTH00/MTH48),1.0/4)-1,0,0,0,0,
+	Power((MQT00/MQT48),1.0/4)-1,0,0,0,0,
+	0,0,0,0,0--,0
 from OutputCMLChinaMarketTrend where Prod='000' and [Type]='Sales' and MAT48<>0
 go
 delete from OutputCMLChinaMarketTrend where [Type]='Sales' and Prod=0

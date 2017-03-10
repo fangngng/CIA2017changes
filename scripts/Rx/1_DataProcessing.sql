@@ -63,9 +63,10 @@ while @i >= 1
 begin
 	select @H= H from tblRxHalfYearList where Idx = @i
 	set @sql = @sql + 'update tempRxRollup set H' + cast(@i as varchar) + '= b.Rx
-from tempRxRollup a inner join tempRxRollupByDate b on
-	a.lev = b.Lev and a.Geo = b.Geo and a.Product = b.Product and a.Mkt = b.Mkt 
-	and a.Prod = b.Prod and a.Department = b.Department and b.Date = ''' + @H + '''
+	from tempRxRollup a 
+	inner join tempRxRollupByDate b 
+	on a.lev = b.Lev and a.Geo = b.Geo and a.Product = b.Product and a.Mkt = b.Mkt 
+		and a.Prod = b.Prod and a.Department = b.Department and b.Date = ''' + @H + '''
 '
 	set @i = @i -1
 end

@@ -4,11 +4,11 @@ if exists(select 1 from sysobjects where name='ProcImportCIAIMSDim')
 go
 
 create proc ProcImportCIAIMSDim
-	--此存储过程用来导入IMS数据源，10个Dim打头的txt文件
+	--锟剿存储锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷IMS锟斤拷锟斤拷源锟斤拷10锟斤拷Dim锟斤拷头锟斤拷txt锟侥硷拷
 as
-	--定义时间变量,从Config表中取出IMS最新数据的月份
+	--锟斤拷锟斤拷时锟斤拷锟斤拷锟斤拷,锟斤拷Config锟斤拷锟斤拷取锟斤拷IMS锟斤拷锟斤拷锟斤拷锟捷碉拷锟铰凤拷
 	declare @IMSMonth char(6)
-	select @IMSMonth=value from BMSChinaCIA_IMS.dbo.Config where Parameter='IMS' 
+	select @IMSMonth=value from BMSChinaCIA_IMS_test.dbo.Config where Parameter='IMS' 
 
 	--Dim_City
 	if EXISTS(SELECT 1 FROM sysobjects WHERE name='Dim_City_'+@IMSMonth)

@@ -1,4 +1,4 @@
-USE BMSChinaCIA_IMS --db4
+USE BMSChinaCIA_IMS_test --db4
 GO
 
 if not exists(select 1 from   syscolumns   where   id=object_id('WebChartSeries')   and   name='DataSource' )

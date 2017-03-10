@@ -1,5 +1,5 @@
 /* 生成MTHCHPA_PKAU和MTHCITY_PKAU */
-USE BMSChinaCIA_IMS
+USE BMSChinaCIA_IMS_test
 go
 --需25分钟
 --1h6min

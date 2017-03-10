@@ -289,19 +289,20 @@ from (
   select RankSource as Category, Mkt as Product,
     Lev as Lev,Geo, RankSource as Currency, RankSource as TimeFrame,
     CPA_id as X, Rank as Xidx
-  from OutputTopCPA where Lev = 'Region' and Mkt in ('ARV','NIAD','HYPFCS','ONCFCS','Platinum','CCB','Eliquis VTEP') and prod = '000'
+  from OutputTopCPA 
+  where Lev = 'Region' and Mkt in ('ARV','NIAD','HYPFCS','ONCFCS','Platinum','CCB','Eliquis VTEP') and prod = '000'
 )b
 go
 
 update OutputHospital_All 
 set Y = 
     case a.category 
-    when 'UC3M' then UR3M1 
-    when 'VC3M' then VR3M1 
-    when 'PC3M' then PR3M1 
-    when 'UYTD' then UYTD 
-    when 'VYTD' then VYTD
-    when 'PYTD' then PYTD end
+      when 'UC3M' then UR3M1 
+      when 'VC3M' then VR3M1 
+      when 'PC3M' then PR3M1 
+      when 'UYTD' then UYTD 
+      when 'VYTD' then VYTD
+      when 'PYTD' then PYTD end
 from OutputHospital_All a
 inner join tempHospitalDataByGeo b on b.Mkt = a.Product 
 	and b.lev = a.lev and b.geo = a.geo and b.CPA_id = cast(a.x as int)
@@ -426,6 +427,12 @@ case when UR3M1=0 or VR3M1=0 or UYTD=0 or VYTD=0 then 0
      else cast(a.Y as float) / case a.category 
                                 when 'UC3M' then UR3M1 
                                 when 'VC3M' then VR3M1 
+
+                                when 'UM' then UM1 
+                                when 'VM' then VM1 
+
+                                when 'UMAT' then UMAT1 
+                                when 'VMAT' then VMAT1 
                   
                                 when 'UYTD' then UYTD 
                                 when 'VYTD' then VYTD
@@ -438,6 +445,12 @@ inner join (
 	    Mkt, Prod, ParentGeo,Geo, 
 		sum(UR3M1) UR3M1,
 		sum(VR3M1) VR3M1,
+
+    sum(UM1) UM1,
+		sum(VM1) VM1,
+
+    sum(UMAT1) UMAT1,
+		sum(VMAT1) VMAT1,
 
 		sum(UYTD) UYTD,
 		sum(VYTD) VYTD
@@ -457,6 +470,12 @@ set Y =
                                   when 'VC3M' then VR3M1 
                                   when 'PC3M' then PR3M1
                                 
+                                  when 'UM' then UM1 
+                                  when 'VM' then VM1 
+
+                                  when 'UMAT' then UMAT1 
+                                  when 'VMAT' then VMAT1 
+                    
                                   when 'VYTD' then VYTD
                                   when 'PYTD' then PYTD end
       end 
@@ -465,11 +484,17 @@ inner join (
 	select 
 	    Mkt, Prod, ParentGeo,Geo, 
 		
-		sum(VR3M1) VR3M1,
-        sum(PR3M1) PR3M1,
+		  sum(VR3M1) VR3M1,
+      sum(PR3M1) PR3M1,
 	
-		sum(VYTD) VYTD,
-        sum(PYTD) PYTD
+      sum(UM1) UM1,
+      sum(VM1) VM1,
+
+      sum(UMAT1) UMAT1,
+      sum(VMAT1) VMAT1,
+
+		  sum(VYTD) VYTD,
+      sum(PYTD) PYTD
 	from tempHospitalDataByGeo
 	where lev  = 'Region' and Mkt in ('Platinum') and Prod in('000','100')
 	group by Mkt, Prod, ParentGeo,Geo
@@ -490,7 +515,7 @@ go
 update OutputHospital_All set 
 	Category = case left(Category,1) when 'U' then 'Volume' when 'V' then 'Value' when 'P' then 'Adjusted patient number' end,
 	Currency = case left(Currency,1) when 'U' then 'UNIT' WHEN 'V' THEN 'RMB' when 'P' then 'UNIT' END,
-	TimeFrame = case right(TimeFrame,len(TimeFrame)-1) when 'YTD' THEN 'YTD' WHEN 'C3M' THEN 'MQT' END
+	TimeFrame = case right(TimeFrame,len(TimeFrame)-1) when 'YTD' THEN 'YTD' WHEN 'C3M' THEN 'MQT' WHEN 'MAT' THEN 'MAT' WHEN 'M' THEN 'MTH' END
 where LinkChartCode in ('D050')
 go
 
@@ -596,6 +621,12 @@ set Y = case a.category
           when 'UC3M' then UR3M1 
           when 'VC3M' then VR3M1
           when 'PC3M' then PR3M1 
+          when 'UM' then UM1 
+          when 'VM' then VM1
+          when 'PM' then PM1 
+          when 'UMAT' then UMAT1 
+          when 'VMAT' then VMAT1
+          when 'PMAT' then PMAT1 
           when 'UYTD' then UYTD 
           when 'VYTD' then VYTD 
           when 'PYTD' then PYTD end
@@ -610,6 +641,12 @@ set Y = case a.category
         when 'UC3M' then UR3M1 
         when 'VC3M' then VR3M1 
         when 'PC3M' then PR3M1 
+        when 'UMTH' then UM1 
+        when 'VMTH' then VM1 
+        when 'PMTH' then PM1 
+        when 'UMAT' then UMAT1 
+        when 'VMAT' then VMAT1 
+        when 'PMAT' then PMAT1 
         when 'UYTD' then UYTD 
         when 'VYTD' then VYTD
         when 'PYTD' then PYTD end
@@ -619,70 +656,87 @@ inner join tempHospitalDataByGeo b on b.Mkt = a.Product
 where a.LinkChartCode = 'D110' and a.SeriesIdx = 2 and b.Prod = '100' 
 go
 
-update OutputHospital_All set Y = case a.category 
-when 'UC3M' then UC3MGrowth 
-when 'VC3M' then VC3MGrowth 
-when 'PC3M' then PC3MGrowth 
-when 'UYTD' then UYTDGrowth 
-when 'VYTD' then VYTDGrowth
-when 'PYTD' then PYTDGrowth end
+update OutputHospital_All 
+set Y = case a.category 
+  when 'UC3M' then UC3MGrowth 
+  when 'VC3M' then VC3MGrowth 
+  when 'PC3M' then PC3MGrowth
+  when 'UMTH' then UMGrowth1 
+  when 'VMTH' then VMGrowth1 
+  when 'PMTH' then PMGrowth1 
+  when 'UMAT' then UMATGrowth 
+  when 'VMAT' then VMATGrowth 
+  when 'PMAT' then PMATGrowth  
+  when 'UYTD' then UYTDGrowth 
+  when 'VYTD' then VYTDGrowth
+  when 'PYTD' then PYTDGrowth end
 from OutputHospital_All a
 inner join tempHospitalDataByGeo b on b.Mkt = a.Product 
 	and b.lev = a.lev and b.ParentGeo = a.ParentGeo and b.geo = a.geo and b.CPA_id = cast(a.x as int)
 where a.LinkChartCode = 'D110' and a.SeriesIdx = 3 and b.Prod = '000'
 go
 
-update OutputHospital_All set Y = case a.category 
-when 'UC3M' then UC3MGrowth 
-when 'VC3M' then VC3MGrowth 
-when 'PC3M' then PC3MGrowth 
-when 'UYTD' then UYTDGrowth 
-when 'VYTD' then VYTDGrowth 
-when 'PYTD' then PYTDGrowth end
+update OutputHospital_All 
+set Y = case a.category 
+  when 'UC3M' then UC3MGrowth 
+  when 'VC3M' then VC3MGrowth 
+  when 'PC3M' then PC3MGrowth
+  when 'UMTH' then UMGrowth1 
+  when 'VMTH' then VMGrowth1 
+  when 'PMTH' then PMGrowth1 
+  when 'UMAT' then UMATGrowth 
+  when 'VMAT' then VMATGrowth 
+  when 'PMAT' then PMATGrowth 
+  when 'UYTD' then UYTDGrowth 
+  when 'VYTD' then VYTDGrowth 
+  when 'PYTD' then PYTDGrowth end
 from OutputHospital_All a
 inner join tempHospitalDataByGeo b on b.Mkt = a.Product 
 	and a.lev = b.lev and b.ParentGeo = a.ParentGeo and a.geo = b.geo and a.x = b.CPA_id
 where a.LinkChartCode = 'D110' and a.SeriesIdx = 4 and b.Prod = '100'
 go
 
-update OutputHospital_All set Series=
+update OutputHospital_All 
+set Series=
 	case Product 
-	when 'HYPFCS' then 'Monopril Market' 
-	when 'NIAD' then 'NIAD Market' 
-	when 'ONCFCS' then 'Taxol Market' 
-	when 'ARV' then 'ARV Market'
-	when 'DPP4' then 'DPP-IV Class'
-	when 'Platinum' then 'Platinum Market'
-	when 'CCB' then 'Coniel Market'
-	when 'Eliquis VTEP' then 'Eliquis (VTEP) Market'
-	else Series end
+    when 'HYPFCS' then 'Monopril Market' 
+    when 'NIAD' then 'NIAD Market' 
+    when 'ONCFCS' then 'Taxol Market' 
+    when 'ARV' then 'ARV Market'
+    when 'DPP4' then 'DPP-IV Class'
+    when 'Platinum' then 'Platinum Market'
+    when 'CCB' then 'Coniel Market'
+    when 'Eliquis VTEP' then 'Eliquis (VTEP) Market'
+    else Series end
 where LinkChartCode = 'D110'  and Series = 'Market'
 go
 
-update OutputHospital_All set Series=
+update OutputHospital_All 
+set Series=
 	case Product 
-	when 'HYPFCS' then 'Monopril' 
-	when 'NIAD' then 'Glucophage' 
-	when 'ONCFCS' then 'Taxol' 
-	when 'ARV' then 'Baraclude' 
-	when 'DPP4' then 'Onglyza'
-	when 'Platinum' then 'Paraplatin' 
-	when 'CCB' then 'Coniel'
-	when 'Eliquis VTEP' then 'Eliquis VTEP'
+    when 'HYPFCS' then 'Monopril' 
+    when 'NIAD' then 'Glucophage' 
+    when 'ONCFCS' then 'Taxol' 
+    when 'ARV' then 'Baraclude' 
+    when 'DPP4' then 'Onglyza'
+    when 'Platinum' then 'Paraplatin' 
+    when 'CCB' then 'Coniel'
+    when 'Eliquis VTEP' then 'Eliquis VTEP'
   end
 where LinkChartCode = 'D110'  and Series = 'BMS Product'
 go
 
-update OutputHospital_All set Series=
+update OutputHospital_All 
+set Series=
 	case Product 
-	when 'HYPFCS' then 'Monopril' 
-	when 'NIAD' then 'Glucophage' 
-	when 'ONCFCS' then 'Taxol' 
-	when 'ARV' then 'Baraclude' 
-	when 'DPP4' then 'Onglyza' 
-	when 'Platinum' then 'Paraplatin' 
-	when 'CCB' then 'Coniel'
-	when 'Eliquis VTEP' then 'Eliquis VTEP'
+    when 'HYPFCS' then 'Monopril' 
+    when 'NIAD' then 'Glucophage' 
+    when 'ONCFCS' then 'Taxol' 
+    when 'ARV' then 'Baraclude' 
+    when 'DPP4' then 'Onglyza' 
+    when 'Platinum' then 'Paraplatin' 
+    when 'CCB' then 'Coniel'
+    when 'Eliquis VTEP' then 'Eliquis VTEP'
    end + ' Growth'
 where LinkChartCode = 'D110'  and Series = 'BMS Product Growth'
 go
@@ -706,13 +760,25 @@ GO
 
 update OutputHospital_All set Y = 
 	case when (case a.category when 'UC3M' then UR3M1 
-                             when 'VC3M' then VR3M1 
+                             when 'VC3M' then VR3M1
+
+                             when 'UMTH' then UM1 
+                             when 'VMTH' then VM1 
+
+                             when 'UMAT' then UMAT1 
+                             when 'VMAT' then VMAT1  
                             
                              when 'UYTD' then UYTD 
                              when 'VYTD' then VYTD 
                             end ) = 0 then 0 
        else cast(a.Y as float) / case a.category  when 'UC3M' then UR3M1 
                                                   when 'VC3M' then VR3M1 
+                                                  
+                                                  when 'UMTH' then UM1 
+                                                  when 'VMTH' then VM1 
+
+                                                  when 'UMAT' then UMAT1 
+                                                  when 'VMAT' then VMAT1  
                                                   
                                                   when 'UYTD' then UYTD 
                                                   when 'VYTD' then VYTD
@@ -722,7 +788,16 @@ from OutputHospital_All a inner join (
 	select Mkt,Prod, ParentGeo,Geo, 
 		sum(UR3M1) UR3M1,
 		sum(VR3M1) VR3M1,
-      sum(PR3M1) PR3M1,
+    sum(PR3M1) PR3M1,
+
+    sum(UM1) UM1,
+		sum(VM1) VM1,
+    sum(PM1) PM1,
+
+    sum(UMAT1) UMAT1,
+		sum(VMAT1) VMAT1,
+    sum(PMAT1) PMAT1,
+
 		sum(UYTD) UYTD,
 		sum(VYTD) VYTD,
 		sum(PYTD) PYTD
@@ -740,12 +815,24 @@ update OutputHospital_All set Y =
                              when 'VC3M' then VR3M1 
                              when 'PC3M' then PR3M1 
                             
+                             when 'UMTH' then UM1 
+                             when 'VMTH' then VM1 
+
+                             when 'UMAT' then UMAT1 
+                             when 'VMAT' then VMAT1  
+                            
                              when 'VYTD' then VYTD 
                              when 'PYTD' then PYTD end ) = 0 then 0 
        else cast(a.Y as float) / case a.category  
                                                   when 'VC3M' then VR3M1 
                                                   when 'PC3M' then PR3M1
                                                  
+                                                  when 'UMTH' then UM1 
+                                                  when 'VMTH' then VM1 
+
+                                                  when 'UMAT' then UMAT1 
+                                                  when 'VMAT' then VMAT1  
+                                                  
                                                   when 'VYTD' then VYTD
                                                   when 'PYTD' then PYTD end 
   end
@@ -753,7 +840,16 @@ from OutputHospital_All a inner join (
 	select Mkt,Prod, ParentGeo,Geo, 
 		sum(UR3M1) UR3M1,
 		sum(VR3M1) VR3M1,
-      sum(PR3M1) PR3M1,
+    sum(PR3M1) PR3M1,
+    
+    sum(UM1) UM1,
+		sum(VM1) VM1,
+    sum(PM1) PM1,
+
+    sum(UMAT1) UMAT1,
+		sum(VMAT1) VMAT1,
+    sum(PMAT1) PMAT1,
+
 		sum(UYTD) UYTD,
 		sum(VYTD) VYTD,
 		sum(PYTD) PYTD
@@ -775,7 +871,9 @@ update OutputHospital_All set
                                    WHEN 'V' THEN 'RMB'
                                    WHEN 'P' THEN 'UNIT' END,
 	TimeFrame = case right(TimeFrame,len(TimeFrame)-1) when 'YTD' THEN 'YTD' 
-                                                     WHEN 'C3M' THEN 'MQT' END
+                                                     WHEN 'C3M' THEN 'MQT'
+                                                     WHEN 'M' THEN 'MTH'
+                                                     WHEN 'MAT' THEN 'MAT' END
 where LinkChartCode in ('D110')
 go
 
@@ -835,26 +933,46 @@ OutputHospital_All
 where LinkChartCode = 'D130' and Product = 'ONCFCS' and Seriesidx = 2
 go
 
-update OutputHospital_All set Y = case a.category 
-when 'UC3M' then UC3MShare 
-when 'VC3M' then VC3MShare 
-when 'PC3M' then PC3MShare 
-when 'UYTD' then UYTDShare 
-when 'VYTD' then VYTDShare
-when 'PYTD' then PYTDShare end
+update OutputHospital_All 
+set Y = case a.category 
+  when 'UC3M' then UC3MShare 
+  when 'VC3M' then VC3MShare 
+  when 'PC3M' then PC3MShare 
+
+  when 'UM' then UMShare1 
+  when 'VM' then VMShare1 
+  when 'PM' then PMShare1 
+
+  when 'UMAT' then UMATShare 
+  when 'VMAT' then VMATShare 
+  when 'PMAT' then PMATShare 
+
+  when 'UYTD' then UYTDShare 
+  when 'VYTD' then VYTDShare
+  when 'PYTD' then PYTDShare end
 from OutputHospital_All a
 inner join tempHospitalDataByGeo b on b.Mkt = a.Product 
 	and b.lev = a.lev and b.ParentGeo = a.ParentGeo and b.geo = a.geo and b.CPA_id = cast(a.x as int)
 where a.LinkChartCode = 'D130' and a.SeriesIdx = 1 and b.Prod = '100'
 go
 
-update OutputHospital_All set Y = case a.category 
-when 'UC3M' then UC3MShare 
-when 'VC3M' then VC3MShare 
-when 'PC3M' then PC3MShare
-when 'UYTD' then UYTDShare 
-when 'VYTD' then VYTDShare
-when 'PYTD' then PYTDShare end
+update OutputHospital_All 
+set Y = case a.category 
+  when 'UC3M' then UC3MShare 
+  when 'VC3M' then VC3MShare 
+  when 'PC3M' then PC3MShare
+  
+  when 'UM' then UMShare1 
+  when 'VM' then VMShare1 
+  when 'PM' then PMShare1 
+
+  when 'UMAT' then UMATShare 
+  when 'VMAT' then VMATShare 
+  when 'PMAT' then PMATShare 
+
+  when 'UYTD' then UYTDShare 
+  when 'VYTD' then VYTDShare
+  when 'PYTD' then PYTDShare end
 from OutputHospital_All a
 inner join tempHospitalDataByGeo b on b.Mkt = a.Product 
 	and b.lev = a.lev and b.ParentGeo = a.ParentGeo and b.geo = a.geo and b.CPA_id = cast(a.x as int)
@@ -901,11 +1019,12 @@ go
 update OutputHospital_All set 
 	Category = case left(Category,1) when 'U' then 'Volume' when 'V' then 'Value' when 'P' then 'Adjusted patient number' end,
 	Currency = case left(Currency,1) when 'U' then 'UNIT' WHEN 'V' THEN 'RMB' when 'P' then 'UNIT' END,
-	TimeFrame = case right(TimeFrame,len(TimeFrame)-1) when 'YTD' THEN 'YTD' WHEN 'C3M' THEN 'MQT' END
+	TimeFrame = case right(TimeFrame,len(TimeFrame)-1) when 'YTD' THEN 'YTD' WHEN 'C3M' THEN 'MQT' when 'M' THEN 'MTH' WHEN 'MAT' THEN 'MAT' END
 where LinkChartCode in ('D130')
 go
 
-update OutputHospital_All set Product = b.Product
+update OutputHospital_All 
+set Product = b.Product
 from OutputHospital_All a 
 inner join (
 	select distinct case when Mkt = 'DPP4' then 'Onglyza' else Product end Product,Mkt from tblMktDefHospital
@@ -914,13 +1033,15 @@ where a.LinkChartCode = 'D130'
 go
 insert into OutputHospital_All (LinkChartCode, LinkSeriesCode, Series, SeriesIdx, Category, Product, Lev, ParentGeo, Geo, Currency, TimeFrame, X, XIdx, Y, IsShow,LinkedY)
 select LinkChartCode, LinkSeriesCode, Series, SeriesIdx, Category, Product, Lev, ParentGeo, Geo
-, 'USD', TimeFrame, X, XIdx, Y, IsShow,
+  , 'USD', TimeFrame, X, XIdx, Y, IsShow,
 	-- cast(LinkedY as float) / (select Rate from BMSChinaCIA_IMS.dbo.tblRate) as 
 	LinkedY
-from OutputHospital_All where LinkChartCode in ('D130') and Currency = 'RMB'
+from OutputHospital_All 
+where LinkChartCode in ('D130') and Currency = 'RMB'
 go
 
-update OutputHospital_All set X = left(b.Cpa_Name_English,50)-- + ' (' + LinkedY + ')'
+update OutputHospital_All 
+set X = left(b.Cpa_Name_English,50)-- + ' (' + LinkedY + ')'
 from OutputHospital_All a
 inner join tblHospitalMaster b on a.x = b.id
 where a.LinkChartCode in ('D130')
@@ -951,13 +1072,37 @@ from (
 )b
 go
 
-update OutputHospital_All set Y = case a.category when 'UC3M' then UC3MShare when 'VC3M' then VC3MShare when 'UYTD' then UYTDShare when 'VYTD' then VYTDShare end
+update OutputHospital_All 
+set Y = case a.category 
+        when 'UC3M' then UC3MShare 
+        when 'VC3M' then VC3MShare 
+        
+        when 'UM' then UMShare1 
+        when 'VM' then VMShare1 
+        
+        when 'UMAT' then UMATShare 
+        when 'VMAT' then VMATShare 
+
+        when 'UYTD' then UYTDShare 
+        when 'VYTD' then VYTDShare end
 from OutputHospital_All a
 inner join tempHospitalDataByGeo b on b.Mkt = 'HYPFCS'
 	and b.lev = a.lev and b.ParentGeo = b.ParentGeo and b.geo = a.geo and b.CPA_id = cast(a.x as int)
 where a.LinkChartCode = 'D150' and a.SeriesIdx = 1 and b.Prod = '100'
 go
-update OutputHospital_All set Y = case a.category when 'UC3M' then UC3MShare when 'VC3M' then VC3MShare when 'UYTD' then UYTDShare when 'VYTD' then VYTDShare end
+update OutputHospital_All 
+set Y = case a.category 
+        when 'UC3M' then UC3MShare 
+        when 'VC3M' then VC3MShare 
+        
+        when 'UM' then UMShare1 
+        when 'VM' then VMShare1 
+        
+        when 'UMAT' then UMATShare 
+        when 'VMAT' then VMATShare 
+
+        when 'UYTD' then UYTDShare 
+        when 'VYTD' then VYTDShare end
 from OutputHospital_All a
 inner join tempHospitalDataByGeo b on b.Mkt = 'ACE'
 	and b.lev = a.lev and b.ParentGeo = b.ParentGeo and b.geo = a.geo and b.CPA_id = cast(a.x as int)
@@ -968,7 +1113,7 @@ go
 update OutputHospital_All set 
 Category = case left(Category,1) when 'U' then 'Volume' when 'V' then 'Value' when 'P' then 'Adjusted patient number' end,
 Currency = case left(Currency,1) when 'U' then 'UNIT' when 'P' then 'UNIT' WHEN  'V' THEN 'RMB' END,
-	TimeFrame = case right(TimeFrame,len(TimeFrame)-1) when 'YTD' THEN 'YTD' WHEN 'C3M' THEN 'MQT' END
+	TimeFrame = case right(TimeFrame,len(TimeFrame)-1) when 'YTD' THEN 'YTD' WHEN 'C3M' THEN 'MQT' when 'M' THEN 'MTH' WHEN 'MAT' THEN 'MAT'  END
 where LinkChartCode in ('D150')
 go
 
@@ -1000,7 +1145,8 @@ select
 from OutputHospital_All where LinkChartCode in ('D150') and Currency = 'RMB'
 go
 
-update OutputHospital_All set X = left(b.Cpa_Name_English,50)
+update OutputHospital_All 
+set X = left(b.Cpa_Name_English,50)
 from OutputHospital_All a
 inner join tblHospitalMaster b on a.x = b.id
 where a.LinkChartCode in ('D150')
@@ -2088,7 +2234,8 @@ where a.Product = b.Mkt
 go
 
 -- calculate the share
-update OutputHospital_All set Y = 
+update OutputHospital_All 
+set Y = 
   case a.Category when 'VMAT' then b.VMAT1
                   when 'UMAT' then b.UMAT1
                   when 'VR3M' then b.VR3M1
@@ -2104,7 +2251,8 @@ where a.LinkChartCode in('R191','R251','R201','R261','R211','R271','R221','R281'
 go
 
 -- set the total to Additional Y
-update OutputHospital_All set AddY = b.total
+update OutputHospital_All 
+set AddY = b.total
 from OutputHospital_All a
 inner join 
     (
@@ -2123,12 +2271,14 @@ where a.LinkChartCode in('R191','R251','R201','R261','R211','R271','R221','R281'
 go
 
 -- set market share
-update OutputHospital_All set Y = case when AddY = 0 then 0 else cast(y as float) / AddY end
+update OutputHospital_All 
+set Y = case when AddY = 0 then 0 else cast(y as float) / AddY end
 where LinkChartCode in('R191','R251','R201','R261','R211','R271','R221','R281','R231','R291','R241','R301','R901','R961')
 	and IsShow = 'Y'
 go
 
-update OutputHospital_All set Y = null
+update OutputHospital_All 
+set Y = null
 where LinkChartCode in('R191','R251','R201','R261','R211','R271','R221','R281','R231','R291','R241','R301','R901','R961')
 	and cast(Y as float) = 0
 	and IsShow = 'Y'

@@ -1,4 +1,4 @@
-USE BMSChinaCIA_IMS--DB4
+USE BMSChinaCIA_IMS_test--DB4
 GO
 
 --time 00:01
@@ -328,7 +328,7 @@ print (N'
 ------------------------------------------------------------------------------------------------------------
 ')
 
-USE [BMSChinaCIA_IMS]
+USE [BMSChinaCIA_IMS_test]
 GO
 
 

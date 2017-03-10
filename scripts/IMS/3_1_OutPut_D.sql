@@ -4,7 +4,7 @@
 
 */
 
-USE BMSChinaCIA_IMS --db4
+USE BMSChinaCIA_IMS_test --db4
 GO
 --28分钟
 --27分钟2013年7月份数据
@@ -640,11 +640,24 @@ select
   , a.Series          -- X           
   ,a.SeriesIdx        -- XIdx        
 from (
-	select 'MAT00' as Series,	12 as SeriesIdx union all
-	select 'MAT12' as Series,	11 as SeriesIdx union all
-	select 'MAT24' as Series,	10 as SeriesIdx union all
-	select 'MAT36' as Series,	9 as SeriesIdx union all
-	select 'MAT48' as Series,	8 as SeriesIdx union all
+	select 'MAT00' as Series,	22 as SeriesIdx union all
+	select 'MAT12' as Series,	21 as SeriesIdx union all
+	select 'MAT24' as Series,	20 as SeriesIdx union all
+	select 'MAT36' as Series,	19 as SeriesIdx union all
+	select 'MAT48' as Series,	18 as SeriesIdx union all
+
+	select 'MQT00' as Series,	17 as SeriesIdx union all
+	select 'MQT12' as Series,	16 as SeriesIdx union all
+	select 'MQT24' as Series,	15 as SeriesIdx union all
+	select 'MQT36' as Series,	14 as SeriesIdx union all
+	select 'MQT48' as Series,	13 as SeriesIdx union all
+
+	select 'YTD00' as Series,	12 as SeriesIdx union all
+	select 'YTD12' as Series,	11 as SeriesIdx union all
+	select 'YTD24' as Series,	10 as SeriesIdx union all
+	select 'YTD36' as Series,	9 as SeriesIdx union all
+	select 'YTD48' as Series,	8 as SeriesIdx union all
+
 	select 'Mth06' as Series,	7 as SeriesIdx union all
 	select 'Mth07' as Series,	6 as SeriesIdx union all
 	select 'Mth08' as Series,	5 as SeriesIdx union all
@@ -679,9 +692,11 @@ BEGIN
 
 		set @SQL2='
 		update [output_stage]
-		set Y=B.'+@Series+ ' from [output_stage] A inner join dbo.OutputProdSalesPerformanceInChina B
+		set Y=B.'+@Series+ ' 
+		from [output_stage] A 
+		inner join dbo.OutputProdSalesPerformanceInChina B
 		on A.TimeFrame=B.Period and A.Currency=B.MoneyType  and A.Product=B.Market and A.X='+''''+@Series+''''+'
-		and a.LinkChartCode = '+''''+@code+''''+' and A.Series=B.[type]'
+			and a.LinkChartCode = '+''''+@code+''''+' and A.Series=B.[type]'
 		--print @SQL2
 		exec( @SQL2)
 
@@ -714,73 +729,144 @@ delete from [output_stage] where LinkChartCode='C120' and timeFrame<>'Mth' and X
 go
 
 update [output_stage] set series=case series 
-when 'MAT00' then TimeFrame + ' '+(select [MonthEN] from tblMonthList where monseq=1)
-when 'MAT12' then TimeFrame + ' '+(select [MonthEN] from tblMonthList where monseq=13)
-when 'MAT24' then TimeFrame + ' '+(select [MonthEN] from tblMonthList where monseq=25)
-when 'MAT36' then TimeFrame + ' '+(select [MonthEN] from tblMonthList where monseq=37)
-when 'MAT48' then TimeFrame + ' '+(select [MonthEN] from tblMonthList where monseq=49)
-when 'MAT00Growth' then  TimeFrame + ' '+(select [MonthEN] from tblMonthList where monseq=1)+' Growth'
-when 'MAT12Growth' then  TimeFrame + ' '+(select [MonthEN] from tblMonthList where monseq=13)+' Growth'
+	when 'MAT00' then TimeFrame + ' '+(select [MonthEN] from tblMonthList where monseq=1)
+	when 'MAT12' then TimeFrame + ' '+(select [MonthEN] from tblMonthList where monseq=13)
+	when 'MAT24' then TimeFrame + ' '+(select [MonthEN] from tblMonthList where monseq=25)
+	when 'MAT36' then TimeFrame + ' '+(select [MonthEN] from tblMonthList where monseq=37)
+	when 'MAT48' then TimeFrame + ' '+(select [MonthEN] from tblMonthList where monseq=49)
+	when 'MAT00Growth' then  TimeFrame + ' '+(select [MonthEN] from tblMonthList where monseq=1)+' Growth'
+	when 'MAT12Growth' then  TimeFrame + ' '+(select [MonthEN] from tblMonthList where monseq=13)+' Growth'
+	
+	when 'YTD00' then TimeFrame + ' '+(select [MonthEN] from tblMonthList where monseq=1)
+	when 'YTD12' then TimeFrame + ' '+(select [MonthEN] from tblMonthList where monseq=13)
+	when 'YTD24' then TimeFrame + ' '+(select [MonthEN] from tblMonthList where monseq=25)
+	when 'YTD36' then TimeFrame + ' '+(select [MonthEN] from tblMonthList where monseq=37)
+	when 'YTD48' then TimeFrame + ' '+(select [MonthEN] from tblMonthList where monseq=49)
+	when 'YTD00Growth' then  TimeFrame + ' '+(select [MonthEN] from tblMonthList where monseq=1)+' Growth'
+	when 'YTD12Growth' then  TimeFrame + ' '+(select [MonthEN] from tblMonthList where monseq=13)+' Growth'
+	
+	when 'MQT00' then TimeFrame + ' '+(select [MonthEN] from tblMonthList where monseq=1)
+	when 'MQT12' then TimeFrame + ' '+(select [MonthEN] from tblMonthList where monseq=13)
+	when 'MQT24' then TimeFrame + ' '+(select [MonthEN] from tblMonthList where monseq=25)
+	when 'MQT36' then TimeFrame + ' '+(select [MonthEN] from tblMonthList where monseq=37)
+	when 'MQT48' then TimeFrame + ' '+(select [MonthEN] from tblMonthList where monseq=49)
+	when 'MQT00Growth' then  TimeFrame + ' '+(select [MonthEN] from tblMonthList where monseq=1)+' Growth'
+	when 'MQT12Growth' then  TimeFrame + ' '+(select [MonthEN] from tblMonthList where monseq=13)+' Growth'
 else series
 end  where LinkChartCode='C120' and TimeFrame<>'MTH'
 go
 update [output_stage]
-set X=case X when 'MAT00' then TimeFrame + ' '+(select [MonthEN] from tblMonthList where monseq=1)
-when 'MAT12' then TimeFrame + ' '+(select [MonthEN] from tblMonthList where monseq=13)
-when 'MAT24' then TimeFrame + ' '+(select [MonthEN] from tblMonthList where monseq=25)
-when 'MAT36' then TimeFrame + ' '+(select [MonthEN] from tblMonthList where monseq=37)
-when 'MAT48' then TimeFrame + ' '+(select [MonthEN] from tblMonthList where monseq=49)
-else X
-end  where LinkChartCode='C120' and TimeFrame<>'MTH'
+set X=case X 
+		when 'MAT00' then TimeFrame + ' '+(select [MonthEN] from tblMonthList where monseq=1)
+		when 'MAT12' then TimeFrame + ' '+(select [MonthEN] from tblMonthList where monseq=13)
+		when 'MAT24' then TimeFrame + ' '+(select [MonthEN] from tblMonthList where monseq=25)
+		when 'MAT36' then TimeFrame + ' '+(select [MonthEN] from tblMonthList where monseq=37)
+		when 'MAT48' then TimeFrame + ' '+(select [MonthEN] from tblMonthList where monseq=49)
+
+		
+		when 'MQT00' then TimeFrame + ' '+(select [MonthEN] from tblMonthList where monseq=1)
+		when 'MQT12' then TimeFrame + ' '+(select [MonthEN] from tblMonthList where monseq=13)
+		when 'MQT24' then TimeFrame + ' '+(select [MonthEN] from tblMonthList where monseq=25)
+		when 'MQT36' then TimeFrame + ' '+(select [MonthEN] from tblMonthList where monseq=37)
+		when 'MQT48' then TimeFrame + ' '+(select [MonthEN] from tblMonthList where monseq=49)
+
+		
+		when 'YTD00' then TimeFrame + ' '+(select [MonthEN] from tblMonthList where monseq=1)
+		when 'YTD12' then TimeFrame + ' '+(select [MonthEN] from tblMonthList where monseq=13)
+		when 'YTD24' then TimeFrame + ' '+(select [MonthEN] from tblMonthList where monseq=25)
+		when 'YTD36' then TimeFrame + ' '+(select [MonthEN] from tblMonthList where monseq=37)
+		when 'YTD48' then TimeFrame + ' '+(select [MonthEN] from tblMonthList where monseq=49)
+		else X
+	end  
+where LinkChartCode='C120' and TimeFrame<>'MTH'
 go
 
 update [output_stage]
-set series=case series when 'MAT00' then TimeFrame + ' '+(select [MonthEN] from tblMonthList where monseq=1)
-when 'MAT12' then TimeFrame + ' '+(select [MonthEN] from tblMonthList where monseq=2)
-when 'MAT24' then TimeFrame + ' '+(select [MonthEN] from tblMonthList where monseq=3)
-when 'MAT36' then TimeFrame + ' '+(select [MonthEN] from tblMonthList where monseq=4)
-when 'MAT48' then TimeFrame + ' '+(select [MonthEN] from tblMonthList where monseq=5)
-when 'Mth06' then TimeFrame + ' '+(select [MonthEN] from tblMonthList where monseq=6)
-when 'Mth07' then TimeFrame + ' '+(select [MonthEN] from tblMonthList where monseq=7)
-when 'Mth08' then TimeFrame + ' '+(select [MonthEN] from tblMonthList where monseq=8)
-when 'Mth09' then TimeFrame + ' '+(select [MonthEN] from tblMonthList where monseq=9)
-when 'Mth10' then TimeFrame + ' '+(select [MonthEN] from tblMonthList where monseq=10)
-when 'Mth11' then TimeFrame + ' '+(select [MonthEN] from tblMonthList where monseq=11)
-when 'Mth12' then TimeFrame + ' '+(select [MonthEN] from tblMonthList where monseq=12)
-else series
-end  where LinkChartCode='C120' and TimeFrame='MTH'
+set series=case series 
+			when 'MAT00' then TimeFrame + ' '+(select [MonthEN] from tblMonthList where monseq=1)
+			when 'MAT12' then TimeFrame + ' '+(select [MonthEN] from tblMonthList where monseq=2)
+			when 'MAT24' then TimeFrame + ' '+(select [MonthEN] from tblMonthList where monseq=3)
+			when 'MAT36' then TimeFrame + ' '+(select [MonthEN] from tblMonthList where monseq=4)
+			when 'MAT48' then TimeFrame + ' '+(select [MonthEN] from tblMonthList where monseq=5)
+			
+			when 'MQT00' then TimeFrame + ' '+(select [MonthEN] from tblMonthList where monseq=1)
+			when 'MQT12' then TimeFrame + ' '+(select [MonthEN] from tblMonthList where monseq=2)
+			when 'MQT24' then TimeFrame + ' '+(select [MonthEN] from tblMonthList where monseq=3)
+			when 'MQT36' then TimeFrame + ' '+(select [MonthEN] from tblMonthList where monseq=4)
+			when 'MQT48' then TimeFrame + ' '+(select [MonthEN] from tblMonthList where monseq=5)
+			
+			when 'YTD00' then TimeFrame + ' '+(select [MonthEN] from tblMonthList where monseq=1)
+			when 'YTD12' then TimeFrame + ' '+(select [MonthEN] from tblMonthList where monseq=2)
+			when 'YTD24' then TimeFrame + ' '+(select [MonthEN] from tblMonthList where monseq=3)
+			when 'YTD36' then TimeFrame + ' '+(select [MonthEN] from tblMonthList where monseq=4)
+			when 'YTD48' then TimeFrame + ' '+(select [MonthEN] from tblMonthList where monseq=5)
+
+			when 'Mth06' then TimeFrame + ' '+(select [MonthEN] from tblMonthList where monseq=6)
+			when 'Mth07' then TimeFrame + ' '+(select [MonthEN] from tblMonthList where monseq=7)
+			when 'Mth08' then TimeFrame + ' '+(select [MonthEN] from tblMonthList where monseq=8)
+			when 'Mth09' then TimeFrame + ' '+(select [MonthEN] from tblMonthList where monseq=9)
+			when 'Mth10' then TimeFrame + ' '+(select [MonthEN] from tblMonthList where monseq=10)
+			when 'Mth11' then TimeFrame + ' '+(select [MonthEN] from tblMonthList where monseq=11)
+			when 'Mth12' then TimeFrame + ' '+(select [MonthEN] from tblMonthList where monseq=12)
+			else series
+			end  
+where LinkChartCode='C120' and TimeFrame='MTH'
 go
 update [output_stage]
-set X=case X when 'MAT00' then TimeFrame + ' '+(select [MonthEN] from tblMonthList where monseq=1)
-when 'MAT12' then TimeFrame + ' '+(select [MonthEN] from tblMonthList where monseq=2)
-when 'MAT24' then TimeFrame + ' '+(select [MonthEN] from tblMonthList where monseq=3)
-when 'MAT36' then TimeFrame + ' '+(select [MonthEN] from tblMonthList where monseq=4)
-when 'MAT48' then TimeFrame + ' '+(select [MonthEN] from tblMonthList where monseq=5)
-when 'Mth06' then TimeFrame + ' '+(select [MonthEN] from tblMonthList where monseq=6)
-when 'Mth07' then TimeFrame + ' '+(select [MonthEN] from tblMonthList where monseq=7)
-when 'Mth08' then TimeFrame + ' '+(select [MonthEN] from tblMonthList where monseq=8)
-when 'Mth09' then TimeFrame + ' '+(select [MonthEN] from tblMonthList where monseq=9)
-when 'Mth10' then TimeFrame + ' '+(select [MonthEN] from tblMonthList where monseq=10)
-when 'Mth11' then TimeFrame + ' '+(select [MonthEN] from tblMonthList where monseq=11)
-when 'Mth12' then TimeFrame + ' '+(select [MonthEN] from tblMonthList where monseq=12)
-else X
-end  where LinkChartCode='C120' and TimeFrame='MTH'
+set X=case X 
+		when 'MAT00' then TimeFrame + ' '+(select [MonthEN] from tblMonthList where monseq=1)
+		when 'MAT12' then TimeFrame + ' '+(select [MonthEN] from tblMonthList where monseq=2)
+		when 'MAT24' then TimeFrame + ' '+(select [MonthEN] from tblMonthList where monseq=3)
+		when 'MAT36' then TimeFrame + ' '+(select [MonthEN] from tblMonthList where monseq=4)
+		when 'MAT48' then TimeFrame + ' '+(select [MonthEN] from tblMonthList where monseq=5)
+		
+		when 'MQT00' then TimeFrame + ' '+(select [MonthEN] from tblMonthList where monseq=1)
+		when 'MQT12' then TimeFrame + ' '+(select [MonthEN] from tblMonthList where monseq=2)
+		when 'MQT24' then TimeFrame + ' '+(select [MonthEN] from tblMonthList where monseq=3)
+		when 'MQT36' then TimeFrame + ' '+(select [MonthEN] from tblMonthList where monseq=4)
+		when 'MQT48' then TimeFrame + ' '+(select [MonthEN] from tblMonthList where monseq=5)
+		
+		when 'YTD00' then TimeFrame + ' '+(select [MonthEN] from tblMonthList where monseq=1)
+		when 'YTD12' then TimeFrame + ' '+(select [MonthEN] from tblMonthList where monseq=2)
+		when 'YTD24' then TimeFrame + ' '+(select [MonthEN] from tblMonthList where monseq=3)
+		when 'YTD36' then TimeFrame + ' '+(select [MonthEN] from tblMonthList where monseq=4)
+		when 'YTD48' then TimeFrame + ' '+(select [MonthEN] from tblMonthList where monseq=5)
+
+		when 'Mth06' then TimeFrame + ' '+(select [MonthEN] from tblMonthList where monseq=6)
+		when 'Mth07' then TimeFrame + ' '+(select [MonthEN] from tblMonthList where monseq=7)
+		when 'Mth08' then TimeFrame + ' '+(select [MonthEN] from tblMonthList where monseq=8)
+		when 'Mth09' then TimeFrame + ' '+(select [MonthEN] from tblMonthList where monseq=9)
+		when 'Mth10' then TimeFrame + ' '+(select [MonthEN] from tblMonthList where monseq=10)
+		when 'Mth11' then TimeFrame + ' '+(select [MonthEN] from tblMonthList where monseq=11)
+		when 'Mth12' then TimeFrame + ' '+(select [MonthEN] from tblMonthList where monseq=12)
+		else X
+		end  
+where LinkChartCode='C120' and TimeFrame='MTH'
 go
 update [output_stage]
-set LinkedY=b.LinkY from [output_stage] A inner join(
-select product,min(parentgeo) as LinkY  from outputgeo where lev=2
-group by product) B
+set LinkedY=b.LinkY 
+from [output_stage] A 
+inner join
+(
+	select product,min(parentgeo) as LinkY  
+	from outputgeo 
+	where lev=2
+	group by product
+) B
 on A.product=B.product
 where A.LinkChartCode='C120'
 go
 update [output_stage]
-set LinkedY=b.LinkY from [output_stage] A inner join(
-select product,min(parentgeo) as LinkY  from outputgeo where lev=2
-group by product) B
+set LinkedY=b.LinkY 
+from [output_stage] A 
+inner join(
+	select product,min(parentgeo) as LinkY  from outputgeo where lev=2
+	group by product) B
 on left(A.product,7)=B.product
 where A.LinkChartCode='C120' and a.product like 'ELIQUIS%'
 go
-update [output_stage] set Category='Adjusted patient number'
+update [output_stage] 
+set Category='Adjusted patient number'
 from [output_stage] 
 where Product ='Paraplatin' and LinkChartCode='C120' and Category='Dosing Units'
 
@@ -862,10 +948,12 @@ from (
 	select 'MAT21' as Series,	4 as SeriesIdx union all
 	select 'MAT24' as Series,	1 as SeriesIdx
 ) a, (
-	select distinct Productname, Prod,Period,MoneyType,market from dbo.OutputKeyBrandPerformance_For_OtherETV 
+	select distinct Productname, Prod,Period,MoneyType,market 
+	from dbo.OutputKeyBrandPerformance_For_OtherETV 
     where market = 'Taxol' and Period = 'MQT' and MoneyType<>'PN' 
-union all
-	select distinct Productname, Prod,Period,MoneyType,market from dbo.OutputKeyBrandPerformance_For_OtherETV 
+	union all
+	select distinct Productname, Prod,Period,MoneyType,market 
+	from dbo.OutputKeyBrandPerformance_For_OtherETV 
     where market = 'Paraplatin' and Period = 'MQT' and MoneyType<>'UN' 
 ) b
 
@@ -888,9 +976,11 @@ BEGIN
 
 		set @SQL2='
 		update [output_stage]
-		set Y=B.'+@Series+ ' from [output_stage] A inner join dbo.OutputKeyBrandPerformance_For_OtherETV B
+		set Y=B.'+@Series+ ' 
+		from [output_stage] A 
+		inner join dbo.OutputKeyBrandPerformance_For_OtherETV B
 		on A.TimeFrame=B.Period and A.Currency=B.MoneyType  and A.Product=B.Market and A.X='+''''+@Series+''''+'
-		and a.LinkChartCode = '+''''+@code+''''+' and A.Series=B.Productname'
+			and a.LinkChartCode = '+''''+@code+''''+' and A.Series=B.Productname'
 		exec( @SQL2)
 
 	END
@@ -932,8 +1022,8 @@ from (
 	select 'MAT23' as Series,	2 as SeriesIdx union all
 	select 'MAT24' as Series,	1 as SeriesIdx
 ) a, (
-select distinct Productname, Prod,Period,MoneyType,market from dbo.OutputKeyBrandPerformance_For_Baraclude_Modify 
-where MoneyType<>'PN'
+	select distinct Productname, Prod,Period,MoneyType,market from dbo.OutputKeyBrandPerformance_For_Baraclude_Modify 
+	where MoneyType<>'PN'
 ) b
 
 
@@ -958,9 +1048,10 @@ BEGIN
 
 		set @SQL2='
 			update [output_stage]
-			set Y=B.'+@Series+ ' from [output_stage] A inner join dbo.OutputKeyBrandPerformance_For_Baraclude_Modify B
+			set Y=B.'+@Series+ ' from [output_stage] A 
+			inner join dbo.OutputKeyBrandPerformance_For_Baraclude_Modify B
 			on A.TimeFrame=B.Period and A.Currency=B.MoneyType  and A.Product=B.Market and A.X='+''''+@Series+''''+'
-			and a.LinkChartCode = '+''''+@code+''''+' and A.Series=B.Productname'
+				and a.LinkChartCode = '+''''+@code+''''+' and A.Series=B.Productname'
 		exec( @SQL2)
 
 	END
@@ -972,7 +1063,8 @@ go
 
 
 update [output_stage]
-set LinkSeriesCode=Product+'_'+LinkChartCode+Series+cast(SeriesIdx as varchar(10)) where LinkChartCode='C130'
+set LinkSeriesCode=Product+'_'+LinkChartCode+Series+cast(SeriesIdx as varchar(10)) 
+where LinkChartCode='C130'
 go
 update [output_stage]
 set Category=case Currency when 'UN' then 'Units' when 'PN' then 'Adjusted patient number' else 'Value' end
@@ -989,9 +1081,9 @@ set @sql='update [output_stage]
 set X=case X '
 while (@i<=24)
 begin
-set @sql=@sql+'
-when ''MAT'+right('00'+cast(@i as varchar(2)),2)+''' then TimeFrame + '' ''+(select [MonthEN] from tblMonthList where monseq='+cast(@i+1 as varchar(2))+')'
-set @i=@i+1
+	set @sql=@sql+'
+	when ''MAT'+right('00'+cast(@i as varchar(2)),2)+''' then TimeFrame + '' ''+(select [MonthEN] from tblMonthList where monseq='+cast(@i+1 as varchar(2))+')'
+	set @i=@i+1
 end
 set @sql=@sql+'else X
 end  where LinkChartCode=''C130'''
@@ -1027,9 +1119,9 @@ set @code = 'C201'
 insert into [output_stage] (Product,geo,lev,TimeFrame,LinkChartCode, Series, SeriesIdx,Currency, X, XIdx)
 select B.market,'China','Nation',Period, @code as Code, b.ProductName,b.ProdIdx,MoneyType, a.Series,a.SeriesIdx
 from (
-	select 'MAT00' as Series,					5 as SeriesIdx union all
-	select 'MAT12' as Series,				4 as SeriesIdx union all
-	select 'MAT24' as Series,		3 as SeriesIdx union all
+	select 'MAT00' as Series,	5 as SeriesIdx union all
+	select 'MAT12' as Series,	4 as SeriesIdx union all
+	select 'MAT24' as Series,	3 as SeriesIdx union all
 	select 'MAT36' as Series,	2 as SeriesIdx union all
 	select 'MAT48' as Series,	1 as SeriesIdx
 ) a, (
@@ -1059,7 +1151,9 @@ BEGIN
 
 		set @SQL2='
 		update [output_stage]
-		set Y=B.'+@Series+ ' from [output_stage] A inner join dbo.OutputCMLChinaMarketTrend B
+		set Y=B.'+@Series+ ' 
+		from [output_stage] A 
+		inner join dbo.OutputCMLChinaMarketTrend B
 		on A.TimeFrame=B.Period and A.Currency=B.MoneyType and A.X='+''''+@Series+''''+'
 		and a.LinkChartCode = '+''''+@code+''''+' and A.Series=case B.[type] when ''Sales'' then B.Productname else B.Productname+'' ''+B.[Type] end and A.SeriesIdx=B.ProdIdx'
 --		print @SQL2
@@ -1077,11 +1171,24 @@ where linkchartcode='C201'
 GO
 
 update [output_stage]
-set X=case X when 'MAT00' then 'MAT' + ' '+(select [MonthEN] from tblMonthList where monseq=1)
+set X=case X 
+	when 'MAT00' then 'MAT' + ' '+(select [MonthEN] from tblMonthList where monseq=1)
 	when 'MAT12' then 'MAT' + ' '+(select [MonthEN] from tblMonthList where monseq=13)
 	when 'MAT24' then 'MAT' + ' '+(select [MonthEN] from tblMonthList where monseq=25)
 	when 'MAT36' then 'MAT' + ' '+(select [MonthEN] from tblMonthList where monseq=37)
 	when 'MAT48' then 'MAT' + ' '+(select [MonthEN] from tblMonthList where monseq=49)
+
+	when 'MTH00' then 'MTH' + ' '+(select [MonthEN] from tblMonthList where monseq=1)
+	when 'MTH12' then 'MTH' + ' '+(select [MonthEN] from tblMonthList where monseq=13)
+	when 'MTH24' then 'MTH' + ' '+(select [MonthEN] from tblMonthList where monseq=25)
+	when 'MTH36' then 'MTH' + ' '+(select [MonthEN] from tblMonthList where monseq=37)
+	when 'MTH48' then 'MTH' + ' '+(select [MonthEN] from tblMonthList where monseq=49)
+
+	when 'MQT00' then 'MQT' + ' '+(select [MonthEN] from tblMonthList where monseq=1)
+	when 'MQT12' then 'MQT' + ' '+(select [MonthEN] from tblMonthList where monseq=13)
+	when 'MQT24' then 'MQT' + ' '+(select [MonthEN] from tblMonthList where monseq=25)
+	when 'MQT36' then 'MQT' + ' '+(select [MonthEN] from tblMonthList where monseq=37)
+	when 'MQT48' then 'MQT' + ' '+(select [MonthEN] from tblMonthList where monseq=49)
 	else X
 	end  
 where LinkChartCode in('C201') and timeFrame='MAT Month'
@@ -1093,6 +1200,19 @@ set X=case X
 	when 'MAT24' then 'MAT' + ' '+(select top 1 right([year]-2,2)+'Q'+cast((Month)/3 as varchar(3)) from tblmonthlist where (Month)/3<>0 order by monseq)
 	when 'MAT36' then 'MAT' + ' '+(select top 1 right([year]-3,2)+'Q'+cast((Month)/3 as varchar(3)) from tblmonthlist where (Month)/3<>0 order by monseq)
 	when 'MAT48' then 'MAT' + ' '+(select top 1 right([year]-4,2)+'Q'+cast((Month)/3 as varchar(3)) from tblmonthlist where (Month)/3<>0 order by monseq)
+	
+	when 'MTH00' then 'MTH' + ' '+(select top 1 right([year],2)+'Q'+cast((Month)/3 as varchar(3)) from tblmonthlist where (Month)/3<>0 order by monseq)
+	when 'MTH12' then 'MTH' + ' '+(select top 1 right([year]-1,2)+'Q'+cast((Month)/3 as varchar(3)) from tblmonthlist where (Month)/3<>0 order by monseq)
+	when 'MTH24' then 'MTH' + ' '+(select top 1 right([year]-2,2)+'Q'+cast((Month)/3 as varchar(3)) from tblmonthlist where (Month)/3<>0 order by monseq)
+	when 'MTH36' then 'MTH' + ' '+(select top 1 right([year]-3,2)+'Q'+cast((Month)/3 as varchar(3)) from tblmonthlist where (Month)/3<>0 order by monseq)
+	when 'MTH48' then 'MTH' + ' '+(select top 1 right([year]-4,2)+'Q'+cast((Month)/3 as varchar(3)) from tblmonthlist where (Month)/3<>0 order by monseq)
+	
+	when 'MQT00' then 'MQT' + ' '+(select top 1 right([year],2)+'Q'+cast((Month)/3 as varchar(3)) from tblmonthlist where (Month)/3<>0 order by monseq)
+	when 'MQT12' then 'MQT' + ' '+(select top 1 right([year]-1,2)+'Q'+cast((Month)/3 as varchar(3)) from tblmonthlist where (Month)/3<>0 order by monseq)
+	when 'MQT24' then 'MQT' + ' '+(select top 1 right([year]-2,2)+'Q'+cast((Month)/3 as varchar(3)) from tblmonthlist where (Month)/3<>0 order by monseq)
+	when 'MQT36' then 'MQT' + ' '+(select top 1 right([year]-3,2)+'Q'+cast((Month)/3 as varchar(3)) from tblmonthlist where (Month)/3<>0 order by monseq)
+	when 'MQT48' then 'MQT' + ' '+(select top 1 right([year]-4,2)+'Q'+cast((Month)/3 as varchar(3)) from tblmonthlist where (Month)/3<>0 order by monseq)
+	
 	else X
 	end  
 where LinkChartCode in('C201') and timeFrame='MAT Quarter'
@@ -1333,17 +1453,19 @@ begin
 	set @sql=@sql+'
 	select  ''MQT'' as Period,'+''''+'R3M'+right('00'+cast(@i as varchar(3)),2)+''+''''+' as Series,''Y'' as isshow,'+cast(18-@i+1 as varchar(3))+' as SeriesIdx union all
 	select  ''MTH'' as Period,'+''''+'MTH'+right('00'+cast(@i as varchar(3)),2)+''+''''+' as Series,''Y'' as isshow,'+cast(18-@i+1 as varchar(3))+' as SeriesIdx union all
+	select  ''MAT'' as Period,'+''''+'MAT'+right('00'+cast(@i as varchar(3)),2)+''+''''+' as Series,''Y'' as isshow,'+cast(18-@i+1 as varchar(3))+' as SeriesIdx union all
 	'
 	set @i=@i+1
 end
 set  @sql=left(@sql,len(@sql)-12)+' Union all
 	select  ''YTD'' as Period,''YTD00'' as series,''D'' as ishow,21 as SeriesIdx union all
-	select  ''YTD'' as Period,''YTD12'' as series,''D'' as ishow,20 as SeriesIdx) a, (
-	select distinct MoneyType,mkt,Market,Prod,Productname,Audi_cod,Audi_des,region 
-	from  dbo.OutputGeoHBVSummaryT1 where Class=''N'' and Mkt<>''DPP4'' and mkt <> ''Eliquis NOAC'' and Market<>''Paraplatin''
-	union all
-	select distinct MoneyType,mkt,Market,Prod,Productname,Audi_cod,Audi_des,region 
-	from  dbo.OutputGeoHBVSummaryT1 where Class=''N'' and Mkt<>''DPP4'' and mkt <> ''Eliquis NOAC'' and Market=''Paraplatin'' and prod=''100''
+	select  ''YTD'' as Period,''YTD12'' as series,''D'' as ishow,20 as SeriesIdx
+	) a, (
+		select distinct MoneyType,mkt,Market,Prod,Productname,Audi_cod,Audi_des,region 
+		from  dbo.OutputGeoHBVSummaryT1 where Class=''N'' and Mkt<>''DPP4'' and mkt <> ''Eliquis NOAC'' and Market<>''Paraplatin''
+		union all
+		select distinct MoneyType,mkt,Market,Prod,Productname,Audi_cod,Audi_des,region 
+		from  dbo.OutputGeoHBVSummaryT1 where Class=''N'' and Mkt<>''DPP4'' and mkt <> ''Eliquis NOAC'' and Market=''Paraplatin'' and prod=''100''
 	) b'
 print @sql
 exec (@sql)
@@ -1366,9 +1488,11 @@ BEGIN
 
 		set @SQL2='
 			update [output_stage]
-			set Y=B.['+@Series+ '] from [output_stage] A inner join dbo.OutputGeoHBVSummaryT1 B
+			set Y=B.['+@Series+ '] 
+			from [output_stage] A 
+			inner join dbo.OutputGeoHBVSummaryT1 B
 			on A.Product=B.Market and A.X='+''''+@Series+''''+' and A.currency=b.Moneytype
-			and a.LinkChartCode = '+''''+@code+''''+' and A.Series=B.Audi_des and A.geo=B.region and B.Class=''N'' and Mkt<>''DPP4''
+				and a.LinkChartCode = '+''''+@code+''''+' and A.Series=B.Audi_des and A.geo=B.region and B.Class=''N'' and Mkt<>''DPP4''
 				'
 		print @SQL2
 		exec( @SQL2)
@@ -1449,7 +1573,10 @@ from ('
 --print @sql
 while (@i<=11)
 begin
-set @sql=@sql+'select  ''MQT'' as Period,'+''''+'R3M'+right('00'+cast(@i as varchar(3)),2)+''+''''+' as Series,''Y'' as isshow,'+cast(18-@i+1 as varchar(3))+' as SeriesIdx union all
+set @sql=@sql+'
+select  ''MQT'' as Period,'+''''+'R3M'+right('00'+cast(@i as varchar(3)),2)+''+''''+' as Series,''Y'' as isshow,'+cast(18-@i+1 as varchar(3))+' as SeriesIdx union all
+select  ''MAT'' as Period,'+''''+'MAT'+right('00'+cast(@i as varchar(3)),2)+''+''''+' as Series,''Y'' as isshow,'+cast(18-@i+1 as varchar(3))+' as SeriesIdx union all
+select  ''MTH'' as Period,'+''''+'MTH'+right('00'+cast(@i as varchar(3)),2)+''+''''+' as Series,''Y'' as isshow,'+cast(18-@i+1 as varchar(3))+' as SeriesIdx union all
 '
 set @i=@i+1
 end
@@ -1479,9 +1606,11 @@ BEGIN
 
 		set @SQL2='
 		update [output_stage]
-		set Y=B.['+@Series+ '] from [output_stage] A inner join dbo.OutputGeoHBVSummaryT1 B
+		set Y=B.['+@Series+ '] 
+		from [output_stage] A 
+		inner join dbo.OutputGeoHBVSummaryT1 B
 		on A.Product=B.Market and A.X='+''''+@Series+''''+' and A.currency=b.Moneytype
-		and a.LinkChartCode = '+''''+@code+''''+' and A.Series=B.Audi_des and A.geo=B.region and B.Class=''Y'''
+			and a.LinkChartCode = '+''''+@code+''''+' and A.Series=B.Audi_des and A.geo=B.region and B.Class=''Y'''
 		print @SQL2
 		exec( @SQL2)
 
@@ -1493,7 +1622,8 @@ DEALLOCATE TMP_CURSOR
 
 go
 update [output_stage]
-set LinkSeriesCode=Product+'_'+LinkChartCode+'_'+geo+cast(SeriesIdx as varchar(10))+Isshow where LinkChartCode in('D021','D031','D041')
+set LinkSeriesCode=Product+'_'+LinkChartCode+'_'+geo+cast(SeriesIdx as varchar(10))+Isshow 
+where LinkChartCode in('D021','D031','D041')
 go
 update [output_stage]
 set Category=case Currency when 'UN' then 'Units' else 'Value' end
@@ -1506,62 +1636,103 @@ go
 
 delete from [output_stage] 
 where LinkChartCode in('D021') and Product in ('Taxol','paraplatin') and TimeFrame='MQT'
-and x not in(
-'R3M00','R3M03','R3M06','R3M09','R3M12','R3M15','R3M18'
-)
+	and x not in(
+		'R3M00','R3M03','R3M06','R3M09','R3M12','R3M15','R3M18'
+	)
 GO
 
 update [output_stage]
 set X=case X 
-when 'R3M00' then  'MQT '+(select [MonthEN] from tblMonthList where monseq=1)
-when 'R3M01' then  'MQT '+(select [MonthEN] from tblMonthList where monseq=2)
-when 'R3M02' then  'MQT '+(select [MonthEN] from tblMonthList where monseq=3)
-when 'R3M03' then  'MQT '+(select [MonthEN] from tblMonthList where monseq=4)
-when 'R3M04' then  'MQT '+(select [MonthEN] from tblMonthList where monseq=5)
-when 'R3M05' then  'MQT '+(select [MonthEN] from tblMonthList where monseq=6)
-when 'R3M06' then  'MQT '+(select [MonthEN] from tblMonthList where monseq=7)
-when 'R3M07' then  'MQT '+(select [MonthEN] from tblMonthList where monseq=8)
-when 'R3M08' then  'MQT '+(select [MonthEN] from tblMonthList where monseq=9)
-when 'R3M09' then  'MQT '+(select [MonthEN] from tblMonthList where monseq=10)
-when 'R3M10' then  'MQT '+(select [MonthEN] from tblMonthList where monseq=11)
-when 'R3M11' then  'MQT '+(select [MonthEN] from tblMonthList where monseq=12)
-when 'R3M12' then  'MQT '+(select [MonthEN] from tblMonthList where monseq=13)
-when 'R3M13' then  'MQT '+(select [MonthEN] from tblMonthList where monseq=14)
-when 'R3M14' then  'MQT '+(select [MonthEN] from tblMonthList where monseq=15)
-when 'R3M15' then  'MQT '+(select [MonthEN] from tblMonthList where monseq=16)
-when 'R3M16' then  'MQT '+(select [MonthEN] from tblMonthList where monseq=17)
-when 'R3M17' then  'MQT '+(select [MonthEN] from tblMonthList where monseq=18)
-when 'R3M18' then  'MQT '+(select [MonthEN] from tblMonthList where monseq=19)
-when 'YTD00' then  'YTD '+(select [MonthEN] from tblMonthList where monseq=1)
-when 'YTD12' then  'YTD '+(select [MonthEN] from tblMonthList where monseq=13)
-else X
-end  where LinkChartCode in('D021','D031','D041') and TimeFrame in ('MQT','YTD')
+		when 'R3M00' then  'MQT '+(select [MonthEN] from tblMonthList where monseq=1)
+		when 'R3M01' then  'MQT '+(select [MonthEN] from tblMonthList where monseq=2)
+		when 'R3M02' then  'MQT '+(select [MonthEN] from tblMonthList where monseq=3)
+		when 'R3M03' then  'MQT '+(select [MonthEN] from tblMonthList where monseq=4)
+		when 'R3M04' then  'MQT '+(select [MonthEN] from tblMonthList where monseq=5)
+		when 'R3M05' then  'MQT '+(select [MonthEN] from tblMonthList where monseq=6)
+		when 'R3M06' then  'MQT '+(select [MonthEN] from tblMonthList where monseq=7)
+		when 'R3M07' then  'MQT '+(select [MonthEN] from tblMonthList where monseq=8)
+		when 'R3M08' then  'MQT '+(select [MonthEN] from tblMonthList where monseq=9)
+		when 'R3M09' then  'MQT '+(select [MonthEN] from tblMonthList where monseq=10)
+		when 'R3M10' then  'MQT '+(select [MonthEN] from tblMonthList where monseq=11)
+		when 'R3M11' then  'MQT '+(select [MonthEN] from tblMonthList where monseq=12)
+		when 'R3M12' then  'MQT '+(select [MonthEN] from tblMonthList where monseq=13)
+		when 'R3M13' then  'MQT '+(select [MonthEN] from tblMonthList where monseq=14)
+		when 'R3M14' then  'MQT '+(select [MonthEN] from tblMonthList where monseq=15)
+		when 'R3M15' then  'MQT '+(select [MonthEN] from tblMonthList where monseq=16)
+		when 'R3M16' then  'MQT '+(select [MonthEN] from tblMonthList where monseq=17)
+		when 'R3M17' then  'MQT '+(select [MonthEN] from tblMonthList where monseq=18)
+		when 'R3M18' then  'MQT '+(select [MonthEN] from tblMonthList where monseq=19)
+
+		when 'MTH00' then  'MTH '+(select [MonthEN] from tblMonthList where monseq=1)
+		when 'MTH01' then  'MTH '+(select [MonthEN] from tblMonthList where monseq=2)
+		when 'MTH02' then  'MTH '+(select [MonthEN] from tblMonthList where monseq=3)
+		when 'MTH03' then  'MTH '+(select [MonthEN] from tblMonthList where monseq=4)
+		when 'MTH04' then  'MTH '+(select [MonthEN] from tblMonthList where monseq=5)
+		when 'MTH05' then  'MTH '+(select [MonthEN] from tblMonthList where monseq=6)
+		when 'MTH06' then  'MTH '+(select [MonthEN] from tblMonthList where monseq=7)
+		when 'MTH07' then  'MTH '+(select [MonthEN] from tblMonthList where monseq=8)
+		when 'MTH08' then  'MTH '+(select [MonthEN] from tblMonthList where monseq=9)
+		when 'MTH09' then  'MTH '+(select [MonthEN] from tblMonthList where monseq=10)
+		when 'MTH10' then  'MTH '+(select [MonthEN] from tblMonthList where monseq=11)
+		when 'MTH11' then  'MTH '+(select [MonthEN] from tblMonthList where monseq=12)
+		when 'MTH12' then  'MTH '+(select [MonthEN] from tblMonthList where monseq=13)
+		when 'MTH13' then  'MTH '+(select [MonthEN] from tblMonthList where monseq=14)
+		when 'MTH14' then  'MTH '+(select [MonthEN] from tblMonthList where monseq=15)
+		when 'MTH15' then  'MTH '+(select [MonthEN] from tblMonthList where monseq=16)
+		when 'MTH16' then  'MTH '+(select [MonthEN] from tblMonthList where monseq=17)
+		when 'MTH17' then  'MTH '+(select [MonthEN] from tblMonthList where monseq=18)
+		when 'MTH18' then  'MTH '+(select [MonthEN] from tblMonthList where monseq=19)
+
+		when 'MAT00' then  'MAT '+(select [MonthEN] from tblMonthList where monseq=1)
+		when 'MAT01' then  'MAT '+(select [MonthEN] from tblMonthList where monseq=2)
+		when 'MAT02' then  'MAT '+(select [MonthEN] from tblMonthList where monseq=3)
+		when 'MAT03' then  'MAT '+(select [MonthEN] from tblMonthList where monseq=4)
+		when 'MAT04' then  'MAT '+(select [MonthEN] from tblMonthList where monseq=5)
+		when 'MAT05' then  'MAT '+(select [MonthEN] from tblMonthList where monseq=6)
+		when 'MAT06' then  'MAT '+(select [MonthEN] from tblMonthList where monseq=7)
+		when 'MAT07' then  'MAT '+(select [MonthEN] from tblMonthList where monseq=8)
+		when 'MAT08' then  'MAT '+(select [MonthEN] from tblMonthList where monseq=9)
+		when 'MAT09' then  'MAT '+(select [MonthEN] from tblMonthList where monseq=10)
+		when 'MAT10' then  'MAT '+(select [MonthEN] from tblMonthList where monseq=11)
+		when 'MAT11' then  'MAT '+(select [MonthEN] from tblMonthList where monseq=12)
+		when 'MAT12' then  'MAT '+(select [MonthEN] from tblMonthList where monseq=13)
+		when 'MAT13' then  'MAT '+(select [MonthEN] from tblMonthList where monseq=14)
+		when 'MAT14' then  'MAT '+(select [MonthEN] from tblMonthList where monseq=15)
+		when 'MAT15' then  'MAT '+(select [MonthEN] from tblMonthList where monseq=16)
+		when 'MAT16' then  'MAT '+(select [MonthEN] from tblMonthList where monseq=17)
+		when 'MAT17' then  'MAT '+(select [MonthEN] from tblMonthList where monseq=18)
+		when 'MAT18' then  'MAT '+(select [MonthEN] from tblMonthList where monseq=19)
+
+		when 'YTD00' then  'YTD '+(select [MonthEN] from tblMonthList where monseq=1)
+		when 'YTD12' then  'YTD '+(select [MonthEN] from tblMonthList where monseq=13)
+		else X
+end  where LinkChartCode in('D021','D031','D041') and TimeFrame in ('MQT','YTD', 'MAT', 'MTH')
 go
 
 update [output_stage]
 set X=case X 
-when 'MTH00' then  'MTH '+(select [MonthEN] from tblMonthList where monseq=1)
-when 'MTH01' then  'MTH '+(select [MonthEN] from tblMonthList where monseq=2)
-when 'MTH02' then  'MTH '+(select [MonthEN] from tblMonthList where monseq=3)
-when 'MTH03' then  'MTH '+(select [MonthEN] from tblMonthList where monseq=4)
-when 'MTH04' then  'MTH '+(select [MonthEN] from tblMonthList where monseq=5)
-when 'MTH05' then  'MTH '+(select [MonthEN] from tblMonthList where monseq=6)
-when 'MTH06' then  'MTH '+(select [MonthEN] from tblMonthList where monseq=7)
-when 'MTH07' then  'MTH '+(select [MonthEN] from tblMonthList where monseq=8)
-when 'MTH08' then  'MTH '+(select [MonthEN] from tblMonthList where monseq=9)
-when 'MTH09' then  'MTH '+(select [MonthEN] from tblMonthList where monseq=10)
-when 'MTH10' then  'MTH '+(select [MonthEN] from tblMonthList where monseq=11)
-when 'MTH11' then  'MTH '+(select [MonthEN] from tblMonthList where monseq=12)
-when 'MTH12' then  'MTH '+(select [MonthEN] from tblMonthList where monseq=13)
-when 'MTH13' then  'MTH '+(select [MonthEN] from tblMonthList where monseq=14)
-when 'MTH14' then  'MTH '+(select [MonthEN] from tblMonthList where monseq=15)
-when 'MTH15' then  'MTH '+(select [MonthEN] from tblMonthList where monseq=16)
-when 'MTH16' then  'MTH '+(select [MonthEN] from tblMonthList where monseq=17)
-when 'MTH17' then  'MTH '+(select [MonthEN] from tblMonthList where monseq=18)
-when 'MTH18' then  'MTH '+(select [MonthEN] from tblMonthList where monseq=19)
-when 'YTD00' then  'YTD '+(select [MonthEN] from tblMonthList where monseq=1)
-when 'YTD12' then  'YTD '+(select [MonthEN] from tblMonthList where monseq=13)
-else X
+		when 'MTH00' then  'MTH '+(select [MonthEN] from tblMonthList where monseq=1)
+		when 'MTH01' then  'MTH '+(select [MonthEN] from tblMonthList where monseq=2)
+		when 'MTH02' then  'MTH '+(select [MonthEN] from tblMonthList where monseq=3)
+		when 'MTH03' then  'MTH '+(select [MonthEN] from tblMonthList where monseq=4)
+		when 'MTH04' then  'MTH '+(select [MonthEN] from tblMonthList where monseq=5)
+		when 'MTH05' then  'MTH '+(select [MonthEN] from tblMonthList where monseq=6)
+		when 'MTH06' then  'MTH '+(select [MonthEN] from tblMonthList where monseq=7)
+		when 'MTH07' then  'MTH '+(select [MonthEN] from tblMonthList where monseq=8)
+		when 'MTH08' then  'MTH '+(select [MonthEN] from tblMonthList where monseq=9)
+		when 'MTH09' then  'MTH '+(select [MonthEN] from tblMonthList where monseq=10)
+		when 'MTH10' then  'MTH '+(select [MonthEN] from tblMonthList where monseq=11)
+		when 'MTH11' then  'MTH '+(select [MonthEN] from tblMonthList where monseq=12)
+		when 'MTH12' then  'MTH '+(select [MonthEN] from tblMonthList where monseq=13)
+		when 'MTH13' then  'MTH '+(select [MonthEN] from tblMonthList where monseq=14)
+		when 'MTH14' then  'MTH '+(select [MonthEN] from tblMonthList where monseq=15)
+		when 'MTH15' then  'MTH '+(select [MonthEN] from tblMonthList where monseq=16)
+		when 'MTH16' then  'MTH '+(select [MonthEN] from tblMonthList where monseq=17)
+		when 'MTH17' then  'MTH '+(select [MonthEN] from tblMonthList where monseq=18)
+		when 'MTH18' then  'MTH '+(select [MonthEN] from tblMonthList where monseq=19)
+		when 'YTD00' then  'YTD '+(select [MonthEN] from tblMonthList where monseq=1)
+		when 'YTD12' then  'YTD '+(select [MonthEN] from tblMonthList where monseq=13)
+		else X
 end  where LinkChartCode in('D021')  and TimeFrame='MTH'
 go
 
@@ -2076,10 +2247,9 @@ go
 		on A.moneytype=b.moneytype and a.mkt=b.mkt and a.market=b.market and a.region=b.region
 	) a ,(					
 		select 'MQT' as Period union all
-		select 'MTH' as Period 
-	--												union all
-	--						select 'MAT' as Period union all
-	--						select 'YTD' as Period 
+		select 'MTH' as Period union all
+		select 'MAT' as Period union all
+		select 'YTD' as Period 
 	) B
 
 	update [output_stage]
@@ -2088,7 +2258,8 @@ go
 	from [output_stage] A 
 	inner join dbo.OutputKeyBrandPerformanceByRegion_For_Baraclude_Slide6 B
 	on A.X=B.audi_des and A.Series=B.Productname and a.Product = B.market and A.Currency=B.moneytype
-		and A.timeFrame='MQT'where B.Class='N'and A.LinkChartCode=@code and A.ISshow='Y'
+		and A.timeFrame='MQT'
+	where B.Class='N'and A.LinkChartCode=@code and A.ISshow='Y'
 
 	update [output_stage]
 	set Y=case B.type when 'Market Total' then convert(varchar(50),cast(B.MTH00 as float),1) else B.MTH00 end,
@@ -2096,17 +2267,24 @@ go
 	from [output_stage] A 
 	inner join dbo.OutputKeyBrandPerformanceByRegion_For_Baraclude_Slide6 B
 	on A.X=B.audi_des and A.Series=B.Productname and a.Product = B.market and A.Currency=B.moneytype
-		and A.timeFrame='MTH'where B.Class='N'and A.LinkChartCode=@code and A.ISshow='Y'
-	--update [output_stage]
-	--set Y=B.MAT00,
-	--IntY=B.MAT00 from [output_stage] A inner join dbo.OutputKeyBrandPerformanceByRegion_For_Baraclude_Slide6 B
-	--on A.X=B.audi_des and A.Series=B.Productname  and a.Product = B.market and A.Currency=B.moneytype
-	--and A.timeFrame='MAT' where B.Class='N'and A.LinkChartCode=@code and A.ISshow='Y'
-	--update [output_stage]
-	--set Y=B.YTD00,
-	--IntY=B.YTD00 from [output_stage] A inner join dbo.OutputKeyBrandPerformanceByRegion_For_Baraclude_Slide6 B
-	--on A.X=B.audi_des and A.Series=B.Productname  and a.Product = B.market and A.Currency=B.moneytype
-	--and A.timeFrame='YTD' where B.Class='N'and A.LinkChartCode=@code and A.ISshow='Y'
+		and A.timeFrame='MTH'
+	where B.Class='N'and A.LinkChartCode=@code and A.ISshow='Y'
+
+	update [output_stage]
+	set Y=B.MAT00,
+	IntY=B.MAT00 from [output_stage] A 
+	inner join dbo.OutputKeyBrandPerformanceByRegion_For_Baraclude_Slide6 B
+	on A.X=B.audi_des and A.Series=B.Productname  and a.Product = B.market and A.Currency=B.moneytype
+	and A.timeFrame='MAT' 
+	where B.Class='N'and A.LinkChartCode=@code and A.ISshow='Y'
+
+	update [output_stage]
+	set Y=B.YTD00,
+	IntY=B.YTD00 from [output_stage] A 
+	inner join dbo.OutputKeyBrandPerformanceByRegion_For_Baraclude_Slide6 B
+	on A.X=B.audi_des and A.Series=B.Productname  and a.Product = B.market and A.Currency=B.moneytype
+	and A.timeFrame='YTD'
+	where B.Class='N'and A.LinkChartCode=@code and A.ISshow='Y'
 
 	insert into [output_stage] (isshow,TimeFrame,LinkChartCode,Product, Series, SeriesIdx,Currency, X, XIdx,lev,geo)
 	select 'L',B.Period, @code as Code, A.Market,A.Productname,A.Prod,moneytype, a.Audi_des,a.Audi_cod,'China' as lev,'China'
@@ -2121,10 +2299,9 @@ go
 		) B
 		on A.moneytype=b.moneytype and a.mkt=b.mkt and a.market=b.market and a.region=b.region
 	) a ,(	select 'MQT' as Period union all
-			select 'MTH' as Period 
-	--													union all
-	--							 select 'MAT' as Period union all
-	--							select 'YTD' as Period  
+			select 'MTH' as Period union all
+			select 'MAT' as Period union all
+			select 'YTD' as Period  
 	) B
 
 	update [output_stage]
@@ -2133,7 +2310,8 @@ go
 	from [output_stage] A 
 	inner join dbo.OutputKeyBrandPerformanceByRegionGrowth_For_Baraclude_Slide6 B
 	on A.X=B.audi_des and A.Series=B.Productname and a.Product = B.market and A.Currency=B.moneytype
-		and A.timeFrame='MQT'where B.Class='N'and A.LinkChartCode=@code and A.ISshow='L' --and B.Mkt<>'DPP4'
+		and A.timeFrame='MQT'
+	where B.Class='N'and A.LinkChartCode=@code and A.ISshow='L' --and B.Mkt<>'DPP4'
 	
 	update [output_stage]
 	set Y=B.MTH00,
@@ -2141,17 +2319,25 @@ go
 	from [output_stage] A 
 	inner join dbo.OutputKeyBrandPerformanceByRegionGrowth_For_Baraclude_Slide6 B
 	on A.X=B.audi_des and A.Series=B.Productname and a.Product = B.market and A.Currency=B.moneytype
-		and A.timeFrame='MTH'where B.Class='N'and A.LinkChartCode=@code and A.ISshow='L' --and B.Mkt<>'DPP4'
-	--update [output_stage]
-	--set Y=B.MAT00,
-	--IntY=B.MAT00 from [output_stage] A inner join dbo.OutputKeyBrandPerformanceByRegionGrowth_For_Baraclude_Slide6 B
-	--on A.X=B.audi_des and A.Series=B.Productname and a.Product = B.market and A.Currency=B.moneytype
-	--and A.timeFrame='MAT' where B.Class='N'and A.LinkChartCode=@code and A.ISshow='L' --and B.Mkt<>'DPP4'
-	--update [output_stage]
-	--set Y=B.YTD00,
-	--IntY=B.YTD00 from [output_stage] A inner join dbo.OutputKeyBrandPerformanceByRegionGrowth_For_Baraclude_Slide6 B
-	--on A.X=B.audi_des and A.Series=B.Productname and a.Product = B.market and A.Currency=B.moneytype
-	--and A.timeFrame='YTD' where B.Class='N'and A.LinkChartCode=@code and A.ISshow='L' --and B.Mkt<>'DPP4'
+		and A.timeFrame='MTH'
+	where B.Class='N'and A.LinkChartCode=@code and A.ISshow='L' --and B.Mkt<>'DPP4'
+
+	update [output_stage]
+	set Y=B.MAT00,
+		IntY=B.MAT00 
+	from [output_stage] A inner join dbo.OutputKeyBrandPerformanceByRegionGrowth_For_Baraclude_Slide6 B
+	on A.X=B.audi_des and A.Series=B.Productname and a.Product = B.market and A.Currency=B.moneytype
+		and A.timeFrame='MAT' 
+	where B.Class='N'and A.LinkChartCode=@code and A.ISshow='L' --and B.Mkt<>'DPP4'
+
+	update [output_stage]
+	set Y=B.YTD00,
+		IntY=B.YTD00 
+	from [output_stage] A 
+	inner join dbo.OutputKeyBrandPerformanceByRegionGrowth_For_Baraclude_Slide6 B
+	on A.X=B.audi_des and A.Series=B.Productname and a.Product = B.market and A.Currency=B.moneytype
+		and A.timeFrame='YTD' 
+	where B.Class='N'and A.LinkChartCode=@code and A.ISshow='L' --and B.Mkt<>'DPP4'
 
 
 
@@ -2211,32 +2397,35 @@ go
 	if exists (select * from dbo.sysobjects where id = object_id(N'tblDivNumber_ForD022') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
 	drop table tblDivNumber_ForD022
 	go
-	select linkchartcode,currency,timeFrame,geo,Product,X, case --when max(cast(y as float)) between 5000 and 5000000 then 1000
-	when max(cast(y as float)) between 5000 and 5000000000 then 1000000
-	when max(cast(y as float)) >= 5000000000 then 1000000000 else 1 end as divide,
-	case --when max(cast(y as float)) between 5000 and 5000000 then 'K'
-	when max(cast(y as float)) between 5000 and 5000000000 then ' mio.'
-	when max(cast(y as float)) >= 5000000000 then ' bn.' else '' end as Dol
-	into tblDivNumber_ForD022 from output_stage A where seriesidx=0
-	and linkchartcode in('D022','D032','D042','C140','C900')
+	select linkchartcode,currency,timeFrame,geo,Product,X, 
+		case --when max(cast(y as float)) between 5000 and 5000000 then 1000
+			when max(cast(y as float)) between 5000 and 5000000000 then 1000000
+			when max(cast(y as float)) >= 5000000000 then 1000000000 else 1 end as divide,
+		case --when max(cast(y as float)) between 5000 and 5000000 then 'K'
+			when max(cast(y as float)) between 5000 and 5000000000 then ' mio.'
+			when max(cast(y as float)) >= 5000000000 then ' bn.' else '' end as Dol
+	into tblDivNumber_ForD022 
+	from output_stage A 
+	where seriesidx=0 and linkchartcode in('D022','D032','D042','C140','C900')
 	group by linkchartcode,currency,timeFrame,geo,Product,X
 	go
 	update output_stage
-	set seriesidx=10000 where seriesidx=0
-	and linkchartcode in('D022','D032','D042','C140','C900') and isshow='Y'
+	set seriesidx=10000 
+	where seriesidx=0 and linkchartcode in('D022','D032','D042','C140','C900') and isshow='Y'
 
 	go
 	update output_stage
 	set x=A.X+Char(13)+'('+left(convert(varchar(50),cast(cast(B.IntY as float) as money),1),len(convert(varchar(50),cast(cast(B.IntY as float) as money),1))-3)+')'--A.x+' ('+cast(round(cast(B.y as float)*1.0/C.divide,1) as varchar(20))+C.dol+')'
-	FROM output_stage a INNER JOIN (select * from output_stage where seriesidx='10000') b
+	FROM output_stage a 
+	INNER JOIN (select * from output_stage where seriesidx='10000') b
 	ON A.linkchartcode=b.linkchartcode and a.product=b.product and a.lev=b.lev and a.geo=b.geo 
-	and a.category=b.category and a.currency=b.currency and a.timeframe=b.timeframe
-	AND A.X=B.X
-	and isnull(a.isshow,'')=isnull(b.isshow,'')
-	and a.isshow='Y' and A.linkchartcode in ('D022','D032','D042','C140','C900')
+		and a.category=b.category and a.currency=b.currency and a.timeframe=b.timeframe
+		AND A.X=B.X
+		and isnull(a.isshow,'')=isnull(b.isshow,'')
+		and a.isshow='Y' and A.linkchartcode in ('D022','D032','D042','C140','C900')
 	left join tblDivNumber_ForD022 C
 	on A.timeframe=C.timeframe and A.Currency=C.Currency
-	and A.linkchartcode=C.linkchartcode and A.geo=C.geo and A.product=C.Product and A.X=C.X
+		and A.linkchartcode=C.linkchartcode and A.geo=C.geo and A.product=C.Product and A.X=C.X
 	go
 	DELETE FROM output_stage
 	WHERE seriesidx='10000' and linkchartcode in ('D022','D032','D042','C140','C900')and isshow='Y'
@@ -2251,9 +2440,9 @@ go
 	insert into [output_stage] (isshow,ParentGeo,Geo,Product,lev,TimeFrame,LinkChartCode, Series, SeriesIdx,Currency, X, XIdx)
 	select isshow,Region,Audi_des,b.Market,'City',a.Period, @code as Code, B.Productname,B.prod,MoneyType, a.Series,a.SeriesIdx
 	from (
-		select 'MQT' as Period,'R3M00' as Series,					6 as SeriesIdx union all
-		select 'MQT' as Period,'R3M01' as Series,				5 as SeriesIdx union all
-		select 'MQT' as Period,'R3M02' as Series,		4 as SeriesIdx union all
+		select 'MQT' as Period,'R3M00' as Series,	6 as SeriesIdx union all
+		select 'MQT' as Period,'R3M01' as Series,	5 as SeriesIdx union all
+		select 'MQT' as Period,'R3M02' as Series,	4 as SeriesIdx union all
 		select 'MQT' as Period,'R3M03' as Series,	3 as SeriesIdx union all
 		select 'MQT' as Period,'R3M04' as Series,	2 as SeriesIdx union all
 		select 'MQT' as Period,'R3M05' as Series,	1 as SeriesIdx union all
@@ -2460,7 +2649,9 @@ go
 
 			set @SQL2='
 				update [output_stage]
-				set Y=B.'+@Series+ ' from [output_stage] A inner join dbo.OutputCityPerformanceByBrand_For_OtherETV B
+				set Y=B.'+@Series+ ' 
+				from [output_stage] A 
+				inner join dbo.OutputCityPerformanceByBrand_For_OtherETV B
 				on A.Currency=B.MoneyType and A.X='
 				+''''+@Series+''''+'and B.Chart=''Market Share Trend'' and B.Class=''N'' and  B.molecule=''N'' 
 				and B.mkt NOT in(''DPP4'',''Eliquis NOAC'',''Eliquis VTet'') and not (mkt = ''Eliquis VTep'' and Prod = ''600''  )

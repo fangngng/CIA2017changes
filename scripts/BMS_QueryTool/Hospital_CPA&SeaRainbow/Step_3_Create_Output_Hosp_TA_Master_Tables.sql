@@ -62,10 +62,12 @@ select DataType, MktType, Mkt, MktName, City_EN as Geo,
 	M24*rat, M23*rat, M22*rat, M21*rat, M20*rat, M19*rat, M18*rat, M17*rat, M16*rat, M15*rat, M14*rat, M13*rat, 
 	M12*rat, M11*rat, M10*rat, M09*rat, M08*rat, M07*rat, M06*rat, M05*rat, M04*rat, M03*rat, M02*rat, M01*rat
 from tblQueryToolDriverHosp t1
- inner join tblHospitalDataCT t2 on t1.Pack_Cod=t2.Pack_Cod
+inner join tblHospitalDataCT t2 on t1.Pack_Cod=t2.Pack_Cod
 inner join tblHospitalList t3 on t2.CPA_ID=t3.Hosp_ID
 go
-Update t1 set t1.Uniq_Prod='Y' from tblOutput_Hosp_TA_Master t1 
+Update t1 
+set t1.Uniq_Prod='Y' 
+from tblOutput_Hosp_TA_Master t1 
 inner join tblProdMoleUnique t2 on t1.Molecule_Code =t2.Mole_cod and t1.Product_Code=t2.Prod_cod
 go
 

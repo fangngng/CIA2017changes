@@ -1,4 +1,4 @@
-USE BMSChinaCIA_IMS
+USE BMSChinaCIA_IMS_test
 GO
 --  这个脚本跑完以后，CPA 以及 QueryTool就可以开始跑了。
 
@@ -28,7 +28,7 @@ from (
      select distinct PROD_COD, GENE_COD from DB82.TempOutput.DBO.MTHCHPA_PKAU
      union all
     --  select distinct PROD_COD, GENE_COD from DB82.TempOutput.DBO.MTHCITY_PKAU
-     select distinct PROD_COD, GENE_COD from DB4.BMSChinaCIA_IMS.dbo.Max_Data
+     select distinct PROD_COD, GENE_COD from DB4.BMSChinaCIA_IMS_test.dbo.Max_Data
      ) a 
 go
 

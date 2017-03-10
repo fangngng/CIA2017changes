@@ -1,8 +1,8 @@
 /*
-outputgeo表一般不会变，只有客户需要变动的时候才手工处理一下。
+outputgeo锟斤拷一锟姐不锟斤拷锟戒，只锟叫客伙拷锟斤拷要锟戒动锟斤拷时锟斤拷锟斤拷锟街癸拷锟斤拷锟斤拷一锟铰★拷
 
 */
-use BMSChinaCIA_IMS --db4
+use BMSChinaCIA_IMS_test --db4
 GO
 
 
@@ -20,7 +20,7 @@ GO
 ----
 --truncate table outputgeo
 --go
----- 281条记录
+---- 281锟斤拷锟斤拷录
 --
 --
 --insert outputgeo(Geo,Geoname,lev,Product,parentGeo,Geoidx)
@@ -39,7 +39,7 @@ GO
 --go
 ----
 --update outputgeo
---set geoname=B.geoname from outputgeo A inner join BMSChinaCIA_IMS_201109.dbo.outputgeo B
+--set geoname=B.geoname from outputgeo A inner join BMSChinaCIA_IMS_test_201109.dbo.outputgeo B
 --on A.geo=B.geo
 --go
 --update outputgeo
@@ -101,7 +101,7 @@ GO
 --      ,[GeoIdx]
 --      ,[ParentID]
 --      ,[ProductID]
---FROM [BMSChinaCIA_IMS].[dbo].[outputgeo]
+--FROM [BMSChinaCIA_IMS_test].[dbo].[outputgeo]
 --where Product = 'Taxol'
 --
 --2013/8/6 17:34:22
@@ -117,17 +117,17 @@ GO
 
 --Add Eliquis's Geo Information
 
---insert into bmsChinaCIA_IMS.dbo.outputgeo (Geo,GeoName,Lev,Product,ParentGeo,GeoIdx,parentID,ProductID)
+--insert into BMSChinaCIA_IMS_test.dbo.outputgeo (Geo,GeoName,Lev,Product,ParentGeo,GeoIdx,parentID,ProductID)
 --select 
 --Geo,GeoName,Lev,'Eliquis',ParentGeo,GeoIdx,parentID,19 as ProductID
---from bmsChinaCIA_IMS.dbo.outputgeo where product='Monopril'
+--from BMSChinaCIA_IMS_test.dbo.outputgeo where product='Monopril'
 
 
 
 
 --2013/8/12 10:20:50
---由于多次出现此表被改动导致web数据出不来等等
---于是将此表先设置为只读:
+--锟斤拷锟节讹拷锟轿筹拷锟街此憋拷锟斤拷锟侥讹拷锟斤拷锟斤拷web锟斤拷锟捷筹拷锟斤拷锟斤拷锟饺碉拷
+--锟斤拷锟角斤拷锟剿憋拷锟斤拷锟斤拷锟斤拷为只锟斤拷:
 
 --CREATE TRIGGER trReadOnly_outputgeo ON outputgeo  
 --    INSTEAD OF INSERT,   
@@ -140,7 +140,7 @@ GO
 --END  
 --
 --
-----取消
+----取锟斤拷
 --drop TRIGGER trReadOnly_outputgeo 
 
 

@@ -16,7 +16,7 @@ GO
 --backup
 declare @curDate_IMS varchar(6), @lastDate_IMS varchar(6)
   
-select @curDate_IMS= [Value] from DB4.BMSChinaCIA_IMS.dbo.Config where Parameter = 'IMS'
+select @curDate_IMS= [Value] from DB4.BMSChinaCIA_IMS_test.dbo.Config where Parameter = 'IMS'
 set @lastDate_IMS = convert(varchar(6), dateadd(month, -1, cast(@curDate_IMS+'01' as datetime)), 112)
 --staging
 exec('
@@ -120,7 +120,7 @@ select
       ,[G]
       ,[B] 
       ,[IsShow] 
-from db4.BMSChinaCIA_IMS.dbo.output
+from db4.BMSChinaCIA_IMS_test.dbo.output
 where linkchartcode not like 'R%'
 go
 
@@ -156,7 +156,7 @@ set Y=OtherParameters where linkchartcode in ('R420','R430') and isshow='N'
 --where linkchartcode in (select linkchartcode from tblOutputlinkchartcode)
 
 insert into dbo.webChartTitle(LinkGeoID,LinkProductID,[LinkChartCode],[Category],[Product],[Lev] ,ParentGeo,[Geo],[Currency],[TimeFrame] ,[Caption],[SubCaption],slidetitle,YAxisName,[PYAxisName],[SYAxisName] ,[Templatename],[Outputname],[ParentCode],[CategoryIdx],TimeFrameIdx,DataSource)
-select * from db4.BMSChinaCIA_IMS.dbo.WebChartTitle
+select * from db4.BMSChinaCIA_IMS_test.dbo.WebChartTitle
 
 
 
@@ -169,7 +169,7 @@ select * from db4.BMSChinaCIA_IMS.dbo.WebChartTitle
 select  
       code
       ,count( code)
-from db4.BMSChinaCIA_IMS.dbo.WebChartSeries
+from db4.BMSChinaCIA_IMS_test.dbo.WebChartSeries
 group by code having count( code)>1
 
 insert into dbo.webChartSeries(DataSource,[Code]
@@ -197,7 +197,7 @@ select  DataSource,
       ,[AnchorBorderThickness]
       ,[IsSingle]
       ,[Remark]  
-from db4.BMSChinaCIA_IMS.dbo.WebChartSeries
+from db4.BMSChinaCIA_IMS_test.dbo.WebChartSeries
 
 go
 
@@ -208,7 +208,7 @@ go
 insert into dbo.weboutputgeo
       (ID,geo,geoname,lev,idx,Parentid,ParentGeo,linkproductid,Product)
 select id,geo,geoname,lev,geoIDx,Parentid,ParentGeo,productid ,Product
-from  db4.BMSChinaCIA_IMS.dbo.outputgeo
+from  db4.BMSChinaCIA_IMS_test.dbo.outputgeo
 
 
 
@@ -268,7 +268,7 @@ select DataSource,
       ,[G]
       ,[B] 
       ,[IsShow] 
-from db4.BMSChinaCIA_IMS.dbo.output 
+from db4.BMSChinaCIA_IMS_test.dbo.output 
 
 
 DELETE FROM dbo.output_ppt 
@@ -312,10 +312,10 @@ select distinct DataSource,
       , 1 as [XIdx]
       , b.Region as Y
       ,[IsShow] 
-from db4.BMSChinaCIA_IMS.dbo.output a 
+from db4.BMSChinaCIA_IMS_test.dbo.output a 
 join (
 	select Geo as city, ParentGeo as Region 
-	from db4.BMSChinaCIA_IMS.dbo.outputgeo 
+	from db4.BMSChinaCIA_IMS_test.dbo.outputgeo 
       where (product='coniel' and lev=2) or parentgeo is null
 ) b  on a.Series= case when b.city='China' then 'China(CHPA)' else b.city end
 where a.LinkChartCode in ('R630','R620','R720','R730')
@@ -342,7 +342,7 @@ select DataSource,
       ,[Outputname]
       ,[ParentCode]
       ,[CategoryIdx] 
-from db4.BMSChinaCIA_IMS.dbo.WebChartTitle
+from db4.BMSChinaCIA_IMS_test.dbo.WebChartTitle
 go
 
 insert into dbo.outputgeo(ID,geo,geoname,lev,product,ParentGeo,Geoidx)
@@ -354,7 +354,7 @@ select
       ,product
       ,ParentGeo
       ,Geoidx 
-from db4.BMSChinaCIA_IMS.dbo.outputgeo
+from db4.BMSChinaCIA_IMS_test.dbo.outputgeo
 
 
 

@@ -1,4 +1,4 @@
-use BMSChinaCIA_IMS --db4
+use BMSChinaCIA_IMS_test --db4
 GO
 
 
