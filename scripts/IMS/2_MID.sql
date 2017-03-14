@@ -68,7 +68,7 @@ DECLARE TMP_CURSOR CURSOR
 READ_ONLY
 FOR select [Type]  from dbo.tblMoneyType
 DECLARE @MoneyType varchar(10)
-DECLARE @SQL2 VARCHAR(8000)
+DECLARE @SQL2 VARCHAR(max)
 	
 OPEN TMP_CURSOR
 	
@@ -194,7 +194,7 @@ DECLARE TMP_CURSOR CURSOR
 READ_ONLY
 FOR select [Type]  from dbo.tblMoneyType
 DECLARE @MoneyType varchar(10)
-DECLARE @SQL2 VARCHAR(8000)
+DECLARE @SQL2 VARCHAR(max)
 	
 OPEN TMP_CURSOR
 	
@@ -676,7 +676,7 @@ DECLARE TMP_CURSOR CURSOR
 READ_ONLY
 FOR select [Type]  from dbo.tblMoneyType
 DECLARE @MoneyType varchar(10)
-DECLARE @SQL2 VARCHAR(8000)
+DECLARE @SQL2 VARCHAR(max)
 	
 OPEN TMP_CURSOR
 	
@@ -1093,7 +1093,7 @@ DECLARE TMP_CURSOR CURSOR
 READ_ONLY
 FOR select [Type]  from dbo.tblMoneyType
 DECLARE @MoneyType varchar(10)
-DECLARE @SQL2 VARCHAR(8000)
+DECLARE @SQL2 VARCHAR(max)
 	
 OPEN TMP_CURSOR
 	
@@ -1145,7 +1145,7 @@ DECLARE TMP_CURSOR CURSOR
 READ_ONLY
 FOR select [Type]  from dbo.tblMoneyType
 DECLARE @MoneyType varchar(10)
-DECLARE @SQL2 VARCHAR(8000)
+DECLARE @SQL2 VARCHAR(max)
 	
 OPEN TMP_CURSOR
 	
@@ -1311,7 +1311,7 @@ DECLARE TMP_CURSOR CURSOR
 READ_ONLY
 FOR select [Type]  from dbo.tblMoneyType
 DECLARE @MoneyType varchar(10)
-DECLARE @SQL2 VARCHAR(8000)
+DECLARE @SQL2 VARCHAR(max)
 	
 OPEN TMP_CURSOR
 	
@@ -1368,7 +1368,7 @@ DECLARE TMP_CURSOR CURSOR
 READ_ONLY
 FOR select [Type]  from dbo.tblMoneyType
 DECLARE @MoneyType varchar(10)
-DECLARE @SQL2 VARCHAR(8000)
+DECLARE @SQL2 VARCHAR(max)
 	
 OPEN TMP_CURSOR
 	
@@ -1541,7 +1541,7 @@ DECLARE TMP_CURSOR CURSOR
 READ_ONLY
 FOR select [Type]  from dbo.tblMoneyType
 DECLARE @MoneyType varchar(10)
-DECLARE @SQL2 VARCHAR(8000)
+DECLARE @SQL2 VARCHAR(max)
 	
 OPEN TMP_CURSOR
 	
@@ -2095,6 +2095,19 @@ CREATE TABLE [dbo].OutputProdSalesPerformanceInChina(
 	[Mat24] [float] NULL,
 	[Mat36] [float] NULL,
 	[Mat48] [float] NULL,
+
+	[MQT00] [float] NULL,
+	[MQT12] [float] NULL,
+	[MQT24] [float] NULL,
+	[MQT36] [float] NULL,
+	[MQT48] [float] NULL,
+
+	[YTD00] [float] NULL,
+	[YTD12] [float] NULL,
+	[YTD24] [float] NULL,
+	[YTD36] [float] NULL,
+	[YTD48] [float] NULL,
+
     [Mth06] [float] NULL,
 	[Mth07] [float] NULL,
 	[Mth08] [float] NULL,
@@ -2123,7 +2136,7 @@ READ_ONLY
 FOR select [Type]  from dbo.tblMoneyType
 DECLARE @MoneyType varchar(10)
 DECLARE @Rat varchar(10)
-DECLARE @SQL2 VARCHAR(8000)
+DECLARE @SQL2 VARCHAR(max)
 	
 OPEN TMP_CURSOR
 	
@@ -2160,7 +2173,7 @@ BEGIN
 		where B.prod=''000'' and B.mkt in(''DPP4'',''NIAD'',''ARV'',''ONCFCS'',''HYP'',''CCB'',''Platinum'') and Molecule=''N'' and Class=''N'' and B.Active=''Y''
 		group by B.mkt
 
-		insert into OutputProdSalesPerformanceInChina([TypeIdx],[Type] ,[Period],[MoneyType],Market,[Prod_cod],[Prod_des],[Mat00],[Mat12],[Mat24],[Mat36],[Mat48])
+		insert into OutputProdSalesPerformanceInChina([TypeIdx],[Type] ,[Period],[MoneyType],Market,[Prod_cod],[Prod_des],[MQT00],[MQT12],[MQT24],[MQT36],[MQT48])
 		select 1,''Product'',''MQT'','+'''' +@MoneyType+''''+',B.mkt,a.prod_cod,''''
 			,sum(R3M00' +@MoneyType+@Rat+'),sum(R3M12' +@MoneyType+@Rat+'),sum(R3M24' +@MoneyType+@Rat+')
 			,sum(R3M36' +@MoneyType+@Rat+') ,sum(R3M48' +@MoneyType+@Rat+')
@@ -2173,7 +2186,7 @@ BEGIN
         on A.pack_cod=B.pack_cod
         group by B.mkt,a.prod_cod
 
-		insert into OutputProdSalesPerformanceInChina([TypeIdx],[Type] ,[Period],[MoneyType],Market,[Prod_cod],[Prod_des],[Mat00],[Mat12],[Mat24],[Mat36],[Mat48])
+		insert into OutputProdSalesPerformanceInChina([TypeIdx],[Type] ,[Period],[MoneyType],Market,[Prod_cod],[Prod_des],[MQT00],[MQT12],[MQT24],[MQT36],[MQT48])
 		select 3,''Market Size'',''MQT'','+'''' +@MoneyType+''''+',B.mkt,B.mkt,''''
 			,sum(R3M00' +@MoneyType+@Rat+'),sum(R3M12' +@MoneyType+@Rat+'),sum(R3M24' +@MoneyType+@Rat+')
 			,sum(R3M36' +@MoneyType+@Rat+') ,sum(R3M48' +@MoneyType+@Rat+')
@@ -2182,7 +2195,7 @@ BEGIN
 		where B.prod=''000'' and B.mkt in(''DPP4'',''NIAD'',''ARV'',''ONCFCS'',''HYP'',''CCB'',''Platinum'') and Molecule=''N'' and Class=''N'' and B.Active=''Y''
 		group by B.mkt
 
-		insert into OutputProdSalesPerformanceInChina([TypeIdx],[Type] ,[Period],[MoneyType],Market,[Prod_cod],[Prod_des],[Mat00],[Mat12],[Mat24],[Mat36],[Mat48])
+		insert into OutputProdSalesPerformanceInChina([TypeIdx],[Type] ,[Period],[MoneyType],Market,[Prod_cod],[Prod_des],[YTD00],[YTD12],[YTD24],[YTD36],[YTD48])
 		select 1,''Product'',''YTD'','+'''' +@MoneyType+''''+',B.mkt,a.prod_cod,''''
 			,sum(YTD00' +@MoneyType+@Rat+'),sum(YTD12' +@MoneyType+@Rat+') ,sum(YTD24' +@MoneyType+@Rat+')
 			,sum(YTD36' +@MoneyType+@Rat+') ,sum(YTD48' +@MoneyType+@Rat+')
@@ -2196,7 +2209,7 @@ BEGIN
         group by B.mkt,a.prod_cod
 
 
-		insert into OutputProdSalesPerformanceInChina([TypeIdx],[Type] ,[Period],[MoneyType],Market,[Prod_cod],[Prod_des],[Mat00],[Mat12],[Mat24],[Mat36],[Mat48])
+		insert into OutputProdSalesPerformanceInChina([TypeIdx],[Type] ,[Period],[MoneyType],Market,[Prod_cod],[Prod_des],[YTD00],[YTD12],[YTD24],[YTD36],[YTD48])
 		select 3, ''Market Size'',''YTD'','+'''' +@MoneyType+''''+',B.mkt,B.mkt,''''
 			,sum(YTD00' +@MoneyType+@Rat+'),sum(YTD12' +@MoneyType+@Rat+') ,sum(YTD24' +@MoneyType+@Rat+')
 			,sum(YTD36' +@MoneyType+@Rat+') ,sum(YTD48' +@MoneyType+@Rat+')
@@ -2208,7 +2221,8 @@ BEGIN
 	    print @SQL2
 		exec( @SQL2)
 
-       set @SQL2='insert into OutputProdSalesPerformanceInChina
+       set @SQL2='insert into OutputProdSalesPerformanceInChina([TypeIdx],[Type] ,[Period],[MoneyType],Market,[Prod_cod],[Prod_des],[Mat00],[Mat12],[Mat24],[Mat36],[Mat48],
+	   		[Mth06], [Mth07], [Mth08], [Mth09], [Mth10], [Mth11], [Mth12], [Mth13], [Mth14], [Mth15], [Mth16], [Mth17], [Mth18], [Mth19], [Mth20], [Mth21], [Mth22], [Mth23], [Mth24])
 		select 1,''Product'',''MTH'','+'''' +@MoneyType+''''+',B.mkt,a.prod_cod,''''
 			,sum(MTH00' +@MoneyType+@Rat+')
 			,sum(MTH01' +@MoneyType+@Rat+')
@@ -2247,7 +2261,8 @@ BEGIN
         group by B.mkt,a.prod_cod
 
 
-		insert into OutputProdSalesPerformanceInChina
+		insert into OutputProdSalesPerformanceInChina([TypeIdx],[Type] ,[Period],[MoneyType],Market,[Prod_cod],[Prod_des],[Mat00],[Mat12],[Mat24],[Mat36],[Mat48],
+	   		[Mth06], [Mth07], [Mth08], [Mth09], [Mth10], [Mth11], [Mth12], [Mth13], [Mth14], [Mth15], [Mth16], [Mth17], [Mth18], [Mth19], [Mth20], [Mth21], [Mth22], [Mth23], [Mth24])
 		select 3,''Market Size'',''MTH'','+'''' +@MoneyType+''''+',B.mkt,B.mkt,''''
 			,sum(MTH00' +@MoneyType+@Rat+')
 			,sum(MTH01' +@MoneyType+@Rat+')
@@ -2294,7 +2309,7 @@ READ_ONLY
 FOR select [Type]  from dbo.tblMoneyType
 DECLARE @MoneyType varchar(10)
 DECLARE @Rat varchar(10)
-DECLARE @SQL2 VARCHAR(8000)
+DECLARE @SQL2 VARCHAR(max)
 	
 OPEN TMP_CURSOR
 	
@@ -2329,7 +2344,7 @@ BEGIN
 		where B.prod=''000'' and B.mkt in(''ELIQUIS VTEp'',''ELIQUIS VTEt'',''ELIQUIS NOAC'') and Molecule=''N'' and Class=''N'' and B.Active=''Y''
 		group by B.mkt
 
-		insert into OutputProdSalesPerformanceInChina([TypeIdx],[Type] ,[Period],[MoneyType],Market,[Prod_cod],[Prod_des],[Mat00],[Mat12],[Mat24],[Mat36],[Mat48])
+		insert into OutputProdSalesPerformanceInChina([TypeIdx],[Type] ,[Period],[MoneyType],Market,[Prod_cod],[Prod_des],[MQT00],[MQT12],[MQT24],[MQT36],[MQT48])
 		select 1,''Product'',''MQT'','+'''' +@MoneyType+''''+',B.mkt,a.prod_cod,''''
 			,sum(R3M00' +@MoneyType+@Rat+'),sum(R3M12' +@MoneyType+@Rat+'),sum(R3M24' +@MoneyType+@Rat+')
 			,sum(R3M36' +@MoneyType+@Rat+') ,sum(R3M48' +@MoneyType+@Rat+')
@@ -2341,7 +2356,7 @@ BEGIN
         on A.pack_cod=B.pack_cod
         group by B.mkt,a.prod_cod
 
-		insert into OutputProdSalesPerformanceInChina([TypeIdx],[Type] ,[Period],[MoneyType],Market,[Prod_cod],[Prod_des],[Mat00],[Mat12],[Mat24],[Mat36],[Mat48])
+		insert into OutputProdSalesPerformanceInChina([TypeIdx],[Type] ,[Period],[MoneyType],Market,[Prod_cod],[Prod_des],[MQT00],[MQT12],[MQT24],[MQT36],[MQT48])
 		select 3,''Market Size'',''MQT'','+'''' +@MoneyType+''''+',B.mkt,B.mkt,''''
 			,sum(R3M00' +@MoneyType+@Rat+'),sum(R3M12' +@MoneyType+@Rat+'),sum(R3M24' +@MoneyType+@Rat+')
 			,sum(R3M36' +@MoneyType+@Rat+') ,sum(R3M48' +@MoneyType+@Rat+')
@@ -2351,7 +2366,7 @@ BEGIN
 		where B.prod=''000'' and B.mkt in(''ELIQUIS VTEp'',''ELIQUIS VTEt'',''ELIQUIS NOAC'') and Molecule=''N'' and Class=''N'' and B.Active=''Y''
 		group by B.mkt
 
-		insert into OutputProdSalesPerformanceInChina([TypeIdx],[Type] ,[Period],[MoneyType],Market,[Prod_cod],[Prod_des],[Mat00],[Mat12],[Mat24],[Mat36],[Mat48])
+		insert into OutputProdSalesPerformanceInChina([TypeIdx],[Type] ,[Period],[MoneyType],Market,[Prod_cod],[Prod_des],[YTD00],[YTD12],[YTD24],[YTD36],[YTD48])
 		select 1,''Product'',''YTD'','+'''' +@MoneyType+''''+',B.mkt,a.prod_cod,''''
 			,sum(YTD00' +@MoneyType+@Rat+'),sum(YTD12' +@MoneyType+@Rat+') ,sum(YTD24' +@MoneyType+@Rat+')
 			,sum(YTD36' +@MoneyType+@Rat+') ,sum(YTD48' +@MoneyType+@Rat+')
@@ -2363,7 +2378,7 @@ BEGIN
         group by B.mkt,a.prod_cod
 
 
-		insert into OutputProdSalesPerformanceInChina([TypeIdx],[Type] ,[Period],[MoneyType],Market,[Prod_cod],[Prod_des],[Mat00],[Mat12],[Mat24],[Mat36],[Mat48])
+		insert into OutputProdSalesPerformanceInChina([TypeIdx],[Type] ,[Period],[MoneyType],Market,[Prod_cod],[Prod_des],[YTD00],[YTD12],[YTD24],[YTD36],[YTD48])
 		select 3, ''Market Size'',''YTD'','+'''' +@MoneyType+''''+',B.mkt,B.mkt,''''
 			,sum(YTD00' +@MoneyType+@Rat+'),sum(YTD12' +@MoneyType+@Rat+') ,sum(YTD24' +@MoneyType+@Rat+')
 			,sum(YTD36' +@MoneyType+@Rat+') ,sum(YTD48' +@MoneyType+@Rat+')
@@ -2374,7 +2389,8 @@ BEGIN
 	    print @SQL2
 		exec( @SQL2)
 
-       set @SQL2='insert into OutputProdSalesPerformanceInChina
+       set @SQL2='insert into OutputProdSalesPerformanceInChina([TypeIdx],[Type] ,[Period],[MoneyType],Market,[Prod_cod],[Prod_des],[Mat00],[Mat12],[Mat24],[Mat36],[Mat48],
+	   		[Mth06], [Mth07], [Mth08], [Mth09], [Mth10], [Mth11], [Mth12], [Mth13], [Mth14], [Mth15], [Mth16], [Mth17], [Mth18], [Mth19], [Mth20], [Mth21], [Mth22], [Mth23], [Mth24])
 		select 1,''Product'',''MTH'','+'''' +@MoneyType+''''+',B.mkt,a.prod_cod,'''',sum(MTH00' +@MoneyType+@Rat+')
 			,sum(MTH01' +@MoneyType+@Rat+')
 			,sum(MTH02' +@MoneyType+@Rat+')
@@ -2408,7 +2424,8 @@ BEGIN
         group by B.mkt,a.prod_cod
 
 
-		insert into OutputProdSalesPerformanceInChina
+		insert into OutputProdSalesPerformanceInChina([TypeIdx],[Type] ,[Period],[MoneyType],Market,[Prod_cod],[Prod_des],[Mat00],[Mat12],[Mat24],[Mat36],[Mat48],
+	   		[Mth06], [Mth07], [Mth08], [Mth09], [Mth10], [Mth11], [Mth12], [Mth13], [Mth14], [Mth15], [Mth16], [Mth17], [Mth18], [Mth19], [Mth20], [Mth21], [Mth22], [Mth23], [Mth24])
 		select 3,''Market Size'',''MTH'','+'''' +@MoneyType+''''+',B.mkt,B.mkt,'''',sum(MTH00' +@MoneyType+@Rat+')
 			,sum(MTH01' +@MoneyType+@Rat+')
 			,sum(MTH02' +@MoneyType+@Rat+')
@@ -2484,71 +2501,114 @@ set market=case market
 	else market end
 go
 insert into OutputProdSalesPerformanceInChina([TypeIdx],[Type] ,[Period],[MoneyType],Market,[Prod_cod],[Prod_des]
-	,[Mat00],[Mat12],[Mat24],[Mat36],[Mat48],[Mth06],[Mth07],[Mth08],[Mth09],[Mth10],[Mth11],[Mth12])
+	,[Mat00],[Mat12],[Mat24],[Mat36],[Mat48]
+	,[MQT00],[MQT12],[MQT24],[MQT36],[MQT48]
+	,[YTD00],[YTD12],[YTD24],[YTD36],[YTD48]
+	,[Mth06],[Mth07],[Mth08],[Mth09],[Mth10],[Mth11],[Mth12])
 select 4,'Market Growth',A.Period,A.Moneytype,A.Market,a.prod_cod,a.prod_des,
 	case mat12 when 0 then 0 else (mat00-mat12)/mat12 end,
 	case mat24 when 0 then 0 else (mat12-mat24)/mat24 end,
 	case mat36 when 0 then 0 else (mat24-mat36)/mat36 end,
-	case mat48 when 0 then 0 else (mat36-mat48)/mat48 end,
+	case mat48 when 0 then 0 else (mat36-mat48)/mat48 end, '',
+	case MQT12 when 0 then 0 else (MQT00-MQT12)/MQT12 end,
+	case MQT24 when 0 then 0 else (MQT12-MQT24)/MQT24 end,
+	case MQT36 when 0 then 0 else (MQT24-MQT36)/MQT36 end,
+	case MQT48 when 0 then 0 else (MQT36-MQT48)/MQT48 end, '',
+	case YTD12 when 0 then 0 else (YTD00-YTD12)/YTD12 end,
+	case YTD24 when 0 then 0 else (YTD12-YTD24)/YTD24 end,
+	case YTD36 when 0 then 0 else (YTD24-YTD36)/YTD36 end,
+	case YTD48 when 0 then 0 else (YTD36-YTD48)/YTD48 end, '',
 	case MTH06 when 0 then 0 else (mat48-MTH06)/MTH06 end,
 	case MTH07 when 0 then 0 else (MTH06-MTH07)/MTH07 end,
 	case MTH08 when 0 then 0 else (MTH07-MTH08)/MTH08 end,
 	case MTH09 when 0 then 0 else (MTH08-MTH09)/MTH09 end,
 	case MTH10 when 0 then 0 else (MTH09-MTH10)/MTH10 end,
 	case MTH11 when 0 then 0 else (MTH10-MTH11)/MTH11 end,
-	case MTH12 when 0 then 0 else (MTH11-MTH12)/MTH12 end,
-	'' 
+	case MTH12 when 0 then 0 else (MTH11-MTH12)/MTH12 end
 from OutputProdSalesPerformanceInChina a where [type]='Market Size' and period<>'MTH'
 go
 
-insert into OutputProdSalesPerformanceInChina([TypeIdx],[Type] ,[Period],[MoneyType],Market,[Prod_cod],[Prod_des],[Mat00],[Mat12],[Mat24],[Mat36],[Mat48],[Mth06],[Mth07],[Mth08],[Mth09],[Mth10],[Mth11],[Mth12])
+insert into OutputProdSalesPerformanceInChina([TypeIdx],[Type] ,[Period],[MoneyType],Market,[Prod_cod],[Prod_des]
+	,[Mat00],[Mat12],[Mat24],[Mat36],[Mat48]
+	,[MQT00],[MQT12],[MQT24],[MQT36],[MQT48]
+	,[YTD00],[YTD12],[YTD24],[YTD36],[YTD48]
+	,[Mth06],[Mth07],[Mth08],[Mth09],[Mth10],[Mth11],[Mth12])
 select 5,A.Prod_des+' Growth',A.Period,A.Moneytype,A.Market,a.prod_cod,a.prod_des,
 	case mat12 when 0 then 0 else (mat00-mat12)/mat12 end,
 	case mat24 when 0 then 0 else (mat12-mat24)/mat24 end,
 	case mat36 when 0 then 0 else (mat24-mat36)/mat36 end,
-	case mat48 when 0 then 0 else (mat36-mat48)/mat48 end,
+	case mat48 when 0 then 0 else (mat36-mat48)/mat48 end, '',
+	case MQT12 when 0 then 0 else (MQT00-MQT12)/MQT12 end,
+	case MQT24 when 0 then 0 else (MQT12-MQT24)/MQT24 end,
+	case MQT36 when 0 then 0 else (MQT24-MQT36)/MQT36 end,
+	case MQT48 when 0 then 0 else (MQT36-MQT48)/MQT48 end, '',
+	case YTD12 when 0 then 0 else (YTD00-YTD12)/YTD12 end,
+	case YTD24 when 0 then 0 else (YTD12-YTD24)/YTD24 end,
+	case YTD36 when 0 then 0 else (YTD24-YTD36)/YTD36 end,
+	case YTD48 when 0 then 0 else (YTD36-YTD48)/YTD48 end, '',
 	case MTH06 when 0 then 0 else (mat48-MTH06)/MTH06 end,
 	case MTH07 when 0 then 0 else (MTH06-MTH07)/MTH07 end,
 	case MTH08 when 0 then 0 else (MTH07-MTH08)/MTH08 end,
 	case MTH09 when 0 then 0 else (MTH08-MTH09)/MTH09 end,
 	case MTH10 when 0 then 0 else (MTH09-MTH10)/MTH10 end,
 	case MTH11 when 0 then 0 else (MTH10-MTH11)/MTH11 end,
-	case MTH12 when 0 then 0 else (MTH11-MTH12)/MTH12 end,
-	'' 
+	case MTH12 when 0 then 0 else (MTH11-MTH12)/MTH12 end
  from OutputProdSalesPerformanceInChina a where [type]='Product'  and period<>'MTH'
 go
 
-insert into OutputProdSalesPerformanceInChina([TypeIdx],[Type] ,[Period],[MoneyType],Market,[Prod_cod],[Prod_des],[Mat00],[Mat12],[Mat24],[Mat36],[Mat48],[Mth06],[Mth07],[Mth08],[Mth09],[Mth10],[Mth11],[Mth12])
+insert into OutputProdSalesPerformanceInChina([TypeIdx],[Type] ,[Period],[MoneyType],Market,[Prod_cod],[Prod_des]
+	,[Mat00],[Mat12],[Mat24],[Mat36],[Mat48]
+	,[MQT00],[MQT12],[MQT24],[MQT36],[MQT48]
+	,[YTD00],[YTD12],[YTD24],[YTD36],[YTD48]
+	,[Mth06],[Mth07],[Mth08],[Mth09],[Mth10],[Mth11],[Mth12])
 select 4,'Market Growth',A.Period,A.Moneytype,A.Market,a.prod_cod,a.prod_des,
-	case MTH13 when 0 then 0 else (mat00-MTH13)/MTH13 end,
-	case MTH14 when 0 then 0 else (mat12-MTH14)/MTH14 end,
-	case MTH15 when 0 then 0 else (mat24-MTH15)/MTH15 end,
-	case MTH16 when 0 then 0 else (mat36-MTH16)/MTH16 end,
-	case MTH17 when 0 then 0 else (mat48-MTH17)/MTH17 end,
-	case MTH18 when 0 then 0 else (MTH06-MTH18)/MTH18 end,
-	case MTH19 when 0 then 0 else (MTH07-MTH19)/MTH19 end,
-	case MTH20 when 0 then 0 else (MTH08-MTH20)/MTH20 end,
-	case MTH21 when 0 then 0 else (MTH09-MTH21)/MTH21 end,
-	case MTH22 when 0 then 0 else (MTH10-MTH22)/MTH22 end,
-	case MTH23 when 0 then 0 else (MTH11-MTH23)/MTH23 end,
-	'' 
+	case mat12 when 0 then 0 else (mat00-mat12)/mat12 end,
+	case mat24 when 0 then 0 else (mat12-mat24)/mat24 end,
+	case mat36 when 0 then 0 else (mat24-mat36)/mat36 end,
+	case mat48 when 0 then 0 else (mat36-mat48)/mat48 end, '',
+	case MQT12 when 0 then 0 else (MQT00-MQT12)/MQT12 end,
+	case MQT24 when 0 then 0 else (MQT12-MQT24)/MQT24 end,
+	case MQT36 when 0 then 0 else (MQT24-MQT36)/MQT36 end,
+	case MQT48 when 0 then 0 else (MQT36-MQT48)/MQT48 end, '',
+	case YTD12 when 0 then 0 else (YTD00-YTD12)/YTD12 end,
+	case YTD24 when 0 then 0 else (YTD12-YTD24)/YTD24 end,
+	case YTD36 when 0 then 0 else (YTD24-YTD36)/YTD36 end,
+	case YTD48 when 0 then 0 else (YTD36-YTD48)/YTD48 end, '',
+	case MTH06 when 0 then 0 else (mat48-MTH06)/MTH06 end,
+	case MTH07 when 0 then 0 else (MTH06-MTH07)/MTH07 end,
+	case MTH08 when 0 then 0 else (MTH07-MTH08)/MTH08 end,
+	case MTH09 when 0 then 0 else (MTH08-MTH09)/MTH09 end,
+	case MTH10 when 0 then 0 else (MTH09-MTH10)/MTH10 end,
+	case MTH11 when 0 then 0 else (MTH10-MTH11)/MTH11 end,
+	case MTH12 when 0 then 0 else (MTH11-MTH12)/MTH12 end
  from OutputProdSalesPerformanceInChina a where [type]='Market Size' and period='MTH'
 go
 
-insert into OutputProdSalesPerformanceInChina([TypeIdx],[Type] ,[Period],[MoneyType],Market,[Prod_cod],[Prod_des],[Mat00],[Mat12],[Mat24],[Mat36],[Mat48],[Mth06],[Mth07],[Mth08],[Mth09],[Mth10],[Mth11],[Mth12])
+insert into OutputProdSalesPerformanceInChina([TypeIdx],[Type] ,[Period],[MoneyType],Market,[Prod_cod],[Prod_des]
+	,[Mat00],[Mat12],[Mat24],[Mat36],[Mat48]
+	,[MQT00],[MQT12],[MQT24],[MQT36],[MQT48]
+	,[YTD00],[YTD12],[YTD24],[YTD36],[YTD48]
+	,[Mth06],[Mth07],[Mth08],[Mth09],[Mth10],[Mth11],[Mth12])
 select 5,A.Prod_des+' Growth',A.Period,A.Moneytype,A.Market,a.prod_cod,a.prod_des,
-	case MTH13 when 0 then 0 else (mat00-MTH13)/MTH13 end,
-	case MTH14 when 0 then 0 else (mat12-MTH14)/MTH14 end,
-	case MTH15 when 0 then 0 else (mat24-MTH15)/MTH15 end,
-	case MTH16 when 0 then 0 else (mat36-MTH16)/MTH16 end,
-	case MTH17 when 0 then 0 else (mat48-MTH17)/MTH17 end,
-	case MTH18 when 0 then 0 else (MTH06-MTH18)/MTH18 end,
-	case MTH19 when 0 then 0 else (MTH07-MTH19)/MTH19 end,
-	case MTH20 when 0 then 0 else (MTH08-MTH20)/MTH20 end,
-	case MTH21 when 0 then 0 else (MTH09-MTH21)/MTH21 end,
-	case MTH22 when 0 then 0 else (MTH10-MTH22)/MTH22 end,
-	case MTH23 when 0 then 0 else (MTH11-MTH23)/MTH23 end,
-	'' 
+	case mat12 when 0 then 0 else (mat00-mat12)/mat12 end,
+	case mat24 when 0 then 0 else (mat12-mat24)/mat24 end,
+	case mat36 when 0 then 0 else (mat24-mat36)/mat36 end,
+	case mat48 when 0 then 0 else (mat36-mat48)/mat48 end, '',
+	case MQT12 when 0 then 0 else (MQT00-MQT12)/MQT12 end,
+	case MQT24 when 0 then 0 else (MQT12-MQT24)/MQT24 end,
+	case MQT36 when 0 then 0 else (MQT24-MQT36)/MQT36 end,
+	case MQT48 when 0 then 0 else (MQT36-MQT48)/MQT48 end, '',
+	case YTD12 when 0 then 0 else (YTD00-YTD12)/YTD12 end,
+	case YTD24 when 0 then 0 else (YTD12-YTD24)/YTD24 end,
+	case YTD36 when 0 then 0 else (YTD24-YTD36)/YTD36 end,
+	case YTD48 when 0 then 0 else (YTD36-YTD48)/YTD48 end, '',
+	case MTH06 when 0 then 0 else (mat48-MTH06)/MTH06 end,
+	case MTH07 when 0 then 0 else (MTH06-MTH07)/MTH07 end,
+	case MTH08 when 0 then 0 else (MTH07-MTH08)/MTH08 end,
+	case MTH09 when 0 then 0 else (MTH08-MTH09)/MTH09 end,
+	case MTH10 when 0 then 0 else (MTH09-MTH10)/MTH10 end,
+	case MTH11 when 0 then 0 else (MTH10-MTH11)/MTH11 end,
+	case MTH12 when 0 then 0 else (MTH11-MTH12)/MTH12 end
  from OutputProdSalesPerformanceInChina a where [type]='Product'  and period='MTH'
 go
 
@@ -2632,6 +2692,7 @@ CREATE TABLE [dbo].TempCHPAPreReportsByMNC(
 	[R3M46] float null default 0,
 	[R3M47] float null default 0,
 	[R3M48] float null default 0,
+
 	[MTH00] [float] NULL default 0,
 	[MTH01] [float] NULL default 0,
 	[MTH02] [float] NULL default 0,
@@ -2681,6 +2742,7 @@ CREATE TABLE [dbo].TempCHPAPreReportsByMNC(
 	[MTH46] [float] NULL default 0,
 	[MTH47] [float] NULL default 0,
 	[MTH48] [float] NULL default 0,
+
 	[MAT00] [float] NULL default 0,
 	[MAT01] [float] NULL default 0,
 	[MAT02] [float] NULL default 0,
@@ -2730,6 +2792,7 @@ CREATE TABLE [dbo].TempCHPAPreReportsByMNC(
 	[MAT46] [float] NULL default 0,
 	[MAT47] [float] NULL default 0,
 	[MAT48] [float] NULL default 0,
+
 	[YTD00] [float] NULL default 0,
 	[YTD01] [float] NULL default 0,
 	[YTD02] [float] NULL default 0,
@@ -2779,18 +2842,7 @@ CREATE TABLE [dbo].TempCHPAPreReportsByMNC(
 	[YTD46] [float] NULL default 0,
 	[YTD47] [float] NULL default 0,
 	[YTD48] [float] NULL default 0,
---	[YTD49] [float] NULL default 0,
---	[YTD50] [float] NULL default 0,
---	[YTD51] [float] NULL default 0,
---	[YTD52] [float] NULL default 0,
---	[YTD53] [float] NULL default 0,
---	[YTD54] [float] NULL default 0,
---	[YTD55] [float] NULL default 0,
---	[YTD56] [float] NULL default 0,
---	[YTD57] [float] NULL default 0,
---	[YTD58] [float] NULL default 0,
---	[YTD59] [float] NULL default 0,
---	[YTD60] [float] NULL default 0,
+
   	[Qtr00] [float] NULL default 0,
 	[Qtr01] [float] NULL default 0,
 	[Qtr02] [float] NULL default 0,
@@ -2823,14 +2875,15 @@ go
 
 exec dbo.sp_Log_Event 'MID','CIA','2_MID.sql','TempCHPAPreReportsByMNC',null,null
 
-declare @i int,@sql varchar(8000),@sql1 varchar(8000),@sql3 varchar(8000),@sqlMAT varchar(8000),@sqlYTD varchar(8000),@sqlQtr varchar(8000)
+declare @i int,@sql varchar(max),@sql1 varchar(max),@sql3 varchar(max),@sqlMAT varchar(max),
+	@sqlYTD varchar(max),@sqlQtr varchar(max), @sqlMQT varchar(max)
 
 DECLARE TMP_CURSOR CURSOR
 READ_ONLY
 FOR select [Type]  from dbo.tblMoneyType
 DECLARE @MoneyType varchar(10)
-DECLARE @SQL2 VARCHAR(8000)
-DECLARE @SQL4 VARCHAR(8000)	
+DECLARE @SQL2 VARCHAR(max)
+DECLARE @SQL4 VARCHAR(max)	
 OPEN TMP_CURSOR
 	
 FETCH NEXT FROM TMP_CURSOR INTO @MoneyType
@@ -2872,6 +2925,7 @@ BEGIN
 		end
         set @sqlYTD=left(@sqlYTD,len(@sqlYTD)-1)
 
+
         set @i=0
 		set @sqlQtr=''
 		while (@i<=19)
@@ -2885,8 +2939,9 @@ BEGIN
 		set @SQL2='insert into TempCHPAPreReportsByMNC 
 		select  B.Molecule,B.Class,B.mkt,B.mktname,B.mkt,B.prod,B.Productname,
 			A.MNFL_COD,
-			'+'''' +left(@MoneyType,2)+''''+' as Moneytype, '+@sql1+', '
-			set @sql4=@sql3+', '+@sqlMAT+', '+@sqlYTD+', '+@sqlQtr+'
+			'+'''' +left(@MoneyType,2)+''''+' as Moneytype, '+@sql1+', ' + @sql3 + ', '
+		
+		set @SQL4= @sqlMAT+', '+@sqlYTD+ ', ' +@sqlQtr+'
 		from mthCHPA_pkau A inner join tblMktDef_MRBIChina B
         on A.pack_cod=B.pack_cod where B.Active=''Y''
 		group by B.Molecule,B.Class,B.mkt,B.mktname,B.prod,B.Productname, A.MNFL_COD'
@@ -2916,13 +2971,14 @@ set Market=case Market when 'ONC' then 'Taxol'
 
 
 exec dbo.sp_Log_Event 'MID','CIA','2_MID.sql','TempCHPAPreReports',null,null
-declare @i int,@sql varchar(8000),@sql1 varchar(8000),@sql3 varchar(8000),@sqlMAT varchar(8000),@sqlYTD varchar(8000),@sqlQtr varchar(8000)
+declare @i int,@sql varchar(max),@sql1 varchar(max),@sql3 varchar(max),@sqlMAT varchar(max),
+	@sqlYTD varchar(max),@sqlQtr varchar(max), @sqlMQT varchar(max)
 DECLARE TMP_CURSOR CURSOR
 READ_ONLY
 FOR select [Type]  from dbo.tblMoneyType
 DECLARE @MoneyType varchar(10)
-DECLARE @SQL2 VARCHAR(8000)
-DECLARE @SQL4 VARCHAR(8000)	
+DECLARE @SQL2 VARCHAR(max)
+DECLARE @SQL4 VARCHAR(max)	
 OPEN TMP_CURSOR
 	
 FETCH NEXT FROM TMP_CURSOR INTO @MoneyType
@@ -2934,80 +2990,6 @@ BEGIN
 		print @MoneyType
 		if @MoneyType='UN'
 		set @MoneyType=@MoneyType+'/b.rat'
-		set @i=0
-		set @sql1=''
-        set @sql3=''
-		while (@i<=48)
-		begin
-		set @sql1=@sql1+'sum(isnull(R3M'+right('00'+cast(@i as varchar(3)),2)+@MoneyType+',0)) as R3M'+right('00'+cast(@i as varchar(3)),2)+','
-		set @sql3=@sql3+'sum(isnull(MTH'+right('00'+cast(@i as varchar(3)),2)+@MoneyType+',0)) as MTH'+right('00'+cast(@i as varchar(3)),2)+','
-		set @i=@i+1
-		end
-		set @sql1=left(@sql1,len(@sql1)-1)
-        set @sql3=left(@sql3,len(@sql3)-1)
-
-        set @i=0
-		set @sqlMAT=''
-		while (@i<=48)
-		begin
-		set @sqlMAT=@sqlMAT+'sum(isnull(MAT'+right('00'+cast(@i as varchar(3)),2)+@MoneyType+',0)) as MAT'+right('00'+cast(@i as varchar(3)),2)+','
-		set @i=@i+1
-		end
-		set @sqlMAT=left(@sqlMAT,len(@sqlMAT)-1)
-
-        set @i=0
-        set @sqlYTD=''
-		while (@i<=48)
-		begin
-		set @sqlYTD=@sqlYTD+'sum(isnull(YTD'+right('00'+cast(@i as varchar(3)),2)+@MoneyType+',0)) as YTD'+right('00'+cast(@i as varchar(3)),2)+','
-		set @i=@i+1
-		end
-        set @sqlYTD=left(@sqlYTD,len(@sqlYTD)-1)
-
-        set @i=0
-		set @sqlQtr=''
-		while (@i<=19)
-		begin
-		set @sqlQtr=@sqlQtr+'sum(isnull(Qtr'+right('00'+cast(@i as varchar(3)),2)+@MoneyType+',0)) as Qtr'+right('00'+cast(@i as varchar(3)),2)+','
-		set @i=@i+1
-		end
-		set @sqlQtr=left(@sqlQtr,len(@sqlQtr)-1)
-		--print @sql1
-
-		set @SQL2='insert into TempCHPAPreReports 
-		select  B.Molecule,B.Class,B.mkt,B.mktname,B.mkt,B.prod,B.Productname,
---         A.MNFL_COD,B.Gene_cod,
-        '+'''' +left(@MoneyType,2)+''''+' as Moneytype, '+@sql1+', '+@sql3+', '
-        set @SQL4= @sqlMAT+', '+@sqlYTD+', '+@sqlQtr+'
-		from mthCHPA_pkau A inner join tblMktDef_MRBIChina B
-        on A.pack_cod=B.pack_cod where B.Active=''Y'' and b.mkt not like ''eliquis%''
-		group by B.Molecule,B.Class,B.mkt,B.mktname,B.prod,B.Productname'
-       print @SQL2+@SQL4
-		exec( @SQL2+@SQL4)
-	END
-	FETCH NEXT FROM TMP_CURSOR INTO @MoneyType
-END
-CLOSE TMP_CURSOR
-DEALLOCATE TMP_CURSOR
-go
-
-declare @i int,@sql varchar(8000),@sql1 varchar(8000),@sql3 varchar(8000),@sqlMAT varchar(8000),@sqlYTD varchar(8000),@sqlQtr varchar(8000)
-DECLARE TMP_CURSOR CURSOR
-READ_ONLY
-FOR select [Type]  from dbo.tblMoneyType
-DECLARE @MoneyType varchar(10)
-DECLARE @SQL2 VARCHAR(8000)
-DECLARE @SQL4 VARCHAR(8000)	
-OPEN TMP_CURSOR
-	
-FETCH NEXT FROM TMP_CURSOR INTO @MoneyType
-WHILE (@@FETCH_STATUS <> -1)
-BEGIN
-
-	IF (@@FETCH_STATUS <> -2)
-	BEGIN
-		print @MoneyType
-		set @MoneyType=@MoneyType+'*b.rat'
 		set @i=0
 		set @sql1=''
         set @sql3=''
@@ -3052,7 +3034,85 @@ BEGIN
 		select  B.Molecule,B.Class,B.mkt,B.mktname,B.mkt,B.prod,B.Productname,
 --         A.MNFL_COD,B.Gene_cod,
         '+'''' +left(@MoneyType,2)+''''+' as Moneytype, '+@sql1+', '+@sql3+', '
-        set @SQL4= @sqlMAT+', '+@sqlYTD+', '+@sqlQtr+'
+
+        set @SQL4= @sqlMAT+', '+@sqlYTD+', ' +@sqlQtr+'
+		from mthCHPA_pkau A inner join tblMktDef_MRBIChina B
+        on A.pack_cod=B.pack_cod where B.Active=''Y'' and b.mkt not like ''eliquis%''
+		group by B.Molecule,B.Class,B.mkt,B.mktname,B.prod,B.Productname'
+       print @SQL2+@SQL4
+		exec( @SQL2+@SQL4)
+	END
+	FETCH NEXT FROM TMP_CURSOR INTO @MoneyType
+END
+CLOSE TMP_CURSOR
+DEALLOCATE TMP_CURSOR
+go
+
+declare @i int,@sql varchar(max),@sql1 varchar(max),@sql3 varchar(max),@sqlMAT varchar(max),
+	@sqlYTD varchar(max),@sqlQtr varchar(max), @sqlMQT varchar(max)
+DECLARE TMP_CURSOR CURSOR
+READ_ONLY
+FOR select [Type]  from dbo.tblMoneyType
+DECLARE @MoneyType varchar(10)
+DECLARE @SQL2 VARCHAR(max)
+DECLARE @SQL4 VARCHAR(max)	
+OPEN TMP_CURSOR
+	
+FETCH NEXT FROM TMP_CURSOR INTO @MoneyType
+WHILE (@@FETCH_STATUS <> -1)
+BEGIN
+
+	IF (@@FETCH_STATUS <> -2)
+	BEGIN
+		print @MoneyType
+		set @MoneyType=@MoneyType+'*b.rat'
+		set @i=0
+		set @sql1=''
+        set @sql3=''
+		while (@i<=48)
+		begin
+			set @sql1=@sql1+'sum(isnull(R3M'+right('00'+cast(@i as varchar(3)),2)+@MoneyType+',0)) as R3M'+right('00'+cast(@i as varchar(3)),2)+','
+			set @sql3=@sql3+'sum(isnull(MTH'+right('00'+cast(@i as varchar(3)),2)+@MoneyType+',0)) as MTH'+right('00'+cast(@i as varchar(3)),2)+','
+			set @i=@i+1
+		end
+		set @sql1=left(@sql1,len(@sql1)-1)
+        set @sql3=left(@sql3,len(@sql3)-1)
+
+        set @i=0
+		set @sqlMAT=''
+		while (@i<=48)
+		begin
+			set @sqlMAT=@sqlMAT+'sum(isnull(MAT'+right('00'+cast(@i as varchar(3)),2)+@MoneyType+',0)) as MAT'+right('00'+cast(@i as varchar(3)),2)+','
+			set @i=@i+1
+		end
+		set @sqlMAT=left(@sqlMAT,len(@sqlMAT)-1)
+
+        set @i=0
+        set @sqlYTD=''
+		while (@i<=48)
+		begin
+			set @sqlYTD=@sqlYTD+'sum(isnull(YTD'+right('00'+cast(@i as varchar(3)),2)+@MoneyType+',0)) as YTD'+right('00'+cast(@i as varchar(3)),2)+','
+			set @i=@i+1
+		end
+        set @sqlYTD=left(@sqlYTD,len(@sqlYTD)-1)
+
+
+        set @i=0
+		set @sqlQtr=''
+		while (@i<=19)
+		begin
+			set @sqlQtr=@sqlQtr+'sum(isnull(Qtr'+right('00'+cast(@i as varchar(3)),2)+@MoneyType+',0)) as Qtr'+right('00'+cast(@i as varchar(3)),2)+','
+			set @i=@i+1
+		end
+		set @sqlQtr=left(@sqlQtr,len(@sqlQtr)-1)
+		--print @sql1
+
+		set @SQL2='insert into TempCHPAPreReports 
+		select  B.Molecule,B.Class,B.mkt,B.mktname,B.mkt,B.prod,B.Productname,
+--         A.MNFL_COD,B.Gene_cod,
+        '+'''' +left(@MoneyType,2)+''''+' as Moneytype, '+@sql1+', '+@sql3+', '
+        
+		set @SQL4= @sqlMAT+', '+@sqlYTD+', ' +@sqlQtr+'
 		from mthCHPA_pkau A inner join tblMktDef_MRBIChina B
         on A.pack_cod=B.pack_cod where B.Active=''Y'' and b.mkt like ''eliquis%''
 		group by B.Molecule,B.Class,B.mkt,B.mktname,B.prod,B.Productname'
@@ -3088,13 +3148,14 @@ go
 
 exec dbo.sp_Log_Event 'MID','CIA','2_MID.sql','TempCHPAPreReports_Mole',null,null
 
-declare @i int,@sql varchar(8000),@sql1 varchar(8000),@sql3 varchar(8000),@sqlMAT varchar(8000),@sqlYTD varchar(8000),@sqlQtr varchar(8000)
+declare @i int,@sql varchar(max),@sql1 varchar(max),@sql3 varchar(max),@sqlMAT varchar(max),
+	@sqlYTD varchar(max),@sqlQtr varchar(max), @sqlMQT varchar(max)
 DECLARE TMP_CURSOR CURSOR
 READ_ONLY
 FOR select [Type]  from dbo.tblMoneyType
 DECLARE @MoneyType varchar(10)
-DECLARE @SQL2 VARCHAR(8000)
-DECLARE @SQL4 VARCHAR(8000)	
+DECLARE @SQL2 VARCHAR(max)
+DECLARE @SQL4 VARCHAR(max)	
 OPEN TMP_CURSOR
 	
 FETCH NEXT FROM TMP_CURSOR INTO @MoneyType
@@ -3149,8 +3210,9 @@ BEGIN
 		set @SQL2='insert into TempCHPAPreReports_Mole 
 		select  B.Molecule,B.Class,B.mkt,B.mktname,B.mkt,B.prod,B.Productname,
 --         A.MNFL_COD,B.Gene_cod,
-        '+'''' +left(@MoneyType,2)+''''+' as Moneytype, '+@sql1+', '+@sql3+', '+@sqlMAT+', '
-        set @sql4= @sqlYTD+', '+@sqlQtr+'
+        '+'''' +left(@MoneyType,2)+''''+' as Moneytype, '+@sql1+', ' + @sql3 + ', '
+        
+		set @SQL4 = @sqlMAT+', '+@sqlYTD+', ' +@sqlQtr+'
 		from mthCHPA_pkau A inner join tblMktDef_MRBIChina_Mole B
         on A.pack_cod=B.pack_cod where B.Active=''Y''
 		group by B.Molecule,B.Class,B.mkt,B.mktname,B.prod,B.Productname'
@@ -3184,10 +3246,10 @@ go
 -- TempCityDashboard
 ----------------------------------------------
 if exists (select * from dbo.sysobjects where id = object_id(N'TempCityDashboard') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
-drop table TempCityDashboard
+	drop table TempCityDashboard
 go
 if exists (select * from dbo.sysobjects where id = object_id(N'TempCityDashboard_Mole') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
-drop table TempCityDashboard_Mole
+	drop table TempCityDashboard_Mole
 go
 CREATE TABLE [dbo].[TempCityDashboard](
     [Molecule] [varchar](2)  NOT NULL,
@@ -3260,6 +3322,7 @@ CREATE TABLE [dbo].[TempCityDashboard](
 --	[R3M55] float null default 0,
 --	[R3M56] float null default 0,
 --	[R3M57] float null default 0,
+
 	[MTH00] [float] NULL default 0,
 	[MTH01] [float] NULL default 0,
 	[MTH02] [float] NULL default 0,
@@ -3320,6 +3383,7 @@ CREATE TABLE [dbo].[TempCityDashboard](
 --	[MTH57] [float] NULL default 0,
 --	[MTH58] [float] NULL default 0,
 --	[MTH59] [float] NULL default 0,
+
 	[MAT00] [float] NULL default 0,
 	[MAT01] [float] NULL default 0,
 	[MAT02] [float] NULL default 0,
@@ -3369,6 +3433,7 @@ CREATE TABLE [dbo].[TempCityDashboard](
 	[MAT46] [float] NULL default 0,
 	[MAT47] [float] NULL default 0,
 	[MAT48] [float] NULL default 0,
+
 	[YTD00] [float] NULL default 0,
 	[YTD01] [float] NULL default 0,
 	[YTD02] [float] NULL default 0,
@@ -3430,6 +3495,7 @@ CREATE TABLE [dbo].[TempCityDashboard](
 --	[YTD58] [float] NULL default 0,
 --	[YTD59] [float] NULL default 0,
 --	[YTD60] [float] NULL default 0,
+	
     [Qtr00] [float] NULL default 0,
 	[Qtr01] [float] NULL default 0,
 	[Qtr02] [float] NULL default 0,
@@ -3457,13 +3523,14 @@ select * into TempCityDashboard_Mole from TempCityDashboard where 1=2
 go
 exec dbo.sp_Log_Event 'MID','CIA','2_MID.sql','TempCityDashboard',null,null
 
-declare @i int,@sql varchar(8000),@sql1 varchar(8000),@sql3 varchar(8000),@sqlMAT varchar(8000),@sqlYTD varchar(8000),@sqlQtr varchar(8000)
+declare @i int,@sql varchar(max),@sql1 varchar(max),@sql3 varchar(max),@sqlMAT varchar(max),
+	@sqlYTD varchar(max),@sqlQtr varchar(max), @sqlMQT varchar(max)
 DECLARE TMP_CURSOR CURSOR
 READ_ONLY
 FOR select [Type]  from dbo.tblMoneyType
 DECLARE @MoneyType varchar(10)
-DECLARE @SQL2 VARCHAR(8000)
-DECLARE @SQL4 VARCHAR(8000)
+DECLARE @SQL2 VARCHAR(max)
+DECLARE @SQL4 VARCHAR(max)
 	
 OPEN TMP_CURSOR
 	
@@ -3511,6 +3578,7 @@ BEGIN
 		end
         set @sqlYTD=left(@sqlYTD,len(@sqlYTD)-1)
 
+
         set @i=0
         set @sqlQtr=''
 		while (@i<=19)
@@ -3523,7 +3591,8 @@ BEGIN
 
 		set @sql2 = 'insert into TempCityDashboard 
         	select  B.Molecule,B.Class,B.mkt,B.mktname,B.mkt,B.prod,B.Productname,'+'''' +left(@MoneyType,2)+''''+' as Moneytype, A.audi_cod,'''',''City'',null,'+@sql1+', '+@sql3+', '
-        set @sql4 = @sqlMAT+', '+@sqlYTD+', '+@sqlQtr+'
+        
+		set @sql4 = @sqlMAT+', '+@sqlYTD+', ' + @sqlQtr+'
 			from mthcity_pkau A inner join tblMktDef_MRBIChina B
 			on A.pack_cod=B.pack_cod where B.Active=''Y'' and A.audi_cod<>''ZJH_'' and b.mkt not like''eliquis%''
 			group by B.Molecule,B.Class,B.mkt,B.mktname,B.prod,B.Productname,A.audi_cod'
@@ -3535,13 +3604,14 @@ CLOSE TMP_CURSOR
 DEALLOCATE TMP_CURSOR
 go
 
-declare @i int,@sql varchar(8000),@sql1 varchar(8000),@sql3 varchar(8000),@sqlMAT varchar(8000),@sqlYTD varchar(8000),@sqlQtr varchar(8000)
+declare @i int,@sql varchar(max),@sql1 varchar(max),@sql3 varchar(max),@sqlMAT varchar(max),
+	@sqlYTD varchar(max),@sqlQtr varchar(max), @sqlMQT varchar(max)
 DECLARE TMP_CURSOR CURSOR
 READ_ONLY
 FOR select [Type]  from dbo.tblMoneyType
 DECLARE @MoneyType varchar(10)
-DECLARE @SQL2 VARCHAR(8000)
-DECLARE @SQL4 VARCHAR(8000)
+DECLARE @SQL2 VARCHAR(max)
+DECLARE @SQL4 VARCHAR(max)
 	
 OPEN TMP_CURSOR
 	
@@ -3556,7 +3626,6 @@ BEGIN
 		set @i=0
 		set @sql1=''
         set @sql3=''
---		while (@i<=57)
         while (@i<=45)
 		begin
 			set @sql1=@sql1+'sum(isnull(R3M'+right('00'+cast(@i as varchar(3)),2)+@MoneyType+',0)) as R3M'+right('00'+cast(@i as varchar(3)),2)+','
@@ -3564,7 +3633,6 @@ BEGIN
 		end
 
         set @i=0    
---		while (@i<=59)
         while (@i<=48)
 		begin
 			set @sql3=@sql3+'sum(isnull(MTH'+right('00'+cast(@i as varchar(3)),2)+@MoneyType+',0)) as MTH'+right('00'+cast(@i as varchar(3)),2)+','
@@ -3584,7 +3652,6 @@ BEGIN
 
         set @i=0
         set @sqlYTD=''
---		while (@i<=60)
 		while (@i<=48)
 		begin
 			set @sqlYTD=@sqlYTD+'sum(isnull(YTD'+right('00'+cast(@i as varchar(3)),2)+@MoneyType+',0)) as YTD'+right('00'+cast(@i as varchar(3)),2)+','
@@ -3605,7 +3672,8 @@ BEGIN
 		set @sql2='insert into TempCityDashboard 
         	select  B.Molecule,B.Class,B.mkt,B.mktname,B.mkt,B.prod,B.Productname,'+'''' +left(@MoneyType,2)
 			+''''+' as Moneytype, A.audi_cod,'''',''City'',null,'+@sql1+', '+@sql3+', '
-        set @sql4=@sqlMAT+', '+@sqlYTD+', '+@sqlQtr+'
+        
+		set @sql4 = @sqlMAT+', '+@sqlYTD+', ' + @sqlQtr+'
 			from mthcity_pkau A 
 			inner join tblMktDef_MRBIChina B
 			on A.pack_cod=B.pack_cod where B.Active=''Y'' and A.audi_cod<>''ZJH_'' and b.mkt like''eliquis%''
@@ -3669,13 +3737,14 @@ go
 exec dbo.sp_Log_Event 'MID','CIA','2_MID.sql','TempCityDashboard_Mole',null,null
 
 
-declare @i int,@sql varchar(8000),@sql1 varchar(8000),@sql3 varchar(8000),@sqlMAT varchar(8000),@sqlYTD varchar(8000),@sqlQtr varchar(8000)
+declare @i int,@sql varchar(max),@sql1 varchar(max),@sql3 varchar(max),@sqlMAT varchar(max),
+	@sqlYTD varchar(max),@sqlQtr varchar(max), @sqlMQT varchar(max)
 DECLARE TMP_CURSOR CURSOR
 READ_ONLY
 FOR select [Type]  from dbo.tblMoneyType
 DECLARE @MoneyType varchar(10)
-DECLARE @SQL2 VARCHAR(8000)
-DECLARE @SQL4 VARCHAR(8000)
+DECLARE @SQL2 VARCHAR(max)
+DECLARE @SQL4 VARCHAR(max)
 	
 OPEN TMP_CURSOR
 	
@@ -3691,7 +3760,6 @@ BEGIN
 		set @i=0
 		set @sql1=''
         set @sql3=''
---		while (@i<=57)
         while (@i<=45)
 		begin
 		set @sql1=@sql1+'sum(isnull(R3M'+right('00'+cast(@i as varchar(3)),2)+@MoneyType+',0)) as R3M'+right('00'+cast(@i as varchar(3)),2)+','
@@ -3699,7 +3767,6 @@ BEGIN
 		end
 
         set @i=0    
---		while (@i<=59)
         while (@i<=48)
 		begin
 		set @sql3=@sql3+'sum(isnull(MTH'+right('00'+cast(@i as varchar(3)),2)+@MoneyType+',0)) as MTH'+right('00'+cast(@i as varchar(3)),2)+','
@@ -3719,13 +3786,13 @@ BEGIN
 
         set @i=0
         set @sqlYTD=''
---		while (@i<=60)
         while (@i<=48)
 		begin
 		set @sqlYTD=@sqlYTD+'sum(isnull(YTD'+right('00'+cast(@i as varchar(3)),2)+@MoneyType+',0)) as YTD'+right('00'+cast(@i as varchar(3)),2)+','
 		set @i=@i+1
 		end
         set @sqlYTD=left(@sqlYTD,len(@sqlYTD)-1)
+
 
         set @i=0
         set @sqlQtr=''
@@ -3739,7 +3806,8 @@ BEGIN
 
 		set @sql2='insert into TempCityDashboard_Mole 
         select  B.Molecule,B.Class,B.mkt,B.mktname,B.mkt,B.prod,B.Productname,'+'''' +left(@MoneyType,2)+''''+' as Moneytype, A.audi_cod,'''',''City'',null,'+@sql1+', '+@sql3+', '
-        set @sql4=@sqlMAT+', '+@sqlYTD+', '+@sqlQtr+'
+        
+		set @sql4 = @sqlMAT+', '+@sqlYTD+', ' + @sqlQtr+'
 		from mthcity_pkau A inner join tblMktDef_MRBIChina_Mole B
         on A.pack_cod=B.pack_cod where B.Active=''Y'' and A.audi_cod <>''ZJH_''
 		group by B.Molecule,B.Class,B.mkt,B.mktname,B.prod,B.Productname,A.audi_cod'
@@ -3846,66 +3914,67 @@ Alter table TempRegionCityDashboard drop column Tier
 go
 exec dbo.sp_Log_Event 'MID','CIA','2_MID.sql','TempRegionCityDashboard',null,null
 
-declare @i int,@sql varchar(8000),@sql1 varchar(8000),@sql3 varchar(8000),@sqlMAT varchar(8000),@sqlYTD varchar(8000),@sqlQtr varchar(8000)
-DECLARE @SQL2 VARCHAR(8000)
-		set @i=0
-		set @sql1=''
-        set @sql3=''
---		while (@i<=57)
-        while (@i<=45)
-		begin
-			set @sql1=@sql1+'sum(isnull(R3M'+right('00'+cast(@i as varchar(3)),2)+',0)),'
-			set @i=@i+1
-		end
+declare @i int,@sql varchar(max),@sql1 varchar(max),@sql3 varchar(max),@sqlMAT varchar(max),
+	@sqlYTD varchar(max),@sqlQtr varchar(max), @sqlMQT varchar(max)
+DECLARE @SQL2 VARCHAR(max)
+	set @i=0
+	set @sql1=''
+	set @sql3=''
+	while (@i<=45)
+	begin
+		set @sql1=@sql1+'sum(isnull(R3M'+right('00'+cast(@i as varchar(3)),2)+',0)),'
+		set @i=@i+1
+	end
 
-        set @i=0    
---		while (@i<=59)
-        while (@i<=48)
-		begin
-			set @sql3=@sql3+'sum(isnull(MTH'+right('00'+cast(@i as varchar(3)),2)+',0)) ,'
-			set @i=@i+1
-		end
-		set @sql1=left(@sql1,len(@sql1)-1)
-        set @sql3=left(@sql3,len(@sql3)-1)
+	set @i=0    
+	while (@i<=48)
+	begin
+		set @sql3=@sql3+'sum(isnull(MTH'+right('00'+cast(@i as varchar(3)),2)+',0)) ,'
+		set @i=@i+1
+	end
+	set @sql1=left(@sql1,len(@sql1)-1)
+	set @sql3=left(@sql3,len(@sql3)-1)
 
-        set @i=0
-		set @sqlMAT=''
-		while (@i<=48)
-		begin
-			set @sqlMAT=@sqlMAT+'sum(isnull(MAT'+right('00'+cast(@i as varchar(3)),2)+',0)),'
-			set @i=@i+1
-		end
-		set @sqlMAT=left(@sqlMAT,len(@sqlMAT)-1)
+	set @i=0
+	set @sqlMAT=''
+	while (@i<=48)
+	begin
+		set @sqlMAT=@sqlMAT+'sum(isnull(MAT'+right('00'+cast(@i as varchar(3)),2)+',0)),'
+		set @i=@i+1
+	end
+	set @sqlMAT=left(@sqlMAT,len(@sqlMAT)-1)
 
-        set @i=0
-        set @sqlYTD=''
+	set @i=0
+	set @sqlYTD=''
 --		while (@i<=60)
-        while (@i<=48)
-		begin
-			set @sqlYTD=@sqlYTD+'sum(isnull(YTD'+right('00'+cast(@i as varchar(3)),2)+',0)),'
-			set @i=@i+1
-		end
-        set @sqlYTD=left(@sqlYTD,len(@sqlYTD)-1)
+	while (@i<=48)
+	begin
+		set @sqlYTD=@sqlYTD+'sum(isnull(YTD'+right('00'+cast(@i as varchar(3)),2)+',0)),'
+		set @i=@i+1
+	end
+	set @sqlYTD=left(@sqlYTD,len(@sqlYTD)-1)
 
-        set @i=0
-        set @sqlQtr=''
-		while (@i<=19)
-		begin
-			set @sqlQtr=@sqlQtr+'sum(isnull(Qtr'+right('00'+cast(@i as varchar(3)),2)+',0)),'
-			set @i=@i+1
-		end
-        set @sqlQtr=left(@sqlQtr,len(@sqlQtr)-1)
-		--print @sql1
 
-		exec('
-		insert into TempRegionCityDashboard
-		select [Molecule],[Class],[mkt],[mktname],Market,[prod],[Productname],MoneyType,
-			[Region],[Region],''Region'','+@sql1+', '+@sql3+', '+@sqlMAT+', '+@sqlYTD+', '+@sqlQtr+',[Region] 
-		from TempRegionCityDashboard A
-		group by [Molecule],[Class],[mkt],[mktname],Market,[prod],[Productname],[Moneytype],[Region]')
+	set @i=0
+	set @sqlQtr=''
+	while (@i<=19)
+	begin
+		set @sqlQtr=@sqlQtr+'sum(isnull(Qtr'+right('00'+cast(@i as varchar(3)),2)+',0)),'
+		set @i=@i+1
+	end
+	set @sqlQtr=left(@sqlQtr,len(@sqlQtr)-1)
+	--print @sql1
+
+	exec('
+	insert into TempRegionCityDashboard
+	select [Molecule],[Class],[mkt],[mktname],Market,[prod],[Productname],MoneyType,
+		[Region],[Region],''Region'','+@sql1+', '+@sql3+', '+@sqlMAT+', '+@sqlYTD+', ' + @sqlQtr+',[Region] 
+	from TempRegionCityDashboard A
+	group by [Molecule],[Class],[mkt],[mktname],Market,[prod],[Productname],[Moneytype],[Region]')
 go
-declare @i int,@sql varchar(8000),@sql1 varchar(8000),@sql3 varchar(8000),@sqlMAT varchar(2000),@sqlYTD varchar(2000),@sqlQtr varchar(2000)
-DECLARE @SQL2 VARCHAR(8000)
+declare @i int,@sql varchar(max),@sql1 varchar(max),@sql3 varchar(max),@sqlMAT varchar(2000),
+	@sqlYTD varchar(2000),@sqlQtr varchar(2000), @sqlMQT varchar(max)
+DECLARE @SQL2 VARCHAR(max)
 		set @i=0
 		set @sql1=''
         set @sql3=''
@@ -3945,6 +4014,7 @@ DECLARE @SQL2 VARCHAR(8000)
 		end
         set @sqlYTD=left(@sqlYTD,len(@sqlYTD)-1)
 
+
         set @i=0
         set @sqlQtr=''
 		while (@i<=19)
@@ -3958,7 +4028,7 @@ DECLARE @SQL2 VARCHAR(8000)
 		exec('
 		insert into TempRegionCityDashboard
 		select [Molecule],[Class],[mkt],[mktname],Market,[prod],[Productname],MoneyType,
-			''China'',''China'',''China'','+@sql1+', '+@sql3+', '+@sqlMAT+', '+@sqlYTD+', '+@sqlQtr+',''China'' 
+			''China'',''China'',''China'','+@sql1+', '+@sql3+', '+@sqlMAT+', '+@sqlYTD + ', '  + @sqlQtr+',''China'' 
 		from TempCityDashboard A
         where exists(select * from dbo.outputgeo B where A.Market=B.Product and A.audi_des=b.geo)
 		group by [Molecule],[Class],[mkt],[mktname],Market,[prod],[Productname],[Moneytype]')
@@ -3967,412 +4037,412 @@ delete from TempRegionCityDashboard where region=''
 
 go
 
-------------------------------------------------------
---	Eliquis Market CHPA Middle Table
-------------------------------------------------------
---Market Definition
-if OBJECT_ID(N'tblMktDef_Inline_For_Eliquis',N'U') is not null
-	drop table tblMktDef_Inline_For_Eliquis
-go
-select * into tblMktDef_Inline_For_Eliquis from tblMktDef_Inline where 1=2
+-- ------------------------------------------------------
+-- --	Eliquis Market CHPA Middle Table
+-- ------------------------------------------------------
+-- --Market Definition
+-- if OBJECT_ID(N'tblMktDef_Inline_For_Eliquis',N'U') is not null
+-- 	drop table tblMktDef_Inline_For_Eliquis
+-- go
+-- select * into tblMktDef_Inline_For_Eliquis from tblMktDef_Inline where 1=2
 
-insert into tblMktDef_Inline_For_Eliquis
-select cast('ELIQUIS VTEp' as varchar(50)) as Mkt,cast('Eliquis (VTEp) Market' as varchar(50)) as MktName,* 
-from tblMktDef_ATCDriver
-where prod_des in ('Fraxiparine','Clexane','Xarelto','Arixtra','Eliquis')
-go
+-- insert into tblMktDef_Inline_For_Eliquis
+-- select cast('ELIQUIS VTEp' as varchar(50)) as Mkt,cast('Eliquis (VTEp) Market' as varchar(50)) as MktName,* 
+-- from tblMktDef_ATCDriver
+-- where prod_des in ('Fraxiparine','Clexane','Xarelto','Arixtra','Eliquis')
+-- go
 
-if OBJECT_ID(N'tblMktDef_MRBIChina_For_Eliquis',N'U') is not null
-	drop table tblMktDef_MRBIChina_For_Eliquis
-go
-select * into tblMktDef_MRBIChina_For_Eliquis from tblMktDef_MRBIChina where 1=2
+-- if OBJECT_ID(N'tblMktDef_MRBIChina_For_Eliquis',N'U') is not null
+-- 	drop table tblMktDef_MRBIChina_For_Eliquis
+-- go
+-- select * into tblMktDef_MRBIChina_For_Eliquis from tblMktDef_MRBIChina where 1=2
 
-insert into tblMktDef_MRBIChina_For_Eliquis
-SELECT distinct 
-	'Eliquis VTEp' Mkt,'Eliquis (VTEp) Market' MktName
-	,'000' as Prod,'Eliquis VTEp' as ProductName
-	,'N' as Molecule
-	,'N' as Class
-	,ATC1_Cod,ATC2_Cod,ATC3_Cod,ATC4_Cod
-	,pack_cod, Pack_des
-	,Prod_cod,Prod_des as Prod_Name,Prod_des + ' (' +Manu_cod +')' as Prod_FullName
-	,'' Mole_cod
-	,'' Mole_Name
-	,Corp_cod
-	,Manu_Cod
-	,Gene_Cod
-	,'Y' as Active
-	,GetDate() as Date, '201404 add new products & packages' as Comment
-	,1
-FROM tblMktDef_Inline_For_Eliquis A WHERE A.MKT = 'ELIQUIS VTEp' and prod_des <>'Pradaxa'
+-- insert into tblMktDef_MRBIChina_For_Eliquis
+-- SELECT distinct 
+-- 	'Eliquis VTEp' Mkt,'Eliquis (VTEp) Market' MktName
+-- 	,'000' as Prod,'Eliquis VTEp' as ProductName
+-- 	,'N' as Molecule
+-- 	,'N' as Class
+-- 	,ATC1_Cod,ATC2_Cod,ATC3_Cod,ATC4_Cod
+-- 	,pack_cod, Pack_des
+-- 	,Prod_cod,Prod_des as Prod_Name,Prod_des + ' (' +Manu_cod +')' as Prod_FullName
+-- 	,'' Mole_cod
+-- 	,'' Mole_Name
+-- 	,Corp_cod
+-- 	,Manu_Cod
+-- 	,Gene_Cod
+-- 	,'Y' as Active
+-- 	,GetDate() as Date, '201404 add new products & packages' as Comment
+-- 	,1
+-- FROM tblMktDef_Inline_For_Eliquis A WHERE A.MKT = 'ELIQUIS VTEp' and prod_des <>'Pradaxa'
 
-insert into tblMktDef_MRBIChina_For_Eliquis
-SELECT distinct 
-   'Eliquis VTEp' as Mkt
-  ,'Eliquis (VTEp) Market' as MktName
-  ,case when a.Prod_Des='ELIQUIS' then '100'   
-        when a.Prod_Des='CLEXANE' then '200'     
-        when a.Prod_Des='XARELTO' then '300'        
-        when a.Prod_Des='FRAXIPARINE' then '400'      
-        when a.Prod_Des='ARIXTRA' then '500' 
-        end   as [Prod]         
-  ,a.Prod_Des as ProductName
-  ,'N'        as Molecule
-  ,'N'        as Class 
-  ,ATC1_Cod,ATC2_Cod,ATC3_Cod,ATC4_Cod
-  ,pack_cod, Pack_des
-  ,Prod_cod,Prod_des as Prod_Name,Prod_des + ' (' +Manu_cod +')' as Prod_FullName
-  ,'' Mole_cod,'' Mole_Name
-  ,Corp_cod
-  ,Manu_Cod
-  ,Gene_Cod
-  ,'Y'       as Active
-  ,GetDate() as Date, '201404 add new products & packages'  -- select * 
-  ,1
-FROM tblMktDef_Inline_For_Eliquis A 
-WHERE A.MKT = 'Eliquis VTEp' 
+-- insert into tblMktDef_MRBIChina_For_Eliquis
+-- SELECT distinct 
+--    'Eliquis VTEp' as Mkt
+--   ,'Eliquis (VTEp) Market' as MktName
+--   ,case when a.Prod_Des='ELIQUIS' then '100'   
+--         when a.Prod_Des='CLEXANE' then '200'     
+--         when a.Prod_Des='XARELTO' then '300'        
+--         when a.Prod_Des='FRAXIPARINE' then '400'      
+--         when a.Prod_Des='ARIXTRA' then '500' 
+--         end   as [Prod]         
+--   ,a.Prod_Des as ProductName
+--   ,'N'        as Molecule
+--   ,'N'        as Class 
+--   ,ATC1_Cod,ATC2_Cod,ATC3_Cod,ATC4_Cod
+--   ,pack_cod, Pack_des
+--   ,Prod_cod,Prod_des as Prod_Name,Prod_des + ' (' +Manu_cod +')' as Prod_FullName
+--   ,'' Mole_cod,'' Mole_Name
+--   ,Corp_cod
+--   ,Manu_Cod
+--   ,Gene_Cod
+--   ,'Y'       as Active
+--   ,GetDate() as Date, '201404 add new products & packages'  -- select * 
+--   ,1
+-- FROM tblMktDef_Inline_For_Eliquis A 
+-- WHERE A.MKT = 'Eliquis VTEp' 
 
---alter table tblMktDef_MRBIChina_For_Eliquis add  Rat float
-go
-update tblMktDef_MRBIChina_For_Eliquis
-set Rat = case when Prod_Name='Fraxiparine' then 1
-				when Prod_Name='Clexane' then 1
-				when Prod_Name='Xarelto' then 1
-				when Prod_Name='Arixtra' then 1
-				when Prod_Name='Eliquis' then 1 end
+-- --alter table tblMktDef_MRBIChina_For_Eliquis add  Rat float
+-- go
+-- update tblMktDef_MRBIChina_For_Eliquis
+-- set Rat = case when Prod_Name='Fraxiparine' then 1
+-- 				when Prod_Name='Clexane' then 1
+-- 				when Prod_Name='Xarelto' then 1
+-- 				when Prod_Name='Arixtra' then 1
+-- 				when Prod_Name='Eliquis' then 1 end
 
-go
+-- go
 
---CHPA Middle table
+-- --CHPA Middle table
 
-IF EXISTS(SELECT 1 FROM DBO.SYSOBJECTS WHERE ID=OBJECT_ID(N'TempCHPAPreReports_For_Eliquis') AND TYPE ='U')
-	DROP TABLE TempCHPAPreReports_For_Eliquis
+-- IF EXISTS(SELECT 1 FROM DBO.SYSOBJECTS WHERE ID=OBJECT_ID(N'TempCHPAPreReports_For_Eliquis') AND TYPE ='U')
+-- 	DROP TABLE TempCHPAPreReports_For_Eliquis
 
-select * into TempCHPAPreReports_For_Eliquis from TempCHPAPreReports where 1=2
+-- select * into TempCHPAPreReports_For_Eliquis from TempCHPAPreReports where 1=2
 
-declare @i int,@sql varchar(8000),@sql1 varchar(8000),@sql3 varchar(8000),@sqlMAT varchar(8000),@sqlYTD varchar(8000),@sqlQtr varchar(8000)
-DECLARE TMP_CURSOR CURSOR
-READ_ONLY
-FOR select [Type]  from dbo.tblMoneyType
-DECLARE @MoneyType varchar(10)
-DECLARE @SQL2_1 VARCHAR(max)
-DECLARE @SQL2_2 VARCHAR(max)
+-- declare @i int,@sql varchar(max),@sql1 varchar(max),@sql3 varchar(max),@sqlMAT varchar(max),@sqlYTD varchar(max),@sqlQtr varchar(max)
+-- DECLARE TMP_CURSOR CURSOR
+-- READ_ONLY
+-- FOR select [Type]  from dbo.tblMoneyType
+-- DECLARE @MoneyType varchar(10)
+-- DECLARE @SQL2_1 VARCHAR(max)
+-- DECLARE @SQL2_2 VARCHAR(max)
 	
-OPEN TMP_CURSOR
+-- OPEN TMP_CURSOR
 	
-FETCH NEXT FROM TMP_CURSOR INTO @MoneyType
-WHILE (@@FETCH_STATUS <> -1)
-BEGIN
+-- FETCH NEXT FROM TMP_CURSOR INTO @MoneyType
+-- WHILE (@@FETCH_STATUS <> -1)
+-- BEGIN
 
-	IF (@@FETCH_STATUS <> -2)
-	BEGIN
-		print @MoneyType
-		set @i=0
-		set @sql1=''
-        set @sql3=''
-		while (@i<=48)
-		begin
-		set @sql1=@sql1+'sum(isnull(R3M'+right('00'+cast(@i as varchar(3)),2)+@MoneyType+',0))*Rat as R3M'+right('00'+cast(@i as varchar(3)),2)+','
-		set @sql3=@sql3+'sum(isnull(MTH'+right('00'+cast(@i as varchar(3)),2)+@MoneyType+',0))*Rat as MTH'+right('00'+cast(@i as varchar(3)),2)+','
-		set @i=@i+1
-		end
-		set @sql1=left(@sql1,len(@sql1)-1)
-        set @sql3=left(@sql3,len(@sql3)-1)
+-- 	IF (@@FETCH_STATUS <> -2)
+-- 	BEGIN
+-- 		print @MoneyType
+-- 		set @i=0
+-- 		set @sql1=''
+--         set @sql3=''
+-- 		while (@i<=48)
+-- 		begin
+-- 		set @sql1=@sql1+'sum(isnull(R3M'+right('00'+cast(@i as varchar(3)),2)+@MoneyType+',0))*Rat as R3M'+right('00'+cast(@i as varchar(3)),2)+','
+-- 		set @sql3=@sql3+'sum(isnull(MTH'+right('00'+cast(@i as varchar(3)),2)+@MoneyType+',0))*Rat as MTH'+right('00'+cast(@i as varchar(3)),2)+','
+-- 		set @i=@i+1
+-- 		end
+-- 		set @sql1=left(@sql1,len(@sql1)-1)
+--         set @sql3=left(@sql3,len(@sql3)-1)
 
-        set @i=0
-		set @sqlMAT=''
-		while (@i<=48)
-		begin
-		set @sqlMAT=@sqlMAT+'sum(isnull(MAT'+right('00'+cast(@i as varchar(3)),2)+@MoneyType+',0))*Rat as MAT'+right('00'+cast(@i as varchar(3)),2)+','
-		set @i=@i+1
-		end
-		set @sqlMAT=left(@sqlMAT,len(@sqlMAT)-1)
+--         set @i=0
+-- 		set @sqlMAT=''
+-- 		while (@i<=48)
+-- 		begin
+-- 		set @sqlMAT=@sqlMAT+'sum(isnull(MAT'+right('00'+cast(@i as varchar(3)),2)+@MoneyType+',0))*Rat as MAT'+right('00'+cast(@i as varchar(3)),2)+','
+-- 		set @i=@i+1
+-- 		end
+-- 		set @sqlMAT=left(@sqlMAT,len(@sqlMAT)-1)
 
-        set @i=0
-        set @sqlYTD=''
-		while (@i<=48)
-		begin
-		set @sqlYTD=@sqlYTD+'sum(isnull(YTD'+right('00'+cast(@i as varchar(3)),2)+@MoneyType+',0))*Rat as YTD'+right('00'+cast(@i as varchar(3)),2)+','
-		set @i=@i+1
-		end
-        set @sqlYTD=left(@sqlYTD,len(@sqlYTD)-1)
+--         set @i=0
+--         set @sqlYTD=''
+-- 		while (@i<=48)
+-- 		begin
+-- 		set @sqlYTD=@sqlYTD+'sum(isnull(YTD'+right('00'+cast(@i as varchar(3)),2)+@MoneyType+',0))*Rat as YTD'+right('00'+cast(@i as varchar(3)),2)+','
+-- 		set @i=@i+1
+-- 		end
+--         set @sqlYTD=left(@sqlYTD,len(@sqlYTD)-1)
 
-        set @i=0
-		set @sqlQtr=''
-		while (@i<=19)
-		begin
-		set @sqlQtr=@sqlQtr+'sum(isnull(Qtr'+right('00'+cast(@i as varchar(3)),2)+@MoneyType+',0))*Rat as Qtr'+right('00'+cast(@i as varchar(3)),2)+','
-		set @i=@i+1
-		end
-		set @sqlQtr=left(@sqlQtr,len(@sqlQtr)-1)
-		--print @sql1
+--         set @i=0
+-- 		set @sqlQtr=''
+-- 		while (@i<=19)
+-- 		begin
+-- 		set @sqlQtr=@sqlQtr+'sum(isnull(Qtr'+right('00'+cast(@i as varchar(3)),2)+@MoneyType+',0))*Rat as Qtr'+right('00'+cast(@i as varchar(3)),2)+','
+-- 		set @i=@i+1
+-- 		end
+-- 		set @sqlQtr=left(@sqlQtr,len(@sqlQtr)-1)
+-- 		--print @sql1
 
-		set @SQL2_1='insert into TempCHPAPreReports_For_Eliquis 
-			select  B.Molecule,B.Class,B.mkt,B.mktname,B.mkt,B.prod,B.Productname,
-	--         A.MNFL_COD,B.Gene_cod,
-			'+'''' +@MoneyType+''''+' as Moneytype, '+@sql1+', '+@sql3+', '
-        set @SQL2_2=@sqlMAT+', '+@sqlYTD+', '+@sqlQtr+'
-			from mthCHPA_pkau A inner join tblMktDef_MRBIChina_For_Eliquis B
-			on A.pack_cod=B.pack_cod where B.Active=''Y'' and b.prod<>''000'' and b.ProductName <>''Pradaxa''
-			group by B.Molecule,B.Class,B.mkt,B.mktname,B.prod,B.Productname,B.Rat'
-       	print @SQL2_1+@SQL2_2
-		exec( @SQL2_1+@SQL2_2)
-	END
-	FETCH NEXT FROM TMP_CURSOR INTO @MoneyType
-END
-CLOSE TMP_CURSOR
-DEALLOCATE TMP_CURSOR
-go
-update TempCHPAPreReports_For_Eliquis
-set Market=case Market 
-	when 'ONC' then 'Taxol' 
-	when 'HYP' then 'Monopril'
-	when 'NIAD' then 'Glucophage'
-	when 'ACE' then 'Monopril'
-	when 'DIA' then 'Glucophage'
-	when 'ONCFCS' then 'Taxol'
-	when 'HBV' then 'Baraclude'
-	when 'ARV' then 'Baraclude' when 'DPP4' then 'Onglyza' when 'CML' then 'Sprycel' 
-	when 'Platinum' then 'Paraplatin'
-else Market end
-go
+-- 		set @SQL2_1='insert into TempCHPAPreReports_For_Eliquis 
+-- 			select  B.Molecule,B.Class,B.mkt,B.mktname,B.mkt,B.prod,B.Productname,
+-- 	--         A.MNFL_COD,B.Gene_cod,
+-- 			'+'''' +@MoneyType+''''+' as Moneytype, '+@sql1+', '+@sql3+', '
+--         set @SQL2_2=@sqlMAT+', '+@sqlYTD+', '+@sqlQtr+'
+-- 			from mthCHPA_pkau A inner join tblMktDef_MRBIChina_For_Eliquis B
+-- 			on A.pack_cod=B.pack_cod where B.Active=''Y'' and b.prod<>''000'' and b.ProductName <>''Pradaxa''
+-- 			group by B.Molecule,B.Class,B.mkt,B.mktname,B.prod,B.Productname,B.Rat'
+--        	print @SQL2_1+@SQL2_2
+-- 		exec( @SQL2_1+@SQL2_2)
+-- 	END
+-- 	FETCH NEXT FROM TMP_CURSOR INTO @MoneyType
+-- END
+-- CLOSE TMP_CURSOR
+-- DEALLOCATE TMP_CURSOR
+-- go
+-- update TempCHPAPreReports_For_Eliquis
+-- set Market=case Market 
+-- 	when 'ONC' then 'Taxol' 
+-- 	when 'HYP' then 'Monopril'
+-- 	when 'NIAD' then 'Glucophage'
+-- 	when 'ACE' then 'Monopril'
+-- 	when 'DIA' then 'Glucophage'
+-- 	when 'ONCFCS' then 'Taxol'
+-- 	when 'HBV' then 'Baraclude'
+-- 	when 'ARV' then 'Baraclude' when 'DPP4' then 'Onglyza' when 'CML' then 'Sprycel' 
+-- 	when 'Platinum' then 'Paraplatin'
+-- else Market end
+-- go
 
-delete 
-from TempCHPAPreReports_For_Eliquis
-where Market <> 'Paraplatin' and MoneyType = 'PN'
-go
-declare @i int,@sql varchar(8000),@sql1 varchar(8000),@sql3 varchar(8000),@sqlMAT varchar(8000),@sqlYTD varchar(8000),@sqlQtr varchar(8000)	
+-- delete 
+-- from TempCHPAPreReports_For_Eliquis
+-- where Market <> 'Paraplatin' and MoneyType = 'PN'
+-- go
+-- declare @i int,@sql varchar(max),@sql1 varchar(max),@sql3 varchar(max),@sqlMAT varchar(max),@sqlYTD varchar(max),@sqlQtr varchar(max)	
 
-set @i=0
-set @sql1=''
-set @sql3=''
-while (@i<=48)
-begin
-	set @sql1=@sql1+'sum(isnull(R3M'+right('00'+cast(@i as varchar(3)),2)+',0)) as R3M'+right('00'+cast(@i as varchar(3)),2)+','
-	set @sql3=@sql3+'sum(isnull(MTH'+right('00'+cast(@i as varchar(3)),2)+',0)) as MTH'+right('00'+cast(@i as varchar(3)),2)+','
-	set @i=@i+1
-end
-set @sql1=left(@sql1,len(@sql1)-1)
-set @sql3=left(@sql3,len(@sql3)-1)
+-- set @i=0
+-- set @sql1=''
+-- set @sql3=''
+-- while (@i<=48)
+-- begin
+-- 	set @sql1=@sql1+'sum(isnull(R3M'+right('00'+cast(@i as varchar(3)),2)+',0)) as R3M'+right('00'+cast(@i as varchar(3)),2)+','
+-- 	set @sql3=@sql3+'sum(isnull(MTH'+right('00'+cast(@i as varchar(3)),2)+',0)) as MTH'+right('00'+cast(@i as varchar(3)),2)+','
+-- 	set @i=@i+1
+-- end
+-- set @sql1=left(@sql1,len(@sql1)-1)
+-- set @sql3=left(@sql3,len(@sql3)-1)
 
-set @i=0
-set @sqlMAT=''
-while (@i<=48)
-begin
-	set @sqlMAT=@sqlMAT+'sum(isnull(MAT'+right('00'+cast(@i as varchar(3)),2)+',0)) as MAT'+right('00'+cast(@i as varchar(3)),2)+','
-	set @i=@i+1
-end
-set @sqlMAT=left(@sqlMAT,len(@sqlMAT)-1)
+-- set @i=0
+-- set @sqlMAT=''
+-- while (@i<=48)
+-- begin
+-- 	set @sqlMAT=@sqlMAT+'sum(isnull(MAT'+right('00'+cast(@i as varchar(3)),2)+',0)) as MAT'+right('00'+cast(@i as varchar(3)),2)+','
+-- 	set @i=@i+1
+-- end
+-- set @sqlMAT=left(@sqlMAT,len(@sqlMAT)-1)
 
-set @i=0
-set @sqlYTD=''
-while (@i<=48)
-begin
-	set @sqlYTD=@sqlYTD+'sum(isnull(YTD'+right('00'+cast(@i as varchar(3)),2)+',0)) as YTD'+right('00'+cast(@i as varchar(3)),2)+','
-	set @i=@i+1
-end
-set @sqlYTD=left(@sqlYTD,len(@sqlYTD)-1)
+-- set @i=0
+-- set @sqlYTD=''
+-- while (@i<=48)
+-- begin
+-- 	set @sqlYTD=@sqlYTD+'sum(isnull(YTD'+right('00'+cast(@i as varchar(3)),2)+',0)) as YTD'+right('00'+cast(@i as varchar(3)),2)+','
+-- 	set @i=@i+1
+-- end
+-- set @sqlYTD=left(@sqlYTD,len(@sqlYTD)-1)
 
-set @i=0
-set @sqlQtr=''
-while (@i<=19)
-begin
-	set @sqlQtr=@sqlQtr+'sum(isnull(Qtr'+right('00'+cast(@i as varchar(3)),2)+',0)) as Qtr'+right('00'+cast(@i as varchar(3)),2)+','
-	set @i=@i+1
-end
-set @sqlQtr=left(@sqlQtr,len(@sqlQtr)-1)
+-- set @i=0
+-- set @sqlQtr=''
+-- while (@i<=19)
+-- begin
+-- 	set @sqlQtr=@sqlQtr+'sum(isnull(Qtr'+right('00'+cast(@i as varchar(3)),2)+',0)) as Qtr'+right('00'+cast(@i as varchar(3)),2)+','
+-- 	set @i=@i+1
+-- end
+-- set @sqlQtr=left(@sqlQtr,len(@sqlQtr)-1)
 
-set @sql ='insert into TempCHPAPreReports_For_Eliquis 
-		select Molecule,Class,mkt,mktname,Market,''000'',''VTEp Market'',MoneyType,'+@sql1+', '+@sql3+', '+@sqlMAT+', '+@sqlYTD+', '+@sqlQtr+'
-		from TempCHPAPreReports_For_Eliquis
-		group by Molecule,Class,mkt,mktname,Market,MoneyType			
-	'
-print @sql	
-exec (@sql)
+-- set @sql ='insert into TempCHPAPreReports_For_Eliquis 
+-- 		select Molecule,Class,mkt,mktname,Market,''000'',''VTEp Market'',MoneyType,'+@sql1+', '+@sql3+', '+@sqlMAT+', '+@sqlYTD+', '+@sqlQtr+'
+-- 		from TempCHPAPreReports_For_Eliquis
+-- 		group by Molecule,Class,mkt,mktname,Market,MoneyType			
+-- 	'
+-- print @sql	
+-- exec (@sql)
 
-if object_id(N'TempCityDashboard_For_Eliquis',N'U') is not null
-	drop table TempCityDashboard_For_Eliquis 
-go
-select * into TempCityDashboard_For_Eliquis from TempCityDashboard WHERE 1=0
-declare @i int,@sql varchar(8000),@sql1 varchar(8000),@sql3 varchar(8000),@sqlMAT varchar(2000),@sqlYTD varchar(2000),@sqlQtr varchar(2000)
-DECLARE TMP_CURSOR CURSOR
-READ_ONLY
-FOR select [Type]  from dbo.tblMoneyType
-DECLARE @MoneyType varchar(10)
-DECLARE @SQL2 VARCHAR(8000)
+-- if object_id(N'TempCityDashboard_For_Eliquis',N'U') is not null
+-- 	drop table TempCityDashboard_For_Eliquis 
+-- go
+-- select * into TempCityDashboard_For_Eliquis from TempCityDashboard WHERE 1=0
+-- declare @i int,@sql varchar(max),@sql1 varchar(max),@sql3 varchar(max),@sqlMAT varchar(2000),@sqlYTD varchar(2000),@sqlQtr varchar(2000)
+-- DECLARE TMP_CURSOR CURSOR
+-- READ_ONLY
+-- FOR select [Type]  from dbo.tblMoneyType
+-- DECLARE @MoneyType varchar(10)
+-- DECLARE @SQL2 VARCHAR(max)
 	
-OPEN TMP_CURSOR
+-- OPEN TMP_CURSOR
 	
-FETCH NEXT FROM TMP_CURSOR INTO @MoneyType
-WHILE (@@FETCH_STATUS <> -1)
-BEGIN
+-- FETCH NEXT FROM TMP_CURSOR INTO @MoneyType
+-- WHILE (@@FETCH_STATUS <> -1)
+-- BEGIN
 
-	IF (@@FETCH_STATUS <> -2)
-	BEGIN
-		print @MoneyType
-		set @i=0
-		set @sql1=''
-        set @sql3=''
---		while (@i<=57)
-        while (@i<=45)
-		begin
-			set @sql1=@sql1+'sum(isnull(R3M'+right('00'+cast(@i as varchar(3)),2)+@MoneyType+',0))*RAT as R3M'+right('00'+cast(@i as varchar(3)),2)+','
-			set @i=@i+1
-		end
+-- 	IF (@@FETCH_STATUS <> -2)
+-- 	BEGIN
+-- 		print @MoneyType
+-- 		set @i=0
+-- 		set @sql1=''
+--         set @sql3=''
+-- --		while (@i<=57)
+--         while (@i<=45)
+-- 		begin
+-- 			set @sql1=@sql1+'sum(isnull(R3M'+right('00'+cast(@i as varchar(3)),2)+@MoneyType+',0))*RAT as R3M'+right('00'+cast(@i as varchar(3)),2)+','
+-- 			set @i=@i+1
+-- 		end
 
-        set @i=0    
---		while (@i<=59)
-        while (@i<=48)
-		begin
-			set @sql3=@sql3+'sum(isnull(MTH'+right('00'+cast(@i as varchar(3)),2)+@MoneyType+',0))*RAT as MTH'+right('00'+cast(@i as varchar(3)),2)+','
-			set @i=@i+1
-		end
-		set @sql1=left(@sql1,len(@sql1)-1)
-        set @sql3=left(@sql3,len(@sql3)-1)
+--         set @i=0    
+-- --		while (@i<=59)
+--         while (@i<=48)
+-- 		begin
+-- 			set @sql3=@sql3+'sum(isnull(MTH'+right('00'+cast(@i as varchar(3)),2)+@MoneyType+',0))*RAT as MTH'+right('00'+cast(@i as varchar(3)),2)+','
+-- 			set @i=@i+1
+-- 		end
+-- 		set @sql1=left(@sql1,len(@sql1)-1)
+--         set @sql3=left(@sql3,len(@sql3)-1)
 
-        set @i=0
-		set @sqlMAT=''
-		while (@i<=48)
-		begin
-			set @sqlMAT=@sqlMAT+'sum(isnull(MAT'+right('00'+cast(@i as varchar(3)),2)+@MoneyType+',0))*RAT as MAT'+right('00'+cast(@i as varchar(3)),2)+','
-			set @i=@i+1
-		end
-		set @sqlMAT=left(@sqlMAT,len(@sqlMAT)-1)
+--         set @i=0
+-- 		set @sqlMAT=''
+-- 		while (@i<=48)
+-- 		begin
+-- 			set @sqlMAT=@sqlMAT+'sum(isnull(MAT'+right('00'+cast(@i as varchar(3)),2)+@MoneyType+',0))*RAT as MAT'+right('00'+cast(@i as varchar(3)),2)+','
+-- 			set @i=@i+1
+-- 		end
+-- 		set @sqlMAT=left(@sqlMAT,len(@sqlMAT)-1)
 
-        set @i=0
-        set @sqlYTD=''
---		while (@i<=60)
-		while (@i<=48)
-		begin
-			set @sqlYTD=@sqlYTD+'sum(isnull(YTD'+right('00'+cast(@i as varchar(3)),2)+@MoneyType+',0))*RAT as YTD'+right('00'+cast(@i as varchar(3)),2)+','
-			set @i=@i+1
-		end
-        set @sqlYTD=left(@sqlYTD,len(@sqlYTD)-1)
+--         set @i=0
+--         set @sqlYTD=''
+-- --		while (@i<=60)
+-- 		while (@i<=48)
+-- 		begin
+-- 			set @sqlYTD=@sqlYTD+'sum(isnull(YTD'+right('00'+cast(@i as varchar(3)),2)+@MoneyType+',0))*RAT as YTD'+right('00'+cast(@i as varchar(3)),2)+','
+-- 			set @i=@i+1
+-- 		end
+--         set @sqlYTD=left(@sqlYTD,len(@sqlYTD)-1)
 
-        set @i=0
-        set @sqlQtr=''
-		while (@i<=19)
-		begin
-			set @sqlQtr=@sqlQtr+'sum(isnull(Qtr'+right('00'+cast(@i as varchar(3)),2)+@MoneyType+',0))*RAT as Qtr'+right('00'+cast(@i as varchar(3)),2)+','
-			set @i=@i+1
-		end
-        set @sqlQtr=left(@sqlQtr,len(@sqlQtr)-1)
-		--print @sql1
+--         set @i=0
+--         set @sqlQtr=''
+-- 		while (@i<=19)
+-- 		begin
+-- 			set @sqlQtr=@sqlQtr+'sum(isnull(Qtr'+right('00'+cast(@i as varchar(3)),2)+@MoneyType+',0))*RAT as Qtr'+right('00'+cast(@i as varchar(3)),2)+','
+-- 			set @i=@i+1
+-- 		end
+--         set @sqlQtr=left(@sqlQtr,len(@sqlQtr)-1)
+-- 		--print @sql1
 
-		exec('insert into TempCityDashboard_For_Eliquis 
-        select  B.Molecule,B.Class,B.mkt,B.mktname,B.mkt,B.prod,B.Productname,'+'''' +@MoneyType+''''+' as Moneytype, A.audi_cod,'''',''City'',null,'+@sql1+', '+@sql3+', '+@sqlMAT+', '+@sqlYTD+', '+@sqlQtr+'
-		from mthcity_pkau A inner join tblMktDef_MRBIChina_For_Eliquis B
-        on A.pack_cod=B.pack_cod where B.Active=''Y''  and b.prod<>''000''  and b.ProductName <>''Pradaxa''
-		group by B.Molecule,B.Class,B.mkt,B.mktname,B.prod,B.Productname,A.audi_cod,B.RAT')
-	END
-	FETCH NEXT FROM TMP_CURSOR INTO @MoneyType
-END
-CLOSE TMP_CURSOR
-DEALLOCATE TMP_CURSOR
-go
+-- 		exec('insert into TempCityDashboard_For_Eliquis 
+--         select  B.Molecule,B.Class,B.mkt,B.mktname,B.mkt,B.prod,B.Productname,'+'''' +@MoneyType+''''+' as Moneytype, A.audi_cod,'''',''City'',null,'+@sql1+', '+@sql3+', '+@sqlMAT+', '+@sqlYTD+', '+@sqlQtr+'
+-- 		from mthcity_pkau A inner join tblMktDef_MRBIChina_For_Eliquis B
+--         on A.pack_cod=B.pack_cod where B.Active=''Y''  and b.prod<>''000''  and b.ProductName <>''Pradaxa''
+-- 		group by B.Molecule,B.Class,B.mkt,B.mktname,B.prod,B.Productname,A.audi_cod,B.RAT')
+-- 	END
+-- 	FETCH NEXT FROM TMP_CURSOR INTO @MoneyType
+-- END
+-- CLOSE TMP_CURSOR
+-- DEALLOCATE TMP_CURSOR
+-- go
 
-declare @i int,@sql varchar(8000),@sql1 varchar(8000),@sql3 varchar(8000),@sqlMAT varchar(2000),@sqlYTD varchar(2000),@sqlQtr varchar(2000)
-DECLARE @MoneyType varchar(10)
-DECLARE @SQL2 VARCHAR(8000)
-	set @i=0
-	set @sql1=''
-    set @sql3=''
---		while (@i<=57)
-    while (@i<=45)
-	begin
-		set @sql1=@sql1+'sum(isnull(R3M'+right('00'+cast(@i as varchar(3)),2)+',0)) as R3M'+right('00'+cast(@i as varchar(3)),2)+','
-		set @i=@i+1
-	end
+-- declare @i int,@sql varchar(max),@sql1 varchar(max),@sql3 varchar(max),@sqlMAT varchar(2000),@sqlYTD varchar(2000),@sqlQtr varchar(2000)
+-- DECLARE @MoneyType varchar(10)
+-- DECLARE @SQL2 VARCHAR(max)
+-- 	set @i=0
+-- 	set @sql1=''
+--     set @sql3=''
+-- --		while (@i<=57)
+--     while (@i<=45)
+-- 	begin
+-- 		set @sql1=@sql1+'sum(isnull(R3M'+right('00'+cast(@i as varchar(3)),2)+',0)) as R3M'+right('00'+cast(@i as varchar(3)),2)+','
+-- 		set @i=@i+1
+-- 	end
 
-    set @i=0    
---		while (@i<=59)
-    while (@i<=48)
-	begin
-		set @sql3=@sql3+'sum(isnull(MTH'+right('00'+cast(@i as varchar(3)),2)+',0)) as MTH'+right('00'+cast(@i as varchar(3)),2)+','
-		set @i=@i+1
-	end
-	set @sql1=left(@sql1,len(@sql1)-1)
-    set @sql3=left(@sql3,len(@sql3)-1)
+--     set @i=0    
+-- --		while (@i<=59)
+--     while (@i<=48)
+-- 	begin
+-- 		set @sql3=@sql3+'sum(isnull(MTH'+right('00'+cast(@i as varchar(3)),2)+',0)) as MTH'+right('00'+cast(@i as varchar(3)),2)+','
+-- 		set @i=@i+1
+-- 	end
+-- 	set @sql1=left(@sql1,len(@sql1)-1)
+--     set @sql3=left(@sql3,len(@sql3)-1)
 
-    set @i=0
-	set @sqlMAT=''
-	while (@i<=48)
-	begin
-		set @sqlMAT=@sqlMAT+'sum(isnull(MAT'+right('00'+cast(@i as varchar(3)),2)+',0)) as MAT'+right('00'+cast(@i as varchar(3)),2)+','
-		set @i=@i+1
-	end
-	set @sqlMAT=left(@sqlMAT,len(@sqlMAT)-1)
+--     set @i=0
+-- 	set @sqlMAT=''
+-- 	while (@i<=48)
+-- 	begin
+-- 		set @sqlMAT=@sqlMAT+'sum(isnull(MAT'+right('00'+cast(@i as varchar(3)),2)+',0)) as MAT'+right('00'+cast(@i as varchar(3)),2)+','
+-- 		set @i=@i+1
+-- 	end
+-- 	set @sqlMAT=left(@sqlMAT,len(@sqlMAT)-1)
 
-    set @i=0
-    set @sqlYTD=''
---		while (@i<=60)
-	while (@i<=48)
-	begin
-		set @sqlYTD=@sqlYTD+'sum(isnull(YTD'+right('00'+cast(@i as varchar(3)),2)+',0)) as YTD'+right('00'+cast(@i as varchar(3)),2)+','
-		set @i=@i+1
-	end
-    set @sqlYTD=left(@sqlYTD,len(@sqlYTD)-1)
+--     set @i=0
+--     set @sqlYTD=''
+-- --		while (@i<=60)
+-- 	while (@i<=48)
+-- 	begin
+-- 		set @sqlYTD=@sqlYTD+'sum(isnull(YTD'+right('00'+cast(@i as varchar(3)),2)+',0)) as YTD'+right('00'+cast(@i as varchar(3)),2)+','
+-- 		set @i=@i+1
+-- 	end
+--     set @sqlYTD=left(@sqlYTD,len(@sqlYTD)-1)
 
-    set @i=0
-    set @sqlQtr=''
-	while (@i<=19)
-	begin
-		set @sqlQtr=@sqlQtr+'sum(isnull(Qtr'+right('00'+cast(@i as varchar(3)),2)+',0)) as Qtr'+right('00'+cast(@i as varchar(3)),2)+','
-		set @i=@i+1
-	end
-    set @sqlQtr=left(@sqlQtr,len(@sqlQtr)-1)
-	--print @sql1
+--     set @i=0
+--     set @sqlQtr=''
+-- 	while (@i<=19)
+-- 	begin
+-- 		set @sqlQtr=@sqlQtr+'sum(isnull(Qtr'+right('00'+cast(@i as varchar(3)),2)+',0)) as Qtr'+right('00'+cast(@i as varchar(3)),2)+','
+-- 		set @i=@i+1
+-- 	end
+--     set @sqlQtr=left(@sqlQtr,len(@sqlQtr)-1)
+-- 	--print @sql1
 
-	exec('insert into TempCityDashboard_For_Eliquis 		
-    select  Molecule,Class,mkt,mktname,market,''000'',''VTEp Market'',moneyType,audi_cod,audi_des,lev,tier,'+@sql1+', '+@sql3+', '+@sqlMAT+', '+@sqlYTD+', '+@sqlQtr+'
-	from TempCityDashboard_For_Eliquis
-	group by Molecule,Class,mkt,mktname,market,moneyType,audi_cod,audi_des,lev,tier')
-go
+-- 	exec('insert into TempCityDashboard_For_Eliquis 		
+--     select  Molecule,Class,mkt,mktname,market,''000'',''VTEp Market'',moneyType,audi_cod,audi_des,lev,tier,'+@sql1+', '+@sql3+', '+@sqlMAT+', '+@sqlYTD+', '+@sqlQtr+'
+-- 	from TempCityDashboard_For_Eliquis
+-- 	group by Molecule,Class,mkt,mktname,market,moneyType,audi_cod,audi_des,lev,tier')
+-- go
 
-update TempCityDashboard_For_Eliquis
-set AUDI_des=City_Name from TempCityDashboard_For_Eliquis A inner join dbo.Dim_City B
-on A.AUDI_cod=B.City_Code+'_'
-go
+-- update TempCityDashboard_For_Eliquis
+-- set AUDI_des=City_Name from TempCityDashboard_For_Eliquis A inner join dbo.Dim_City B
+-- on A.AUDI_cod=B.City_Code+'_'
+-- go
 
-update TempCityDashboard_For_Eliquis
-set Market=case  
-	when Market in ('HYP','ACE') then 'Monopril'
-	when Market in ('NIAD','DIA') then 'Glucophage'
-	when Market in ('ONC','ONCFCS') then 'Taxol' 
-	when Market in ('HBV','ARV') then 'Baraclude'
-	when Market in ('DPP4') then 'Onglyza' 
-	when Market in ('CML') then 'Sprycel' 
-	when Market in ('Platinum') then 'Paraplatin'
-	when Market in ('CCB') then 'Coniel'
-	else Market end
-go
+-- update TempCityDashboard_For_Eliquis
+-- set Market=case  
+-- 	when Market in ('HYP','ACE') then 'Monopril'
+-- 	when Market in ('NIAD','DIA') then 'Glucophage'
+-- 	when Market in ('ONC','ONCFCS') then 'Taxol' 
+-- 	when Market in ('HBV','ARV') then 'Baraclude'
+-- 	when Market in ('DPP4') then 'Onglyza' 
+-- 	when Market in ('CML') then 'Sprycel' 
+-- 	when Market in ('Platinum') then 'Paraplatin'
+-- 	when Market in ('CCB') then 'Coniel'
+-- 	else Market end
+-- go
 
-insert into TempCityDashboard_For_Eliquis (Molecule,Class,mkt,mktname,Market,Prod,productname,Moneytype,
-	Audi_cod,audi_des,lev)
-select  Molecule,Class,mkt,mktname,Market,Prod,productname,Moneytype,
-	Audi_cod,audi_des,lev 
-from (
-	select A.*,Audi_cod,audi_des,lev from 
-	(select distinct Molecule,Class,mkt,mktname,Market,Prod,productname,Moneytype from TempCityDashboard_For_Eliquis) A
-	inner join
-	(select distinct  Molecule,Class,mkt,mktname,Market,Moneytype,Audi_cod,audi_des,lev from TempCityDashboard_For_Eliquis) B
-	on a.Molecule=b.molecule and A.Class=B.Class and a.mkt=b.mkt and a.market=b.market
-	and a.Moneytype=b.Moneytype
-) A 
-where not exists(
-	select * from TempCityDashboard_For_Eliquis B
-	where a.Molecule=b.molecule and A.Class=B.Class and a.mkt=b.mkt and a.market=b.market
-		and a.Moneytype=b.Moneytype and a.audi_cod=b.audi_cod and a.Prod=B.Prod)
-go
+-- insert into TempCityDashboard_For_Eliquis (Molecule,Class,mkt,mktname,Market,Prod,productname,Moneytype,
+-- 	Audi_cod,audi_des,lev)
+-- select  Molecule,Class,mkt,mktname,Market,Prod,productname,Moneytype,
+-- 	Audi_cod,audi_des,lev 
+-- from (
+-- 	select A.*,Audi_cod,audi_des,lev from 
+-- 	(select distinct Molecule,Class,mkt,mktname,Market,Prod,productname,Moneytype from TempCityDashboard_For_Eliquis) A
+-- 	inner join
+-- 	(select distinct  Molecule,Class,mkt,mktname,Market,Moneytype,Audi_cod,audi_des,lev from TempCityDashboard_For_Eliquis) B
+-- 	on a.Molecule=b.molecule and A.Class=B.Class and a.mkt=b.mkt and a.market=b.market
+-- 	and a.Moneytype=b.Moneytype
+-- ) A 
+-- where not exists(
+-- 	select * from TempCityDashboard_For_Eliquis B
+-- 	where a.Molecule=b.molecule and A.Class=B.Class and a.mkt=b.mkt and a.market=b.market
+-- 		and a.Moneytype=b.Moneytype and a.audi_cod=b.audi_cod and a.Prod=B.Prod)
+-- go
 
-update TempCityDashboard_For_Eliquis
-set Tier=B.Tier from TempCityDashboard_For_Eliquis A inner join Dim_City B
-on A.Audi_cod=B.CIty_Code+'_'
+-- update TempCityDashboard_For_Eliquis
+-- set Tier=B.Tier from TempCityDashboard_For_Eliquis A inner join Dim_City B
+-- on A.Audi_cod=B.CIty_Code+'_'
 
 
---------------------------------------------------------
-----	Eliquis Ending
---------------------------------------------------------
+-- --------------------------------------------------------
+-- ----	Eliquis Ending
+-- --------------------------------------------------------
 GO
 
 
@@ -4853,7 +4923,7 @@ update OutputGeoHBVSummaryGrowthT1 set
 where audi_des in (select audi_des from tblNewcity)
 
 
--- declare @i int,@sql varchar(8000),@sql1 varchar(8000),@sql2 varchar(8000)
+-- declare @i int,@sql varchar(max),@sql1 varchar(max),@sql2 varchar(max)
 -- set @i=0
 -- set @sql1=''
 -- while (@i<=11)
@@ -6206,7 +6276,7 @@ exec dbo.sp_Log_Event 'MID','CIA','2_MID.sql','OutputKeyBrandPerformance',null,n
 if exists (select * from dbo.sysobjects where id = object_id(N'OutputKeyBrandPerformance') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
 drop table OutputKeyBrandPerformance
 go
-declare @i int,@sql varchar(8000),@sqlR varchar(8000)
+declare @i int,@sql varchar(max),@sqlR varchar(max)
 set @i=0
 set @sql=''
 set @sqlR=''
@@ -6369,7 +6439,7 @@ set MonthGrowth = case R3M01 when 0 then 0 else R3M00/R3M01-1 end
 
 --select * from OutputKeyMoleculeBrandPerformance
 
--- declare @i int, @min int,@max int,@sql varchar(8000),@sqlR varchar(8000)
+-- declare @i int, @min int,@max int,@sql varchar(max),@sqlR varchar(max)
 -- set @min=(select min(Monseq-1) from tblmonthlist where quarter%3=0)
 -- set @i=(select min(Monseq-1) from tblmonthlist where quarter%3=0)
 -- set @max=(select min(Monseq-1+36) from tblmonthlist where quarter%3=0)
@@ -6391,7 +6461,7 @@ set MonthGrowth = case R3M01 when 0 then 0 else R3M00/R3M01-1 end
 
 
 -- go
--- declare @i int, @min int,@max int,@sql varchar(8000),@sqlR varchar(8000)
+-- declare @i int, @min int,@max int,@sql varchar(max),@sqlR varchar(max)
 -- set @min=(select min(Monseq-1) from tblmonthlist where quarter%3=0)
 -- set @i=(select min(Monseq-1) from tblmonthlist where quarter%3=0)
 -- set @max=(select min(Monseq-1+36) from tblmonthlist where quarter%3=0)
@@ -6441,7 +6511,7 @@ select Moneytype,Market,CAST(case MNFL_cod when 'L' then 'LOCAL' else 'MNC' end 
 	sum(YTD24) as YTD24,
 	sum(YTD36) as YTD36,
 	sum(YTD48) as YTD48
-	into OutputBrandvGene
+into OutputBrandvGene
 from TempCHPAPreReportsByMNC 
 where Prod in('000') and 
 	((Class='N' and molecule='N' and mkt in ('ARV','NIAD','ONCFCS','Platinum','CCB')) or (Class='Y' and mkt='Hyp'))
@@ -7239,7 +7309,7 @@ select
 	cast('Sales' as varchar(10)) as [Type],cast('MAT Month' as varchar(20)) as Period,Moneytype,mkt,mktname,Market,cast(Prod as int) as ProdIdx,Prod,Productname,Molecule,Class,
 	sum(Mat00) as Mat00,sum(Mat12) as Mat12,sum(Mat24) as Mat24,sum(Mat36) as Mat36,sum(Mat48) as Mat48,
 	sum(MTH00) as MTH00,sum(MTH12) as MTH12,sum(MTH24) as MTH24,sum(MTH36) as MTH36,sum(MTH48) as MTH48,
-	sum(MQT00) as MQT00,sum(MQT12) as MQT12,sum(MQT24) as MQT24,sum(MQT36) as MQT36,sum(MQT48) as MQT48,
+	sum(R3M00) as MQT00,sum(R3M12) as MQT12,sum(R3M24) as MQT24,sum(R3M36) as MQT36,sum(R3M48) as MQT48,
 	sum(YTD00) as YTD00,sum(YTD12) as YTD12,sum(YTD24) as YTD24,sum(YTD36) as YTD36,sum(YTD48) as YTD48--, sum(YTD60) as YTD60
 into OutputCMLChinaMarketTrend
 from TempCHPAPreReports where mkt='CML'
@@ -7272,7 +7342,7 @@ begin
 		cast(Prod as int) as ProdIdx,Prod,Productname,Molecule,Class,
 		sum(Mat00) as Mat00,sum(Mat12) as Mat12,sum(Mat24) as Mat24,sum(Mat36) as Mat36,sum(Mat48) as Mat48,
 		sum(MTH00) as MTH00,sum(MTH12) as MTH12,sum(MTH24) as MTH24,sum(MTH36) as MTH36,sum(MTH48) as MTH48,
-		sum(MQT00) as MQT00,sum(MQT12) as MQT12,sum(MQT24) as MQT24,sum(MQT36) as MQT36,sum(MQT48) as MQT48,
+		sum(R3M00) as MQT00,sum(R3M12) as MQT12,sum(R3M24) as MQT24,sum(R3M36) as MQT36,sum(R3M48) as MQT48,
 		sum(YTD00) as YTD00,sum(YTD12) as YTD12,sum(YTD24) as YTD24,sum(YTD36) as YTD36,sum(YTD48) as YTD48--, sum(YTD60) as YTD60
 	from TempCHPAPreReports where mkt='CML'
 	group by Moneytype,mkt,mktname,Market,Prod,Productname,Molecule,Class
@@ -7427,7 +7497,7 @@ set Growth=case Mat12 when 0 then case Mat00 when 0 then 0 else null end else (M
 IF EXISTS(SELECT 1 FROM DBO.SYSOBJECTS WHERE ID = OBJECT_ID(N'OutputKeyBrandPerformance_For_Baraclude_Modify') and type = 'U')
 	DROP TABLE OutputKeyBrandPerformance_For_Baraclude_Modify
 GO
-declare @i int,@sql varchar(8000),@sqlR varchar(8000)
+declare @i int,@sql varchar(max),@sqlR varchar(max)
 set @i=0
 set @sql=''
 set @sqlR=''
@@ -7766,7 +7836,7 @@ DECLARE TMP_CURSOR CURSOR
 READ_ONLY
 FOR select [Type]  from dbo.tblMoneyType where [Type]='UN'
 DECLARE @MoneyType varchar(10)
-DECLARE @SQL2 VARCHAR(8000)
+DECLARE @SQL2 VARCHAR(max)
 	
 OPEN TMP_CURSOR
 	
@@ -8186,10 +8256,10 @@ WHERE CHART = 'Volume Trend' AND (PRODUCTNAME<>'ACEI' and audi_des <>'Nation') a
 insert into OutputPerformanceByBrand_CV_Modi_Slide7(Chart,[Molecule],[Class],[mkt],Market,[mktname],[prod],[Productname],[Moneytype],[Audi_cod],[Audi_des],MTH00,MTH12,YTD00,YTD12)
 select cast('Volume Trend' as varchar(50)) as Chart,[Molecule],[Class],[mkt],Market,[mktname],[prod],[Productname],[Moneytype]
       ,[Audi_cod],[Audi_des],
-sum(MTH00) as MTH00,
-sum(MTH12) as MTH12,
-sum(YTD00) as YTD00,
-sum(YTD12) as YTD12
+	sum(MTH00) as MTH00,
+	sum(MTH12) as MTH12,
+	sum(YTD00) as YTD00,
+	sum(YTD12) as YTD12
 from dbo.TempCityDashboard_For_Eliquis  where audi_des not in ('GuangDong','Zhejiang')
 group by [Molecule],[Class],[mkt],Market,[mktname],[prod],[Productname],[Moneytype]
       ,[Audi_cod],[Audi_des]
@@ -8197,10 +8267,10 @@ union all
 --insert into OutputPerformanceByBrand_CV_Modi_Slide6(Chart,[Molecule],[Class],[mkt],Market,[mktname],[prod],[Productname],[Moneytype],[Audi_cod],[Audi_des],MTH00,MTH12,YTD00,YTD12)
 select cast('Volume Trend' as varchar(50)) as Chart,[Molecule],[Class],[mkt],Market,[mktname],[prod],[Productname],[Moneytype]
       ,'Nation' as [Audi_cod],'Nation' as [Audi_des],
-sum(MTH00) as MTH00,
-sum(MTH12) as MTH12,
-sum(YTD00) as YTD00,
-sum(YTD12) as YTD12
+	sum(MTH00) as MTH00,
+	sum(MTH12) as MTH12,
+	sum(YTD00) as YTD00,
+	sum(YTD12) as YTD12
 from dbo.TempCHPAPreReports_For_Eliquis 
 group by [Molecule],[Class],[mkt],Market,[mktname],[prod],[Productname],[Moneytype]  
 
@@ -8209,7 +8279,7 @@ group by [Molecule],[Class],[mkt],Market,[mktname],[prod],[Productname],[Moneyty
 INSERT INTO dbo.OutputPerformanceByBrand_CV_Modi_Slide7(Chart,[Molecule],[Class],[mkt],Market,[mktname],[prod],[Productname],[Moneytype]
       ,[Audi_cod],[Audi_des],MTH00,MTH12,YTD00,YTD12)
 SELECT chart,'N' as molecule,'Y' as Class,mkt,market,mktname,'910' as prod,'ACEI' as productname,moneytype 
-,[Audi_cod],[Audi_des],SUM(MTH00) AS MTH00,SUM(MTH12) AS MTH12,SUM(YTD00) AS YTD00,SUM(YTD12) AS YTD12
+	,[Audi_cod],[Audi_des],SUM(MTH00) AS MTH00,SUM(MTH12) AS MTH12,SUM(YTD00) AS YTD00,SUM(YTD12) AS YTD12
 FROM OutputPerformanceByBrand_CV_Modi_Slide6 
 WHERE PRODUCTNAME IN ('Monopril','Lotensin','Tritace','Acertil') and CHART = 'Volume Trend' and  market = 'monopril' and mkt = 'HYP' and audi_des <>'Nation'
 GROUP BY chart,mkt,market,mktname,moneytype,audi_cod,audi_des   
@@ -8232,9 +8302,11 @@ SELECT 'Volume Trend',
 'N' as Molecule, 'Y' as class,mkt,Market,mktname,'910' as prod,'ACEI' as Productname,Moneytype,'Nation','Nation',
 	    sum(MTH00) as MTH00,  sum(MTH12) as MTH12,  sum(YTD00) YTD00,  sum(YTD12) YTD12
 FROM tempCHPAPreReports 
-WHERE Market = 'Monopril' and mkt = 'HYP' and ( 
---(Molecule = 'N'and class='Y' and Prod='910') or 
-(Molecule = 'N' and Class = 'N')) and MoneyType = 'LC' and productname in ('Monopril','Lotensin','Tritace','Acertil')
+WHERE Market = 'Monopril' and mkt = 'HYP' 
+	and ( 
+		--(Molecule = 'N'and class='Y' and Prod='910') or 
+		(Molecule = 'N' and Class = 'N')) 
+	and MoneyType = 'LC' and productname in ('Monopril','Lotensin','Tritace','Acertil')
 GROUP BY mkt,Market,mktname,Moneytype
 
 
@@ -9530,12 +9602,12 @@ END
 
 select * into TempCityDashboard_For_OtherETV from TempCityDashboard where not (mkt='arv' and productname in ('Other Entecavir','ARV Others'))
 go
-declare @i int,@sql varchar(8000),@sql1 varchar(8000),@sql3 varchar(8000),@sqlMAT varchar(2000),@sqlYTD varchar(2000),@sqlQtr varchar(2000)
+declare @i int,@sql varchar(max),@sql1 varchar(max),@sql3 varchar(max),@sqlMAT varchar(2000),@sqlYTD varchar(2000),@sqlQtr varchar(2000)
 DECLARE TMP_CURSOR CURSOR
 READ_ONLY
 FOR select [Type]  from dbo.tblMoneyType
 DECLARE @MoneyType varchar(10)
-DECLARE @SQL2 VARCHAR(8000)
+DECLARE @SQL2 VARCHAR(max)
 	
 OPEN TMP_CURSOR
 	
@@ -9676,12 +9748,12 @@ go
 
 select * into TempCHPAPreReports_For_OtherETV  from TempCHPAPreReports where not (mkt='arv' and productname in ('Other Entecavir','ARV Others'))
 
-declare @i int,@sql varchar(8000),@sql1 varchar(8000),@sql3 varchar(8000),@sqlMAT varchar(2000),@sqlYTD varchar(2000),@sqlQtr varchar(2000)
+declare @i int,@sql varchar(max),@sql1 varchar(max),@sql3 varchar(max),@sqlMAT varchar(2000),@sqlYTD varchar(2000),@sqlQtr varchar(2000)
 DECLARE TMP_CURSOR CURSOR
 READ_ONLY
 FOR select [Type]  from dbo.tblMoneyType
 DECLARE @MoneyType varchar(10)
-DECLARE @SQL2 VARCHAR(8000)
+DECLARE @SQL2 VARCHAR(max)
 	
 OPEN TMP_CURSOR
 	
@@ -9791,8 +9863,8 @@ on left(A.Market,7)=B.Product and A.audi_des=b.geo where a.mkt in ('Eliquis VTEp
 go
 Alter table TempRegionCityDashboard_For_OtherETV drop column Tier
 go
-declare @i int,@sql varchar(8000),@sql1 varchar(8000),@sql3 varchar(8000),@sqlMAT varchar(2000),@sqlYTD varchar(2000),@sqlQtr varchar(2000)
-DECLARE @SQL2 VARCHAR(8000)
+declare @i int,@sql varchar(max),@sql1 varchar(max),@sql3 varchar(max),@sqlMAT varchar(2000),@sqlYTD varchar(2000),@sqlQtr varchar(2000)
+DECLARE @SQL2 VARCHAR(max)
 		set @i=0
 		set @sql1=''
         set @sql3=''
@@ -9848,8 +9920,8 @@ DECLARE @SQL2 VARCHAR(8000)
 			[Region],[Region],''Region'','+@sql1+', '+@sql3+', '+@sqlMAT+', '+@sqlYTD+', '+@sqlQtr+',[Region] from TempRegionCityDashboard_For_OtherETV A
 		group by [Molecule],[Class],[mkt],[mktname],Market,[prod],[Productname],[Moneytype],[Region]')
 go
-declare @i int,@sql varchar(8000),@sql1 varchar(8000),@sql3 varchar(8000),@sqlMAT varchar(2000),@sqlYTD varchar(2000),@sqlQtr varchar(2000)
-DECLARE @SQL2 VARCHAR(8000)
+declare @i int,@sql varchar(max),@sql1 varchar(max),@sql3 varchar(max),@sqlMAT varchar(2000),@sqlYTD varchar(2000),@sqlQtr varchar(2000)
+DECLARE @SQL2 VARCHAR(max)
 		set @i=0
 		set @sql1=''
         set @sql3=''
@@ -10130,7 +10202,7 @@ go
 if exists (select * from dbo.sysobjects where id = object_id(N'OutputKeyBrandPerformance_For_OtherETV') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
 	drop table OutputKeyBrandPerformance_For_OtherETV
 go
-declare @i int,@sql varchar(8000),@sqlR varchar(8000)
+declare @i int,@sql varchar(max),@sqlR varchar(max)
 set @i=0
 set @sql=''
 set @sqlR=''

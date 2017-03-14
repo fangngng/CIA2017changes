@@ -27,35 +27,35 @@ update Webchartseries set parentyaxis='P' where linkchartcode in('D021','D023','
 update Webchartseries set AnchorSide='4',AnchorRadius='4',AnchorBorderThickness='1',ParentYAxis='S'
 --select * from Webchartseries
 where linkchartcode in (
-                        select distinct Code from db82.BMSChina_staging.dbo.WebChart 
+                        select distinct Code from db82.BMSChina_staging_test.dbo.WebChart 
                         where charturl in( '../Charts/MSCombiDY2D.swf','../Charts/StackedColumn3DLineDY.swf')
                         )
-and (Series like '%Growth%' or Series like '%Share%')
+	and (Series like '%Growth%' or Series like '%Share%')
 
 
 
 update Webchartseries set AnchorSide='4',AnchorRadius='4',AnchorBorderThickness='1',ParentYAxis='S'
 --select * from Webchartseries
 where linkchartcode in (
-select distinct Code from db82.BMSChina_staging.dbo.WebChart where charturl = '../Charts/StackedColumn3DLineDY.swf'
+	select distinct Code from db82.BMSChina_staging_test.dbo.WebChart where charturl = '../Charts/StackedColumn3DLineDY.swf'
 )
-and Seriesidx=10000
+	and Seriesidx=10000
 
 update Webchartseries set AnchorSide='4',AnchorRadius='4',AnchorBorderThickness='1'
 where linkchartcode in (
-select distinct Code from db82.BMSChina_staging.dbo.WebChart where charturl = '../Charts/MSLine.swf'
+select distinct Code from db82.BMSChina_staging_test.dbo.WebChart where charturl = '../Charts/MSLine.swf'
 )
 
 --only one series
 update Webchartseries set IsSingle='Y' 
 where linkchartcode in (
-select distinct Code from db82.BMSChina_staging.dbo.WebChart where charturl = '../Charts/Column2D.swf'
+	select distinct Code from db82.BMSChina_staging_test.dbo.WebChart where charturl = '../Charts/Column2D.swf'
 )
 
 -- like %
 update Webchartseries set ParentYAxis='P'
 where linkchartcode in (
-select distinct Code from db82.BMSChina_staging.dbo.WebChart where charturl = '../Charts/MSLine.swf'
+	select distinct Code from db82.BMSChina_staging_test.dbo.WebChart where charturl = '../Charts/MSLine.swf'
 )
 
 update webchartseries set parentyaxis='P' where linkchartcode in ('d084','d088','d094','d104')
@@ -84,36 +84,36 @@ truncate table WebChartTitle
 go
 
 insert into WebChartTitle (DataSource,ProductID,GeoID,[LinkChartCode]
-      ,[Category]
-      ,[Product]
-      ,[Lev],ParentGeo
-      ,[Geo]
-      ,[Currency]
-      ,[TimeFrame])
+	,[Category]
+	,[Product]
+	,[Lev],ParentGeo
+	,[Geo]
+	,[Currency]
+	,[TimeFrame])
 SELECT distinct DataSource,ProductID,GeoID, [LinkChartCode]
-      ,[Category]
-      ,[Product]
-      ,[Lev],ParentGeo
-      ,[Geo]
-      ,[Currency]
-      ,[TimeFrame]
-  FROM [dbo].[Output] where isshow='Y'
+	,[Category]
+	,[Product]
+	,[Lev],ParentGeo
+	,[Geo]
+	,[Currency]
+	,[TimeFrame]
+FROM [dbo].[Output] where isshow='Y'
 go
 insert into WebChartTitle (DataSource,ProductID,GeoID,[LinkChartCode]
-      ,[Category]
-      ,[Product]
-      ,[Lev],ParentGeo
-      ,[Geo]
-      ,[Currency]
-      ,[TimeFrame])
+	,[Category]
+	,[Product]
+	,[Lev],ParentGeo
+	,[Geo]
+	,[Currency]
+	,[TimeFrame])
 SELECT distinct DataSource, ProductID,GeoID, [LinkChartCode]
-      ,[Category]
-      ,[Product]
-      ,[Lev],ParentGeo
-      ,[Geo]
-      ,[Currency]
-      ,[TimeFrame]
-  FROM [dbo].[Output] where LinkChartCode IN ('R610','R620','R630','R653','R654','R720','R730')
+	,[Category]
+	,[Product]
+	,[Lev],ParentGeo
+	,[Geo]
+	,[Currency]
+	,[TimeFrame]
+FROM [dbo].[Output] where LinkChartCode IN ('R610','R620','R630','R653','R654','R720','R730')
 
 --Do not need the Units ppt.
 --delete from webcharttitle where linkchartcode like 'R402%'
@@ -150,14 +150,14 @@ where Currency='UNIT'
 
 update WebChartTitle set PYAxisName=
 case when LinkChartCode in('D081','D085','D091','D101') then case Currency when 'UNIT' then Category+' (in Dollar)' else Category+' (in '+ Currency+' Dollar)' end
-when LinkChartCode in ('D082','D086','D092','D102') then 'Market Share %'
-when LinkChartCode in ('D083','D087','D093','D103') then 'Growth %'
-when LinkChartCode in ('D084','D088','D094','D104') then 'SOG %' end 
+	when LinkChartCode in ('D082','D086','D092','D102') then 'Market Share %'
+	when LinkChartCode in ('D083','D087','D093','D103') then 'Growth %'
+	when LinkChartCode in ('D084','D088','D094','D104') then 'SOG %' end 
 where (LinkChartCode like 'D08%' or LinkChartCode like 'D09%' or LinkChartCode like 'D10%')
 
 update WebChartTitle set PYAxisName=''
 where (LinkChartCode like 'D02%' or LinkChartCode like 'D03%' or LinkChartCode like 'D04%' or linkchartcode in('C140','C141') or LinkChartCode in( 'C900','C660','C690','C661','C691') or LinkChartCode = 'R777' or (Linkchartcode like 'R6%' AND LinkChartCode not in ('R670','R680')))
-or (linkchartcode between 'R400' and 'R520' and linkchartcode not in('R401','R402','R411','R412','R420','R440'))
+	or (linkchartcode between 'R400' and 'R520' and linkchartcode not in('R401','R402','R411','R412','R420','R440'))
 
 --update WebChartTitle
 --set PYAxisName=replace(PYAxisName,'Dollar',B.Dol)
@@ -192,21 +192,24 @@ set PYAxisName='Growth %' where linkchartcode in('R710')
 
 update WebChartTitle
 set PYAxisName=replace(PYAxisName,'Dollar',B.Dol)
-from WebChartTitle A inner join dbo.tblDivNumber B
+from WebChartTitle A 
+inner join dbo.tblDivNumber B
 on A.linkchartcode=B.linkchartcode and A.timeframe=B.period and A.currency=b.Moneytype and A.geo=B.geo
-and A.ParentGeo=B.ParentGeo and A.product=B.product
+	and A.ParentGeo=B.ParentGeo and A.product=B.product
 
 go
 update WebChartTitle
 set PYAxisName=replace(PYAxisName,'Dollar',B.Dol)
-from WebChartTitle A inner join dbo.tblDivNumber B
+from WebChartTitle A 
+inner join dbo.tblDivNumber B
 on A.linkchartcode=B.linkchartcode and A.timeframe=B.period and A.currency=b.Moneytype and A.geo=B.geo
-and A.ParentGeo=B.ParentGeo and A.product='Onglyza' and B.product='Glucophage'
+	and A.ParentGeo=B.ParentGeo and A.product='Onglyza' and B.product='Glucophage'
 where A.PYAxisName like '%Dollar%'
 --WHERE A.LinkChartCode between 'R010' and 'R120' or A.LinkChartCode='R320'
 go
 update WebChartTitle
-set PYAxisName=rtrim(replace(PYAxisName,'(in )','')) where PYAxisName like '%(in )%'
+set PYAxisName=rtrim(replace(PYAxisName,'(in )','')) 
+where PYAxisName like '%(in )%'
 go
 
 
@@ -417,7 +420,7 @@ where  A.LinkChartCode ='C160'
 go
 --todo
 update WebChartTitle set SYAxisName='Growth %'
-where linkchartcode in (select code from db82.BMSChina_staging.dbo.Webchart where snumbersuffix='%')
+where linkchartcode in (select code from db82.BMSChina_staging_test.dbo.Webchart where snumbersuffix='%')
 go
 update WebChartTitle
 set SYAxisName='Market Growth %' where LinkChartCode IN ('C120','C121')
@@ -433,7 +436,7 @@ set SYAxisName='' where LinkChartCode IN('R680','C660','C690','C661','C691')
 
 update webcharttitle
 set YAxisName=PYAxisName where linkchartcode in 
-(select distinct Code from db82.BMSChina_staging.dbo.Webchart 
+(select distinct Code from db82.BMSChina_staging_test.dbo.Webchart 
 where ChartURL in('../Charts/Column2D.swf','../Charts/MSColumn2D.swf','../Charts/MSLine.swf','../Charts/StackedColumn3D.swf'))
 
 update WebChartTitle

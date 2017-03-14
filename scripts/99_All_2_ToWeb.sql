@@ -1,8 +1,8 @@
-use BMSChina_staging
+use BMSChina_staging_test
 go
 
 
--- select * from BMSChina_ppt.dbo.OUTPUT_ppt -- 186117
+-- select * from BMSChina_PPT_test.dbo.OUTPUT_ppt -- 186117
 
 
 
@@ -18,7 +18,7 @@ go
  
 insert into dbo.OUTPUT(DataSource,LinkChartCode, LinkSeriesCode, Series, SeriesIdx, Category, Product, Lev, ParentGeo, Geo, Currency, TimeFrame, X, XIdx, Y, LinkedY, Size, OtherParameters, Color, R, G, B, IsShow)
 select DataSource, LinkChartCode, LinkSeriesCode, Series, SeriesIdx, Category, Product, Lev, ParentGeo, Geo, Currency, TimeFrame, X, XIdx, Y, LinkedY, Size, OtherParameters, Color, R, G, B, IsShow
-from BMSChina_ppt.dbo.OUTPUT_ppt
+from BMSChina_PPT_test.dbo.OUTPUT_ppt
 where  LinkChartCode in('C202','D050','D051','D060','D110','D111','D130','D150')
 go
 
@@ -46,19 +46,23 @@ update output set LinkGeoID = null
 go
 
 update output
-set LinkGeoID=B.ID from output A 
-inner join  Db4.BMSChinaCIA_IMS.dbo.Outputgeo B
+set LinkGeoID=B.ID 
+from output A 
+inner join  Db4.BMSChinaCIA_IMS_test.dbo.Outputgeo B
 on A.Geo=B.Geo and A.ParentGeo=B.ParentGeo and A.Product=B.Product
 go
 update output
-set LinkGeoID=B.ID from output A 
-inner join  Db4.BMSChinaCIA_IMS.dbo.Outputgeo B
+set LinkGeoID=B.ID 
+from output A 
+inner join  Db4.BMSChinaCIA_IMS_test.dbo.Outputgeo B
 on A.Geo=B.Geo and A.ParentGeo=B.ParentGeo and left(A.Product,7)=B.Product
 where a.product in ('eliquis vtep','eliquis noac')
 go
 
 update output
-set LinkGeoID=B.ID from output A inner join  Db4.BMSChinaCIA_IMS.dbo.Outputgeo B
+set LinkGeoID=B.ID 
+from output A 
+inner join  Db4.BMSChinaCIA_IMS_test.dbo.Outputgeo B
 on A.Geo=B.Geo where A.geo= 'China' and A. LinkGeoID is null
 go
 
@@ -68,12 +72,14 @@ where LinkChartCode in('C202','D050','D051','D060','D110','D111','D130','D150')
 go
 insert into WebChartTitle(DataSource,LinkChartCode, Category, Product, Lev, Geo, ParentGeo, Currency, TimeFrame, Caption, SubCaption, SlideTitle, PYAxisName, SYAxisName, Templatename, Outputname, ParentCode, CategoryIdx)
 select DataSource, LinkChartCode, Category, Product, Lev, Geo, ParentGeo, Currency, TimeFrame, Caption, SubCaption, SlideTitle, PYAxisName, SYAxisName, Templatename, Outputname, ParentCode, CategoryIdx
-from BMSChina_ppt.dbo.tblChartTitle
+from BMSChina_PPT_test.dbo.tblChartTitle
 where LinkChartCode in('C202','D050','D051','D060','D110','D111','D130','D150')
 go
 
-update WebChartTitle set LinkProductID =B.ID 
-from WebChartTitle A inner join( 
+update WebChartTitle 
+set LinkProductID =B.ID 
+from WebChartTitle A 
+inner join( 
 	select * from dbo.WebPage
 	where ParentID =( select ID from WebPage where Code= 'Dashboard')
 ) B on A.Product=B.Code
@@ -87,22 +93,25 @@ from WebChartTitle A inner join(
 ) B on left(A.Product,7)=B.Code
 where a.LinkChartCode in('D050','D051','D110','D111') and a.product like'eliquis%'
 
-update WebChartTitle set LinkGeoID=B.ID 
+update WebChartTitle 
+set LinkGeoID=B.ID 
 from WebChartTitle A 
-inner join  Db4.BMSChinaCIA_IMS.dbo.Outputgeo B
+inner join  Db4.BMSChinaCIA_IMS_test.dbo.Outputgeo B
 on A.Geo=B.Geo and A.ParentGeo=B.ParentGeo and A.Product=B.Product
 where a.LinkChartCode in('C202','D050','D051','D060','D110','D111','D130','D150')
 go
-update WebChartTitle set LinkGeoID=B.ID 
+update WebChartTitle 
+set LinkGeoID=B.ID 
 from WebChartTitle A 
-inner join  Db4.BMSChinaCIA_IMS.dbo.Outputgeo B
+inner join  Db4.BMSChinaCIA_IMS_test.dbo.Outputgeo B
 on A.Geo=B.Geo and A.ParentGeo=B.ParentGeo and left(A.Product,7)=B.Product
 where a.LinkChartCode in('D050','D051','D110','D111') and a.product like'eliquis%'
 go
 
-update WebChartTitle set LinkGeoID=B.ID 
+update WebChartTitle
+set LinkGeoID=B.ID 
 from WebChartTitle A 
-inner join  Db4.BMSChinaCIA_IMS.dbo.Outputgeo B
+inner join  Db4.BMSChinaCIA_IMS_test.dbo.Outputgeo B
 	on A.Geo=B.Geo
 where  A.geo= 'China' and A. LinkGeoID is null
 	and a.LinkChartCode in('C202','D050','D051','D060','D110','D111','D130','D150')
@@ -111,7 +120,7 @@ delete WebChartSeries  where LinkChartCode = 'c202'
 
 insert into WebChartSeries (DataSource,Code,linkChartCode,Geo,Series,SeriesIdx,Color)
 select distinct DataSource, LinkSeriesCode, LinkChartCode,Geo,Series,SeriesIdx,Color
-from BMSChina_ppt.dbo.Output_PPT 
+from BMSChina_PPT_test.dbo.Output_PPT 
 where LinkChartCode = 'c202'
 go
 
@@ -119,7 +128,7 @@ delete WebChartSeries  where LinkChartCode in( 'd050','D051')
 
 insert into WebChartSeries (DataSource,Code,linkChartCode,Geo,Series,SeriesIdx,Color)
 select distinct DataSource, LinkSeriesCode, LinkChartCode,Geo,Series,SeriesIdx,Color
-from BMSChina_ppt.dbo.Output_PPT 
+from BMSChina_PPT_test.dbo.Output_PPT 
 where LinkChartCode in ('D050','D051')
 go
 
@@ -127,7 +136,7 @@ delete WebChartSeries  where LinkChartCode = 'D060'
 
 insert into WebChartSeries ( DataSource,Code,linkChartCode,Geo,Series,SeriesIdx,Color)
 select distinct DataSource, LinkSeriesCode, LinkChartCode,Geo,Series,SeriesIdx,Color
-from BMSChina_ppt.dbo.Output_PPT 
+from BMSChina_PPT_test.dbo.Output_PPT 
 where LinkChartCode = 'D060'
 go
 
@@ -136,7 +145,7 @@ go
 
 insert into WebChartSeries ( DataSource,Code,linkChartCode,Geo,Series,SeriesIdx,Color)
 select distinct DataSource, LinkSeriesCode, LinkChartCode,Geo,Series,SeriesIdx,Color
-from BMSChina_ppt.dbo.Output_PPT 
+from BMSChina_PPT_test.dbo.Output_PPT 
 where LinkChartCode in ('D110','D111')
 go
 
@@ -145,7 +154,7 @@ go
 
 insert into WebChartSeries (DataSource,Code,linkChartCode,Geo,Series,SeriesIdx,Color)
 select distinct DataSource, LinkSeriesCode, LinkChartCode,Geo,Series,SeriesIdx,Color
-from BMSChina_ppt.dbo.Output_PPT 
+from BMSChina_PPT_test.dbo.Output_PPT 
 where LinkChartCode = 'D130'
 go
 
@@ -154,7 +163,7 @@ go
 
 insert into WebChartSeries ( DataSource,Code,linkChartCode,Geo,Series,SeriesIdx,Color)
 select distinct DataSource, LinkSeriesCode, LinkChartCode,Geo,Series,SeriesIdx,Color
-from BMSChina_ppt.dbo.Output_PPT 
+from BMSChina_PPT_test.dbo.Output_PPT 
 where LinkChartCode = 'D150'
 go
 
@@ -346,7 +355,7 @@ set SubCaption=replace(SubCaption,'49',B.CityNum)--todo:当Taxol的区域划分�
 from WebChartTitle A 
 inner join (
 select ParentGeo,cast(count(distinct Geo) as nvarchar(10))  CityNum
-from DB4.BMSChinaCIA_IMS.dbo.outputgeo where lev=2 and Product='taxol'
+from DB4.BMSChinaCIA_IMS_test.dbo.outputgeo where lev=2 and Product='taxol'
 group by ParentGeo
 ) B
 on A.Geo=B.ParentGeo
@@ -394,7 +403,7 @@ where linkchartcode  like 'D02%' and Product ='Baraclude'
 update webcharttitle set CategoryIdx = 3 where Category='Adjusted patient number' and LinkChartCode in ('D050','D051','D110','D111','D130')
 
 -- 20161115 delete Eliquis NOAC 
-delete [BMSChina_staging].[dbo].[WebChartTitle]
+delete [BMSChina_staging_test].[dbo].[WebChartTitle]
 where Caption like '%NOAC%'
 
 --------------------------------------------------
@@ -491,10 +500,10 @@ where Caption like '%NOAC%'
 --from webChart where Code='C130'
 
 -- delete Eliquis NOAC chart
--- delete	[BMSChina_staging].[dbo].[WebChart]
+-- delete	[BMSChina_staging_test].[dbo].[WebChart]
 -- where code in (
 -- 	select distinct LinkChartCode
--- 	from [BMSChina_staging].[dbo].[WebChartTitle]
+-- 	from [BMSChina_staging_test].[dbo].[WebChartTitle]
 -- 	where Caption like '%NOAC%'
 -- )
 
@@ -551,7 +560,7 @@ where Caption like '%NOAC%'
 --      ,[ChartIdx]
 --      ,[SectionId]
 --      ,[IsShow]
---  FROM [BMSChina_staging].[dbo].[WebPageChart]
+--  FROM [BMSChina_staging_test].[dbo].[WebPageChart]
 -- where LinkPageID=15
 --
 --

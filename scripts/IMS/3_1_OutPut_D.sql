@@ -247,8 +247,8 @@ delete from output_stage where series='ShareTotal' and xidx<>1 and linkchartcode
 
 
 -- --C060
--- declare @code varchar(10)
--- set @code = 'C060'
+declare @code varchar(10)
+set @code = 'C060'
 delete from output_stage where LinkChartCode='C060'
 insert into [output_stage] (IsShow,TimeFrame,LinkChartCode, Series, SeriesIdx,Currency, X, XIdx)
 select IsShow,Period, @code as Code, a.Series,a.SeriesIdx,MoneyType,b.Audi_des,b.CurrRank
@@ -408,6 +408,8 @@ go
 --------------------------------------------------------------------
 --C100
 --------------------------------------------------------------------
+delete from output_stage where linkchartcode='C100'
+go 
 declare @code varchar(10)
 set @code = 'C100'
 insert into [output_stage] (IsShow,TimeFrame,LinkChartCode, Series, SeriesIdx,Currency, X, XIdx)
@@ -444,7 +446,7 @@ BEGIN
 
 		set @SQL2='
 			update [output_stage]
-			set Y=B.'+@Series+ ' from [output_stage] A inner join dbo.OutputKeyMNCsPerformance_HKAPI B
+			set Y=B.['+@Series+ '] from [output_stage] A inner join dbo.OutputKeyMNCsPerformance_HKAPI B
 			on A.TimeFrame=B.Period and A.Currency=B.MoneyType and A.X=B.Corp_des
 			and a.LinkChartCode = '+''''+@code+''''+' and A.Series='+''''+@Series+''''
 		print @SQL2
@@ -460,6 +462,9 @@ go
 --------------------------------------------------------------------
 --C110
 --------------------------------------------------------------------
+delete from output_stage where linkchartcode='C110'
+go
+
 declare @code varchar(10)
 set @code = 'C110'
 insert into [output_stage] (IsShow,TimeFrame,LinkChartCode, Series, SeriesIdx,Currency, X, XIdx)
@@ -496,7 +501,7 @@ BEGIN
 
 		set @SQL2='
 			update [output_stage]
-			set Y=B.'+@Series+ ' from [output_stage] A inner join dbo.OutputKeyMNCsProdPerformance_HKAPI B
+			set Y=B.['+@Series+ '] from [output_stage] A inner join dbo.OutputKeyMNCsProdPerformance_HKAPI B
 			on A.TimeFrame=B.Period and A.Currency=B.MoneyType and A.X=B.Prod_des
 			and a.LinkChartCode = '+''''+@code+''''+' and A.Series='+''''+@Series+''''
 		print @SQL2
@@ -564,46 +569,58 @@ set Currency=case Currency when 'US' then 'USD' when 'LC' then 'RMB' when 'UN' t
 where LinkChartCode between 'C010' and 'C110'
 go
 update [output_stage]
-set series=case series when 'MAT00' then (select cast(year-1 as varchar(6)) from tblDateHKAPI)
-when 'MAT12' then (select cast(year-2 as varchar(6)) from tblDateHKAPI)
-when 'MAT00Growth' then  (select cast(year-1 as varchar(6)) from tblDateHKAPI)+' Growth'
-else series
-end where linkchartcode in('C100','C110')and timeFrame='Last Year'
+set series=
+	case series 
+		when 'MAT00' then (select cast(year-1 as varchar(6)) from tblDateHKAPI)
+		when 'MAT12' then (select cast(year-2 as varchar(6)) from tblDateHKAPI)
+		when 'MAT00Growth' then  (select cast(year-1 as varchar(6)) from tblDateHKAPI)+' Growth'
+		else series
+	end 
+where linkchartcode in('C100','C110')and timeFrame='Last Year'
 go
 update [output_stage]
-set series=case series when 'MAT00' then 'YTD '+(select [Month]+''''+right(year,2) from tblDateHKAPI)
-when 'MAT12' then 'YTD '+(select [Month]+''''+right(year-1,2) from tblDateHKAPI)
-when 'MAT00Growth' then  'YTD '+(select [Month]+''''+right(year,2) from tblDateHKAPI)+' Growth'
-else series
-end where linkchartcode in('C100','C110')and timeFrame='YTD'
+set series=
+	case series when 'MAT00' then 'YTD '+(select [Month]+''''+right(year,2) from tblDateHKAPI)
+		when 'MAT12' then 'YTD '+(select [Month]+''''+right(year-1,2) from tblDateHKAPI)
+		when 'MAT00Growth' then  'YTD '+(select [Month]+''''+right(year,2) from tblDateHKAPI)+' Growth'
+		else series
+	end 
+where linkchartcode in('C100','C110')and timeFrame='YTD'
 go
 update [output_stage]
-set series=case series when 'MAT00' then 'MQT '+(select [MonthEN] from tblMonthList where monseq=1)
-when 'MAT12' then 'MQT '+(select [MonthEN] from tblMonthList where monseq=13)
-when 'MAT00Growth' then  'MQT '+(select [MonthEN] from tblMonthList where monseq=1)+' Growth'
-when 'MAT12Growth' then  'MQT '+(select [MonthEN] from tblMonthList where monseq=13)+' Growth'
-else series
-end where linkchartcode between 'C010' and 'C110' and timeFrame='MQT'
+set series=
+	case series when 'MAT00' then 'MQT '+(select [MonthEN] from tblMonthList where monseq=1)
+		when 'MAT12' then 'MQT '+(select [MonthEN] from tblMonthList where monseq=13)
+		when 'MAT00Growth' then  'MQT '+(select [MonthEN] from tblMonthList where monseq=1)+' Growth'
+		when 'MAT12Growth' then  'MQT '+(select [MonthEN] from tblMonthList where monseq=13)+' Growth'
+		else series
+	end 
+where linkchartcode between 'C010' and 'C110' and timeFrame='MQT'
 go
 update [output_stage]
-set series=case series when 'MAT00' then TimeFrame + ' '+(select [MonthEN] from tblMonthList where monseq=1)
-when 'MAT12' then TimeFrame + ' '+(select [MonthEN] from tblMonthList where monseq=13)
-when 'MAT24' then TimeFrame + ' '+(select [MonthEN] from tblMonthList where monseq=25)
-when 'MAT36' then TimeFrame + ' '+(select [MonthEN] from tblMonthList where monseq=37)
-when 'MAT48' then TimeFrame + ' '+(select [MonthEN] from tblMonthList where monseq=49)
-when 'MAT00Growth' then  TimeFrame + ' '+(select [MonthEN] from tblMonthList where monseq=1)+' Growth'
-when 'MAT12Growth' then  TimeFrame + ' '+(select [MonthEN] from tblMonthList where monseq=13)+' Growth'
-else series
-end where LinkChartCode between 'C010' and 'C110' and timeFrame<>'Last Year'
+set series=
+	case series 
+		when 'MAT00' then TimeFrame + ' '+(select [MonthEN] from tblMonthList where monseq=1)
+		when 'MAT12' then TimeFrame + ' '+(select [MonthEN] from tblMonthList where monseq=13)
+		when 'MAT24' then TimeFrame + ' '+(select [MonthEN] from tblMonthList where monseq=25)
+		when 'MAT36' then TimeFrame + ' '+(select [MonthEN] from tblMonthList where monseq=37)
+		when 'MAT48' then TimeFrame + ' '+(select [MonthEN] from tblMonthList where monseq=49)
+		when 'MAT00Growth' then  TimeFrame + ' '+(select [MonthEN] from tblMonthList where monseq=1)+' Growth'
+		when 'MAT12Growth' then  TimeFrame + ' '+(select [MonthEN] from tblMonthList where monseq=13)+' Growth'
+		else series
+	end 
+where LinkChartCode between 'C010' and 'C110' and timeFrame<>'Last Year'
 go
 update [output_stage]
-set X=case X when 'MAT00' then TimeFrame + ' '+(select [MonthEN] from tblMonthList where monseq=1)
-when 'MAT12' then TimeFrame + ' '+(select [MonthEN] from tblMonthList where monseq=13)
-when 'MAT24' then TimeFrame + ' '+(select [MonthEN] from tblMonthList where monseq=25)
-when 'MAT36' then TimeFrame + ' '+(select [MonthEN] from tblMonthList where monseq=37)
-when 'MAT48' then TimeFrame + ' '+(select [MonthEN] from tblMonthList where monseq=49)
-else X
-end where  LinkChartCode between 'C010' and 'C110' and timeFrame<>'Last Year'
+set X=
+	case X when 'MAT00' then TimeFrame + ' '+(select [MonthEN] from tblMonthList where monseq=1)
+		when 'MAT12' then TimeFrame + ' '+(select [MonthEN] from tblMonthList where monseq=13)
+		when 'MAT24' then TimeFrame + ' '+(select [MonthEN] from tblMonthList where monseq=25)
+		when 'MAT36' then TimeFrame + ' '+(select [MonthEN] from tblMonthList where monseq=37)
+		when 'MAT48' then TimeFrame + ' '+(select [MonthEN] from tblMonthList where monseq=49)
+		else X
+	end 
+where  LinkChartCode between 'C010' and 'C110' and timeFrame<>'Last Year'
 go
 
 
@@ -692,7 +709,7 @@ BEGIN
 
 		set @SQL2='
 		update [output_stage]
-		set Y=B.'+@Series+ ' 
+		set Y=B.['+@Series+ '] 
 		from [output_stage] A 
 		inner join dbo.OutputProdSalesPerformanceInChina B
 		on A.TimeFrame=B.Period and A.Currency=B.MoneyType  and A.Product=B.Market and A.X='+''''+@Series+''''+'
@@ -2232,7 +2249,7 @@ go
 	set @i=0
 	set @code = 'c900'
 	insert into [output_stage] (isshow,TimeFrame,LinkChartCode,Product, Series, SeriesIdx,Currency, X, XIdx,lev,geo)
-	select 'Y',B.Period, @code as Code, A.Market,A.Productname,A.Prod,moneytype, a.Audi_des,a.Audi_cod,'China' as lev,'China'
+	select 'Y',B.Period, @code as Code, A.Market,A.Productname,A.Prod,moneytype, a.Audi_des, isnull(a.Audi_cod, 11),'China' as lev,'China'
 	from (
 		select A.*,b.Audi_cod,B.Audi_des 
 		from (
@@ -3195,8 +3212,8 @@ delete from output_stage where LinkChartCode='C661'
 -- -----------------------------------------------------
 -- --		CIA-CV_Modification(Eliquis) Slide2: Right part
 -- -----------------------------------------------------
--- declare @code varchar(10)
--- set @code='C690'
+declare @code varchar(10)
+set @code='C690'
 delete from output_stage where LinkChartCode=@code
 
 -- insert into [output_stage] (isshow,ParentGeo,Geo,Product,lev,TimeFrame,LinkChartCode, Series, SeriesIdx,Currency, X, XIdx,Y)
@@ -3228,8 +3245,8 @@ delete from output_stage where LinkChartCode=@code
 
 -- go
 -- --Eliquis NOAC
--- declare @code varchar(10)
--- set @code='C691'
+declare @code varchar(10)
+set @code='C691'
 delete from output_stage where LinkChartCode=@code
 
 -- insert into [output_stage] (isshow,ParentGeo,Geo,Product,lev,TimeFrame,LinkChartCode, Series, SeriesIdx,Currency, X, XIdx,Y)

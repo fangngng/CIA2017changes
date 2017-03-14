@@ -1,4 +1,4 @@
-use BMSChina_ppt
+use BMSChina_ppt_test
 go
 
 
@@ -12,7 +12,7 @@ where [LinkChartCode] like 'R502'
 and Product='ParaPlatin'
 
 delete  
-FROM [BMSChina_ppt].[dbo].[Output_PPT] 
+FROM [BMSChina_ppt_test].[dbo].[Output_PPT] 
 where [LinkChartCode] like 'R051'  and Product='ParaPlatin' and Series not in ('PARAPLATIN','Platinum Market')
 
 update output_ppt
@@ -34,7 +34,7 @@ set Category='Treatment Day',
 	PYAxisName=replace(PYAxisName,'Dosing Units','Treatment Day'),
 	SYAxisName=replace(SYAxisName,'Dosing Units','Treatment Day'),
 	OutputName=replace(OutputName,'Dosing Units','Treatment Day')
---select * from bmschina_ppt.dbo.tblChartTitle
+--select * from BMSChina_ppt_test.dbo.tblChartTitle
 where product='Glucophage' and category='Dosing Units' 
 and ( 
 		LinkchartCode not like 'R%' or 
@@ -52,7 +52,7 @@ where product='Glucophage' and left(outputname,4) in (
 )and OutputName like '%Dosing Units%'
 			
 go
-use BMSChina_staging
+use BMSChina_staging_test
 go
 
 update webChartTitle
@@ -89,8 +89,8 @@ set SlideName=replace(SlideName,'Dosing Units','Treatment Day'),
 	SubTitle=replace(SubTitle,'Dosing Units','Treatment Day')
 where SlideCode like 'Glucophage%' and left(SlideName,4) in (
 	select distinct parentcode 
-	from BMSChina_PPT.dbo.tblChartTitle where product='Glucophage' and category='Treatment Day'  and datasource='IMS'
+	from BMSChina_ppt_test.dbo.tblChartTitle where product='Glucophage' and category='Treatment Day'  and datasource='IMS'
 )and SlideName like '%Dosing Units%'
 
-use BMSChina_ppt
+use BMSChina_ppt_test
 update tblPPTOutputCombine set product='Eliquis' where slidecategory like 'eliquis%'

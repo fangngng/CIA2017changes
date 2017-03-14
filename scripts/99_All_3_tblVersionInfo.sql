@@ -1,4 +1,4 @@
-use BMSChina_PPT
+use BMSChina_ppt_test
 go
 
 
@@ -73,7 +73,7 @@ go
 
 
 -----------------------------------------------------------------------------------------------------------------------------
-use BMSChina_Staging
+use BMSChina_staging_test
 go
 
 

@@ -88,39 +88,44 @@ delete from [output_stage] where LinkChartCode='R520'
 GO
 insert into [output_stage](LinkChartCode,Series,SeriesIdx,Product,lev,Geo,Currency,TimeFrame,X,XIdx,Y,Size,IsShow)
 select 
- 'R520'                                     --LinkChartCode
-,CORP_des                                   --Series
-,CurrRank                                   --SeriesIdx
-,'Taxol'                                    --Product
-,'Nation'                                   --lev
-,'China'                                    --Geo
-,MoneyType                                  --Currency
-,Period                                     --TimeFrame
-,Share                                      --X
-,RANK() OVER (ORDER BY Share) AS Rank       --XIdx
-,Mat00Growth                                --Y
-,Mat00                                      --Size
-,'Y'                                        --IsShow
+	'R520'                                     --LinkChartCode
+	,CORP_des                                   --Series
+	,CurrRank                                   --SeriesIdx
+	,'Taxol'                                    --Product
+	,'Nation'                                   --lev
+	,'China'                                    --Geo
+	,MoneyType                                  --Currency
+	,Period                                     --TimeFrame
+	,Share                                      --X
+	,RANK() OVER (ORDER BY Share) AS Rank       --XIdx
+	,Mat00Growth                                --Y
+	,Mat00                                      --Size
+	,'Y'                                        --IsShow
 from MID_TopIL_CompaniesPerformance  where MoneyType<>'PN'
 GO
 
 
 --后期处理
-update [output_stage] set LinkedY=b.LinkY 
+update [output_stage] 
+set LinkedY=b.LinkY 
 from [output_stage] A 
 inner join(
-select product,min(parentgeo) as LinkY  from outputgeo where lev=2
-group by product
+	select product,min(parentgeo) as LinkY  from outputgeo where lev=2
+	group by product
 ) B
 on A.product=B.product
 where A.LinkChartCode='R520'
 go
-update [output_stage] set LinkSeriesCode=Product+'_'+LinkChartCode+Series+cast(SeriesIdx as varchar(10)) where LinkChartCode='R520'
-go
-update [output_stage] set Category=case Currency when 'UN' then 'Dosing Units' else 'Value' end
+update [output_stage] 
+set LinkSeriesCode=Product+'_'+LinkChartCode+Series+cast(SeriesIdx as varchar(10)) 
 where LinkChartCode='R520'
 go
-update [output_stage] set Currency=case Currency when 'US' then 'USD' when 'LC' then 'RMB' when 'UN' then 'UNIT' else Currency end 
+update [output_stage] 
+set Category=case Currency when 'UN' then 'Dosing Units' else 'Value' end
+where LinkChartCode='R520'
+go
+update [output_stage] 
+set Currency=case Currency when 'US' then 'USD' when 'LC' then 'RMB' when 'UN' then 'UNIT' else Currency end 
 where LinkChartCode='R520'
 go
 
@@ -1685,13 +1690,15 @@ go
 
 insert into output_stage
 select null,GeoID, ProductID, LinkChartCode, LinkSeriesCode, Series, SeriesIdx, Category, Product, Lev, ParentGeo, Geo
-, 'LC', TimeFrame, X, XIdx, Y, LinkedY, Size, OtherParameters, Color, R, G, B, IsShow, inty
-from output_stage where LinkChartCode in('R411') and isshow='N' and X like '%UNIT%'  and Product<>'Paraplatin'
+	, 'LC', TimeFrame, X, XIdx, Y, LinkedY, Size, OtherParameters, Color, R, G, B, IsShow, inty
+from output_stage 
+where LinkChartCode in('R411') and isshow='N' and X like '%UNIT%'  and Product<>'Paraplatin'
 go
 insert into output_stage
 select null,GeoID, ProductID, LinkChartCode, LinkSeriesCode, Series, SeriesIdx, Category, Product, Lev, ParentGeo, Geo
-, 'LC', TimeFrame, X, XIdx, Y, LinkedY, Size, OtherParameters, Color, R, G, B, IsShow, inty
-from output_stage where LinkChartCode in('R411') and isshow='N' and X like '%Adjusted patient number%'  and Product='Paraplatin'
+	, 'LC', TimeFrame, X, XIdx, Y, LinkedY, Size, OtherParameters, Color, R, G, B, IsShow, inty
+from output_stage 
+where LinkChartCode in('R411') and isshow='N' and X like '%Adjusted patient number%'  and Product='Paraplatin'
 
 
 update output_stage
@@ -2763,62 +2770,62 @@ where  a.market = 'coniel' and ( a.chart='CCB Market GR' or a.chart='CCB Market 
 order by  SeriesIdx,XIdx
 
 
-------------------------------------------------
---				Eliquis
-------------------------------------------------
+-- ------------------------------------------------
+-- --				Eliquis
+-- ------------------------------------------------
 
-insert into [output_stage] (isshow,ParentGeo,Geo,Product,lev,TimeFrame,LinkChartCode, Series, SeriesIdx,Currency, X, XIdx,Y)
-select 'D' AS IsShow, 'China' as ParentGeo,'China' as Geo, a.Market AS Product,'China' as lev,'YTD' as TimeFrame,@Code as LinkChartCode, 
-case when a.Audi_des='Nation' then 'China(CHPA)' else a.Audi_des end AS Series, b.row_Num as SeriesIdx,
-case when a.MoneyType='LC' then 'RMB' else a.MoneyType end as Currency,
-case when chart = 'City Market&Product Share' and prod = '000' then 'VTEP Con%'
-	 when chart = 'City Market&Product Share' and prod = '100' then 'Eliquis MS%'
-	 when chart = 'City Product Market GR'    and prod = '100' then 'Eliquis GR%'
+-- insert into [output_stage] (isshow,ParentGeo,Geo,Product,lev,TimeFrame,LinkChartCode, Series, SeriesIdx,Currency, X, XIdx,Y)
+-- select 'D' AS IsShow, 'China' as ParentGeo,'China' as Geo, a.Market AS Product,'China' as lev,'YTD' as TimeFrame,@Code as LinkChartCode, 
+-- case when a.Audi_des='Nation' then 'China(CHPA)' else a.Audi_des end AS Series, b.row_Num as SeriesIdx,
+-- case when a.MoneyType='LC' then 'RMB' else a.MoneyType end as Currency,
+-- case when chart = 'City Market&Product Share' and prod = '000' then 'VTEP Con%'
+-- 	 when chart = 'City Market&Product Share' and prod = '100' then 'Eliquis MS%'
+-- 	 when chart = 'City Product Market GR'    and prod = '100' then 'Eliquis GR%'
 	 
-	 when chart = 'City Market&Product Share' and prod = '200' then 'Clexane MS%'
-	 when chart = 'City Product Market GR'    and prod = '200' then 'Clexane GR%'
+-- 	 when chart = 'City Market&Product Share' and prod = '200' then 'Clexane MS%'
+-- 	 when chart = 'City Product Market GR'    and prod = '200' then 'Clexane GR%'
 	 
-	 when chart = 'City Market&Product Share' and prod = '300' then 'Xarelto MS%'
-	 when chart = 'City Product Market GR'    and prod = '300' then 'Xarelto GR%'
+-- 	 when chart = 'City Market&Product Share' and prod = '300' then 'Xarelto MS%'
+-- 	 when chart = 'City Product Market GR'    and prod = '300' then 'Xarelto GR%'
 	 
-	 when chart = 'City Market&Product Share' and prod = '400' then 'Fraxiparine MS%'
-	 when chart = 'City Product Market GR'    and prod = '400' then 'Fraxiparine GR%'
-	 when chart = 'City Market&Product Share' and prod = '500' then 'Arixtra MS%'
-	 when chart = 'City Product Market GR'    and prod = '500' then 'Arixtra GR%'	 
-	 when chart = 'VTEP Market Size'          and prod = '000' then 'VTEP MS Size'
-	 when chart = 'VTEP Market GR'            and prod = '000' then 'VTEP GR%'
-end as X,	 
+-- 	 when chart = 'City Market&Product Share' and prod = '400' then 'Fraxiparine MS%'
+-- 	 when chart = 'City Product Market GR'    and prod = '400' then 'Fraxiparine GR%'
+-- 	 when chart = 'City Market&Product Share' and prod = '500' then 'Arixtra MS%'
+-- 	 when chart = 'City Product Market GR'    and prod = '500' then 'Arixtra GR%'	 
+-- 	 when chart = 'VTEP Market Size'          and prod = '000' then 'VTEP MS Size'
+-- 	 when chart = 'VTEP Market GR'            and prod = '000' then 'VTEP GR%'
+-- end as X,	 
 
-case when chart = 'City Market&Product Share' and prod = '000' then 2
-	 when chart = 'City Market&Product Share' and prod = '100' then 3
-	 when chart = 'City Product Market GR'    and prod = '100' then 4	 
-	 when chart = 'City Market&Product Share' and prod = '200' then 5
-	 when chart = 'City Product Market GR'    and prod = '200' then 6	 
-	 when chart = 'City Market&Product Share' and prod = '300' then 7
-	 when chart = 'City Product Market GR'    and prod = '300' then 8	 
-	 when chart = 'City Market&Product Share' and prod = '400' then 9
-	 when chart = 'City Product Market GR'    and prod = '400' then 10
-	 when chart = 'City Market&Product Share' and prod = '500' then 11
-	 when chart = 'City Product Market GR'    and prod = '500' then 12		 
-	 when chart = 'VTEP Market Size'          and prod = '000' then 17
-	 when chart = 'VTEP Market GR'            and prod = '000' then 18
-end as XIdx,
-case when chart = 'VTEP Market Size' then  1.0*YTD00/1000 else YTD00 end as Y
-from OutputPerformanceByBrand_CV_Modi_Slide7 a join OutputPerformanceByBrand_CV_Modi_Slide7_Rank_Eliquis b on 
-		case when a.Audi_des='Nation' then 'China(CHPA)' else a.Audi_des end  =b.Audi_des
-where  a.market = 'Eliquis VTEP' and ( a.chart='VTEP Market GR' or a.chart='VTEP Market Size' or a.chart='City Market&Product Share'or
-			(a.chart='City Product Market GR' and prod<>'000') ) and prod in ('000','100','200','300','400','500') 
-			and b.row_Num between 26 and 50
-order by  SeriesIdx,XIdx
-
-
-UPDATE output_stage
-SET LinkSeriesCode=Product+'_'+LinkChartCode+Series+TimeFrame+cast(SeriesIdx as varchar(10))
-WHERE LinkChartCode=@CODE
+-- case when chart = 'City Market&Product Share' and prod = '000' then 2
+-- 	 when chart = 'City Market&Product Share' and prod = '100' then 3
+-- 	 when chart = 'City Product Market GR'    and prod = '100' then 4	 
+-- 	 when chart = 'City Market&Product Share' and prod = '200' then 5
+-- 	 when chart = 'City Product Market GR'    and prod = '200' then 6	 
+-- 	 when chart = 'City Market&Product Share' and prod = '300' then 7
+-- 	 when chart = 'City Product Market GR'    and prod = '300' then 8	 
+-- 	 when chart = 'City Market&Product Share' and prod = '400' then 9
+-- 	 when chart = 'City Product Market GR'    and prod = '400' then 10
+-- 	 when chart = 'City Market&Product Share' and prod = '500' then 11
+-- 	 when chart = 'City Product Market GR'    and prod = '500' then 12		 
+-- 	 when chart = 'VTEP Market Size'          and prod = '000' then 17
+-- 	 when chart = 'VTEP Market GR'            and prod = '000' then 18
+-- end as XIdx,
+-- case when chart = 'VTEP Market Size' then  1.0*YTD00/1000 else YTD00 end as Y
+-- from OutputPerformanceByBrand_CV_Modi_Slide7 a join OutputPerformanceByBrand_CV_Modi_Slide7_Rank_Eliquis b on 
+-- 		case when a.Audi_des='Nation' then 'China(CHPA)' else a.Audi_des end  =b.Audi_des
+-- where  a.market = 'Eliquis VTEP' and ( a.chart='VTEP Market GR' or a.chart='VTEP Market Size' or a.chart='City Market&Product Share'or
+-- 			(a.chart='City Product Market GR' and prod<>'000') ) and prod in ('000','100','200','300','400','500') 
+-- 			and b.row_Num between 26 and 50
+-- order by  SeriesIdx,XIdx
 
 
+-- UPDATE output_stage
+-- SET LinkSeriesCode=Product+'_'+LinkChartCode+Series+TimeFrame+cast(SeriesIdx as varchar(10))
+-- WHERE LinkChartCode=@CODE
 
-GO
+
+
+-- GO
 -- ------------------------------------------------
 -- --				Coniel
 -- ------------------------------------------------

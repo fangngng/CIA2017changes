@@ -29,7 +29,7 @@ update OutputRx set
 	g=b.g,
 	b=b.b 
 from OutputRx A 
-inner join db82.BMSChina_PPT.dbo.tblColorDef B on A.series=b.name
+inner join db82.BMSChina_ppt_test.dbo.tblColorDef B on A.series=b.name
 where a.LinkChartCode in('R341','R351','R361')
 go
 
@@ -39,7 +39,7 @@ update OutputRx set
 	g=b.g,
 	b=b.b 
 from OutputRx A 
-inner join db82.BMSChina_PPT.dbo.tblColorDef B on b.Mkt = 'All' and A.seriesIdx=b.name
+inner join db82.BMSChina_ppt_test.dbo.tblColorDef B on b.Mkt = 'All' and A.seriesIdx=b.name
 where a.LinkChartCode in('R342','R352','R362')
 	and a.isShow = 'Y'
 go
@@ -50,7 +50,7 @@ update OutputRx set
 	g=b.g,
 	b=b.b 
 from OutputRx A 
-inner join db82.BMSChina_PPT.dbo.tblColorDef B on b.Mkt = 'All' and b.name = '5'
+inner join db82.BMSChina_ppt_test.dbo.tblColorDef B on b.Mkt = 'All' and b.name = '5'
 where a.LinkChartCode in('R342','R352','R362') and a.SeriesIdx = 99999
 	and a.isShow = 'Y'
 go

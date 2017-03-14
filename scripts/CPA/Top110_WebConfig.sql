@@ -1,5 +1,5 @@
-use BMSChina_staging
---db33·þÎñÆ÷
+use BMSChina_staging_test
+--db33ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 --select * from WebPage where ParentID= 29 order by Idx
 --select * from WebPage where ParentID= 30 order by Idx
 

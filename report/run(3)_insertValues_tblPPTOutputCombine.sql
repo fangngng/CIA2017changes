@@ -1,4 +1,4 @@
-use BMSChina_ppt
+use BMSChina_ppt_test
 GO
 set nocount on
 
@@ -244,18 +244,18 @@ go
 -- check 
 ------------------------------------------------------------------------------------
 
---×ÜÊýÁ¿
+--ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 declare @currNum int , @lastNum int , @diffNum int 
 select @currNum = count(1) from tblPPTOutputCombine 
 select @lastNum = count(1) from tblPPTOutputCombine_201611
 set @diffNum = @currNum - @lastNum 
 if (@diffNum < 0 )
 begin 
-	print N'¾¯±¨£¬±¾´ÎPPTÊýÁ¿±ÈÉÏ´ÎÉÙ£º   '+ convert(nvarchar,abs(@diffNum)) + N'    ÕÅ£¡'
+	print N'ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½PPTï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½ï¿½Ù£ï¿½   '+ convert(nvarchar,abs(@diffNum)) + N'    ï¿½Å£ï¿½'
 end 
 if (@diffNum > 300 )
 begin 
-	print N'¾¯±¨£¬±¾´ÎPPTÊýÁ¿¾çÔöÁË£º   '+ convert(nvarchar,abs(@diffNum)) + N'    ÕÅ£¡'
+	print N'ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½PPTï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ë£ï¿½   '+ convert(nvarchar,abs(@diffNum)) + N'    ï¿½Å£ï¿½'
 end 
 GO
 
@@ -274,7 +274,7 @@ declare @levNum int
 select @levNum = count(1) from temp_test_tblPPTOutputCombine where geo = 'China' 
 if (@levNum <> 12 )
 begin 
-	print N'Çë×¢Òâ£¬China¼¶±ðµÄPPT²»ÊÇ 12 ÕÅ£¡ ÊýÁ¿Îª£º' + convert(nvarchar,abs(@levNum))
+	print N'ï¿½ï¿½×¢ï¿½â£¬Chinaï¿½ï¿½ï¿½ï¿½ï¿½ï¿½PPTï¿½ï¿½ï¿½ï¿½ 12 ï¿½Å£ï¿½ ï¿½ï¿½ï¿½ï¿½Îªï¿½ï¿½' + convert(nvarchar,abs(@levNum))
 end 
 
 
@@ -288,31 +288,31 @@ end
 select @levNum = count(1) from temp_test_tblPPTOutputCombine  where geo <> 'China' and lev ='City' and Product = 'Baraclude'
 if (@levNum <> 49 )
 begin 
-	print N'Çë×¢Òâ£¬ Baraclude ²úÆ·µÄcity²»ÊÇ 49 £¡ ÊýÁ¿Îª£º' + convert(nvarchar,abs(@levNum))
+	print N'ï¿½ï¿½×¢ï¿½â£¬ Baraclude ï¿½ï¿½Æ·ï¿½ï¿½cityï¿½ï¿½ï¿½ï¿½ 49 ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Îªï¿½ï¿½' + convert(nvarchar,abs(@levNum))
 end
 
 select @levNum = count(1) from temp_test_tblPPTOutputCombine  where geo <> 'China' and lev ='City' and Product = 'Glucophage'
 if (@levNum <> 49 )
 begin 
-	print N'Çë×¢Òâ£¬ Glucophage ²úÆ·µÄcity²»ÊÇ 49 £¡ ÊýÁ¿Îª£º' + convert(nvarchar,abs(@levNum))
+	print N'ï¿½ï¿½×¢ï¿½â£¬ Glucophage ï¿½ï¿½Æ·ï¿½ï¿½cityï¿½ï¿½ï¿½ï¿½ 49 ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Îªï¿½ï¿½' + convert(nvarchar,abs(@levNum))
 end
 
 select @levNum = count(1) from temp_test_tblPPTOutputCombine  where geo <> 'China' and lev ='City' and Product = 'Monopril'
 if (@levNum <> 48 )
 begin 
-	print N'Çë×¢Òâ£¬ Monopril ²úÆ·µÄcity²»ÊÇ 48 £¡ ÊýÁ¿Îª£º' + convert(nvarchar,abs(@levNum))
+	print N'ï¿½ï¿½×¢ï¿½â£¬ Monopril ï¿½ï¿½Æ·ï¿½ï¿½cityï¿½ï¿½ï¿½ï¿½ 48 ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Îªï¿½ï¿½' + convert(nvarchar,abs(@levNum))
 end
 
 select @levNum = count(1) from temp_test_tblPPTOutputCombine  where geo <> 'China' and lev ='City' and Product = 'Onglyza'
 if (@levNum <> 49 )
 begin 
-	print N'Çë×¢Òâ£¬ Onglyza ²úÆ·µÄcity²»ÊÇ 49 £¡ ÊýÁ¿Îª£º' + convert(nvarchar,abs(@levNum))
+	print N'ï¿½ï¿½×¢ï¿½â£¬ Onglyza ï¿½ï¿½Æ·ï¿½ï¿½cityï¿½ï¿½ï¿½ï¿½ 49 ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Îªï¿½ï¿½' + convert(nvarchar,abs(@levNum))
 end
 
 select @levNum = count(1) from temp_test_tblPPTOutputCombine  where geo <> 'China' and lev ='City' and Product = 'Taxol'
 if (@levNum <> 49 )
 begin 
-	print N'Çë×¢Òâ£¬ Taxol ²úÆ·µÄcity²»ÊÇ 49 £¡ ÊýÁ¿Îª£º' + convert(nvarchar,abs(@levNum))
+	print N'ï¿½ï¿½×¢ï¿½â£¬ Taxol ï¿½ï¿½Æ·ï¿½ï¿½cityï¿½ï¿½ï¿½ï¿½ 49 ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Îªï¿½ï¿½' + convert(nvarchar,abs(@levNum))
 end
 
 --
@@ -320,31 +320,31 @@ end
 select @levNum = count(1) from temp_test_tblPPTOutputCombine  where geo <> 'China' and lev ='Region' and Product = 'Baraclude'
 if (@levNum <> 13 )
 begin 
-	print N'Çë×¢Òâ£¬ Baraclude ²úÆ·µÄRegion²»ÊÇ 13 £¡ ÊýÁ¿Îª£º' + convert(nvarchar,abs(@levNum))
+	print N'ï¿½ï¿½×¢ï¿½â£¬ Baraclude ï¿½ï¿½Æ·ï¿½ï¿½Regionï¿½ï¿½ï¿½ï¿½ 13 ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Îªï¿½ï¿½' + convert(nvarchar,abs(@levNum))
 end
 
 select @levNum = count(1) from temp_test_tblPPTOutputCombine  where geo <> 'China' and lev ='Region' and Product = 'Glucophage'
 if (@levNum <> 7 )
 begin 
-	print N'Çë×¢Òâ£¬ Glucophage ²úÆ·µÄRegion²»ÊÇ 7 £¡ ÊýÁ¿Îª£º' + convert(nvarchar,abs(@levNum))
+	print N'ï¿½ï¿½×¢ï¿½â£¬ Glucophage ï¿½ï¿½Æ·ï¿½ï¿½Regionï¿½ï¿½ï¿½ï¿½ 7 ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Îªï¿½ï¿½' + convert(nvarchar,abs(@levNum))
 end
 
 select @levNum = count(1) from temp_test_tblPPTOutputCombine  where geo <> 'China' and lev ='Region' and Product = 'Monopril'
 if (@levNum <> 4 )
 begin 
-	print N'Çë×¢Òâ£¬ Monopril ²úÆ·µÄRegion²»ÊÇ 4 £¡ ÊýÁ¿Îª£º' + convert(nvarchar,abs(@levNum))
+	print N'ï¿½ï¿½×¢ï¿½â£¬ Monopril ï¿½ï¿½Æ·ï¿½ï¿½Regionï¿½ï¿½ï¿½ï¿½ 4 ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Îªï¿½ï¿½' + convert(nvarchar,abs(@levNum))
 end
 
 select @levNum = count(1) from temp_test_tblPPTOutputCombine  where geo <> 'China' and lev ='Region' and Product = 'Onglyza'
 if (@levNum <> 7 )
 begin 
-	print N'Çë×¢Òâ£¬ Onglyza ²úÆ·µÄRegion²»ÊÇ 7 £¡ ÊýÁ¿Îª£º' + convert(nvarchar,abs(@levNum))
+	print N'ï¿½ï¿½×¢ï¿½â£¬ Onglyza ï¿½ï¿½Æ·ï¿½ï¿½Regionï¿½ï¿½ï¿½ï¿½ 7 ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Îªï¿½ï¿½' + convert(nvarchar,abs(@levNum))
 end
 
 select @levNum = count(1) from temp_test_tblPPTOutputCombine  where geo <> 'China' and lev ='Region' and Product = 'Taxol'
 if (@levNum <> 5 )
 begin 
-	print N'Çë×¢Òâ£¬ Onglyza ²úÆ·µÄRegion²»ÊÇ 5 £¡ ÊýÁ¿Îª£º' + convert(nvarchar,abs(@levNum))
+	print N'ï¿½ï¿½×¢ï¿½â£¬ Onglyza ï¿½ï¿½Æ·ï¿½ï¿½Regionï¿½ï¿½ï¿½ï¿½ 5 ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Îªï¿½ï¿½' + convert(nvarchar,abs(@levNum))
 end
 
 --
@@ -362,15 +362,15 @@ set @diffNum = @currNum - @lastNum
 if (@diffNum <> 0 )
 begin 
 	
-print N'±¨¾¯£¬²úÆ·codeÊýÁ¿²»¶Ô,Ïà²îÊýÁ¿£º' + convert(nvarchar,abs(@diffNum))
+print N'ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ·codeï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½' + convert(nvarchar,abs(@diffNum))
 
-print N'²é¿´ ±¾´Î±ÈÉÏ´Î ¶àµÄ£¬ÇëÖ´ÐÐÈçÏÂsql: ' + '
+print N'ï¿½é¿´ ï¿½ï¿½ï¿½Î±ï¿½ï¿½Ï´ï¿½ ï¿½ï¿½ï¿½Ä£ï¿½ï¿½ï¿½Ö´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½sql: ' + '
 select distinct LinkChartCode,Product from output_PPT 
 except
 select distinct LinkChartCode,Product from BMSChina_bk.dbo.Output_PPT_201611
 '
 
-print N'²é¿´ ±¾´Î±ÈÉÏ´Î ÉÙµÄ£º£¬ÇëÖ´ÐÐÈçÏÂsql: ' + '
+print N'ï¿½é¿´ ï¿½ï¿½ï¿½Î±ï¿½ï¿½Ï´ï¿½ ï¿½ÙµÄ£ï¿½ï¿½ï¿½ï¿½ï¿½Ö´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½sql: ' + '
 select distinct LinkChartCode,Product from BMSChina_bk.dbo.Output_PPT_201611
 except
 select distinct LinkChartCode,Product from output_PPT 
@@ -405,7 +405,7 @@ GO
 ------------------------------------------------------------------------------------
 --                        tblSlide                                       
 ------------------------------------------------------------------------------------
-use bmschina_staging
+use BMSChina_staging_test
 go
 
 --backup
@@ -438,7 +438,7 @@ select
   ,'Y'                --status    
   ,1                  --prodid    
   ,1                  --categoryid
-from bmschina_ppt.dbo.tblPPTOutputCombine
+from BMSChina_ppt_test.dbo.tblPPTOutputCombine
 where [ShoppingCardID] is not null 
 go
 
@@ -495,14 +495,14 @@ update tblSlide set SlideCode='Eliquis_R' where SlideCode='Eliquis VTEP_R' and s
 
 
 -- todo
--- make sure the date in BMSChina_PPT.dbo.tblDates is correct
+-- make sure the date in BMSChina_ppt_test.dbo.tblDates is correct
 
-select * from BMSChina_PPT.dbo.tblDates
+select * from BMSChina_ppt_test.dbo.tblDates
 go
 truncate table tblDates
 go
 insert into tblDates
-select * from BMSChina_PPT.dbo.tblDates
+select * from BMSChina_ppt_test.dbo.tblDates
 go
 select * from tblDates
 go

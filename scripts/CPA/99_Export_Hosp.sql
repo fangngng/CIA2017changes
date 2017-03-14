@@ -1,12 +1,12 @@
 
 
---1.导出数据到BMSChina_PPT数据库中
+--1.导出数据到BMSChina_ppt_test数据库中
 
 --2.对于数据在Web或者PPT中显示，进行了一些必要的格式化（设置Chart的标题，设置Chart的Y轴的标题，设置Chart类型等）
 
 
 
-use BMSChina_PPT--82
+use BMSChina_ppt_test--82
 go
 
 --Time:00:19
@@ -251,31 +251,31 @@ go
 ----------------------------------
 
 
-delete from BMSChina_PPT.dbo.Output_PPT where LinkchartCode = 'R640' and Product in ('Monopril','Coniel','Eliquis VTEP')
-insert into  BMSChina_PPT.dbo.Output_PPT (DataSource,LinkChartCode, LinkSeriesCode, Series, SeriesIdx, Category, Product, 
+delete from BMSChina_ppt_test.dbo.Output_PPT where LinkchartCode = 'R640' and Product in ('Monopril','Coniel','Eliquis VTEP')
+insert into  BMSChina_ppt_test.dbo.Output_PPT (DataSource,LinkChartCode, LinkSeriesCode, Series, SeriesIdx, Category, Product, 
 	Lev, ParentGeo, Geo, Currency, TimeFrame, X, XIdx, Y, LinkedY, Size, OtherParameters,  IsShow,Color)
 select 'CPA', LinkChartCode, LinkSeriesCode, Series, SeriesIdx, Category, Product, Lev, ParentGeo, Geo,  Currency, TimeFrame, 
 	X, XIdx, cast(cast(Y as decimal(22,12)) as varchar), LinkedY, Size, OtherParameters,  IsShow,Color
 from DB4.bmschinamrbi.dbo.OutputHospital
 where  LinkchartCode = 'R640' and Product in ('Monopril','Coniel','Eliquis VTEP')
 
-delete from BMSChina_PPT.dbo.tblChartTitle where LinkchartCode='R640' and Product in ('Monopril','Coniel','Eliquis VTEP')
-insert into BMSChina_PPT.dbo.tblChartTitle (DataSource,LinkChartCode, Category, Product, Lev, ParentGeo, Geo, Currency, TimeFrame,Caption,SlideTitle)
+delete from BMSChina_ppt_test.dbo.tblChartTitle where LinkchartCode='R640' and Product in ('Monopril','Coniel','Eliquis VTEP')
+insert into BMSChina_ppt_test.dbo.tblChartTitle (DataSource,LinkChartCode, Category, Product, Lev, ParentGeo, Geo, Currency, TimeFrame,Caption,SlideTitle)
 select distinct 'CPA', LinkChartCode, Category,Product, Lev, ParentGeo, Geo, Currency,a.TimeFrame,
 case when product='Monopril' then 'Monopril Performance – Hospital Level' 
 	 when product='Coniel' then 'Coniel Performance – Hospital Level'
 	 when product='Eliquis VTEP' then 'Eliquis VTEP Performance – Hospital Level' end as Caption,
 '('  + (select TFValue from DB4.bmschinamrbi.dbo.tblTimeFrame where DataSource = 'CPA' and TimeFrame = 'ytd') + ', ' + Category + case when Currency = 'Unit' then'' else ' in ' + Currency end +')' as SlideTitle
-from BMSChina_PPT.dbo.Output_PPT a where LinkchartCode='R640' and Product in ('Monopril','Coniel','Eliquis VTEP')
+from BMSChina_ppt_test.dbo.Output_PPT a where LinkchartCode='R640' and Product in ('Monopril','Coniel','Eliquis VTEP')
 
 -- data
 delete 
-from BMSChina_PPT.dbo.Output_PPT 
+from BMSChina_ppt_test.dbo.Output_PPT 
 where left(LinkChartCode,1) = 'R' 
 	and (right(LinkChartCode,3) between '150' and '309'  or right(LinkChartCode,3) between '900' and '999')
 go
 
-insert into BMSChina_PPT.dbo.Output_PPT (DataSource,LinkChartCode, LinkSeriesCode, Series, SeriesIdx, Category, Product, 
+insert into BMSChina_ppt_test.dbo.Output_PPT (DataSource,LinkChartCode, LinkSeriesCode, Series, SeriesIdx, Category, Product, 
 	Lev, ParentGeo, Geo, Currency, TimeFrame, X, XIdx, Y, LinkedY, Size, OtherParameters,  IsShow,Color)
 select 'CPA',LinkChartCode, LinkSeriesCode, Series, SeriesIdx, Category, Product, Lev, ParentGeo, Geo,  Currency, TimeFrame, 
 	X, XIdx, cast(cast(Y as decimal(22,12)) as varchar), LinkedY, Size, OtherParameters,  IsShow,Color
@@ -286,12 +286,12 @@ go
 
 
 -- title 150-180
-delete BMSChina_PPT.dbo.tblChartTitle 
+delete BMSChina_ppt_test.dbo.tblChartTitle 
 where left(LinkChartCode,1) = 'R'
 	and (right(LinkChartCode,3) between '150' and '189')
 go
 
-insert into BMSChina_PPT.dbo.tblChartTitle (DataSource,LinkChartCode, Category, Product, Lev, ParentGeo, Geo, Currency, TimeFrame,Caption,SlideTitle)
+insert into BMSChina_ppt_test.dbo.tblChartTitle (DataSource,LinkChartCode, Category, Product, Lev, ParentGeo, Geo, Currency, TimeFrame,Caption,SlideTitle)
 select distinct 'CPA', LinkChartCode, Category,Product, Lev, ParentGeo, Geo, Currency,a.TimeFrame,
 	case 
 		when LinkChartCode like 'R15%' then case Product
@@ -323,12 +323,12 @@ where left(LinkChartCode,1) = 'R'
 go
 
 -- title 190--300,900,960,91,97,92,98,93,99
-delete BMSChina_PPT.dbo.tblChartTitle 
+delete BMSChina_ppt_test.dbo.tblChartTitle 
 where left(LinkChartCode,1) = 'R'
 	and (right(LinkChartCode,3) between '190' and '309'  or right(LinkChartCode,3) between '900' and '999')
 go
 
-insert into BMSChina_PPT.dbo.tblChartTitle (DataSource,LinkChartCode, Category, Product, Lev, ParentGeo, Geo, Currency, TimeFrame,Caption,SlideTitle)
+insert into BMSChina_ppt_test.dbo.tblChartTitle (DataSource,LinkChartCode, Category, Product, Lev, ParentGeo, Geo, Currency, TimeFrame,Caption,SlideTitle)
 select distinct 'CPA', LinkChartCode, Category,Product, Lev, ParentGeo, Geo, Currency,a.TimeFrame,
 	case 
 	when LinkChartCode in ('R191','R192') then 
@@ -457,7 +457,7 @@ where left(LinkChartCode,1) = 'R'
 	and IsShow = 'Y' and right(LinkChartCode,1) = '1'
 go
 
-insert into BMSChina_PPT.dbo.tblChartTitle (DataSource,LinkChartCode, Category, Product, Lev, ParentGeo, Geo, Currency, TimeFrame,Caption,SlideTitle)
+insert into BMSChina_ppt_test.dbo.tblChartTitle (DataSource,LinkChartCode, Category, Product, Lev, ParentGeo, Geo, Currency, TimeFrame,Caption,SlideTitle)
 select distinct 'CPA', LinkChartCode, Category,Product, Lev, ParentGeo, Geo, Currency,case a.TimeFrame when 'MQT' then 'MAT' else a.TimeFrame end as TimeFrame,
 	case 
 	when LinkChartCode in ('R191','R192') then 
@@ -655,13 +655,13 @@ where a.LinkChartCode = 'R480' and a.category = 'Dosing Units'
 go
 
 
-update BMSChina_PPT.dbo.Output_PPT 
+update BMSChina_ppt_test.dbo.Output_PPT 
 set 
 	r=b.r,
 	g=b.g,
 	b=b.b 
-from BMSChina_PPT.dbo.Output_PPT A 
-inner join  BMSChina_PPT.dbo.tblRGBToColor B on A.color=b.rgb 
+from BMSChina_ppt_test.dbo.Output_PPT A 
+inner join  BMSChina_ppt_test.dbo.tblRGBToColor B on A.color=b.rgb 
 where A.r is null
 	and left(LinkChartCode,1) = 'R' 
 	and (right(LinkChartCode,3) between '150' and '309'  or right(LinkChartCode,3) between '900' and '999')

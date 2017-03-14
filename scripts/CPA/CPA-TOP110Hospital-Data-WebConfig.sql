@@ -6,7 +6,7 @@
 --select * from webpage where id=248
 
 --172.20.0.33
-use BMSChina_staging
+use BMSChina_staging_test
 
 update webpage
 set ImageURL='Monopril Raw Data CPA from SFE - 2014 Nov.xlsx'

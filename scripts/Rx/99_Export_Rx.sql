@@ -1,4 +1,4 @@
-use BMSChina_PPT--172.20.0.82
+use BMSChina_ppt_test--172.20.0.82
 go
 
 
@@ -16,15 +16,15 @@ go
 --Predefined reports Hospital
 --*********************************************************
 delete -- select * from
-bmschina_PPT.dbo.Output_PPT 
+BMSChina_ppt_test.dbo.Output_PPT 
 where left(LinkChartCode,1) = 'R' and cast(Right(LinkChartCode,3) as int) between 340 and 369
 
 delete -- select * from
-bmschina_PPT.dbo.Output_PPT 
+BMSChina_ppt_test.dbo.Output_PPT 
 where left(LinkChartCode,1) = 'R' and cast(Right(LinkChartCode,3) as int) between 661 and 668
 go
 
-insert into bmschina_PPT.dbo.Output_PPT (DataSource,LinkChartCode, LinkSeriesCode, Series, SeriesIdx, Category, Product, Lev, ParentGeo, Geo, Currency, TimeFrame, X, XIdx, Y, LinkedY, Size, OtherParameters,  IsShow, Color)
+insert into BMSChina_ppt_test.dbo.Output_PPT (DataSource,LinkChartCode, LinkSeriesCode, Series, SeriesIdx, Category, Product, Lev, ParentGeo, Geo, Currency, TimeFrame, X, XIdx, Y, LinkedY, Size, OtherParameters,  IsShow, Color)
 select 'RX', LinkChartCode, LinkSeriesCode, Series, SeriesIdx, Category, Product, Lev, ParentGeo, Geo, 
 	Currency, TimeFrame, X, XIdx, 
 	cast(cast(Y as decimal(22,12)) as varchar), 
@@ -34,7 +34,7 @@ from db4.BMSChinaMRBI.dbo.OutputRx
 where left(LinkChartCode,1) = 'R' and Right(LinkChartCode,3) between '340' and '369'
 
 --Eliquis Market
-insert into bmschina_PPT.dbo.Output_PPT (DataSource,LinkChartCode, LinkSeriesCode, Series, SeriesIdx, Category, Product, Lev, ParentGeo, Geo, Currency, TimeFrame, X, XIdx, Y, LinkedY, Size, OtherParameters,  IsShow, Color)
+insert into BMSChina_ppt_test.dbo.Output_PPT (DataSource,LinkChartCode, LinkSeriesCode, Series, SeriesIdx, Category, Product, Lev, ParentGeo, Geo, Currency, TimeFrame, X, XIdx, Y, LinkedY, Size, OtherParameters,  IsShow, Color)
 select 'RX', LinkChartCode, LinkSeriesCode, Series, SeriesIdx, Category, Product, Lev, ParentGeo, Geo, 
 	Currency, TimeFrame, X, XIdx, 
 	cast(cast(Y as decimal(22,12)) as varchar), 
@@ -44,26 +44,26 @@ from db4.BMSChinaMRBI.dbo.OutputRx
 where left(LinkChartCode,1) = 'R' and Right(LinkChartCode,3) between '661' and '668'
 go
 
-update BMSChina_PPT.dbo.Output_PPT set 
+update BMSChina_ppt_test.dbo.Output_PPT set 
 	r=b.r,
 	g=b.g,
 	b=b.b 
-from BMSChina_PPT.dbo.Output_PPT A 
-inner join  BMSChina_PPT.dbo.tblRGBToColor B on A.color=b.rgb 
+from BMSChina_ppt_test.dbo.Output_PPT A 
+inner join  BMSChina_ppt_test.dbo.tblRGBToColor B on A.color=b.rgb 
 where A.r is null
 	and left(LinkChartCode,1) = 'R'
 	and Right(LinkChartCode,3) between '340' and '369'
 go
 
 
-delete bmschina_PPT.dbo.tblChartTitle where left(LinkChartCode,1) = 'R'
+delete BMSChina_ppt_test.dbo.tblChartTitle where left(LinkChartCode,1) = 'R'
 and Right(LinkChartCode,3) between '340' and '369'
 
-delete bmschina_PPT.dbo.tblChartTitle where left(LinkChartCode,1) = 'R'
+delete BMSChina_ppt_test.dbo.tblChartTitle where left(LinkChartCode,1) = 'R'
 and Right(LinkChartCode,3) between '661' and '668'
 go
 
-insert into bmschina_PPT.dbo.tblChartTitle (DataSource,LinkChartCode, Category, Product, Lev, ParentGeo, Geo, Currency, TimeFrame,Caption,SlideTitle)
+insert into BMSChina_ppt_test.dbo.tblChartTitle (DataSource,LinkChartCode, Category, Product, Lev, ParentGeo, Geo, Currency, TimeFrame,Caption,SlideTitle)
 select distinct 'RX', LinkChartCode, Category,Product, Lev, ParentGeo, Geo, Currency,TimeFrame,
 	case 
 
@@ -96,7 +96,7 @@ where left(LinkChartCode,1) = 'R'
 	
 	
 
-insert into bmschina_PPT.dbo.tblChartTitle (DataSource,LinkChartCode, Category, Product, Lev, ParentGeo, Geo, Currency, TimeFrame,Caption,SlideTitle,SubCaption)
+insert into BMSChina_ppt_test.dbo.tblChartTitle (DataSource,LinkChartCode, Category, Product, Lev, ParentGeo, Geo, Currency, TimeFrame,Caption,SlideTitle,SubCaption)
 select distinct 'RX', LinkChartCode, Category,Product, Lev, ParentGeo, Geo, Currency,TimeFrame,
 	case 	
 	when LinkChartCode like 'R66%' and product='Eliquis' then 'Dept allocation of key brands'

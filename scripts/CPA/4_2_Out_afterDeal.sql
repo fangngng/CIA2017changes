@@ -149,7 +149,7 @@ update OutputHospital set
 	g=b.g,
 	b=b.b 
 from OutputHospital A 
-inner join DB82.BMSChina_PPT.dbo.tblColorDef B on A.series=b.name
+inner join DB82.BMSChina_ppt_test.dbo.tblColorDef B on A.series=b.name
 where a.IsShow = 'Y'
 go
 
@@ -159,7 +159,7 @@ update OutputHospital set
 	g=b.g,
 	b=b.b 
 from OutputHospital A 
-inner join DB82.BMSChina_PPT.dbo.tblColorDef B 
+inner join DB82.BMSChina_ppt_test.dbo.tblColorDef B 
 on b.Mkt = 'All' and A.seriesidx=b.name
 where a.LinkChartCode in ('R192','R252','R202','R262','R212','R272','R222','R282','R232','R292','R242','R302','R902','R962','R912','R972','R922','R982','R932','R992') and a.IsShow = 'Y'
 go

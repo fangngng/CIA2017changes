@@ -1,4 +1,4 @@
-use BMSChina_ppt
+use BMSChina_ppt_test
 go
 
 

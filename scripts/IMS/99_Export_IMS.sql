@@ -1,5 +1,5 @@
 --Ensure linked with server 172.20.0.82
-if not exists(select 1 from master.dbo.sysdatabases where name='BMSChina_ppt')
+if not exists(select 1 from master.dbo.sysdatabases where name='BMSChina_ppt_test')
 BEGIN
 	RAISERROR ('The connection server is not 172.20.0.82, please re-connect the correct server!!',21,1) with log
 END
@@ -22,33 +22,33 @@ set @lastDate_IMS = convert(varchar(6), dateadd(month, -1, cast(@curDate_IMS+'01
 exec('
 if object_id(N''output_'+@lastDate_IMS+''',N''U'') is null
    select * into output_'+@lastDate_IMS+'
-   from BMSChina_staging.dbo.output
+   from BMSChina_staging_test.dbo.output
 ');
 exec('
 if object_id(N''WebChartTitle_'+@lastDate_IMS+''',N''U'') is null
    select * into WebChartTitle_'+@lastDate_IMS+'
-   from BMSChina_staging.dbo.WebChartTitle
+   from BMSChina_staging_test.dbo.WebChartTitle
 ');
 exec('
 if object_id(N''WebChartSeries_'+@lastDate_IMS+''',N''U'') is null
    select * into WebChartSeries_'+@lastDate_IMS+'
-   from BMSChina_staging.dbo.WebChartSeries
+   from BMSChina_staging_test.dbo.WebChartSeries
 ');
 exec('
 if object_id(N''Outputgeo_'+@lastDate_IMS+''',N''U'') is null
    select * into Outputgeo_'+@lastDate_IMS+'
-   from BMSChina_staging.dbo.Outputgeo
+   from BMSChina_staging_test.dbo.Outputgeo
 ');
 --PPT
 exec('
 if object_id(N''output_ppt_'+@lastDate_IMS+''',N''U'') is null
    select * into output_ppt_'+@lastDate_IMS+'
-   from BMSChina_ppt.dbo.output_ppt
+   from BMSChina_ppt_test.dbo.output_ppt
 ');
 exec('
 if object_id(N''tblcharttitle_'+@lastDate_IMS+''',N''U'') is null
    select * into tblcharttitle_'+@lastDate_IMS+'
-   from BMSChina_ppt.dbo.tblcharttitle
+   from BMSChina_ppt_test.dbo.tblcharttitle
 ')
 GO
 
@@ -65,7 +65,7 @@ print (N'
 2.                  导入staging
 ------------------------------------------------------------------------------------------------------------
 ')
-USE BMSChina_staging
+USE BMSChina_staging_test
 GO
 
 if not exists(select 1 from   syscolumns   where   id=object_id('[output]')   and   name='DataSource' )
@@ -213,7 +213,7 @@ from  db4.BMSChinaCIA_IMS_test.dbo.outputgeo
 
 
 
-delete FROM [BMSChina_staging].[dbo].[WebChartTitle] 
+delete FROM [BMSChina_staging_test].[dbo].[WebChartTitle] 
 where linkchartcode IN('R401','R411') and timeframe='MTH' and Product in ('Taxol','Paraplatin')
 
 
@@ -225,7 +225,7 @@ print (N'
 3.                  导入PPT
 ------------------------------------------------------------------------------------------------------------
 ')
-use BMSChina_ppt
+use BMSChina_ppt_test
 go
 
 if not exists(select 1 from   syscolumns   where   id=object_id('[output_ppt]')   and   name='DataSource' )
@@ -372,7 +372,7 @@ print (N'
 ------------------------------------------------------------------------------------------------------------
 --')
 
-use BMSChina_staging
+use BMSChina_staging_test
 go
 
 --insert into webchartexplain (Code ,timeframe,productID,Product,DataSource,DataSource_CN,Explain,Explain_CN)
@@ -463,7 +463,7 @@ select * from tbldates
 
 
 
-use BMSChina_ppt
+use BMSChina_ppt_test
 GO
 
 

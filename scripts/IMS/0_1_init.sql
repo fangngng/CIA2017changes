@@ -241,6 +241,42 @@ end
 GO
 
 
+--- create function repeat string 
+if exists ( select	*
+			from	dbo.sysobjects
+			where	id = object_id(N'[dbo].fn_RepeatString')
+					and objectproperty(id, N'IsScalarFunction') = 1 )
+	drop function dbo.fn_RepeatString;
+go
+
+create function dbo.fn_RepeatString
+(
+  @BeforeString varchar(200) ,
+  @Field varchar(50) ,
+  @AfterString varchar(200) ,
+  @ConnectString varchar(200) ,
+  @Period int
+)
+returns varchar(max)
+as
+begin
+	declare	@i as int;
+	declare	@sql as varchar(max);
+	
+	set @sql = '';
+	set @i = 1;
+	while @i <= cast(@Period as int)
+	begin
+		set @sql = @sql + @BeforeString + cast(@Field as varchar) + ''
+			+ cast(@i as varchar) + @AfterString + @ConnectString;
+		set @i = @i + 1;
+	end;
+
+	set @sql = left(@sql, len(@sql) - len(@ConnectString));
+	return @sql;
+end;
+go
+
 
 
 

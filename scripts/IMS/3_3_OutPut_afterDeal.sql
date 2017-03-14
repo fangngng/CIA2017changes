@@ -1,6 +1,6 @@
 use BMSChinaCIA_IMS_test --db4
 GO
---2��23��
+--
 exec dbo.sp_Log_Event 'Output','CIA','3_3_OutPut_afterDeal.sql','Start',null,null
 
 update output_stage
@@ -59,26 +59,28 @@ FROM [dbo].[Output]
 where [LinkChartCode] like 'D02%' and Geo='China'
 
 
-delete from [output] where Product='ParaPlatin' and (
-    linkchartCode not like 'C12%' --IMS
-and linkchartCode not like 'C13%'
-and linkchartCode not like 'C14%'
-and linkchartCode not like 'C15%'
-and linkchartCode not like 'C16%'
-and linkchartCode not like 'D02%'
-and linkchartCode not like 'D08%'
-and linkchartCode not like 'R04%'
+delete from [output] 
+where Product='ParaPlatin' 
+	and (
+			linkchartCode not like 'C12%' --IMS
+		and linkchartCode not like 'C13%'
+		and linkchartCode not like 'C14%'
+		and linkchartCode not like 'C15%'
+		and linkchartCode not like 'C16%'
+		and linkchartCode not like 'D02%'
+		and linkchartCode not like 'D08%'
+		and linkchartCode not like 'R04%'
 
-and linkchartCode not like 'R40%'
-and linkchartCode not like 'R05%'
-and linkchartCode not like 'R41%'
-and linkchartCode not like 'R46%'
-and linkchartCode not like 'R49%'
-and linkchartCode not like 'R50%'
-and linkchartCode not like 'R51%'
+		and linkchartCode not like 'R40%'
+		and linkchartCode not like 'R05%'
+		and linkchartCode not like 'R41%'
+		and linkchartCode not like 'R46%'
+		and linkchartCode not like 'R49%'
+		and linkchartCode not like 'R50%'
+		and linkchartCode not like 'R51%'
 
---and linkchartCode not like 'R32%'--HKAPI
-)
+		--and linkchartCode not like 'R32%'--HKAPI
+	)
 
 
 
@@ -86,21 +88,21 @@ and linkchartCode not like 'R51%'
 --delete others YTD
 delete from [output] 
 where linkChartCode in(
-'C130','C140','C131','C141','D081','D082','D083','D084','D085','D086','D087','D088','D091','D092','D093','D094'
-,'R020','R040','R090','R420','R430','R440','R451','R452','R460','R471'
-,'R472','R491','R492'
+	'C130','C140','C131','C141','D081','D082','D083','D084','D085','D086','D087','D088','D091','D092','D093','D094'
+	,'R020','R040','R090','R420','R430','R440','R451','R452','R460','R471'
+	,'R472','R491','R492'
 )
 and TimeFrame = 'YTD' and Product <> 'Baraclude'
 
 
 
 delete from [output]
-where (linkchartCode like 'R05%' 
-or linkchartCode like 'R06%'
-or linkchartCode like 'R40%'
-or linkchartCode like 'R41%'
-or linkchartCode like 'R50%')
-and TimeFrame = 'YTD' and Product <> 'Baraclude'
+where (	linkchartCode like 'R05%' 
+		or linkchartCode like 'R06%'
+		or linkchartCode like 'R40%'
+		or linkchartCode like 'R41%'
+		or linkchartCode like 'R50%')
+	and TimeFrame = 'YTD' and Product <> 'Baraclude'
 GO
 
 
@@ -157,10 +159,11 @@ go
 -- select distinct Category,currency from output  where [LinkChartCode] like 'D08%' and  Product ='Paraplatin'
 update output set Category='Dosing Units' where Category='Units' and Product <> 'Paraplatin'
 go
-update [output] set Category=case Currency 
-when 'UN' then 'Dosing Units' 
-when 'UNIT' then 'Dosing Units' 
-else 'Value' end
+update [output] 
+set Category=case Currency 
+	when 'UN' then 'Dosing Units' 
+	when 'UNIT' then 'Dosing Units' 
+	else 'Value' end
 where Product <> 'Paraplatin'
 go
 
@@ -203,81 +206,91 @@ IF EXISTS(
 	SELECT 1 
 	FROM OUTPUT A
 	WHERE  (A.linkchartcode in ('C020','C030','C040','C050','C100','C110','R040','R320') and A.seriesidx in (1,2) and A.isshow='Y')
-	or (A.linkchartcode in ('C060','C070','C080','C120','C121','R090') and A.seriesidx in (1))
-	or (A.linkchartcode in('D081','D085','D091','D101','R030','R051','R061','R071','R081') and A.isshow='Y')
-	or (A.linkchartcode ='R100' and A.product<>'Glucophage' and  A.seriesidx in (1))
-	or (A.linkchartcode ='R110' and  A.seriesidx in (1))
-	or (A.linkchartcode ='R100' and A.product='Glucophage' and  A.seriesidx in (1,2))
-	or (A.linkchartcode ='R020' and A.product='Baraclude' and  A.series not like '%Growth%'and A.isshow='Y')
-	or (A.linkchartcode ='R020' and A.product<>'Baraclude'and A.isshow='Y')
-	or (A.linkchartcode  in('R401','R402','R411','R412') and A.isshow='Y')
-	or (A.linkchartcode ='R420' and A.seriesidx in (1,2))
-	or (A.linkchartcode ='R440' and A.seriesidx in (0))
-	or (A.linkchartcode ='C201' and A.seriesidx <100)
-	or (A.linkchartcode ='C210' and A.X not like '%Growth%')
-	or (A.linkchartcode ='C220')
-	or (A.linkchartcode in ('R670','R680') and A.seriesidx =1 and A.isshow='Y')
-	or (A.linkchartcode in ('C120','C121') and A.seriesidx in (3))	
+		or (A.linkchartcode in ('C060','C070','C080','C120','C121','R090') and A.seriesidx in (1))
+		or (A.linkchartcode in('D081','D085','D091','D101','R030','R051','R061','R071','R081') and A.isshow='Y')
+		or (A.linkchartcode ='R100' and A.product<>'Glucophage' and  A.seriesidx in (1))
+		or (A.linkchartcode ='R110' and  A.seriesidx in (1))
+		or (A.linkchartcode ='R100' and A.product='Glucophage' and  A.seriesidx in (1,2))
+		or (A.linkchartcode ='R020' and A.product='Baraclude' and  A.series not like '%Growth%'and A.isshow='Y')
+		or (A.linkchartcode ='R020' and A.product<>'Baraclude'and A.isshow='Y')
+		or (A.linkchartcode  in('R401','R402','R411','R412') and A.isshow='Y')
+		or (A.linkchartcode ='R420' and A.seriesidx in (1,2))
+		or (A.linkchartcode ='R440' and A.seriesidx in (0))
+		or (A.linkchartcode ='C201' and A.seriesidx <100)
+		or (A.linkchartcode ='C210' and A.X not like '%Growth%')
+		or (A.linkchartcode ='C220')
+		or (A.linkchartcode in ('R670','R680') and A.seriesidx =1 and A.isshow='Y')
+		or (A.linkchartcode in ('C120','C121') and A.seriesidx in (3))	
 	GROUP BY linkchartcode,currency,ParentGeo,Geo,timeFrame,Product HAVING max(cast(y as float)) >5000
 )
 BEGIN
 	truncate table tbldivnumber
 	
 	insert into tbldivnumber (linkchartcode,Moneytype,ParentGeo,Geo,Period,Product,Divide)
-	select linkchartcode,currency,ParentGeo,Geo,timeFrame,Product, case when max(cast(y as float)) between 5000 and 5000000 then 1000
-	when max(cast(y as float)) between 5000000 and 5000000000 then 1000000
-	when max(cast(y as float)) >= 5000000000 then 1000000000 else 1 end
-	 from output A where  (A.linkchartcode in ('C020','C030','C040','C050','C100','C110','R040','R320') and A.seriesidx in (1,2) and A.isshow='Y')
-	or (A.linkchartcode in ('C060','C070','C080','C120','C121','R090') and A.seriesidx in (1))
-	or (A.linkchartcode in('D081','D085','D091','D101','R030','R051','R061','R071','R081') and A.isshow='Y')
-	or (A.linkchartcode ='R100' and A.product<>'Glucophage' and  A.seriesidx in (1))
-	or (A.linkchartcode ='R110' and  A.seriesidx in (1))
-	or (A.linkchartcode ='R100' and A.product='Glucophage' and  A.seriesidx in (1,2))
-	or (A.linkchartcode ='R020' and A.product='Baraclude' and  A.series not like '%Growth%'and A.isshow='Y')
-	or (A.linkchartcode ='R020' and A.product<>'Baraclude'and A.isshow='Y')
-	or (A.linkchartcode  in('R401','R402','R411','R412') and A.isshow='Y')
-	or (A.linkchartcode ='R420' and A.seriesidx in (1,2))
-	or (A.linkchartcode ='R440' and A.seriesidx in (0))
-	or (A.linkchartcode ='C201' and A.seriesidx <100)
-	or (A.linkchartcode ='C210' and A.X not like '%Growth%')
-	or (A.linkchartcode ='C220')
-	or (A.linkchartcode in ('R670','R680') and A.seriesidx =1 and A.isshow='Y')
-	or (A.linkchartcode in ('C120','C121') and A.seriesidx in (3))	
+	select linkchartcode,currency,ParentGeo,Geo,timeFrame,Product, 
+		case when max(cast(y as float)) between 5000 and 5000000 then 1000
+			when max(cast(y as float)) between 5000000 and 5000000000 then 1000000
+			when max(cast(y as float)) >= 5000000000 then 1000000000 else 1 end
+	from output A 
+	where  (A.linkchartcode in ('C020','C030','C040','C050','C100','C110','R040','R320') and A.seriesidx in (1,2) and A.isshow='Y')
+		or (A.linkchartcode in ('C060','C070','C080','C120','C121','R090') and A.seriesidx in (1))
+		or (A.linkchartcode in('D081','D085','D091','D101','R030','R051','R061','R071','R081') and A.isshow='Y')
+		or (A.linkchartcode ='R100' and A.product<>'Glucophage' and  A.seriesidx in (1))
+		or (A.linkchartcode ='R110' and  A.seriesidx in (1))
+		or (A.linkchartcode ='R100' and A.product='Glucophage' and  A.seriesidx in (1,2))
+		or (A.linkchartcode ='R020' and A.product='Baraclude' and  A.series not like '%Growth%'and A.isshow='Y')
+		or (A.linkchartcode ='R020' and A.product<>'Baraclude'and A.isshow='Y')
+		or (A.linkchartcode  in('R401','R402','R411','R412') and A.isshow='Y')
+		or (A.linkchartcode ='R420' and A.seriesidx in (1,2))
+		or (A.linkchartcode ='R440' and A.seriesidx in (0))
+		or (A.linkchartcode ='C201' and A.seriesidx <100)
+		or (A.linkchartcode ='C210' and A.X not like '%Growth%')
+		or (A.linkchartcode ='C220')
+		or (A.linkchartcode in ('R670','R680') and A.seriesidx =1 and A.isshow='Y')
+		or (A.linkchartcode in ('C120','C121') and A.seriesidx in (3))	
 	group by linkchartcode,currency,ParentGeo,Geo,timeFrame,Product order by linkchartcode,currency,timeFrame
 
 	update tbldivnumber
-	set Dollar=case Divide when '1000' then 'Thousand' when '1000000' then 'Million' when '1000000000' then 'Billion'
-	else '' end,
-	Dol=case Divide when '1000' then '000' when '1000000' then 'mio.' when '1000000000' then 'bn.'
-	else '' end
+	set Dollar=case Divide 
+			when '1000' then 'Thousand' 
+			when '1000000' then 'Million' 
+			when '1000000000' then 'Billion'
+			else '' end,
+		Dol=case Divide 
+			when '1000' then '000' 
+			when '1000000' then 'mio.' 
+			when '1000000000' then 'bn.'
+			else '' end
 END	
 go
 
 
 
 update output set Color='4E71D1' 
-where linkchartcode in (select distinct Code from db82.BMSChina_staging.dbo.WebChart where charturl = '../Charts/Column2D.swf')
+where linkchartcode in (select distinct Code from db82.BMSChina_staging_test.dbo.WebChart where charturl = '../Charts/Column2D.swf')
 go
 update output
 set color=B.rgb,
-   r=b.r,
-g=b.g,
-b=b.b 
-from output A inner join   db82.BMSChina_ppt.dbo.tblColorDef B
+   	r=b.r,
+	g=b.g,
+	b=b.b 
+from output A inner join   db82.BMSChina_ppt_test.dbo.tblColorDef B
 on replace(replace(A.series,' contrib.',''),' value','')=b.name where B.mkt='Prod'
 go
 update output
 set color=B.rgb,
-   r=b.r,
-g=b.g,
-b=b.b from output A inner join   db82.BMSChina_ppt.dbo.tblColorDef B
+	r=b.r,
+	g=b.g,
+	b=b.b 
+from output A inner join   db82.BMSChina_ppt_test.dbo.tblColorDef B
 on A.series=b.name where B.mkt='Prod'
 go
 update output
 set color=B.rgb,
    r=b.r,
-g=b.g,
-b=b.b from output A inner join   db82.BMSChina_ppt.dbo.tblColorDef B
+	g=b.g,
+	b=b.b 
+from output A inner join   db82.BMSChina_ppt_test.dbo.tblColorDef B
 on A.seriesidx=b.name 
 where B.mkt='ALL' and A.series in(select geo from outputgeo)
 go
@@ -388,8 +401,9 @@ set color='CCCCFF' where seriesidx in (3) and linkchartcode in ('C120','C121')
 update output
 set 
    r=b.r,
-g=b.g,
-b=b.b from output A inner join   db82.BMSChina_ppt.dbo.tblRGBToColor B
+	g=b.g,
+	b=b.b 
+from output A inner join   db82.BMSChina_ppt_test.dbo.tblRGBToColor B
 on A.color=b.rgb 
 go
 
@@ -398,20 +412,20 @@ IF EXISTS(
 	SELECT 1 
 	FROM OUTPUT A
 	WHERE  (A.linkchartcode in ('C020','C030','C040','C050','C100','C110','R040','R320') and A.seriesidx in (1,2) and A.isshow='Y')
-	or (A.linkchartcode in ('C060','C070','C080','C120','C121','R090') and A.seriesidx in (1))
-	or (A.linkchartcode in('D081','D085','D091','D101','R030','R051','R061','R071','R081') and A.isshow='Y')
-	or (A.linkchartcode ='R100' and A.product<>'Glucophage' and  A.seriesidx in (1))
-	or (A.linkchartcode ='R110' and  A.seriesidx in (1))
-	or (A.linkchartcode ='R100' and A.product='Glucophage' and  A.seriesidx in (1,2))
-	or (A.linkchartcode ='R020' and A.product='Baraclude' and  A.series not like '%Growth%'and A.isshow='Y')
-	or (A.linkchartcode ='R020' and A.product<>'Baraclude'and A.isshow='Y')
-	or (A.linkchartcode  in('R401','R402','R411','R412') and A.isshow='Y')
-	or (A.linkchartcode ='R420' and A.seriesidx in (1,2))
-	or (A.linkchartcode ='R440' and A.seriesidx in (0))
-	or (A.linkchartcode ='C201' and A.seriesidx <100)
-	or (A.linkchartcode ='C210' and A.X not like '%Growth%')
-	or (A.linkchartcode ='C220')
-	or (A.linkchartcode in ('R670','R680') and A.seriesidx =1 and A.isshow='Y')
+		or (A.linkchartcode in ('C060','C070','C080','C120','C121','R090') and A.seriesidx in (1))
+		or (A.linkchartcode in('D081','D085','D091','D101','R030','R051','R061','R071','R081') and A.isshow='Y')
+		or (A.linkchartcode ='R100' and A.product<>'Glucophage' and  A.seriesidx in (1))
+		or (A.linkchartcode ='R110' and  A.seriesidx in (1))
+		or (A.linkchartcode ='R100' and A.product='Glucophage' and  A.seriesidx in (1,2))
+		or (A.linkchartcode ='R020' and A.product='Baraclude' and  A.series not like '%Growth%'and A.isshow='Y')
+		or (A.linkchartcode ='R020' and A.product<>'Baraclude'and A.isshow='Y')
+		or (A.linkchartcode  in('R401','R402','R411','R412') and A.isshow='Y')
+		or (A.linkchartcode ='R420' and A.seriesidx in (1,2))
+		or (A.linkchartcode ='R440' and A.seriesidx in (0))
+		or (A.linkchartcode ='C201' and A.seriesidx <100)
+		or (A.linkchartcode ='C210' and A.X not like '%Growth%')
+		or (A.linkchartcode ='C220')
+		or (A.linkchartcode in ('R670','R680') and A.seriesidx =1 and A.isshow='Y')
 	GROUP BY linkchartcode,currency,ParentGeo,Geo,timeFrame,Product HAVING max(cast(y as float)) >5000
 )
 BEGIN
@@ -423,22 +437,22 @@ BEGIN
 	and A.linkchartcode=B.linkchartcode and A.geo=B.geo 
 	and A.Product=B.Product and A.ParentGeo=B.ParentGeo
 	where 
-	   (A.linkchartcode in ('C020','C030','C040','C050','C100','C110','R040','R320') and A.seriesidx in (1,2)and A.isshow='Y')
-	or (A.linkchartcode in ('C060','C070','C080','C120','C121','R090') and A.seriesidx in (1))
-	or (A.linkchartcode in('D081','D085','D091','D101','R030','R051','R061','R071','R081') and A.isshow='Y')
-	or (A.linkchartcode ='R100' and A.product not in ('Glucophage','Onglyza') and  A.seriesidx in (1))
-	or (A.linkchartcode ='R110' and  A.seriesidx in (1))
-	or (A.linkchartcode ='R100' and A.product in('Glucophage','Onglyza') and  A.seriesidx in (1,2))
-	or (A.linkchartcode ='R020' and A.product='Baraclude' and  A.series not like '%Growth%' and A.isshow='Y')
-	or (A.linkchartcode ='R020' and A.product<>'Baraclude'and A.isshow='Y')
-	or (A.linkchartcode  in('R401','R402','R411','R412') and A.isshow='Y')
-	or (A.linkchartcode ='R420' and A.seriesidx in (1,2))
-	or (A.linkchartcode ='R440' and A.seriesidx in (0))
-	or (A.linkchartcode ='C201' and A.seriesidx <100)
-	or (A.linkchartcode ='C210' and A.X not like '%Growth%')
-	or (A.linkchartcode ='C220')
-	or (A.linkchartcode in ('R670','R680') and A.seriesidx =1 and A.isshow='Y')
-	or (A.linkchartcode in ('C120','C121') and A.seriesidx in (3))
+		(A.linkchartcode in ('C020','C030','C040','C050','C100','C110','R040','R320') and A.seriesidx in (1,2)and A.isshow='Y')
+		or (A.linkchartcode in ('C060','C070','C080','C120','C121','R090') and A.seriesidx in (1))
+		or (A.linkchartcode in('D081','D085','D091','D101','R030','R051','R061','R071','R081') and A.isshow='Y')
+		or (A.linkchartcode ='R100' and A.product not in ('Glucophage','Onglyza') and  A.seriesidx in (1))
+		or (A.linkchartcode ='R110' and  A.seriesidx in (1))
+		or (A.linkchartcode ='R100' and A.product in('Glucophage','Onglyza') and  A.seriesidx in (1,2))
+		or (A.linkchartcode ='R020' and A.product='Baraclude' and  A.series not like '%Growth%' and A.isshow='Y')
+		or (A.linkchartcode ='R020' and A.product<>'Baraclude'and A.isshow='Y')
+		or (A.linkchartcode  in('R401','R402','R411','R412') and A.isshow='Y')
+		or (A.linkchartcode ='R420' and A.seriesidx in (1,2))
+		or (A.linkchartcode ='R440' and A.seriesidx in (0))
+		or (A.linkchartcode ='C201' and A.seriesidx <100)
+		or (A.linkchartcode ='C210' and A.X not like '%Growth%')
+		or (A.linkchartcode ='C220')
+		or (A.linkchartcode in ('R670','R680') and A.seriesidx =1 and A.isshow='Y')
+		or (A.linkchartcode in ('C120','C121') and A.seriesidx in (3))
 	--Sprycel Market HKAPI table
 	update Output set Series=Series+ ' ('+B.Dol+', '+B.Moneytype+')'
 	from output A 
@@ -458,7 +472,7 @@ declare @n int
 select   @n=count(1)  from   syscolumns   where   id=object_id('output')   and   name='inty'  
 if @n<>0 
 begin 
-alter table output drop column inty
+	alter table output drop column inty
 end 
 go
 
@@ -466,80 +480,104 @@ go
 
 insert into Output
 select DataSource
-	  ,[GeoID]
-      ,[ProductID]
-      ,[LinkChartCode]
-      ,replace([LinkSeriesCode],'Glucophage','Onglyza')
-      ,[Series]
-      ,[SeriesIdx]
-      ,[Category]
-      ,'Onglyza'
-      ,[Lev]
-      ,[ParentGeo]
-      ,[Geo]
-      ,[Currency]
-      ,[TimeFrame]
-      ,[X]
-      ,[XIdx]
-      ,[Y]
-      ,[LinkedY]
-      ,[Size]
-      ,[OtherParameters]
-      ,[Color]
-      ,[R]
-      ,[G]
-      ,[B]
-      ,[IsShow]
- from output where linkchartcode in (
-select distinct linkchartcode from output where Product='Glucophage' and linkchartcode not in (
-select distinct linkchartcode from output where Product='Onglyza') ) and Product='Glucophage' and linkchartcode not between 'R400' and 'R520' 
+	,[GeoID]
+	,[ProductID]
+	,[LinkChartCode]
+	,replace([LinkSeriesCode],'Glucophage','Onglyza')
+	,[Series]
+	,[SeriesIdx]
+	,[Category]
+	,'Onglyza'
+	,[Lev]
+	,[ParentGeo]
+	,[Geo]
+	,[Currency]
+	,[TimeFrame]
+	,[X]
+	,[XIdx]
+	,[Y]
+	,[LinkedY]
+	,[Size]
+	,[OtherParameters]
+	,[Color]
+	,[R]
+	,[G]
+	,[B]
+	,[IsShow]
+from output where linkchartcode in (
+		select distinct linkchartcode 
+		from output 
+		where Product='Glucophage' and linkchartcode not in (
+			select distinct linkchartcode from output where Product='Onglyza') 
+	) and Product='Glucophage' and linkchartcode not between 'R400' and 'R520' 
 go
 insert into tbldivnumber
 select Period, Moneytype, 'Onglyza', ParentGeo, Geo, LinkchartCode, Divide, Dollar, Dol
- from tbldivnumber where linkchartcode in (
-select distinct linkchartcode from tbldivnumber where Product='Glucophage' and linkchartcode not in (
-select distinct linkchartcode from tbldivnumber where Product='Onglyza') ) and Product='Glucophage' and linkchartcode not between 'R400' and 'R520' 
+from tbldivnumber 
+where linkchartcode in (
+		select distinct linkchartcode 
+		from tbldivnumber 
+		where Product='Glucophage' and linkchartcode not in (
+			select distinct linkchartcode from tbldivnumber where Product='Onglyza') 
+	) and Product='Glucophage' and linkchartcode not between 'R400' and 'R520' 
 go
 
 --update output
 --set OtherParameters=LinkedY
 --go
 update output
-set LinkedY=B.ID from output A inner join dbo.outputgeo B
+set LinkedY=B.ID 
+from output A 
+inner join dbo.outputgeo B
 on A.LinkedY=B.geo and a.parentgeo=b.parentgeo and A.product=B.product
 where A.linkchartcode in ('C120','C121')
  
 update output
-set LinkedY=B.ID from output A inner join outputgeo B
+set LinkedY=B.ID 
+from output A 
+inner join outputgeo B
 on A.LinkedY=B.geo and a.geo=b.parentgeo and A.product=B.product
 where linkchartcode like 'D02%' or linkchartcode like 'D03%' or linkchartcode like 'D04%'
 go
 --update ProudctId and Geoid 20120214
 update Output
-set ProductID=B.ID from Output A inner join
-   (select * from db82.BMSChina_staging.dbo.WebPage 
-         where ParentID=(select ID from db82.BMSChina_staging.dbo.WebPage 
-                           where Code='DashBoard')) B
+set ProductID=B.ID 
+from Output A 
+inner join
+   (	select * 
+   		from db82.BMSChina_staging_test.dbo.WebPage 
+		where ParentID=(	select ID from db82.BMSChina_staging_test.dbo.WebPage 
+                           	where Code='DashBoard')
+	) B
 on A.Product=B.Code 
 go
 update Output
-set ProductID=B.ID from Output A inner join
-   (select * from db82.BMSChina_staging.dbo.WebPage 
-         where ParentID=(select ID from db82.BMSChina_staging.dbo.WebPage 
-                           where Code='DashBoard')) B
+set ProductID=B.ID 
+from Output A 
+inner join
+   (	select * from db82.BMSChina_staging_test.dbo.WebPage 
+		where ParentID=(	select ID from db82.BMSChina_staging_test.dbo.WebPage 
+                           	where Code='DashBoard')
+	) B
 on left(A.Product,7)=B.Code  where a.product like 'eliquis%'
 go
 update output
-set GeoID=B.ID from output A inner join Outputgeo B
+set GeoID=B.ID 
+from output A 
+inner join Outputgeo B
 on A.Geo=B.Geo and A.ParentGeo=B.ParentGeo and A.Product=B.Product
 go
 update output
-set GeoID=B.ID from output A inner join Outputgeo B
+set GeoID=B.ID 
+from output A 
+inner join Outputgeo B
 on A.Geo=B.Geo and A.ParentGeo=B.ParentGeo and left(A.Product,7)=B.Product
 where a.product like 'eliquis%'
 go
 update output
-set GeoID=B.ID from output A inner join Outputgeo B
+set GeoID=B.ID 
+from output A 
+inner join Outputgeo B
 on A.Geo=B.Geo where A.geo='China' and A.GeoID is null
 go
 select distinct geo,lev,parentgeo,product from output where geoid is null
@@ -567,26 +605,26 @@ update output set color='808080' where Series='Platinum Others' and LinkChartCod
 
 update OUTPUT
 SET
-color = 'FFFF00',
-R=255,
-G=255,
-B=000
+	color = 'FFFF00',
+	R=255,
+	G=255,
+	B=000
 WHERE linkchartcode = 'c130' and series = 'Adefovir Dipivoxil'
 
 
 update OUTPUT
 SET
-color = 'FF0000',
-R=255,
-G=000,
-B=000
+	color = 'FF0000',
+	R=255,
+	G=000,
+	B=000
 WHERE linkchartcode = 'c130' and series = 'Entecavir'
 
 update output
 set color=null,
-R=null,
-G=null,
-B=null
+	R=null,
+	G=null,
+	B=null
 where linkchartcode like 'R65%' and product='Coniel' and Series='CCB Market'
 
 --

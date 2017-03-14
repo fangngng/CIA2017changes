@@ -1,4 +1,4 @@
-use BMSChina_PPT
+use BMSChina_PPT_test
 go
 
 
@@ -102,7 +102,7 @@ set SubCaption=replace(SubCaption,'49',B.CityNum)--todo:当Taxol的区域划分�
 from tblChartTitle A 
 inner join (
 select ParentGeo,cast(count(distinct Geo) as nvarchar(10))  CityNum
-from DB4.BMSChinaCIA_IMS.dbo.outputgeo where lev=2 and Product='taxol'
+from DB4.BMSChinaCIA_IMS_test.dbo.outputgeo where lev=2 and Product='taxol'
 group by ParentGeo
 ) B
 on A.Geo=B.ParentGeo
@@ -117,7 +117,7 @@ where product='glucophage' and parentcode='R500' and category='value'
 
 --特殊处理：
 
-update [BMSChina_ppt].[dbo].[Output_PPT]
+update [BMSChina_PPT_test].[dbo].[Output_PPT]
 set Category='Dosing Units'
 where [LinkChartCode] in( 'R402' ,'R412')and Product='ParaPlatin'
 
