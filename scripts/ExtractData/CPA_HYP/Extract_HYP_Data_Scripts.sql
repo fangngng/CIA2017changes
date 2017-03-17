@@ -1,4 +1,4 @@
-use BMSChinaMRBI
+use BMSChinaMRBI_test
 go
 if object_id(N'inCPA_HYP_Data_Extract','U') is not null
 	drop table inCPA_HYP_Data_Extract
@@ -37,7 +37,7 @@ into inCPA_HYP_Data_Extract
 from dbo.inCPAData a join dbo.tblHospitalMaster c on a.cpa_id=c.id 
                    left join (select * from tblsalesregion where product='monopril') d on d.city=c.city_en
                   left join dbo.[tblDefProduct_CN_EN] b on a.Product = b.prod_cn
-where (substring(a.ATC_Code,1,3) in ('C02','C03','C07','C08','C09') or a.molecule=N'±´ÄáµØÆ½')
+where (substring(a.ATC_Code,1,3) in ('C02','C03','C07','C08','C09') or a.molecule=N'ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ½')
 
 update a
 set a.Region=case when b.Region ='East1' then 'E1'

@@ -31,9 +31,9 @@ go
 
 update a set a.molecule=b.mole_en,a.product=c.prod_en
 from inCMHdata_baraclude a
-left join BMSChinaMRBI.dbo.tblDefMolecule_CN_EN b
+left join BMSChinaMRBI_test.dbo.tblDefMolecule_CN_EN b
 on a.molecule_cn=b.mole_cn
-left join BMSChinaMRBI.dbo.tblDefProduct_CN_EN c
+left join BMSChinaMRBI_test.dbo.tblDefProduct_CN_EN c
 on a.product_cn=c.prod_cn
 where a.producttype='Product'
 

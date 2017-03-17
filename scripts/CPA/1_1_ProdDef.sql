@@ -12,7 +12,7 @@
 */
 --Time:01:30
 
-use BMSChinaMRBI--DB4
+use BMSChinaMRBI_test--DB4
 GO
 
 exec dbo.sp_Log_Event 'process data','CIA_CPA','1_1_ProdDef.sql','Start',null,null

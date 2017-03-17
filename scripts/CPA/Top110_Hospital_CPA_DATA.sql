@@ -17,7 +17,7 @@
 
 ----------------------------------------------
 --172.20.0.4
-use BMSChinaMRBI
+use BMSChinaMRBI_test
 
 select c.Region,a.[cpa name] as Hospital,b.city_en as city,d.CurrentRank as CurrentRank,
 convert(int,isnull(e.[Monopril Last Year YTD]/14,0)) as [Monopril Last Year YTD],
@@ -55,7 +55,7 @@ from
 		from BMS_CPA_Hosp_Category 
 		where [cpa name]<> '#N/A' and [cpa name] is not null and [cpa code] is not null and [Monopril Hospital Category] ='Top100'
 		union
-		select '150031',N'¹þ¶û±õÒ½´óµÚ¶þ¸½ÊôÒ½Ôº'
+		select '150031',N'ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò½ï¿½ï¿½ï¿½Ú¶ï¿½ï¿½ï¿½ï¿½ï¿½Ò½Ôº'
 ) a join tblHospitalMaster b on a.[cpa code]=b.cpa_code
 left join (select distinct Region,city from tblSalesRegion where product='Monopril') c on b.city_en=c.city
 left join (

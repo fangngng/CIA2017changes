@@ -1,5 +1,5 @@
 
-use BMSChinaMRBI
+use BMSChinaMRBI_test
 
 select c.Region,a.[cpa name] as Hospital,b.city_en as city,
 case when d.CurrentRank>0 then convert(char(1),d.CurrentRank) else '' end as CurrentRank,

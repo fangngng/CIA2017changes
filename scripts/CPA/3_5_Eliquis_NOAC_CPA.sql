@@ -1,4 +1,4 @@
-use BMSChinaMRBI
+use BMSChinaMRBI_test
 
 
 --log

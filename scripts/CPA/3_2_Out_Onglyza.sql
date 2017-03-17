@@ -1,8 +1,8 @@
--- /* 这个脚本生成Onglyza产品的输出表的数据 */
+-- /* 锟斤拷锟斤拷锟脚憋拷锟斤拷锟斤拷Onglyza锟斤拷品锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷锟斤拷 */
 
 
 
--- use BMSChinaMRBI
+-- use BMSChinaMRBI_test
 -- go
 
 -- --Time:00:26

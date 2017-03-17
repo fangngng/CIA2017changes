@@ -1,4 +1,4 @@
-use BMSChinaMRBI
+use BMSChinaMRBI_test
 
 exec dbo.sp_Log_Event 'output','CIA_CPA','3_4_Out_R640.sql','Start',null,null
 

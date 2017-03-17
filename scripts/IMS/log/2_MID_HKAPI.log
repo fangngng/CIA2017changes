@@ -1,0 +1,176 @@
+1> 2> 1> 2> 3> 4> 5> 6> 7> 8> 9> 10> 
+------------------------------------------------------------------------------
+------------------------------
+9.                                   Slide 10 : inHKAPI_New
+------------------------------------------------------------------------------
+------------------------------
+1> 2> (845 rows affected)
+1> 2> 3> (0 rows affected)
+1> 2> 3> 4> 5> 6> 7> 8> 9> 10> 11> 12> 13> 14> 15> 16> 17> 18> 19> 20> 21> 22> 23> 24> 25> 26> 27> 1> 2> 3> 4> 5> 6> 7> 8> 9> 10> 11> 12> 13> 14> 15> 16> 17> 18> 19> 20> 21> 22> 23> 24> 25> 26> 27> 28> 29> 30> 31> 32> 33> 34> 35> 36> 37> 38> 39> 40> (845 rows affected)
+1> 2> 3> 4> 5> 6> 7> 8> 9> 10> 11> 12> 13> 1> 2> 3> 4> 5> 6> 7> 8> 9> 10> 11> 12> 13> 14> 15> 16> (10 rows affected)
+1> 2> 3> 4> 5> 6> 7> 8> 9> 10> 11> 12> BMS COPR in Top 10 YTD
+1> 2> 3> 4> 5> 6> 7> 8> (10 rows affected)
+1> 2> 3> 4> 5> 6> 7> 8> 9> 10> 11> 12> 13> 14> 15> 16> 17> (10 rows affected)
+1> 2> 3> 4> 5> 6> 7> 8> 9> 10> 11> 12> BMS COPR in Top 10 MAT
+1> 2> 3> 4> 5> 6> 7> 8> (10 rows affected)
+1> 2> 3> 4> 5> 6> 7> 8> 9> 10> 11> 12> 13> 14> 15> 16> 17> 18> 19> 20> 21> 22> 23> 24> 25> 26> 27> 28> 29> 30> 31> 32> 33> 34> 35> 36> 37> 38> 39> 40> 41> 42> 43> 44> 45> 
+insert into [OutputKeyMNCsPerformance_HKAPI]
+([Period],[MoneyType],[CORP_cod],[CurrRank],[PrevRank],[Mat00],[Mat12])
+select top 10 
+'MQT'
+,'RMB'
+,[company name]
+,1
+,1
+,sum(isnull([16Q4LC],0))*1000
+,sum(isnull([16Q1LC],0))*1000
+from inHKAPI_New
+group by [company name]
+order by sum(isnull([16Q4LC],0)) desc
+
+if exists(select * from OutputKeyMNCsPerformance_HKAPI 
+				  where CORP_Cod like '%BMS%' and Period='MQT' and MoneyType='RMB'
+		)
+print 'BMS COPR in Top 10 MQT'
+else
+insert into [OutputKeyMNCsPerformance_HKAPI]
+([Period],[MoneyType],[CORP_cod],[CurrRank],[PrevRank],[Mat00],[Mat12])
+select 'MQT','RMB', [company
+name],1,1,sum(isnull([16Q4LC],0))*1000,sum(isnull([16Q1LC],0))*1000
+from inHKAPI_New
+where [company name] like '%BMS%'
+group by [company name]
+
+update [OutputKeyMNCsPerformance_HKAPI]
+set [Total]=B.sales 
+from [OutputKeyMNCsPerformance_HKAPI] A ,
+(select sum(isnull([16Q4LC],0))*1000 as sales from inHKAPI_New
+) B
+where A.[Period]='MQT'
+(10 rows affected)
+BMS COPR in Top 10 MQT
+(10 rows affected)
+1> 2> 3> 4> 5> 6> 7> 8> 9> 10> 11> 12> 13> 14> 15> 16> (10 rows affected)
+1> 2> 3> 4> 5> 6> 7> 8> 9> 10> 11> 12> 13> 14> 15> 16> 17> 18> 19> 20> 21> BMS COPR in Top 10 LastYear
+1> 2> 3> 4> 5> 6> 7> (10 rows affected)
+1> 2> 3> 4> 5> 6> 7> 8> 9> (40 rows affected)
+1> 2> 3> 4> 5> 6> 7> 8> (40 rows affected)
+1> 2> 1> 2> 3> 4> 5> 6> 7> 8> 9> 10> 11> 12> 13> 14> 15> 16> 17> 18> 19> 20> 21> (40 rows affected)
+(40 rows affected)
+(40 rows affected)
+1> 2> 3> 4> 5> 6> (40 rows affected)
+1> 2> 1> 2> 3> (40 rows affected)
+1> 2> 3> 4> 5> 6> 7> 8> 9> 10> 11> 12> 13> 14> 15> 16> 17> (40 rows affected)
+1> 2> 3> 4> (56 rows affected)
+1> 2> 3> 4> 5> 6> 7> 8> 9> 10> 11> 12> 13> 14> 
+------------------------------------------------------------------------------
+------------------------------
+10.                                   Slide 11 :
+OutputKeyMNCsProdPerformance_HKAPI
+------------------------------------------------------------------------------
+------------------------------
+1> 2> 3> 4> 5> 6> 7> 8> 9> 10> 11> 12> 13> 1> 2> 3> 4> 5> 6> 7> 8> 9> 10> (10 rows affected)
+1> 2> 3> 4> 5> 6> 7> 8> 9> 10> 11> 12> 13> BARACLUDE Prod in Top 10 YTD
+1> 2> 3> 4> 5> 6> 7> 8> 9> 10> 11> 12> 13> 14> 15> 16> 17> (10 rows affected)
+(10 rows affected)
+1> 2> 3> 4> 5> 6> 7> 8> 9> 10> 11> 12> 13> BARACLUDE Prod in Top 10 MAT
+1> 2> 3> 4> 5> 6> 7> 8> 9> 10> 11> 12> 13> 14> 15> 16> 17> 18> 19> 20> 21> 22> 23> 24> 25> 26> 27> 28> 29> 30> 31> 32> 33> 34> 35> 36> 37> 38> 39> 40> 41> 42> 43> 44> 45> 46> 47> 48> 49> 50> 51> 52> 53> 54> 55> 56> 57> 58> (10 rows affected)
+
+insert into [OutputKeyMNCsProdPerformance_HKAPI]
+([Period],[MoneyType],[Prod_cod],[CurrRank],[PrevRank],[Mat00],[Mat12])
+select top 10 'MQT','RMB', [Product
+name],1,1,sum(isnull([16Q4LC],0))*1000,sum(isnull([16Q1LC],0))*1000
+from inHKAPI_New
+where [Company name] in (select CORP_Cod from OutputKeyMNCsPerformance_HKAPI
+where Period='MQT')
+group by [Product name]
+order by sum(isnull([16Q4LC],0)) desc
+
+if exists(  select * 
+from [OutputKeyMNCsProdPerformance_HKAPI] 
+			where Prod_Cod like '%Bara%' and Period='MQT' and MoneyType='RMB'
+		)
+print 'BARACLUDE Prod in Top 10 MQT'
+else
+insert into [OutputKeyMNCsProdPerformance_HKAPI]
+([Period],[MoneyType],[Prod_cod],[CurrRank],[PrevRank],[Mat00],[Mat12])
+select 'MQT','RMB', [Product
+name],1,1,sum(isnull([16Q4LC],0))*1000,sum(isnull([16Q1LC],0))*1000
+from inHKAPI_New
+where  [Product name] like '%Bara%'
+group by [Product name]
+
+update [OutputKeyMNCsProdPerformance_HKAPI]
+set [Total]=B.sales from [OutputKeyMNCsProdPerformance_HKAPI] A ,
+(   select sum(isnull([16Q4LC],0))*1000 as sales
+from inHKAPI_New
+where [Company name] in (select CORP_Cod from OutputKeyMNCsPerformance_HKAPI
+where Period='MQT')
+) B
+where A.[Period]='MQT'
+(10 rows affected)
+BARACLUDE Prod in Top 10 MQT
+(10 rows affected)
+(10 rows affected)
+1> 2> 3> 4> 5> 6> 7> 8> 9> 10> 11> 12> BARACLUDE Prod in Top 10 LastYear
+1> 2> 3> 4> 5> 6> 7> 8> (10 rows affected)
+1> 2> 3> 4> 5> 6> 7> 8> (40 rows affected)
+1> 2> 3> 4> 5> 6> 7> 8> 9> (40 rows affected)
+1> 2> 1> 2> 3> 4> 5> 6> 7> 8> 9> 10> 11> 12> 13> 14> (40 rows affected)
+(40 rows affected)
+(40 rows affected)
+1> 2> 3> (40 rows affected)
+1> 2> 1> 2> 3> (40 rows affected)
+1> 2> 3> 4> 5> 6> 7> 8> 9> 10> 11> 12> 13> 14> 15> 16> (40 rows affected)
+1> 2> 3> 4> (16 rows affected)
+1> 2> 3> 4> 5> 6> 7> 8> 9> 10> 11> 1> 2> 3> 1> 2> 3> 4> 5> 6> 7> 8> 9> (21 rows affected)
+1> 2> 3> 1> 2> 3> 4> (21 rows affected)
+1> 2> 3> 4> 5> 6> 7> 8> 9> 10> 11> 12> (21 rows affected)
+1> 2> 3> 1> 2> 3> 4> 5> 6> (21 rows affected)
+1> 2> 3> 4> 5> 6> (21 rows affected)
+1> 2> 3> 4> 5> 6> 7> 8> 9> 1> 2> 3> 4> 5> 6> 7> 8> 9> 10> 11> 12> 13> 14> 15> 16> 17> 18> 19> 20> 21> 22> 23> 24> 25> 26> 27> 28> 29> 30> 31> 32> 33> 34> 35> 36> 37> 38> 39> 40> 41> 42> 43> 44> 45> 46> 47> 48> 49> 50> 51> 52> 53> 54> 55> 56> 57> 58> 59> 60> 61> 62> 63> 64> 65> 66> 67> 68> (3 rows affected)
+
+insert into OutputCMLChina_HKAPI
+select 'Sprycel' as Market,'MQT' as Period,[Product Name] as Product,cast(1 as
+int) as ProdIdx,'USD' as Moneytype
+,sum([16Q4US])*1000 as MQT00
+,sum([16Q1US])*1000 as MQT12
+,sum([15Q1US])*1000 as MQT24
+,sum([14Q1US])*1000 as MQT36
+,sum([13Q1US])*1000 as MQT48
+,sum([15Q4US])*1000 as Qtr04--todo
+,sum([16Q1US])*1000 as Qtr03
+,sum([16Q2US])*1000 as Qtr02
+,sum([16Q3US])*1000 as Qtr01
+,sum([16Q4US])*1000 as Qtr00
+,cast(0 as float) as Growth
+from inHKAPI_New 
+where [Product Name] like '%spycel%' or  [Product Name] in(select distinct
+Prod_name from tblMktDef_MRBIChina where mkt='CML')
+group by [Product Name]
+(3 rows affected)
+(3 rows affected)
+1> 2> 3> 4> 5> 6> 7> 8> 9> 10> 11> 12> 13> 14> 15> 16> 17> 18> 19> 20> 21> 22> 23> 24> 25> 26> 27> 28> 29> 30> 31> 32> 33> 34> 35> 36> 37> 38> 39> 40> 41> 42> 43> 44> 45> 46> 47> 48> 49> 50> 51> 52> 53> 54> 55> 56> 57> 58> 59> 60> 61> 62> 63> 64> 65> (3 rows affected)
+
+insert into OutputCMLChina_HKAPI
+select 'Sprycel','MQT',[Product Name] as Product,1,'RMB' as Moneytype
+,sum([16Q4LC])*1000 as MQT00
+,sum([16Q1LC])*1000 as MQT12
+,sum([15Q1LC])*1000 as MQT24
+,sum([14Q1LC])*1000 as MQT36
+,sum([13Q1LC])*1000 as MQT48
+,sum([15Q4LC])*1000 as Qtr04
+,sum([16Q1LC])*1000 as Qtr03
+,sum([16Q2LC])*1000 as Qtr02
+,sum([16Q3LC])*1000 as Qtr01
+,sum([16Q4LC])*1000 as Qtr00--todo
+,cast(0 as float) as Growth
+from inHKAPI_New 
+where [Product Name] like '%spycel%' or  [Product Name] in(select distinct
+Prod_name from tblMktDef_MRBIChina where mkt='CML')
+group by [Product Name]
+(3 rows affected)
+(3 rows affected)
+1> 2> 3> (18 rows affected)
+1> 2> 3> (18 rows affected)
+1> 2> 3> 4> 5> 6> (18 rows affected)

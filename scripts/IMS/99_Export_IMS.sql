@@ -202,6 +202,14 @@ from db4.BMSChinaCIA_IMS_test.dbo.WebChartSeries
 go
 
 
+update a 
+set a.HighChartSeriesType = 
+	case when a.series like '%growth%' or a.series like '%G R%' or a.series like '%share%' then 'line'
+		 else 'StackedColumn' end 
+from WebChartSeries as a
+inner join dbo.WebChart as b on a.LinkChartCode = b.Code
+where b.highChartType = 'StackedColumnLineDY'
+go 
 
 
 

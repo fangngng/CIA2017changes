@@ -84,50 +84,50 @@ go
 -- R520
 --------------------------------------------
 -- 清除历史冗余数据
-delete from [output_stage] where LinkChartCode='R520'
-GO
-insert into [output_stage](LinkChartCode,Series,SeriesIdx,Product,lev,Geo,Currency,TimeFrame,X,XIdx,Y,Size,IsShow)
-select 
-	'R520'                                     --LinkChartCode
-	,CORP_des                                   --Series
-	,CurrRank                                   --SeriesIdx
-	,'Taxol'                                    --Product
-	,'Nation'                                   --lev
-	,'China'                                    --Geo
-	,MoneyType                                  --Currency
-	,Period                                     --TimeFrame
-	,Share                                      --X
-	,RANK() OVER (ORDER BY Share) AS Rank       --XIdx
-	,Mat00Growth                                --Y
-	,Mat00                                      --Size
-	,'Y'                                        --IsShow
-from MID_TopIL_CompaniesPerformance  where MoneyType<>'PN'
-GO
+-- delete from [output_stage] where LinkChartCode='R520'
+-- GO
+-- insert into [output_stage](LinkChartCode,Series,SeriesIdx,Product,lev,Geo,Currency,TimeFrame,X,XIdx,Y,Size,IsShow)
+-- select 
+-- 	'R520'                                     --LinkChartCode
+-- 	,CORP_des                                   --Series
+-- 	,CurrRank                                   --SeriesIdx
+-- 	,'Taxol'                                    --Product
+-- 	,'Nation'                                   --lev
+-- 	,'China'                                    --Geo
+-- 	,MoneyType                                  --Currency
+-- 	,Period                                     --TimeFrame
+-- 	,Share                                      --X
+-- 	,RANK() OVER (ORDER BY Share) AS Rank       --XIdx
+-- 	,Mat00Growth                                --Y
+-- 	,Mat00                                      --Size
+-- 	,'Y'                                        --IsShow
+-- from MID_TopIL_CompaniesPerformance  where MoneyType<>'PN'
+-- GO
 
 
---后期处理
-update [output_stage] 
-set LinkedY=b.LinkY 
-from [output_stage] A 
-inner join(
-	select product,min(parentgeo) as LinkY  from outputgeo where lev=2
-	group by product
-) B
-on A.product=B.product
-where A.LinkChartCode='R520'
-go
-update [output_stage] 
-set LinkSeriesCode=Product+'_'+LinkChartCode+Series+cast(SeriesIdx as varchar(10)) 
-where LinkChartCode='R520'
-go
-update [output_stage] 
-set Category=case Currency when 'UN' then 'Dosing Units' else 'Value' end
-where LinkChartCode='R520'
-go
-update [output_stage] 
-set Currency=case Currency when 'US' then 'USD' when 'LC' then 'RMB' when 'UN' then 'UNIT' else Currency end 
-where LinkChartCode='R520'
-go
+-- --后期处理
+-- update [output_stage] 
+-- set LinkedY=b.LinkY 
+-- from [output_stage] A 
+-- inner join(
+-- 	select product,min(parentgeo) as LinkY  from outputgeo where lev=2
+-- 	group by product
+-- ) B
+-- on A.product=B.product
+-- where A.LinkChartCode='R520'
+-- go
+-- update [output_stage] 
+-- set LinkSeriesCode=Product+'_'+LinkChartCode+Series+cast(SeriesIdx as varchar(10)) 
+-- where LinkChartCode='R520'
+-- go
+-- update [output_stage] 
+-- set Category=case Currency when 'UN' then 'Dosing Units' else 'Value' end
+-- where LinkChartCode='R520'
+-- go
+-- update [output_stage] 
+-- set Currency=case Currency when 'US' then 'USD' when 'LC' then 'RMB' when 'UN' then 'UNIT' else Currency end 
+-- where LinkChartCode='R520'
+-- go
 
 -- select * from [output_stage] where LinkChartCode='R520' 
 
@@ -157,8 +157,12 @@ set @sql=@sql+'insert into [output_stage] (isshow,TimeFrame,LinkChartCode,Produc
 		select ''YTD'' as Period, ''YTD36'' as Series, 2 as SeriesIdx union all
 		select ''YTD'' as Period, ''YTD48'' as Series, 1 as SeriesIdx
 	) a, (
-		select distinct case type when ''Sales'' then ''Y'' when ''Market Share'' then ''L'' when ''Growth'' then ''D'' else ''N'' end as isshow,MoneyType,mkt,Market,Prod,Productname from  dbo.[OurputPreMarketTrendT1] where mkt<>''NIAD''
-	) b where b.market not like ''Eliquis%'''
+		select distinct case type when ''Sales'' then ''Y'' when ''Market Share'' then ''L'' when ''Growth'' then ''D'' else ''N'' end as isshow,
+			MoneyType,mkt,Market,Prod,Productname 
+		from  dbo.[OurputPreMarketTrendT1] 
+		where mkt<>''NIAD''
+	) b 
+where b.market not like ''Eliquis%'''
 print @sql
 exec (@sql)
 
@@ -180,9 +184,11 @@ BEGIN
 
 		set @SQL2='
 		update [output_stage]
-		set Y=B.['+@Series+ '] from [output_stage] A inner join dbo.[OurputPreMarketTrendT1] B
+		set Y=B.['+@Series+ '] 
+		from [output_stage] A 
+		inner join dbo.[OurputPreMarketTrendT1] B
 		on case B.type when ''Sales'' then ''Y'' when ''Market Share'' then ''L'' when ''Growth'' then ''D'' else ''N'' end=A.isshow and A.Product=B.Market and A.X='+''''+@Series+''''+' and A.currency=b.Moneytype
-		and a.LinkChartCode = '+''''+@code+''''+' and A.Series=B.Productname  and  B.mkt<>''NIAD'''
+			and a.LinkChartCode = '+''''+@code+''''+' and A.Series=B.Productname  and  B.mkt<>''NIAD'''
 		print @SQL2
 		exec( @SQL2)
 
@@ -1156,7 +1162,9 @@ go
 -- DEALLOCATE TMP_CURSOR
 go
 
+-------------------------------
 --R090
+-------------------------------
 delete from output_stage where linkchartcode='R090'
 
 declare @code varchar(10)
@@ -1176,7 +1184,8 @@ from (
 	select 'TotalContribution' as Series,'N' ,7 as SeriesIdx
 ) a, (
 	select distinct Period,MoneyType,Market,mkt,productname,Audi_des,
-	case when CurrRank is null then RANK ( )OVER (PARTITION BY Period,MoneyType,Market,mkt,productname order by Qtr00 desc )+100 else CurrRank end as CurrRank from OutputPreCityPerformance 
+	case when CurrRank is null then RANK ( )OVER (PARTITION BY Period,MoneyType,Market,mkt,productname order by Qtr00 desc )+100 else CurrRank end as CurrRank 
+	from OutputPreCityPerformance 
     where Period in('MQT', 'YTD') and Moneytype<>'UN' and mkt not in ('Dia','ACE','DPP4') and prod='000'
 ) b
 

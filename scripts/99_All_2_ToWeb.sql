@@ -507,6 +507,32 @@ where Caption like '%NOAC%'
 -- 	where Caption like '%NOAC%'
 -- )
 
+-- 20170316 add new column HighChartType 
+-- select chartURL, highChartType, * from webchart
+-- go
+-- alter table webchart 
+-- add HighChartType varchar(50)
+-- go 
+
+-- update webchart 
+-- set HighchartType  = 'StackedColumn'
+-- where chartURL like '%Stacked%'
+
+-- update webchart 
+-- set HighchartType  = 'Line'
+-- where chartURL like '%Line%'
+
+-- update webchart 
+-- set HighchartType  = 'StackedColumnLineDY2D'
+-- where chartURL like '%Stacked%'
+-- 	and chartURL like '%LineDY%'
+
+-- update webchart 
+-- set HighchartType  = 'StackedColumnLineDY2D'
+-- where HighChartType is null 
+
+-- go
+
                                                   
 --------------------------------------------------
 -- WebPageChart                                       

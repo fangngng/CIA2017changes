@@ -1,4 +1,4 @@
-use BMSChinaMRBI
+use BMSChinaMRBI_test
 go
 
 
@@ -199,7 +199,7 @@ go
 update OutputRx set 
 	Category = 'Units',
 	Currency = 'UNIT',
-	TimeFrame = (select left(Value1,4) + ' ' + right(Value1,2) from db4.bMSChinaMRBI.dbo.tblDSDates where Item = 'Rx')
+	TimeFrame = (select left(Value1,4) + ' ' + right(Value1,2) from db4.BMSChinaMRBI_test.dbo.tblDSDates where Item = 'Rx')
 where LinkChartCode in ('R342','R352')
 go
 
@@ -455,7 +455,7 @@ where a.ProductName='ELIQUIS' and a.XIdx=2
 update OutputRx set 
 	Category = 'Units',
 	Currency = 'UNIT',
-	TimeFrame = (select left(Value1,4) + ' ' + right(Value1,2) from db4.bMSChinaMRBI.dbo.tblDSDates where Item = 'Rx')
+	TimeFrame = (select left(Value1,4) + ' ' + right(Value1,2) from db4.BMSChinaMRBI_test.dbo.tblDSDates where Item = 'Rx')
 where LinkChartCode in ('R661','R662','R663','R664','R665','R666','R667','R668')
 
 

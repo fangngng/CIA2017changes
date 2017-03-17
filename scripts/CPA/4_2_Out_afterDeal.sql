@@ -1,4 +1,4 @@
-use BMSChinaMRBI --DB4
+use BMSChinaMRBI_test --DB4
 go
 exec dbo.sp_Log_Event 'output','CIA_CPA','4_2_Out_afterDeal.sql','Start',null,null
 --Time:00:11

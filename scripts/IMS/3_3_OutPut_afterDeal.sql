@@ -265,7 +265,9 @@ END
 go
 
 
-
+----------------------------------------
+-- update color 
+----------------------------------------
 update output set Color='4E71D1' 
 where linkchartcode in (select distinct Code from db82.BMSChina_staging_test.dbo.WebChart where charturl = '../Charts/Column2D.swf')
 go
@@ -325,7 +327,7 @@ go
 update [Output]
 set color='4E71D1' where series like 'China Market%' and LinkChartCode='C020'
 update [Output]
-set color='CCCCFF' where series like 'BMS Focus Market%' and LinkChartCode='C020'
+set color='CCCCFF' where series like 'MNCs Market%' and LinkChartCode='C020'
 go
 update [Output]
 set color='4E71D1' where series like 'Market%' and LinkChartCode='D050'
@@ -359,7 +361,7 @@ go
 update [Output]
 set color='00FF00' where seriesidx=2 and LinkChartCode in('C040','C050','C100')
 update [Output]
-set color='4E71D1' where seriesidx in(1) and LinkChartCode in('C040','C050','C100')
+set color='4E71D1' where seriesidx=1 and LinkChartCode in('C040','C050','C100')
 update [Output]
 set color='FF00FF' where seriesidx=3 and LinkChartCode in('C040','C050','C100')
 go
@@ -392,12 +394,9 @@ update [Output]
 set color='FF6600' where seriesidx in(4) and LinkChartCode in('C120','c121')
 update [Output]
 set color='34CD32' where seriesidx=5 and LinkChartCode in('C120','c121')
-GO
-
-
 update output
 set color='CCCCFF' where seriesidx in (3) and linkchartcode in ('C120','C121')
-
+go
 update output
 set 
    r=b.r,
@@ -586,7 +585,6 @@ GO
 
 
 
-
 --��ɫ����
 
 update output set Color = 'CCCCFF' -- select  * from output
@@ -602,6 +600,10 @@ update output set color='666699' where Series='LU BEI' and LinkChartCode in('C13
 update output set color='17B65F' where Series='NUO XIN' and LinkChartCode in('C130','C140','C131','C141','C900')
 update output set color='C0C0C0' where Series='PARAPLATIN' and LinkChartCode in('C130','C140','C131','C141','C900')
 update output set color='808080' where Series='Platinum Others' and LinkChartCode in('C130','C140','C131','C141','C900')
+
+update output set color='82f0a5' where Series='Viread' and LinkChartCode in('C130','C140','C131','C141','C900')
+update output set color='E6E6FA' where Series='Other Entecavir(prod)' and LinkChartCode in('C130','C140','C131','C141','C900')
+
 
 update OUTPUT
 SET

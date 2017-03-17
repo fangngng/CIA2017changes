@@ -1,6 +1,6 @@
 /* 预处理 */
 
-use BMSChinaMRBI --DB4
+use BMSChinaMRBI_test --DB4
 go
 
 --time 04:42

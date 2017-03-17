@@ -10,7 +10,7 @@
 
 
 
-use BMSChinaMRBI
+use BMSChinaMRBI_test
 go
 
 --Time:23:22
@@ -572,47 +572,48 @@ select 'CPA' as 项目,'Output for City Dashboard' as 处理内容,'start' as �
 go
 
 
-
+------------------------------------
 -- D110: ARV/NIAD/ONCO/ANTI-Hyp/DPP4 Hospital Performance by City
+------------------------------------
 delete from OutputHospital_All where LinkChartCode='D110'
 insert into OutputHospital_All(LinkChartCode, LinkSeriesCode, Series, SeriesIdx, Category, Product, Lev,  ParentGeo, Geo, Currency, TimeFrame, X, XIdx, Y,IsShow)
 select 
-   'D110' AS LinkChartCode
- , 'D110' + cast(SeriesIdx as varchar) as LinkSeriesCode
- , a.Series
- , a.SeriesIdx
- , b.Category
- , b.Product
- , b.Lev
- , b.ParentGeo
- , b.Geo
- , b.Currency
- , b.TimeFrame
- , b.X
- , b.Xidx
- , 0 as Y
- , 'Y'
+    'D110' AS LinkChartCode
+    , 'D110' + cast(SeriesIdx as varchar) as LinkSeriesCode
+    , a.Series
+    , a.SeriesIdx
+    , b.Category
+    , b.Product
+    , b.Lev
+    , b.ParentGeo
+    , b.Geo
+    , b.Currency
+    , b.TimeFrame
+    , b.X
+    , b.Xidx
+    , 0 as Y
+    , 'Y'
 from (
-      select 'Market' Series,1 as SeriesIdx union all
-      select 'BMS Product' Series,2 as SeriesIdx union all
-      select 'Market Growth' Series,3 as SeriesIdx union all
-      select 'BMS Product Growth' Series,4 as SeriesIdx
+	select 'Market' Series,1 as SeriesIdx union all
+	select 'BMS Product' Series,2 as SeriesIdx union all
+	select 'Market Growth' Series,3 as SeriesIdx union all
+	select 'BMS Product Growth' Series,4 as SeriesIdx
 ) a, 
 (
-select 
-    RankSource as Category
-  , Mkt as Product
-  , Lev
-  , ParentGeo
-  , Geo
-  , RankSource as Currency
-  , RankSource as TimeFrame
-  , CPA_id as X
-, Rank as Xidx
-from OutputTopCPA a 
-where Lev = 'City' and Product <> 'All' 
-and Mkt in ('ARV','NIAD','HYPFCS','ONCFCS','DPP4','Platinum','CCB','Eliquis VTEP') and Prod = '000'
-and exists(select * from tblSalesRegion b where a.Geo = b.imscity)
+	select 
+		RankSource as Category
+		, Mkt as Product
+		, Lev
+		, ParentGeo
+		, Geo
+		, RankSource as Currency
+		, RankSource as TimeFrame
+		, CPA_id as X
+		, Rank as Xidx
+	from OutputTopCPA a 
+	where Lev = 'City' and Product <> 'All' 
+	and Mkt in ('ARV','NIAD','HYPFCS','ONCFCS','DPP4','Platinum','CCB','Eliquis VTEP') and Prod = '000'
+	and exists(select * from tblSalesRegion b where a.Geo = b.imscity)
 )b
 go
 
@@ -907,8 +908,9 @@ update OutputHospital_All set Series = 'Hospital Contrib. to ' + Series
 where LinkChartCode = 'D110' and IsShow = 'D'
 go
 
-
+------------------------------------
 -- D130: Baraclude/Glucophage/Taxol/Onglyza Hospital Performance
+------------------------------------
 delete from OutputHospital_All where LinkChartCode='D130'
 insert into OutputHospital_All(LinkChartCode, LinkSeriesCode, Series, SeriesIdx, Category, Product, Lev,  ParentGeo,Geo, Currency, TimeFrame, X, XIdx, Y,IsShow)
 select 'D130' AS LinkChartCode,
@@ -1049,8 +1051,9 @@ go
 
 
 
-
+------------------------------
 -- D150: Monopril Hospital Performance by City
+------------------------------
 delete from OutputHospital_All where LinkChartCode = 'D150'
 go
 

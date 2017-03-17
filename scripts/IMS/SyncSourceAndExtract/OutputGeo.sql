@@ -24,11 +24,11 @@ GO
 --
 --
 --insert outputgeo(Geo,Geoname,lev,Product,parentGeo,Geoidx)
---select  distinct IMSCity as geo,IMSCity as GeoName,2 as lev,Product,Region as ParentGeo,1 from BMSChinaMRBI.dbo.tblSalesRegion
+--select  distinct IMSCity as geo,IMSCity as GeoName,2 as lev,Product,Region as ParentGeo,1 from BMSChinaMRBI_test.dbo.tblSalesRegion
 --where IMSCity is not null
 --
 --insert outputgeo(Geo,Geoname,lev,Product,parentGeo,Geoidx)
---select distinct Region,Region,1,Product,'China' ,1 from BMSChinaMRBI.dbo.tblSalesRegion
+--select distinct Region,Region,1,Product,'China' ,1 from BMSChinaMRBI_test.dbo.tblSalesRegion
 --where IMSCity is not null
 --go
 --insert outputgeo(Geo,Geoname,lev,Product,parentGeo,Geoidx)

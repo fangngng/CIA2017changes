@@ -1,4 +1,4 @@
-USE BMSChinaMRBI
+USE BMSChinaMRBI_test
 GO
 --------------------------------------------
 --	KPI: Hospital Performance
@@ -196,7 +196,7 @@ GO
 
 declare @mktBaraclude varchar(20)
 set @mktBaraclude='ARV'
---¼ÆËãËùÓÐµÄÒ½ÔºÊý=Æ¥ÅäÒ½Ôº¸öÊý+Î´Æ¥ÅäÒ½Ôº¸öÊý
+--ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ðµï¿½Ò½Ôºï¿½ï¿½=Æ¥ï¿½ï¿½Ò½Ôºï¿½ï¿½ï¿½ï¿½+Î´Æ¥ï¿½ï¿½Ò½Ôºï¿½ï¿½ï¿½ï¿½
 select convert(varchar(20),'Total') as Tier,a.DataSource,a.mkt,a.prod,a.ProductName,
 count(distinct cpa_id) AS Mapped_Hosp,sum(UYTD) as VYTD,sum(UYTDStly) as VYTDStly
 INTO Mid_KPIFrame_CPAPart_ARV
@@ -205,7 +205,7 @@ from TempKPIFrame_CPAPart a join (SELECT DISTINCT id,cpa_name FROM tblHospitalMa
 where mkt=@mktBaraclude
 group by a.DataSource,a.mkt,a.prod,a.ProductName
 
---¼ÆËãËùÓÐµÄÆ¥ÅäÒ½Ôº¸öÊý
+--ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ðµï¿½Æ¥ï¿½ï¿½Ò½Ôºï¿½ï¿½ï¿½ï¿½
 INSERT INTO Mid_KPIFrame_CPAPart_ARV (Tier,DataSource,mkt,prod,productname,Mapped_Hosp,VYTD,VYTDStly)
 select convert(varchar(20),'Sub Total(SABCD)') as Tier,a.DataSource,a.mkt,a.prod,a.ProductName,
 count(distinct cpa_id) AS Mapped_Hosp,sum(UYTD) as VYTD,sum(UYTDStly) as VYTDStly
@@ -214,7 +214,7 @@ from TempKPIFrame_CPAPart a join (SELECT DISTINCT id,cpa_name FROM tblHospitalMa
 where mkt=@mktBaraclude
 group by a.DataSource,a.mkt,a.prod,a.ProductName
 
---¼ÆËãËùÓÐµÄÎ´Æ¥ÅäµÄÒ½Ôº¸öÊý
+--ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ðµï¿½Î´Æ¥ï¿½ï¿½ï¿½ï¿½Ò½Ôºï¿½ï¿½ï¿½ï¿½
 INSERT INTO Mid_KPIFrame_CPAPart_ARV (Tier,DataSource,mkt,prod,productname,Mapped_Hosp,VYTD,VYTDStly)
 select convert(varchar(20),'Others') as Tier,a.DataSource,a.mkt,a.prod,a.ProductName,
 count(distinct cpa_id) AS Mapped_Hosp,sum(UYTD) as VYTD,sum(UYTDStly) as VYTDStly
@@ -223,7 +223,7 @@ from TempKPIFrame_CPAPart a join (SELECT DISTINCT id,cpa_name FROM tblHospitalMa
 where mkt=@mktBaraclude and c.[cpa name] is null
 group by a.DataSource,a.mkt,a.prod,a.ProductName
 
---¼ÆËã¸÷¸öCategoryÆ¥ÅäÉÏµÄÒ½Ôº¸öÊý
+--ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½CategoryÆ¥ï¿½ï¿½ï¿½Ïµï¿½Ò½Ôºï¿½ï¿½ï¿½ï¿½
 INSERT INTO Mid_KPIFrame_CPAPart_ARV (Tier,DataSource,mkt,prod,productname,Mapped_Hosp,VYTD,VYTDStly)
   --A,B,C,D tier
 select c.[Baraclude Hospital Category] as tier,a.DataSource,a.mkt,a.prod,a.ProductName,
@@ -235,10 +235,10 @@ where a.mkt=@mktBaraclude
 group by c.[Baraclude Hospital Category] ,a.DataSource,a.mkt,a.prod,a.ProductName
 go
 
---²úÆ·ÔÚYTD Sales>0µÄÇé¿öÏÂ£¬ÄÜÆ¥Åäµ½µÄÒ½Ôº¸öÊý
+--ï¿½ï¿½Æ·ï¿½ï¿½YTD Sales>0ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Â£ï¿½ï¿½ï¿½Æ¥ï¿½äµ½ï¿½ï¿½Ò½Ôºï¿½ï¿½ï¿½ï¿½
 declare @mktBaraclude2 varchar(20)
 set @mktBaraclude2='ARV'
---¼ÆËãËùÓÐµÄÒ½ÔºÊý=Æ¥ÅäÒ½Ôº¸öÊý+Î´Æ¥ÅäÒ½Ôº¸öÊý
+--ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ðµï¿½Ò½Ôºï¿½ï¿½=Æ¥ï¿½ï¿½Ò½Ôºï¿½ï¿½ï¿½ï¿½+Î´Æ¥ï¿½ï¿½Ò½Ôºï¿½ï¿½ï¿½ï¿½
 select convert(varchar(20),'Total') as Tier,a.DataSource,a.mkt,a.prod,a.ProductName,
 count(distinct cpa_id) AS Mapped_Hosp,sum(UYTD) as VYTD,sum(UYTDStly) as VYTDStly
 INTO Mid_KPIFrame_CPAPart_ARV_For_Prod
@@ -247,7 +247,7 @@ from (select * from TempKPIFrame_CPAPart where UYTD>0) a join (SELECT DISTINCT i
 where mkt=@mktBaraclude2
 group by a.DataSource,a.mkt,a.prod,a.ProductName
 
---¼ÆËãËùÓÐµÄÆ¥ÅäÒ½Ôº¸öÊý
+--ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ðµï¿½Æ¥ï¿½ï¿½Ò½Ôºï¿½ï¿½ï¿½ï¿½
 INSERT INTO Mid_KPIFrame_CPAPart_ARV_For_Prod (Tier,DataSource,mkt,prod,productname,Mapped_Hosp,VYTD,VYTDStly)
 select convert(varchar(20),'Sub Total(SABCD)') as Tier,a.DataSource,a.mkt,a.prod,a.ProductName,
 count(distinct cpa_id) AS Mapped_Hosp,sum(UYTD) as VYTD,sum(UYTDStly) as VYTDStly
@@ -256,7 +256,7 @@ from (select * from TempKPIFrame_CPAPart where UYTD>0) a join (SELECT DISTINCT i
 where mkt=@mktBaraclude2
 group by a.DataSource,a.mkt,a.prod,a.ProductName
 
---¼ÆËãËùÓÐµÄÎ´Æ¥ÅäµÄÒ½Ôº¸öÊý
+--ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ðµï¿½Î´Æ¥ï¿½ï¿½ï¿½ï¿½Ò½Ôºï¿½ï¿½ï¿½ï¿½
 INSERT INTO Mid_KPIFrame_CPAPart_ARV_For_Prod (Tier,DataSource,mkt,prod,productname,Mapped_Hosp,VYTD,VYTDStly)
 select convert(varchar(20),'Others') as Tier,a.DataSource,a.mkt,a.prod,a.ProductName,
 count(distinct cpa_id) AS Mapped_Hosp,sum(UYTD) as VYTD,sum(UYTDStly) as VYTDStly
@@ -265,7 +265,7 @@ from (select * from TempKPIFrame_CPAPart where UYTD>0) a join (SELECT DISTINCT i
 where mkt=@mktBaraclude2 and c.[cpa name] is null
 group by a.DataSource,a.mkt,a.prod,a.ProductName
 
---Ã¿¸öCategoryÆ¥ÅäÉÏµÄÒ½Ôº¸öÊý
+--Ã¿ï¿½ï¿½CategoryÆ¥ï¿½ï¿½ï¿½Ïµï¿½Ò½Ôºï¿½ï¿½ï¿½ï¿½
 INSERT INTO Mid_KPIFrame_CPAPart_ARV_For_Prod (Tier,DataSource,mkt,prod,productname,Mapped_Hosp,VYTD,VYTDStly)
   --A,B,C,D tier
 select c.[Baraclude Hospital Category] as tier,a.DataSource,a.mkt,a.prod,a.ProductName,
@@ -655,42 +655,42 @@ select a.Department_EN,a.date,a.ProductName,sum(a.rx) as rx,sum(a.amount) as amo
 INTO #TempKPI_FRAME_BusinessSourceOfXarelto
 from 
 (
-	select case when ¿ÆÊÒÃû³Æ=N'ÆÕÍ¨Íâ¿Æ'then 'General surgery'
-				when ¿ÆÊÒÃû³Æ=N'¹Ç¿Æ' then 'Orthopedics'
-				when ¿ÆÊÒÃû³Æ=N'Ñª¹Ü¿Æ' then 'Vascular department'
-				when ¿ÆÊÒÃû³Æ=N'¸ß¸É±£½¡' then 'Senior Cadres of Health'
-				when ¿ÆÊÒÃû³Æ=N'ÐÄÄÚ¿Æ' then 'Cardiology'
+	select case when ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½=N'ï¿½ï¿½Í¨ï¿½ï¿½ï¿½ï¿½'then 'General surgery'
+				when ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½=N'ï¿½Ç¿ï¿½' then 'Orthopedics'
+				when ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½=N'Ñªï¿½Ü¿ï¿½' then 'Vascular department'
+				when ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½=N'ï¿½ß¸É±ï¿½ï¿½ï¿½' then 'Senior Cadres of Health'
+				when ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½=N'ï¿½ï¿½ï¿½Ú¿ï¿½' then 'Cardiology'
 				else 'All other' end as Department_EN,
 				DATE,
-				´¦·½ÕÅÊý as rx,
-				½ð¶î as amount,
-				ÉÌÆ·Ãû³Æ as ProductName		    
+				ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ as rx,
+				ï¿½ï¿½ï¿½ï¿½ as amount,
+				ï¿½ï¿½Æ·ï¿½ï¿½ï¿½ï¿½ as ProductName		    
 	from [TempOutput].[dbo].[RX_Raw_data_201406]
-	where [ÉÌÆ·Ãû³Æ]=N'°ÝÈðÍ×'
+	where [ï¿½ï¿½Æ·ï¿½ï¿½ï¿½ï¿½]=N'ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½'
 	union
-	select case when ¿ÆÊÒÃû³Æ=N'ÆÕÍ¨Íâ¿Æ'then 'General surgery'
-				when ¿ÆÊÒÃû³Æ=N'¹Ç¿Æ' then 'Orthopedics'
-				when ¿ÆÊÒÃû³Æ=N'Ñª¹Ü¿Æ' then 'Vascular department'
-				when ¿ÆÊÒÃû³Æ=N'¸ß¸É±£½¡' then 'Senior Cadres of Health'
-				when ¿ÆÊÒÃû³Æ=N'ÐÄÄÚ¿Æ' then 'Cardiology'
+	select case when ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½=N'ï¿½ï¿½Í¨ï¿½ï¿½ï¿½ï¿½'then 'General surgery'
+				when ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½=N'ï¿½Ç¿ï¿½' then 'Orthopedics'
+				when ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½=N'Ñªï¿½Ü¿ï¿½' then 'Vascular department'
+				when ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½=N'ï¿½ß¸É±ï¿½ï¿½ï¿½' then 'Senior Cadres of Health'
+				when ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½=N'ï¿½ï¿½ï¿½Ú¿ï¿½' then 'Cardiology'
 				else 'All other' end as Department_EN,
 				DATE,
-				´¦·½ÕÅÊý as rx,
-				½ð¶î as amount,
-				ÉÌÆ·Ãû³Æ as ProductName		    
+				ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ as rx,
+				ï¿½ï¿½ï¿½ï¿½ as amount,
+				ï¿½ï¿½Æ·ï¿½ï¿½ï¿½ï¿½ as ProductName		    
 	from [TempOutput].[dbo].[RX_Raw_data_201403]
-	where [ÉÌÆ·Ãû³Æ]=N'°ÝÈðÍ×' and date in ('10Q1','10Q2','10Q3','10Q4')
+	where [ï¿½ï¿½Æ·ï¿½ï¿½ï¿½ï¿½]=N'ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½' and date in ('10Q1','10Q2','10Q3','10Q4')
 ) a  join 
 (
-	select distinct ÉÌÆ·Ãû³Æ as ProductName,Date,  sum(´¦·½ÕÅÊý) as rx_All,sum(½ð¶î) as amount_All
+	select distinct ï¿½ï¿½Æ·ï¿½ï¿½ï¿½ï¿½ as ProductName,Date,  sum(ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½) as rx_All,sum(ï¿½ï¿½ï¿½ï¿½) as amount_All
 	from [TempOutput].[dbo].[RX_Raw_data_201406]
-	where [ÉÌÆ·Ãû³Æ]=N'°ÝÈðÍ×'
-	group by ÉÌÆ·Ãû³Æ,Date
+	where [ï¿½ï¿½Æ·ï¿½ï¿½ï¿½ï¿½]=N'ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½'
+	group by ï¿½ï¿½Æ·ï¿½ï¿½ï¿½ï¿½,Date
 	union
-	select distinct ÉÌÆ·Ãû³Æ as ProductName,Date,  sum(´¦·½ÕÅÊý) as rx_All,sum(½ð¶î) as amount_All
+	select distinct ï¿½ï¿½Æ·ï¿½ï¿½ï¿½ï¿½ as ProductName,Date,  sum(ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½) as rx_All,sum(ï¿½ï¿½ï¿½ï¿½) as amount_All
 	from [TempOutput].[dbo].[RX_Raw_data_201403]
-	where [ÉÌÆ·Ãû³Æ]=N'°ÝÈðÍ×' and date in ('10Q1','10Q2','10Q3','10Q4')
-	group by ÉÌÆ·Ãû³Æ,Date
+	where [ï¿½ï¿½Æ·ï¿½ï¿½ï¿½ï¿½]=N'ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½' and date in ('10Q1','10Q2','10Q3','10Q4')
+	group by ï¿½ï¿½Æ·ï¿½ï¿½ï¿½ï¿½,Date
 ) b on a.ProductName=b.ProductName and a.Date=b.Date
 group by a.Department_EN,a.ProductName,a.date,b.rx_All,b.amount_All
 order by date
@@ -724,17 +724,17 @@ BEGIN
 END
 
 
-select  b.Ó¢ÎÄÃû³Æ as Mole_EN,a.Date,sum(a.½ð¶î) as amount 
+select  b.Ó¢ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ as Mole_EN,a.Date,sum(a.ï¿½ï¿½ï¿½ï¿½) as amount 
 into #TempRx
-from (select area,date,Ò½Ôº¼¶±ð,¿ÆÊÒÃû³Æ,´¦·½À´Ô´,±¨Ïú,Ò©Æ·±àÂë,ÉÌÆ·Ãû³Æ,¹æ¸ñ,¸øÒ©Í¾¾¶,´¦·½ÕÅÊý,È¡Ò©ÊýÁ¿,µ¥¼Û,½ð¶î from [TempOutput].[dbo].[RX_Raw_data_201406] 
+from (select area,date,Ò½Ôºï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ô´,ï¿½ï¿½ï¿½ï¿½,Ò©Æ·ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½Æ·ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½Ò©Í¾ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,È¡Ò©ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½,ï¿½ï¿½ï¿½ï¿½ from [TempOutput].[dbo].[RX_Raw_data_201406] 
 	  union
 	  select * from [TempOutput].[dbo].[RX_Raw_data_201403] where date in ('10Q1','10Q2','10Q3','10Q4')
 	)
-a join BMSChinaOtherDB.dbo.inRx_MoleculeRef  b on a.Ò©Æ·±àÂë=b.Ò©Æ·±àÂë
-where a.¿ÆÊÒÃû³Æ=N'¹Ç¿Æ' and b.Ó¢ÎÄÃû³Æ in ('Rivaroxaban','Nadroparin Calcium','Enoxaparin sodium','Dalteparin sodium',
+a join BMSChinaOtherDB.dbo.inRx_MoleculeRef  b on a.Ò©Æ·ï¿½ï¿½ï¿½ï¿½=b.Ò©Æ·ï¿½ï¿½ï¿½ï¿½
+where a.ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½=N'ï¿½Ç¿ï¿½' and b.Ó¢ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ in ('Rivaroxaban','Nadroparin Calcium','Enoxaparin sodium','Dalteparin sodium',
 		'Fondaparinux','Heparin sodium','Warfarin sodium','Extract cepae/heparin sodium/allantoin','Heparin calcium'
 	)
-group by 	b.Ó¢ÎÄÃû³Æ,a.Date
+group by 	b.Ó¢ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½,a.Date
 
 select 'QTR' as TimeFrame, 'RMB' as MoneyType, 'N' as Molecule,'N' as Class,'Eliquis' as Mkt,'Eliquis Market' as mktName,'Eliquis' as Market,
 	convert(varchar(20),null) as prod,c.Mole_en as Series,convert(varchar(50),null) as DataType,convert(varchar(20),null) as Category,
@@ -775,7 +775,7 @@ BEGIN
 	DROP TABLE  BMSChinaCIA_IMS.dbo.KPI_Frame_AnalyzerMarket_HospitalPerformance
 END
 SELECT * INTO  BMSChinaCIA_IMS.dbo.KPI_Frame_AnalyzerMarket_HospitalPerformance 
-FROM BMSChinaMRBI.dbo.KPI_Frame_AnalyzerMarket_HospitalPerformance
+FROM BMSChinaMRBI_test.dbo.KPI_Frame_AnalyzerMarket_HospitalPerformance
 
 
 IF EXISTS(SELECT 1 FROM  BMSChinaCIA_IMS.dbo.sysobjects where id=object_id(N'dbo.KPI_FRAME_BusinessSourceOfXarelto') and type='U')
@@ -783,7 +783,7 @@ BEGIN
 	DROP TABLE  BMSChinaCIA_IMS.dbo.KPI_FRAME_BusinessSourceOfXarelto
 END
 SELECT * INTO dbo.KPI_FRAME_BusinessSourceOfXarelto 
-FROM BMSChinaMRBI.dbo.KPI_FRAME_BusinessSourceOfXarelto
+FROM BMSChinaMRBI_test.dbo.KPI_FRAME_BusinessSourceOfXarelto
 
 
 IF EXISTS(SELECT 1 FROM  BMSChinaCIA_IMS.dbo.sysobjects where id=object_id(N'dbo.KPI_Frame_CPA_Part_Market_Product_Mapping') and type='U')
@@ -791,11 +791,11 @@ BEGIN
 	DROP TABLE  BMSChinaCIA_IMS.dbo.KPI_Frame_CPA_Part_Market_Product_Mapping
 END
 SELECT * INTO  BMSChinaCIA_IMS.dbo.KPI_Frame_CPA_Part_Market_Product_Mapping 
-FROM BMSChinaMRBI.dbo.KPI_Frame_CPA_Part_Market_Product_Mapping
+FROM BMSChinaMRBI_test.dbo.KPI_Frame_CPA_Part_Market_Product_Mapping
 
 IF EXISTS(SELECT 1 FROM  BMSChinaCIA_IMS.dbo.sysobjects where id=object_id(N'dbo.KPI_FRAME_MoleculePerformanceInOrthopedics') and type='U')
 BEGIN
 	DROP TABLE  BMSChinaCIA_IMS.dbo.KPI_FRAME_MoleculePerformanceInOrthopedics
 END
 SELECT * INTO  BMSChinaCIA_IMS.dbo.KPI_FRAME_MoleculePerformanceInOrthopedics 
-FROM BMSChinaMRBI.dbo.KPI_FRAME_MoleculePerformanceInOrthopedics
+FROM BMSChinaMRBI_test.dbo.KPI_FRAME_MoleculePerformanceInOrthopedics

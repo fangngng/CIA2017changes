@@ -170,7 +170,8 @@ begin
 	set @idx = @idx + 1
 end
 go
-update tblDataMonthConv_IMS set DM = left(DM,1) + '0' + right(DM,1)
+update tblDataMonthConv_IMS 
+set DM = left(DM,1) + '0' + right(DM,1)
 where len(dm) = 2
 go
 
@@ -193,9 +194,9 @@ if object_id(N'inPKML',N'U') is not null
 go
 select * into inPKML
 from (
-select * from TempOutput.dbo.MTHCHPA_PKML
-union 
-select * from TempOutput.dbo.MTHCITY_PKML
+	select * from TempOutput.dbo.MTHCHPA_PKML
+	union 
+	select * from TempOutput.dbo.MTHCITY_PKML
 ) a
 GO
 
@@ -207,11 +208,11 @@ if object_id(N'inCMPS',N'U') is not null
 go
 select * into inCMPS
 from (
-select distinct CMPS_COD, CMPS_DES, CMPS_RES, NMOLECPS 
-from TempOutput.dbo.MTHCHPA_CMPS
-union 
-select distinct CMPS_COD, CMPS_DES, CMPS_RES, NMOLECPS 
-from TempOutput.dbo.MTHCITY_CMPS
+	select distinct CMPS_COD, CMPS_DES, CMPS_RES, NMOLECPS 
+	from TempOutput.dbo.MTHCHPA_CMPS
+	union 
+	select distinct CMPS_COD, CMPS_DES, CMPS_RES, NMOLECPS 
+	from TempOutput.dbo.MTHCITY_CMPS
 ) a
 GO
 

@@ -264,7 +264,8 @@ set @sql3 = left(@sql3, len(@sql3) - 1)
 exec('select CITY_ID,AUDI_COD,PACK_ID,PACK_COD,PACK_DES,ATC1_COD,ATC2_COD,ATC3_COD,ATC4_COD,
 	Product_ID,PROD_COD, MANU_ID,MANU_COD,MNFL_ID,MNFL_COD,CORP_ID,CORP_COD,
 	' + @sql1 + @sql4+@sql2 + @sql3 + '
-	into tempFactSales from inMonthlySales 
+	into tempFactSales 
+  from inMonthlySales 
 	group by CITY_ID,AUDI_COD,PACK_ID,PACK_COD,PACK_DES, ATC1_COD,ATC2_COD,ATC3_COD,ATC4_COD,
 	Product_ID,PROD_COD, MANU_ID,MANU_COD,MNFL_ID,MNFL_COD,CORP_ID,CORP_COD')
 go

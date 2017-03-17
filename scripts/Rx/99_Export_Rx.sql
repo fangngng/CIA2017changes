@@ -30,7 +30,7 @@ select 'RX', LinkChartCode, LinkSeriesCode, Series, SeriesIdx, Category, Product
 	cast(cast(Y as decimal(22,12)) as varchar), 
 	LinkedY, 
 	Size, OtherParameters,  IsShow, Color
-from db4.BMSChinaMRBI.dbo.OutputRx 
+from db4.BMSChinaMRBI_test.dbo.OutputRx 
 where left(LinkChartCode,1) = 'R' and Right(LinkChartCode,3) between '340' and '369'
 
 --Eliquis Market
@@ -40,7 +40,7 @@ select 'RX', LinkChartCode, LinkSeriesCode, Series, SeriesIdx, Category, Product
 	cast(cast(Y as decimal(22,12)) as varchar), 
 	LinkedY, 
 	Size, OtherParameters,  IsShow, Color
-from db4.BMSChinaMRBI.dbo.OutputRx 
+from db4.BMSChinaMRBI_test.dbo.OutputRx 
 where left(LinkChartCode,1) = 'R' and Right(LinkChartCode,3) between '661' and '668'
 go
 
@@ -89,7 +89,7 @@ select distinct 'RX', LinkChartCode, Category,Product, Lev, ParentGeo, Geo, Curr
 	
 	end,
 	'(' + TimeFrame + ', Rx)' as SlideTitle
-from db4.BMSChinaMRBI.dbo.OutputRx 
+from db4.BMSChinaMRBI_test.dbo.OutputRx 
 where left(LinkChartCode,1) = 'R' 
 	and Right(LinkChartCode,3) between '340' and '369'
 	and IsShow = 'Y'
@@ -102,7 +102,7 @@ select distinct 'RX', LinkChartCode, Category,Product, Lev, ParentGeo, Geo, Curr
 	when LinkChartCode like 'R66%' and product='Eliquis' then 'Dept allocation of key brands'
 	end as Caption,
 	'(' + TimeFrame + ', Rx)' as SlideTitle,X as SubCaption
-from db4.BMSChinaMRBI.dbo.OutputRx 
+from db4.BMSChinaMRBI_test.dbo.OutputRx 
 where left(LinkChartCode,1) = 'R' 
 	and Right(LinkChartCode,3) between '661' and '668'
 	and IsShow = 'Y'	

@@ -33,7 +33,7 @@ insert into Output_PPT (DataSource,LinkChartCode, LinkSeriesCode, Series, Series
 select 'CPA',
 	LinkChartCode, LinkSeriesCode, Series, SeriesIdx, Category, Product, Lev, ParentGeo, Geo, Currency
 	, TimeFrame, X, XIdx, cast(cast(Y as decimal(22,12)) as varchar), LinkedY, Size, OtherParameters,  IsShow,Color
-from DB4.BMSChinaMRBI.dbo.OutputHospital 
+from DB4.BMSChinaMRBI_test.dbo.OutputHospital 
 where LinkChartCode like 'R53%'
 go
 
@@ -48,7 +48,7 @@ select distinct 'CPA',
 	, Category PYAxisName
 	,null SYAxisName
 from Output_PPT a
-left join DB4.BMSChinaMRBI.dbo.tblTimeFrame b 
+left join DB4.BMSChinaMRBI_test.dbo.tblTimeFrame b 
 on b.DataSource = 'CPA' and a.TimeFrame = b.TimeFrame
 where LinkChartCode like 'R53%'
 go
@@ -62,7 +62,7 @@ insert into Output_PPT (DataSource,LinkChartCode, LinkSeriesCode, Series, Series
 select 'CPA',
 	LinkChartCode, LinkSeriesCode, Series, SeriesIdx, Category, Product, Lev, ParentGeo, Geo, Currency
 	, TimeFrame, X, XIdx, cast(cast(Y as decimal(22,12)) as varchar), LinkedY, Size, OtherParameters,  IsShow,Color
-from DB4.BMSChinaMRBI.dbo.OutputHospital 
+from DB4.BMSChinaMRBI_test.dbo.OutputHospital 
 where LinkChartCode ='C202'
 go
 
@@ -75,7 +75,7 @@ select distinct 'CPA',
 	, '(' + isnull(b.TFValue, a.TimeFrame) + ', ' + Category + case when Currency = 'Unit' then'' else ' in ' + Currency end +')'
 	, Category PYAxisName,null SYAxisName
 from Output_PPT a
-left join DB4.BMSChinaMRBI.dbo.tblTimeFrame b 
+left join DB4.BMSChinaMRBI_test.dbo.tblTimeFrame b 
 on b.DataSource = 'CPA' and a.TimeFrame = b.TimeFrame
 where LinkChartCode = 'C202'
 go
@@ -88,7 +88,7 @@ insert into Output_PPT (DataSource,LinkChartCode, LinkSeriesCode, Series, Series
 select 'CPA',
 	LinkChartCode, LinkSeriesCode, Series, SeriesIdx, Category, Product, Lev, ParentGeo, Geo, Currency, TimeFrame, 
 	X, XIdx, cast(cast(Y as decimal(22,12)) as varchar), LinkedY, Size, OtherParameters,  IsShow,Color
-from DB4.BMSChinaMRBI.dbo.OutputHospital 
+from DB4.BMSChinaMRBI_test.dbo.OutputHospital 
 where LinkChartCode in ('D050','D051','D060','D110','D111','D130','D150')
 go
 
@@ -112,7 +112,7 @@ select distinct 'CPA', LinkChartCode, Category,Product, Lev, ParentGeo,Geo, Curr
 	Category PYAxisName,
 	'Growth %' SYAxisName
 from Output_PPT a
-left join DB4.BMSChinaMRBI.dbo.tblTimeFrame b on b.DataSource = 'CPA' and a.TimeFrame = b.TimeFrame
+left join DB4.BMSChinaMRBI_test.dbo.tblTimeFrame b on b.DataSource = 'CPA' and a.TimeFrame = b.TimeFrame
 where LinkChartCode in('D050','D051')
 go
 
@@ -122,8 +122,8 @@ select distinct 'CPA', LinkChartCode, Category,Product, Lev, ParentGeo,Geo, Curr
 	'(' + isnull(b.TFValue, a.TimeFrame) + ', ' + Category + case when Currency = 'Unit' then'' else ' in ' + Currency end +')',
 	Category PYAxisName,
 	'Growth %' SYAxisName
-from DB4.BMSChinaMRBI.dbo.OutputHospital a
-left join DB4.BMSChinaMRBI.dbo.tblTimeFrame b on b.DataSource = 'CPA' and a.TimeFrame = b.TimeFrame
+from DB4.BMSChinaMRBI_test.dbo.OutputHospital a
+left join DB4.BMSChinaMRBI_test.dbo.tblTimeFrame b on b.DataSource = 'CPA' and a.TimeFrame = b.TimeFrame
 where LinkChartCode = 'D060'
 go
 
@@ -147,7 +147,7 @@ select distinct 'CPA', LinkChartCode, Category,Product, Lev, ParentGeo, Geo, Cur
 	Category PYAxisName,
 	'Growth %' SYAxisName
 from Output_PPT a
-left join DB4.BMSChinaMRBI.dbo.tblTimeFrame b on b.DataSource = 'CPA' and a.TimeFrame = b.TimeFrame
+left join DB4.BMSChinaMRBI_test.dbo.tblTimeFrame b on b.DataSource = 'CPA' and a.TimeFrame = b.TimeFrame
 where LinkChartCode in( 'D110','D111')
 go
 
@@ -168,7 +168,7 @@ select distinct 'CPA',LinkChartCode, Category,Product, Lev, ParentGeo, Geo, Curr
 	'(' + isnull(b.TFValue, a.TimeFrame) + ', ' + Category + case when Currency = 'Unit' then'' else ' in ' + Currency end +')',
 	case Product when 'Onglyza' then 'NIAD ' else '' end + 'Market Share %' PYAxisName
 from Output_PPT  a
-left join DB4.BMSChinaMRBI.dbo.tblTimeFrame b on b.DataSource = 'CPA' and a.TimeFrame = b.TimeFrame
+left join DB4.BMSChinaMRBI_test.dbo.tblTimeFrame b on b.DataSource = 'CPA' and a.TimeFrame = b.TimeFrame
 where LinkChartCode = 'D130'
 go
 
@@ -188,7 +188,7 @@ select distinct 'CPA', LinkChartCode, Category,Product, Lev, ParentGeo, Geo, Cur
 	'(' + isnull(b.TFValue, a.TimeFrame) + ', ' + Category + case when Currency = 'Unit' then'' else ' in ' + Currency end +')',
 	case Product when 'Onglyza' then 'NIAD ' else '' end + 'Market Share %' PYAxisName
 from Output_PPT a
-left join DB4.BMSChinaMRBI.dbo.tblTimeFrame b on b.DataSource = 'CPA' and a.TimeFrame = b.TimeFrame
+left join DB4.BMSChinaMRBI_test.dbo.tblTimeFrame b on b.DataSource = 'CPA' and a.TimeFrame = b.TimeFrame
 where LinkChartCode = 'D150'
 go
 
@@ -214,7 +214,7 @@ set
 	a.currency + 
 	case when b.Dol is null then '' else ' '+ b.Dol end + ')'
 from tblChartTitle A 
-left join DB4.BMSChinaMRBI.dbo.tblHospDivNumber B on 
+left join DB4.BMSChinaMRBI_test.dbo.tblHospDivNumber B on 
 	a.Product = b.Product
 	and a.Category = b.Category
 	and a.timeFrame = b.TimeFrame
@@ -229,7 +229,7 @@ update tblChartTitle
 set 
 	PYAxisName= a.Category + case when b.dol is null then '' else ' (in ' + b.Dol + ')' end
 from tblChartTitle A 
-left join DB4.BMSChinaMRBI.dbo.tblHospDivNumber B on 
+left join DB4.BMSChinaMRBI_test.dbo.tblHospDivNumber B on 
 	a.Product = b.Product
 	and a.Category = b.Category
 	and a.timeFrame = b.TimeFrame
@@ -256,7 +256,7 @@ insert into  BMSChina_ppt_test.dbo.Output_PPT (DataSource,LinkChartCode, LinkSer
 	Lev, ParentGeo, Geo, Currency, TimeFrame, X, XIdx, Y, LinkedY, Size, OtherParameters,  IsShow,Color)
 select 'CPA', LinkChartCode, LinkSeriesCode, Series, SeriesIdx, Category, Product, Lev, ParentGeo, Geo,  Currency, TimeFrame, 
 	X, XIdx, cast(cast(Y as decimal(22,12)) as varchar), LinkedY, Size, OtherParameters,  IsShow,Color
-from DB4.bmschinamrbi.dbo.OutputHospital
+from DB4.BMSChinaMRBI_test.dbo.OutputHospital
 where  LinkchartCode = 'R640' and Product in ('Monopril','Coniel','Eliquis VTEP')
 
 delete from BMSChina_ppt_test.dbo.tblChartTitle where LinkchartCode='R640' and Product in ('Monopril','Coniel','Eliquis VTEP')
@@ -265,7 +265,7 @@ select distinct 'CPA', LinkChartCode, Category,Product, Lev, ParentGeo, Geo, Cur
 case when product='Monopril' then 'Monopril Performance – Hospital Level' 
 	 when product='Coniel' then 'Coniel Performance – Hospital Level'
 	 when product='Eliquis VTEP' then 'Eliquis VTEP Performance – Hospital Level' end as Caption,
-'('  + (select TFValue from DB4.bmschinamrbi.dbo.tblTimeFrame where DataSource = 'CPA' and TimeFrame = 'ytd') + ', ' + Category + case when Currency = 'Unit' then'' else ' in ' + Currency end +')' as SlideTitle
+'('  + (select TFValue from DB4.BMSChinaMRBI_test.dbo.tblTimeFrame where DataSource = 'CPA' and TimeFrame = 'ytd') + ', ' + Category + case when Currency = 'Unit' then'' else ' in ' + Currency end +')' as SlideTitle
 from BMSChina_ppt_test.dbo.Output_PPT a where LinkchartCode='R640' and Product in ('Monopril','Coniel','Eliquis VTEP')
 
 -- data
@@ -279,7 +279,7 @@ insert into BMSChina_ppt_test.dbo.Output_PPT (DataSource,LinkChartCode, LinkSeri
 	Lev, ParentGeo, Geo, Currency, TimeFrame, X, XIdx, Y, LinkedY, Size, OtherParameters,  IsShow,Color)
 select 'CPA',LinkChartCode, LinkSeriesCode, Series, SeriesIdx, Category, Product, Lev, ParentGeo, Geo,  Currency, TimeFrame, 
 	X, XIdx, cast(cast(Y as decimal(22,12)) as varchar), LinkedY, Size, OtherParameters,  IsShow,Color
-from DB4.bmschinamrbi.dbo.OutputHospital 
+from DB4.BMSChinaMRBI_test.dbo.OutputHospital 
 where left(LinkChartCode,1) = 'R'
 	and (right(LinkChartCode,3) between '150' and '309'  or right(LinkChartCode,3) between '900' and '999')
 go
@@ -316,7 +316,7 @@ select distinct 'CPA', LinkChartCode, Category,Product, Lev, ParentGeo, Geo, Cur
 	end,
 	'(' + isnull(b.TFValue, a.TimeFrame) + ', ' + Category + case when Currency = 'Unit' then'' else ' in ' + Currency end +')'
 from Output_PPT a
-left join DB4.bmschinamrbi.dbo.tblTimeFrame b on b.DataSource = 'CPA' and a.TimeFrame = b.TimeFrame
+left join DB4.BMSChinaMRBI_test.dbo.tblTimeFrame b on b.DataSource = 'CPA' and a.TimeFrame = b.TimeFrame
 where left(LinkChartCode,1) = 'R' 
 	and (right(LinkChartCode,3) between '150' and '189')
 	and IsShow = 'Y'
@@ -449,7 +449,7 @@ select distinct 'CPA', LinkChartCode, Category,Product, Lev, ParentGeo, Geo, Cur
 	end,
 	
 	-- select TFValue from tblTimeFrame where DataSource = 'CPA' and TimeFrame = 'mqt'
-	'(' + a.TimeFrame + '/' + (select TFValue from DB4.bmschinamrbi.dbo.tblTimeFrame where DataSource = 'CPA' and TimeFrame = 'mqt') + ', ' + Category + case when Currency = 'Unit' then'' else ' in ' + Currency end +')'
+	'(' + a.TimeFrame + '/' + (select TFValue from DB4.BMSChinaMRBI_test.dbo.tblTimeFrame where DataSource = 'CPA' and TimeFrame = 'mqt') + ', ' + Category + case when Currency = 'Unit' then'' else ' in ' + Currency end +')'
 
 from Output_PPT a
 where left(LinkChartCode,1) = 'R' 
@@ -579,7 +579,7 @@ select distinct 'CPA', LinkChartCode, Category,Product, Lev, ParentGeo, Geo, Cur
 	
 	-- select TFValue from tblTimeFrame where DataSource = 'CPA' and TimeFrame = 'mqt'
 	'(' + 
-	case a.TimeFrame when 'MQT' then 'MAT' else a.TimeFrame end + '/' + (select TFValue from DB4.bmschinamrbi.dbo.tblTimeFrame where DataSource = 'CPA' and TimeFrame = 'mqt') + ', ' + Category + case when Currency = 'Unit' then'' else ' in ' + Currency end +')'
+	case a.TimeFrame when 'MQT' then 'MAT' else a.TimeFrame end + '/' + (select TFValue from DB4.BMSChinaMRBI_test.dbo.tblTimeFrame where DataSource = 'CPA' and TimeFrame = 'mqt') + ', ' + Category + case when Currency = 'Unit' then'' else ' in ' + Currency end +')'
 
 from Output_PPT a
 where left(LinkChartCode,1) = 'R' 
@@ -594,7 +594,7 @@ go
 insert into Output_PPT (DataSource,LinkChartCode, LinkSeriesCode, Series, SeriesIdx, Category, Product, Lev, ParentGeo, Geo, Currency, TimeFrame, X, XIdx, Y, LinkedY, Size, OtherParameters,  IsShow, Color)
 select 'CPA', LinkChartCode, LinkSeriesCode, Series, SeriesIdx, Category, Product, Lev, ParentGeo, Geo, Currency, TimeFrame, 
 	X, XIdx, cast(cast(Y as decimal(22,12)) as varchar), LinkedY, Size, OtherParameters,  IsShow,Color
-from DB4.BMSChinaMRBI.dbo.OutputHospital where LinkChartCode ='R480'
+from DB4.BMSChinaMRBI_test.dbo.OutputHospital where LinkChartCode ='R480'
 go
 
 delete dbo.tblChartTitle where LinkChartCode ='R480'
@@ -614,7 +614,7 @@ select distinct 'CPA', LinkChartCode, Category,Product, Lev, ParentGeo,Geo, Curr
 	Category PYAxisName,
 	'Growth %' SYAxisName
 from Output_PPT a
-left join DB4.BMSChinaMRBI.dbo.tblTimeFrame b on b.DataSource = 'CPA' and a.TimeFrame = b.TimeFrame
+left join DB4.BMSChinaMRBI_test.dbo.tblTimeFrame b on b.DataSource = 'CPA' and a.TimeFrame = b.TimeFrame
 where LinkChartCode = 'R480'
 go
 
@@ -627,7 +627,7 @@ set
 		a.currency + 
 		case when b.Dol is null then '' else ' '+ b.Dol end + ')'
 from tblChartTitle A 
-left join DB4.BMSChinaMRBI.dbo.tblHospDivNumber B on 
+left join DB4.BMSChinaMRBI_test.dbo.tblHospDivNumber B on 
 	a.Product = b.Product
 	and a.Category = b.Category
 	and a.timeFrame = b.TimeFrame
@@ -643,7 +643,7 @@ update tblChartTitle
 set 
 	PYAxisName= a.Category + case when b.dol is null then '' else ' (in ' + b.Dol + ')' end
 from tblChartTitle A 
-left join DB4.BMSChinaMRBI.dbo.tblHospDivNumber B on 
+left join DB4.BMSChinaMRBI_test.dbo.tblHospDivNumber B on 
 	a.Product = b.Product
 	and a.Category = b.Category
 	and a.timeFrame = b.TimeFrame

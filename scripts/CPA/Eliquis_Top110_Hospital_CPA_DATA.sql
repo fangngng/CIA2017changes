@@ -1,4 +1,4 @@
-use BMSChinaMRBI
+use BMSChinaMRBI_test
 go
 if object_id(N'tempHospitalData_For_TOP110_Eliquis',N'U') is not null
 	drop table tempHospitalData_For_TOP110_Eliquis

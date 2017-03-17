@@ -102,11 +102,14 @@ select quarter from BMSChinaOtherDB.dbo.hkapi_Time_Config where Quarter<>'2010Q4
 declare @Quarter varchar(10),@column_last varchar(20)
 declare @sql varchar(max)
 set @sql=' '
-select @column_last=right(year,2)+quarter from [BMSChinaCIA_IMS_test].[dbo].[tblMonthList] where monseq in (
-	select a.monseq+3 as monseq from [BMSChinaCIA_IMS_test].[dbo].[tblMonthList] a
-	inner join (select max(quarter)as quarter  from BMSChinaOtherDB.dbo.hkapi_Time_Config) b
+select @column_last=right(year,2)+quarter from [BMSChinaCIA_IMS_test].[dbo].[tblMonthList] 
+where monseq in (
+	select a.monseq+3 as monseq 
+	from [BMSChinaCIA_IMS_test].[dbo].[tblMonthList] a
+	inner join (select max(quarter)as quarter  
+				from BMSChinaOtherDB.dbo.hkapi_Time_Config) b
 	on a.year=left(b.quarter,4) and a.quarter=right(b.quarter,2) and right(a.date,2)%3=0 
-	)	
+)	
 set @sql='
 if object_id(N''inHKAPI_Linda'',N''U'') is not null
 	drop table inHKAPI_Linda
@@ -152,8 +155,7 @@ BEGIN
 			)
 
 	insert into inHKAPI_Linda ([Company Name],[Product Name])
-	select distinct [Company Name]
-		  ,[Product Name]
+	select distinct [Company Name] ,[Product Name]
 	from dbo.HKAPI_'+@Quarter+' A 
 	where not exists(
 					select * from inHKAPI_Linda B

@@ -1,4 +1,4 @@
-use  BMSChinaMRBI
+use  BMSChinaMRBI_test
 GO
 
 /*
@@ -7,7 +7,7 @@ GO
 -----------------------------------------------
 
 update [in_152hospitalMapping]
-set [Hospital Code]='511006',hospital=N'????????????????????????§Ø????????????',[CPA&SR NAME]=N'?????????????????????'
+set [Hospital Code]='511006',hospital=N'????????????????????????ï¿½ï¿½????????????',[CPA&SR NAME]=N'?????????????????????'
 where hospital = N'?????????????????????' and [CPA&SR NAME] =N'???????????????'
 
 */
@@ -27,7 +27,7 @@ SELECT t2.id
       ,t2.CPA_Name
       ,'Y' as IsMatching
       ,t1.BuName
-FROM [BMSChinaMRBI].[dbo].inTaxolAndParaplatinKeyHospital t1
+FROM [BMSChinaMRBI_test].[dbo].inTaxolAndParaplatinKeyHospital t1
 inner join tblHospitalMaster t2
 on t1.[CPA Name]=t2.CPA_Name
 --SELECT t2.id
@@ -35,7 +35,7 @@ on t1.[CPA Name]=t2.CPA_Name
 --      ,convert(varchar(10),t1.[Hospital Code])+'-'+t1.Hospital as [Hosp_BMSName]
 --      ,t2.CPA_Name
 --      ,'Y'
---FROM [BMSChinaMRBI].[dbo].[in_152hospitalMapping] t1
+--FROM [BMSChinaMRBI_test].[dbo].[in_152hospitalMapping] t1
 --inner join tblHospitalMaster t2
 --on t1.[CPA&SR NAME]=t2.CPA_Name
 
@@ -47,7 +47,7 @@ select null as Cpa_ID,
 	   case when [CPA Name] is null or [CPA Name]='#N/A' then [Hospital name] else [CPA Name] end as CPA_Name,
 	   'N' as IsMatching,
 	   BuName
-from [BMSChinaMRBI].[dbo].inTaxolAndParaplatinKeyHospital
+from [BMSChinaMRBI_test].[dbo].inTaxolAndParaplatinKeyHospital
 where [Hospital Name] is null or [Hospital Name] not in (
 	select distinct case when Hosp_BMSName like '%-%' then right(Hosp_BMSName,len(Hosp_BMSName)-charindex('-',Hosp_BMSName))
 						 else Hosp_BMSName end --,len(Hosp_BMSName),charindex('-',Hosp_BMSName)

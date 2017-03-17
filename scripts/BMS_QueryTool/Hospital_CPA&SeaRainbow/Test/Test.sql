@@ -2,9 +2,9 @@ use BMSCNProc2
 go 
 
 
-/* ¼ì²â½Å±¾ */
+/* ï¿½ï¿½ï¿½ï¿½ï¿½Å±ï¿½ */
 
---¼ì²éÖÐ¼ä±íÇé¿ö£º
+--ï¿½ï¿½ï¿½ï¿½ï¿½Ð¼ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 select * from tblHospitalDataCT
 where  pack_cod in (
 select 
@@ -23,12 +23,12 @@ inner join tblPackageXRefHosp t2
 on t1.Molecule=t2.Molecule_CN_Src and t1.Product=t2.Product_CN_Src 
    and Form_Src=Form and t1.Specification=t2.Specification_Src 
    and t1.Manufacture=t2.Manu_CN_Src
-where product=N'°ÂËØ'
+where product=N'ï¿½ï¿½ï¿½ï¿½'
 and y='2012'
 order by [Area],[Y],[Q],[M],[Molecule],[Product]
 
 select t1.* 
-from DB4.BMSChinaMRBI.dbo.inCPAData t1 
+from DB4.BMSChinaMRBI_test.dbo.inCPAData t1 
 inner join tblPackageXRefHosp t2
 on t1.Molecule=t2.Molecule_CN_Src and t1.Product=t2.Product_CN_Src 
 	 and Form_Src=Form and t1.Specification=t2.Specification_Src 
@@ -45,17 +45,17 @@ and product_name='AO SU (PL2)'
 )
 order by Y ,M
 
---²é¿´mktDefinition¼°Ô´Êý¾ÝÇé¿ö£º
+--ï¿½é¿´mktDefinitionï¿½ï¿½Ô´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 select * from tblQueryToolDriverHosp
 where mole_Des='GEMCITABINE' and prod_des='Gemcitabine  (TK5)'
 
 select * from tblPackageXRefHosp
-where molecule_cn_src=N'¸ñÁÐÆëÌØ' and product_cn_src=N'¸ñÁÐÆëÌØ'  
-and manu_cn_src=N'¹ãÖÝ°×ÔÆÉ½¹â»ªÖÆÒ©¹É·ÝÓÐÏÞ¹«Ë¾'
+where molecule_cn_src=N'ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½' and product_cn_src=N'ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½'  
+and manu_cn_src=N'ï¿½ï¿½ï¿½Ý°ï¿½ï¿½ï¿½É½ï¿½â»ªï¿½ï¿½Ò©ï¿½É·ï¿½ï¿½ï¿½ï¿½Þ¹ï¿½Ë¾'
 
 SELECT * FROM inCPAData
 where y>2010 and 
-[Product] = N'¸ñÁÐÆëÌØ'  and  manufacture like N'%»ª±±ÖÆÒ©%'
+[Product] = N'ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½'  and  manufacture like N'%ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ò©%'
 order by [Y],[Q],[M],[Molecule],[Product]
 
 

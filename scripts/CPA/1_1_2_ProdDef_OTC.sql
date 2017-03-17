@@ -1,4 +1,4 @@
-use BMSChinaMRBI
+use BMSChinaMRBI_test
 GO
 --select distinct prod_des,prod_cod
 --from BMSChinaCIA_IMS.dbo.tblMktDef_ATCDriver 

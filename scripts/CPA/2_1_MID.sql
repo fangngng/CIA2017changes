@@ -26,7 +26,7 @@ go
 */
 
 
-use BMSChinaMRBI
+use BMSChinaMRBI_test
 go
 
 --Time:22:54 20160511
@@ -530,13 +530,15 @@ from tempHospitalData a
 inner join (
            select distinct Product,Mkt 
            from tblMktDefHospital 
-           where Product in ('Taxol','Monopril','Glucophage','Baraclude','Paraplatin','Coniel','Eliquis VTEp','Eliquis NOAC','Eliquis VTEt')
+           where Product in ('Taxol','Monopril','Baraclude','Sprycel')
+		--    where Product in ('Taxol','Monopril','Baraclude','Paraplatin','Coniel','Eliquis VTEp','Eliquis NOAC','Eliquis VTEt')
            ) b on  b.Mkt = a.Mkt
 inner join tblHospitalMaster c on a.cpa_id = c.id
 inner join (
            select distinct Product,Region,Province1,City1,City
            from tblSalesRegion 
-           where Product in ('Taxol','Monopril','Glucophage','Baraclude','Paraplatin','Coniel','eliquis')
+           where Product in ('Taxol','Monopril','Baraclude','Sprycel')
+        --    where Product in ('Taxol','Monopril','Glucophage','Baraclude','Paraplatin','Coniel','Eliquis')
            ) d on (d.Product=b.Product or left(b.product,7)=d.product)and d.Province1 = c.Province and d.City1 = c.City
 go
 
@@ -552,12 +554,15 @@ from tempHospitalData a
 inner join (
            select distinct Product,Mkt 
            from tblMktDefHospital 
-           where Product in ('Taxol','Monopril','Glucophage','Baraclude','Paraplatin','Coniel','Eliquis VTEp','Eliquis NOAC','Eliquis VTEt')
+           where Product in ('Taxol','Monopril','Baraclude','Sprycel')
+        --    where Product in ('Taxol','Monopril','Glucophage','Baraclude','Paraplatin','Coniel','Eliquis VTEp','Eliquis NOAC','Eliquis VTEt')
            ) b on 	b.Mkt = a.Mkt
 inner join tblHospitalMaster c on a.cpa_id = c.id
 inner join (
            select distinct Product,Region, Province1,City1 
-           from tblSalesRegion where Product in ('Taxol','Monopril','Glucophage','Baraclude','Paraplatin','Coniel','Eliquis')
+           from tblSalesRegion 
+           where Product in ('Taxol','Monopril','Baraclude','Sprycel')
+		--    where Product in ('Taxol','Monopril','Glucophage','Baraclude','Paraplatin','Coniel','Eliquis')
            ) d on (d.Product=b.Product or left(b.product,7)=d.product) and d.Province1 = c.Province and d.City1 = c.City
 go
 
@@ -580,11 +585,11 @@ go
 -- Nation level
 insert into tempHospitalDataByGeo
 select distinct 
-  b.Product
- ,'Nat' Lev
- ,'China' as ParentGeo
- ,'China' Geo
- ,a.*
+	b.Product
+	,'Nat' Lev
+	,'China' as ParentGeo
+	,'China' Geo
+	,a.*
 from tempHospitalData a 
 inner join (
            select distinct Product,Mkt 
@@ -764,28 +769,37 @@ alter table tempHospitalDataByGeo add
 	UC3MShare Decimal(22,6),
 	UYTDShare Decimal(22,6),
 	UMATShare Decimal(22,6),
+	UMShare1  Decimal(22,6),
 	
 	VC3MShare Decimal(22,6),
 	VYTDShare Decimal(22,6),
 	VMATShare Decimal(22,6),
+	VMShare1  Decimal(22,6),	
 	
 	PC3MShare Decimal(22,6),
 	PYTDShare Decimal(22,6),
-	PMATShare Decimal(22,6)
+	PMATShare Decimal(22,6),
+	PMShare1  Decimal(22,6)	
+
 GO
 
-update tempHospitalDataByGeo set
+update tempHospitalDataByGeo 
+set
 	UC3MShare = case when b.UR3M1 = 0 then 0 else A.UR3M1/B.UR3M1 end,
 	UYTDShare = case when B.UYTD = 0 then 0 else A.UYTD/B.UYTD end,
 	UMATShare = case when b.UMAT1 = 0 then 0 else a.UMAT1/b.UMAT1 end,
+	UMShare1 = case when b.UM1 = 0 then 0 else a.UM1/b.UM1 end,
 	VC3MShare = case when B.VR3M1 = 0 then 0 else A.VR3M1/B.VR3M1 end,
 	VYTDShare = case when B.VYTD = 0 then 0 else A.VYTD/B.VYTD end,
 	VMATShare = case when b.VMAT1 = 0 then 0 else a.VMAT1/B.VMAT1 end,
+	VMShare1 = case when b.VM1 = 0 then 0 else a.VM1/b.VM1 end,	
 	PC3MShare = case when B.PR3M1 = 0 then 0 else A.PR3M1/B.PR3M1 end,
 	PYTDShare = case when B.PYTD = 0 then 0 else A.PYTD/B.PYTD end,
-	PMATShare = case when b.PMAT1 = 0 then 0 else a.PMAT1/B.PMAT1 end
+	PMATShare = case when b.PMAT1 = 0 then 0 else a.PMAT1/B.PMAT1 end,
+	PMShare1 = case when b.PM1 = 0 then 0 else a.PM1/b.PM1 end	
 from tempHospitalDataByGeo a
-inner join (select * from tempHospitalDataByGeo where Prod = '000') b on
+inner join (select * from tempHospitalDataByGeo where Prod = '000') b 
+on
 	a.Product = b.Product and a.Lev = b.Lev and a.ParentGeo = b.ParentGeo and a.Geo = b.Geo and a.Mkt = b.Mkt and a.CPA_ID = b.Cpa_id
 go
 

@@ -40,7 +40,7 @@ values('CIA',1002,'BMSChinaCIA_IMS','dim_product','product_code',' is null'
 	,'','','','','NORecords',1)	
 
 insert into tblQC_CheckRule(ProjectID,RuleID,SrcDB,SrcTable,SrcColumn,SrcExpression,DestDB,DestTable,DestColumn,DestExpression,[Rule],Flag)
-values('CIA',1003,'BMSChinaCIA_IMS','dim_city','city_name',' is null and City_Name_CH in(N''广东'',N''浙江'')'
+values('CIA',1003,'BMSChinaCIA_IMS','dim_city','city_name',' is null and City_Name_CH in(N''锟姐东'',N''锟姐江'')'
 	,'','','','','NORecords',1)
 	
 ---
@@ -49,9 +49,9 @@ truncate table tblQC_CheckRuleEx
 insert into tblQC_CheckRuleEx  (ProjectID,RuleID,SqlText,RuleDesc,Flag)
 values('CIA',1,'
 select  * 
-from BMSChinaMRBI.dbo.tblPackageXRefHosp a
+from BMSChinaMRBI_test.dbo.tblPackageXRefHosp a
 where not exists(
-	select * from BMSChinaMRBI.dbo.tblDefProduct_CN_EN b
+	select * from BMSChinaMRBI_test.dbo.tblDefProduct_CN_EN b
 	where a.product_cn_src=b.Prod_CN	
 )','Check if product in in hospital product-molecule table included into product config table',1)
 
@@ -93,25 +93,25 @@ where city_id is null or pack_id is null','Check if city or package have null va
 
 
 insert into tblQC_CheckRuleEx  (ProjectID,RuleID,SqlText,RuleDesc,Flag)
-values('CIA',1002,'select * from BMSChinaMRBI.dbo.incpadata a
+values('CIA',1002,'select * from BMSChinaMRBI_test.dbo.incpadata a
 where not exists (
-	select * from BMSChinaMRBI.dbo.tblHospitalMaster b
+	select * from BMSChinaMRBI_test.dbo.tblHospitalMaster b
 	where a.cpa_code=b.cpa_code
 )','Check if all searainbow hospital includded into hospital master table',1)
 
 insert into tblQC_CheckRuleEx  (ProjectID,RuleID,SqlText,RuleDesc,Flag)
 values('CIA',1003,'
-select * from BMSChinaMRBI.dbo.inCpaData a
+select * from BMSChinaMRBI_test.dbo.inCpaData a
 where not exists (
-	select * from BMSChinaMRBI.dbo.tblHospitalMaster b
+	select * from BMSChinaMRBI_test.dbo.tblHospitalMaster b
 	where a.cpa_code=b.cpa_code
 )','Check if all cpa code included into hospital master table',1)
 
 insert into tblQC_CheckRuleEx  (ProjectID,RuleID,SqlText,RuleDesc,Flag)
 values('CIA',1004,'
-select * from BMSChinaMRBI.dbo.inPharmData a
+select * from BMSChinaMRBI_test.dbo.inPharmData a
 where not exists (
-	select * from BMSChinaMRBI.dbo.tblHospitalMaster b
+	select * from BMSChinaMRBI_test.dbo.tblHospitalMaster b
 	where a.pharm_hospital_code=b.cpa_code
 )','Check if all pharm hospital included into hospital master table',1)
 

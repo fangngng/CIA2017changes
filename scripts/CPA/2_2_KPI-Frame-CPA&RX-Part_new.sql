@@ -1,4 +1,4 @@
-USE BMSChinaMRBI
+USE BMSChinaMRBI_test
 GO
 --------------------------------------------
 --	KPI: Hospital Performance
@@ -75,7 +75,7 @@ go
 update tempHospitalDataByMth_Eliquis_CPA_KPIFrame set Adjusted_PatientNumber = 0 where Adjusted_PatientNumber is null
 GO
 
---½øĞĞĞĞÁĞ×ªÖÃ
+--è¿›è¡Œè¡Œåˆ—è½¬ç½®
 print('------------------------------------------------------
                    tempHospitalData_Eliquis_CPA_KPIFrame
 -------------------------------------------------------------')
@@ -129,7 +129,7 @@ end
 go
 
 
-  --Rollupµ½YTD,MAT
+  --Rollupåˆ°YTD,MAT
 alter table tempHospitalData_Eliquis_CPA_KPIFrame add
 	UYTD		decimal(22,6),
 	UYTDStly	decimal(22,6),
@@ -254,7 +254,7 @@ go
 update tempHospitalDataByMth_Baraclude_CPA_KPIFrame set Adjusted_PatientNumber = 0 where Adjusted_PatientNumber is null
 GO
 
---½øĞĞĞĞÁĞ×ªÖÃ
+--è¿›è¡Œè¡Œåˆ—è½¬ç½®
 print('------------------------------------------------------
                    tempHospitalData_Baraclude_CPA_KPIFrame
 -------------------------------------------------------------')
@@ -308,7 +308,7 @@ end
 go
 
 
-  --Rollupµ½YTD,MAT
+  --Rollupåˆ°YTD,MAT
 alter table tempHospitalData_Baraclude_CPA_KPIFrame add
 	UYTD		decimal(22,6),
 	UYTDStly	decimal(22,6),
@@ -433,7 +433,7 @@ go
 update tempHospitalDataByMth_Taxol_CPA_KPIFrame set Adjusted_PatientNumber = 0 where Adjusted_PatientNumber is null
 GO
 
---½øĞĞĞĞÁĞ×ªÖÃ
+--è¿›è¡Œè¡Œåˆ—è½¬ç½®
 print('------------------------------------------------------
                    tempHospitalData_Taxol_CPA_KPIFrame
 -------------------------------------------------------------')
@@ -487,7 +487,7 @@ end
 go
 
 
-  --Rollupµ½YTD,MAT
+  --Rollupåˆ°YTD,MAT
 alter table tempHospitalData_Taxol_CPA_KPIFrame add
 	UYTD		decimal(22,6),
 	UYTDStly	decimal(22,6),
@@ -664,7 +664,7 @@ insert into KPI_Frame_CPA_Part_Market_Product_Mapping (productname,prod,mkt,mktn
 select distinct case when productname='TRAJENTA' then 'Trajenta'
 					 when productname='JANUMET' then 'Janumet' end as productname,
 prod,mkt,mktname
-from bmschinacia_ims.dbo.tblMktDef_MRBIChina_For_Onglyza  where productname in ('TRAJENTA','JANUMET')
+from BMSChinaCIA_IMS_test.dbo.tblMktDef_MRBIChina_For_Onglyza  where productname in ('TRAJENTA','JANUMET')
 
 IF EXISTS(SELECT 1 FROM dbo.sysobjects where id=object_id(N'TempKPIFrame_CPAPart') and type='U')
 BEGIN
@@ -740,7 +740,7 @@ GO
 --NIAD Part
 	declare @mktGlucophage varchar(20)
 	set @mktGlucophage='NIAD'
-	--¼ÆËãËùÓĞµÄÒ½ÔºÊı=Æ¥ÅäÒ½Ôº¸öÊı+Î´Æ¥ÅäÒ½Ôº¸öÊı
+	--è®¡ç®—æ‰€æœ‰çš„åŒ»é™¢æ•°=åŒ¹é…åŒ»é™¢ä¸ªæ•°+æœªåŒ¹é…åŒ»é™¢ä¸ªæ•°
 	select convert(varchar(20),'Total') as Tier,a.DataSource,a.mkt,a.prod,a.ProductName,
 	count(distinct cpa_id) AS Mapped_Hosp,sum(VYTD) as VYTD,sum(VYTDStly) as VYTDStly
 	INTO Mid_KPIFrame_CPAPart_NIAD
@@ -749,7 +749,7 @@ GO
 	where mkt=@mktGlucophage
 	group by a.DataSource,a.mkt,a.prod,a.ProductName
 
-	--¼ÆËãËùÓĞµÄÆ¥ÅäÒ½Ôº¸öÊı
+	--è®¡ç®—æ‰€æœ‰çš„åŒ¹é…åŒ»é™¢ä¸ªæ•°
 	INSERT INTO Mid_KPIFrame_CPAPart_NIAD (Tier,DataSource,mkt,prod,productname,Mapped_Hosp,VYTD,VYTDStly)
 	select convert(varchar(20),'Total Targeted') as Tier,a.DataSource,a.mkt,a.prod,a.ProductName,
 	count(distinct cpa_id) AS Mapped_Hosp,sum(VYTD) as VYTD,sum(VYTDStly) as VYTDStly
@@ -758,7 +758,7 @@ GO
 	where mkt=@mktGlucophage
 	group by a.DataSource,a.mkt,a.prod,a.ProductName
 
-	--¼ÆËãËùÓĞµÄÎ´Æ¥ÅäµÄÒ½Ôº¸öÊı
+	--è®¡ç®—æ‰€æœ‰çš„æœªåŒ¹é…çš„åŒ»é™¢ä¸ªæ•°
 	INSERT INTO Mid_KPIFrame_CPAPart_NIAD (Tier,DataSource,mkt,prod,productname,Mapped_Hosp,VYTD,VYTDStly)
 	select convert(varchar(20),'Non-Targeted') as Tier,a.DataSource,a.mkt,a.prod,a.ProductName,
 	count(distinct cpa_id) AS Mapped_Hosp,sum(VYTD) as VYTD,sum(VYTDStly) as VYTDStly
@@ -767,7 +767,7 @@ GO
 	where mkt=@mktGlucophage and c.[cpa code] is null
 	group by a.DataSource,a.mkt,a.prod,a.ProductName
 
-	--¼ÆËã¸÷¸öCategoryÆ¥ÅäÉÏµÄÒ½Ôº¸öÊı
+	--è®¡ç®—å„ä¸ªCategoryåŒ¹é…ä¸Šçš„åŒ»é™¢ä¸ªæ•°
 	INSERT INTO Mid_KPIFrame_CPAPart_NIAD (Tier,DataSource,mkt,prod,productname,Mapped_Hosp,VYTD,VYTDStly)
 	  --A,B,C,D tier
 	select c.[Glucophage Hospital Category] as tier,a.DataSource,a.mkt,a.prod,a.ProductName,
@@ -779,10 +779,10 @@ GO
 	group by c.[Glucophage Hospital Category] ,a.DataSource,a.mkt,a.prod,a.ProductName
 	go
 
-	--²úÆ·ÔÚYTD Sales>0µÄÇé¿öÏÂ£¬ÄÜÆ¥Åäµ½µÄÒ½Ôº¸öÊı
+	--äº§å“åœ¨YTD Sales>0çš„æƒ…å†µä¸‹ï¼Œèƒ½åŒ¹é…åˆ°çš„åŒ»é™¢ä¸ªæ•°
 	declare @mktGlucophage2 varchar(20)
 	set @mktGlucophage2='NIAD'
-	--¼ÆËãËùÓĞµÄÒ½ÔºÊı=Æ¥ÅäÒ½Ôº¸öÊı+Î´Æ¥ÅäÒ½Ôº¸öÊı
+	--è®¡ç®—æ‰€æœ‰çš„åŒ»é™¢æ•°=åŒ¹é…åŒ»é™¢ä¸ªæ•°+æœªåŒ¹é…åŒ»é™¢ä¸ªæ•°
 	select convert(varchar(20),'Total') as Tier,a.DataSource,a.mkt,a.prod,a.ProductName,
 	count(distinct cpa_id) AS Mapped_Hosp,sum(VYTD) as VYTD,sum(VYTDStly) as VYTDStly
 	INTO Mid_KPIFrame_CPAPart_NIAD_For_Prod
@@ -791,7 +791,7 @@ GO
 	where mkt=@mktGlucophage2
 	group by a.DataSource,a.mkt,a.prod,a.ProductName
 
-	--¼ÆËãËùÓĞµÄÆ¥ÅäÒ½Ôº¸öÊı
+	--è®¡ç®—æ‰€æœ‰çš„åŒ¹é…åŒ»é™¢ä¸ªæ•°
 	INSERT INTO Mid_KPIFrame_CPAPart_NIAD_For_Prod (Tier,DataSource,mkt,prod,productname,Mapped_Hosp,VYTD,VYTDStly)
 	select convert(varchar(20),'Total Targeted') as Tier,a.DataSource,a.mkt,a.prod,a.ProductName,
 	count(distinct cpa_id) AS Mapped_Hosp,sum(VYTD) as VYTD,sum(VYTDStly) as VYTDStly
@@ -800,7 +800,7 @@ GO
 	where mkt=@mktGlucophage2
 	group by a.DataSource,a.mkt,a.prod,a.ProductName
 
-	--¼ÆËãËùÓĞµÄÎ´Æ¥ÅäµÄÒ½Ôº¸öÊı
+	--è®¡ç®—æ‰€æœ‰çš„æœªåŒ¹é…çš„åŒ»é™¢ä¸ªæ•°
 	INSERT INTO Mid_KPIFrame_CPAPart_NIAD_For_Prod (Tier,DataSource,mkt,prod,productname,Mapped_Hosp,VYTD,VYTDStly)
 	select convert(varchar(20),'Non-Targeted') as Tier,a.DataSource,a.mkt,a.prod,a.ProductName,
 	count(distinct cpa_id) AS Mapped_Hosp,sum(VYTD) as VYTD,sum(VYTDStly) as VYTDStly
@@ -809,7 +809,7 @@ GO
 	where mkt=@mktGlucophage2 and c.[cpa code] is null
 	group by a.DataSource,a.mkt,a.prod,a.ProductName
 
-	----Ã¿¸öCategoryÆ¥ÅäÉÏµÄÒ½Ôº¸öÊı
+	----æ¯ä¸ªCategoryåŒ¹é…ä¸Šçš„åŒ»é™¢ä¸ªæ•°
 	INSERT INTO Mid_KPIFrame_CPAPart_NIAD_For_Prod (Tier,DataSource,mkt,prod,productname,Mapped_Hosp,VYTD,VYTDStly)
 	  --A,B,C,D tier
 	select c.[Glucophage Hospital Category] as tier,a.DataSource,a.mkt,a.prod,a.ProductName,
@@ -831,7 +831,7 @@ GO
 --HYP part
 	declare @mktMonopril varchar(20)
 	set @mktMonopril='HYPFCS'
-	--¼ÆËãËùÓĞµÄÒ½ÔºÊı=Æ¥ÅäÒ½Ôº¸öÊı+Î´Æ¥ÅäÒ½Ôº¸öÊı
+	--è®¡ç®—æ‰€æœ‰çš„åŒ»é™¢æ•°=åŒ¹é…åŒ»é™¢ä¸ªæ•°+æœªåŒ¹é…åŒ»é™¢ä¸ªæ•°
 	select convert(varchar(20),'Total') as Tier,a.DataSource,a.mkt,a.prod,a.ProductName,
 	count(distinct cpa_id) AS Mapped_Hosp,sum(VYTD) as VYTD,sum(VYTDStly) as VYTDStly
 	INTO Mid_KPIFrame_CPAPart_HYP
@@ -840,7 +840,7 @@ GO
 	where mkt=@mktMonopril
 	group by a.DataSource,a.mkt,a.prod,a.ProductName
 
-	--¼ÆËãËùÓĞµÄÆ¥ÅäÒ½Ôº¸öÊı
+	--è®¡ç®—æ‰€æœ‰çš„åŒ¹é…åŒ»é™¢ä¸ªæ•°
 	INSERT INTO Mid_KPIFrame_CPAPart_HYP (Tier,DataSource,mkt,prod,productname,Mapped_Hosp,VYTD,VYTDStly)
 	select convert(varchar(20),'Total Targeted') as Tier,a.DataSource,a.mkt,a.prod,a.ProductName,
 	count(distinct cpa_id) AS Mapped_Hosp,sum(VYTD) as VYTD,sum(VYTDStly) as VYTDStly
@@ -849,7 +849,7 @@ GO
 	where mkt=@mktMonopril
 	group by a.DataSource,a.mkt,a.prod,a.ProductName
 
-	--¼ÆËãËùÓĞµÄÎ´Æ¥ÅäµÄÒ½Ôº¸öÊı
+	--è®¡ç®—æ‰€æœ‰çš„æœªåŒ¹é…çš„åŒ»é™¢ä¸ªæ•°
 	INSERT INTO Mid_KPIFrame_CPAPart_HYP (Tier,DataSource,mkt,prod,productname,Mapped_Hosp,VYTD,VYTDStly)
 	select convert(varchar(20),'Non-Targeted') as Tier,a.DataSource,a.mkt,a.prod,a.ProductName,
 	count(distinct cpa_id) AS Mapped_Hosp,sum(VYTD) as VYTD,sum(VYTDStly) as VYTDStly
@@ -858,7 +858,7 @@ GO
 	where mkt=@mktMonopril and c.[cpa code] is null
 	group by a.DataSource,a.mkt,a.prod,a.ProductName
 
-	--¼ÆËã¸÷¸öCategoryÆ¥ÅäÉÏµÄÒ½Ôº¸öÊı
+	--è®¡ç®—å„ä¸ªCategoryåŒ¹é…ä¸Šçš„åŒ»é™¢ä¸ªæ•°
 	INSERT INTO Mid_KPIFrame_CPAPart_HYP (Tier,DataSource,mkt,prod,productname,Mapped_Hosp,VYTD,VYTDStly)
 	  --A,B,C,D tier
 	select c.[Monopril Hospital Category] as tier,a.DataSource,a.mkt,a.prod,a.ProductName,
@@ -870,10 +870,10 @@ GO
 	group by c.[Monopril Hospital Category] ,a.DataSource,a.mkt,a.prod,a.ProductName
 	go
 
-	--²úÆ·ÔÚYTD Sales>0µÄÇé¿öÏÂ£¬ÄÜÆ¥Åäµ½µÄÒ½Ôº¸öÊı
+	--äº§å“åœ¨YTD Sales>0çš„æƒ…å†µä¸‹ï¼Œèƒ½åŒ¹é…åˆ°çš„åŒ»é™¢ä¸ªæ•°
 	declare @mktMonopril2 varchar(20)
 	set @mktMonopril2='HYPFCS'
-	--¼ÆËãËùÓĞµÄÒ½ÔºÊı=Æ¥ÅäÒ½Ôº¸öÊı+Î´Æ¥ÅäÒ½Ôº¸öÊı
+	--è®¡ç®—æ‰€æœ‰çš„åŒ»é™¢æ•°=åŒ¹é…åŒ»é™¢ä¸ªæ•°+æœªåŒ¹é…åŒ»é™¢ä¸ªæ•°
 	select convert(varchar(20),'Total') as Tier,a.DataSource,a.mkt,a.prod,a.ProductName,
 	count(distinct cpa_id) AS Mapped_Hosp,sum(VYTD) as VYTD,sum(VYTDStly) as VYTDStly
 	INTO Mid_KPIFrame_CPAPart_HYP_For_Prod
@@ -882,7 +882,7 @@ GO
 	where mkt=@mktMonopril2
 	group by a.DataSource,a.mkt,a.prod,a.ProductName
 
-	--¼ÆËãËùÓĞµÄÆ¥ÅäÒ½Ôº¸öÊı
+	--è®¡ç®—æ‰€æœ‰çš„åŒ¹é…åŒ»é™¢ä¸ªæ•°
 	INSERT INTO Mid_KPIFrame_CPAPart_HYP_For_Prod (Tier,DataSource,mkt,prod,productname,Mapped_Hosp,VYTD,VYTDStly)
 	select convert(varchar(20),'Total Targeted') as Tier,a.DataSource,a.mkt,a.prod,a.ProductName,
 	count(distinct cpa_id) AS Mapped_Hosp,sum(VYTD) as VYTD,sum(VYTDStly) as VYTDStly
@@ -891,7 +891,7 @@ GO
 	where mkt=@mktMonopril2
 	group by a.DataSource,a.mkt,a.prod,a.ProductName
 
-	--¼ÆËãËùÓĞµÄÎ´Æ¥ÅäµÄÒ½Ôº¸öÊı
+	--è®¡ç®—æ‰€æœ‰çš„æœªåŒ¹é…çš„åŒ»é™¢ä¸ªæ•°
 	INSERT INTO Mid_KPIFrame_CPAPart_HYP_For_Prod (Tier,DataSource,mkt,prod,productname,Mapped_Hosp,VYTD,VYTDStly)
 	select convert(varchar(20),'Non-Targeted') as Tier,a.DataSource,a.mkt,a.prod,a.ProductName,
 	count(distinct cpa_id) AS Mapped_Hosp,sum(VYTD) as VYTD,sum(VYTDStly) as VYTDStly
@@ -900,7 +900,7 @@ GO
 	where mkt=@mktMonopril2 and c.[cpa code] is null
 	group by a.DataSource,a.mkt,a.prod,a.ProductName
 
-	----Ã¿¸öCategoryÆ¥ÅäÉÏµÄÒ½Ôº¸öÊı
+	----æ¯ä¸ªCategoryåŒ¹é…ä¸Šçš„åŒ»é™¢ä¸ªæ•°
 	INSERT INTO Mid_KPIFrame_CPAPart_HYP_For_Prod (Tier,DataSource,mkt,prod,productname,Mapped_Hosp,VYTD,VYTDStly)
 	  --A,B,C,D tier
 	select c.[Monopril Hospital Category] as tier,a.DataSource,a.mkt,a.prod,a.ProductName,
@@ -922,10 +922,10 @@ GO
 --CCB
 
 	--CCB part
-	--²Î¿¼Monopril Hospital Category
+	--å‚è€ƒMonopril Hospital Category
 	declare @mktConiel varchar(20)
 	set @mktConiel='CCB'
-	--¼ÆËãËùÓĞµÄÒ½ÔºÊı=Æ¥ÅäÒ½Ôº¸öÊı+Î´Æ¥ÅäÒ½Ôº¸öÊı
+	--è®¡ç®—æ‰€æœ‰çš„åŒ»é™¢æ•°=åŒ¹é…åŒ»é™¢ä¸ªæ•°+æœªåŒ¹é…åŒ»é™¢ä¸ªæ•°
 	select convert(varchar(20),'Total') as Tier,a.DataSource,a.mkt,a.prod,a.ProductName,
 	count(distinct cpa_id) AS Mapped_Hosp,sum(VYTD) as VYTD,sum(VYTDStly) as VYTDStly
 	INTO Mid_KPIFrame_CPAPart_CCB
@@ -934,7 +934,7 @@ GO
 	where mkt=@mktConiel
 	group by a.DataSource,a.mkt,a.prod,a.ProductName
 
-	--¼ÆËãËùÓĞµÄÆ¥ÅäÒ½Ôº¸öÊı
+	--è®¡ç®—æ‰€æœ‰çš„åŒ¹é…åŒ»é™¢ä¸ªæ•°
 	INSERT INTO Mid_KPIFrame_CPAPart_CCB (Tier,DataSource,mkt,prod,productname,Mapped_Hosp,VYTD,VYTDStly)
 	select convert(varchar(20),'Total Targeted') as Tier,a.DataSource,a.mkt,a.prod,a.ProductName,
 	count(distinct cpa_id) AS Mapped_Hosp,sum(VYTD) as VYTD,sum(VYTDStly) as VYTDStly
@@ -943,7 +943,7 @@ GO
 	where mkt=@mktConiel
 	group by a.DataSource,a.mkt,a.prod,a.ProductName
 
-	--¼ÆËãËùÓĞµÄÎ´Æ¥ÅäµÄÒ½Ôº¸öÊı
+	--è®¡ç®—æ‰€æœ‰çš„æœªåŒ¹é…çš„åŒ»é™¢ä¸ªæ•°
 	INSERT INTO Mid_KPIFrame_CPAPart_CCB (Tier,DataSource,mkt,prod,productname,Mapped_Hosp,VYTD,VYTDStly)
 	select convert(varchar(20),'Non-Targeted') as Tier,a.DataSource,a.mkt,a.prod,a.ProductName,
 	count(distinct cpa_id) AS Mapped_Hosp,sum(VYTD) as VYTD,sum(VYTDStly) as VYTDStly
@@ -952,7 +952,7 @@ GO
 	where mkt=@mktConiel and c.[cpa code] is null
 	group by a.DataSource,a.mkt,a.prod,a.ProductName
 
-	--¼ÆËã¸÷¸öCategoryÆ¥ÅäÉÏµÄÒ½Ôº¸öÊı
+	--è®¡ç®—å„ä¸ªCategoryåŒ¹é…ä¸Šçš„åŒ»é™¢ä¸ªæ•°
 	INSERT INTO Mid_KPIFrame_CPAPart_CCB (Tier,DataSource,mkt,prod,productname,Mapped_Hosp,VYTD,VYTDStly)
 	  --A,B,C,D tier
 	select c.[Coniel Hospital Category] as tier,a.DataSource,a.mkt,a.prod,a.ProductName,
@@ -984,10 +984,10 @@ GO
 
 
 
-	--²úÆ·ÔÚYTD Sales>0µÄÇé¿öÏÂ£¬ÄÜÆ¥Åäµ½µÄÒ½Ôº¸öÊı
+	--äº§å“åœ¨YTD Sales>0çš„æƒ…å†µä¸‹ï¼Œèƒ½åŒ¹é…åˆ°çš„åŒ»é™¢ä¸ªæ•°
 	declare @mktConiel2 varchar(20)
 	set @mktConiel2='CCB'
-	--¼ÆËãËùÓĞµÄÒ½ÔºÊı=Æ¥ÅäÒ½Ôº¸öÊı+Î´Æ¥ÅäÒ½Ôº¸öÊı
+	--è®¡ç®—æ‰€æœ‰çš„åŒ»é™¢æ•°=åŒ¹é…åŒ»é™¢ä¸ªæ•°+æœªåŒ¹é…åŒ»é™¢ä¸ªæ•°
 	select convert(varchar(20),'Total') as Tier,a.DataSource,a.mkt,a.prod,a.ProductName,
 	count(distinct cpa_id) AS Mapped_Hosp,sum(VYTD) as VYTD,sum(VYTDStly) as VYTDStly
 	INTO Mid_KPIFrame_CPAPart_CCB_For_Prod
@@ -996,7 +996,7 @@ GO
 	where mkt=@mktConiel2
 	group by a.DataSource,a.mkt,a.prod,a.ProductName
 
-	--¼ÆËãËùÓĞµÄÆ¥ÅäÒ½Ôº¸öÊı
+	--è®¡ç®—æ‰€æœ‰çš„åŒ¹é…åŒ»é™¢ä¸ªæ•°
 	INSERT INTO Mid_KPIFrame_CPAPart_CCB_For_Prod (Tier,DataSource,mkt,prod,productname,Mapped_Hosp,VYTD,VYTDStly)
 	select convert(varchar(20),'Total Targeted') as Tier,a.DataSource,a.mkt,a.prod,a.ProductName,
 	count(distinct cpa_id) AS Mapped_Hosp,sum(VYTD) as VYTD,sum(VYTDStly) as VYTDStly
@@ -1005,7 +1005,7 @@ GO
 	where mkt=@mktConiel2
 	group by a.DataSource,a.mkt,a.prod,a.ProductName
 
-	--¼ÆËãËùÓĞµÄÎ´Æ¥ÅäµÄÒ½Ôº¸öÊı
+	--è®¡ç®—æ‰€æœ‰çš„æœªåŒ¹é…çš„åŒ»é™¢ä¸ªæ•°
 	INSERT INTO Mid_KPIFrame_CPAPart_CCB_For_Prod (Tier,DataSource,mkt,prod,productname,Mapped_Hosp,VYTD,VYTDStly)
 	select convert(varchar(20),'Non-Targeted') as Tier,a.DataSource,a.mkt,a.prod,a.ProductName,
 	count(distinct cpa_id) AS Mapped_Hosp,sum(VYTD) as VYTD,sum(VYTDStly) as VYTDStly
@@ -1014,7 +1014,7 @@ GO
 	where mkt=@mktConiel2 and c.[cpa code] is null
 	group by a.DataSource,a.mkt,a.prod,a.ProductName
 
-	----Ã¿¸öCategoryÆ¥ÅäÉÏµÄÒ½Ôº¸öÊı
+	----æ¯ä¸ªCategoryåŒ¹é…ä¸Šçš„åŒ»é™¢ä¸ªæ•°
 	INSERT INTO Mid_KPIFrame_CPAPart_CCB_For_Prod (Tier,DataSource,mkt,prod,productname,Mapped_Hosp,VYTD,VYTDStly)
 	  --A,B,C,D tier
 	select c.[Coniel Hospital Category] as tier,a.DataSource,a.mkt,a.prod,a.ProductName,
@@ -1056,7 +1056,7 @@ GO
 --Eliquis part
 	declare @mktEliquis varchar(20)
 	set @mktEliquis='Eliquis'
-	--¼ÆËãËùÓĞµÄÒ½ÔºÊı=Æ¥ÅäÒ½Ôº¸öÊı+Î´Æ¥ÅäÒ½Ôº¸öÊı
+	--è®¡ç®—æ‰€æœ‰çš„åŒ»é™¢æ•°=åŒ¹é…åŒ»é™¢ä¸ªæ•°+æœªåŒ¹é…åŒ»é™¢ä¸ªæ•°
 	select convert(varchar(20),'Total') as Tier,a.DataSource,a.mkt,a.prod,a.ProductName,
 	count(distinct cpa_id) AS Mapped_Hosp,sum(VYTD) as VYTD,sum(VYTDStly) as VYTDStly
 	INTO Mid_KPIFrame_CPAPart_Eliquis
@@ -1065,7 +1065,7 @@ GO
 	where mkt=@mktEliquis
 	group by a.DataSource,a.mkt,a.prod,a.ProductName
 
-	--¼ÆËãËùÓĞµÄÆ¥ÅäÒ½Ôº¸öÊı
+	--è®¡ç®—æ‰€æœ‰çš„åŒ¹é…åŒ»é™¢ä¸ªæ•°
 	INSERT INTO Mid_KPIFrame_CPAPart_Eliquis (Tier,DataSource,mkt,prod,productname,Mapped_Hosp,VYTD,VYTDStly)
 	select convert(varchar(20),'Total Targeted') as Tier,a.DataSource,a.mkt,a.prod,a.ProductName,
 	count(distinct cpa_id) AS Mapped_Hosp,sum(VYTD) as VYTD,sum(VYTDStly) as VYTDStly
@@ -1074,7 +1074,7 @@ GO
 	where mkt=@mktEliquis
 	group by a.DataSource,a.mkt,a.prod,a.ProductName
 
-	--¼ÆËãËùÓĞµÄÎ´Æ¥ÅäµÄÒ½Ôº¸öÊı
+	--è®¡ç®—æ‰€æœ‰çš„æœªåŒ¹é…çš„åŒ»é™¢ä¸ªæ•°
 	INSERT INTO Mid_KPIFrame_CPAPart_Eliquis (Tier,DataSource,mkt,prod,productname,Mapped_Hosp,VYTD,VYTDStly)
 	select convert(varchar(20),'Non-Targeted') as Tier,a.DataSource,a.mkt,a.prod,a.ProductName,
 	count(distinct cpa_id) AS Mapped_Hosp,sum(VYTD) as VYTD,sum(VYTDStly) as VYTDStly
@@ -1083,7 +1083,7 @@ GO
 	where mkt=@mktEliquis and c.[cpa code] is null
 	group by a.DataSource,a.mkt,a.prod,a.ProductName
 
-	--¼ÆËã¸÷¸öCategoryÆ¥ÅäÉÏµÄÒ½Ôº¸öÊı
+	--è®¡ç®—å„ä¸ªCategoryåŒ¹é…ä¸Šçš„åŒ»é™¢ä¸ªæ•°
 	INSERT INTO Mid_KPIFrame_CPAPart_Eliquis (Tier,DataSource,mkt,prod,productname,Mapped_Hosp,VYTD,VYTDStly)
 	  --A,B,C,D tier
 	select c.[Eliquis Hospital Category] as tier,a.DataSource,a.mkt,a.prod,a.ProductName,
@@ -1095,10 +1095,10 @@ GO
 	group by c.[Eliquis Hospital Category] ,a.DataSource,a.mkt,a.prod,a.ProductName
 	go
 
-	--²úÆ·ÔÚYTD Sales>0µÄÇé¿öÏÂ£¬ÄÜÆ¥Åäµ½µÄÒ½Ôº¸öÊı
+	--äº§å“åœ¨YTD Sales>0çš„æƒ…å†µä¸‹ï¼Œèƒ½åŒ¹é…åˆ°çš„åŒ»é™¢ä¸ªæ•°
 	declare @mktEliquis2 varchar(20)
 	set @mktEliquis2='Eliquis'
-	--¼ÆËãËùÓĞµÄÒ½ÔºÊı=Æ¥ÅäÒ½Ôº¸öÊı+Î´Æ¥ÅäÒ½Ôº¸öÊı
+	--è®¡ç®—æ‰€æœ‰çš„åŒ»é™¢æ•°=åŒ¹é…åŒ»é™¢ä¸ªæ•°+æœªåŒ¹é…åŒ»é™¢ä¸ªæ•°
 	select convert(varchar(20),'Total') as Tier,a.DataSource,a.mkt,a.prod,a.ProductName,
 	count(distinct cpa_id) AS Mapped_Hosp,sum(VYTD) as VYTD,sum(VYTDStly) as VYTDStly
 	INTO Mid_KPIFrame_CPAPart_Eliquis_For_Prod
@@ -1107,7 +1107,7 @@ GO
 	where mkt=@mktEliquis2
 	group by a.DataSource,a.mkt,a.prod,a.ProductName
 
-	--¼ÆËãËùÓĞµÄÆ¥ÅäÒ½Ôº¸öÊı
+	--è®¡ç®—æ‰€æœ‰çš„åŒ¹é…åŒ»é™¢ä¸ªæ•°
 	INSERT INTO Mid_KPIFrame_CPAPart_Eliquis_For_Prod (Tier,DataSource,mkt,prod,productname,Mapped_Hosp,VYTD,VYTDStly)
 	select convert(varchar(20),'Total Targeted') as Tier,a.DataSource,a.mkt,a.prod,a.ProductName,
 	count(distinct cpa_id) AS Mapped_Hosp,sum(VYTD) as VYTD,sum(VYTDStly) as VYTDStly
@@ -1116,7 +1116,7 @@ GO
 	where mkt=@mktEliquis2
 	group by a.DataSource,a.mkt,a.prod,a.ProductName
 
-	--¼ÆËãËùÓĞµÄÎ´Æ¥ÅäµÄÒ½Ôº¸öÊı
+	--è®¡ç®—æ‰€æœ‰çš„æœªåŒ¹é…çš„åŒ»é™¢ä¸ªæ•°
 	INSERT INTO Mid_KPIFrame_CPAPart_Eliquis_For_Prod (Tier,DataSource,mkt,prod,productname,Mapped_Hosp,VYTD,VYTDStly)
 	select convert(varchar(20),'Non-Targeted') as Tier,a.DataSource,a.mkt,a.prod,a.ProductName,
 	count(distinct cpa_id) AS Mapped_Hosp,sum(VYTD) as VYTD,sum(VYTDStly) as VYTDStly
@@ -1125,7 +1125,7 @@ GO
 	where mkt=@mktEliquis2 and c.[cpa code] is null
 	group by a.DataSource,a.mkt,a.prod,a.ProductName
 
-	----Ã¿¸öCategoryÆ¥ÅäÉÏµÄÒ½Ôº¸öÊı
+	----æ¯ä¸ªCategoryåŒ¹é…ä¸Šçš„åŒ»é™¢ä¸ªæ•°
 	INSERT INTO Mid_KPIFrame_CPAPart_Eliquis_For_Prod (Tier,DataSource,mkt,prod,productname,Mapped_Hosp,VYTD,VYTDStly)
 	  --A,B,C,D tier
 	select c.[Eliquis Hospital Category] as tier,a.DataSource,a.mkt,a.prod,a.ProductName,
@@ -1151,7 +1151,7 @@ GO
 
 	declare @mktBaraclude varchar(20)
 	set @mktBaraclude='ARV'
-	--¼ÆËãËùÓĞµÄÒ½ÔºÊı=Æ¥ÅäÒ½Ôº¸öÊı+Î´Æ¥ÅäÒ½Ôº¸öÊı
+	--è®¡ç®—æ‰€æœ‰çš„åŒ»é™¢æ•°=åŒ¹é…åŒ»é™¢ä¸ªæ•°+æœªåŒ¹é…åŒ»é™¢ä¸ªæ•°
 	select convert(varchar(20),'Total') as Tier,a.DataSource,a.mkt,a.prod,a.ProductName,
 	count(distinct cpa_id) AS Mapped_Hosp,sum(UYTD) as VYTD,sum(UYTDStly) as VYTDStly
 	INTO Mid_KPIFrame_CPAPart_ARV
@@ -1167,7 +1167,7 @@ GO
 	where mkt=@mktBaraclude
 	group by a.DataSource,a.mkt,a.prod,a.ProductName
 
-	--¼ÆËãËùÓĞµÄÆ¥ÅäÒ½Ôº¸öÊı
+	--è®¡ç®—æ‰€æœ‰çš„åŒ¹é…åŒ»é™¢ä¸ªæ•°
 	INSERT INTO Mid_KPIFrame_CPAPart_ARV (Tier,DataSource,mkt,prod,productname,Mapped_Hosp,VYTD,VYTDStly)
 	select convert(varchar(20),'Total Targeted') as Tier,a.DataSource,a.mkt,a.prod,a.ProductName,
 	count(distinct cpa_id) AS Mapped_Hosp,sum(UYTD) as VYTD,sum(UYTDStly) as VYTDStly
@@ -1184,7 +1184,7 @@ GO
 	where mkt=@mktBaraclude
 	group by a.DataSource,a.mkt,a.prod,a.ProductName
 
-	--¼ÆËãËùÓĞµÄÎ´Æ¥ÅäµÄÒ½Ôº¸öÊı
+	--è®¡ç®—æ‰€æœ‰çš„æœªåŒ¹é…çš„åŒ»é™¢ä¸ªæ•°
 	INSERT INTO Mid_KPIFrame_CPAPart_ARV (Tier,DataSource,mkt,prod,productname,Mapped_Hosp,VYTD,VYTDStly)
 	select convert(varchar(20),'Non-Targeted') as Tier,a.DataSource,a.mkt,a.prod,a.ProductName,
 	count(distinct cpa_id) AS Mapped_Hosp,sum(UYTD) as VYTD,sum(UYTDStly) as VYTDStly
@@ -1200,7 +1200,7 @@ GO
 	where mkt=@mktBaraclude and c.[cpa code] is null
 	group by a.DataSource,a.mkt,a.prod,a.ProductName
 
-	--¼ÆËã¸÷¸öCategoryÆ¥ÅäÉÏµÄÒ½Ôº¸öÊı
+	--è®¡ç®—å„ä¸ªCategoryåŒ¹é…ä¸Šçš„åŒ»é™¢ä¸ªæ•°
 	INSERT INTO Mid_KPIFrame_CPAPart_ARV (Tier,DataSource,mkt,prod,productname,Mapped_Hosp,VYTD,VYTDStly)
 	  --A,B,C,D tier
 	select c.[Baraclude Hospital Category] as tier,a.DataSource,a.mkt,a.prod,a.ProductName,
@@ -1221,10 +1221,10 @@ GO
 	group by c.[Baraclude Hospital Category] ,a.DataSource,a.mkt,a.prod,a.ProductName
 	go
 
-	--²úÆ·ÔÚYTD Sales>0µÄÇé¿öÏÂ£¬ÄÜÆ¥Åäµ½µÄÒ½Ôº¸öÊı
+	--äº§å“åœ¨YTD Sales>0çš„æƒ…å†µä¸‹ï¼Œèƒ½åŒ¹é…åˆ°çš„åŒ»é™¢ä¸ªæ•°
 	declare @mktBaraclude2 varchar(20)
 	set @mktBaraclude2='ARV'
-	--¼ÆËãËùÓĞµÄÒ½ÔºÊı=Æ¥ÅäÒ½Ôº¸öÊı+Î´Æ¥ÅäÒ½Ôº¸öÊı
+	--è®¡ç®—æ‰€æœ‰çš„åŒ»é™¢æ•°=åŒ¹é…åŒ»é™¢ä¸ªæ•°+æœªåŒ¹é…åŒ»é™¢ä¸ªæ•°
 	select convert(varchar(20),'Total') as Tier,a.DataSource,a.mkt,a.prod,a.ProductName,
 	count(distinct cpa_id) AS Mapped_Hosp,sum(UYTD) as VYTD,sum(UYTDStly) as VYTDStly
 	INTO Mid_KPIFrame_CPAPart_ARV_For_Prod
@@ -1233,7 +1233,7 @@ GO
 	where mkt=@mktBaraclude2
 	group by a.DataSource,a.mkt,a.prod,a.ProductName
 
-	--¼ÆËãËùÓĞµÄÆ¥ÅäÒ½Ôº¸öÊı
+	--è®¡ç®—æ‰€æœ‰çš„åŒ¹é…åŒ»é™¢ä¸ªæ•°
 	INSERT INTO Mid_KPIFrame_CPAPart_ARV_For_Prod (Tier,DataSource,mkt,prod,productname,Mapped_Hosp,VYTD,VYTDStly)
 	select convert(varchar(20),'Total Targeted') as Tier,a.DataSource,a.mkt,a.prod,a.ProductName,
 	count(distinct cpa_id) AS Mapped_Hosp,sum(UYTD) as VYTD,sum(UYTDStly) as VYTDStly
@@ -1242,7 +1242,7 @@ GO
 	where mkt=@mktBaraclude2
 	group by a.DataSource,a.mkt,a.prod,a.ProductName
 
-	--¼ÆËãËùÓĞµÄÎ´Æ¥ÅäµÄÒ½Ôº¸öÊı
+	--è®¡ç®—æ‰€æœ‰çš„æœªåŒ¹é…çš„åŒ»é™¢ä¸ªæ•°
 	INSERT INTO Mid_KPIFrame_CPAPart_ARV_For_Prod (Tier,DataSource,mkt,prod,productname,Mapped_Hosp,VYTD,VYTDStly)
 	select convert(varchar(20),'Non-Targeted') as Tier,a.DataSource,a.mkt,a.prod,a.ProductName,
 	count(distinct cpa_id) AS Mapped_Hosp,sum(UYTD) as VYTD,sum(UYTDStly) as VYTDStly
@@ -1255,7 +1255,7 @@ GO
 	where mkt=@mktBaraclude2 and c.[cpa code] is null
 	group by a.DataSource,a.mkt,a.prod,a.ProductName
 
-	--Ã¿¸öCategoryÆ¥ÅäÉÏµÄÒ½Ôº¸öÊı
+	--æ¯ä¸ªCategoryåŒ¹é…ä¸Šçš„åŒ»é™¢ä¸ªæ•°
 	INSERT INTO Mid_KPIFrame_CPAPart_ARV_For_Prod (Tier,DataSource,mkt,prod,productname,Mapped_Hosp,VYTD,VYTDStly)
 	  --A,B,C,D tier
 	select c.[Baraclude Hospital Category] as tier,a.DataSource,a.mkt,a.prod,a.ProductName,
@@ -1280,7 +1280,7 @@ GO
 
 	declare @mktTaxol varchar(20)
 	set @mktTaxol='ONCFCS'
-	--¼ÆËãËùÓĞµÄÒ½ÔºÊı=Æ¥ÅäÒ½Ôº¸öÊı+Î´Æ¥ÅäÒ½Ôº¸öÊı
+	--è®¡ç®—æ‰€æœ‰çš„åŒ»é™¢æ•°=åŒ¹é…åŒ»é™¢ä¸ªæ•°+æœªåŒ¹é…åŒ»é™¢ä¸ªæ•°
 	select convert(varchar(20),'Total') as Tier,a.DataSource,a.mkt,a.prod,a.ProductName,
 	count(distinct cpa_id) AS Mapped_Hosp,sum(UYTD) as VYTD,sum(UYTDStly) as VYTDStly
 	INTO Mid_KPIFrame_CPAPart_ONCFCS
@@ -1289,7 +1289,7 @@ GO
 	where mkt=@mktTaxol
 	group by a.DataSource,a.mkt,a.prod,a.ProductName
 
-	--¼ÆËãËùÓĞµÄÆ¥ÅäÒ½Ôº¸öÊı
+	--è®¡ç®—æ‰€æœ‰çš„åŒ¹é…åŒ»é™¢ä¸ªæ•°
 	INSERT INTO Mid_KPIFrame_CPAPart_ONCFCS (Tier,DataSource,mkt,prod,productname,Mapped_Hosp,VYTD,VYTDStly)
 	select convert(varchar(20),'Total Targeted') as Tier,a.DataSource,a.mkt,a.prod,a.ProductName,
 	count(distinct cpa_id) AS Mapped_Hosp,sum(UYTD) as VYTD,sum(UYTDStly) as VYTDStly
@@ -1298,7 +1298,7 @@ GO
 	where mkt=@mktTaxol
 	group by a.DataSource,a.mkt,a.prod,a.ProductName
 
-	--¼ÆËãËùÓĞµÄÎ´Æ¥ÅäµÄÒ½Ôº¸öÊı
+	--è®¡ç®—æ‰€æœ‰çš„æœªåŒ¹é…çš„åŒ»é™¢ä¸ªæ•°
 	INSERT INTO Mid_KPIFrame_CPAPart_ONCFCS (Tier,DataSource,mkt,prod,productname,Mapped_Hosp,VYTD,VYTDStly)
 	select convert(varchar(20),'Non-Targeted') as Tier,a.DataSource,a.mkt,a.prod,a.ProductName,
 	count(distinct cpa_id) AS Mapped_Hosp,sum(UYTD) as VYTD,sum(UYTDStly) as VYTDStly
@@ -1307,7 +1307,7 @@ GO
 	where mkt=@mktTaxol and c.[cpa code] is null
 	group by a.DataSource,a.mkt,a.prod,a.ProductName
 
-	--¼ÆËã¸÷¸öCategoryÆ¥ÅäÉÏµÄÒ½Ôº¸öÊı
+	--è®¡ç®—å„ä¸ªCategoryåŒ¹é…ä¸Šçš„åŒ»é™¢ä¸ªæ•°
 	INSERT INTO Mid_KPIFrame_CPAPart_ONCFCS (Tier,DataSource,mkt,prod,productname,Mapped_Hosp,VYTD,VYTDStly)
 	  --A,B,C,D tier
 	select c.[Taxol Hospital Category] as tier,a.DataSource,a.mkt,a.prod,a.ProductName,
@@ -1327,10 +1327,10 @@ GO
 	group by c.[Taxol Hospital Category] ,a.DataSource,a.mkt,a.prod,a.ProductName
 	go
 
-	--²úÆ·ÔÚYTD Sales>0µÄÇé¿öÏÂ£¬ÄÜÆ¥Åäµ½µÄÒ½Ôº¸öÊı
+	--äº§å“åœ¨YTD Sales>0çš„æƒ…å†µä¸‹ï¼Œèƒ½åŒ¹é…åˆ°çš„åŒ»é™¢ä¸ªæ•°
 	declare @mktTaxol2 varchar(20)
 	set @mktTaxol2='ONCFCS'
-	--¼ÆËãËùÓĞµÄÒ½ÔºÊı=Æ¥ÅäÒ½Ôº¸öÊı+Î´Æ¥ÅäÒ½Ôº¸öÊı
+	--è®¡ç®—æ‰€æœ‰çš„åŒ»é™¢æ•°=åŒ¹é…åŒ»é™¢ä¸ªæ•°+æœªåŒ¹é…åŒ»é™¢ä¸ªæ•°
 	select convert(varchar(20),'Total') as Tier,a.DataSource,a.mkt,a.prod,a.ProductName,
 	count(distinct cpa_id) AS Mapped_Hosp,sum(UYTD) as VYTD,sum(UYTDStly) as VYTDStly
 	INTO Mid_KPIFrame_CPAPart_ONCFCS_For_Prod
@@ -1339,7 +1339,7 @@ GO
 	where mkt=@mktTaxol2
 	group by a.DataSource,a.mkt,a.prod,a.ProductName
 
-	--¼ÆËãËùÓĞµÄÆ¥ÅäÒ½Ôº¸öÊı
+	--è®¡ç®—æ‰€æœ‰çš„åŒ¹é…åŒ»é™¢ä¸ªæ•°
 	INSERT INTO Mid_KPIFrame_CPAPart_ONCFCS_For_Prod (Tier,DataSource,mkt,prod,productname,Mapped_Hosp,VYTD,VYTDStly)
 	select convert(varchar(20),'Total Targeted') as Tier,a.DataSource,a.mkt,a.prod,a.ProductName,
 	count(distinct cpa_id) AS Mapped_Hosp,sum(UYTD) as VYTD,sum(UYTDStly) as VYTDStly
@@ -1348,7 +1348,7 @@ GO
 	where mkt=@mktTaxol2
 	group by a.DataSource,a.mkt,a.prod,a.ProductName
 
-	--¼ÆËãËùÓĞµÄÎ´Æ¥ÅäµÄÒ½Ôº¸öÊı
+	--è®¡ç®—æ‰€æœ‰çš„æœªåŒ¹é…çš„åŒ»é™¢ä¸ªæ•°
 	INSERT INTO Mid_KPIFrame_CPAPart_ONCFCS_For_Prod (Tier,DataSource,mkt,prod,productname,Mapped_Hosp,VYTD,VYTDStly)
 	select convert(varchar(20),'Non-Targeted') as Tier,a.DataSource,a.mkt,a.prod,a.ProductName,
 	count(distinct cpa_id) AS Mapped_Hosp,sum(UYTD) as VYTD,sum(UYTDStly) as VYTDStly
@@ -1357,7 +1357,7 @@ GO
 	where mkt=@mktTaxol2 and c.[cpa code] is null
 	group by a.DataSource,a.mkt,a.prod,a.ProductName
 
-	--Ã¿¸öCategoryÆ¥ÅäÉÏµÄÒ½Ôº¸öÊı
+	--æ¯ä¸ªCategoryåŒ¹é…ä¸Šçš„åŒ»é™¢ä¸ªæ•°
 	INSERT INTO Mid_KPIFrame_CPAPart_ONCFCS_For_Prod (Tier,DataSource,mkt,prod,productname,Mapped_Hosp,VYTD,VYTDStly)
 	  --A,B,C,D tier
 	select c.[Taxol Hospital Category] as tier,a.DataSource,a.mkt,a.prod,a.ProductName,
@@ -1714,7 +1714,7 @@ BEGIN
 	DROP TABLE KPI_Frame_AnalyzerMarket_HospitalPerformance
 END
 declare @CPAMonth varchar(50)
-select @CPAMonth=left(A.MonthEN,3) from BMSChinaCIA_IMS.dbo.tblMonthlist a join tblDSDates b on a.Date=b.Value1 
+select @CPAMonth=left(A.MonthEN,3) from BMSChinaCIA_IMS_test.dbo.tblMonthlist a join tblDSDates b on a.Date=b.Value1 
 where b.item='CPA'
 --select @CPAMonth=Value1 from tblDSDates where Item='CPA'
 
@@ -1910,42 +1910,42 @@ select a.Department_EN,a.date,a.ProductName,sum(a.rx) as rx,sum(a.amount) as amo
 INTO #TempKPI_FRAME_BusinessSourceOfXarelto
 from 
 (
-	select case when ¿ÆÊÒÃû³Æ=N'ÆÕÍ¨Íâ¿Æ'then 'General surgery'
-				when ¿ÆÊÒÃû³Æ=N'¹Ç¿Æ' then 'Orthopedics'
-				when ¿ÆÊÒÃû³Æ=N'Ñª¹Ü¿Æ' then 'Vascular department'
-				when ¿ÆÊÒÃû³Æ=N'¸ß¸É±£½¡' then 'Senior Cadres of Health'
-				when ¿ÆÊÒÃû³Æ=N'ĞÄÄÚ¿Æ' then 'Cardiology'
+	select case when ç§‘å®¤åç§°=N'æ™®é€šå¤–ç§‘'then 'General surgery'
+				when ç§‘å®¤åç§°=N'éª¨ç§‘' then 'Orthopedics'
+				when ç§‘å®¤åç§°=N'è¡€ç®¡ç§‘' then 'Vascular department'
+				when ç§‘å®¤åç§°=N'é«˜å¹²ä¿å¥' then 'Senior Cadres of Health'
+				when ç§‘å®¤åç§°=N'å¿ƒå†…ç§‘' then 'Cardiology'
 				else 'All other' end as Department_EN,
 				DATE,
-				´¦·½ÕÅÊı as rx,
-				½ğ¶î as amount,
-				ÉÌÆ·Ãû³Æ as ProductName		    
+				å¤„æ–¹å¼ æ•° as rx,
+				é‡‘é¢ as amount,
+				å•†å“åç§° as ProductName		    
 	from [TempOutput].[dbo].[RX_Raw_data_201412]
-	where [ÉÌÆ·Ãû³Æ]=N'°İÈğÍ×'
+	where [å•†å“åç§°]=N'æ‹œç‘å¦¥'
 	--union
-	--select case when ¿ÆÊÒÃû³Æ=N'ÆÕÍ¨Íâ¿Æ'then 'General surgery'
-	--			when ¿ÆÊÒÃû³Æ=N'¹Ç¿Æ' then 'Orthopedics'
-	--			when ¿ÆÊÒÃû³Æ=N'Ñª¹Ü¿Æ' then 'Vascular department'
-	--			when ¿ÆÊÒÃû³Æ=N'¸ß¸É±£½¡' then 'Senior Cadres of Health'
-	--			when ¿ÆÊÒÃû³Æ=N'ĞÄÄÚ¿Æ' then 'Cardiology'
+	--select case when ç§‘å®¤åç§°=N'æ™®é€šå¤–ç§‘'then 'General surgery'
+	--			when ç§‘å®¤åç§°=N'éª¨ç§‘' then 'Orthopedics'
+	--			when ç§‘å®¤åç§°=N'è¡€ç®¡ç§‘' then 'Vascular department'
+	--			when ç§‘å®¤åç§°=N'é«˜å¹²ä¿å¥' then 'Senior Cadres of Health'
+	--			when ç§‘å®¤åç§°=N'å¿ƒå†…ç§‘' then 'Cardiology'
 	--			else 'All other' end as Department_EN,
 	--			DATE,
-	--			´¦·½ÕÅÊı as rx,
-	--			½ğ¶î as amount,
-	--			ÉÌÆ·Ãû³Æ as ProductName		    
+	--			å¤„æ–¹å¼ æ•° as rx,
+	--			é‡‘é¢ as amount,
+	--			å•†å“åç§° as ProductName		    
 	--from [TempOutput].[dbo].[RX_Raw_data_201403]
-	--where [ÉÌÆ·Ãû³Æ]=N'°İÈğÍ×' and date in ('10Q1','10Q2','10Q3','10Q4')
+	--where [å•†å“åç§°]=N'æ‹œç‘å¦¥' and date in ('10Q1','10Q2','10Q3','10Q4')
 ) a  join 
 (
-	select distinct ÉÌÆ·Ãû³Æ as ProductName,Date,  sum(´¦·½ÕÅÊı) as rx_All,sum(½ğ¶î) as amount_All
+	select distinct å•†å“åç§° as ProductName,Date,  sum(å¤„æ–¹å¼ æ•°) as rx_All,sum(é‡‘é¢) as amount_All
 	from [TempOutput].[dbo].[RX_Raw_data_201412]
-	where [ÉÌÆ·Ãû³Æ]=N'°İÈğÍ×'
-	group by ÉÌÆ·Ãû³Æ,Date
+	where [å•†å“åç§°]=N'æ‹œç‘å¦¥'
+	group by å•†å“åç§°,Date
 	--union
-	--select distinct ÉÌÆ·Ãû³Æ as ProductName,Date,  sum(´¦·½ÕÅÊı) as rx_All,sum(½ğ¶î) as amount_All
+	--select distinct å•†å“åç§° as ProductName,Date,  sum(å¤„æ–¹å¼ æ•°) as rx_All,sum(é‡‘é¢) as amount_All
 	--from [TempOutput].[dbo].[RX_Raw_data_201403]
-	--where [ÉÌÆ·Ãû³Æ]=N'°İÈğÍ×' and date in ('10Q1','10Q2','10Q3','10Q4')
-	--group by ÉÌÆ·Ãû³Æ,Date
+	--where [å•†å“åç§°]=N'æ‹œç‘å¦¥' and date in ('10Q1','10Q2','10Q3','10Q4')
+	--group by å•†å“åç§°,Date
 ) b on a.ProductName=b.ProductName and a.Date=b.Date
 group by a.Department_EN,a.ProductName,a.date,b.rx_All,b.amount_All
 order by date
@@ -1979,18 +1979,18 @@ BEGIN
 END
 
 
-select  b.Ó¢ÎÄÃû³Æ as Mole_EN,a.Date,sum(a.½ğ¶î) as amount 
+select  b.è‹±æ–‡åç§° as Mole_EN,a.Date,sum(a.é‡‘é¢) as amount 
 into #TempRx
-from (select area,date,Ò½Ôº¼¶±ğ,¿ÆÊÒÃû³Æ,´¦·½À´Ô´,±¨Ïú,Ò©Æ·±àÂë,ÉÌÆ·Ãû³Æ,¹æ¸ñ,¸øÒ©Í¾¾¶,´¦·½ÕÅÊı,È¡Ò©ÊıÁ¿,µ¥¼Û,½ğ¶î 
+from (select area,date,åŒ»é™¢çº§åˆ«,ç§‘å®¤åç§°,å¤„æ–¹æ¥æº,æŠ¥é”€,è¯å“ç¼–ç ,å•†å“åç§°,è§„æ ¼,ç»™è¯é€”å¾„,å¤„æ–¹å¼ æ•°,å–è¯æ•°é‡,å•ä»·,é‡‘é¢ 
 	  from [TempOutput].[dbo].[RX_Raw_data_201412] 
 	  --union
 	  --select * from [TempOutput].[dbo].[RX_Raw_data_201403] where date in ('10Q1','10Q2','10Q3','10Q4')
 	)
-a join BMSChinaOtherDB.dbo.inRx_MoleculeRef  b on a.Ò©Æ·±àÂë=b.Ò©Æ·±àÂë
-where a.¿ÆÊÒÃû³Æ=N'¹Ç¿Æ' and b.Ó¢ÎÄÃû³Æ in ('Rivaroxaban','Nadroparin Calcium','Enoxaparin sodium','Dalteparin sodium',
+a join BMSChinaOtherDB.dbo.inRx_MoleculeRef  b on a.è¯å“ç¼–ç =b.è¯å“ç¼–ç 
+where a.ç§‘å®¤åç§°=N'éª¨ç§‘' and b.è‹±æ–‡åç§° in ('Rivaroxaban','Nadroparin Calcium','Enoxaparin sodium','Dalteparin sodium',
 		'Fondaparinux','Heparin sodium','Warfarin sodium','Extract cepae/heparin sodium/allantoin','Heparin calcium'
 	)
-group by 	b.Ó¢ÎÄÃû³Æ,a.Date
+group by 	b.è‹±æ–‡åç§°,a.Date
 
 select 'QTR' as TimeFrame, 'RMB' as MoneyType, 'N' as Molecule,'N' as Class,'Eliquis' as Mkt,'Eliquis Market' as mktName,'Eliquis' as Market,
 	convert(varchar(20),null) as prod,c.Mole_en as Series,convert(varchar(50),null) as DataType,convert(varchar(20),null) as Category,
@@ -2417,7 +2417,7 @@ where (a.market='arv' and a.prod in ('000','010','020','100','200','300','400','
 	or (a.market='ONCFCS' and a.prod in ('000','100','200','300','860','600','700','800','850','010','00000'))
 	or (a.market='cml' and a.prod in ('000','100','200','300','010','00000'))
 
---°ÑTenofovirÌæ»»ÎªViread
+--æŠŠTenofoviræ›¿æ¢ä¸ºViread
 update KPI_Frame_AnalyzerMarket_HospitalPerformance 
 set x=replace(x,'Tenofovir','Viread')
 where market='baraclude' and x like 'Tenofovir%'
@@ -2426,53 +2426,53 @@ update KPI_Frame_MarketAnalyzer_Hospital_Segment
 set series='Viread'
 where market='baraclude' and series='Tenofovir'
 
-USE BMSChinaCIA_IMS
+USE BMSChinaCIA_IMS_test
 GO
 
 
 --Transfer the data to BMSChina_CIA_IMS database
-IF EXISTS(SELECT 1 FROM BMSChinaCIA_IMS.dbo.sysobjects where id=object_id(N'dbo.KPI_Frame_AnalyzerMarket_HospitalPerformance') and type='U')
+IF EXISTS(SELECT 1 FROM BMSChinaCIA_IMS_test.dbo.sysobjects where id=object_id(N'dbo.KPI_Frame_AnalyzerMarket_HospitalPerformance') and type='U')
 BEGIN
-	DROP TABLE  BMSChinaCIA_IMS.dbo.KPI_Frame_AnalyzerMarket_HospitalPerformance
+	DROP TABLE  BMSChinaCIA_IMS_test.dbo.KPI_Frame_AnalyzerMarket_HospitalPerformance
 END
-SELECT * INTO  BMSChinaCIA_IMS.dbo.KPI_Frame_AnalyzerMarket_HospitalPerformance 
-FROM BMSChinaMRBI.dbo.KPI_Frame_AnalyzerMarket_HospitalPerformance
+SELECT * INTO  BMSChinaCIA_IMS_test.dbo.KPI_Frame_AnalyzerMarket_HospitalPerformance 
+FROM BMSChinaMRBI_test.dbo.KPI_Frame_AnalyzerMarket_HospitalPerformance
 
 
-IF EXISTS(SELECT 1 FROM  BMSChinaCIA_IMS.dbo.sysobjects where id=object_id(N'dbo.KPI_FRAME_BusinessSourceOfXarelto') and type='U')
+IF EXISTS(SELECT 1 FROM  BMSChinaCIA_IMS_test.dbo.sysobjects where id=object_id(N'dbo.KPI_FRAME_BusinessSourceOfXarelto') and type='U')
 BEGIN
-	DROP TABLE  BMSChinaCIA_IMS.dbo.KPI_FRAME_BusinessSourceOfXarelto
+	DROP TABLE  BMSChinaCIA_IMS_test.dbo.KPI_FRAME_BusinessSourceOfXarelto
 END
 SELECT * INTO dbo.KPI_FRAME_BusinessSourceOfXarelto 
-FROM BMSChinaMRBI.dbo.KPI_FRAME_BusinessSourceOfXarelto
+FROM BMSChinaMRBI_test.dbo.KPI_FRAME_BusinessSourceOfXarelto
 
 
-IF EXISTS(SELECT 1 FROM  BMSChinaCIA_IMS.dbo.sysobjects where id=object_id(N'dbo.KPI_Frame_CPA_Part_Market_Product_Mapping') and type='U')
+IF EXISTS(SELECT 1 FROM  BMSChinaCIA_IMS_test.dbo.sysobjects where id=object_id(N'dbo.KPI_Frame_CPA_Part_Market_Product_Mapping') and type='U')
 BEGIN
-	DROP TABLE  BMSChinaCIA_IMS.dbo.KPI_Frame_CPA_Part_Market_Product_Mapping
+	DROP TABLE  BMSChinaCIA_IMS_test.dbo.KPI_Frame_CPA_Part_Market_Product_Mapping
 END
-SELECT * INTO  BMSChinaCIA_IMS.dbo.KPI_Frame_CPA_Part_Market_Product_Mapping 
-FROM BMSChinaMRBI.dbo.KPI_Frame_CPA_Part_Market_Product_Mapping
+SELECT * INTO  BMSChinaCIA_IMS_test.dbo.KPI_Frame_CPA_Part_Market_Product_Mapping 
+FROM BMSChinaMRBI_test.dbo.KPI_Frame_CPA_Part_Market_Product_Mapping
 
-IF EXISTS(SELECT 1 FROM  BMSChinaCIA_IMS.dbo.sysobjects where id=object_id(N'dbo.KPI_FRAME_MoleculePerformanceInOrthopedics') and type='U')
+IF EXISTS(SELECT 1 FROM  BMSChinaCIA_IMS_test.dbo.sysobjects where id=object_id(N'dbo.KPI_FRAME_MoleculePerformanceInOrthopedics') and type='U')
 BEGIN
-	DROP TABLE  BMSChinaCIA_IMS.dbo.KPI_FRAME_MoleculePerformanceInOrthopedics
+	DROP TABLE  BMSChinaCIA_IMS_test.dbo.KPI_FRAME_MoleculePerformanceInOrthopedics
 END
-SELECT * INTO  BMSChinaCIA_IMS.dbo.KPI_FRAME_MoleculePerformanceInOrthopedics 
-FROM BMSChinaMRBI.dbo.KPI_FRAME_MoleculePerformanceInOrthopedics
+SELECT * INTO  BMSChinaCIA_IMS_test.dbo.KPI_FRAME_MoleculePerformanceInOrthopedics 
+FROM BMSChinaMRBI_test.dbo.KPI_FRAME_MoleculePerformanceInOrthopedics
 
-IF EXISTS(SELECT 1 FROM  BMSChinaCIA_IMS.dbo.sysobjects where id=object_id(N'dbo.KPI_Frame_MarketAnalyzer_BAL_Hospials') and type='U')
+IF EXISTS(SELECT 1 FROM  BMSChinaCIA_IMS_test.dbo.sysobjects where id=object_id(N'dbo.KPI_Frame_MarketAnalyzer_BAL_Hospials') and type='U')
 BEGIN
-	DROP TABLE  BMSChinaCIA_IMS.dbo.KPI_Frame_MarketAnalyzer_BAL_Hospials
+	DROP TABLE  BMSChinaCIA_IMS_test.dbo.KPI_Frame_MarketAnalyzer_BAL_Hospials
 END
-SELECT * INTO  BMSChinaCIA_IMS.dbo.KPI_Frame_MarketAnalyzer_BAL_Hospials 
-FROM BMSChinaMRBI.dbo.KPI_Frame_MarketAnalyzer_BAL_Hospials
+SELECT * INTO  BMSChinaCIA_IMS_test.dbo.KPI_Frame_MarketAnalyzer_BAL_Hospials 
+FROM BMSChinaMRBI_test.dbo.KPI_Frame_MarketAnalyzer_BAL_Hospials
 
-IF EXISTS(SELECT 1 FROM  BMSChinaCIA_IMS.dbo.sysobjects where id=object_id(N'dbo.KPI_Frame_MarketAnalyzer_Hospital_Segment') and type='U')
+IF EXISTS(SELECT 1 FROM  BMSChinaCIA_IMS_test.dbo.sysobjects where id=object_id(N'dbo.KPI_Frame_MarketAnalyzer_Hospital_Segment') and type='U')
 BEGIN
-	DROP TABLE  BMSChinaCIA_IMS.dbo.KPI_Frame_MarketAnalyzer_Hospital_Segment
+	DROP TABLE  BMSChinaCIA_IMS_test.dbo.KPI_Frame_MarketAnalyzer_Hospital_Segment
 END
-SELECT * INTO  BMSChinaCIA_IMS.dbo.KPI_Frame_MarketAnalyzer_Hospital_Segment 
-FROM BMSChinaMRBI.dbo.KPI_Frame_MarketAnalyzer_Hospital_Segment
+SELECT * INTO  BMSChinaCIA_IMS_test.dbo.KPI_Frame_MarketAnalyzer_Hospital_Segment 
+FROM BMSChinaMRBI_test.dbo.KPI_Frame_MarketAnalyzer_Hospital_Segment
 
 

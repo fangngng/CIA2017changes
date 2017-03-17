@@ -64,7 +64,7 @@ set a.cpa_code=b.cpa_code
 from inCPAData_201406_All a 
 join (
 	select distinct cpa_code_Old,cpa_code 
-	from BMSChinaMRBI.dbo.tblHospitalMaster where datasource='CPA') b
+	from BMSChinaMRBI_test.dbo.tblHospitalMaster where datasource='CPA') b
 on a.cpa_code=b.cpa_code_Old
 --(1804698 row(s) affected)
 

@@ -66,7 +66,7 @@
 
 --*/
 
---use BMSChinaMRBI--192.168.1.4
+--use BMSChinaMRBI_test--192.168.1.4
 --go
 
 

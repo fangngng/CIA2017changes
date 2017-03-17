@@ -43,7 +43,7 @@ where linkchartcode in (
 
 update Webchartseries set AnchorSide='4',AnchorRadius='4',AnchorBorderThickness='1'
 where linkchartcode in (
-select distinct Code from db82.BMSChina_staging_test.dbo.WebChart where charturl = '../Charts/MSLine.swf'
+	select distinct Code from db82.BMSChina_staging_test.dbo.WebChart where charturl = '../Charts/MSLine.swf'
 )
 
 --only one series
@@ -77,6 +77,17 @@ where LinkChartCode in ('C660','C661')
 update webchartseries
 set ParentYAxis = case when Series in ('Eliquis (NOAC) Market','Eliquis (VTEP) Market')then 'S' else 'P' end
 where LinkChartCode in ('C660','C661')
+
+
+update a 
+set a.HighChartSeriesType = 
+	case when a.series like '%growth%' or a.series like '%G R%' or a.series like '%share%' then 'line'
+		 else 'StackedColumn' end 
+from WebChartSeries as a
+inner join dbo.WebChart as b on a.LinkChartCode = b.Code
+where b.highChartType = 'StackedColumnLineDY'
+
+
 -------------------------------------
 -- WebChartTitle
 -------------------------------------
