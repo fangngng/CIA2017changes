@@ -10,11 +10,11 @@
 -- TempOutput.dbo.MTHCHPA_CMPS
 -- TempOutput.dbo.MTHCITY_CMPS
 
--- Db4.BMSChinaCIA_IMS.dbo.MTHCHPA_PKAU
--- Db4.BMSChinaCIA_IMS.dbo.MTHCITY_PKAU
+-- Db4.BMSChinaCIA_IMS_test.dbo.MTHCHPA_PKAU
+-- Db4.BMSChinaCIA_IMS_test.dbo.MTHCITY_PKAU
 
--- Db4.BMSChinaCIA_IMS.dbo.tblMktDef_ATCDriver
--- Db4.BMSChinaCIA_IMS.dbo.tblMktDef_GlobalTA
+-- Db4.BMSChinaCIA_IMS_test.dbo.tblMktDef_ATCDriver
+-- Db4.BMSChinaCIA_IMS_test.dbo.tblMktDef_GlobalTA
 
 
 use BMSCNProc2
@@ -195,8 +195,8 @@ go
 select * into inPKML
 from (
 	select * from TempOutput.dbo.MTHCHPA_PKML
-	union 
-	select * from TempOutput.dbo.MTHCITY_PKML
+	-- union 
+	-- select * from TempOutput.dbo.MTHCITY_PKML
 ) a
 GO
 
@@ -210,9 +210,9 @@ select * into inCMPS
 from (
 	select distinct CMPS_COD, CMPS_DES, CMPS_RES, NMOLECPS 
 	from TempOutput.dbo.MTHCHPA_CMPS
-	union 
-	select distinct CMPS_COD, CMPS_DES, CMPS_RES, NMOLECPS 
-	from TempOutput.dbo.MTHCITY_CMPS
+	-- union 
+	-- select distinct CMPS_COD, CMPS_DES, CMPS_RES, NMOLECPS 
+	-- from TempOutput.dbo.MTHCITY_CMPS
 ) a
 GO
 
@@ -257,25 +257,50 @@ if object_id(N'MTHCHPA_PKAU',N'U') is not null
 	drop table MTHCHPA_PKAU
 go
 select * into MTHCHPA_PKAU
-from Db4.BMSChinaCIA_IMS.dbo.MTHCHPA_PKAU
+from Db4.BMSChinaCIA_IMS_test.dbo.MTHCHPA_PKAU
 go
 create nonclustered index idx on MTHCHPA_PKAU(Pack_cod)
 go
 --
-if object_id(N'MTHCITY_PKAU',N'U') is not null
-	drop table MTHCITY_PKAU
-go
+-- if object_id(N'MTHCITY_PKAU',N'U') is not null
+-- 	drop table MTHCITY_PKAU
+-- go
 
-select * into MTHCITY_PKAU
-from Db4.BMSChinaCIA_IMS.dbo.MTHCITY_PKAU
-go
-create nonclustered index idx on MTHCITY_PKAU(Pack_cod)
-go
+-- select * into MTHCITY_PKAU
+-- from Db4.BMSChinaCIA_IMS_test.dbo.MTHCITY_PKAU
+-- go
+-- create nonclustered index idx on MTHCITY_PKAU(Pack_cod)
+-- go
 
 --Update city table
 insert into tblCityIMS (City_ID,Audi_Cod,CIty,City_CN,Geo_Lvl)
-select city_ID,city_code+'_',city_name,city_name_ch,2 from db4.bmsChinaCIA_IMS.dbo.dim_city a
+select city_ID,city_code+'_',city_name,city_name_ch,2 
+from db4.BMSChinaCIA_IMS_test.dbo.dim_city a
 where not exists(select * from tblCityIMS b where a.city_name=b.city or a.city_name_ch=b.city_cn)
+
+
+
+PRINT '(--------------------------------
+              (4).importing   MAX
+----------------------------------------)'
+
+if object_id(N'MTHCITY_MAX',N'U') is not null
+	drop table MTHCITY_MAX
+go
+
+select * into MTHCITY_MAX
+from Db4.BMSChinaCIA_IMS_test.dbo.inMAXData
+go
+alter table MTHCITY_MAX 
+add Audi_Cod varchar(6) 
+go
+update MTHCITY_MAX
+set Audi_Cod = b.Audi_Cod
+from MTHCITY_MAX as a 
+inner join tblCityIMS as b on replace(a.city, N'市', '') = b.city_CN
+go
+create nonclustered index idx on MTHCITY_MAX(Pack_cod)
+go
 
 ------------------------------------------------------------------------------------------------------
 --   更新MktDefinition, 即将新增产品添加到市场定义中去。	 ：
@@ -303,11 +328,13 @@ go
 
 
 --3.1 refresh tblQueryToolDriverATC
+
 truncate table tblQueryToolDriverATC
 go
 insert into tblQueryToolDriverATC
 select distinct a.*, b.CMPS_Cod, b.CMPS_Des 
-from Db4.BMSChinaCIA_IMS.dbo.tblMktDef_ATCDriver a inner join tblCmpsPack b
+from Db4.BMSChinaCIA_IMS_test.dbo.tblMktDef_ATCDriver a 
+inner join tblCmpsPack b
 on a.Pack_Cod=b.Pack_Cod
 go
 
@@ -319,7 +346,8 @@ delete a  from tblQueryToolDriverATC a where ATC3_des is null
 go
 delete a from tblQueryToolDriverATC a 
 where not exists(select * from mthchpa_pkau b where a.pack_cod = b.pack_cod)
-	and not exists(select * from mthcity_pkau b where a.pack_cod = b.pack_cod)
+	-- and not exists(select * from mthcity_pkau b where a.pack_cod = b.pack_cod)
+	and not exists(select * from MTHCITY_MAX b where a.pack_cod = b.pack_cod)
 go
 
 update tblQueryToolDriverATC set Prod_Des = Prod_Des + ' (' + Manu_Cod + ')'
@@ -372,13 +400,14 @@ select distinct  'Global TA' MktType,
 	b.corp_cod, b.corp_des,
 	b.Manu_cod, b.Manu_des,
 	b.MNC,'N' CLSInd,b.Gene_cod, @mth as AddMonth
-from Db4.BMSChinaCIA_IMS.dbo.tblMktDef_GlobalTA a
+from Db4.BMSChinaCIA_IMS_test.dbo.tblMktDef_GlobalTA a
 inner join tblQueryToolDriverATC b on a.pack_cod = b.Pack_cod
 GO
 
 delete a from tblQueryToolDriverIMS a 
 where not exists(select * from mthchpa_pkau b where a.pack_cod = b.pack_cod)
-	and not exists(select * from mthcity_pkau b where a.pack_cod = b.pack_cod)
+	-- and not exists(select * from mthcity_pkau b where a.pack_cod = b.pack_cod)
+	and not exists(select * from MTHCITY_MAX b where a.pack_cod = b.pack_cod)
 	and MktType = 'Global TA'
 go
 
@@ -412,36 +441,36 @@ go
 
 
 
-print 'In-line Market Hypertention'
-declare @mth varchar(10)
-select @mth =DataPeriod from tblDataPeriod where QType = 'IMS'
-insert into tblQueryToolDriverIMS
-select distinct 
-   'In-line Market' as MktType
-   , 'HYP' as Mkt
-   , 'HYPERTENSION MARKET' as MktName,
-   ATC3_Cod, 'NA' as Class, Mole_Cod,Mole_Des,
-   Prod_Cod,Prod_Des as Prod_Des, 
-   Pack_Cod, Pack_Des,Corp_Cod, Corp_Des,Manu_Cod, Manu_Des,
-   MNC, 'N' CLSInd,Gene_Cod, @mth as AddMonth
-from tblQueryToolDriverATC
-where ATC2_Cod in ('C02','C03','C07','C08','C09')
+-- print 'In-line Market Hypertention'
+-- declare @mth varchar(10)
+-- select @mth =DataPeriod from tblDataPeriod where QType = 'IMS'
+-- insert into tblQueryToolDriverIMS
+-- select distinct 
+--    'In-line Market' as MktType
+--    , 'HYP' as Mkt
+--    , 'HYPERTENSION MARKET' as MktName,
+--    ATC3_Cod, 'NA' as Class, Mole_Cod,Mole_Des,
+--    Prod_Cod,Prod_Des as Prod_Des, 
+--    Pack_Cod, Pack_Des,Corp_Cod, Corp_Des,Manu_Cod, Manu_Des,
+--    MNC, 'N' CLSInd,Gene_Cod, @mth as AddMonth
+-- from tblQueryToolDriverATC
+-- where ATC2_Cod in ('C02','C03','C07','C08','C09')
 GO
 
-print 'In-line Market PLATINUM'
-declare @mth varchar(10)
-select @mth =DataPeriod from tblDataPeriod where QType = 'IMS'
-insert into tblQueryToolDriverIMS
-select distinct 
-   'In-line Market' as MktType
-   , 'PLATINUM' as Mkt
-   , 'PLATINUM MARKET' as MktName,
-   ATC3_Cod, 'NA' as Class, Mole_Cod,Mole_Des,
-   Prod_Cod,Prod_Des as Prod_Des, 
-   Pack_Cod, Pack_Des,Corp_Cod, Corp_Des,Manu_Cod, Manu_Des,
-   MNC, 'N' CLSInd,Gene_Cod, @mth as AddMonth
-from tblQueryToolDriverATC
-where Mole_cod in ('031172','501750','398650')
+-- print 'In-line Market PLATINUM'
+-- declare @mth varchar(10)
+-- select @mth =DataPeriod from tblDataPeriod where QType = 'IMS'
+-- insert into tblQueryToolDriverIMS
+-- select distinct 
+--    'In-line Market' as MktType
+--    , 'PLATINUM' as Mkt
+--    , 'PLATINUM MARKET' as MktName,
+--    ATC3_Cod, 'NA' as Class, Mole_Cod,Mole_Des,
+--    Prod_Cod,Prod_Des as Prod_Des, 
+--    Pack_Cod, Pack_Des,Corp_Cod, Corp_Des,Manu_Cod, Manu_Des,
+--    MNC, 'N' CLSInd,Gene_Cod, @mth as AddMonth
+-- from tblQueryToolDriverATC
+-- where Mole_cod in ('031172','501750','398650')
 go
 
 print 'In-line Market ONCFCS'
@@ -458,18 +487,18 @@ from tblQueryToolDriverATC
 where Mole_cod in ('385082','392175','395667')
 go
 
-print 'In-line Market NIAD'
-declare @mth varchar(10)
-select @mth =DataPeriod from tblDataPeriod where QType = 'IMS'
-insert into tblQueryToolDriverIMS
-select distinct 'In-line Market' as MktType,
-	'NIAD' as Mkt, 'GLUCOPHAGE MARKET' as MktName,
-	ATC3_Cod, Mkt as Class, Mole_Cod, Mole_Des, 
-	Prod_Cod, Prod_Des + ' (' + Manu_cod + ')' as Prod_Des, 
-	Pack_Cod, Pack_Des,Corp_Cod, Corp_Des,Manu_Cod, Manu_Des,
-	MNC,'Y' CLSInd, Gene_Cod, @mth as AddMonth
-from Db4.BMSChinaCIA_IMS.dbo.tblMktDef_Inline
-where mkt in ('AGI','BI','DPP4','GLIN','GLP1','SU','TZD')
+-- print 'In-line Market NIAD'
+-- declare @mth varchar(10)
+-- select @mth =DataPeriod from tblDataPeriod where QType = 'IMS'
+-- insert into tblQueryToolDriverIMS
+-- select distinct 'In-line Market' as MktType,
+-- 	'NIAD' as Mkt, 'GLUCOPHAGE MARKET' as MktName,
+-- 	ATC3_Cod, Mkt as Class, Mole_Cod, Mole_Des, 
+-- 	Prod_Cod, Prod_Des + ' (' + Manu_cod + ')' as Prod_Des, 
+-- 	Pack_Cod, Pack_Des,Corp_Cod, Corp_Des,Manu_Cod, Manu_Des,
+-- 	MNC,'Y' CLSInd, Gene_Cod, @mth as AddMonth
+-- from Db4.BMSChinaCIA_IMS_test.dbo.tblMktDef_Inline
+-- where mkt in ('AGI','BI','DPP4','GLIN','GLP1','SU','TZD')
 go
 
 print 'In-line Market HYPM'
@@ -487,18 +516,18 @@ where Prod_cod in ('07279','02433','02380','11350')
 go
 
 
-print 'In-line Market CCB'
-declare @mth varchar(10)
-select @mth =DataPeriod from tblDataPeriod where QType = 'IMS'
-insert into tblQueryToolDriverIMS
-select distinct 'In-line Market' as MktType, 
-	'CCB' as Mkt, 'CONIEL MARKET' as MktName,
-	ATC3_Cod, 'NA' as Class, Mole_Cod,Mole_Des,
-	Prod_Cod,Prod_Des as Prod_Des, 
-	Pack_Cod, Pack_Des,Corp_Cod, Corp_Des,Manu_Cod, Manu_Des,
-	MNC,'N' CLSInd, Gene_Cod, @mth as AddMonth
-from tblQueryToolDriverATC
-where ATC2_cod ='C08'
+-- print 'In-line Market CCB'
+-- declare @mth varchar(10)
+-- select @mth =DataPeriod from tblDataPeriod where QType = 'IMS'
+-- insert into tblQueryToolDriverIMS
+-- select distinct 'In-line Market' as MktType, 
+-- 	'CCB' as Mkt, 'CONIEL MARKET' as MktName,
+-- 	ATC3_Cod, 'NA' as Class, Mole_Cod,Mole_Des,
+-- 	Prod_Cod,Prod_Des as Prod_Des, 
+-- 	Pack_Cod, Pack_Des,Corp_Cod, Corp_Des,Manu_Cod, Manu_Des,
+-- 	MNC,'N' CLSInd, Gene_Cod, @mth as AddMonth
+-- from tblQueryToolDriverATC
+-- where ATC2_cod ='C08'
 go
 
 print 'In-line Market CML'
@@ -522,7 +551,7 @@ begin
 		ATC3_Cod,'NA' Class, Mole_cod, Mole_des, Prod_cod, Prod_des + ' (' + Manu_cod + ')' as Prod_Des,
 		Pack_cod, Pack_des,Corp_cod, Corp_des, Manu_cod, Manu_des,
 		MNC, 'N' CLSInd, Gene_cod, '201206'
-	from Db4.BMSChinaCIA_IMS.dbo.tblMktDef_ATCDriver 
+	from Db4.BMSChinaCIA_IMS_test.dbo.tblMktDef_ATCDriver 
 	where prod_cod = '97029'
 end
 go
@@ -537,30 +566,31 @@ select distinct 'In-line Market' as MktType,
 	Prod_Cod, Prod_Des + ' (' + Manu_cod + ')' as Prod_Des, 
 	Pack_Cod, Pack_Des,Corp_Cod, Corp_Des,Manu_Cod, Manu_Des,
 	MNC,'N' CLSInd, Gene_Cod, @mth as AddMonth
-from Db4.BMSChinaCIA_IMS.dbo.tblMktDef_Inline
+from Db4.BMSChinaCIA_IMS_test.dbo.tblMktDef_Inline
 where mkt = 'arv'
 go
 delete a from tblQueryToolDriverIMS a 
 where not exists(select * from mthchpa_pkau b where a.pack_cod = b.pack_cod)
 	and not exists(select * from mthcity_pkau b where a.pack_cod = b.pack_cod)
+	-- and not exists(select * from MTHCITY_MAX b where a.pack_cod = b.pack_cod)
 	and a.MktType = ('In-line Market')
 go
 
 SET ansi_warnings OFF
 
-print 'In-line Market Eliquis(VTEp)'
-declare @mth varchar(10)
-select @mth =DataPeriod from tblDataPeriod where QType = 'IMS'
-insert into tblQueryToolDriverIMS
-select distinct 'In-line Market' as MktType, 
-	'Eliquis(VTEp)' as Mkt, 'Eliquis(VTEp) MARKET' as MktName,
-	ATC3_Cod, 'NA' as Class, Mole_Cod,Mole_Des,
-	Prod_Cod,Prod_Des as Prod_Des, 
-	Pack_Cod, Pack_Des,Corp_Cod, Corp_Des,Manu_Cod, Manu_Des,
-	MNC,'N' CLSInd, Gene_Cod, @mth as AddMonth
-from tblQueryToolDriverATC
-where Mole_cod in ('406260','408800','408827','413885','703259','704307','710047','711981','719372', '904100') 
-	and Prod_cod <> '14146' -- 去掉复方
+-- print 'In-line Market Eliquis(VTEp)'
+-- declare @mth varchar(10)
+-- select @mth =DataPeriod from tblDataPeriod where QType = 'IMS'
+-- insert into tblQueryToolDriverIMS
+-- select distinct 'In-line Market' as MktType, 
+-- 	'Eliquis(VTEp)' as Mkt, 'Eliquis(VTEp) MARKET' as MktName,
+-- 	ATC3_Cod, 'NA' as Class, Mole_Cod,Mole_Des,
+-- 	Prod_Cod,Prod_Des as Prod_Des, 
+-- 	Pack_Cod, Pack_Des,Corp_Cod, Corp_Des,Manu_Cod, Manu_Des,
+-- 	MNC,'N' CLSInd, Gene_Cod, @mth as AddMonth
+-- from tblQueryToolDriverATC
+-- where Mole_cod in ('406260','408800','408827','413885','703259','704307','710047','711981','719372', '904100') 
+-- 	and Prod_cod <> '14146' -- 去掉复方
 
 -- 20161102 modify VTEp market to APIXABAN,RIVAROXABAN,DABIGATRAN ETEXILATE,ENOXAPARIN SODIUM,DALTEPARIN SODIUM,
 --	LOW MOLECULAR WEIGHT HEPARIN,HEPARIN,FONDAPARINUX SODIUM,NADROPARIN CALCIUM molecule
@@ -582,20 +612,20 @@ go
 -- where Prod_cod in ('53099','40785','52911')
 -- --Eliquis+XARELTO+PRADAXA（泰毕全）
 
--- 20161102 change NOAC to VTEt
-print 'In-line Market Eliquis(VTEt)'
-declare @mth varchar(10)
-select @mth =DataPeriod from tblDataPeriod where QType = 'IMS'
-insert into tblQueryToolDriverIMS
-select distinct 'In-line Market' as MktType, 
-	'Eliquis(VTEt)' as Mkt, 'Eliquis(VTEt) MARKET' as MktName,
-	ATC3_Cod, 'NA' as Class, Mole_Cod,Mole_Des,
-	Prod_Cod,Prod_Des as Prod_Des, 
-	Pack_Cod, Pack_Des,Corp_Cod, Corp_Des,Manu_Cod, Manu_Des,
-	MNC,'N' CLSInd, Gene_Cod, @mth as AddMonth
-from tblQueryToolDriverATC
-where Mole_cod in ('406260','408800','408827','413885','703259','710047','704307','711981','719372','239900', '904100')
-	and Prod_cod <> '14146' -- 去掉复方
+-- -- 20161102 change NOAC to VTEt
+-- print 'In-line Market Eliquis(VTEt)'
+-- declare @mth varchar(10)
+-- select @mth =DataPeriod from tblDataPeriod where QType = 'IMS'
+-- insert into tblQueryToolDriverIMS
+-- select distinct 'In-line Market' as MktType, 
+-- 	'Eliquis(VTEt)' as Mkt, 'Eliquis(VTEt) MARKET' as MktName,
+-- 	ATC3_Cod, 'NA' as Class, Mole_Cod,Mole_Des,
+-- 	Prod_Cod,Prod_Des as Prod_Des, 
+-- 	Pack_Cod, Pack_Des,Corp_Cod, Corp_Des,Manu_Cod, Manu_Des,
+-- 	MNC,'N' CLSInd, Gene_Cod, @mth as AddMonth
+-- from tblQueryToolDriverATC
+-- where Mole_cod in ('406260','408800','408827','413885','703259','710047','704307','711981','719372','239900', '904100')
+-- 	and Prod_cod <> '14146' -- 去掉复方
 go
 
 SET ansi_warnings on
@@ -643,7 +673,8 @@ go
 
 delete a from tblQueryToolDriverIMS a 
 where not exists(select * from mthchpa_pkau b where a.pack_cod = b.pack_cod)
-	and not exists(select * from mthcity_pkau b where a.pack_cod = b.pack_cod)
+	-- and not exists(select * from mthcity_pkau b where a.pack_cod = b.pack_cod)
+	and not exists(select * from MTHCITY_MAX b where a.pack_cod = b.pack_cod)
 	and a.MktType = ('Pipeline Market')
 go
 
@@ -665,8 +696,10 @@ alter table tblQueryToolDriverIMS add CMPS_Code varchar(10) null
 go
 alter table tblQueryToolDriverIMS add CMPS_Name varchar(255) null
 GO
-update tblQueryToolDriverIMS set Cmps_Code=b.CMPS_Cod, CMPS_Name=b.CMPS_DES
-from tblQueryToolDriverIMS a inner join tblCmpsPack b
+update tblQueryToolDriverIMS 
+set Cmps_Code=b.CMPS_Cod, CMPS_Name=b.CMPS_DES
+from tblQueryToolDriverIMS a 
+inner join tblCmpsPack b
 on a.Pack_Cod=b.Pack_Cod
 GO
 --Remove package which have no Comps code
@@ -686,7 +719,7 @@ select 'In-line Market' MktType, 'CML' Mkt, 'SPRYCEL MARKET' MktName ,
 	ATC3_Cod,'NA' Class, Mole_cod, Mole_des, Prod_cod, Prod_des + ' (' + Manu_cod + ')' as Prod_Des,
 	Pack_cod, Pack_des,Corp_cod, Corp_des, Manu_cod, Manu_des,
 	MNC, 'N' CLSInd, Gene_cod, '201206', '004157', 'DASATINIB'
-from Db4.BMSChinaCIA_IMS.dbo.tblMktDef_ATCDriver 
+from Db4.BMSChinaCIA_IMS_test.dbo.tblMktDef_ATCDriver 
 where prod_cod = '97029'
 GO
 --删除 箔类Mkt中Molecule Compsion 带“+”的
@@ -702,6 +735,11 @@ from tblQueryToolDriverIMS
 where MktType='Pipeline Market'
 and CMPS_Name like '%+%'
 GO
+
+-- queryTool only need Sprycel, Taxol, Monopril, baraclude market
+delete 
+from tblQueryToolDriverIMS
+where mkt not in ('ONCFCS', 'HYPM', 'CML', 'ARV')
 
 
 exec dbo.sp_Log_Event 'Prepare','QT_IMS','0_Prepare_IMS.sql','End',null,null

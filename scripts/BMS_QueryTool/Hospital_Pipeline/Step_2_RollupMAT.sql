@@ -1,4 +1,4 @@
-use BMSCNProc2
+use BMSCNProc2_test
 go
 
 exec dbo.sp_Log_Event 'Process','QT_CPA_Inline','Step_2_RollupMAT.sql','Start',null,null

@@ -1,81 +1,32 @@
-/*
-Created on 12/22/2011
-
-creates IMS TA Output tables after :tblIMSDataRaw
-
-*/
 
 Use BMSCNProc2
 go
---30 分钟
--- 5:00
 
-
-
-exec dbo.sp_Log_Event 'Process','QT_IMS','Step_2_1_Create_IMS_TA_Output_Master_Tables.sql','Start',null,null
+exec dbo.sp_Log_Event 'Process','QT_IMS','Step_2_1_2_Create_MAX_TA_Output_Master_Tables.sql','Start',null,null
 
 
 
 
-
-
-
-
-
-
-
-if OBJECT_ID(N'tblQueryToolDriverIMS_Prod',N'U') is not null
-	drop table tblQueryToolDriverIMS_Prod
-
-select distinct 
-   MktType, Mkt, MktName
-   , Class
-   , Prod_Des, Prod_Cod
-   , CMPS_Name, CMPS_Code
-   , Pack_Des, Pack_Cod
-   , Corp_Des, Corp_Cod
-   , Manu_Des, Manu_Cod
-   , MNC, Gene_Cod ,cast(1 as decimal(5,3)) as rat
-into tblQueryToolDriverIMS_Prod 
-from tblQueryToolDriverIMS
-
--- update tblQueryToolDriverIMS_Prod set rat=1
--- where mkt like 'Eliquis(VTEP)' and prod_des like 'ARIXTRA%'
--- update tblQueryToolDriverIMS_Prod set rat=1
--- where mkt like 'Eliquis(VTEP)' and prod_des like 'CLEXANE%'
--- update tblQueryToolDriverIMS_Prod set rat=1
--- where mkt like 'Eliquis(VTEP)' and prod_des like 'ELIQUIS%'
--- update tblQueryToolDriverIMS_Prod set rat=1
--- where mkt like 'Eliquis(VTEP)' and prod_des like 'FRAXIPARINE%'
--- update tblQueryToolDriverIMS_Prod set rat=1
--- where mkt like 'Eliquis(VTEP)' and prod_des like 'XARELTO%'
-
--- update tblQueryToolDriverIMS_Prod set rat=1
--- where mkt like 'Eliquis(NOAC)' and prod_des like 'Eliquis%'
--- update tblQueryToolDriverIMS_Prod set rat=1
--- where mkt like 'Eliquis(NOAC)' and prod_des like 'Xarelto%'
--- update tblQueryToolDriverIMS_Prod set rat=1
--- where mkt like 'Eliquis(NOAC)' and prod_des like 'Pradaxa%'
-create index idxPack_Cod on tblQueryToolDriverIMS_Prod(Pack_Cod)
-go
-
+--------------------------------------
+-- max data 
+--------------------------------------
 
 
 PRINT '(--------------------------------
-          tblOutput_IMS_TA_Master
+          tblOutput_MAX_TA_Master
 ----------------------------------------)'
-truncate table tblOutput_IMS_TA_Master
-if exists(select 1 from sys.indexes where object_id=object_id(N'tblOutput_IMS_TA_Master') and name='idxDataType')
-	drop index tblOutput_IMS_TA_Master.idxDataType
+truncate table tblOutput_MAX_TA_Master
+if exists(select 1 from sys.indexes where object_id=object_id(N'tblOutput_MAX_TA_Master') and name='idxDataType')
+	drop index tblOutput_MAX_TA_Master.idxDataType
 
-if exists(select 1 from sys.indexes where object_id=object_id(N'tblOutput_IMS_TA_Master') and name='idxDataMktType')
-	drop index tblOutput_IMS_TA_Master.idxDataMktType
+if exists(select 1 from sys.indexes where object_id=object_id(N'tblOutput_MAX_TA_Master') and name='idxDataMktType')
+	drop index tblOutput_MAX_TA_Master.idxDataMktType
 go
 
 SET ansi_warnings OFF
 
 --Append Package level data:
-Insert into tblOutput_IMS_TA_Master
+Insert into tblOutput_MAX_TA_Master
 select 
     DataType
     , MktType, Mkt, MktName
@@ -95,14 +46,14 @@ select
     MTH_20*rat, MTH_19*rat, MTH_18*rat, MTH_17*rat, MTH_16*rat, MTH_15*rat, MTH_14*rat, MTH_13*rat, MTH_12*rat, MTH_11*rat,
     MTH_10*rat, MTH_9*rat, MTH_8*rat, MTH_7*rat, MTH_6*rat, MTH_5*rat, MTH_4*rat, MTH_3*rat, MTH_2*rat, MTH_1*rat
 from tblQueryToolDriverIMS_Prod t1 
-inner join tblIMSDataRaw t2 on t1.Pack_Cod=t2.Pack_Cod
-inner join tblCityIMS t3 on t2.Audi_Cod=t3.Audi_Cod
+inner join tblMAXDataRaw t2 on t1.Pack_Cod = t2.Pack_Cod
+inner join tblcitymax t3 on t2.Audi_Cod = t3.city
 go
 
 SET ansi_warnings on
 
 --Append Product level data:
-Insert into tblOutput_IMS_TA_Master
+Insert into tblOutput_MAX_TA_Master
 select 
     DataType
     , MktType, Mkt, Market_Name
@@ -121,7 +72,7 @@ select
     sum(MTH_30), sum(MTH_29), sum(MTH_28), sum(MTH_27), sum(MTH_26), sum(MTH_25), sum(MTH_24), sum(MTH_23), sum(MTH_22), sum(MTH_21), 
     sum(MTH_20), sum(MTH_19), sum(MTH_18), sum(MTH_17), sum(MTH_16), sum(MTH_15), sum(MTH_14), sum(MTH_13), sum(MTH_12), sum(MTH_11), 
     sum(MTH_10), sum(MTH_9), sum(MTH_8), sum(MTH_7), sum(MTH_6), sum(MTH_5), sum(MTH_4), sum(MTH_3), sum(MTH_2), sum(MTH_1)
-from tblOutput_IMS_TA_Master 
+from tblOutput_MAX_TA_Master 
 where prod_Lvl='PK'
 group by DataType, MktType, Mkt, Market_Name, Geo, Geo_Lvl, Class, Class_Name, Uniq_Prod
 , Product_Name, Product_Code, Corp_Name, Corp_Code, Manuf_Name, Manuf_Code, MNC, Generic_Code
@@ -129,7 +80,7 @@ GO
  
 
 --Append Mloecule Composition level data:
-Insert into tblOutput_IMS_TA_Master
+Insert into tblOutput_MAX_TA_Master
 select 
     DataType
     , MktType, Mkt, Market_Name
@@ -148,7 +99,7 @@ select
     sum(MTH_30), sum(MTH_29), sum(MTH_28), sum(MTH_27), sum(MTH_26), sum(MTH_25), sum(MTH_24), sum(MTH_23), sum(MTH_22), sum(MTH_21), 
     sum(MTH_20), sum(MTH_19), sum(MTH_18), sum(MTH_17), sum(MTH_16), sum(MTH_15), sum(MTH_14), sum(MTH_13), sum(MTH_12), sum(MTH_11), 
     sum(MTH_10), sum(MTH_9), sum(MTH_8), sum(MTH_7), sum(MTH_6), sum(MTH_5), sum(MTH_4), sum(MTH_3), sum(MTH_2), sum(MTH_1)
-from tblOutput_IMS_TA_Master 
+from tblOutput_MAX_TA_Master 
 where prod_Lvl='PK'
 group by DataType, MktType, Mkt, Market_Name, Geo, Geo_Lvl, Class, Class_Name, Uniq_Prod
 , CMPS_Name, CMPS_Code
@@ -156,7 +107,7 @@ GO
 
 
 --Append Class level data:
-Insert into tblOutput_IMS_TA_Master
+Insert into tblOutput_MAX_TA_Master
 select 
     DataType
     , MktType, Mkt, Market_Name
@@ -175,7 +126,7 @@ select
     sum(MTH_30), sum(MTH_29), sum(MTH_28), sum(MTH_27), sum(MTH_26), sum(MTH_25), sum(MTH_24), sum(MTH_23), sum(MTH_22), sum(MTH_21), 
     sum(MTH_20), sum(MTH_19), sum(MTH_18), sum(MTH_17), sum(MTH_16), sum(MTH_15), sum(MTH_14), sum(MTH_13), sum(MTH_12), sum(MTH_11), 
     sum(MTH_10), sum(MTH_9), sum(MTH_8), sum(MTH_7), sum(MTH_6), sum(MTH_5), sum(MTH_4), sum(MTH_3), sum(MTH_2), sum(MTH_1)
-from tblOutput_IMS_TA_Master 
+from tblOutput_MAX_TA_Master 
 where prod_Lvl='PK' and Mkt='NIAD'
 group by DataType, MktType, Mkt, Market_Name, Geo, Geo_Lvl, Class, Class_Name, Uniq_Prod
 go
@@ -184,7 +135,7 @@ go
 
 
 -- Append Manufacture level data:
-Insert into tblOutput_IMS_TA_Master
+Insert into tblOutput_MAX_TA_Master
 select 
     DataType
     , MktType, Mkt, Market_Name
@@ -203,7 +154,7 @@ select
     sum(MTH_30), sum(MTH_29), sum(MTH_28), sum(MTH_27), sum(MTH_26), sum(MTH_25), sum(MTH_24), sum(MTH_23), sum(MTH_22), sum(MTH_21), 
     sum(MTH_20), sum(MTH_19), sum(MTH_18), sum(MTH_17), sum(MTH_16), sum(MTH_15), sum(MTH_14), sum(MTH_13), sum(MTH_12), sum(MTH_11), 
     sum(MTH_10), sum(MTH_9), sum(MTH_8), sum(MTH_7), sum(MTH_6), sum(MTH_5), sum(MTH_4), sum(MTH_3), sum(MTH_2), sum(MTH_1)
-from tblOutput_IMS_TA_Master 
+from tblOutput_MAX_TA_Master 
 where prod_Lvl='PK'
 group by DataType
     , MktType, Mkt, Market_Name
@@ -215,7 +166,7 @@ group by DataType
 GO
 
 -- Append Company level data:
-Insert into tblOutput_IMS_TA_Master
+Insert into tblOutput_MAX_TA_Master
 select 
     DataType
     , MktType, Mkt, Market_Name
@@ -234,7 +185,7 @@ select
     sum(MTH_30), sum(MTH_29), sum(MTH_28), sum(MTH_27), sum(MTH_26), sum(MTH_25), sum(MTH_24), sum(MTH_23), sum(MTH_22), sum(MTH_21), 
     sum(MTH_20), sum(MTH_19), sum(MTH_18), sum(MTH_17), sum(MTH_16), sum(MTH_15), sum(MTH_14), sum(MTH_13), sum(MTH_12), sum(MTH_11), 
     sum(MTH_10), sum(MTH_9), sum(MTH_8), sum(MTH_7), sum(MTH_6), sum(MTH_5), sum(MTH_4), sum(MTH_3), sum(MTH_2), sum(MTH_1)
-from tblOutput_IMS_TA_Master 
+from tblOutput_MAX_TA_Master 
 where prod_Lvl='PK'
 group by DataType
     , MktType, Mkt, Market_Name
@@ -244,7 +195,7 @@ GO
 
 
 --Append Market level data:
-Insert into tblOutput_IMS_TA_Master
+Insert into tblOutput_MAX_TA_Master
 select 
     DataType
     , MktType, Mkt, Market_Name
@@ -263,7 +214,7 @@ select
     sum(MTH_30), sum(MTH_29), sum(MTH_28), sum(MTH_27), sum(MTH_26), sum(MTH_25), sum(MTH_24), sum(MTH_23), sum(MTH_22), sum(MTH_21), 
     sum(MTH_20), sum(MTH_19), sum(MTH_18), sum(MTH_17), sum(MTH_16), sum(MTH_15), sum(MTH_14), sum(MTH_13), sum(MTH_12), sum(MTH_11), 
     sum(MTH_10), sum(MTH_9), sum(MTH_8), sum(MTH_7), sum(MTH_6), sum(MTH_5), sum(MTH_4), sum(MTH_3), sum(MTH_2), sum(MTH_1)
-from tblOutput_IMS_TA_Master 
+from tblOutput_MAX_TA_Master 
 where prod_Lvl='PK'
 group by DataType, MktType, Mkt, Market_Name, Geo, Geo_Lvl, Uniq_Prod
 go
@@ -271,28 +222,28 @@ go
 
 
 
-create index idxDataType on tblOutput_IMS_TA_Master(DataType)
+create index idxDataType on tblOutput_MAX_TA_Master(DataType)
 go
-create index idxDataMktType on tblOutput_IMS_TA_Master(DataType,MktType)
+create index idxDataMktType on tblOutput_MAX_TA_Master(DataType,MktType)
 go
 
 
 --Process Inline Market Data:
-truncate table tblOutput_IMS_TA_Master_Inline
+truncate table tblOutput_MAX_TA_Master_Inline
 go
-Insert into tblOutput_IMS_TA_Master_Inline
+Insert into tblOutput_MAX_TA_Master_Inline
 select *, 
     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
-from tblOutput_IMS_TA_Master
+from tblOutput_MAX_TA_Master
 where MktType='In-line Market'
 go
 
-drop table tblOutput_IMS_TA_Master_Inline_Mkt
+drop table tblOutput_MAX_TA_Master_Inline_Mkt
 go
-select * into tblOutput_IMS_TA_Master_Inline_Mkt 
-from tblOutput_IMS_TA_Master 
+select * into tblOutput_MAX_TA_Master_Inline_Mkt 
+from tblOutput_MAX_TA_Master 
 where MktType='In-line Market' and Prod_Lvl='MK'
 go
 Update t1 
@@ -356,21 +307,9 @@ Set MTH_SHR_60=(Case t2.MTH_60 When 0 Then 0 Else t1.MTH_60*1.0/t2.MTH_60 END),
     MTH_SHR_3=(Case t2.MTH_3 When 0 Then 0 Else t1.MTH_3*1.0/t2.MTH_3 End), 
     MTH_SHR_2=(Case t2.MTH_2 When 0 Then 0 Else t1.MTH_2*1.0/t2.MTH_2 End), 
     MTH_SHR_1=(Case t2.MTH_1 When 0 Then 0 Else t1.MTH_1*1.0/t2.MTH_1 End)
-from tblOutput_IMS_TA_Master_Inline t1 
-inner join tblOutput_IMS_TA_Master_InLine_Mkt t2
+from tblOutput_MAX_TA_Master_Inline t1 
+inner join tblOutput_MAX_TA_Master_InLine_Mkt t2
 on t1.DataType=t2.DataType and t1.Mkt=t2.Mkt and t1.Geo=t2.Geo
 go
 
-
-
-
---check :
-declare @num int 
-select  @num = count(distinct Prod_Lvl) from tblOutput_MAX_TA_Master
-if (@num <> 7)
-begin 
-	print N'报警--> Prod_Lvl数量不对 ，检查sql: select distinct @num = Prod_Lvl from tblOutput_MAX_TA_Master '
-end
-
-exec dbo.sp_Log_Event 'Process','QT_IMS','Step_2_1_Create_IMS_TA_Output_Master_Tables.sql','End',null,null
 

@@ -1,4 +1,4 @@
-use BMSCNProc2
+use BMSCNProc2_test
 go
 --time:42min
 
@@ -26,7 +26,7 @@ select
   , Pack_Cod      as Pack_Cod
   , SUM(Rx)       as Rx
   , SUM(Sales)    as Sales
-  , SUM([取药数量]) as Volume
+  , SUM([取药锟斤拷锟斤拷]) as Volume
 into tblRxProcessedRaw
 from inRx t1
 inner join tblProductList_Rx t2 
@@ -85,7 +85,7 @@ from (
 	select Geo,DQ,Dept,Pack_cod, Sales from tblRxProcessedRaw 
 ) a pivot(
 	sum(Sales) for DQ in (
-	[11Q2],[11Q3],[11Q4],[12Q1],[12Q2],[12Q3],[12Q4],[13Q1],[13Q2],[13Q3],[13Q4],[14Q1],[14Q2],[14Q3],[14Q4],[15Q1],[15Q2],[15Q3],[15Q4],[16Q1])  --todo :只要5年数据
+	[11Q2],[11Q3],[11Q4],[12Q1],[12Q2],[12Q3],[12Q4],[13Q1],[13Q2],[13Q3],[13Q4],[14Q1],[14Q2],[14Q3],[14Q4],[15Q1],[15Q2],[15Q3],[15Q4],[16Q1])  --todo :只要5锟斤拷锟斤拷锟斤拷
 ) PVT
 go
 insert into tblRxProcessedRawCT (DataType,Geo,Dept,Pack_Cod,[Mth_20],
@@ -96,7 +96,7 @@ select '3MUSD' as DataType, Geo,Dept,Pack_cod,
 from (
 	select Geo,DQ,Dept,Pack_cod, Sales/(select rate from db4.bmschinacia_ims.dbo.tblrate) as Sales from tblRxProcessedRaw 
 ) a pivot(
-	sum(Sales) for DQ in ([11Q2],[11Q3],[11Q4],[12Q1],[12Q2],[12Q3],[12Q4],[13Q1],[13Q2],[13Q3],[13Q4],[14Q1],[14Q2],[14Q3],[14Q4],[15Q1],[15Q2],[15Q3],[15Q4],[16Q1])  --todo :只要5年数据
+	sum(Sales) for DQ in ([11Q2],[11Q3],[11Q4],[12Q1],[12Q2],[12Q3],[12Q4],[13Q1],[13Q2],[13Q3],[13Q4],[14Q1],[14Q2],[14Q3],[14Q4],[15Q1],[15Q2],[15Q3],[15Q4],[16Q1])  --todo :只要5锟斤拷锟斤拷锟斤拷
 ) PVT
 go
 
@@ -108,7 +108,7 @@ select '3MRx' as DataType,  Geo,Dept,Pack_cod,
 from (
 	select Geo,DQ,Dept,Pack_cod, RX  from tblRxProcessedRaw 
 ) a pivot(
-	sum(RX) for DQ in ([11Q2],[11Q3],[11Q4],[12Q1],[12Q2],[12Q3],[12Q4],[13Q1],[13Q2],[13Q3],[13Q4],[14Q1],[14Q2],[14Q3],[14Q4],[15Q1],[15Q2],[15Q3],[15Q4],[16Q1])  --todo :只要5年数据
+	sum(RX) for DQ in ([11Q2],[11Q3],[11Q4],[12Q1],[12Q2],[12Q3],[12Q4],[13Q1],[13Q2],[13Q3],[13Q4],[14Q1],[14Q2],[14Q3],[14Q4],[15Q1],[15Q2],[15Q3],[15Q4],[16Q1])  --todo :只要5锟斤拷锟斤拷锟斤拷
 ) PVT
 go
 
@@ -120,7 +120,7 @@ select '3MVol' as DataType,  Geo,Dept,Pack_cod,
 from (
 	select Geo,DQ,Dept,Pack_cod, Volume  from tblRxProcessedRaw 
 ) a pivot(
-	sum(Volume) for DQ in ([11Q2],[11Q3],[11Q4],[12Q1],[12Q2],[12Q3],[12Q4],[13Q1],[13Q2],[13Q3],[13Q4],[14Q1],[14Q2],[14Q3],[14Q4],[15Q1],[15Q2],[15Q3],[15Q4],[16Q1])  --todo :只要5年数据
+	sum(Volume) for DQ in ([11Q2],[11Q3],[11Q4],[12Q1],[12Q2],[12Q3],[12Q4],[13Q1],[13Q2],[13Q3],[13Q4],[14Q1],[14Q2],[14Q3],[14Q4],[15Q1],[15Q2],[15Q3],[15Q4],[16Q1])  --todo :只要5锟斤拷锟斤拷锟斤拷
 ) PVT
 go
 

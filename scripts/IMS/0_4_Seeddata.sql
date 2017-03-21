@@ -202,7 +202,8 @@ left join tblMonthList b on a.[Year] = b.[Year] and a.[Month] = b.[Month]
 
 
 --PatientNumber
-update inMonthlySales set Quantity_PatientNumber = t1.Quantity_DosingUnits*t2.Pack_quantity/t2.AvgPatientMG
+update inMonthlySales 
+set Quantity_PatientNumber = t1.Quantity_DosingUnits*t2.Pack_quantity/t2.AvgPatientMG
 from inMonthlySales t1
 inner join  D_AdjustedPatientNumber t2
 on t1.Pack_Cod=t2.Pack_Cod

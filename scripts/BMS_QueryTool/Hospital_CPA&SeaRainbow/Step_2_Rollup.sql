@@ -1,6 +1,6 @@
-/* ¶ÔÔÂÊý¾Ý½øÐÐRoll up */
+/* ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ý½ï¿½ï¿½ï¿½Roll up */
 
-use BMSCNProc2
+use BMSCNProc2_test
 go
 
 exec dbo.sp_Log_Event 'Process','QT_CPA_Inline','Step_2_Rollup.sql','Start',null,null

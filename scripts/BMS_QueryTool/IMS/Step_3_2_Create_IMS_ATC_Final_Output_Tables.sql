@@ -68,7 +68,6 @@ truncate table tblOutput_IMS_ATC_UNT_YTD
 Insert into tblOutput_IMS_ATC_UNT_YTD select * from tblOutput_IMS_ATC_Master where DataType='YTDUNT'
 go
 
-
 exec dbo.sp_Log_Event 'Process','QT_IMS','Step_3_2_Create_IMS_ATC_Final_Output_Tables.sql','End',null,null
 
 

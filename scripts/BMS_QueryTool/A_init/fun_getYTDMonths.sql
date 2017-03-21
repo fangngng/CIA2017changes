@@ -1,11 +1,11 @@
---创建人  ：Aric
---用   途 ：获取当前月份的 YTD所需统计的 月份
---时间    ：2013/5/7 15:29:04
---执行环境：DB32
+--锟斤拷锟斤拷锟斤拷  锟斤拷Aric
+--锟斤拷   途 锟斤拷锟斤拷取锟斤拷前锟铰份碉拷 YTD锟斤拷锟斤拷统锟狡碉拷 锟铰凤拷
+--时锟斤拷    锟斤拷2013/5/7 15:29:04
+--执锟叫伙拷锟斤拷锟斤拷DB32
 
 
 
-use  BMSCNProc2
+use  BMSCNProc2_test
 go
 
 if object_id(N'fun_getYTDMonths()',N'U') is not null
@@ -37,7 +37,7 @@ END
 
 
 
--- 调用一个函数语法  ：  select dbo.fun_getYTDMonths('201302')  
+-- 锟斤拷锟斤拷一锟斤拷锟斤拷锟斤拷锟斤法  锟斤拷  select dbo.fun_getYTDMonths('201302')  
 
 
 

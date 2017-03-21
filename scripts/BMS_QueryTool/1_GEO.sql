@@ -1,9 +1,9 @@
 /*
-ÊÖ¹¤½Å±¾
+ï¿½Ö¹ï¿½ï¿½Å±ï¿½
 */
 
 
-use BMSCNProc2
+use BMSCNProc2_test
 go
 
 
@@ -21,7 +21,7 @@ select ID,Geo,GeoName,Lev,Product,ParentGeo,GeoIDx
 from DB4.BMSChinaCIA_IMS.dbo.OutputGeo
 
 update OutputGeo
-set geoname=N'ÖÐ¹ú'
+set geoname=N'ï¿½Ð¹ï¿½'
 where geo='China'
 
 
@@ -40,12 +40,12 @@ GO
 
 
 ------------------------------------------------------------------------------------------------------
---   tblCityIMS £º
+--   tblCityIMS ï¿½ï¿½
 ------------------------------------------------------------------------------------------------------
 
 /*
 
-Ò»°ã²»»á¸üÐÂ£¬ËùÒÔ×¢ÊÍµô¡£
+Ò»ï¿½ã²»ï¿½ï¿½ï¿½ï¿½ï¿½Â£ï¿½ï¿½ï¿½ï¿½ï¿½×¢ï¿½Íµï¿½ï¿½ï¿½
 
 --backup
 select * into BMSCNProc_bak.dbo.tblCityIMS_Aric20130509
@@ -65,15 +65,15 @@ GO
 
 
 --2013/5/22 10:03:05
-insert into BMSCNProc2.dbo.tblCityIMS values
-('28','NCG_','Nanchang',N'ÄÏ²ý',2)
+insert into BMSCNProc2_test.dbo.tblCityIMS values
+('28','NCG_','Nanchang',N'ï¿½Ï²ï¿½',2)
 GO
 
 --2013/5/23 10:52:23
-update tblCityIMS set Geo_Lvl='1' where City_CN = N'ÖÐ¹ú'
-update tblCityIMS set Geo_Lvl='2' where City_CN <> N'ÖÐ¹ú'
+update tblCityIMS set Geo_Lvl='1' where City_CN = N'ï¿½Ð¹ï¿½'
+update tblCityIMS set Geo_Lvl='2' where City_CN <> N'ï¿½Ð¹ï¿½'
 
-update tblCityIMS set City='CHINA' where City_CN = N'ÖÐ¹ú'
+update tblCityIMS set City='CHINA' where City_CN = N'ï¿½Ð¹ï¿½'
 GO
 
 

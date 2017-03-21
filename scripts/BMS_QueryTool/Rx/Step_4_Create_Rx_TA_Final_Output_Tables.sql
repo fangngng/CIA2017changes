@@ -1,4 +1,4 @@
-use BMSCNProc2
+use BMSCNProc2_test
 go
 exec dbo.sp_Log_Event 'Process','QT_Rx','Step_4_Create_Rx_TA_Final_Output_Tables.sql','Start',null,null
 go

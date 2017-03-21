@@ -5,13 +5,13 @@ go
 
 
 
-exec BMSCNProc2.dbo.sp_Log_Event 'Output','QT_Rx','99_Output_Rx.sql','Start',null,null
+exec BMSCNProc2_test.dbo.sp_Log_Event 'Output','QT_Rx','99_Output_Rx.sql','Start',null,null
 
 
 IF OBJECT_ID(N'tblQueryToolDriverRx',N'U') IS NOT NULL
 	DROP TABLE tblQueryToolDriverRx
 GO
-SELECT * INTO tblQueryToolDriverRx FROM BMSCNProc2.dbo.tblQueryToolDriverRx
+SELECT * INTO tblQueryToolDriverRx FROM BMSCNProc2_test.dbo.tblQueryToolDriverRx
 go
 
 ------------------------------------------------------------------------
@@ -20,7 +20,7 @@ if object_id(N'tblOutput_Rx_TA_RMB_3M_Inline',N'U') is not null
 	drop table tblOutput_Rx_TA_RMB_3M_Inline
 go
 select * into tblOutput_Rx_TA_RMB_3M_Inline
-from BMSCNProc2.dbo.tblOutput_Rx_TA_RMB_3M_Inline
+from BMSCNProc2_test.dbo.tblOutput_Rx_TA_RMB_3M_Inline
 go
 if exists(select * from sysindexes where name='tblOutput_Rx_TA_RMB_3M_Inline')
 drop index tblOutput_Rx_TA_RMB_3M_Inline on tblOutput_Rx_TA_RMB_3M_Inline
@@ -37,7 +37,7 @@ if object_id(N'tblOutput_Rx_TA_USD_3M_Inline',N'U') is not null
 	drop table tblOutput_Rx_TA_USD_3M_Inline
 go
 select * into tblOutput_Rx_TA_USD_3M_Inline
-from BMSCNProc2.dbo.tblOutput_Rx_TA_USD_3M_Inline
+from BMSCNProc2_test.dbo.tblOutput_Rx_TA_USD_3M_Inline
 go
 if exists(select * from sysindexes where name='tblOutput_Rx_TA_USD_3M_Inline')
 drop index tblOutput_Rx_TA_USD_3M_Inline on tblOutput_Rx_TA_USD_3M_Inline
@@ -54,7 +54,7 @@ if object_id(N'tblOutput_Rx_TA_Rx_3M_Inline',N'U') is not null
 	drop table tblOutput_Rx_TA_Rx_3M_Inline
 go
 select * into tblOutput_Rx_TA_Rx_3M_Inline
-from BMSCNProc2.dbo.tblOutput_Rx_TA_Rx_3M_Inline
+from BMSCNProc2_test.dbo.tblOutput_Rx_TA_Rx_3M_Inline
 go
 if exists(select * from sysindexes where name='tblOutput_Rx_TA_Rx_3M_Inline')
 drop index tblOutput_Rx_TA_Rx_3M_Inline on tblOutput_Rx_TA_Rx_3M_Inline
@@ -71,7 +71,7 @@ if object_id(N'tblOutput_Rx_TA_RMB_MAT_Inline',N'U') is not null
 	drop table tblOutput_Rx_TA_RMB_MAT_Inline
 go
 select * into tblOutput_Rx_TA_RMB_MAT_Inline
-from BMSCNProc2.dbo.tblOutput_Rx_TA_RMB_MAT_Inline
+from BMSCNProc2_test.dbo.tblOutput_Rx_TA_RMB_MAT_Inline
 go
 if exists(select * from sysindexes where name='tblOutput_Rx_TA_RMB_MAT_Inline')
 drop index tblOutput_Rx_TA_RMB_MAT_Inline on tblOutput_Rx_TA_RMB_MAT_Inline
@@ -88,7 +88,7 @@ if object_id(N'tblOutput_Rx_TA_USD_MAT_Inline',N'U') is not null
 	drop table tblOutput_Rx_TA_USD_MAT_Inline
 go
 select * into tblOutput_Rx_TA_USD_MAT_Inline
-from BMSCNProc2.dbo.tblOutput_Rx_TA_USD_MAT_Inline
+from BMSCNProc2_test.dbo.tblOutput_Rx_TA_USD_MAT_Inline
 go
 if exists(select * from sysindexes where name='tblOutput_Rx_TA_USD_MAT_Inline')
 drop index tblOutput_Rx_TA_USD_MAT_Inline on tblOutput_Rx_TA_USD_MAT_Inline
@@ -105,7 +105,7 @@ if object_id(N'tblOutput_Rx_TA_Rx_MAT_Inline',N'U') is not null
 	drop table tblOutput_Rx_TA_Rx_MAT_Inline
 go
 select * into tblOutput_Rx_TA_Rx_MAT_Inline
-from BMSCNProc2.dbo.tblOutput_Rx_TA_Rx_MAT_Inline
+from BMSCNProc2_test.dbo.tblOutput_Rx_TA_Rx_MAT_Inline
 go
 if exists(select * from sysindexes where name='tblOutput_Rx_TA_Rx_MAT_Inline')
 drop index tblOutput_Rx_TA_Rx_MAT_Inline on tblOutput_Rx_TA_Rx_MAT_Inline
@@ -124,7 +124,7 @@ if object_id(N'tblOutput_Rx_TA_RMB_3M_Pipeline',N'U') is not null
 	drop table tblOutput_Rx_TA_RMB_3M_Pipeline
 go
 select * into tblOutput_Rx_TA_RMB_3M_Pipeline
-from BMSCNProc2.dbo.tblOutput_Rx_TA_RMB_3M_Pipeline
+from BMSCNProc2_test.dbo.tblOutput_Rx_TA_RMB_3M_Pipeline
 go
 if exists(select * from sysindexes where name='tblOutput_Rx_TA_RMB_3M_Pipeline')
 drop index tblOutput_Rx_TA_RMB_3M_Pipeline on tblOutput_Rx_TA_RMB_3M_Pipeline
@@ -141,7 +141,7 @@ if object_id(N'tblOutput_Rx_TA_USD_3M_Pipeline',N'U') is not null
 	drop table tblOutput_Rx_TA_USD_3M_Pipeline
 go
 select * into tblOutput_Rx_TA_USD_3M_Pipeline
-from BMSCNProc2.dbo.tblOutput_Rx_TA_USD_3M_Pipeline
+from BMSCNProc2_test.dbo.tblOutput_Rx_TA_USD_3M_Pipeline
 go
 if exists(select * from sysindexes where name='tblOutput_Rx_TA_USD_3M_Pipeline')
 drop index tblOutput_Rx_TA_USD_3M_Pipeline on tblOutput_Rx_TA_USD_3M_Pipeline
@@ -158,7 +158,7 @@ if object_id(N'tblOutput_Rx_TA_Rx_3M_Pipeline',N'U') is not null
 	drop table tblOutput_Rx_TA_Rx_3M_Pipeline
 go
 select * into tblOutput_Rx_TA_Rx_3M_Pipeline
-from BMSCNProc2.dbo.tblOutput_Rx_TA_Rx_3M_Pipeline
+from BMSCNProc2_test.dbo.tblOutput_Rx_TA_Rx_3M_Pipeline
 go
 if exists(select * from sysindexes where name='tblOutput_Rx_TA_Rx_3M_Pipeline')
 drop index tblOutput_Rx_TA_Rx_3M_Pipeline on tblOutput_Rx_TA_Rx_3M_Pipeline
@@ -175,7 +175,7 @@ if object_id(N'tblOutput_Rx_TA_RMB_MAT_Pipeline',N'U') is not null
 	drop table tblOutput_Rx_TA_RMB_MAT_Pipeline
 go
 select * into tblOutput_Rx_TA_RMB_MAT_Pipeline
-from BMSCNProc2.dbo.tblOutput_Rx_TA_RMB_MAT_Pipeline
+from BMSCNProc2_test.dbo.tblOutput_Rx_TA_RMB_MAT_Pipeline
 go
 if exists(select * from sysindexes where name='tblOutput_Rx_TA_RMB_MAT_Pipeline')
 drop index tblOutput_Rx_TA_RMB_MAT_Pipeline on tblOutput_Rx_TA_RMB_MAT_Pipeline
@@ -192,7 +192,7 @@ if object_id(N'tblOutput_Rx_TA_USD_MAT_Pipeline',N'U') is not null
 	drop table tblOutput_Rx_TA_USD_MAT_Pipeline
 go
 select * into tblOutput_Rx_TA_USD_MAT_Pipeline
-from BMSCNProc2.dbo.tblOutput_Rx_TA_USD_MAT_Pipeline
+from BMSCNProc2_test.dbo.tblOutput_Rx_TA_USD_MAT_Pipeline
 go
 if exists(select * from sysindexes where name='tblOutput_Rx_TA_USD_MAT_Pipeline')
 drop index tblOutput_Rx_TA_USD_MAT_Pipeline on tblOutput_Rx_TA_USD_MAT_Pipeline
@@ -210,7 +210,7 @@ if object_id(N'tblOutput_Rx_TA_Rx_MAT_Pipeline',N'U') is not null
 	drop table tblOutput_Rx_TA_Rx_MAT_Pipeline
 go
 select * into tblOutput_Rx_TA_Rx_MAT_Pipeline
-from BMSCNProc2.dbo.tblOutput_Rx_TA_Rx_MAT_Pipeline
+from BMSCNProc2_test.dbo.tblOutput_Rx_TA_Rx_MAT_Pipeline
 go
 if exists(select * from sysindexes where name='tblOutput_Rx_TA_Rx_MAT_Pipeline')
 drop index tblOutput_Rx_TA_Rx_MAT_Pipeline on tblOutput_Rx_TA_Rx_MAT_Pipeline
@@ -228,7 +228,7 @@ if object_id(N'tblOutput_Rx_TA_RMB_3M_Global',N'U') is not null
 	drop table tblOutput_Rx_TA_RMB_3M_Global
 go
 select * into tblOutput_Rx_TA_RMB_3M_Global
-from BMSCNProc2.dbo.tblOutput_Rx_TA_RMB_3M_Global
+from BMSCNProc2_test.dbo.tblOutput_Rx_TA_RMB_3M_Global
 go
 if exists(select * from sysindexes where name='tblOutput_Rx_TA_RMB_3M_Global')
 drop index tblOutput_Rx_TA_RMB_3M_Global on tblOutput_Rx_TA_RMB_3M_Global
@@ -245,7 +245,7 @@ if object_id(N'tblOutput_Rx_TA_USD_3M_Global',N'U') is not null
 	drop table tblOutput_Rx_TA_USD_3M_Global
 go
 select * into tblOutput_Rx_TA_USD_3M_Global
-from BMSCNProc2.dbo.tblOutput_Rx_TA_USD_3M_Global
+from BMSCNProc2_test.dbo.tblOutput_Rx_TA_USD_3M_Global
 go
 if exists(select * from sysindexes where name='tblOutput_Rx_TA_USD_3M_Global')
 drop index tblOutput_Rx_TA_USD_3M_Global on tblOutput_Rx_TA_USD_3M_Global
@@ -262,7 +262,7 @@ if object_id(N'tblOutput_Rx_TA_Rx_3M_Global',N'U') is not null
 	drop table tblOutput_Rx_TA_Rx_3M_Global
 go
 select * into tblOutput_Rx_TA_Rx_3M_Global
-from BMSCNProc2.dbo.tblOutput_Rx_TA_Rx_3M_Global
+from BMSCNProc2_test.dbo.tblOutput_Rx_TA_Rx_3M_Global
 go
 if exists(select * from sysindexes where name='tblOutput_Rx_TA_Rx_3M_Global')
 drop index tblOutput_Rx_TA_Rx_3M_Global on tblOutput_Rx_TA_Rx_3M_Global
@@ -279,7 +279,7 @@ if object_id(N'tblOutput_Rx_TA_RMB_MAT_Global',N'U') is not null
 	drop table tblOutput_Rx_TA_RMB_MAT_Global
 go
 select * into tblOutput_Rx_TA_RMB_MAT_Global
-from BMSCNProc2.dbo.tblOutput_Rx_TA_RMB_MAT_Global
+from BMSCNProc2_test.dbo.tblOutput_Rx_TA_RMB_MAT_Global
 go
 if exists(select * from sysindexes where name='tblOutput_Rx_TA_RMB_MAT_Global')
 drop index tblOutput_Rx_TA_RMB_MAT_Global on tblOutput_Rx_TA_RMB_MAT_Global
@@ -296,7 +296,7 @@ if object_id(N'tblOutput_Rx_TA_USD_MAT_Global',N'U') is not null
 	drop table tblOutput_Rx_TA_USD_MAT_Global
 go
 select * into tblOutput_Rx_TA_USD_MAT_Global
-from BMSCNProc2.dbo.tblOutput_Rx_TA_USD_MAT_Global
+from BMSCNProc2_test.dbo.tblOutput_Rx_TA_USD_MAT_Global
 go
 if exists(select * from sysindexes where name='tblOutput_Rx_TA_USD_MAT_Global')
 drop index tblOutput_Rx_TA_USD_MAT_Global on tblOutput_Rx_TA_USD_MAT_Global
@@ -313,7 +313,7 @@ if object_id(N'tblOutput_Rx_TA_Rx_MAT_Global',N'U') is not null
 	drop table tblOutput_Rx_TA_Rx_MAT_Global
 go
 select * into tblOutput_Rx_TA_Rx_MAT_Global
-from BMSCNProc2.dbo.tblOutput_Rx_TA_Rx_MAT_Global
+from BMSCNProc2_test.dbo.tblOutput_Rx_TA_Rx_MAT_Global
 go
 if exists(select * from sysindexes where name='tblOutput_Rx_TA_Rx_MAT_Global')
 drop index tblOutput_Rx_TA_Rx_MAT_Global on tblOutput_Rx_TA_Rx_MAT_Global
@@ -330,7 +330,7 @@ if object_id(N'tblOutput_Rx_TA_Volume_3M_Inline',N'U') is not null
 	drop table tblOutput_Rx_TA_Volume_3M_Inline
 go
 select * into tblOutput_Rx_TA_Volume_3M_Inline
-from BMSCNProc2.dbo.tblOutput_Rx_TA_Volume_3M_Inline
+from BMSCNProc2_test.dbo.tblOutput_Rx_TA_Volume_3M_Inline
 go
 if exists(select * from sysindexes where name='tblOutput_Rx_TA_Volume_3M_Inline')
 drop index tblOutput_Rx_TA_Volume_3M_Inline on tblOutput_Rx_TA_Volume_3M_Inline
@@ -348,7 +348,7 @@ if object_id(N'tblOutput_Rx_TA_Volume_MAT_Inline',N'U') is not null
 	drop table tblOutput_Rx_TA_Volume_MAT_Inline
 go
 select * into tblOutput_Rx_TA_Volume_MAT_Inline
-from BMSCNProc2.dbo.tblOutput_Rx_TA_Volume_MAT_Inline
+from BMSCNProc2_test.dbo.tblOutput_Rx_TA_Volume_MAT_Inline
 go
 if exists(select * from sysindexes where name='tblOutput_Rx_TA_Volume_MAT_Inline')
 drop index tblOutput_Rx_TA_Volume_MAT_Inline on tblOutput_Rx_TA_Volume_MAT_Inline
@@ -365,7 +365,7 @@ if object_id(N'tblOutput_Rx_TA_Volume_3M_Pipeline',N'U') is not null
 	drop table tblOutput_Rx_TA_Volume_3M_Pipeline
 go
 select * into tblOutput_Rx_TA_Volume_3M_Pipeline
-from BMSCNProc2.dbo.tblOutput_Rx_TA_Volume_3M_Pipeline
+from BMSCNProc2_test.dbo.tblOutput_Rx_TA_Volume_3M_Pipeline
 go
 if exists(select * from sysindexes where name='tblOutput_Rx_TA_Volume_3M_Pipeline')
 drop index tblOutput_Rx_TA_Volume_3M_Pipeline on tblOutput_Rx_TA_Volume_3M_Pipeline
@@ -384,7 +384,7 @@ if object_id(N'tblOutput_Rx_TA_Volume_MAT_Pipeline',N'U') is not null
 	drop table tblOutput_Rx_TA_Volume_MAT_Pipeline
 go
 select * into tblOutput_Rx_TA_Volume_MAT_Pipeline
-from BMSCNProc2.dbo.tblOutput_Rx_TA_Volume_MAT_Pipeline
+from BMSCNProc2_test.dbo.tblOutput_Rx_TA_Volume_MAT_Pipeline
 go
 if exists(select * from sysindexes where name='tblOutput_Rx_TA_Volume_MAT_Pipeline')
 drop index tblOutput_Rx_TA_Volume_MAT_Pipeline on tblOutput_Rx_TA_Volume_MAT_Pipeline
@@ -401,7 +401,7 @@ if object_id(N'tblOutput_Rx_TA_Volume_3M_Global',N'U') is not null
 	drop table tblOutput_Rx_TA_Volume_3M_Global
 go
 select * into tblOutput_Rx_TA_Volume_3M_Global
-from BMSCNProc2.dbo.tblOutput_Rx_TA_Volume_3M_Global
+from BMSCNProc2_test.dbo.tblOutput_Rx_TA_Volume_3M_Global
 go
 if exists(select * from sysindexes where name='tblOutput_Rx_TA_Volume_3M_Global')
 drop index tblOutput_Rx_TA_Volume_3M_Global on tblOutput_Rx_TA_Volume_3M_Global
@@ -418,7 +418,7 @@ if object_id(N'tblOutput_Rx_TA_Volume_MAT_Global',N'U') is not null
 	drop table tblOutput_Rx_TA_Volume_MAT_Global
 go
 select * into tblOutput_Rx_TA_Volume_MAT_Global
-from BMSCNProc2.dbo.tblOutput_Rx_TA_Volume_MAT_Global
+from BMSCNProc2_test.dbo.tblOutput_Rx_TA_Volume_MAT_Global
 go
 if exists(select * from sysindexes where name='tblOutput_Rx_TA_Volume_MAT_Global')
 drop index tblOutput_Rx_TA_Volume_MAT_Global on tblOutput_Rx_TA_Volume_MAT_Global
@@ -627,4 +627,4 @@ on a.mkttype=d.mkttype and a.mkt=d.mkt and a.geo=d.geo and case when a.dept_code
 and a.prod_lvl=d.prod_lvl and a.molecule_code=d.molecule_code and a.product_code=d.product_code and a.package_code=d.package_code
 GO
 
-exec BMSCNProc2.dbo.sp_Log_Event 'Output','QT_Rx','99_Output_Rx.sql','End',null,null
+exec BMSCNProc2_test.dbo.sp_Log_Event 'Output','QT_Rx','99_Output_Rx.sql','End',null,null

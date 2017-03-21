@@ -105,7 +105,7 @@ alter table tblCMDData_baraclude add DM varchar(5);
 go
 update a set a.DM=b.DM
 from tblCMDData_baraclude a
-inner join db82.BMSCNProc2.dbo.tblDatamonthConv b
+inner join db82.BMSCNProc2_test.dbo.tblDatamonthConv b
 on a.x=b.datamonth
 
 alter table tblCMDData_baraclude alter column X VARCHAR(20);

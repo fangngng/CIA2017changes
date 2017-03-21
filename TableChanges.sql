@@ -423,3 +423,107 @@ update a
 set a.IMSCity = null
 from dbo.tblSalesRegion as a
 where a.IMSCity1 is null
+go 
+
+SELECT * FROM tblCityIMS 
+SELECT * FROM MTHCITY_MAX 
+select * FROM dbo.tblCityIMS
+
+select * into tblOutput_MAX_TA_Master FROM tblOutput_IMS_TA_Master where 1 = 0
+select * into tblOutput_MAX_TA_Master_Inline FROM tblOutput_IMS_TA_Master_Inline where 1 = 0
+
+
+alter table MTHCITY_MAX 
+add Audi_Cod varchar(6) 
+go
+update MTHCITY_MAX
+set Audi_Cod = b.Audi_Cod
+from MTHCITY_MAX as a 
+inner join tblCityIMS as b on replace(a.city, N'市', '') = b.city_CN
+go
+
+SELECT * FROM tblOutput_MAX_TA_Master 
+SELECT * FROM tblOutput_MAX_ATC_Master
+SELECT * FROM tblOutput_MAX_TA_Master_Inline 
+
+
+SELECT * FROM tblcityIMS order by City_ID
+
+SELECT * FROM db4.BMSChinaCIA_IMS_test.dbo.maxcity
+
+SELECT * into tblCityMAX from dbo.tblCityIMS where 1 = 0
+
+insert into tblcitymax 
+select '1', 'CHT_', 'CHINA', N'中国', 1 
+
+SELECT * FROM tblCityMAX 
+
+insert into tblcitymax 
+select  '', '', '', City, 2
+from db4.BMSChinaCIA_IMS_test.dbo.maxcity 
+
+update tblcitymax
+set city_cn = replace(city_cn, N'市', '')
+
+
+update tblcitymax
+set city = b.geo 
+from tblcitymax as a 
+inner join db4.BMSChinaCIA_IMS_test.dbo.outputgeo as b on a.city_cn = b.GeoName
+
+update tblcitymax
+set city = b.city ,
+	Audi_Cod = b.Audi_Cod
+from tblcitymax as a 
+inner join dbo.tblCityIMS as b on a.city_cn = b.City_CN
+where a.city = ''
+
+update tblcitymax
+set city = b.City_EN 
+from tblcitymax as a 
+inner join BMSChinaQueryToolNew_test.dbo.tblCityListForHospital as b on a.city_cn = b.City_CN
+where a.city = ''
+
+select * from db4.BMSChinaCIA_IMS_test.dbo.outputgeo
+
+insert into tblcitymax 
+select distinct '', '', Province_EN, Province_CN, 1 
+from BMSChinaQueryToolNew_test.dbo.tblCityListForHospital
+where lev = 1 
+
+SELECT * FROM tblCityMAX
+select * from BMSChinaQueryToolNew_test.dbo.tblCityListForHospital
+
+SELECT * FROM tblcitymax where geo_lvl = 1
+delete tblcitymax	where geo_lvl = 1
+
+SELECT * FROM tblcitymax where city = ''
+
+update tblcitymax set city = 'huzhou' where city_cn = N'湖州'
+update tblcitymax set city = 'lishui' where city_cn = N'丽水'
+update tblcitymax set city = 'luzhou' where city_cn = N'泸州'
+update tblcitymax set city = 'suizhou' where city_cn = N'随州'
+update tblcitymax set city = 'Aksu' where city_cn = N'阿克苏地区'
+update tblcitymax set city = 'Yanbian' where city_cn = N'延边朝鲜族自治州'
+update tblcitymax set city = 'xinyu' where city_cn = N'新余'
+update tblcitymax set city = 'tieling' where city_cn = N'铁岭'
+update tblcitymax set city = 'zhoushan' where city_cn = N'舟山'
+update tblcitymax set city = 'qiannan' where city_cn = N'黔南布依族苗族自治州'
+update tblcitymax set city = 'Altay' where city_cn = N'阿勒泰地区'
+update tblcitymax set city = 'lu''an' where city_cn = N'六安'
+update tblcitymax set city = 'mianyan' where city_cn = N'绵阳'
+update tblcitymax set city = 'qujing' where city_cn = N'曲靖'
+update tblcitymax set city = 'maoming' where city_cn = N'茂名'
+update tblcitymax set city = 'ganzhou' where city_cn = N'赣州'
+update tblcitymax set city = 'Kazak' where city_cn = N'伊犁哈萨克自治州'
+update tblcitymax set city = 'hegang' where city_cn = N'鹤岗'
+update tblcitymax set city = 'jinchen' where city_cn = N'晋城'
+update tblcitymax set city = 'jiujiang' where city_cn = N'九江'
+update tblcitymax set city = 'tonghua' where city_cn = N'通化'
+update tblcitymax set city = 'fuzhou' where city_cn = N'抚州'
+update tblcitymax set city = 'changzhi' where city_cn = N'长治'
+update tblcitymax set city = 'pingxiang' where city_cn = N'萍乡'
+
+SELECT * FROM db4.BMSChinaCIA_IMS_test.dbo.maxcity
+
+go 

@@ -5,22 +5,17 @@ GO
 
 
 
-exec dbo.sp_Log_Event 'Process','QT_IMS','Step_1_Load_tblIMSRawData.sql','Start',null,null
+exec dbo.sp_Log_Event 'Process','QT_MAX','Step_1_Load_tblMAXRawData.sql','Start',null,null
+
+truncate table tblMAXDataRaw
+drop index tblMAXDataRaw.idxPack
+-- drop index tblMAXDataRaw.idxAudi
+go 
 
 
 
-truncate table tblIMSDataRaw
-drop index tblIMSDataRaw.idxPack
-drop index tblIMSDataRaw.idxAudi
-go
-
-
-
-PRINT N'(--------------------------------
-第一步：从源数据导入 MTH 数据
-----------------------------------------)'
---Append CHINA Level Data:
-insert into tblIMSDataRaw
+--Append City level data:
+insert into tblMAXDataRaw
 select 'MTHRMB' as DataType, Audi_Cod, Pack_Cod, 
   MTH59LC, MTH58LC, MTH57LC, MTH56LC, MTH55LC, MTH54LC, MTH53LC, MTH52LC, MTH51LC, MTH50LC, 
   MTH49LC, MTH48LC, MTH47LC, MTH46LC, MTH45LC, MTH44LC, MTH43LC, MTH42LC, MTH41LC, MTH40LC, 
@@ -28,9 +23,9 @@ select 'MTHRMB' as DataType, Audi_Cod, Pack_Cod,
   MTH29LC, MTH28LC, MTH27LC, MTH26LC, MTH25LC, MTH24LC, MTH23LC, MTH22LC, MTH21LC, MTH20LC, 
   MTH19LC, MTH18LC, MTH17LC, MTH16LC, MTH15LC, MTH14LC, MTH13LC, MTH12LC, MTH11LC, MTH10LC, 
   MTH09LC, MTH08LC, MTH07LC, MTH06LC, MTH05LC, MTH04LC, MTH03LC, MTH02LC, MTH01LC, MTH00LC
-from MTHCHPA_PKAU
+from MTHCITY_MAX
 go
-insert into tblIMSDataRaw
+insert into tblMAXDataRaw
 select 'MTHUSD' as DataType, Audi_Cod, Pack_Cod, 
   MTH59US, MTH58US, MTH57US, MTH56US, MTH55US, MTH54US, MTH53US, MTH52US, MTH51US, MTH50US, 
   MTH49US, MTH48US, MTH47US, MTH46US, MTH45US, MTH44US, MTH43US, MTH42US, MTH41US, MTH40US, 
@@ -38,9 +33,9 @@ select 'MTHUSD' as DataType, Audi_Cod, Pack_Cod,
   MTH29US, MTH28US, MTH27US, MTH26US, MTH25US, MTH24US, MTH23US, MTH22US, MTH21US, MTH20US, 
   MTH19US, MTH18US, MTH17US, MTH16US, MTH15US, MTH14US, MTH13US, MTH12US, MTH11US, MTH10US, 
   MTH09US, MTH08US, MTH07US, MTH06US, MTH05US, MTH04US, MTH03US, MTH02US, MTH01US, MTH00US
-from MTHCHPA_PKAU
+from MTHCITY_MAX
 go
-insert into tblIMSDataRaw
+insert into tblMAXDataRaw
 select 'MTHUNT' as DataType, Audi_Cod, Pack_Cod, 
   Round(MTH59UN, 0), Round(MTH58UN, 0), Round(MTH57UN, 0), Round(MTH56UN, 0), Round(MTH55UN, 0), Round(MTH54UN, 0), Round(MTH53UN, 0), Round(MTH52UN, 0), Round(MTH51UN, 0), Round(MTH50UN, 0), 
   Round(MTH49UN, 0), Round(MTH48UN, 0), Round(MTH47UN, 0), Round(MTH46UN, 0), Round(MTH45UN, 0), Round(MTH44UN, 0), Round(MTH43UN, 0), Round(MTH42UN, 0), Round(MTH41UN, 0), Round(MTH40UN, 0), 
@@ -48,19 +43,12 @@ select 'MTHUNT' as DataType, Audi_Cod, Pack_Cod,
   Round(MTH29UN, 0), Round(MTH28UN, 0), Round(MTH27UN, 0), Round(MTH26UN, 0), Round(MTH25UN, 0), Round(MTH24UN, 0), Round(MTH23UN, 0), Round(MTH22UN, 0), Round(MTH21UN, 0), Round(MTH20UN, 0), 
   Round(MTH19UN, 0), Round(MTH18UN, 0), Round(MTH17UN, 0), Round(MTH16UN, 0), Round(MTH15UN, 0), Round(MTH14UN, 0), Round(MTH13UN, 0), Round(MTH12UN, 0), Round(MTH11UN, 0), Round(MTH10UN, 0), 
   Round(MTH09UN, 0), Round(MTH08UN, 0), Round(MTH07UN, 0), Round(MTH06UN, 0), Round(MTH05UN, 0), Round(MTH04UN, 0), Round(MTH03UN, 0), Round(MTH02UN, 0), Round(MTH01UN, 0), Round(MTH00UN, 0)
-from MTHCHPA_PKAU
+from MTHCITY_MAX
 go
 
 
-
-
-
-
-PRINT N'(--------------------------------
-第二步：根据 MTH数据 Roll up
-----------------------------------------)'
 --Roll up MQT data:
-insert into tblIMSDataRaw
+insert into tblMAXDataRaw
 select 'MQT'+substring(DataType, 4, 3) as DataType, Audi_Cod, Pack_Cod
   , 0
   , 0
@@ -73,12 +61,12 @@ select 'MQT'+substring(DataType, 4, 3) as DataType, Audi_Cod, Pack_Cod
   isnull(MTH_24,0)+isnull(MTH_23,0)+isnull(MTH_22,0), isnull(MTH_23,0)+isnull(MTH_22,0)+isnull(MTH_21,0), isnull(MTH_22,0)+isnull(MTH_21,0)+isnull(MTH_20,0), isnull(MTH_21,0)+isnull(MTH_20,0)+isnull(MTH_19,0), isnull(MTH_20,0)+isnull(MTH_19,0)+isnull(MTH_18,0), isnull(MTH_19,0)+isnull(MTH_18,0)+isnull(MTH_17,0), isnull(MTH_18,0)+isnull(MTH_17,0)+isnull(MTH_16,0), 
   isnull(MTH_17,0)+isnull(MTH_16,0)+isnull(MTH_15,0), isnull(MTH_16,0)+isnull(MTH_15,0)+isnull(MTH_14,0), isnull(MTH_15,0)+isnull(MTH_14,0)+isnull(MTH_13,0), isnull(MTH_14,0)+isnull(MTH_13,0)+isnull(MTH_12,0), isnull(MTH_13,0)+isnull(MTH_12,0)+isnull(MTH_11,0), isnull(MTH_12,0)+isnull(MTH_11,0)+isnull(MTH_10,0), isnull(MTH_11,0)+isnull(MTH_10,0)+isnull(MTH_9,0), 
   isnull(MTH_10,0)+isnull(MTH_9,0)+isnull(MTH_8,0), isnull(MTH_9,0)+isnull(MTH_8,0)+isnull(MTH_7,0), isnull(MTH_8,0)+isnull(MTH_7,0)+isnull(MTH_6,0), isnull(MTH_7,0)+isnull(MTH_6,0)+isnull(MTH_5,0), isnull(MTH_6,0)+isnull(MTH_5,0)+isnull(MTH_4,0), isnull(MTH_5,0)+isnull(MTH_4,0)+isnull(MTH_3,0), isnull(MTH_4,0)+isnull(MTH_3,0)+isnull(MTH_2,0), isnull(MTH_3,0)+isnull(MTH_2,0)+isnull(MTH_1,0)
-from tblIMSDataRaw
+from tblMAXDataRaw
 go
 
 
 --Roll up MAT data:
-insert into tblIMSDataRaw
+insert into tblMAXDataRaw
 select 'MAT'+substring(DataType, 4, 3) as DataType, Audi_Cod, Pack_Cod, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
   isnull(MTH_60,0)+isnull(MTH_59,0)+isnull(MTH_58,0)+isnull(MTH_57,0)+isnull(MTH_56,0)+isnull(MTH_55,0)+isnull(MTH_54,0)+isnull(MTH_53,0)+isnull(MTH_52,0)+isnull(MTH_51,0)+isnull(MTH_50,0)+isnull(MTH_49,0), 
   isnull(MTH_59,0)+isnull(MTH_58,0)+isnull(MTH_57,0)+isnull(MTH_56,0)+isnull(MTH_55,0)+isnull(MTH_54,0)+isnull(MTH_53,0)+isnull(MTH_52,0)+isnull(MTH_51,0)+isnull(MTH_50,0)+isnull(MTH_49,0)+isnull(MTH_48,0), 
@@ -129,7 +117,7 @@ select 'MAT'+substring(DataType, 4, 3) as DataType, Audi_Cod, Pack_Cod, 0, 0, 0,
   isnull(MTH_14,0)+isnull(MTH_13,0)+isnull(MTH_12,0)+isnull(MTH_11,0)+isnull(MTH_10,0)+isnull(MTH_9,0)+isnull(MTH_8,0)+isnull(MTH_7,0)+isnull(MTH_6,0)+isnull(MTH_5,0)+isnull(MTH_4,0)+isnull(MTH_3,0), 
   isnull(MTH_13,0)+isnull(MTH_12,0)+isnull(MTH_11,0)+isnull(MTH_10,0)+isnull(MTH_9,0)+isnull(MTH_8,0)+isnull(MTH_7,0)+isnull(MTH_6,0)+isnull(MTH_5,0)+isnull(MTH_4,0)+isnull(MTH_3,0)+isnull(MTH_2,0), 
   isnull(MTH_12,0)+isnull(MTH_11,0)+isnull(MTH_10,0)+isnull(MTH_9,0)+isnull(MTH_8,0)+isnull(MTH_7,0)+isnull(MTH_6,0)+isnull(MTH_5,0)+isnull(MTH_4,0)+isnull(MTH_3,0)+isnull(MTH_2,0)+isnull(MTH_1,0) 
-from tblIMSDataRaw where DataType like 'MTH%'
+from tblMAXDataRaw where DataType like 'MTH%'
 go
 
 
@@ -138,7 +126,7 @@ declare @mth varchar(10),@sql01 nvarchar(MAX), @sql02 nvarchar(MAX)
 
 select  @mth = DataPeriod from tblDataPeriod where QType = 'IMS'
 
-set @sql01 = 'insert into tblIMSDataRaw
+set @sql01 = 'insert into tblMAXDataRaw
 select ''YTD''+substring(DataType, 4, 3) as DataType, Audi_Cod, Pack_Cod
   ,' + dbo.fun_getYTDMonths_IMS(convert(varchar(6), dateadd(month, -59, cast(@mth+'01' as datetime)), 112))+'
   ,' + dbo.fun_getYTDMonths_IMS(convert(varchar(6), dateadd(month, -58, cast(@mth+'01' as datetime)), 112))+'
@@ -203,21 +191,19 @@ set @sql02 = '
   ,' + dbo.fun_getYTDMonths_IMS(convert(varchar(6), dateadd(month, -2, cast(@mth+'01' as datetime)), 112))+'
   ,' + dbo.fun_getYTDMonths_IMS(convert(varchar(6), dateadd(month, -1, cast(@mth+'01' as datetime)), 112))+'
   ,' + dbo.fun_getYTDMonths_IMS(@mth)+'
-from tblIMSDataRaw where DataType like ''MTH%''
+from tblMAXDataRaw where DataType like ''MTH%''
 '
 exec(@sql01+@sql02)
 GO
 
--- select * from tblIMSDataRaw where DataType like 'YTD%' 
+-- select * from tblMAXDataRaw where DataType like 'YTD%' 
 
 
 
 
-create index idxPack on tblIMSDataRaw(Pack_Cod)
+create index idxPack on tblMAXDataRaw(Pack_Cod)
 go
-create index idxAudi on tblIMSDataRaw(Audi_Cod)
+-- create index idxAudi on tblMAXDataRaw(Audi_Cod)
 go
 
-
-exec dbo.sp_Log_Event 'Process','QT_IMS','Step_1_Load_tblIMSRawData.sql','End',null,null
 

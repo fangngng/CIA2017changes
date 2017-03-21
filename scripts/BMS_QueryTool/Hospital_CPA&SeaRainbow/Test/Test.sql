@@ -1,4 +1,4 @@
-use BMSCNProc2
+use BMSCNProc2_test
 go 
 
 

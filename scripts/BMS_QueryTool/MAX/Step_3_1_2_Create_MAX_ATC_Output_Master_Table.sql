@@ -1,51 +1,18 @@
-/*
-
-Created on 12/22/2011
-
-creates IMS ATC Output tables after: tblIMSDataRaw
-
-Refresh tblQueryToolDriverATC with the latest market definitions
-03/23/12: starting in Jan 2012 data month,
-ATC level data doesn't need any rollup to molecule, product, or ATC level. 
-Has not been implemented.
-
-
-清空日志
-dump transaction BMSCNProc2 with no_log
-清空不活跃的日志
-dump transaction with truncate_only
-*/
 
 use BMSCNProc2
 go
---30分钟
---5:36
 
-exec dbo.sp_Log_Event 'Process','QT_IMS','Step_3_1_Create_IMS_ATC_Output_Master_Table.sql','Start',null,null
+exec dbo.sp_Log_Event 'Process','QT_IMS','Step_3_1_2_Create_MAX_ATC_Output_Master_Table.sql','Start',null,null
 
 
+-------------------------------------------------
+-- MAX 
+------------------------------------------------
 
-drop table tblQueryToolDriverATC_Prod
+
+truncate table tblOutput_MAX_ATC_Master
 go
-select distinct 
-    ATC1_Cod, ATC1_Des, ATC2_Cod, ATC2_Des, ATC3_Cod, ATC3_Des, ATC4_Cod, ATC4_Des,
-    Prod_Des, Prod_Cod
-    , CMPS_Name, CMPS_Code
-    , Pack_Des, Pack_Cod
-    , Corp_Des, Corp_Cod
-    , Manu_Des, Manu_Cod
-    , MNC, Gene_Cod 
-into tblQueryToolDriverATC_Prod 
-from tblQueryToolDriverATC
-go
-
-
-
-
-
-truncate table tblOutput_IMS_ATC_Master
-go
-drop index tblOutput_IMS_ATC_Master.idxDataType  
+drop index tblOutput_MAX_ATC_Master.idxDataType  
 go
 
 
@@ -53,7 +20,7 @@ go
 
 
 --1. Append Package level data:
-Insert into tblOutput_IMS_ATC_Master
+Insert into tblOutput_MAX_ATC_Master
 select 
     DataType
     , ATC1_Cod, ATC1_Des, ATC2_Cod, ATC2_Des, ATC3_Cod, ATC3_Des, ATC4_Cod, ATC4_Des
@@ -71,12 +38,12 @@ select
     MTH_20, MTH_19, MTH_18, MTH_17, MTH_16, MTH_15, MTH_14, MTH_13, MTH_12, MTH_11, 
     MTH_10, MTH_9, MTH_8, MTH_7, MTH_6, MTH_5, MTH_4, MTH_3, MTH_2, MTH_1
 from tblQueryToolDriverATC_Prod t1 
-inner join tblIMSDataRaw t2 on t1.Pack_Cod=t2.Pack_Cod
-inner join tblCityIMS t3 on t2.Audi_Cod=t3.Audi_Cod
+inner join tblMAXDataRaw t2 on t1.Pack_Cod=t2.Pack_Cod
+inner join tblCityMax t3 on t2.Audi_Cod=t3.City
 go
 
 --2. Append Product level data:
-Insert into tblOutput_IMS_ATC_Master
+Insert into tblOutput_MAX_ATC_Master
 select 
    DataType
    , ATC1_Code, ATC1_Des, ATC2_Code, ATC2_Des, ATC3_Code, ATC3_Des, ATC4_Code, ATC4_Des
@@ -93,7 +60,7 @@ select
    sum(MTH_30), sum(MTH_29), sum(MTH_28), sum(MTH_27), sum(MTH_26), sum(MTH_25), sum(MTH_24), sum(MTH_23), sum(MTH_22), sum(MTH_21), 
    sum(MTH_20), sum(MTH_19), sum(MTH_18), sum(MTH_17), sum(MTH_16), sum(MTH_15), sum(MTH_14), sum(MTH_13), sum(MTH_12), sum(MTH_11), 
    sum(MTH_10), sum(MTH_9), sum(MTH_8), sum(MTH_7), sum(MTH_6), sum(MTH_5), sum(MTH_4), sum(MTH_3), sum(MTH_2), sum(MTH_1)
-from tblOutput_IMS_ATC_Master
+from tblOutput_MAX_ATC_Master
 where Prod_Lvl='PK'
 group by DataType, ATC1_Code, ATC1_Des, ATC2_Code, ATC2_Des, ATC3_Code, ATC3_Des, ATC4_Code, ATC4_Des, Geo, Geo_Lvl, Uniq_Prod
 , Product_Name, Product_Code, Corp_Name, Corp_Code, Manuf_Name, Manuf_Code, MNC, Generic_Code
@@ -101,7 +68,7 @@ go
 
 
 --3. Append Mloecule Composition level data:
-Insert into tblOutput_IMS_ATC_Master
+Insert into tblOutput_MAX_ATC_Master
 select 
        DataType
        , ATC1_Code, ATC1_Des, ATC2_Code, ATC2_Des, ATC3_Code, ATC3_Des, ATC4_Code, ATC4_Des
@@ -119,14 +86,14 @@ select
        sum(MTH_30), sum(MTH_29), sum(MTH_28), sum(MTH_27), sum(MTH_26), sum(MTH_25), sum(MTH_24), sum(MTH_23), sum(MTH_22), sum(MTH_21), 
        sum(MTH_20), sum(MTH_19), sum(MTH_18), sum(MTH_17), sum(MTH_16), sum(MTH_15), sum(MTH_14), sum(MTH_13), sum(MTH_12), sum(MTH_11), 
        sum(MTH_10), sum(MTH_9), sum(MTH_8), sum(MTH_7), sum(MTH_6), sum(MTH_5), sum(MTH_4), sum(MTH_3), sum(MTH_2), sum(MTH_1)
-from tblOutput_IMS_ATC_Master
+from tblOutput_MAX_ATC_Master
 where Prod_Lvl='PK'
 group by DataType, ATC1_Code, ATC1_Des, ATC2_Code, ATC2_Des, ATC3_Code, ATC3_Des, ATC4_Code, ATC4_Des, Geo, Geo_Lvl, Uniq_Prod
 , CMPS_Name, CMPS_Code
 go
 
 --4. Append Manufacture level data:
-Insert into tblOutput_IMS_ATC_Master
+Insert into tblOutput_MAX_ATC_Master
 select 
     DataType
     , ATC1_Code, ATC1_Des, ATC2_Code, ATC2_Des, ATC3_Code, ATC3_Des, ATC4_Code, ATC4_Des
@@ -144,7 +111,7 @@ select
     sum(MTH_30), sum(MTH_29), sum(MTH_28), sum(MTH_27), sum(MTH_26), sum(MTH_25), sum(MTH_24), sum(MTH_23), sum(MTH_22), sum(MTH_21), 
     sum(MTH_20), sum(MTH_19), sum(MTH_18), sum(MTH_17), sum(MTH_16), sum(MTH_15), sum(MTH_14), sum(MTH_13), sum(MTH_12), sum(MTH_11), 
     sum(MTH_10), sum(MTH_9), sum(MTH_8), sum(MTH_7), sum(MTH_6), sum(MTH_5), sum(MTH_4), sum(MTH_3), sum(MTH_2), sum(MTH_1)
-from tblOutput_IMS_ATC_Master
+from tblOutput_MAX_ATC_Master
 where Prod_Lvl='PK'
 group by  DataType
     , ATC1_Code, ATC1_Des, ATC2_Code, ATC2_Des, ATC3_Code, ATC3_Des, ATC4_Code, ATC4_Des
@@ -156,7 +123,7 @@ group by  DataType
 go
 
 --5. Append Company level data:
-Insert into tblOutput_IMS_ATC_Master
+Insert into tblOutput_MAX_ATC_Master
 select 
     DataType
     , ATC1_Code, ATC1_Des, ATC2_Code, ATC2_Des, ATC3_Code, ATC3_Des, ATC4_Code, ATC4_Des
@@ -174,7 +141,7 @@ select
     sum(MTH_30), sum(MTH_29), sum(MTH_28), sum(MTH_27), sum(MTH_26), sum(MTH_25), sum(MTH_24), sum(MTH_23), sum(MTH_22), sum(MTH_21), 
     sum(MTH_20), sum(MTH_19), sum(MTH_18), sum(MTH_17), sum(MTH_16), sum(MTH_15), sum(MTH_14), sum(MTH_13), sum(MTH_12), sum(MTH_11), 
     sum(MTH_10), sum(MTH_9), sum(MTH_8), sum(MTH_7), sum(MTH_6), sum(MTH_5), sum(MTH_4), sum(MTH_3), sum(MTH_2), sum(MTH_1)
-from tblOutput_IMS_ATC_Master
+from tblOutput_MAX_ATC_Master
 where Prod_Lvl='PK'
 group by  DataType
     , ATC1_Code, ATC1_Des, ATC2_Code, ATC2_Des, ATC3_Code, ATC3_Des, ATC4_Code, ATC4_Des
@@ -184,7 +151,7 @@ group by  DataType
 go
 
 --6.1 Append ACT1 level data:
-Insert into tblOutput_IMS_ATC_Master
+Insert into tblOutput_MAX_ATC_Master
 select DataType, ATC1_Code, ATC1_Des, 'NA', 'NA', 'NA', 'NA', 'NA', 'NA', Geo, Geo_Lvl, 'ATC1' as Prod_Lvl, Uniq_Prod,
 null as Product_Name, '000000' as Product_Code, null as CMPS_Name, '000000' as CMPS_Code, null as Package_Name, '0000000' as Package_COde
 , null as Corp_Name, null as Corp_Code, null as Manuf_Name, null as Manuf_Code, null as MNC, null as Generic_Code,
@@ -194,12 +161,12 @@ sum(MTH_40), sum(MTH_39), sum(MTH_38), sum(MTH_37), sum(MTH_36), sum(MTH_35), su
 sum(MTH_30), sum(MTH_29), sum(MTH_28), sum(MTH_27), sum(MTH_26), sum(MTH_25), sum(MTH_24), sum(MTH_23), sum(MTH_22), sum(MTH_21), 
 sum(MTH_20), sum(MTH_19), sum(MTH_18), sum(MTH_17), sum(MTH_16), sum(MTH_15), sum(MTH_14), sum(MTH_13), sum(MTH_12), sum(MTH_11), 
 sum(MTH_10), sum(MTH_9), sum(MTH_8), sum(MTH_7), sum(MTH_6), sum(MTH_5), sum(MTH_4), sum(MTH_3), sum(MTH_2), sum(MTH_1)
-from tblOutput_IMS_ATC_Master
+from tblOutput_MAX_ATC_Master
 where Prod_Lvl='PK'
 group by DataType, ATC1_Code, ATC1_Des, Geo, Geo_Lvl, Uniq_Prod
 go
 --6.2 Append ACT2 level data:
-Insert into tblOutput_IMS_ATC_Master
+Insert into tblOutput_MAX_ATC_Master
 select DataType, ATC1_Code, ATC1_Des, ATC2_Code, ATC2_Des, 'NA', 'NA', 'NA', 'NA', Geo, Geo_Lvl, 'ATC2' as Prod_Lvl, Uniq_Prod, 
 null as Product_Name, '000000' as Product_Code, null as CMPS_Name, '000000' as CMPS_Code, null as Package_Name, '0000000' as Package_COde
 , null as Corp_Name, null as Corp_Code, null as Manuf_Name, null as Manuf_Code, null as MNC, null as Generic_Code,
@@ -209,12 +176,12 @@ sum(MTH_40), sum(MTH_39), sum(MTH_38), sum(MTH_37), sum(MTH_36), sum(MTH_35), su
 sum(MTH_30), sum(MTH_29), sum(MTH_28), sum(MTH_27), sum(MTH_26), sum(MTH_25), sum(MTH_24), sum(MTH_23), sum(MTH_22), sum(MTH_21), 
 sum(MTH_20), sum(MTH_19), sum(MTH_18), sum(MTH_17), sum(MTH_16), sum(MTH_15), sum(MTH_14), sum(MTH_13), sum(MTH_12), sum(MTH_11), 
 sum(MTH_10), sum(MTH_9), sum(MTH_8), sum(MTH_7), sum(MTH_6), sum(MTH_5), sum(MTH_4), sum(MTH_3), sum(MTH_2), sum(MTH_1)
-from tblOutput_IMS_ATC_Master
+from tblOutput_MAX_ATC_Master
 where Prod_Lvl='PK'
 group by DataType, ATC1_Code, ATC1_Des, ATC2_Code, ATC2_Des, Geo, Geo_Lvl, Uniq_Prod
 go
 --6.3 Append ACT3 level data:
-Insert into tblOutput_IMS_ATC_Master
+Insert into tblOutput_MAX_ATC_Master
 select DataType, ATC1_Code, ATC1_Des, ATC2_Code, ATC2_Des, ATC3_Code, ATC3_Des, 'NA', 'NA', Geo, Geo_Lvl, 'ATC3' as Prod_Lvl, Uniq_Prod, 
 null as Product_Name, '000000' as Product_Code, null as CMPS_Name, '000000' as CMPS_Code, null as Package_Name, '0000000' as Package_COde
 , null as Corp_Name, null as Corp_Code, null as Manuf_Name, null as Manuf_Code, null as MNC, null as Generic_Code,
@@ -224,12 +191,12 @@ sum(MTH_40), sum(MTH_39), sum(MTH_38), sum(MTH_37), sum(MTH_36), sum(MTH_35), su
 sum(MTH_30), sum(MTH_29), sum(MTH_28), sum(MTH_27), sum(MTH_26), sum(MTH_25), sum(MTH_24), sum(MTH_23), sum(MTH_22), sum(MTH_21), 
 sum(MTH_20), sum(MTH_19), sum(MTH_18), sum(MTH_17), sum(MTH_16), sum(MTH_15), sum(MTH_14), sum(MTH_13), sum(MTH_12), sum(MTH_11), 
 sum(MTH_10), sum(MTH_9), sum(MTH_8), sum(MTH_7), sum(MTH_6), sum(MTH_5), sum(MTH_4), sum(MTH_3), sum(MTH_2), sum(MTH_1)
-from tblOutput_IMS_ATC_Master
+from tblOutput_MAX_ATC_Master
 where Prod_Lvl='PK'
 group by DataType, ATC1_Code, ATC1_Des, ATC2_Code, ATC2_Des, ATC3_Code, ATC3_Des, Geo, Geo_Lvl, Uniq_Prod
 go
 --6.4 Append ACT4 level data:
-Insert into tblOutput_IMS_ATC_Master
+Insert into tblOutput_MAX_ATC_Master
 select DataType, ATC1_Code, ATC1_Des, ATC2_Code, ATC2_Des, ATC3_Code, ATC3_Des, ATC4_Code, ATC4_Des, Geo, Geo_Lvl, 'ATC4' as Prod_Lvl, Uniq_Prod, 
 null as Product_Name, '000000' as Product_Code, null as CMPS_Name, '000000' as CMPS_Code, null as Package_Name, '0000000' as Package_COde
 , null as Corp_Name, null as Corp_Code, null as Manuf_Name, null as Manuf_Code, null as MNC, null as Generic_Code,
@@ -239,7 +206,7 @@ sum(MTH_40), sum(MTH_39), sum(MTH_38), sum(MTH_37), sum(MTH_36), sum(MTH_35), su
 sum(MTH_30), sum(MTH_29), sum(MTH_28), sum(MTH_27), sum(MTH_26), sum(MTH_25), sum(MTH_24), sum(MTH_23), sum(MTH_22), sum(MTH_21), 
 sum(MTH_20), sum(MTH_19), sum(MTH_18), sum(MTH_17), sum(MTH_16), sum(MTH_15), sum(MTH_14), sum(MTH_13), sum(MTH_12), sum(MTH_11), 
 sum(MTH_10), sum(MTH_9), sum(MTH_8), sum(MTH_7), sum(MTH_6), sum(MTH_5), sum(MTH_4), sum(MTH_3), sum(MTH_2), sum(MTH_1)
-from tblOutput_IMS_ATC_Master
+from tblOutput_MAX_ATC_Master
 where Prod_Lvl='PK'
 group by DataType, ATC1_Code, ATC1_Des, ATC2_Code, ATC2_Des, ATC3_Code, ATC3_Des, ATC4_Code, ATC4_Des, Geo, Geo_Lvl, Uniq_Prod
 go
@@ -247,9 +214,5 @@ go
 
 
 
-create index idxDataType on tblOutput_IMS_ATC_Master(DataType)
-
-
-go
-exec dbo.sp_Log_Event 'Process','QT_IMS','Step_3_1_Create_IMS_ATC_Output_Master_Table.sql','End',null,null
+create index idxDataType on tblOutput_MAX_ATC_Master(DataType)
 

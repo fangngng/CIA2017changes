@@ -1,7 +1,7 @@
 use BMSChinaQueryToolNew
 go
 
-exec BMSCNProc2.dbo.sp_Log_Event 'Output','QT_CPA_Pipeline','99_Output_Hosp_Pipeline.sql','Start',null,null
+exec BMSCNProc2_test.dbo.sp_Log_Event 'Output','QT_CPA_Pipeline','99_Output_Hosp_Pipeline.sql','Start',null,null
 
 
 
@@ -11,14 +11,14 @@ exec BMSCNProc2.dbo.sp_Log_Event 'Output','QT_CPA_Pipeline','99_Output_Hosp_Pipe
 IF OBJECT_ID(N'tblHospitalList_Pipeline',N'U') IS NOT NULL
 	DROP TABLE tblHospitalList_Pipeline
 GO
-SELECT * INTO tblHospitalList_Pipeline FROM BMSCNProc2.dbo.tblHospitalList_Pipeline
+SELECT * INTO tblHospitalList_Pipeline FROM BMSCNProc2_test.dbo.tblHospitalList_Pipeline
 go
 
 
 IF OBJECT_ID(N'tblQueryToolDriverHosp_Pipeline',N'U') IS NOT NULL
 	DROP TABLE tblQueryToolDriverHosp_Pipeline
 GO
-SELECT * INTO tblQueryToolDriverHosp_Pipeline FROM BMSCNProc2.dbo.tblQueryToolDriverHosp_Pipeline
+SELECT * INTO tblQueryToolDriverHosp_Pipeline FROM BMSCNProc2_test.dbo.tblQueryToolDriverHosp_Pipeline
 go
 
 
@@ -28,7 +28,7 @@ if object_id(N'tblOutput_Hosp_TA_RMB_QTR_Pipeline',N'U') is not null
 	drop table tblOutput_Hosp_TA_RMB_QTR_Pipeline
 go
 select * into tblOutput_Hosp_TA_RMB_QTR_Pipeline
-from BMSCNProc2.dbo.tblOutput_Hosp_TA_RMB_QTR_Pipeline
+from BMSCNProc2_test.dbo.tblOutput_Hosp_TA_RMB_QTR_Pipeline
 go
 if exists(select * from sysindexes where name='tblOutput_Hosp_TA_RMB_QTR_Pipeline')
 drop index tblOutput_Hosp_TA_RMB_QTR_Pipeline on tblOutput_Hosp_TA_RMB_QTR_Pipeline
@@ -44,7 +44,7 @@ if object_id(N'tblOutput_Hosp_TA_USD_QTR_Pipeline',N'U') is not null
 	drop table tblOutput_Hosp_TA_USD_QTR_Pipeline
 go
 select * into tblOutput_Hosp_TA_USD_QTR_Pipeline
-from BMSCNProc2.dbo.tblOutput_Hosp_TA_USD_QTR_Pipeline
+from BMSCNProc2_test.dbo.tblOutput_Hosp_TA_USD_QTR_Pipeline
 go
 if exists(select * from sysindexes where name='tblOutput_Hosp_TA_USD_QTR_Pipeline')
 drop index tblOutput_Hosp_TA_USD_QTR_Pipeline on tblOutput_Hosp_TA_USD_QTR_Pipeline
@@ -60,7 +60,7 @@ if object_id(N'tblOutput_Hosp_TA_UNT_QTR_Pipeline',N'U') is not null
 	drop table tblOutput_Hosp_TA_UNT_QTR_Pipeline
 go
 select * into tblOutput_Hosp_TA_UNT_QTR_Pipeline
-from BMSCNProc2.dbo.tblOutput_Hosp_TA_UNT_QTR_Pipeline
+from BMSCNProc2_test.dbo.tblOutput_Hosp_TA_UNT_QTR_Pipeline
 go
 if exists(select * from sysindexes where name='tblOutput_Hosp_TA_UNT_QTR_Pipeline')
 drop index tblOutput_Hosp_TA_UNT_QTR_Pipeline on tblOutput_Hosp_TA_UNT_QTR_Pipeline
@@ -78,7 +78,7 @@ if object_id(N'tblOutput_Hosp_TA_RMB_MAT_Pipeline',N'U') is not null
 	drop table tblOutput_Hosp_TA_RMB_MAT_Pipeline
 go
 select * into tblOutput_Hosp_TA_RMB_MAT_Pipeline
-from BMSCNProc2.dbo.tblOutput_Hosp_TA_RMB_MAT_Pipeline
+from BMSCNProc2_test.dbo.tblOutput_Hosp_TA_RMB_MAT_Pipeline
 go
 if exists(select * from sysindexes where name='tblOutput_Hosp_TA_RMB_MAT_Pipeline')
 drop index tblOutput_Hosp_TA_RMB_MAT_Pipeline on tblOutput_Hosp_TA_RMB_MAT_Pipeline
@@ -95,7 +95,7 @@ if object_id(N'tblOutput_Hosp_TA_USD_MAT_Pipeline',N'U') is not null
 go
 
 select * into tblOutput_Hosp_TA_USD_MAT_Pipeline
-from BMSCNProc2.dbo.tblOutput_Hosp_TA_USD_MAT_Pipeline
+from BMSCNProc2_test.dbo.tblOutput_Hosp_TA_USD_MAT_Pipeline
 go
 if exists(select * from sysindexes where name='tblOutput_Hosp_TA_USD_MAT_Pipeline')
 drop index tblOutput_Hosp_TA_USD_MAT_Pipeline on tblOutput_Hosp_TA_USD_MAT_Pipeline
@@ -112,7 +112,7 @@ if object_id(N'tblOutput_Hosp_TA_UNT_MAT_Pipeline',N'U') is not null
 	drop table tblOutput_Hosp_TA_UNT_MAT_Pipeline
 go
 select * into tblOutput_Hosp_TA_UNT_MAT_Pipeline
-from BMSCNProc2.dbo.tblOutput_Hosp_TA_UNT_MAT_Pipeline
+from BMSCNProc2_test.dbo.tblOutput_Hosp_TA_UNT_MAT_Pipeline
 go
 
 if exists(select * from sysindexes where name='tblOutput_Hosp_TA_UNT_MAT_Pipeline')
@@ -129,7 +129,7 @@ if object_id(N'tblOutput_Hosp_TA_RMB_YTD_Pipeline',N'U') is not null
 	drop table tblOutput_Hosp_TA_RMB_YTD_Pipeline
 go
 select * into tblOutput_Hosp_TA_RMB_YTD_Pipeline
-from BMSCNProc2.dbo.tblOutput_Hosp_TA_RMB_YTD_Pipeline
+from BMSCNProc2_test.dbo.tblOutput_Hosp_TA_RMB_YTD_Pipeline
 go
 if exists(select * from sysindexes where name='tblOutput_Hosp_TA_RMB_YTD_Pipeline')
 drop index tblOutput_Hosp_TA_RMB_YTD_Pipeline on tblOutput_Hosp_TA_RMB_YTD_Pipeline
@@ -145,7 +145,7 @@ if object_id(N'tblOutput_Hosp_TA_USD_YTD_Pipeline',N'U') is not null
 	drop table tblOutput_Hosp_TA_USD_YTD_Pipeline
 go
 select * into tblOutput_Hosp_TA_USD_YTD_Pipeline
-from BMSCNProc2.dbo.tblOutput_Hosp_TA_USD_YTD_Pipeline
+from BMSCNProc2_test.dbo.tblOutput_Hosp_TA_USD_YTD_Pipeline
 go
 if exists(select * from sysindexes where name='tblOutput_Hosp_TA_USD_YTD_Pipeline')
 drop index tblOutput_Hosp_TA_USD_YTD_Pipeline on tblOutput_Hosp_TA_USD_YTD_Pipeline
@@ -161,7 +161,7 @@ if object_id(N'tblOutput_Hosp_TA_UNT_YTD_Pipeline',N'U') is not null
    drop table tblOutput_Hosp_TA_UNT_YTD_Pipeline
 go
 select * into tblOutput_Hosp_TA_UNT_YTD_Pipeline
-from BMSCNProc2.dbo.tblOutput_Hosp_TA_UNT_YTD_Pipeline
+from BMSCNProc2_test.dbo.tblOutput_Hosp_TA_UNT_YTD_Pipeline
 go
 if exists(select * from sysindexes where name='tblOutput_Hosp_TA_UNT_YTD_Pipeline')
 drop index tblOutput_Hosp_TA_UNT_YTD_Pipeline on tblOutput_Hosp_TA_UNT_YTD_Pipeline
@@ -251,5 +251,5 @@ and a.prod_lvl=c.prod_lvl and a.molecule_code=c.molecule_code and a.product_code
 and a.package_code=c.package_code and case when a.manuf_code is null then '' else a.manuf_code end =case when c.manuf_code  is null then '' else c.manuf_code end
 GO
 
-exec BMSCNProc2.dbo.sp_Log_Event 'Output','QT_CPA_Pipeline','99_Output_Hosp_Pipeline.sql','End',null,null
+exec BMSCNProc2_test.dbo.sp_Log_Event 'Output','QT_CPA_Pipeline','99_Output_Hosp_Pipeline.sql','End',null,null
 
