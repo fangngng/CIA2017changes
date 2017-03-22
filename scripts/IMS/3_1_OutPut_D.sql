@@ -3221,7 +3221,34 @@ go
 	set Y=0 
 	where (linkchartcode='D081' or linkchartcode='D091' or linkchartcode='D101') and (y is null or cast(y as float)=0)
 
+	update output_stage
+	set series = case series
+		when 'R3M00' then 'MQT '+(select [MonthEN] from tblMonthList where monseq=1)
+		when 'R3M01' then 'MQT '+(select [MonthEN] from tblMonthList where monseq=4)
+		when 'R3M02' then 'MQT '+(select [MonthEN] from tblMonthList where monseq=7)
+		when 'R3M03' then 'MQT '+(select [MonthEN] from tblMonthList where monseq=10)
+		when 'R3M04' then 'MQT '+(select [MonthEN] from tblMonthList where monseq=13)
+		when 'R3M05' then 'MQT '+(select [MonthEN] from tblMonthList where monseq=16)
+		when 'YTD00' then 'YTD '+(select [MonthEN] from tblMonthList where monseq=1)
+		when 'YTD12' then 'YTD '+(select [MonthEN] from tblMonthList where monseq=13)
+		when 'YTD24' then 'YTD '+(select [MonthEN] from tblMonthList where monseq=25)
+		when 'YTD36' then 'YTD '+(select [MonthEN] from tblMonthList where monseq=37)
+		when 'YTD48' then 'YTD '+(select [MonthEN] from tblMonthList where monseq=49)
 
+		when 'MAT00' then 'MAT '+(select [MonthEN] from tblMonthList where monseq=1)
+		when 'MAT12' then 'MAT '+(select [MonthEN] from tblMonthList where monseq=13)
+		when 'MAT24' then 'MAT '+(select [MonthEN] from tblMonthList where monseq=25)
+		when 'MAT36' then 'MAT '+(select [MonthEN] from tblMonthList where monseq=37)
+		when 'MAT48' then 'MAT '+(select [MonthEN] from tblMonthList where monseq=49)
+
+		when 'MTH00' then 'MTH '+(select [MonthEN] from tblMonthList where monseq=1)
+		when 'MTH12' then 'MTH '+(select [MonthEN] from tblMonthList where monseq=13)
+		when 'MTH24' then 'MTH '+(select [MonthEN] from tblMonthList where monseq=25)
+		when 'MTH36' then 'MTH '+(select [MonthEN] from tblMonthList where monseq=37)
+		when 'MTH48' then 'MTH '+(select [MonthEN] from tblMonthList where monseq=49)
+		else series
+		end 
+	where LinkChartCode like 'D09%'
 go
 -- -----------------------------------------------------
 -- --		CIA-CV_Modification(Eliquis) Slide2: Left part

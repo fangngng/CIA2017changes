@@ -267,7 +267,7 @@ begin
 				where b.name = 'Max_Data' and a.name = @columnName
 		)
 		begin 
-			set @sql = @sql + ' isnull([' + @columnName + '], 0) , '
+			set @sql = @sql + ' isnull(abs([' + @columnName + ']), 0) , '
 		end 
 		else 
 		begin

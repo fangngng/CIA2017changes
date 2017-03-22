@@ -374,3 +374,90 @@ select	'', b.Audi_Cod, Pack_Cod, Pack_Des, ATC1_Cod, ATC2_Cod, ATC3_Cod, ATC4_Co
 		YTD39UN, YTD40UN, YTD41UN, YTD42UN, YTD43UN, YTD44UN, YTD45UN, YTD46UN, YTD47UN, YTD48UN
 from	inmaxdata as a
 left join tblCityMAX as b on a.City = b.City_CN 
+
+
+select * from output_stage where linkchartcode = 'd082'
+
+
+
+
+insert into OutputCityPerformanceByBrand(Chart,[Molecule],[Class],[mkt],Market,[mktname],[prod],[Productname],[Moneytype],
+	audi_cod,audi_des,region, MTH00)
+
+select top 1 * from (
+	select [Molecule],[Class],[mkt],Market,[mktname],[prod],[Productname],[Moneytype],audi_cod,audi_des,region,
+		--case when mkt='arv' and MTH48<>0 then Power((MTH00/MTH48),1.0/4)-1
+		--	--when mkt='arv' and MTH48=0 and MTH36<>0 then Power((MTH00/MTH36),1.0/3)-1
+		--	--when mkt='arv' and MTH48=0 and MTH36=0 and MTH24<>0 then Power((MTH00/MTH24),1.0/2)-1
+		--	--when mkt='arv' and MTH48=0 and MTH36=0 and MTH24=0  and MTH12<>0  then Power((MTH00/MTH12),1.0/1)-1
+		--	--when mkt='arv' and MTH48=0 and MTH36=0 and MTH24=0 and MTH12=0 then 0
+		--	--else null
+		--end as MTH00	  , 
+		case when mkt='arv' and MTH48<>0 then MTH00 /MTH48 end as mth, mth00, mth48 
+		--, case when mkt='arv' and MTH48<>0 then power(MTH00 /MTH48, .25) end as mth
+	from OutputCityPerformanceByBrand A 
+	where Chart='Volume Trend' and audi_des = 'Linyi' 
+		and exists(
+			select * 
+			from (
+				select distinct Molecule,Class,mkt,Market,mktname,Moneytype,audi_cod,region
+				from OutputCityPerformanceByBrand where Chart='Volume Trend'
+					and R3M05<>0 and prod='000'
+			) B
+			where a.Molecule=b.Molecule and A.Class=B.Class and A.mkt=B.mkt and A.Market=B.Market
+				and A.Moneytype=B.moneytype 
+		) 
+) as a 
+where mth is not null order by mth desc 
+
+select * from OutputCityPerformanceByBrand
+where audi_des = 'Linyi' and market = 'baraclude' and prod = 600 and Chart='Volume Trend'
+
+go 
+
+select * from OutputCityPerformanceByBrand where prod = 200 and chart = 'Volume Trend' and audi_des = 'Linyi' and region = 'central' and moneytype = 'LC'
+
+select mth00, mth05, * from TempRegionCityDashboard where prod = 200 and audi_des = 'Linyi' and moneytype = 'lc'
+
+select mth00, mth05, * from TempCityDashboard where prod = 200 and audi_des = 'Linyi' and moneytype = 'lc'
+
+select mth00lc, * from mthcity_pkau where audi_cod = 'LNY_'
+
+select mth00lc, * from inmaxdata where city like N'%¡Ÿ“ %'
+
+select * from tblcitymax where audi_cod = 'LNY_'
+
+select abs(-6594.31355183151)
+
+select * from output_stage where linkchartcode = 'd094' and TimeFrame = 'MAT' and currency = 'USD' and geo = 'shanghai'
+
+
+	update output_stage
+	set series = case series
+		when 'R3M00' then 'MQT '+(select [MonthEN] from tblMonthList where monseq=1)
+		when 'R3M01' then 'MQT '+(select [MonthEN] from tblMonthList where monseq=4)
+		when 'R3M02' then 'MQT '+(select [MonthEN] from tblMonthList where monseq=7)
+		when 'R3M03' then 'MQT '+(select [MonthEN] from tblMonthList where monseq=10)
+		when 'R3M04' then 'MQT '+(select [MonthEN] from tblMonthList where monseq=13)
+		when 'R3M05' then 'MQT '+(select [MonthEN] from tblMonthList where monseq=16)
+		when 'YTD00' then 'YTD '+(select [MonthEN] from tblMonthList where monseq=1)
+		when 'YTD12' then 'YTD '+(select [MonthEN] from tblMonthList where monseq=13)
+		when 'YTD24' then 'YTD '+(select [MonthEN] from tblMonthList where monseq=25)
+		when 'YTD36' then 'YTD '+(select [MonthEN] from tblMonthList where monseq=37)
+		when 'YTD48' then 'YTD '+(select [MonthEN] from tblMonthList where monseq=49)
+
+		when 'MAT00' then 'MAT '+(select [MonthEN] from tblMonthList where monseq=1)
+		when 'MAT12' then 'MAT '+(select [MonthEN] from tblMonthList where monseq=13)
+		when 'MAT24' then 'MAT '+(select [MonthEN] from tblMonthList where monseq=25)
+		when 'MAT36' then 'MAT '+(select [MonthEN] from tblMonthList where monseq=37)
+		when 'MAT48' then 'MAT '+(select [MonthEN] from tblMonthList where monseq=49)
+
+		when 'MTH00' then 'MTH '+(select [MonthEN] from tblMonthList where monseq=1)
+		when 'MTH12' then 'MTH '+(select [MonthEN] from tblMonthList where monseq=13)
+		when 'MTH24' then 'MTH '+(select [MonthEN] from tblMonthList where monseq=25)
+		when 'MTH36' then 'MTH '+(select [MonthEN] from tblMonthList where monseq=37)
+		when 'MTH48' then 'MTH '+(select [MonthEN] from tblMonthList where monseq=49)
+		else series
+		end 
+	where LinkChartCode like 'D09%'
+

@@ -212,7 +212,7 @@ set a.HighChartSeriesType =
 		 else 'StackedColumn' end 
 from WebChartSeries as a
 inner join BMSChina_staging_test.dbo.WebChart as b on a.LinkChartCode = b.Code
-where b.highChartType = 'StackedColumnLineDY''
+where b.highChartType = 'StackedColumnLineDY'
 go 
 
 

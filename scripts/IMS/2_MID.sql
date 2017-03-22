@@ -5476,14 +5476,14 @@ select 'CAGR',[Molecule],[Class],[mkt],Market,[mktname],[prod],[Productname],[Mo
 		when mkt='arv' and MAT48=0 and MAT36=0 and MAT24=0  and MAT12<>0  then Power((MAT00/MAT12),1.0/1)-1
 		when mkt='arv' and MAT48=0 and MAT36=0 and MAT24=0 and MAT12=0 then 0
 		else null
-	end as YTD00,
+	end as MAT00,
 	case when mkt='arv' and MTH48<>0 then Power((MTH00/MTH48),1.0/4)-1
 		when mkt='arv' and MTH48=0 and MTH36<>0 then Power((MTH00/MTH36),1.0/3)-1
 		when mkt='arv' and MTH48=0 and MTH36=0 and MTH24<>0 then Power((MTH00/MTH24),1.0/2)-1
 		when mkt='arv' and MTH48=0 and MTH36=0 and MTH24=0  and MTH12<>0  then Power((MTH00/MTH12),1.0/1)-1
 		when mkt='arv' and MTH48=0 and MTH36=0 and MTH24=0 and MTH12=0 then 0
 		else null
-	end as YTD00	  
+	end as MTH00	  
 from OutputCityPerformanceByBrand A 
 where exists(
 	select * 

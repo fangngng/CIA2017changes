@@ -241,4 +241,6 @@ SELECT * FROM dbo.WebChartExplain
 
 select * from output where LinkChartCode = 'c020' and Product = 'baraclude'
 
+select * from output where linkchartcode = 'd094' and TimeFrame = 'MAT' and currency = 'USD' and geo = 'shanghai'
+
 
