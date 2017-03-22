@@ -5,7 +5,7 @@ after CPA & Sea Rainbow data is loaded into tblHospitalDataCT
 Refresh tblQueryToolDriverHosp with the latest market definitions
 */
 --time:1:23:00
-use BMSCNProc2_test
+use BMSCNProc2
 go
 
 exec dbo.sp_Log_Event 'Process','QT_CPA_Inline','Step_3_Create_Output_Hosp_TA_Master_Tables.sql','Start',null,null

@@ -111,7 +111,7 @@ select
       ,[TimeFrame]
       ,[X]
       ,[XIdx]
-      ,cast(cast([Y] as decimal(22,12)) as varchar)
+      ,cast(cast([Y] as decimal(26,12)) as varchar)
       ,[LinkedY]
       ,[Size]
       ,[OtherParameters]
@@ -204,11 +204,15 @@ go
 
 update a 
 set a.HighChartSeriesType = 
-	case when a.series like '%growth%' or a.series like '%G R%' or a.series like '%share%' then 'line'
+	case when a.series like '%growth%' 
+                  or a.series like '%G R%' 
+                  or a.series like '%share%' 
+                  or a.series like '%CAGR%' 
+                  then 'line'
 		 else 'StackedColumn' end 
 from WebChartSeries as a
-inner join dbo.WebChart as b on a.LinkChartCode = b.Code
-where b.highChartType = 'StackedColumnLineDY'
+inner join BMSChina_staging_test.dbo.WebChart as b on a.LinkChartCode = b.Code
+where b.highChartType = 'StackedColumnLineDY''
 go 
 
 
@@ -267,7 +271,7 @@ select DataSource,
       ,[TimeFrame]
       ,[X]
       ,[XIdx]
-      ,cast(cast([Y] as decimal(25,12)) as nvarchar)
+      ,cast(cast([Y] as decimal(26,12)) as nvarchar)
       ,[LinkedY]
       ,[Size]
       ,[OtherParameters]

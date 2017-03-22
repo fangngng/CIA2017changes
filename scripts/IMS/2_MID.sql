@@ -3715,7 +3715,8 @@ BEGIN
         	select  B.Molecule,B.Class,B.mkt,B.mktname,B.mkt,B.prod,B.Productname,'+'''' +left(@MoneyType,2)+''''+' as Moneytype, A.audi_cod,'''',''City'',null,'+@sql1+', '+@sql3+', '
         
 		set @sql4 = @sqlMAT+', '+@sqlYTD+', ' + @sqlQtr+'
-			from mthcity_pkau A inner join tblMktDef_MRBIChina B
+			from mthcity_pkau A 
+			inner join tblMktDef_MRBIChina B
 			on A.pack_cod=B.pack_cod where B.Active=''Y'' and A.audi_cod<>''ZJH_'' and b.mkt not like''eliquis%''
 			group by B.Molecule,B.Class,B.mkt,B.mktname,B.prod,B.Productname,A.audi_cod'
 		exec (@sql2+@sql4)
@@ -3811,10 +3812,10 @@ go
 
 
 update TempCityDashboard
-set AUDI_des=City_Name 
+set AUDI_des=City
 from TempCityDashboard A 
-inner join dbo.Dim_City B
-on A.AUDI_cod=B.City_Code+'_'
+inner join dbo.tblcitymax B
+on A.AUDI_cod=B.Audi_Cod 
 go
 
 update TempCityDashboard
@@ -5451,20 +5452,21 @@ where market='Glucophage' and class='N' and mkt='NIAD'
 --go
 go
 --CAGR
+
 insert into OutputCityPerformanceByBrand(Chart,[Molecule],[Class],[mkt],Market,[mktname],[prod],[Productname],[Moneytype],
 	audi_cod,audi_des,region,R3M00,YTD00, MAT00, MTH00)
 select 'CAGR',[Molecule],[Class],[mkt],Market,[mktname],[prod],[Productname],[Moneytype],audi_cod,audi_des,region,
-	case when R3M05<>0 then Power((R3M00/R3M05),1.0/5)-1
-		when R3M05=0 and R3M04<>0  then Power((R3M00/R3M04),1.0/4)-1
-		when R3M05=0 and R3M04=0 and R3M03<>0 then Power((R3M00/R3M03),1.0/3)-1
-		when R3M05=0 and R3M04=0 and R3M03=0 and R3M02<>0 then Power((R3M00/R3M02),1.0/2)-1
-		when R3M05=0 and R3M04=0 and R3M03=0 and R3M02=0 and R3M01<>0 then Power((R3M00/R3M01),1.0/1)-1
+	case when R3M05<>0 then Power((R3M00/R3M05),1.0/5)-1  
+		when R3M05=0 and R3M04<>0  then Power((R3M00/R3M04),1.0/4)-1 
+		when R3M05=0 and R3M04=0 and R3M03<>0 then Power((R3M00/R3M03),1.0/3)-1 
+		when R3M05=0 and R3M04=0 and R3M03=0 and R3M02<>0 then Power((R3M00/R3M02),1.0/2)-1 
+		when R3M05=0 and R3M04=0 and R3M03=0 and R3M02=0 and R3M01<>0 then Power((R3M00/R3M01),1.0/1)-1 
 		when R3M05=0 and R3M04=0 and R3M03=0 and R3M02=0 and R3M01=0  then 0 
 	end as R3M00,
-	case when mkt='arv' and YTD48<>0 then Power((YTD00/YTD48),1.0/4)-1
-		when mkt='arv' and YTD48=0 and YTD36<>0 then Power((YTD00/YTD36),1.0/3)-1
-		when mkt='arv' and YTD48=0 and YTD36=0 and YTD24<>0 then Power((YTD00/YTD24),1.0/2)-1
-		when mkt='arv' and YTD48=0 and YTD36=0 and YTD24=0  and YTD12<>0  then Power((YTD00/YTD12),1.0/1)-1
+	case when mkt='arv' and YTD48<>0 then Power((YTD00/YTD48),1.0/4)-1 
+		when mkt='arv' and YTD48=0 and YTD36<>0 then Power((YTD00/YTD36),1.0/3)-1 
+		when mkt='arv' and YTD48=0 and YTD36=0 and YTD24<>0 then Power((YTD00/YTD24),1.0/2)-1 
+		when mkt='arv' and YTD48=0 and YTD36=0 and YTD24=0  and YTD12<>0  then Power((YTD00/YTD12),1.0/1)-1 
 		when mkt='arv' and YTD48=0 and YTD36=0 and YTD24=0 and YTD12=0 then 0
 		else null
 	end as YTD00,
@@ -5493,7 +5495,7 @@ where exists(
 	where a.Molecule=b.Molecule and A.Class=B.Class and A.mkt=B.mkt and A.Market=B.Market
 		and A.Moneytype=B.moneytype 
 ) and Chart='Volume Trend' 
-
+go 
 
 --insert into OutputCityPerformanceByBrand(Chart,[Molecule],[Class],[mkt],Market,[mktname],[prod],[Productname],[Moneytype],audi_cod,audi_des,region,R3M00)
 --select 'CAGR',[Molecule],[Class],[mkt],Market,[mktname],[prod],[Productname],[Moneytype],audi_cod,audi_des,region,
@@ -5625,21 +5627,32 @@ where exists(
 go
 insert into OutputCityPerformanceByBrand(Chart,[Molecule],[Class],[mkt],Market,[mktname],[Moneytype],audi_cod,audi_des,region,[prod],[Productname])
 select * from (
-select A.*,B.Prod,B.Productname from (
-select distinct [Chart]
-      ,[Molecule]
-      ,[Class]
-      ,[mkt]
-      ,[Market]
-      ,[mktname]
---      ,[prod]
---      ,[Productname]
-      ,[Moneytype]
-      ,[Audi_cod]
-      ,[Audi_des]
-      ,[Region] 
-from [OutputCityPerformanceByBrand]) A 
-inner join tblD080OutputProduct B  
+	select A.*,B.Prod,B.Productname 
+	from (
+		select distinct [Chart]
+			  ,[Molecule]
+			  ,[Class]
+			  ,[mkt]
+			  ,[Market]
+			  ,[mktname]
+		--      ,[prod]
+		--      ,[Productname]
+			  ,[Moneytype]
+			  ,[Audi_cod]
+			  ,[Audi_des]
+			  ,[Region] 
+		from [OutputCityPerformanceByBrand]
+	) A 
+	inner join tblD080OutputProduct B  
+	on A.Chart=B.Chart and A.molecule=B.molecule and A.class=B.Class and A.mkt=B.mkt and A.Market=B.Market
+		and B.Active='Y' and A.Chart in ('Volume Trend','CAGR')
+) A
+where not exists(
+	select * from [OutputCityPerformanceByBrand] B
+	where A.Chart=B.Chart and A.molecule=B.molecule and A.class=B.Class and A.mkt=B.mkt and A.Market=B.Market
+		and A.Productname=B.productname and A.audi_cod=B.audi_cod and A.region=B.region
+)
+
 --todo : 2013/7/1 11:39:41 Aric
 -- 原因：客户反映要加的竞争品牌Anzatax在Taxol_dashboard城市数据里面没有加,查到这里有一张死表,然后做了如下处理：
 
@@ -5650,13 +5663,6 @@ inner join tblD080OutputProduct B
 -- GO
 
 
-on A.Chart=B.Chart and A.molecule=B.molecule and A.class=B.Class and A.mkt=B.mkt and A.Market=B.Market
-	and B.Active='Y' and A.Chart in ('Volume Trend','CAGR')) A
-where not exists(
-	select * from [OutputCityPerformanceByBrand] B
-	where A.Chart=B.Chart and A.molecule=B.molecule and A.class=B.Class and A.mkt=B.mkt and A.Market=B.Market
-		and A.Productname=B.productname and A.audi_cod=B.audi_cod and A.region=B.region
-)
 go
 
  --and market='Baraclude' and mkt='HBV'
@@ -10794,20 +10800,20 @@ go
 insert into OutputCityPerformanceByBrand_For_OtherETV(Chart,[Molecule],[Class],[mkt],Market,[mktname],[prod],[Productname],[Moneytype],
 	audi_cod,audi_des,region,R3M00,YTD00, MAT00, MTH00)
 select 'CAGR',[Molecule],[Class],[mkt],Market,[mktname],[prod],[Productname],[Moneytype],audi_cod,audi_des,region,
-	case when R3M05<>0 then Power((R3M00/R3M05),1.0/5)-1
+	case when R3M05<>0 then Power((R3M00/R3M05), 1.0/5)-1 
 		when R3M05=0 and R3M04<>0  then Power((R3M00/R3M04),1.0/4)-1
 		when R3M05=0 and R3M04=0 and R3M03<>0 then Power((R3M00/R3M03),1.0/3)-1
 		when R3M05=0 and R3M04=0 and R3M03=0 and R3M02<>0 then Power((R3M00/R3M02),1.0/2)-1
 		when R3M05=0 and R3M04=0 and R3M03=0 and R3M02=0 and R3M01<>0 then Power((R3M00/R3M01),1.0/1)-1
 		when R3M05=0 and R3M04=0 and R3M03=0 and R3M02=0 and R3M01=0  then 0 
-	end as R3M00,
+	end as R3M00, 
 	case when mkt='arv' and YTD48<>0 then Power((YTD00/YTD48),1.0/4)-1
 		when mkt='arv' and YTD48=0 and YTD36<>0 then Power((YTD00/YTD36),1.0/3)-1
 		when mkt='arv' and YTD48=0 and YTD36=0 and YTD24<>0 then Power((YTD00/YTD24),1.0/2)-1
 		when mkt='arv' and YTD48=0 and YTD36=0 and YTD24=0  and YTD12<>0  then Power((YTD00/YTD12),1.0/1)-1
 		when mkt='arv' and YTD48=0 and YTD36=0 and YTD24=0 and YTD12=0 then 0
 		else null
-	end as YTD00,
+	end as YTD00, 
 	case when mkt='arv' and MAT48<>0 then Power((MAT00/MAT48),1.0/4)-1
 		when mkt='arv' and MAT48=0 and MAT36<>0 then Power((MAT00/MAT36),1.0/3)-1
 		when mkt='arv' and MAT48=0 and MAT36=0 and MAT24<>0 then Power((MAT00/MAT24),1.0/2)-1

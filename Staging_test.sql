@@ -193,6 +193,52 @@ where linkchartcode ='c201'
 --where b.highChartType = 'StackedColumnLineDY'
 
 SELECT * FROM WebChartSeries 
-
+select * from dbo.WebChart
 
 --SELECT a.*
+
+select *
+from output where 
+	LinkProductId=11 
+	and LinkGeoId=1 
+	and LinkChartCode='C030' and Currency = 'USD' and TimeFrame = 'MAT' and Category = 'Value' and IsShow='Y' order by XIdx
+
+select * FROM dbo.WebChartTitle
+
+SELECT * FROM BMSChina_bk.dbo.WebChartSeries_201609
+where LinkChartCode = 'c130' and Color is null 
+
+SELECT * FROM dbo.WebChartSeries
+where  LinkChartCode = 'd050' and Color is null 
+
+select * from dbo.WebChartTitle where LinkChartCode = 'd050'
+
+SELECT * FROM dbo.WebChart where Code = 'd050'
+SELECT * FROM dbo.WebChartSeries where LinkChartCode = 'd050'
+
+SELECT * FROM dbo.WebChartSeries where Series like '%growth%'
+
+SELECT * FROM webchart
+
+SELECT * 
+from dbo.WebChartSeries as a
+inner join BMSChina_bk.dbo.WebChartSeries_201610 as b 
+on a.LinkChartCode = b.LinkChartCode
+	and a.Series = b.Series and a.Geo = b.Geo and a.DataSource = b.DataSource
+where a.Color is null and b.color is not null and a.LinkChartCode = 'd050'
+
+select * FROM BMSChina_ppt_test.dbo.tblColorDef 
+
+select DataSource,DataSource_CN,Explain,Explain_CN 
+from WebChartExplain where Code='C020' and TimeFrame='MQT' and ProductID=11
+
+insert into WebChartExplain
+select Code, replace(TimeFrame, 'MAT', 'YTD'), ProductID, Product, DataSource, DataSource_CN, Explain, Explain_CN 
+from WebChartExplain  
+where code = 'c020' and TimeFrame = 'MAT'
+
+SELECT * FROM dbo.WebChartExplain
+
+select * from output where LinkChartCode = 'c020' and Product = 'baraclude'
+
+

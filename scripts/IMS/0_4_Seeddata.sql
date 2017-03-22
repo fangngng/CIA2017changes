@@ -292,7 +292,7 @@ GO
 
 select * into MTHCITY_PKAU from 
 (
-  select * from tempFactSales where AUDI_COD <> 'CHT_'
+    select * from tempFactSales where AUDI_COD <> 'CHT_'
 )a
 GO
 

@@ -147,7 +147,7 @@ select
   , TimeFrame
   , X
   , XIdx
-  , case when SeriesIdx <> 999 then cast(Y as Float)/(select Rate from BMSChinaCIA_IMS.dbo.tblRate) else Y end
+  , case when SeriesIdx <> 999 then cast(Y as Float)/(select Rate from BMSChinaCIA_IMS_test.dbo.tblRate) else Y end
   , IsShow
 from OutputHospital_All 
 where LinkChartCode in ('C202') and Currency = 'RMB'
@@ -521,7 +521,7 @@ go
 
 insert into OutputHospital_All (LinkChartCode, LinkSeriesCode, Series, SeriesIdx, Category, Product, Lev, ParentGeo, Geo, Currency, TimeFrame, X, XIdx, Y, IsShow)
 select LinkChartCode, LinkSeriesCode, Series, SeriesIdx, Category, Product, Lev, ParentGeo, Geo, 'USD', TimeFrame, X, XIdx, 
-	case when SeriesIdx in (1,2) and IsShow <> 'D' then cast(Y as Float)/(select Rate from BMSChinaCIA_IMS.dbo.tblRate) else Y end, IsShow
+	case when SeriesIdx in (1,2) and IsShow <> 'D' then cast(Y as Float)/(select Rate from BMSChinaCIA_IMS_test.dbo.tblRate) else Y end, IsShow
 from OutputHospital_All 
 where LinkChartCode in ('D050') and Currency = 'RMB'
 go
@@ -890,7 +890,7 @@ go
 insert into OutputHospital_All (LinkChartCode, LinkSeriesCode, Series, SeriesIdx, Category, Product, Lev, ParentGeo, Geo, Currency, TimeFrame, X, XIdx, Y, IsShow)
 select LinkChartCode, LinkSeriesCode, Series, SeriesIdx, Category, Product, Lev, ParentGeo, Geo
 , 'USD', TimeFrame, X, XIdx, 
-	case when SeriesIdx in (1,2) and IsShow <> 'D' then cast(Y as Float)/(select Rate from BMSChinaCIA_IMS.dbo.tblRate) else Y end, IsShow
+	case when SeriesIdx in (1,2) and IsShow <> 'D' then cast(Y as Float)/(select Rate from BMSChinaCIA_IMS_test.dbo.tblRate) else Y end, IsShow
 from OutputHospital_All where LinkChartCode in ('D110') and Currency = 'RMB'
 go
 
@@ -1036,7 +1036,7 @@ go
 insert into OutputHospital_All (LinkChartCode, LinkSeriesCode, Series, SeriesIdx, Category, Product, Lev, ParentGeo, Geo, Currency, TimeFrame, X, XIdx, Y, IsShow,LinkedY)
 select LinkChartCode, LinkSeriesCode, Series, SeriesIdx, Category, Product, Lev, ParentGeo, Geo
   , 'USD', TimeFrame, X, XIdx, Y, IsShow,
-	-- cast(LinkedY as float) / (select Rate from BMSChinaCIA_IMS.dbo.tblRate) as 
+	-- cast(LinkedY as float) / (select Rate from BMSChinaCIA_IMS_test.dbo.tblRate) as 
 	LinkedY
 from OutputHospital_All 
 where LinkChartCode in ('D130') and Currency = 'RMB'
@@ -2344,7 +2344,7 @@ select
   , X
   , XIdx
   , Y
-  , AddY/ (select Rate from BMSChinaCIA_IMS.dbo.tblRate) as AddY
+  , AddY/ (select Rate from BMSChinaCIA_IMS_test.dbo.tblRate) as AddY
   , IsShow
 from OutputHospital_All 
 where LinkChartCode  in('R191','R251','R201','R261','R211','R271','R221','R281','R231','R291','R241','R301','R901','R961') 
@@ -2774,7 +2774,7 @@ select
   , TimeFrame
   , X
   , XIdx
-  , cast(Y as Float)/(select Rate from BMSChinaCIA_IMS.dbo.tblRate) AS y
+  , cast(Y as Float)/(select Rate from BMSChinaCIA_IMS_test.dbo.tblRate) AS y
   , IsShow
 from OutputHospital_All where LinkChartCode ='R480' and Currency = 'RMB'
 go

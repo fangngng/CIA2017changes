@@ -898,7 +898,7 @@ set Series_Idx =
         when X like '%YTD%' then 98
         when X like '%MAT%' then 97 
         else 99 end ,
-    DataType = case when X like '%MTH%' then 'Volume'
+    DataType = case when X like '%MTH%' then 'Value'
         else 'Growth' end 
 
 update KPI_Frame_MarketAnalyzer_IMSAudit_CHPA_HCV 
@@ -1915,4 +1915,106 @@ set series = X,
 	X_Idx = series_Idx 
 
 
------------------------------------------------------------------------------------
+-------------------------------------------------------------------------------------
+select	Category, Series, X, Series_Idx, Category_Idx, X_Idx, Y
+from	KPI_Frame_MarketAnalyzer_IMSAudit_CHPA
+where	market = 'Monopril'
+		and lev = 'FocusCity'
+		and DataType = 'Growth'
+order by Category_Idx, Series_Idx, X_Idx
+
+SELECT * FROM TempCityDashboard_For_Eliquis_NOAC 
+select * from inCV_Focus_City 
+
+select --a.City_Code,a.City_Name,a.City_Name_CH 
+	c.Molecule,c.Class,c.Mkt,c.MktName,c.Market,c.prod,c.productname,c.Moneytype,'FocusCity' as Audi_des,
+	sum(MTH00) AS MTH00, sum(MTH01) as MTH01,sum(MTH02) as MTH02,sum(MTH03) as MTH03,sum(MTH04) as MTH04,sum(MTH05) as MTH05,
+	sum(MTH06) AS MTH06, sum(MTH07) as MTH07,sum(MTH08) as MTH08,sum(MTH09) as MTH09,sum(MTH10) as MTH10,sum(MTH11) as MTH11, sum(MTH12) as MTH12,
+	sum(YTD00) as YTD00,sum(YTD12) as YTD12,sum(MAT00) AS MAT00,sum(MAT12) AS MAT12,sum(R3M00) AS R3M00,sum(R3M03) AS R3M03,sum(r3m12) as r3m12
+from dim_city a 
+join inCV_Focus_City b 
+on a.city_name_ch=b.city_cn
+join TempCityDashboard_For_Eliquis c on a.city_code+'_'=c.Audi_Cod and c.market=b.product
+group by c.Molecule,c.Class,c.Mkt,c.MktName,c.Market,c.prod,c.productname,c.Moneytype
+
+--SELECT * FROM BMSChinaCIARawdata.dbo.Dim_City_201612
+SELECT * FROM dbo.Dim_City
+SELECT * FROM TempCityDashboard_For_Eliquis 
+SELECT * into MTHCITY_MAX FROM db82.BMSCNProc2.dbo.MTHCITY_MAX
+
+select * 
+from inmaxdata A inner join tblMktDef_MRBIChina_For_Eliquis B
+on A.pack_cod=B.pack_cod 
+where B.Active='Y' and  b.prod<>'000' and b.ProductName <>'Pradaxa'
+		SELECT * FROM tblMoneyType 
+SELECT * into tblMoneyType_201612 FROM tblMoneyType 		
+delete dbo.tblMoneyType where Type = 'PN'
+select cast('PRDL' as varchar(10)) as DataSource,'MTH' as [TimeFrame],cast('US' as varchar(5)) as MoneyType,
+	'N' as molecule,'N' as Class,'NIAD' as Mkt,'NIAD Market' as MktName,'Glucophage' as market,convert(varchar(5),'300') as Prod,
+	convert(varchar(30),'Byetta') as Series,cast('Sales' as Varchar(20)) as DataType,cast('Value' as varchar(20)) as Category, 
+	1 as [Series_Idx],
+	sum(MTH00US) as MTH00,
+	sum(MTH01US) as MTH01,
+	sum(MTH02US) as MTH02,
+	sum(MTH03US) as MTH03,
+	sum(MTH04US) as MTH04,
+	sum(MTH05US) as MTH05,
+	sum(MTH06US) as MTH06,
+	sum(MTH07US) as MTH07,
+	sum(MTH08US) as MTH08,
+	sum(MTH09US) as MTH09,
+	sum(MTH10US) as MTH10,
+	sum(MTH11US) as MTH11
+--into TempPRDLProvince 
+from MTHCITY_MAX 
+where pack_cod in( 
+	select distinct pack_cod from tblMktDef_MRBIChina where Prod_Name in ('Byetta') and Molecule='N' and class='N'
+	and Mkt='NIAD') and city in
+	(select city from dbo.Dim_City where City_Name in
+	(select City_En from dbo.PRDL_Province_City_Mapping))
+go
+--alter table Dim_City
+--alter column city_name_CH nvarchar(20)
+
+--select City_ID, City_Code, City_Name, '' as city_name_CH, null as Tier 
+--into Dim_City 
+--from BMSChinaCIARawdata.dbo.Dim_City_201612
+--SELECT * FROM TempCHPAPreReports_For_Baraclude
+--SELECT * FROM ByettaMarket_TempCityDashboard 
+--SELECT * FROM TempCHPAPreReports_For_Baraclude 
+--SELECT * FROM KPI_Frame_MarketAnalyzer_IMSAudit_CHPA 
+--SELECT * FROM KPI_Frame_MNC_Company_Ranking 
+--select * from dbo.tblMonthList
+--SELECT * into tblmonthlist_20170321_2 FROM tblmonthlist
+--SELECT * into tblmonthlist FROM tblMonthList_20170321
+--select * from KPI_Frame_MarketAnalyzer_IMSAudit_KeyCity 
+--SELECT * FROM TempCityDashboard_For_KPI_FRAME 
+--select * from tempCityDashboard_AllCity
+--SELECT * FROM TempCityDashboard 
+--SELECT * FROM dbo.Dim_City
+--SELECT * FROM mthcity_pkau 
+--select * from KPI_Frame_MarketAnalyzer_IMSAudit_KeyCity 
+--SELECT * FROM KPI_Frame_MarketAnalyzer_IMSAudit_CHPA 
+
+--update KPI_Frame_MarketAnalyzer_IMSAudit_CHPA_HCV 
+--set DataType = 'value'
+--where DataType = 'volume'
+
+--SELECT * FROM KPI_Frame_MarketAnalyzer_IMSAudit_CHPA_HCV 
+--SELECT * FROM dbo.tblMaxCity_KeyCity
+--SELECT * FROM KPI_Frame_MarketAnalyzer_IMSAudit_KeyCity
+
+
+--alter table KPI_Frame_MarketAnalyzer_IMSAudit_CHPA_HCV
+--alter column Y decimal(26, 12)
+
+
+--update dbo.Dim_City
+--set City_Code = replace(City_Code, '"', ''),
+--	City_Name = replace(City_Name, '"', '')
+
+--update dbo.Dim_City
+--set city_name_CH = b.City_CN
+--from Dim_City as a
+--inner join dbo.tblcitymax as b on a.City_Name = b.City
+

@@ -3,12 +3,12 @@ GO
 
 /*
 -----------------------------------------------
---????BMS??CPA???????????BMSCode
+--更改BMS和CPA的医院名字以及BMSCode
 -----------------------------------------------
 
 update [in_152hospitalMapping]
-set [Hospital Code]='511006',hospital=N'????????????????????????��????????????',[CPA&SR NAME]=N'?????????????????????'
-where hospital = N'?????????????????????' and [CPA&SR NAME] =N'???????????????'
+set [Hospital Code]='511006',hospital=N'广州市越秀区人民医院（广州市东山区人民医院）',[CPA&SR NAME]=N'中山大学第一附属医院东山院区'
+where hospital = N'中山大学第一附属医院东山院区' and [CPA&SR NAME] =N'中山大学附属第一医院'
 
 */
 
@@ -27,7 +27,7 @@ SELECT t2.id
       ,t2.CPA_Name
       ,'Y' as IsMatching
       ,t1.BuName
-FROM [BMSChinaMRBI_test].[dbo].inTaxolAndParaplatinKeyHospital t1
+FROM [BMSChinaMRBI].[dbo].inTaxolAndParaplatinKeyHospital t1
 inner join tblHospitalMaster t2
 on t1.[CPA Name]=t2.CPA_Name
 --SELECT t2.id
@@ -35,7 +35,7 @@ on t1.[CPA Name]=t2.CPA_Name
 --      ,convert(varchar(10),t1.[Hospital Code])+'-'+t1.Hospital as [Hosp_BMSName]
 --      ,t2.CPA_Name
 --      ,'Y'
---FROM [BMSChinaMRBI_test].[dbo].[in_152hospitalMapping] t1
+--FROM [BMSChinaMRBI].[dbo].[in_152hospitalMapping] t1
 --inner join tblHospitalMaster t2
 --on t1.[CPA&SR NAME]=t2.CPA_Name
 
@@ -47,7 +47,7 @@ select null as Cpa_ID,
 	   case when [CPA Name] is null or [CPA Name]='#N/A' then [Hospital name] else [CPA Name] end as CPA_Name,
 	   'N' as IsMatching,
 	   BuName
-from [BMSChinaMRBI_test].[dbo].inTaxolAndParaplatinKeyHospital
+from [BMSChinaMRBI].[dbo].inTaxolAndParaplatinKeyHospital
 where [Hospital Name] is null or [Hospital Name] not in (
 	select distinct case when Hosp_BMSName like '%-%' then right(Hosp_BMSName,len(Hosp_BMSName)-charindex('-',Hosp_BMSName))
 						 else Hosp_BMSName end --,len(Hosp_BMSName),charindex('-',Hosp_BMSName)
@@ -172,7 +172,7 @@ select Product,TimePeriod,CPA_Name,count(*)
 from D_2_R530 group by Product,TimePeriod,CPA_Name having count(*)<>10
 
 
---??????????? Prod
+--将源数据统计到 Prod
 if object_id(N'MID_R530',N'U') is not null
   drop table MID_R530
 GO
@@ -249,7 +249,7 @@ where DM < 'M13'
 group by  Product, Mole_Des_EN, Prod_Des_EN, CPA_Name
 GO
 
--- select * from MID_R530 where TimePeriod='MAT' and CPA_Name=N'?????????????????' and Prod_Des_EN='Taxol'
+-- select * from MID_R530 where TimePeriod='MAT' and CPA_Name=N'复旦大学附属肿瘤医院' and Prod_Des_EN='Taxol'
 
 if object_id(N'Temp_R530',N'U') is not null
   drop table Temp_R530
@@ -281,7 +281,7 @@ where Prod_Des_EN not in(
 GO
 
 
---????
+--去重：
 if object_id(N'Temp_1_R530_bak',N'U') is not null
   drop table Temp_1_R530_bak
 GO
@@ -303,7 +303,7 @@ from Temp_R530
 group by Product,TimePeriod,CPA_Name,Mole_Des_EN,Prod_Des_EN,Product_IDX
 GO
 
--- select * from Temp_R530  where CPA_Name=N'???????????????' order by Product	
+-- select * from Temp_R530  where CPA_Name=N'中山大学附属第一医院' order by Product	
 
 if object_id(N'OUT_R530',N'U') is not null
   drop table OUT_R530
@@ -330,7 +330,7 @@ update OUT_R530 set
 ,Units=0
 where Sales is null or Units is null
 GO
--- select * from OUT_R530  where CPA_Name=N'?????????????????' order by Product
+-- select * from OUT_R530  where CPA_Name=N'复旦大学附属肿瘤医院' order by Product
 
 select Product,TimePeriod,CPA_Name,count(*) 
 from OUT_R530 
@@ -338,7 +338,7 @@ group by Product,TimePeriod,CPA_Name having count(*)<>10
 
 
 
--- ???????????????
+-- 清除历史冗余数据
 delete from OutputHospital_All where LinkChartCode like 'R53%' 
 GO
 --RMB
@@ -372,7 +372,7 @@ LinkChartCode
 ,TimeFrame
 ,X
 ,XIdx
-,cast(Y as Float)/(select Rate from BMSChinaCIA_IMS.dbo.tblRate)--Y
+,cast(Y as Float)/(select Rate from BMSChinaCIA_IMS_test.dbo.tblRate)--Y
 ,Size
 ,IsShow
 from OutputHospital_All where LinkChartCode='R530' and Currency='RMB'
@@ -399,7 +399,7 @@ GO
 -- select * from OutputHospital_All where LinkChartCode like 'R53%'  and Product ='Paraplatin' and Series=N'?????????????????' and Currency='RMB'  and x='Paraplatin'
 
 
---???????
+--后期处理
 
 update OutputHospital_All set SeriesIdx = t2.SeriesIdx,[Size]=t2.SeriesIdx
 from OutputHospital_All t1
@@ -459,7 +459,7 @@ exec dbo.sp_Log_Event 'output','CIA_CPA','3_3_Out_R530.sql','End',null,null
 
 
 
--- ?????
+-- 查询：
 --select b.id,b.DataSource,b.CPA_code,b.CPA_Name,b.CPA_Name_English,b.Tier,b.Province,b.City
 --from D_ProductKeyHospitals a
 --inner join dbo.tblHospitalMaster b

@@ -34,12 +34,12 @@ go
 if exists(select * from sysindexes where name='idx_tblOutput_MAX_ATC_RMB_MQT')
 	drop index idx_tblOutput_MAX_ATC_RMB_MQT on tblOutput_MAX_ATC_RMB_MQT
 go
-    CREATE CLUSTERED INDEX idx_tblOutput_MAX_ATC_RMB_MQT ON [dbo].tblOutput_MAX_ATC_RMB_MQT 
-    (
+CREATE CLUSTERED INDEX idx_tblOutput_MAX_ATC_RMB_MQT ON [dbo].tblOutput_MAX_ATC_RMB_MQT 
+(
     [geo] ASC,
     [prod_lvl] ASC,
 	[package_code] ASC
-    )WITH (SORT_IN_TEMPDB = OFF, DROP_EXISTING = OFF, IGNORE_DUP_KEY = OFF, ONLINE = OFF) ON [PRIMARY]
+)WITH (SORT_IN_TEMPDB = OFF, DROP_EXISTING = OFF, IGNORE_DUP_KEY = OFF, ONLINE = OFF) ON [PRIMARY]
 
 print '--tblOutput_MAX_ATC_RMB_MTH'
 if object_id(N'tblOutput_MAX_ATC_RMB_MTH',N'U') is not null

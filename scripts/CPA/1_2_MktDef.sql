@@ -1,9 +1,9 @@
 /* 
 
 前置依赖：
-BMSChinaCIA_IMS.dbo.tblMktDef_Inline
-BMSChinaCIA_IMS.dbo.tblMktDef_MRBIChina_All
-BMSChinaCIA_IMS.dbo.tblMktDef_ATCDriver
+BMSChinaCIA_IMS_test.dbo.tblMktDef_Inline
+BMSChinaCIA_IMS_test.dbo.tblMktDef_MRBIChina_All
+BMSChinaCIA_IMS_test.dbo.tblMktDef_ATCDriver
 
 特殊处理：
 update tblMktDefHospital set MktName='Oncology Focused Brands' ,Prod='860',ProductName='anzatax',FocusedBrand='Y'
@@ -116,11 +116,11 @@ go
 
 --新Product
 --update tblMoleProd set ifNew='Y' from tblMoleProd a 
---inner join BMSChinaCIA_IMS.dbo.tblMktDef_Inline b on a.mole_des_en=b.mole_des and a.prod_des_en=b.prod_des
+--inner join BMSChinaCIA_IMS_test.dbo.tblMktDef_Inline b on a.mole_des_en=b.mole_des and a.prod_des_en=b.prod_des
 --go
 
 update tblMoleProd set ifNew='Y' from tblMoleProd a 
-inner join BMSChinaCIA_IMS.dbo.tblMktDef_Inline b on a.mole_des_en=b.mole_des and a.prod_des_en=
+inner join BMSChinaCIA_IMS_test.dbo.tblMktDef_Inline b on a.mole_des_en=b.mole_des and a.prod_des_en=
 (case when b.prod_des='ENTECAVIR' and b.mkt='arv' then 'Entecavir Capsules' else b.prod_des end)
 go 
 
@@ -181,8 +181,8 @@ inner join (
        ,b.Mole_Des
        ,b.Prod_Cod
        ,b.Prod_Des
-      from BMSChinaCIA_IMS.dbo.tblMktDef_MRBIChina_All a
-      inner join BMSChinaCIA_IMS.dbo.tblMktDef_ATCDriver b 
+      from BMSChinaCIA_IMS_test.dbo.tblMktDef_MRBIChina_All a
+      inner join BMSChinaCIA_IMS_test.dbo.tblMktDef_ATCDriver b 
       on a.atc1_cod = b.atc1_cod
          and a.atc2_cod = b.atc2_cod
          and a.atc3_cod = b.atc3_cod
@@ -247,8 +247,8 @@ inner join (
            case when a.Prod = '000' then 'N' else a.Molecule end as Molecule,
            case when a.Prod = '000' then 'N' else a.Class end as Class, 
            a.ATC3_cod,b.Mole_Cod,b.Mole_Des,b.Prod_Cod,b.Prod_Des
-           from BMSChinaCIA_IMS.dbo.tblMktDef_MRBIChina_All a
-           inner join BMSChinaCIA_IMS.dbo.tblMktDef_ATCDriver b 
+           from BMSChinaCIA_IMS_test.dbo.tblMktDef_MRBIChina_All a
+           inner join BMSChinaCIA_IMS_test.dbo.tblMktDef_ATCDriver b 
            on a.atc1_cod = b.atc1_cod
               and a.atc2_cod = b.atc2_cod
               and a.atc3_cod = b.atc3_cod
@@ -430,7 +430,7 @@ GO
 -- 	,''                  as [IMSProdCode]  
 -- 	,'Eliquis VTEp'        as [Product] 
 -- from tblPackageXRefHosp a 
--- join (select *  from BMSChinaCIA_IMS.dbo.tblMktDef_MRBIChina_All where molecule='N' and class='N' ) b 
+-- join (select *  from BMSChinaCIA_IMS_test.dbo.tblMktDef_MRBIChina_All where molecule='N' and class='N' ) b 
 -- 	on subString(a.Product_EN,0,charindex('(',a.Product_EN))=b.ProductName
 -- --where  subString(a.Product_EN,0,charindex('(',a.Product_EN)) in('FRAXIPARINE','CLEXANE','XARELTO','ELIQUIS','ARIXTRA')
 -- where a.Mole_Code_IMS in ('406260','408800','408827','413885','703259','704307','711981','719372', '904100', '999999')
@@ -456,7 +456,7 @@ GO
 -- 	,''                  as [IMSProdCode]  
 -- 	,'Eliquis VTEp'        as [Product] 
 -- from tblPackageXRefHosp a 
--- 	join (	select *  from BMSChinaCIA_IMS.dbo.tblMktDef_MRBIChina_All 
+-- 	join (	select *  from BMSChinaCIA_IMS_test.dbo.tblMktDef_MRBIChina_All 
 -- 			where molecule='N' and class='N' and Prod <> '600'
 -- 		) b 
 -- 	on subString(a.Product_EN,0,charindex('(',a.Product_EN))=b.ProductName
@@ -485,7 +485,7 @@ GO
 -- 	,''                  as [IMSProdCode]  
 -- 	,'Eliquis VTEt'        as [Product] 
 -- from tblPackageXRefHosp a 
--- join (	select *  from BMSChinaCIA_IMS.dbo.tblMktDef_MRBIChina_All where molecule='N' and class='N'
+-- join (	select *  from BMSChinaCIA_IMS_test.dbo.tblMktDef_MRBIChina_All where molecule='N' and class='N'
 -- 		) b 
 -- 	on subString(a.Product_EN,0,charindex('(',a.Product_EN))=b.ProductName
 -- where a.Mole_Code_IMS in ('239900', '406260','408800','408827','413885','703259','704307','711981', '904100', '999999')
@@ -510,7 +510,7 @@ GO
 -- 	,''                  as [IMSProdCode]  
 -- 	,'Eliquis VTEt'        as [Product] 
 -- from tblPackageXRefHosp a 
--- 	join (	select *  from BMSChinaCIA_IMS.dbo.tblMktDef_MRBIChina_All 
+-- 	join (	select *  from BMSChinaCIA_IMS_test.dbo.tblMktDef_MRBIChina_All 
 -- 			where molecule='N' and class='N' and Prod <> '600'
 -- 		) b 
 -- 	on subString(a.Product_EN,0,charindex('(',a.Product_EN))=b.ProductName
@@ -538,7 +538,7 @@ GO
 -- 	,''                  as [IMSProdCode]  
 -- 	,'Eliquis NOAC'        as [Product] 
 -- from tblPackageXRefHosp a 
--- join (select *  from BMSChinaCIA_IMS.dbo.tblMktDef_MRBIChina_All where molecule='N' and class='N'
+-- join (select *  from BMSChinaCIA_IMS_test.dbo.tblMktDef_MRBIChina_All where molecule='N' and class='N'
 -- 		) b 
 -- 	on subString(a.Product_EN,0,charindex('(',a.Product_EN))=b.ProductName
 -- where  subString(a.Product_EN,0,charindex('(',a.Product_EN)) in('Eliquis','XARELTO','PRADAXA')
@@ -563,7 +563,7 @@ GO
 -- 	,''                  as [IMSProdCode]  
 -- 	,'Eliquis NOAC'        as [Product] 
 -- from tblPackageXRefHosp a 
--- 	join (select *  from BMSChinaCIA_IMS.dbo.tblMktDef_MRBIChina_All where molecule='N' and class='N'
+-- 	join (select *  from BMSChinaCIA_IMS_test.dbo.tblMktDef_MRBIChina_All where molecule='N' and class='N'
 -- 		) b 
 -- 	on subString(a.Product_EN,0,charindex('(',a.Product_EN))=b.ProductName
 -- where  b.Mkt='Eliquis NOAC' 
@@ -600,7 +600,7 @@ GO
 -- 	,''                  as [IMSProdCode]  
 -- 	,'Coniel'        as [Product] 
 -- from tblPackageXRefHosp a 
--- 	join BMSChinaCIA_IMS.dbo.tblMktDef_MRBIChina_All b 
+-- 	join BMSChinaCIA_IMS_test.dbo.tblMktDef_MRBIChina_All b 
 -- 	on a.mole_code_ims =b.mole_cod 
 -- 	and
 -- 	left(a.Product_EN,len(a.product_en)-5)=b.prod_name
@@ -633,14 +633,14 @@ GO
 -- 	from (select t1.* from tblPackageXRefHosp t1 except (
 -- 				select distinct a.*
 -- 				from tblPackageXRefHosp a 
--- 					join BMSChinaCIA_IMS.dbo.tblMktDef_MRBIChina_All b 
+-- 					join BMSChinaCIA_IMS_test.dbo.tblMktDef_MRBIChina_All b 
 -- 					on 
 -- 					left(a.Product_EN,len(a.product_en)-5)=b.prod_name
 -- 					--subString(a.Product_EN,0,charindex('(',a.Product_EN))=b.prod_name
 -- 				where  b.Mkt='ccb' and class <>'Y' 
 -- 			)
 -- 	) a 
--- 	join BMSChinaCIA_IMS.dbo.tblMktDef_MRBIChina_All b 
+-- 	join BMSChinaCIA_IMS_test.dbo.tblMktDef_MRBIChina_All b 
 -- 	on a.mole_code_ims =b.mole_cod 
 -- 	where  b.Mkt='ccb' and class <>'Y' 
 -- ) t1 where not exists (	
@@ -684,7 +684,7 @@ go
 update a
 set a.rat = b.rat
 from tblMktDefHospital  as a 
-inner join BMSChinaCIA_IMS.dbo.inMktDef_MRBIChina_rat as b 
+inner join BMSChinaCIA_IMS_test.dbo.inMktDef_MRBIChina_rat as b 
 on a.Mkt = b.Mkt and a.IMSMoleCode = b.Mole_Cod and b.IsMole = 'Y'
 
 update tblMktDefHospital set rat=1
@@ -703,6 +703,12 @@ delete tblMktDefHospital
 where Mkt = 'Eliquis VTEp'
 	and Prod_Des_en = 'XARELTO'
 	and mole_des_en <> 'RIVAROXABAN'
+
+
+--20170321
+--only need Baraclude, Monopril, Taxol, Sprycel market 
+delete tblMktDefHospital 
+where mkt not in ('ARV', 'ONCFCS', 'CML', 'HYPFCS', 'HYP', 'ACE') 
 
 exec dbo.sp_Log_Event 'Market Define','CIA_CPA','1_2_MktDef.sql','End',null,null
 print 'over!'

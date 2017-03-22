@@ -139,7 +139,7 @@
 
 -- insert into OutputHospital_Onglyza (LinkChartCode, LinkSeriesCode, Series, SeriesIdx, Category, Product, Lev, ParentGeo, Geo, Currency, TimeFrame, X, XIdx, Y, IsShow)
 -- select LinkChartCode, LinkSeriesCode, Series, SeriesIdx, Category, Product, Lev, ParentGeo, Geo, 'USD', TimeFrame, X, XIdx, 
--- 	case when SeriesIdx in (1,2) and IsShow <> 'D' then cast(Y as Float)/(select Rate from BMSChinaCIA_IMS.dbo.tblRate) else Y end, IsShow
+-- 	case when SeriesIdx in (1,2) and IsShow <> 'D' then cast(Y as Float)/(select Rate from BMSChinaCIA_IMS_test.dbo.tblRate) else Y end, IsShow
 -- from OutputHospital_Onglyza where LinkChartCode in ('D050') and Currency = 'RMB'
 -- go
 
@@ -817,7 +817,7 @@
 -- insert into OutputHospital_Onglyza (LinkChartCode, LinkSeriesCode, Series, SeriesIdx, Category, Product, Lev, ParentGeo, Geo, Currency, TimeFrame, X, XIdx, Y,AddY, IsShow)
 -- select LinkChartCode, LinkSeriesCode, Series, SeriesIdx, Category, Product, Lev, ParentGeo, Geo, 'USD', TimeFrame, X, XIdx, 
 -- 	Y, 
--- 	AddY/ (select Rate from BMSChinaCIA_IMS.dbo.tblRate) as AddY, IsShow
+-- 	AddY/ (select Rate from BMSChinaCIA_IMS_test.dbo.tblRate) as AddY, IsShow
 -- from OutputHospital_Onglyza where LinkChartCode  in ('R191','R251','R211','R271','R221','R281','R231','R291','R911','R971','R921','R981','R931','R991')
 -- 	and Currency = 'RMB'
 -- go

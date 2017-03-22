@@ -280,27 +280,6 @@ where not exists(select * from tblCityIMS b where a.city_name=b.city or a.city_n
 
 
 
-PRINT '(--------------------------------
-              (4).importing   MAX
-----------------------------------------)'
-
-if object_id(N'MTHCITY_MAX',N'U') is not null
-	drop table MTHCITY_MAX
-go
-
-select * into MTHCITY_MAX
-from Db4.BMSChinaCIA_IMS_test.dbo.inMAXData
-go
-alter table MTHCITY_MAX 
-add Audi_Cod varchar(6) 
-go
-update MTHCITY_MAX
-set Audi_Cod = b.Audi_Cod
-from MTHCITY_MAX as a 
-inner join tblCityIMS as b on replace(a.city, N'市', '') = b.city_CN
-go
-create nonclustered index idx on MTHCITY_MAX(Pack_cod)
-go
 
 ------------------------------------------------------------------------------------------------------
 --   更新MktDefinition, 即将新增产品添加到市场定义中去。	 ：

@@ -1,40 +1,40 @@
 use BMSChinaQueryToolNew
 go
-exec BMSCNProc2_test.dbo.sp_Log_Event 'Output','QT_CPA_Inline','99_Output_Hosp_Inline.sql','Start',null,null
+exec BMSCNProc2.dbo.sp_Log_Event 'Output','QT_CPA_Inline','99_Output_Hosp_Inline.sql','Start',null,null
 
 
 print '--tblDataMonthConv'
 IF OBJECT_ID(N'tblDataMonthConv',N'U') IS NOT NULL
 	DROP TABLE tblDataMonthConv
 GO
-SELECT * INTO tblDataMonthConv FROM BMSCNProc2_test.dbo.tblDataMonthConv
+SELECT * INTO tblDataMonthConv FROM BMSCNProc2.dbo.tblDataMonthConv
 go
 print '--tblCityListForHospital'
 if object_id(N'tblCityListForHospital',N'U') is not null
 	drop table tblCityListForHospital
 go
 select * into tblCityListForHospital
-from BMSCNProc2_test.dbo.tblCityListForHospital
+from BMSCNProc2.dbo.tblCityListForHospital
 go
 print '--tblQueryToolDriverHosp'
 if object_id(N'tblQueryToolDriverHosp',N'U') is not null
 	drop table tblQueryToolDriverHosp
 go
 select * into tblQueryToolDriverHosp
-from BMSCNProc2_test.dbo.tblQueryToolDriverHosp
+from BMSCNProc2.dbo.tblQueryToolDriverHosp
 go
 print '--tblHospitalList'
 IF OBJECT_ID(N'tblHospitalList',N'U') IS NOT NULL
 	DROP TABLE tblHospitalList
 GO
-SELECT * INTO tblHospitalList FROM BMSCNProc2_test.dbo.tblHospitalList
+SELECT * INTO tblHospitalList FROM BMSCNProc2.dbo.tblHospitalList
 go
 print '--tblOutput_Hosp_TA_UNT_MTH_Inline'
 if object_id(N'tblOutput_Hosp_TA_UNT_MTH_Inline',N'U') is not null
 	drop table tblOutput_Hosp_TA_UNT_MTH_Inline
 go
 select * into tblOutput_Hosp_TA_UNT_MTH_Inline
-from BMSCNProc2_test.dbo.tblOutput_Hosp_TA_UNT_MTH_Inline
+from BMSCNProc2.dbo.tblOutput_Hosp_TA_UNT_MTH_Inline
 GO
 if exists(select * from sysindexes where name='tblOutput_Hosp_TA_UNT_MTH_Inline')
 drop index tblOutput_Hosp_TA_UNT_MTH_Inline on tblOutput_Hosp_TA_UNT_MTH_Inline
@@ -52,7 +52,7 @@ if object_id(N'tblOutput_Hosp_TA_USD_MTH_Inline',N'U') is not null
 	drop table tblOutput_Hosp_TA_USD_MTH_Inline
 go
 select * into tblOutput_Hosp_TA_USD_MTH_Inline
-from BMSCNProc2_test.dbo.tblOutput_Hosp_TA_USD_MTH_Inline
+from BMSCNProc2.dbo.tblOutput_Hosp_TA_USD_MTH_Inline
 GO
 if exists(select * from sysindexes where name='tblOutput_Hosp_TA_USD_MTH_Inline')
 drop index tblOutput_Hosp_TA_USD_MTH_Inline on tblOutput_Hosp_TA_USD_MTH_Inline
@@ -69,7 +69,7 @@ if object_id(N'tblOutput_Hosp_TA_UNT_MAT_Inline',N'U') is not null
 	drop table tblOutput_Hosp_TA_UNT_MAT_Inline
 go
 select * into tblOutput_Hosp_TA_UNT_MAT_Inline
-from BMSCNProc2_test.dbo.tblOutput_Hosp_TA_UNT_MAT_Inline
+from BMSCNProc2.dbo.tblOutput_Hosp_TA_UNT_MAT_Inline
 GO
 if exists(select * from sysindexes where name='tblOutput_Hosp_TA_UNT_MAT_Inline')
 drop index tblOutput_Hosp_TA_UNT_MAT_Inline on tblOutput_Hosp_TA_UNT_MAT_Inline
@@ -86,7 +86,7 @@ if object_id(N'tblOutput_Hosp_TA_RMB_MQT_Inline',N'U') is not null
 	drop table tblOutput_Hosp_TA_RMB_MQT_Inline
 go
 select * into tblOutput_Hosp_TA_RMB_MQT_Inline
-from BMSCNProc2_test.dbo.tblOutput_Hosp_TA_RMB_MQT_Inline
+from BMSCNProc2.dbo.tblOutput_Hosp_TA_RMB_MQT_Inline
 GO
 if exists(select * from sysindexes where name='tblOutput_Hosp_TA_RMB_MQT_Inline')
 drop index tblOutput_Hosp_TA_RMB_MQT_Inline on tblOutput_Hosp_TA_RMB_MQT_Inline
@@ -103,7 +103,7 @@ if object_id(N'tblOutput_Hosp_TA_UNT_MQT_Inline',N'U') is not null
 	drop table tblOutput_Hosp_TA_UNT_MQT_Inline
 go
 select * into tblOutput_Hosp_TA_UNT_MQT_Inline
-from BMSCNProc2_test.dbo.tblOutput_Hosp_TA_UNT_MQT_Inline
+from BMSCNProc2.dbo.tblOutput_Hosp_TA_UNT_MQT_Inline
 GO
 if exists(select * from sysindexes where name='tblOutput_Hosp_TA_UNT_MQT_Inline')
 drop index tblOutput_Hosp_TA_UNT_MQT_Inline on tblOutput_Hosp_TA_UNT_MQT_Inline
@@ -120,7 +120,7 @@ if object_id(N'tblOutput_Hosp_TA_USD_MQT_Inline',N'U') is not null
 	drop table tblOutput_Hosp_TA_USD_MQT_Inline
 go
 select * into tblOutput_Hosp_TA_USD_MQT_Inline
-from BMSCNProc2_test.dbo.tblOutput_Hosp_TA_USD_MQT_Inline
+from BMSCNProc2.dbo.tblOutput_Hosp_TA_USD_MQT_Inline
 GO
 if exists(select * from sysindexes where name='tblOutput_Hosp_TA_USD_MQT_Inline')
 drop index tblOutput_Hosp_TA_USD_MQT_Inline on tblOutput_Hosp_TA_USD_MQT_Inline
@@ -137,7 +137,7 @@ if object_id(N'tblOutput_Hosp_TA_USD_YTD_Inline',N'U') is not null
 	drop table tblOutput_Hosp_TA_USD_YTD_Inline
 go
 select * into tblOutput_Hosp_TA_USD_YTD_Inline
-from BMSCNProc2_test.dbo.tblOutput_Hosp_TA_USD_YTD_Inline
+from BMSCNProc2.dbo.tblOutput_Hosp_TA_USD_YTD_Inline
 GO
 if exists(select * from sysindexes where name='tblOutput_Hosp_TA_USD_YTD_Inline')
 drop index tblOutput_Hosp_TA_USD_YTD_Inline on tblOutput_Hosp_TA_USD_YTD_Inline
@@ -154,7 +154,7 @@ if object_id(N'tblOutput_Hosp_TA_UNT_YTD_Inline',N'U') is not null
 	drop table tblOutput_Hosp_TA_UNT_YTD_Inline
 go
 select * into tblOutput_Hosp_TA_UNT_YTD_Inline
-from BMSCNProc2_test.dbo.tblOutput_Hosp_TA_UNT_YTD_Inline
+from BMSCNProc2.dbo.tblOutput_Hosp_TA_UNT_YTD_Inline
 GO
 if exists(select * from sysindexes where name='tblOutput_Hosp_TA_UNT_YTD_Inline')
 drop index tblOutput_Hosp_TA_UNT_YTD_Inline on tblOutput_Hosp_TA_UNT_YTD_Inline
@@ -171,7 +171,7 @@ if object_id(N'tblOutput_Hosp_TA_RMB_MAT_Inline',N'U') is not null
 	drop table tblOutput_Hosp_TA_RMB_MAT_Inline
 go
 select * into tblOutput_Hosp_TA_RMB_MAT_Inline
-from BMSCNProc2_test.dbo.tblOutput_Hosp_TA_RMB_MAT_Inline
+from BMSCNProc2.dbo.tblOutput_Hosp_TA_RMB_MAT_Inline
 GO
 if exists(select * from sysindexes where name='tblOutput_Hosp_TA_RMB_MAT_Inline')
 drop index tblOutput_Hosp_TA_RMB_MAT_Inline on tblOutput_Hosp_TA_RMB_MAT_Inline
@@ -188,7 +188,7 @@ if object_id(N'tblOutput_Hosp_TA_USD_MAT_Inline',N'U') is not null
 	drop table tblOutput_Hosp_TA_USD_MAT_Inline
 go
 select * into tblOutput_Hosp_TA_USD_MAT_Inline
-from BMSCNProc2_test.dbo.tblOutput_Hosp_TA_USD_MAT_Inline
+from BMSCNProc2.dbo.tblOutput_Hosp_TA_USD_MAT_Inline
 GO
 if exists(select * from sysindexes where name='tblOutput_Hosp_TA_USD_MAT_Inline')
 drop index tblOutput_Hosp_TA_USD_MAT_Inline on tblOutput_Hosp_TA_USD_MAT_Inline
@@ -205,7 +205,7 @@ if object_id(N'tblOutput_Hosp_TA_RMB_YTD_Inline',N'U') is not null
 	drop table tblOutput_Hosp_TA_RMB_YTD_Inline
 go
 select * into tblOutput_Hosp_TA_RMB_YTD_Inline
-from BMSCNProc2_test.dbo.tblOutput_Hosp_TA_RMB_YTD_Inline
+from BMSCNProc2.dbo.tblOutput_Hosp_TA_RMB_YTD_Inline
 GO
 if exists(select * from sysindexes where name='tblOutput_Hosp_TA_RMB_YTD_Inline')
 drop index tblOutput_Hosp_TA_RMB_YTD_Inline on tblOutput_Hosp_TA_RMB_YTD_Inline
@@ -222,7 +222,7 @@ if object_id(N'tblOutput_Hosp_TA_RMB_MTH_Inline',N'U') is not null
 	drop table tblOutput_Hosp_TA_RMB_MTH_Inline
 go
 select * into tblOutput_Hosp_TA_RMB_MTH_Inline
-from BMSCNProc2_test.dbo.tblOutput_Hosp_TA_RMB_MTH_Inline
+from BMSCNProc2.dbo.tblOutput_Hosp_TA_RMB_MTH_Inline
 GO
 if exists(select * from sysindexes where name='tblOutput_Hosp_TA_RMB_MTH_Inline')
 drop index tblOutput_Hosp_TA_RMB_MTH_Inline on tblOutput_Hosp_TA_RMB_MTH_Inline
@@ -405,5 +405,5 @@ on a.mkt=c.mkt and a.geo=c.geo and a.grp_lvl=c.grp_lvl and a.tier=c.tier and a.h
 
 GO
 
-exec BMSCNProc2_test.dbo.sp_Log_Event 'Output','QT_CPA_Inline','99_Output_Hosp_Inline.sql','End',null,null
+exec BMSCNProc2.dbo.sp_Log_Event 'Output','QT_CPA_Inline','99_Output_Hosp_Inline.sql','End',null,null
 
