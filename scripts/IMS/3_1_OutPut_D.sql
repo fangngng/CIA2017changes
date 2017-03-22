@@ -966,31 +966,11 @@ set @code = 'C130'
 insert into [output_stage] (Product,isshow,geo,lev,TimeFrame,LinkChartCode, Series, SeriesIdx,Currency, X, XIdx)
 select B.market, 'Y','China','Nation',Period, @code as Code, b.Productname,b.Prod,MoneyType, a.Series,a.SeriesIdx
 from (
-	select 'MAT00' as Series,	25 as SeriesIdx union all
-	select 'MAT01' as Series,	24 as SeriesIdx union all
-	select 'MAT02' as Series,   23 as SeriesIdx union all
-	select 'MAT03' as Series,	22 as SeriesIdx union all
-	select 'MAT04' as Series,	21 as SeriesIdx union all
-	select 'MAT05' as Series,	20 as SeriesIdx union all
-	select 'MAT06' as Series,	19 as SeriesIdx union all
-	select 'MAT07' as Series,	18 as SeriesIdx union all
-	select 'MAT08' as Series,	17 as SeriesIdx union all
-	select 'MAT09' as Series,	16 as SeriesIdx union all
-	select 'MAT10' as Series,	15 as SeriesIdx union all
-	select 'MAT11' as Series,	14 as SeriesIdx union all
-	select 'MAT12' as Series,	13 as SeriesIdx union all
-	select 'MAT13' as Series,	12 as SeriesIdx union all
-	select 'MAT14' as Series,	11 as SeriesIdx union all
-	select 'MAT15' as Series,	10 as SeriesIdx union all
-	select 'MAT16' as Series,	9 as SeriesIdx union all
-	select 'MAT17' as Series,	8 as SeriesIdx union all
-	select 'MAT18' as Series,	7 as SeriesIdx union all
-	select 'MAT19' as Series,	6 as SeriesIdx union all
-	select 'MAT20' as Series,	5 as SeriesIdx union all
-	select 'MAT21' as Series,	4 as SeriesIdx union all
-	select 'MAT22' as Series,	3 as SeriesIdx union all
-	select 'MAT23' as Series,	2 as SeriesIdx union all
-	select 'MAT24' as Series,	1 as SeriesIdx
+	select 'MAT00' as Series,	5 as SeriesIdx union all
+	select 'MAT12' as Series,	4 as SeriesIdx union all
+	select 'MAT24' as Series,	3 as SeriesIdx union all
+	select 'MAT36' as Series,	2 as SeriesIdx union all
+	select 'MAT48' as Series,	1 as SeriesIdx
 ) a, (
 		select distinct Productname, Prod,Period,MoneyType,market 
 		from dbo.OutputKeyBrandPerformance_For_OtherETV 
@@ -1012,15 +992,11 @@ from (
 insert into [output_stage] (Product,isshow,geo,lev,TimeFrame,LinkChartCode, Series, SeriesIdx,Currency, X, XIdx)
 select B.market, 'Y','China','Nation',Period, @code as Code, b.Productname,b.Prod,MoneyType, a.Series,a.SeriesIdx
 from (
-	select 'MAT00' as Series,	25 as SeriesIdx union all
-	select 'MAT03' as Series,	22 as SeriesIdx union all
-	select 'MAT06' as Series,	19 as SeriesIdx union all
-	select 'MAT09' as Series,	16 as SeriesIdx union all
-	select 'MAT12' as Series,	13 as SeriesIdx union all
-	select 'MAT15' as Series,	10 as SeriesIdx union all
-	select 'MAT18' as Series,	7 as SeriesIdx union all
-	select 'MAT21' as Series,	4 as SeriesIdx union all
-	select 'MAT24' as Series,	1 as SeriesIdx
+	select 'MAT00' as Series,	5 as SeriesIdx union all
+	select 'MAT12' as Series,	4 as SeriesIdx union all
+	select 'MAT24' as Series,	3 as SeriesIdx union all
+	select 'MAT36' as Series,	2 as SeriesIdx union all
+	select 'MAT48' as Series,	1 as SeriesIdx
 ) a, (
 	select distinct Productname, Prod,Period,MoneyType,market 
 	from dbo.OutputKeyBrandPerformance_For_OtherETV 
@@ -1070,31 +1046,11 @@ set @code = 'C130'
 insert into [output_stage] (Product,isshow,geo,lev,TimeFrame,LinkChartCode, Series, SeriesIdx,Currency, X, XIdx)
 select B.market, 'Y','China','Nation',Period, @code as Code, b.Productname,b.Prod,MoneyType, a.Series,a.SeriesIdx
 from (
-	select 'MAT00' as Series,	25 as SeriesIdx union all
-	select 'MAT01' as Series,	24 as SeriesIdx union all
-	select 'MAT02' as Series,   23 as SeriesIdx union all
-	select 'MAT03' as Series,	22 as SeriesIdx union all
-	select 'MAT04' as Series,	21 as SeriesIdx union all
-	select 'MAT05' as Series,	20 as SeriesIdx union all
-	select 'MAT06' as Series,	19 as SeriesIdx union all
-	select 'MAT07' as Series,	18 as SeriesIdx union all
-	select 'MAT08' as Series,	17 as SeriesIdx union all
-	select 'MAT09' as Series,	16 as SeriesIdx union all
-	select 'MAT10' as Series,	15 as SeriesIdx union all
-	select 'MAT11' as Series,	14 as SeriesIdx union all
-	select 'MAT12' as Series,	13 as SeriesIdx union all
-	select 'MAT13' as Series,	12 as SeriesIdx union all
-	select 'MAT14' as Series,	11 as SeriesIdx union all
-	select 'MAT15' as Series,	10 as SeriesIdx union all
-	select 'MAT16' as Series,	9 as SeriesIdx union all
-	select 'MAT17' as Series,	8 as SeriesIdx union all
-	select 'MAT18' as Series,	7 as SeriesIdx union all
-	select 'MAT19' as Series,	6 as SeriesIdx union all
-	select 'MAT20' as Series,	5 as SeriesIdx union all
-	select 'MAT21' as Series,	4 as SeriesIdx union all
-	select 'MAT22' as Series,	3 as SeriesIdx union all
-	select 'MAT23' as Series,	2 as SeriesIdx union all
-	select 'MAT24' as Series,	1 as SeriesIdx
+	select 'MAT00' as Series,	5 as SeriesIdx union all
+	select 'MAT12' as Series,	4 as SeriesIdx union all
+	select 'MAT24' as Series,	3 as SeriesIdx union all
+	select 'MAT36' as Series,	2 as SeriesIdx union all
+	select 'MAT48' as Series,	1 as SeriesIdx
 ) a, (
 	select distinct Productname, Prod,Period,MoneyType,market from dbo.OutputKeyBrandPerformance_For_Baraclude_Modify 
 	where MoneyType<>'PN'
