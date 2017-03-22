@@ -526,6 +526,10 @@ update tblcitymax set city = 'pingxiang' where city_cn = N'萍乡'
 
 SELECT * FROM db4.BMSChinaCIA_IMS_test.dbo.maxcity
 
+update dbo.tblcitymax
+set City = upper(left(City, 1)) + lower(right(City, len(City) - 1)) 
+
+
 go 
 
 
@@ -535,4 +539,17 @@ set IMSCity1 = b.city_CN,
 	--SELECT * 
 from BMSChinaMRBI.dbo.tblSalesRegion as a 
 inner join BMSChinaCIA_IMS_test.dbo.tblcityMAX as b on a.City1 = b.city_CN
+
+go 
+
+-- db82.staging_test
+
+update webpage set Idx = 3 where id = 17
+
+update webpage set Idx = 7 where id = 13
+
+-- db82.querytool_test
+
+update dbo.tblcitymax
+set City = upper(left(City, 1)) + lower(right(City, len(City) - 1)) 
 

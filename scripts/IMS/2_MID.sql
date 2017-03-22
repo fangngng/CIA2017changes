@@ -10529,12 +10529,19 @@ declare @i int,@sql varchar(max),@sqlR varchar(max)
 set @i=0
 set @sql=''
 set @sqlR=''
-while (@i<=24)
-begin
-	set @sql=@sql+'
-	case sum(A.MAT'+right('00'+cast(@i as varchar(2)),2)+') when 0 then null else sum(B.MAT'+right('00'+cast(@i as varchar(2)),2)+')*1.0/sum(A.MAT'+right('00'+cast(@i as varchar(2)),2)+') end as MAT'+right('00'+cast(@i as varchar(2)),2)+','
-	set @i=@i+1
-end
+set @sql=@sql+'
+	case sum(A.MAT00) when 0 then null else sum(B.MAT00)*1.0/sum(A.MAT00) end as MAT00, 
+	case sum(A.MAT12) when 0 then null else sum(B.MAT12)*1.0/sum(A.MAT12) end as MAT12, 
+	case sum(A.MAT24) when 0 then null else sum(B.MAT24)*1.0/sum(A.MAT24) end as MAT24, 
+	case sum(A.MAT36) when 0 then null else sum(B.MAT36)*1.0/sum(A.MAT36) end as MAT36, 
+	case sum(A.MAT48) when 0 then null else sum(B.MAT48)*1.0/sum(A.MAT48) end as MAT48,
+	'
+-- while (@i<=24)
+-- begin
+-- 	set @sql=@sql+'
+-- 	case sum(A.MAT'+right('00'+cast(@i as varchar(2)),2)+') when 0 then null else sum(B.MAT'+right('00'+cast(@i as varchar(2)),2)+')*1.0/sum(A.MAT'+right('00'+cast(@i as varchar(2)),2)+') end as MAT'+right('00'+cast(@i as varchar(2)),2)+','
+-- 	set @i=@i+1
+-- end
 set @sqlR='
 	select ''MAT'' as Period,B.Moneytype,B.Molecule,B.Class,B.Mkt,B.Mktname,B.Market,B.Prod,B.Productname,'+
 		left(@sql,len(@sql)-1)+' 
@@ -10551,12 +10558,19 @@ exec (@sqlR)
 set @i=0
 set @sql=''
 set @sqlR=''
-while (@i<=24)
-begin
-	set @sql=@sql+'
-	case sum(A.R3M'+right('00'+cast(@i as varchar(2)),2)+') when 0 then null else sum(B.R3M'+right('00'+cast(@i as varchar(2)),2)+')*1.0/sum(A.R3M'+right('00'+cast(@i as varchar(2)),2)+') end,'
-	set @i=@i+1
-end
+set @sql=@sql+'
+	case sum(A.R3M00) when 0 then null else sum(B.R3M00)*1.0/sum(A.R3M00) end as R3M00, 
+	case sum(A.R3M12) when 0 then null else sum(B.R3M12)*1.0/sum(A.R3M12) end as R3M12, 
+	case sum(A.R3M24) when 0 then null else sum(B.R3M24)*1.0/sum(A.R3M24) end as R3M24, 
+	case sum(A.R3M36) when 0 then null else sum(B.R3M36)*1.0/sum(A.R3M36) end as R3M36, 
+	case sum(A.R3M48) when 0 then null else sum(B.R3M48)*1.0/sum(A.R3M48) end as R3M48,
+	'
+-- while (@i<=24)
+-- begin
+-- 	set @sql=@sql+'
+-- 	case sum(A.R3M'+right('00'+cast(@i as varchar(2)),2)+') when 0 then null else sum(B.R3M'+right('00'+cast(@i as varchar(2)),2)+')*1.0/sum(A.R3M'+right('00'+cast(@i as varchar(2)),2)+') end,'
+-- 	set @i=@i+1
+-- end
 set @sqlR='
 	insert into OutputKeyBrandPerformance_For_OtherETV
 	select ''MQT'' as Period,B.Moneytype,B.Molecule,B.Class,B.Mkt,B.Mktname,B.Market,B.Prod,B.Productname,'+
@@ -10573,12 +10587,19 @@ exec (@sqlR)
 set @i=0
 set @sql=''
 set @sqlR=''
-while (@i<=24)
-begin
-	set @sql=@sql+'
-	case sum(A.MTH'+right('00'+cast(@i as varchar(2)),2)+') when 0 then null else sum(B.MTH'+right('00'+cast(@i as varchar(2)),2)+')*1.0/sum(A.MTH'+right('00'+cast(@i as varchar(2)),2)+') end,'
-	set @i=@i+1
-end
+set @sql=@sql+'
+	case sum(A.MTH00) when 0 then null else sum(B.MTH00)*1.0/sum(A.MTH00) end as MTH00, 
+	case sum(A.MTH12) when 0 then null else sum(B.MTH12)*1.0/sum(A.MTH12) end as MTH12, 
+	case sum(A.MTH24) when 0 then null else sum(B.MTH24)*1.0/sum(A.MTH24) end as MTH24, 
+	case sum(A.MTH36) when 0 then null else sum(B.MTH36)*1.0/sum(A.MTH36) end as MTH36, 
+	case sum(A.MTH48) when 0 then null else sum(B.MTH48)*1.0/sum(A.MTH48) end as MTH48,
+	'
+-- while (@i<=24)
+-- begin
+-- 	set @sql=@sql+'
+-- 	case sum(A.MTH'+right('00'+cast(@i as varchar(2)),2)+') when 0 then null else sum(B.MTH'+right('00'+cast(@i as varchar(2)),2)+')*1.0/sum(A.MTH'+right('00'+cast(@i as varchar(2)),2)+') end,'
+-- 	set @i=@i+1
+-- end
 set @sqlR='insert into OutputKeyBrandPerformance_For_OtherETV
 	select ''MTH'' as Period,B.Moneytype,B.Molecule,B.Class,B.Mkt,B.Mktname,B.Market,B.Prod,B.Productname,'+
 	left(@sql,len(@sql)-1)+' 
@@ -10595,14 +10616,21 @@ exec (@sqlR)
 set @i=0
 set @sql=''
 set @sqlR=''
-while (@i<=24)
-begin
 set @sql=@sql+'
-case sum(A.YTD'+right('00'+cast(@i as varchar(2)),2)+') 
-	when 0 then null 
-	else sum(B.YTD'+right('00'+cast(@i as varchar(2)),2)+')*1.0/sum(A.YTD'+right('00'+cast(@i as varchar(2)),2)+') end,'
-set @i=@i+1
-end
+	case sum(A.YTD00) when 0 then null else sum(B.YTD00)*1.0/sum(A.YTD00) end as YTD00, 
+	case sum(A.YTD12) when 0 then null else sum(B.YTD12)*1.0/sum(A.YTD12) end as YTD12, 
+	case sum(A.YTD24) when 0 then null else sum(B.YTD24)*1.0/sum(A.YTD24) end as YTD24, 
+	case sum(A.YTD36) when 0 then null else sum(B.YTD36)*1.0/sum(A.YTD36) end as YTD36, 
+	case sum(A.YTD48) when 0 then null else sum(B.YTD48)*1.0/sum(A.YTD48) end as YTD48,
+	'
+-- while (@i<=24)
+-- begin
+-- set @sql=@sql+'
+-- case sum(A.YTD'+right('00'+cast(@i as varchar(2)),2)+') 
+-- 	when 0 then null 
+-- 	else sum(B.YTD'+right('00'+cast(@i as varchar(2)),2)+')*1.0/sum(A.YTD'+right('00'+cast(@i as varchar(2)),2)+') end,'
+-- set @i=@i+1
+-- end
 set @sqlR='insert into OutputKeyBrandPerformance_For_OtherETV
 select ''YTD'' as Period,B.Moneytype,B.Molecule,B.Class,B.Mkt,B.Mktname,B.Market,B.Prod,B.Productname,'+
 left(@sql,len(@sql)-1)+' 
