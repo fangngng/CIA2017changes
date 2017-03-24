@@ -200,7 +200,7 @@ select  DataSource,
 from db4.BMSChinaCIA_IMS_test.dbo.WebChartSeries
 
 go
-
+print 'webchartseries'
 
 update a 
 set a.HighChartSeriesType = 
@@ -210,9 +210,10 @@ set a.HighChartSeriesType =
                   or a.series like '%CAGR%' 
                   then 'line'
 		 else 'StackedColumn' end 
-from WebChartSeries as a
+from BMSChina_staging_test.dbo.WebChartSeries as a
 inner join BMSChina_staging_test.dbo.WebChart as b on a.LinkChartCode = b.Code
 where b.highChartType = 'StackedColumnLineDY'
+      or b.HighChartType = 'ColumnLineDY'
 go 
 
 
@@ -228,8 +229,9 @@ from  db4.BMSChinaCIA_IMS_test.dbo.outputgeo
 delete FROM [BMSChina_staging_test].[dbo].[WebChartTitle] 
 where linkchartcode IN('R401','R411') and timeframe='MTH' and Product in ('Taxol','Paraplatin')
 
-
-
+UPDATE [BMSChina_staging_test].[dbo].[WebChartTitle] 
+SET SubCaption = 'RDPAC'
+WHERE SubCaption LIKE '%HKAPI%'
 
 
 print (N'

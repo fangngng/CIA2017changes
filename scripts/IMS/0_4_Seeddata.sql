@@ -292,7 +292,8 @@ GO
 
 select * into MTHCITY_PKAU from 
 (
-    select * from tempFactSales where AUDI_COD <> 'CHT_'
+    -- select * from tempFactSales where AUDI_COD <> 'CHT_'
+    select * from tempFactSales where 1 = 0
 )a
 GO
 
@@ -394,5 +395,4 @@ go
 
 create index idxPACK_cod on MTHCHPA_PKAU(PACK_ID,PACK_COD,PACK_DES)
 go
-create index idxPACK_cod on MTHCITY_PKAU(PACK_ID,PACK_COD,PACK_DES)
 go

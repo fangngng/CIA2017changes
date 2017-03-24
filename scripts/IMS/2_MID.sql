@@ -908,8 +908,10 @@ BEGIN
 		insert into OutputKeyMNCsProdPerformance 
 		select top 10 cast(''MAT'' as varchar(20)) as [Period],'+'''' +@MoneyType+''''+',1 as CurrRank,1 as PrevRank,Prod_cod,'''',
 			sum(Mat00' +@MoneyType+'),sum(Mat12' +@MoneyType+'),0
-		from MTHCHPA_PKAU 
+		from MTHCHPA_PKAU A
+		left join dbo.Dim_Product C on A.Prod_cod = c.Product_code
 		where CORP_Cod in(select CORP_Cod from OutputKeyMNCsPerformance where Period=''MAT'' and MoneyType='+''''  +@MoneyType+'''' +')
+			and c.Product_Name not in (''Albumin human'', ''Pulmicort resp'')
 		group by Prod_cod
 		order by sum(Mat00' +@MoneyType+') desc
 
@@ -929,8 +931,10 @@ BEGIN
 		insert into OutputKeyMNCsProdPerformance 
 		select top 10 cast(''MQT'' as varchar(20)) as [Period],'+'''' +@MoneyType+''''+',1 as CurrRank,1 as PrevRank,Prod_cod,'''',
 			sum(R3M00' +@MoneyType+'),sum(R3M12' +@MoneyType+'),0
-		from MTHCHPA_PKAU 
+		from MTHCHPA_PKAU A
+		left join dbo.Dim_Product C on A.Prod_cod = c.Product_code
 		where CORP_Cod in(select CORP_Cod from OutputKeyMNCsPerformance where Period=''MQT'' and MoneyType='+''''  +@MoneyType+'''' +')
+			and c.Product_Name not in (''Albumin human'', ''Pulmicort resp'')
 		group by Prod_cod
 		order by sum(R3M00' +@MoneyType+') desc
 
@@ -950,8 +954,10 @@ BEGIN
 		insert into OutputKeyMNCsProdPerformance 
 		select top 10 cast(''MTH'' as varchar(20)) as [Period],'+'''' +@MoneyType+''''+',1 as CurrRank,1 as PrevRank,Prod_cod,'''',
 			sum(MTH00' +@MoneyType+'),sum(MTH12' +@MoneyType+'),0
-		from MTHCHPA_PKAU 
+		from MTHCHPA_PKAU A
+		left join dbo.Dim_Product C on A.Prod_cod = c.Product_code
 		where CORP_Cod in(select CORP_Cod from OutputKeyMNCsPerformance where Period=''MTH'' and MoneyType='+''''  +@MoneyType+'''' +')
+			and c.Product_Name not in (''Albumin human'', ''Pulmicort resp'')
 		group by Prod_cod
 		order by sum(MTH00' +@MoneyType+') desc
 
@@ -971,8 +977,10 @@ BEGIN
 		insert into OutputKeyMNCsProdPerformance 
 		select top 10 cast(''YTD'' as varchar(20)) as [Period],'+'''' +@MoneyType+''''+',1 as CurrRank,1 as PrevRank,Prod_cod,'''',
 			sum(YTD00' +@MoneyType+'),sum(YTD12' +@MoneyType+'),0
-		from MTHCHPA_PKAU 
+		from MTHCHPA_PKAU A
+		left join dbo.Dim_Product C on A.Prod_cod = c.Product_code
 		where CORP_Cod in(select CORP_Cod from OutputKeyMNCsPerformance where Period=''YTD'' and MoneyType='+''''  +@MoneyType+'''' +')
+			and c.Product_Name not in (''Albumin human'', ''Pulmicort resp'')
 		group by Prod_cod
 		order by sum(YTD00' +@MoneyType+') desc
 
@@ -1100,7 +1108,7 @@ BEGIN
 			CurrRank = 99
 		from OutputKeyMNCsProdPerformance A 
 		left join dbo.Dim_Product C on A.Prod_cod = c.Product_code
-		where c.Product_Name not in (''Albumin human'', ''Pulmicort resp'')
+		where c.Product_Name in (''Albumin human'', ''Pulmicort resp'')
 
 
 		--update Total
@@ -3712,7 +3720,7 @@ BEGIN
 		--print @sql1
 
 		set @sql2 = 'insert into TempCityDashboard 
-        	select  B.Molecule,B.Class,B.mkt,B.mktname,B.mkt,B.prod,B.Productname,'+'''' +left(@MoneyType,2)+''''+' as Moneytype, A.audi_cod,'''',''City'',null,'+@sql1+', '+@sql3+', '
+        	select distinct B.Molecule,B.Class,B.mkt,B.mktname,B.mkt,B.prod,B.Productname,'+'''' +left(@MoneyType,2)+''''+' as Moneytype, A.audi_cod,'''',''City'',null,'+@sql1+', '+@sql3+', '
         
 		set @sql4 = @sqlMAT+', '+@sqlYTD+', ' + @sqlQtr+'
 			from mthcity_pkau A 
@@ -3793,7 +3801,7 @@ BEGIN
 		--print @sql1
 
 		set @sql2='insert into TempCityDashboard 
-        	select  B.Molecule,B.Class,B.mkt,B.mktname,B.mkt,B.prod,B.Productname,'+'''' +left(@MoneyType,2)
+        	select distinct B.Molecule,B.Class,B.mkt,B.mktname,B.mkt,B.prod,B.Productname,'+'''' +left(@MoneyType,2)
 			+''''+' as Moneytype, A.audi_cod,'''',''City'',null,'+@sql1+', '+@sql3+', '
         
 		set @sql4 = @sqlMAT+', '+@sqlYTD+', ' + @sqlQtr+'
@@ -10059,18 +10067,19 @@ Audi_cod,audi_des,lev
 from (
 	select A.*,Audi_cod,audi_des,lev 
 	from (
-		select distinct Molecule,Class,mkt,mktname,Market,Prod,productname,Moneytype 
-		from TempCityDashboard_For_OtherETV
-		) A inner join ( 
-		select distinct  Molecule,Class,mkt,mktname,Market,Moneytype,Audi_cod,audi_des,lev 
-		from TempCityDashboard_For_OtherETV
+			select distinct Molecule,Class,mkt,mktname,Market,Prod,productname,Moneytype 
+			from TempCityDashboard_For_OtherETV
+		) A 
+		inner join ( 
+			select distinct  Molecule,Class,mkt,mktname,Market,Moneytype,Audi_cod,audi_des,lev 
+			from TempCityDashboard_For_OtherETV
 		) B on a.Molecule=b.molecule and A.Class=B.Class and a.mkt=b.mkt and a.market=b.market
 			   and a.Moneytype=b.Moneytype
 ) A 
 where not exists(
 		select * from TempCityDashboard_For_OtherETV B
 		where a.Molecule=b.molecule and A.Class=B.Class and a.mkt=b.mkt and a.market=b.market
-		and a.Moneytype=b.Moneytype and a.audi_cod=b.audi_cod and a.Prod=B.Prod
+			and a.Moneytype=b.Moneytype and a.audi_cod=b.audi_cod and a.Prod=B.Prod
 	)
 go
 update TempCityDashboard_For_OtherETV
@@ -10213,12 +10222,12 @@ from TempCityDashboard_For_OtherETV A
 inner join dbo.outputgeo B
 	on A.Market=B.Product and A.audi_des=b.geo
 GO
-insert into TempRegionCityDashboard_For_OtherETV
-select A.*,B.ParentGeo 
-from TempCityDashboard_For_OtherETV A 
-inner join dbo.outputgeo B
-	on left(A.Market,7)=B.Product and A.audi_des=b.geo 
-where a.mkt in ('Eliquis VTEp','Eliquis NOAC','Eliquis VTEt')
+-- insert into TempRegionCityDashboard_For_OtherETV
+-- select A.*,B.ParentGeo 
+-- from TempCityDashboard_For_OtherETV A 
+-- inner join dbo.outputgeo B
+-- 	on left(A.Market,7)=B.Product and A.audi_des=b.geo 
+-- where a.mkt in ('Eliquis VTEp','Eliquis NOAC','Eliquis VTEt')
 go
 Alter table TempRegionCityDashboard_For_OtherETV 
 drop column Tier

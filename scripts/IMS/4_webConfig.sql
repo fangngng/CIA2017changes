@@ -28,7 +28,7 @@ update Webchartseries set AnchorSide='4',AnchorRadius='4',AnchorBorderThickness=
 --select * from Webchartseries
 where linkchartcode in (
                         select distinct Code from db82.BMSChina_staging_test.dbo.WebChart 
-                        where charturl in( '../Charts/MSCombiDY2D.swf','../Charts/StackedColumn3DLineDY.swf')
+                        where charturl in( '../Charts/MSCombiDY2D.swf','../Charts/StackedColumn3DLineDY.swf', '../Charts/MSStackedColumn2DLineDY.swf')
                         )
 	and (Series like '%Growth%' or Series like '%Share%')
 

@@ -170,6 +170,22 @@ go
 update webchartseries set parentyaxis='P' where linkchartcode='d130'
 go
 
+
+update a 
+set a.HighChartSeriesType = 
+	case when a.series like '%growth%' 
+                  or a.series like '%G R%' 
+                  or a.series like '%share%' 
+                  or a.series like '%CAGR%' 
+                  then 'line'
+		 else 'StackedColumn' end 
+from BMSChina_staging_test.dbo.WebChartSeries as a
+inner join BMSChina_staging_test.dbo.WebChart as b on a.LinkChartCode = b.Code
+where b.highChartType = 'StackedColumnLineDY'
+    or b.HighChartType = 'ColumnLineDY'
+go 
+
+
 update webcharttitle set YAxisName=PYAxisName 
 where linkchartcode in('D130','D150')
 go
@@ -209,7 +225,7 @@ go
 
 update WebChartSeries set AnchorSide='4',AnchorRadius='4',AnchorBorderThickness='1',ParentYAxis='S'
 --select * from WebChartSeries
-where linkchartcode in (select distinct chartcode from tblpagecharts where charturl = '../Charts/MSCombiDY2D.swf')
+where linkchartcode in (select distinct chartcode from tblpagecharts where charturl in( '../Charts/MSCombiDY2D.swf', '../Charts/MSStackedColumn2DLineDY.swf'))
 and Series like '%Growth%'
 and LinkChartCode in('D130','D110','D111','D150','D050','D051','D060')
 

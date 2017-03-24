@@ -431,33 +431,48 @@ select abs(-6594.31355183151)
 
 select * from output_stage where linkchartcode = 'd094' and TimeFrame = 'MAT' and currency = 'USD' and geo = 'shanghai'
 
+SELECT * from dbo.inMAXData where City = N'东营'
 
-	update output_stage
-	set series = case series
-		when 'R3M00' then 'MQT '+(select [MonthEN] from tblMonthList where monseq=1)
-		when 'R3M01' then 'MQT '+(select [MonthEN] from tblMonthList where monseq=4)
-		when 'R3M02' then 'MQT '+(select [MonthEN] from tblMonthList where monseq=7)
-		when 'R3M03' then 'MQT '+(select [MonthEN] from tblMonthList where monseq=10)
-		when 'R3M04' then 'MQT '+(select [MonthEN] from tblMonthList where monseq=13)
-		when 'R3M05' then 'MQT '+(select [MonthEN] from tblMonthList where monseq=16)
-		when 'YTD00' then 'YTD '+(select [MonthEN] from tblMonthList where monseq=1)
-		when 'YTD12' then 'YTD '+(select [MonthEN] from tblMonthList where monseq=13)
-		when 'YTD24' then 'YTD '+(select [MonthEN] from tblMonthList where monseq=25)
-		when 'YTD36' then 'YTD '+(select [MonthEN] from tblMonthList where monseq=37)
-		when 'YTD48' then 'YTD '+(select [MonthEN] from tblMonthList where monseq=49)
+SELECT * FROM dbo.tblcitymax where City_CN = N'东营'
 
-		when 'MAT00' then 'MAT '+(select [MonthEN] from tblMonthList where monseq=1)
-		when 'MAT12' then 'MAT '+(select [MonthEN] from tblMonthList where monseq=13)
-		when 'MAT24' then 'MAT '+(select [MonthEN] from tblMonthList where monseq=25)
-		when 'MAT36' then 'MAT '+(select [MonthEN] from tblMonthList where monseq=37)
-		when 'MAT48' then 'MAT '+(select [MonthEN] from tblMonthList where monseq=49)
+update dbo.tblcitymax
+set Audi_Cod = 'DNY_' 
+where City_CN = N'东营'
 
-		when 'MTH00' then 'MTH '+(select [MonthEN] from tblMonthList where monseq=1)
-		when 'MTH12' then 'MTH '+(select [MonthEN] from tblMonthList where monseq=13)
-		when 'MTH24' then 'MTH '+(select [MonthEN] from tblMonthList where monseq=25)
-		when 'MTH36' then 'MTH '+(select [MonthEN] from tblMonthList where monseq=37)
-		when 'MTH48' then 'MTH '+(select [MonthEN] from tblMonthList where monseq=49)
-		else series
-		end 
-	where LinkChartCode like 'D09%'
+SELECT * FROM output_stage where LinkChartCode = 'c050'
 
+SELECT * FROM OutputKeyMNCsProdPerformance WHERE [Period]='MAT' and MoneyType='LC'
+
+
+update OutputKeyMNCsProdPerformance
+set CurrRank=
+select B.Rank , *
+from OutputKeyMNCsProdPerformance A 
+inner join (
+	select RANK ( )OVER (order by sum(Mat00LC) desc ) as Rank,a.PROD_cod,sum(Mat00LC) as Mat00LC 
+	from dbo.MTHCHPA_PKAU A 
+	left join dbo.Dim_Product C on A.Prod_cod = c.Product_code
+	where CORP_Cod in(
+			select CORP_Cod from OutputKeyMNCsPerformance 
+			where Period='MAT' and MoneyType='LC' )
+		and c.Product_Name not in ('Albumin human', 'Pulmicort resp')
+	group by a.PROD_cod
+) B
+on A.PROD_cod=B.PROD_cod and A.[Period]='MAT' and MoneyType='LC'
+
+SELECT * FROM dbo.output_stage
+WHERE LinkChartCode = 'c020' AND Series = 'MNCs Performance % of China Market'
+
+SELECT * FROM dbo.output_stage WHERE LinkChartCode = 'c130' AND category = 'Value' AND Currency = 'rmb' AND Product = 'monopril'
+
+SELECT distinct DataSource,ProductID,GeoID, [LinkChartCode]
+	,[Category]
+	,[Product]
+	,[Lev],ParentGeo
+	,[Geo]
+	,[Currency]
+	,[TimeFrame]
+FROM [dbo].output where isshow='Y'
+AND LinkChartCode = 'c130'
+
+		

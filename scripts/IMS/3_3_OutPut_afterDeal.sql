@@ -4,7 +4,7 @@ GO
 exec dbo.sp_Log_Event 'Output','CIA','3_3_OutPut_afterDeal.sql','Start',null,null
 
 update output_stage
-set DataSource= case when linkchartcode in ('C100','C110','C210','C220','R320') then 'HKAPI' else 'IMS' end
+set DataSource= case when linkchartcode in ('C100','C110','C210','C220','R320') then 'RDPAC' else 'IMS' end
 go
 if object_id(N'output',N'U') is not null
 	drop table output
@@ -86,13 +86,13 @@ where Product='ParaPlatin'
 
 --todo : YTD
 --delete others YTD
-delete from [output] 
-where linkChartCode in(
-	'C130','C140','C131','C141','D081','D082','D083','D084','D085','D086','D087','D088','D091','D092','D093','D094'
-	,'R020','R040','R090','R420','R430','R440','R451','R452','R460','R471'
-	,'R472','R491','R492'
-)
-and TimeFrame = 'YTD' and Product <> 'Baraclude'
+-- delete from [output] 
+-- where linkChartCode in(
+-- 	'C130','C140','C131','C141','D081','D082','D083','D084','D085','D086','D087','D088','D091','D092','D093','D094'
+-- 	,'R020','R040','R090','R420','R430','R440','R451','R452','R460','R471'
+-- 	,'R472','R491','R492'
+-- )
+-- and TimeFrame = 'YTD' and Product <> 'Baraclude'
 
 
 
@@ -126,8 +126,8 @@ delete from output where (category='Adjusted patient number' or Currency = 'PN')
 GO
 
 
-
-
+delete from output where LinkChartCode is null 
+go 
 
 
 
@@ -387,6 +387,9 @@ update [Output]
 set color='FF00FF' where series like 'Market Growth' and LinkChartCode in('C080')
 update [Output]
 set color='34CD32' where series like 'Market Share' and LinkChartCode in('C080')
+update [Output]
+set color='EE33EE' where series like '%CAGR%' and LinkChartCode in('c201', 'c202')
+
 go
 update [Output]
 set color='4E71D1' where seriesidx=1 and LinkChartCode in('C120','c121')
@@ -503,7 +506,8 @@ select DataSource
 	,[G]
 	,[B]
 	,[IsShow]
-from output where linkchartcode in (
+from output 
+where linkchartcode in (
 		select distinct linkchartcode 
 		from output 
 		where Product='Glucophage' and linkchartcode not in (

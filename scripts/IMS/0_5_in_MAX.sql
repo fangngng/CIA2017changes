@@ -507,8 +507,9 @@ select	'', b.Audi_Cod, Pack_Cod, Pack_Des, ATC1_Cod, ATC2_Cod, ATC3_Cod, ATC4_Co
 from	inmaxdata as a
 left join tblCityMAX as b on a.City = b.City_CN 
 
+go
+create index idxPACK_cod on MTHCITY_PKAU(PACK_ID,PACK_COD,PACK_DES)
 
-
-
+go 
 
 

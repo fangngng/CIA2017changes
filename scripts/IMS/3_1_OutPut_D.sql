@@ -64,17 +64,17 @@ where (B.market like '%CAGR%' and A.Series='MAT00') or B.market not like '%CAGR%
 insert into [output_stage] (TimeFrame,LinkChartCode, Series, SeriesIdx,Currency, X, XIdx)
 select Period, 'c020' as Code, b.market,b.marketidx,MoneyType, a.Series,a.SeriesIdx
 from (
-	select 'MTH00' as Series,	11 as SeriesIdx union all
-	select 'MTH01' as Series,	10 as SeriesIdx union all
-	select 'MTH02' as Series,	9 as SeriesIdx union all
-	select 'MTH03' as Series,	8 as SeriesIdx union all
-	select 'MTH04' as Series,	7 as SeriesIdx union all
-	select 'MTH05' as Series,	6 as SeriesIdx union all
-	select 'MTH06' as Series,	4 as SeriesIdx union all
-	select 'MTH07' as Series,	3 as SeriesIdx union all
-	select 'MTH08' as Series,	2 as SeriesIdx union all
-	select 'MTH09' as Series,	1 as SeriesIdx union all
-	select 'MTH10' as Series,	1 as SeriesIdx union all
+	select 'MTH00' as Series,	12 as SeriesIdx union all
+	select 'MTH01' as Series,	11 as SeriesIdx union all
+	select 'MTH02' as Series,	10 as SeriesIdx union all
+	select 'MTH03' as Series,	9 as SeriesIdx union all
+	select 'MTH04' as Series,	8 as SeriesIdx union all
+	select 'MTH05' as Series,	7 as SeriesIdx union all
+	select 'MTH06' as Series,	6 as SeriesIdx union all
+	select 'MTH07' as Series,	5 as SeriesIdx union all
+	select 'MTH08' as Series,	4 as SeriesIdx union all
+	select 'MTH09' as Series,	3 as SeriesIdx union all
+	select 'MTH10' as Series,	2 as SeriesIdx union all
 	select 'MTH11' as Series,	1 as SeriesIdx
 ) a, (
 	select distinct Period,MoneyType,market,marketidx from dbo.[OurputKey10TAVSTotalMkt] 
@@ -944,7 +944,11 @@ set Category='Adjusted patient number'
 from [output_stage] 
 where Product ='Paraplatin' and LinkChartCode='C120' and Category='Dosing Units'
 
+go 
 
+update output_stage
+set Y = null 
+where LinkChartCode = 'c120' and Y = 0.0 
 
 
 
