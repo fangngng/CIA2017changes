@@ -1113,9 +1113,12 @@ declare @i int,@sql varchar(8000)
 set @i=0
 set @sql='update [output_stage]
 set X=case X '
-while (@i<=24)
+while (@i<=48)
 begin
 	set @sql=@sql+'
+	when ''MAT'+right('00'+cast(@i as varchar(2)),2)+''' then TimeFrame + '' ''+(select [MonthEN] from tblMonthList where monseq='+cast(@i+1 as varchar(2))+')
+	when ''YTD'+right('00'+cast(@i as varchar(2)),2)+''' then TimeFrame + '' ''+(select [MonthEN] from tblMonthList where monseq='+cast(@i+1 as varchar(2))+')
+	when ''MTH'+right('00'+cast(@i as varchar(2)),2)+''' then TimeFrame + '' ''+(select [MonthEN] from tblMonthList where monseq='+cast(@i+1 as varchar(2))+')
 	when ''MAT'+right('00'+cast(@i as varchar(2)),2)+''' then TimeFrame + '' ''+(select [MonthEN] from tblMonthList where monseq='+cast(@i+1 as varchar(2))+')'
 	set @i=@i+1
 end

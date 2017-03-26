@@ -427,8 +427,10 @@ set @sql = '
 insert into [OutputKeyMNCsProdPerformance_HKAPI]
     ([Period],[MoneyType],[Prod_cod],[CurrRank],[PrevRank],[Mat00],[Mat12])
 select top 10 ''MQT'',''RMB'', [Product name],1,1,sum(isnull([' + @MQT00 + '],0))*1000,sum(isnull([' + @MQT12 + '],0))*1000
-from inHKAPI_New
+from inHKAPI_New A 
+left join dbo.Dim_Product C on A.[Product name] = c.Product_Name
 where [Company name] in (select CORP_Cod from OutputKeyMNCsPerformance_HKAPI where Period=''MQT'')
+    	and c.Product_Name not in (''Albumin human'', ''Pulmicort resp'')
 group by [Product name]
 order by sum(isnull([' + @MQT00 + '],0)) desc
 
@@ -446,7 +448,8 @@ else
     group by [Product name]
 
 update [OutputKeyMNCsProdPerformance_HKAPI]
-set [Total]=B.sales from [OutputKeyMNCsProdPerformance_HKAPI] A ,
+set [Total]=B.sales 
+from [OutputKeyMNCsProdPerformance_HKAPI] A ,
 (   select sum(isnull([' + @MQT00 + '],0))*1000 as sales
     from inHKAPI_New
     where [Company name] in (select CORP_Cod from OutputKeyMNCsPerformance_HKAPI where Period=''MQT'')
@@ -462,28 +465,30 @@ exec(@sql)
 insert into [OutputKeyMNCsProdPerformance_HKAPI]
     ([Period],[MoneyType],[Prod_cod],[CurrRank],[PrevRank],[Mat00],[Mat12])
 select top 10 'Last Year','RMB', [Product name],1,1,sum(isnull([LastYear00LC],0))*1000,sum(isnull([LastYear12LC],0))*1000
-from inHKAPI_New
+from inHKAPI_New A 
+left join dbo.Dim_Product C on A.[Product name] = c.Product_Name
 where [Company name] in (select CORP_Cod from OutputKeyMNCsPerformance_HKAPI where Period='Last Year')
+    	and c.Product_Name not in ('Albumin human', 'Pulmicort resp')
 group by [Product name]
 order by sum(isnull([LastYear00LC],0)) desc
 go
 if exists(select * from [OutputKeyMNCsProdPerformance_HKAPI] 
 				  where Prod_Cod like '%Bara%' and Period='Last Year' and MoneyType='RMB'
 		)
-print 'BARACLUDE Prod in Top 10 LastYear'
+    print 'BARACLUDE Prod in Top 10 LastYear'
 else
-insert into [OutputKeyMNCsProdPerformance_HKAPI]
-    ([Period],[MoneyType],[Prod_cod],[CurrRank],[PrevRank],[Mat00],[Mat12])
-select 'Last Year','RMB', [Product name],1,1,sum(isnull([LastYear00LC],0))*1000,sum(isnull([LastYear12LC],0))*1000
-from inHKAPI_New
-where  [Product name] like '%Bara%'
-group by [Product name]
+    insert into [OutputKeyMNCsProdPerformance_HKAPI]
+        ([Period],[MoneyType],[Prod_cod],[CurrRank],[PrevRank],[Mat00],[Mat12])
+    select 'Last Year','RMB', [Product name],1,1,sum(isnull([LastYear00LC],0))*1000,sum(isnull([LastYear12LC],0))*1000
+    from inHKAPI_New
+    where  [Product name] like '%Bara%'
+    group by [Product name]
 go
 update [OutputKeyMNCsProdPerformance_HKAPI]
 set [Total]=B.sales from [OutputKeyMNCsProdPerformance_HKAPI] A ,
-(select sum(isnull([LastYear00LC],0))*1000 as sales
-from inHKAPI_New
-where [Company name] in (select CORP_Cod from OutputKeyMNCsPerformance_HKAPI where Period='Last Year')
+(   select sum(isnull([LastYear00LC],0))*1000 as sales
+    from inHKAPI_New
+    where [Company name] in (select CORP_Cod from OutputKeyMNCsPerformance_HKAPI where Period='Last Year')
 ) B
 where A.[Period]='Last Year'
 go
@@ -560,10 +565,10 @@ go
 --SET PRODUCTNAME=PRODUCTNAME+' Generics'WHERE MOLECULE='Y'
 GO
 if exists (select * from dbo.sysobjects where id = object_id(N'OutputPreHKAPIBrandPerformance') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
-drop table OutputPreHKAPIBrandPerformance
+    drop table OutputPreHKAPIBrandPerformance
 go
 select 'YTD' as Period,'RMB' as Moneytype,B.Mkt as Market,B.MKt,B.MktName,B.prod,B.productname,
-sum(isnull([YTD00LC],0))*1000 as YTD00,sum(isnull([YTD12LC],0))*1000 as YTD12
+    sum(isnull([YTD00LC],0))*1000 as YTD00,sum(isnull([YTD12LC],0))*1000 as YTD12
 into OutputPreHKAPIBrandPerformance
 from inHKAPI_New A 
 inner join (select distinct mkt,mktname,Prod,Productname from tblMktDef_MRBIChina) B
@@ -595,8 +600,9 @@ add CurrRank int
 go
 update OutputPreHKAPIBrandPerformance
 set CurrRank=B.Rank from OutputPreHKAPIBrandPerformance A inner join
-(select A.*, RANK ( )OVER (PARTITION BY Period,MoneyType,mkt,Market order by YTD00 desc ) as Rank 
- from OutputPreHKAPIBrandPerformance A) B
+(   select A.*, RANK ( )OVER (PARTITION BY Period,MoneyType,mkt,Market order by YTD00 desc ) as Rank 
+    from OutputPreHKAPIBrandPerformance A
+) B
 on A.Market=B.Market and A.[mkt]=B.[mkt] and A.MoneyType=B.MoneyType and A.period=B.period and A.[productname]=B.[productname]
 go
 
