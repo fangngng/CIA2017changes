@@ -465,14 +465,128 @@ WHERE LinkChartCode = 'c020' AND Series = 'MNCs Performance % of China Market'
 
 SELECT * FROM dbo.output_stage WHERE LinkChartCode = 'c130' AND category = 'Value' AND Currency = 'rmb' AND Product = 'monopril'
 
-SELECT distinct DataSource,ProductID,GeoID, [LinkChartCode]
-	,[Category]
-	,[Product]
-	,[Lev],ParentGeo
-	,[Geo]
-	,[Currency]
-	,[TimeFrame]
-FROM [dbo].output where isshow='Y'
-AND LinkChartCode = 'c130'
+SELECT * FROM dbo.output_stage 
+WHERE LinkChartCode = 'c140'
 
-		
+SELECT * FROM OutputKeyBrandPerformanceByRegion_For_OtherETV WHERE Moneytype = 'lc' AND lev = 'region' AND Productname = 'baraclude'
+SELECT mth00, * FROM OutputGeoHBVSummaryT2_For_OtherETV WHERE Moneytype = 'lc' AND lev = 'region'
+SELECT mth00, * FROM TempRegionCityDashboard_For_OtherETV WHERE Moneytype = 'un' AND lev = 'region' AND Productname = 'baraclude'
+
+SELECT SUM(mth00) FROM TempCityDashboard_For_OtherETV WHERE Moneytype = 'un'  AND Productname = 'baraclude'
+and audi_des IN (
+'Dongying',
+'Linyi',
+'Wuhan',
+'Jinan',
+'Zhengzhou')
+
+
+SELECT * FROM TempCityDashboard_For_OtherETV WHERE Moneytype = 'un'  AND Productname = 'baraclude'
+
+SELECT * FROM dbo.tblcitymax 
+
+SELECT * FROM TempCityDashboard where not (mkt='arv' and productname in ('Other Entecavir','ARV Others')) 
+SELECT DISTINCT Audi_des FROM TempCityDashboard where not (mkt='arv' and productname in ('Other Entecavir','ARV Others')) 
+
+SELECT * from 
+
+SELECT distinct * FROM TempCityDashboard ORDER BY R3M00 DESC 
+
+SELECT SUM(mth00), b.ParentGeo
+FROM (
+	SELECT COUNT(*)
+	from mthcity_pkau A 
+	--inner join tblMktDef_MRBIChina B
+	--on A.pack_cod=B.pack_cod where B.Active='Y' and A.audi_cod <> 'ZJH_' and b.mkt not like 'eliquis%'
+	group by B.Molecule,B.Class,B.mkt,B.mktname,B.prod,B.Productname,a.audi_cod
+) AS a 
+INNER JOIN (
+	SELECT geoname, geo, ParentGeo FROM dbo.outputgeo 
+) AS b ON a.Audi_des = b.geo
+WHERE a.Moneytype = 'un' and not (mkt='arv' and productname in ('Other Entecavir','ARV Others')) 
+GROUP BY b.ParentGeo
+
+SELECT a.PACK_COD, b.* 
+from mthcity_pkau A 
+inner join 
+(	SELECT DISTINCT  * from tblMktDef_MRBIChina b
+)B
+on A.pack_cod=B.pack_cod AND a.PROD_COD = b.prod_Cod 
+WHERE B.Active='Y' and A.audi_cod <> 'ZJH_' and b.mkt not like 'eliquis%'
+
+SELECT DISTINCT Mkt, MktName,  Molecule, Class, ATC1_COD, ATC2_COD, ATC3_COD, ATC4_COD, Pack_Cod, Pack_Des,
+	   Prod_Cod, Prod_Name, Prod_FullName, Mole_Cod, Mole_Name, Corp_COD, Manu_COD, Gene_COD, Active, 
+	   rat FROM tblMktDef_MRBIChina WHERE  PACK_COD = '1232002'
+
+SELECT DISTINCT Mkt, MktName, Molecule, Class, ATC1_COD, ATC2_COD, ATC3_COD, ATC4_COD, Pack_Cod, Pack_Des,
+	   Prod_Cod, Prod_Name, Prod_FullName, Mole_Cod, Mole_Name, Corp_COD, Manu_COD, Gene_COD, Active, Date, Comment,
+	   rat 
+FROM tblMktDef_MRBIChina 
+
+SELECT * FROM dbo.MTHCITY_PKAU WHERE PACK_COD = '1232002' and audi_cod IS NOT NULL AND audi_cod <> ''
+
+SELECT distinct  FROM tblMktDef_MRBIChina
+
+
+SELECT * FROM mthcity_pkau 
+
+SELECT SUM(a.mth00UN), b.ParentGeo FROM (
+	SELECT SUM(MTH00UN) AS mth00UN, a.AUDI_COD , b.City
+	FROM dbo.MTHCITY_PKAU AS a 
+	LEFT JOIN dbo.tblcitymax AS b ON a.AUDI_COD = b.Audi_Cod
+	WHERE a.audi_cod IS NOT NULL AND a.AUDI_COD <> '' 
+	GROUP BY a.AUDI_COD, b.City
+) AS a 
+INNER JOIN (
+	SELECT geoname, geo, ParentGeo FROM dbo.outputgeo 
+) AS b ON a.City = b.geo
+GROUP BY b.ParentGeo
+
+SELECT * FROM dbo.tblcitymax 
+SELECT * FROM dbo.MAXRegionCity WHERE Region = 'central'
+SELECT geoname, geo, ParentGeo FROM dbo.outputgeo WHERE ParentGeo = 'central'
+
+
+SELECT SUM(mth00) FROM (SELECT DISTINCT * FROM TempCityDashboard_For_OtherETV ) AS  a
+WHERE Market = 'baraclude' AND Moneytype = 'un' AND audi_des IN (
+'Dongying',
+'Linyi',
+'Wuhan', 'Jinan', 'Zhengzhou') AND a.Molecule = 'Y' AND a.Class = 'N'
+
+SELECT DISTINCT * FROM TempCityDashboard order BY R3M00
+SELECT * FROM TempCityDashboard order BY R3M00
+
+SELECT * FROM dbo.tblMktDef_MRBIChina
+
+SELECT distinct B.Molecule,B.Class,B.mkt,B.mktname,B.prod,B.Productname, b.Pack_Cod, b.Mole_Cod FROM dbo.tblMktDef_MRBIChina b
+SELECT distinct b.Pack_Cod, b.Mole_Cod FROM dbo.tblMktDef_MRBIChina b
+
+SELECT * FROM TempCityDashboard_For_OtherETV 
+
+SELECT * FROM dbo.output_stage WHERE LinkChartCode = 'd091' AND geo = 'wuhan'  AND TimeFrame = 'mat' AND Category = 'value' AND Currency = 'usd'
+
+SELECT * FROM dbo.output_stage WHERE LinkChartCode = 'c210'
+
+SELECT * FROM OutputCityPerformanceByBrand WHERE  Audi_des = 'wuhan'  AND Moneytype = 'lc' AND Chart = 'Volume Trend'
+
+SELECT * FROM TempRegionCityDashboard WHERE  Audi_des = 'wuhan'  AND Moneytype = 'lc'
+SELECT * FROM TempCityDashboard  WHERE  Audi_des = 'wuhan'  AND Moneytype = 'lc'
+
+SELECT mat48lc, * FROM mthcity_pkau WHERE  AUDI_COD = 'YZW_' 
+
+SELECT mat37lc, mat26us, MTH49LC, * FROM dbo.inMAXData WHERE City = N'Œ‰∫∫'
+
+SELECT [201212 Value£®RMB£©],* FROM dbo.Max_Data WHERE City = N'Œ‰∫∫ –'
+
+SELECT * FROM output_stage WHERE LinkChartCode = 'c200' AND Product = 'sprycel' AND Currency = 'RMB' AND x = '2016Q4'
+
+SELECT * FROM OutputCMLChina_HKAPI 
+
+SELECT * FROM dbo.WebChartTitle WHERE LinkChartCode = 'c220'
+
+SELECT * FROM dbo.tblMonthList
+
+SELECT * FROM OutputHospital_All WHERE LinkChartCode = 'c202'
+
+SELECT * FROM tempHospitalRollupByTier 
+

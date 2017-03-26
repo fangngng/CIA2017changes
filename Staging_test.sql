@@ -243,4 +243,48 @@ select * from output where LinkChartCode = 'c020' and Product = 'baraclude'
 
 select * from output where linkchartcode = 'd094' and TimeFrame = 'MAT' and currency = 'USD' and geo = 'shanghai'
 
+SELECT * FROM dbo.WebChartSeries where LinkChartCode = 'd050'
+select * from webchart where Code = 'd050'
+
+SELECT distinct Series FROM output where LinkChartCode = 'd021'
+
+update dbo.tblcitymax
+set Audi_Cod = 'DNY_' 
+where City_CN = N'东营'
+
+SELECT * FROM dbo.output where LinkChartCode = 'c120'
+
+
+update output
+set Y = null 
+where LinkChartCode = 'c120' and convert(float, Y) = 0.0
+
+SELECT * FROM dbo.WebChartSeries 
+
+SELECT * FROM dbo.WebChartTitle
+WHERE SubCaption LIKE '%HKAPI%'
+
+SELECT * FROM dbo.WebChart
+
+UPDATE webchart 
+SET HighChartType = 'ColumnLineDY'
+WHERE HighChartType = 'StackedColumnLineDY'
+
+UPDATE webchart 
+SET HighChartType = 'StackedColumnLineDY'
+WHERE Code IN ('c201', 'c202')
+
+SELECT * FROM dbo.WebChartSeries WHERE LinkChartCode = 'c201'
+SELECT * FROM dbo.WebChartSeries WHERE LinkChartCode = 'c202'
+SELECT * FROM webchart WHERE Code = 'c201'
+SELECT * FROM tblColorDef 
+
+select distinct LinkChartCode,LinkProductId,LinkGeoId,Category,TimeFrame,CategoryIdx,TimeFrameIdx 
+from WebChartTitle 
+WHERE LinkChartCode = 'c130'
+
+
+SELECT * FROM dbo.WebChartSeries WHERE LinkChartCode = 'c210'
+SELECT * FROM dbo.WebChart  WHERE code = 'c210'
+
 

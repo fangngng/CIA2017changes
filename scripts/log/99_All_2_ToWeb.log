@@ -1,12 +1,12 @@
 1> 2> 1> 2> 3> 4> 5> 6> 7> 8> 9> 10> 11> 12> 13> 14> 15> (0 rows affected)
 1> 2> 3> 4> 5> 6> (41478 rows affected)
 1> 2> 3> 4> (0 rows affected)
-1> 2> 3> 4> 5> 6> 7> 8> (109702 rows affected)
+1> 2> 3> 4> 5> 6> 7> 8> (134662 rows affected)
 1> 2> 3> 4> 5> 6> 7> (0 rows affected)
-1> 2> 3> 4> (109702 rows affected)
-1> 2> 3> 4> 5> 6> 7> (73674 rows affected)
+1> 2> 3> 4> (134662 rows affected)
+1> 2> 3> 4> 5> 6> 7> (98604 rows affected)
 1> 2> 3> 4> 5> 6> 7> (0 rows affected)
-1> 2> 3> 4> 5> 6> 7> (8872 rows affected)
+1> 2> 3> 4> 5> 6> 7> (8902 rows affected)
 1> 2> 3> 4> 5> (0 rows affected)
 1> 2> 3> 4> 5> (1383 rows affected)
 1> 2> 3> 4> 5> 6> 7> 8> 9> 10> (1383 rows affected)
@@ -27,12 +27,12 @@
 1> 2> 3> (0 rows affected)
 1> 2> 3> 4> 5> 6> (0 rows affected)
 1> 2> 3> (190 rows affected)
-1> 2> 3> 4> 5> 6> 7> 8> 9> 10> 11> 12> 13> 14> 15> (1563 rows affected)
+1> 2> 3> 4> 5> 6> 7> 8> 9> 10> 11> 12> 13> 14> 15> (1680 rows affected)
 1> 2> 3> 4> 5> (570 rows affected)
-1> 2> 3> 4> (786 rows affected)
-1> 2> (1686 rows affected)
-1> 2> (1513 rows affected)
-1> 2> (707 rows affected)
+1> 2> 3> 4> (986 rows affected)
+1> 2> (1913 rows affected)
+1> 2> (1740 rows affected)
+1> 2> (896 rows affected)
 1> 2> (4 rows affected)
 1> 2> (6 rows affected)
 1> 2> (6 rows affected)
@@ -70,7 +70,7 @@
 (0 rows affected)
                                    
  --------- ----------------------- 
- Finish at 2017-03-23 15:37:15.807 
+ Finish at 2017-03-24 18:34:31.247 
 
 (1 row affected)
 1> 2> 3> 4> 5> over!

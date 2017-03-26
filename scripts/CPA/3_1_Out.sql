@@ -97,7 +97,8 @@ set @i= 1
 while @i <= 3
   begin
   set @sql = '
-  update OutputHospital_All set Y = 
+  update OutputHospital_All 
+  set Y = 
   	case a.category when ''Value'' then VMat' + cast(@i as varchar) + '
                     when ''Volume'' then UMat' + cast(@i as varchar) + ' 
     end
@@ -152,7 +153,8 @@ select
 from OutputHospital_All 
 where LinkChartCode in ('C202') and Currency = 'RMB'
 go
-update OutputHospital_All set X = 'MAT ' + Replace(right(convert(varchar(11),convert(datetime,x +'01',112),6),6),' ','''')
+update OutputHospital_All 
+set X = 'MAT ' + Replace(right(convert(varchar(11),convert(datetime,x +'01',112),6),6),' ','''')
 where LinkChartCode ='C202'
 go
 -- CAGR【复合年增长率(Compound Average Growth Rate)】 calculation
@@ -195,7 +197,8 @@ begin
 	insert into OutputHospital_All (LinkChartCode, LinkSeriesCode, Series, SeriesIdx, Category, Product, Lev, ParentGeo, Geo, Currency, TimeFrame, X, XIdx, Y, IsShow)
 	select LinkChartCode, LinkSeriesCode, Series, SeriesIdx, Category, Product, 
 		Lev, ParentGeo, Geo, Currency, 'MAT Quarter' as TimeFrame, X, XIdx, Y, IsShow
-	from OutputHospital_All where LinkChartCode in ('C202') and TimeFrame = 'MAT Month'
+	from OutputHospital_All 
+  where LinkChartCode in ('C202') and TimeFrame = 'MAT Month'
 
 	update OutputHospital_All set X = 'MAT ' + Right(X,2) + case substring(X,5,3) when 'Mar' then 'Q1' when 'May' then 'Q2' when 'Jun' then 'Q2' when 'Sep' then 'Q3' when 'Dec' then 'Q4' end
 	where LinkChartCode ='C202' and TimeFrame = 'MAT Quarter' and IsShow = 'Y'

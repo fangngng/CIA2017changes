@@ -553,3 +553,22 @@ update webpage set Idx = 7 where id = 13
 update dbo.tblcitymax
 set City = upper(left(City, 1)) + lower(right(City, len(City) - 1)) 
 
+go 
+INSERT INTO BMSChina_ppt_test.dbo.tblColorDef
+SELECT 'GEO', 'ARV', 'Viread', 189, 233, 45, '', 'BDE92D' 
+go 
+UPDATE dbo.tblCityMAX
+SET city = UPPER(LEFT(City, 1)) + LOWER(RIGHT(city, LEN(City) - 1))
+
+go 
+
+
+ALTER TABLE dbo.tblcitymax
+ADD Tier INT 
+GO 
+
+UPDATE a 
+SET Tier =  b.[city tier]
+FROM tblcitymax AS  a
+INNER JOIN dbo.maxcity AS b ON a.City_CN = b.City
+

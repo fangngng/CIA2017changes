@@ -17,10 +17,13 @@ print (N'
 if object_id(N'tblNewCity', N'U') is not null
   drop table tblNewCity
 go
-select a.City_Code+'_' as AUDI_COD, a.City_Name as AUDI_DES, 'Y' as Active into tblNewCity
+select a.City_Code+'_' as AUDI_COD, a.City_Name as AUDI_DES, 'Y' as Active 
+into tblNewCity
 from Dim_City a 
-inner join (select City_ID,max(Monseq) as Monseq, sum(Quantity_UN) as Quantity_UN 
-	from inMonthlySales group by City_ID) b
+inner join (
+	select City_ID,max(Monseq) as Monseq, sum(Quantity_UN) as Quantity_UN 
+	from inMonthlySales 
+	group by City_ID) b
 on a.City_ID = b.City_ID where b.Quantity_UN <> 0 and b.Monseq < 13
 go
 
@@ -3823,7 +3826,7 @@ update TempCityDashboard
 set AUDI_des=City
 from TempCityDashboard A 
 inner join dbo.tblcitymax B
-on A.AUDI_cod=B.Audi_Cod 
+on A.AUDI_cod = B.city 
 go
 
 update TempCityDashboard
@@ -3860,8 +3863,8 @@ go
 update TempCityDashboard
 set Tier=B.Tier 
 from TempCityDashboard A 
-inner join Dim_City B
-on A.Audi_cod=B.CIty_Code+'_'
+inner join tblCityMax B
+on A.Audi_cod = B.city
 go
 
 go
@@ -3953,8 +3956,10 @@ DEALLOCATE TMP_CURSOR
 go
 
 update TempCityDashboard_Mole
-set AUDI_des=City_Name from TempCityDashboard_Mole A inner join dbo.Dim_City B
-on A.AUDI_cod=B.City_Code+'_'
+set AUDI_des=City
+from TempCityDashboard_Mole A 
+inner join dbo.tblcitymax B
+on A.AUDI_cod = B.City 
 go
 
 update TempCityDashboard_Mole
@@ -3988,8 +3993,10 @@ where not exists(
 	)
 go
 update TempCityDashboard_Mole
-set Tier=B.Tier from TempCityDashboard_Mole A inner join Dim_City B
-on A.Audi_cod=B.CIty_Code+'_'
+set Tier=B.Tier 
+from TempCityDashboard_Mole A 
+inner join tblCityMax B
+on A.Audi_cod= B.City
 go
 
 
@@ -6179,7 +6186,7 @@ CREATE TABLE [dbo].[OutputPreCityPerformance](
 	[MktName] [varchar](100) NULL,
 	[Prod] [varchar](10) NULL,
 	[Productname] [varchar](100) NULL,
-	[Audi_cod] [varchar](10) NULL,
+	[Audi_cod] [varchar](50) NULL,
 	[AUDI_DES] [varchar](100) NULL,
 	[Qtr00] [float] NULL,
 	[Qtr12] [float] NULL,
@@ -7095,8 +7102,9 @@ where  A.Prod<>'000' and A.Productname not like '%other%' and
 ((A.Class='Y' and A.mkt in ('NIAD','HYP')) or (A.molecule='Y' and A.mkt in ('ARV','ONCFCS','Platinum'))) and B.Prod='000' 
 go
 update OutputKeyMarketPerfByCity
-set Tier=B.Tier from OutputKeyMarketPerfByCity A inner join Dim_City B
-on A.Audi_cod=B.CIty_Code+'_'
+set Tier=B.Tier from OutputKeyMarketPerfByCity A 
+inner join tblCityMax B
+on A.Audi_cod= B.CIty
 go
 update OutputKeyMarketPerfByCity
 set RankMAT=B.RankMAT,
@@ -7148,8 +7156,10 @@ go
 
 go
 update OutputKeyBrandPerfByCity
-set Tier=B.Tier from OutputKeyBrandPerfByCity A inner join Dim_City B
-on A.Audi_cod=B.CIty_Code+'_'
+set Tier=B.Tier 
+from OutputKeyBrandPerfByCity A 
+inner join tblCityMax B
+on A.Audi_cod=B.CIty
 go
 update OutputKeyBrandPerfByCity
 set RankMAT=B.Rank
@@ -7197,8 +7207,10 @@ group by  A.Molecule,A.Class,A.mkt,A.mktname,A.Market,A.Prod,A.productname,A.Mon
 	A.Audi_cod,A.audi_des
 go
 update OutputCityCumShare
-set Tier=B.Tier from OutputCityCumShare A inner join Dim_City B
-on A.Audi_cod=B.CIty_Code+'_'
+set Tier=B.Tier 
+from OutputCityCumShare A 
+inner join tblCityMax B
+on A.Audi_cod=B.CIty
 go
 update OutputCityCumShare
 set RankMAT=B.Rank
@@ -7321,8 +7333,10 @@ on B.Prod='000' and A.Prod<>'000'
 	and a.Moneytype=b.Moneytype and a.audi_cod=b.audi_cod
 go
 update OutputEIByCity
-set Tier=B.Tier from OutputEIByCity A inner join Dim_City B
-on A.Audi_cod=B.CIty_Code+'_'
+set Tier=B.Tier 
+from OutputEIByCity A 
+inner join tblCityMax B
+on A.Audi_cod=B.CIty
 go
 update OutputEIByCity
 set RankMAT=B.Rank
@@ -7382,8 +7396,9 @@ on B.Prod='000' and A.Prod<>'000'
 go
 update OutputBrandShareByCity
 set Tier=B.Tier 
-from OutputBrandShareByCity A inner join Dim_City B
-on A.Audi_cod=B.CIty_Code+'_'
+from OutputBrandShareByCity A 
+inner join tblCityMax B
+on A.Audi_cod=B.CIty
 go
 update OutputBrandShareByCity
 set RankMAT=B.Rank
@@ -10043,8 +10058,10 @@ go
 
 
 update TempCityDashboard_For_OtherETV
-set AUDI_des=City_Name from TempCityDashboard_For_OtherETV A inner join dbo.Dim_City B
-on A.AUDI_cod=B.City_Code+'_'
+set AUDI_des=City
+from TempCityDashboard_For_OtherETV A 
+inner join dbo.tblCityMax B
+on A.AUDI_cod=B.City
 go
 
 update TempCityDashboard_For_OtherETV
@@ -10083,8 +10100,10 @@ where not exists(
 	)
 go
 update TempCityDashboard_For_OtherETV
-set Tier=B.Tier from TempCityDashboard_For_OtherETV A inner join Dim_City B
-on A.Audi_cod=B.CIty_Code+'_'
+set Tier=B.Tier 
+from TempCityDashboard_For_OtherETV A 
+inner join tblCityMax B
+on A.Audi_cod=B.CIty
 go
 --delete TempCityDashboard_For_OtherETV from TempCityDashboard_For_OtherETV A
 --where not exists(select * from (select * from dbo.outputgeo where product='Baraclude') B

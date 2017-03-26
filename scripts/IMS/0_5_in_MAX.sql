@@ -285,6 +285,9 @@ from dbo.Max_Data
 -- print @sql 
 exec(@sql)
 
+go 
+declare @sql varchar(max)
+
 -----------MAT 
 set @sql = '
 alter table inMAXData
@@ -368,6 +371,9 @@ set city = replace(city, N'市', '')
 go 
 
 -- add max data to MTHCITY_PKAU
+alter table MTHCITY_PKAU
+alter column Audi_Cod varchar(50)
+go
 
 insert	into dbo.MTHCITY_PKAU ( CITY_ID, AUDI_COD, PACK_COD, PACK_DES, ATC1_COD, ATC2_COD, ATC3_COD, ATC4_COD, PROD_COD,
 								MANU_COD, MNFL_COD, CORP_COD, MTH00UN, MTH01UN, MTH02UN, MTH03UN, MTH04UN, MTH05UN,
@@ -443,7 +449,7 @@ insert	into dbo.MTHCITY_PKAU ( CITY_ID, AUDI_COD, PACK_COD, PACK_DES, ATC1_COD, 
 								YTD28UN, YTD29UN, YTD30UN, YTD31UN, YTD32UN, YTD33UN, YTD34UN, YTD35UN, YTD36UN, YTD37UN,
 								YTD38UN, YTD39UN, YTD40UN, YTD41UN, YTD42UN, YTD43UN, YTD44UN, YTD45UN, YTD46UN, YTD47UN,
 								YTD48UN )
-select	'', b.Audi_Cod, Pack_Cod, Pack_Des, ATC1_Cod, ATC2_Cod, ATC3_Cod, ATC4_Cod, Prod_cod, manu_cod, MNFL_COD,
+select	'', b.city, Pack_Cod, Pack_Des, ATC1_Cod, ATC2_Cod, ATC3_Cod, ATC4_Cod, Prod_cod, manu_cod, MNFL_COD,
 		Corp_cod, MTH00UN, MTH01UN, MTH02UN, MTH03UN, MTH04UN, MTH05UN, MTH06UN, MTH07UN, MTH08UN, MTH09UN, MTH10UN,
 		MTH11UN, MTH12UN, MTH13UN, MTH14UN, MTH15UN, MTH16UN, MTH17UN, MTH18UN, MTH19UN, MTH20UN, MTH21UN, MTH22UN,
 		MTH23UN, MTH24UN, MTH25UN, MTH26UN, MTH27UN, MTH28UN, MTH29UN, MTH30UN, MTH31UN, MTH32UN, MTH33UN, MTH34UN,
@@ -508,7 +514,7 @@ from	inmaxdata as a
 left join tblCityMAX as b on a.City = b.City_CN 
 
 go
-create index idxPACK_cod on MTHCITY_PKAU(PACK_ID,PACK_COD,PACK_DES)
+--create index idxPACK_cod on MTHCITY_PKAU(PACK_ID,PACK_COD,PACK_DES)
 
 go 
 

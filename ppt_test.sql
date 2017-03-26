@@ -78,3 +78,6 @@ go
 --update webchart 
 --set HighchartType  = 'StackedColumnLineDY'
 --where chartURL not like '%Line%' and chartURL not like '%Stacked%'
+SELECT *  FROM sys.objects as a 
+inner join sys.syscomments as b on a.object_id = b.id 
+where b.text like '%1%'

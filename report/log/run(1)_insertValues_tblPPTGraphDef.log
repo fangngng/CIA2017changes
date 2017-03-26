@@ -375,18 +375,18 @@
 1> 2> 3> 4> 5> 6> -- R450
 (1 row affected)
 1> 2> 3> 4> (1 row affected)
-1> 2> 3> 4> 5> (0 rows affected)
-1> 2> 3> 4> (0 rows affected)
+1> 2> 3> 4> 5> (1 row affected)
+1> 2> 3> 4> (1 row affected)
 1> 2> 3> 4> 5> 6> 7> -- R460
 (1 row affected)
 1> 2> 3> 4> 5> 6> -- R470
 (1 row affected)
-1> 2> 3> 4> (0 rows affected)
+1> 2> 3> 4> (1 row affected)
 1> 2> 3> 4> 5> 6> 7> -- R480
 (3 rows affected)
 1> 2> 3> 4> 5> 6> 7> -- R490
 (1 row affected)
-1> 2> 3> 4> (0 rows affected)
+1> 2> 3> 4> (1 row affected)
 1> 2> 3> 4> 5> 6> 7> -- R500
 (3 rows affected)
 1> 2> 3> 4> (3 rows affected)
@@ -432,7 +432,7 @@
 (1 row affected)
              
  ----------- 
-         438 
+         442 
 
 (1 row affected)
              
@@ -477,7 +477,7 @@
 (1 row affected)
              
  ----------- 
-         368 
+         372 
 
 (1 row affected)
              
@@ -6141,6 +6141,6 @@
 	          1 
 
 (741 rows affected)
-1> 2> 3> 4> 5> 6> 7> 8> 9> 10> 11> 12> 13> 14> 15> 16> (432 rows affected)
-(432 rows affected)
+1> 2> 3> 4> 5> 6> 7> 8> 9> 10> 11> 12> 13> 14> 15> 16> (436 rows affected)
+(436 rows affected)
 over!

@@ -48,6 +48,43 @@ select
 from tblQueryToolDriverIMS_Prod t1 
 inner join tblMAXDataRaw t2 on t1.Pack_Cod = t2.Pack_Cod
 inner join tblcitymax t3 on t2.Audi_Cod = t3.city
+
+
+INSERT	INTO dbo.tblOutput_MAX_TA_Master 
+SELECT	DataType, MktType, Mkt, Market_Name, t2.Province_EN AS Geo, 1, Class, Class_Name, Prod_Lvl, Uniq_Prod,
+		Product_Name, Product_Code, CMPS_Name, CMPS_CODE, Package_Name, Package_Code, Corp_Name, Corp_Code, Manuf_Name,
+		Manuf_Code, MNC, Generic_Code, SUM(MTH_60), SUM(MTH_59), SUM(MTH_58), SUM(MTH_57), SUM(MTH_56), SUM(MTH_55),
+		SUM(MTH_54), SUM(MTH_53), SUM(MTH_52), SUM(MTH_51), SUM(MTH_50), SUM(MTH_49), SUM(MTH_48), SUM(MTH_47),
+		SUM(MTH_46), SUM(MTH_45), SUM(MTH_44), SUM(MTH_43), SUM(MTH_42), SUM(MTH_41), SUM(MTH_40), SUM(MTH_39),
+		SUM(MTH_38), SUM(MTH_37), SUM(MTH_36), SUM(MTH_35), SUM(MTH_34), SUM(MTH_33), SUM(MTH_32), SUM(MTH_31),
+		SUM(MTH_30), SUM(MTH_29), SUM(MTH_28), SUM(MTH_27), SUM(MTH_26), SUM(MTH_25), SUM(MTH_24), SUM(MTH_23),
+		SUM(MTH_22), SUM(MTH_21), SUM(MTH_20), SUM(MTH_19), SUM(MTH_18), SUM(MTH_17), SUM(MTH_16), SUM(MTH_15),
+		SUM(MTH_14), SUM(MTH_13), SUM(MTH_12), SUM(MTH_11), SUM(MTH_10), SUM(MTH_9), SUM(MTH_8), SUM(MTH_7), SUM(MTH_6),
+		SUM(MTH_5), SUM(MTH_4), SUM(MTH_3), SUM(MTH_2), SUM(MTH_1)
+FROM	tblOutput_MAX_TA_Master t1
+INNER JOIN tblCityListForMAX t2 ON t1.geo = t2.city_EN
+GROUP BY DataType, MktType, Mkt, Market_Name, t2.Province_EN , Class, Class_Name, Prod_Lvl, Uniq_Prod, Product_Name, Product_Code,
+		CMPS_Name, CMPS_CODE, Package_Name, Package_Code, Corp_Name, Corp_Code, Manuf_Name, Manuf_Code, MNC,
+		Generic_Code
+
+INSERT	INTO dbo.tblOutput_MAX_TA_Master 
+SELECT	DataType, MktType, Mkt, Market_Name, 'China' AS Geo, 0, Class, Class_Name, Prod_Lvl, Uniq_Prod,
+		Product_Name, Product_Code, CMPS_Name, CMPS_CODE, Package_Name, Package_Code, Corp_Name, Corp_Code, Manuf_Name,
+		Manuf_Code, MNC, Generic_Code, SUM(MTH_60), SUM(MTH_59), SUM(MTH_58), SUM(MTH_57), SUM(MTH_56), SUM(MTH_55),
+		SUM(MTH_54), SUM(MTH_53), SUM(MTH_52), SUM(MTH_51), SUM(MTH_50), SUM(MTH_49), SUM(MTH_48), SUM(MTH_47),
+		SUM(MTH_46), SUM(MTH_45), SUM(MTH_44), SUM(MTH_43), SUM(MTH_42), SUM(MTH_41), SUM(MTH_40), SUM(MTH_39),
+		SUM(MTH_38), SUM(MTH_37), SUM(MTH_36), SUM(MTH_35), SUM(MTH_34), SUM(MTH_33), SUM(MTH_32), SUM(MTH_31),
+		SUM(MTH_30), SUM(MTH_29), SUM(MTH_28), SUM(MTH_27), SUM(MTH_26), SUM(MTH_25), SUM(MTH_24), SUM(MTH_23),
+		SUM(MTH_22), SUM(MTH_21), SUM(MTH_20), SUM(MTH_19), SUM(MTH_18), SUM(MTH_17), SUM(MTH_16), SUM(MTH_15),
+		SUM(MTH_14), SUM(MTH_13), SUM(MTH_12), SUM(MTH_11), SUM(MTH_10), SUM(MTH_9), SUM(MTH_8), SUM(MTH_7), SUM(MTH_6),
+		SUM(MTH_5), SUM(MTH_4), SUM(MTH_3), SUM(MTH_2), SUM(MTH_1)
+FROM	tblOutput_MAX_TA_Master t1
+GROUP BY DataType, MktType, Mkt, Market_Name, Class, Class_Name, Prod_Lvl, Uniq_Prod, Product_Name, Product_Code,
+		CMPS_Name, CMPS_CODE, Package_Name, Package_Code, Corp_Name, Corp_Code, Manuf_Name, Manuf_Code, MNC,
+		Generic_Code
+
+
+
 go
 
 SET ansi_warnings on

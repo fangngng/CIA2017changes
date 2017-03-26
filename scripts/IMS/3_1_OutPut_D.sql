@@ -1392,6 +1392,7 @@ delete from output_stage where linkchartcode='C220'
 
 declare @code varchar(10)
 set @code = 'C220'
+
 insert into [output_stage] (Product,geo,lev,IsShow,TimeFrame,LinkChartCode, Series, SeriesIdx,Currency, X, XIdx)
 select B.market,'China','Nation',IsShow,'Quarter', @code as Code,b.Product,b.ProdIdx,MoneyType, a.Series,a.SeriesIdx
 from (
@@ -1406,8 +1407,26 @@ from (
 	--   select 'Qtr02' as Series,	'Y' ,	7 as SeriesIdx union all
 	--select 'Qtr03' as Series,	'Y' ,	6 as SeriesIdx 
 ) a, (
+	select distinct Market,MoneyType,Product,ProdIdx from dbo.OutputCMLChina_HKAPI
+) b
+
+insert into [output_stage] (Product,geo,lev,IsShow,TimeFrame,LinkChartCode, Series, SeriesIdx,Currency, X, XIdx)
+select B.market,'China','Nation',IsShow, b.Period, @code as Code,b.Product,b.ProdIdx,MoneyType, a.Series,a.SeriesIdx
+from (
+	--Add Qtr04 by xiaoyu.chen 2013-08-19
+	select 'MAT00' as Series,	'Y' as IsShow ,	10 as SeriesIdx union all
+	select 'MAT12' as Series,	'Y' ,	9 as SeriesIdx union all
+	select 'MAT24' as Series,	'Y' ,	8 as SeriesIdx union all
+	select 'MAT36' as Series,	'Y' ,	7 as SeriesIdx union all
+	select 'MAT48' as Series,	'Y' ,	6 as SeriesIdx
+	--   select 'Qtr00' as Series,	'Y' as IsShow ,	9 as SeriesIdx union all
+	--   select 'Qtr01' as Series,	'Y' ,	8 as SeriesIdx union all
+	--   select 'Qtr02' as Series,	'Y' ,	7 as SeriesIdx union all
+	--select 'Qtr03' as Series,	'Y' ,	6 as SeriesIdx 
+) a, (
 	select distinct Market,Period,MoneyType,Product,ProdIdx from dbo.OutputCMLChina_HKAPI
 ) b
+
 
 DECLARE TMP_CURSOR CURSOR
 READ_ONLY
@@ -1427,7 +1446,8 @@ BEGIN
 
 		set @SQL2='
 		update [output_stage]
-		set Y=B.'+@Series+ ' from [output_stage] A inner join dbo.OutputCMLChina_HKAPI B
+		set Y=B.'+@Series+ ' from [output_stage] A 
+		inner join dbo.OutputCMLChina_HKAPI B
 		on A.Currency=B.MoneyType and A.X='+''''+@Series+'''
 		and a.LinkChartCode = '+''''+@code+''''+' and A.Series=B.Product'
 		print @SQL2
@@ -1441,11 +1461,16 @@ DEALLOCATE TMP_CURSOR
 
 update [output_stage]
 set X=case X 
-	when 'Qtr00' then '2016Q4'      --todo --Modify by xiaoyu.chen 20130=-08-19
-	when 'Qtr01' then '2016Q3'
-	when 'Qtr02' then '2016Q2'
-	when 'Qtr03' then '2015Q1'
-	when 'Qtr04' then '2015Q4'
+	when 'Qtr00' then '2016Q4'     -- todo  
+	when 'Qtr01' then '2016Q3'   
+	when 'Qtr02' then '2016Q2'   
+	when 'Qtr03' then '2016Q1'   
+	when 'Qtr04' then '2015Q4'   
+	when 'MAT00' then  '2016Q4'  -- todo 
+	when 'MAT12' then  '2015Q4' 
+	when 'MAT24' then  '2014Q4' 
+	when 'MAT36' then  '2013Q4' 
+	when 'MAT48' then  '2012Q4' 
 	else X
 	end  
 where LinkChartCode in('C220')
@@ -1736,7 +1761,25 @@ set X=case X
 		when 'MAT18' then  'MAT '+(select [MonthEN] from tblMonthList where monseq=19)
 
 		when 'YTD00' then  'YTD '+(select [MonthEN] from tblMonthList where monseq=1)
+		when 'YTD01' then  'YTD '+(select [MonthEN] from tblMonthList where monseq=2)
+		when 'YTD02' then  'YTD '+(select [MonthEN] from tblMonthList where monseq=3)
+		when 'YTD03' then  'YTD '+(select [MonthEN] from tblMonthList where monseq=4)
+		when 'YTD04' then  'YTD '+(select [MonthEN] from tblMonthList where monseq=5)
+		when 'YTD05' then  'YTD '+(select [MonthEN] from tblMonthList where monseq=6)
+		when 'YTD06' then  'YTD '+(select [MonthEN] from tblMonthList where monseq=7)
+		when 'YTD07' then  'YTD '+(select [MonthEN] from tblMonthList where monseq=8)
+		when 'YTD08' then  'YTD '+(select [MonthEN] from tblMonthList where monseq=9)
+		when 'YTD09' then  'YTD '+(select [MonthEN] from tblMonthList where monseq=10)
+		when 'YTD10' then  'YTD '+(select [MonthEN] from tblMonthList where monseq=11)
+		when 'YTD11' then  'YTD '+(select [MonthEN] from tblMonthList where monseq=12)
 		when 'YTD12' then  'YTD '+(select [MonthEN] from tblMonthList where monseq=13)
+		when 'YTD13' then  'YTD '+(select [MonthEN] from tblMonthList where monseq=14)
+		when 'YTD14' then  'YTD '+(select [MonthEN] from tblMonthList where monseq=15)
+		when 'YTD15' then  'YTD '+(select [MonthEN] from tblMonthList where monseq=16)
+		when 'YTD16' then  'YTD '+(select [MonthEN] from tblMonthList where monseq=17)
+		when 'YTD17' then  'YTD '+(select [MonthEN] from tblMonthList where monseq=18)
+		when 'YTD18' then  'YTD '+(select [MonthEN] from tblMonthList where monseq=19)
+
 		else X
 end  where LinkChartCode in('D021','D031','D041') and TimeFrame in ('MQT','YTD', 'MAT', 'MTH')
 go
