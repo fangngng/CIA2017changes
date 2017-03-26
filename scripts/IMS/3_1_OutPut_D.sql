@@ -1149,6 +1149,7 @@ GO
 -- C201
 ------------------------------------------------------
 delete [output_stage] where LinkChartCode = 'C201'
+go 
 
 declare @code varchar(10)
 set @code = 'C201'
@@ -1172,7 +1173,7 @@ where (B.[Type] like '%CAGR%' and A.Series='MAT00') or B.[type] not like '%CAGR%
 
 DECLARE TMP_CURSOR CURSOR
 READ_ONLY
-FOR select distinct X  from dbo.[output_stage] where LinkChartCode=@code
+FOR select distinct X  from dbo.[output_stage] where LinkChartCode='c201'
 DECLARE @Series varchar(100)
 DECLARE @SQL2 VARCHAR(8000)
 
@@ -1188,12 +1189,12 @@ BEGIN
 
 		set @SQL2='
 		update [output_stage]
-		set Y=B.'+@Series+ ' 
+		set Y=B.['+@Series+ '] 
 		from [output_stage] A 
 		inner join dbo.OutputCMLChinaMarketTrend B
 		on A.TimeFrame=B.Period and A.Currency=B.MoneyType and A.X='+''''+@Series+''''+'
 		and a.LinkChartCode = '+''''+@code+''''+' and A.Series=case B.[type] when ''Sales'' then B.Productname else B.Productname+'' ''+B.[Type] end and A.SeriesIdx=B.ProdIdx'
---		print @SQL2
+		print @SQL2
 		exec( @SQL2)
 
 	END

@@ -578,7 +578,7 @@ SELECT mat37lc, mat26us, MTH49LC, * FROM dbo.inMAXData WHERE City = N'Œ‰∫∫'
 
 SELECT [201212 Value£®RMB£©],* FROM dbo.Max_Data WHERE City = N'Œ‰∫∫ –'
 
-SELECT * FROM output_stage WHERE LinkChartCode = 'c200' AND Product = 'sprycel' AND Currency = 'RMB' AND x = '2016Q4'
+SELECT * FROM output_stage WHERE LinkChartCode = 'c130' AND Product = 'sprycel' AND Currency = 'RMB' AND x = '2016Q4'
 
 SELECT * FROM OutputCMLChina_HKAPI 
 
@@ -589,4 +589,12 @@ SELECT * FROM dbo.tblMonthList
 SELECT * FROM OutputHospital_All WHERE LinkChartCode = 'c202'
 
 SELECT * FROM tempHospitalRollupByTier 
+
+select * from OutputKeyMNCsProdPerformance_HKAPI 
+
+select * from inHKAPI_New 
+
+select * from Dim_Product
+
+select * from OutputCMLChinaMarketTrend 
 
