@@ -1,4 +1,4 @@
-use BMSChinaMRBI_test
+use BMSChinaMRBI
 go
 if object_id(N'inCPA_HYP_Data_Extract','U') is not null
 	drop table inCPA_HYP_Data_Extract

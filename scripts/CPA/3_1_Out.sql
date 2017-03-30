@@ -10,7 +10,7 @@
 
 
 
-use BMSChinaMRBI_test
+use BMSChinaMRBI
 go
 
 --Time:23:22
@@ -148,7 +148,7 @@ select
   , TimeFrame
   , X
   , XIdx
-  , case when SeriesIdx <> 999 then cast(Y as Float)/(select Rate from BMSChinaCIA_IMS_test.dbo.tblRate) else Y end
+  , case when SeriesIdx <> 999 then cast(Y as Float)/(select Rate from BMSChinaCIA_IMS.dbo.tblRate) else Y end
   , IsShow
 from OutputHospital_All 
 where LinkChartCode in ('C202') and Currency = 'RMB'
@@ -524,7 +524,7 @@ go
 
 insert into OutputHospital_All (LinkChartCode, LinkSeriesCode, Series, SeriesIdx, Category, Product, Lev, ParentGeo, Geo, Currency, TimeFrame, X, XIdx, Y, IsShow)
 select LinkChartCode, LinkSeriesCode, Series, SeriesIdx, Category, Product, Lev, ParentGeo, Geo, 'USD', TimeFrame, X, XIdx, 
-	case when SeriesIdx in (1,2) and IsShow <> 'D' then cast(Y as Float)/(select Rate from BMSChinaCIA_IMS_test.dbo.tblRate) else Y end, IsShow
+	case when SeriesIdx in (1,2) and IsShow <> 'D' then cast(Y as Float)/(select Rate from BMSChinaCIA_IMS.dbo.tblRate) else Y end, IsShow
 from OutputHospital_All 
 where LinkChartCode in ('D050') and Currency = 'RMB'
 go
@@ -549,6 +549,11 @@ go
 --from OutputHospital_All
 --where LinkChartCode = 'D050' and IsShow = 'D' and Product ='paraplatin' 
 
+update OutputHospital_All
+set geo = case geo when 'East1' then 'East I' when 'East2' then 'East II' else geo end ,
+    ParentGeo = case ParentGeo when 'East1' then 'East I' when 'East2' then 'East II' else ParentGeo end  
+where LinkChartCode = 'D050'
+go
 
 
 
@@ -893,7 +898,7 @@ go
 insert into OutputHospital_All (LinkChartCode, LinkSeriesCode, Series, SeriesIdx, Category, Product, Lev, ParentGeo, Geo, Currency, TimeFrame, X, XIdx, Y, IsShow)
 select LinkChartCode, LinkSeriesCode, Series, SeriesIdx, Category, Product, Lev, ParentGeo, Geo
 , 'USD', TimeFrame, X, XIdx, 
-	case when SeriesIdx in (1,2) and IsShow <> 'D' then cast(Y as Float)/(select Rate from BMSChinaCIA_IMS_test.dbo.tblRate) else Y end, IsShow
+	case when SeriesIdx in (1,2) and IsShow <> 'D' then cast(Y as Float)/(select Rate from BMSChinaCIA_IMS.dbo.tblRate) else Y end, IsShow
 from OutputHospital_All where LinkChartCode in ('D110') and Currency = 'RMB'
 go
 
@@ -1039,7 +1044,7 @@ go
 insert into OutputHospital_All (LinkChartCode, LinkSeriesCode, Series, SeriesIdx, Category, Product, Lev, ParentGeo, Geo, Currency, TimeFrame, X, XIdx, Y, IsShow,LinkedY)
 select LinkChartCode, LinkSeriesCode, Series, SeriesIdx, Category, Product, Lev, ParentGeo, Geo
   , 'USD', TimeFrame, X, XIdx, Y, IsShow,
-	-- cast(LinkedY as float) / (select Rate from BMSChinaCIA_IMS_test.dbo.tblRate) as 
+	-- cast(LinkedY as float) / (select Rate from BMSChinaCIA_IMS.dbo.tblRate) as 
 	LinkedY
 from OutputHospital_All 
 where LinkChartCode in ('D130') and Currency = 'RMB'
@@ -1052,6 +1057,11 @@ inner join tblHospitalMaster b on a.x = b.id
 where a.LinkChartCode in ('D130')
 go
 
+
+update OutputHospital_All 
+set ParentGeo = replace(replace(ParentGeo, 'East1', 'East I'), 'East2', 'East II')
+where linkChartCode in ('D110', 'D130')
+go 
 
 
 ------------------------------
@@ -2347,7 +2357,7 @@ select
   , X
   , XIdx
   , Y
-  , AddY/ (select Rate from BMSChinaCIA_IMS_test.dbo.tblRate) as AddY
+  , AddY/ (select Rate from BMSChinaCIA_IMS.dbo.tblRate) as AddY
   , IsShow
 from OutputHospital_All 
 where LinkChartCode  in('R191','R251','R201','R261','R211','R271','R221','R281','R231','R291','R241','R301','R901','R961') 
@@ -2777,7 +2787,7 @@ select
   , TimeFrame
   , X
   , XIdx
-  , cast(Y as Float)/(select Rate from BMSChinaCIA_IMS_test.dbo.tblRate) AS y
+  , cast(Y as Float)/(select Rate from BMSChinaCIA_IMS.dbo.tblRate) AS y
   , IsShow
 from OutputHospital_All where LinkChartCode ='R480' and Currency = 'RMB'
 go
@@ -2797,6 +2807,318 @@ go
 -- reverse the Month to ascending order
 update OutputHospital_All set XIdx = 13 - Xidx
 where LinkChartCode IN('R192','R252','R202','R262','R212','R272','R222','R282','R232','R292','R242','R302','R902','R962')
+go
+
+
+
+
+---------------------------------
+-- C170 -- baraclude nation BAL hospital data 
+---------------------------------
+if object_id(N'tempBALHospitalDataByGeo',N'U') is not null
+	drop table tempBALHospitalDataByGeo
+go 
+
+SELECT b.RMName, c.* 
+into tempBALHospitalDataByGeo
+FROM tblHospitalMaster AS a
+RIGHT JOIN tblBALHospital AS b ON a.BMS_Code = b.HospitalCode
+INNER JOIN tempHospitalDataByGeo AS c ON a.id = c.Cpa_id
+
+
+update tempBALHospitalDataByGeo 
+set geo = case geo when 'East1' then 'EastI' when 'East2' then 'EastII' else geo end ,
+    ParentGeo = case ParentGeo when 'East1' then 'EastI' when 'East2' then 'EastII' else ParentGeo end 
+
+go 
+
+if object_id(N'OutputBALHospitalDataByGeo',N'U') is not null
+	drop table OutputBALHospitalDataByGeo
+go 
+
+declare @sql varchar(max), @i int 
+
+set @sql = '
+SELECT product, RMName,  datasource, a.mkt, a.Prod , 
+  sum([UM1]) as [UM1], sum(VM1) as [VM1], 
+  sum([UR3M1]) as [UR3M1], sum([VR3M1]) as [VR3M1],
+  sum([UYTD]) as [UYTD], sum([VYTD]) as [VYTD],
+  sum([UMAT1]) as [UMAT1], sum([VMAT1]) as [VMAT1]
+  '
+set @sql = @sql + '
+into OutputBALHospitalDataByGeo
+FROM tempBALHospitalDataByGeo AS a 
+INNER JOIN tblMktDef_MRBIChina AS b ON a.prod = b.prod AND a.mkt = b.mkt
+WHERE b.mkt = ''arv'' and b.Molecule = ''N''
+GROUP BY Product, RMName, datasource, a.mkt, a.Prod 
+'
+print @sql 
+exec(@sql) 
+go 
+
+
+if object_id(N'OutputBALHospitalDataRullupByProd',N'U') is not null
+	drop table OutputBALHospitalDataRullupByProd
+go 
+
+declare @sql varchar(max), @i int 
+
+set @sql = '
+
+SELECT product, RMName,  datasource, a.mkt , 
+  sum([UM1]) as [UM1], sum(VM1) as [VM1], 
+  sum([UR3M1]) as [UR3M1], sum([VR3M1]) as [VR3M1],
+  sum([UYTD]) as [UYTD], sum([VYTD]) as [VYTD],
+  sum([UMAT1]) as [UMAT1], sum([VMAT1]) as [VMAT1]
+  
+into OutputBALHospitalDataRullupByProd
+FROM OutputBALHospitalDataByGeo AS a 
+WHERE  prod <> ''000''
+GROUP BY product, RMName,  datasource, a.mkt 
+'
+print @sql 
+exec(@sql) 
+go 
+
+
+DELETE OutputHospital_All WHERE LinkChartCode = 'C170'
+go
+insert into OutputHospital_All(LinkChartCode, Series, SeriesIdx, Category, Product, Lev, Geo, Currency, TimeFrame, X, XIdx, Y,IsShow)
+select 
+   'C170' AS LinkChartCode   -- LinkChartCode
+   ,a.Series                 -- Series       
+   ,a.SeriesIdx              -- SeriesIdx    
+   ,c.Category               -- Category     
+   ,'ARV' as Product         -- Product      
+   ,'Nation' as Lev          -- Lev          
+   ,'China' as Geo           -- Geo          
+   ,c.Currency               -- Currency     
+   ,'MAT'              -- TimeFrame    
+   ,b.X                      -- X            
+   ,b.Xidx                   -- XIdx         
+   ,null                     -- Y             
+   ,'Y'                      -- IsShow       
+from 
+  (
+    select distinct Prod as SeriesIdx,ProductName as Series
+    from tblMktDefHospital
+    where Mkt = 'ARV' and Molecule = 'N' AND prod NOT IN ('000')
+    -- select distinct Prod as SeriesIdx,ProductName as Series
+    -- from tblMktDef_MRBIChina
+    -- where Mkt = 'ARV' and Molecule = 'N' AND prod NOT IN ('700', '800', '000')
+    -- UNION all
+    -- SELECT DISTINCT prod, Productname 
+    -- FROM BMSChinaCIA_IMS.dbo.tblMktDef_MRBIChina_For_OtherETV 
+
+  ) a, 
+  (
+    SELECT RMName AS x, RANK() OVER( ORDER BY  RMName) as XIdx 
+    FROM (
+      SELECT DISTINCT RMName  from OutputBALHospitalDataByGeo 
+    ) AS a 
+  ) b, 
+  (
+    select 'Value' as Category, 'RMB' as Currency 
+    union all
+    select 'Volume' as Category,'UNIT' as Currency 
+  ) c
+
+
+insert into OutputHospital_All(LinkChartCode, Series, SeriesIdx, Category, Product, Lev, Geo, Currency, TimeFrame, X, XIdx, Y,IsShow)
+select 
+   'C170' AS LinkChartCode   -- LinkChartCode
+   ,a.Series                 -- Series       
+   ,a.SeriesIdx              -- SeriesIdx    
+   ,c.Category               -- Category     
+   ,'ARV' as Product         -- Product      
+   ,'Nation' as Lev          -- Lev          
+   ,'China' as Geo           -- Geo          
+   ,c.Currency               -- Currency     
+   ,'MQT'              -- TimeFrame    
+   ,b.X                      -- X            
+   ,b.Xidx                   -- XIdx         
+   ,null                     -- Y             
+   ,'Y'                      -- IsShow       
+from 
+  (
+    select distinct Prod as SeriesIdx,ProductName as Series
+    from tblMktDefHospital
+    where Mkt = 'ARV' and Molecule = 'N' AND prod NOT IN ('000')
+    -- select distinct Prod as SeriesIdx,ProductName as Series
+    -- from tblMktDef_MRBIChina
+    -- where Mkt = 'ARV' and Molecule = 'N' AND prod NOT IN ('700', '800', '000')
+    -- UNION all
+    -- SELECT DISTINCT prod, Productname 
+    -- FROM BMSChinaCIA_IMS.dbo.tblMktDef_MRBIChina_For_OtherETV 
+  ) a, 
+  (
+    SELECT RMName AS x, RANK() OVER( ORDER BY  RMName) as XIdx 
+    FROM (
+      SELECT DISTINCT RMName  from OutputBALHospitalDataByGeo 
+    ) AS a 
+  ) b, 
+  (
+    select 'Value' as Category, 'RMB' as Currency 
+    union all
+    select 'Volume' as Category,'UNIT' as Currency 
+  ) c
+
+
+insert into OutputHospital_All(LinkChartCode, Series, SeriesIdx, Category, Product, Lev, Geo, Currency, TimeFrame, X, XIdx, Y,IsShow)
+select 
+   'C170' AS LinkChartCode   -- LinkChartCode
+   ,a.Series                 -- Series       
+   ,a.SeriesIdx              -- SeriesIdx    
+   ,c.Category               -- Category     
+   ,'ARV' as Product         -- Product      
+   ,'Nation' as Lev          -- Lev          
+   ,'China' as Geo           -- Geo          
+   ,c.Currency               -- Currency     
+   ,'MTH'              -- TimeFrame    
+   ,b.X                      -- X            
+   ,b.Xidx                   -- XIdx         
+   ,null                     -- Y             
+   ,'Y'                      -- IsShow       
+from 
+  (
+    select distinct Prod as SeriesIdx,ProductName as Series
+    from tblMktDefHospital
+    where Mkt = 'ARV' and Molecule = 'N' AND prod NOT IN ('000')
+    -- select distinct Prod as SeriesIdx,ProductName as Series
+    -- from tblMktDef_MRBIChina
+    -- where Mkt = 'ARV' and Molecule = 'N' AND prod NOT IN ('700', '800', '000')
+    -- UNION all
+    -- SELECT DISTINCT prod, Productname 
+    -- FROM BMSChinaCIA_IMS.dbo.tblMktDef_MRBIChina_For_OtherETV 
+  ) a, 
+  (
+    SELECT RMName AS x, RANK() OVER( ORDER BY  RMName) as XIdx 
+    FROM (
+      SELECT DISTINCT RMName  from OutputBALHospitalDataByGeo 
+    ) AS a 
+  ) b, 
+  (
+    select 'Value' as Category, 'RMB' as Currency 
+    union all
+    select 'Volume' as Category,'UNIT' as Currency 
+  ) c
+
+
+insert into OutputHospital_All(LinkChartCode, Series, SeriesIdx, Category, Product, Lev, Geo, Currency, TimeFrame, X, XIdx, Y,IsShow)
+select 
+   'C170' AS LinkChartCode   -- LinkChartCode
+   ,a.Series                 -- Series       
+   ,a.SeriesIdx              -- SeriesIdx    
+   ,c.Category               -- Category     
+   ,'ARV' as Product         -- Product      
+   ,'Nation' as Lev          -- Lev          
+   ,'China' as Geo           -- Geo          
+   ,c.Currency               -- Currency     
+   ,'YTD'              -- TimeFrame    
+   ,b.X                      -- X            
+   ,b.Xidx                   -- XIdx         
+   ,null                     -- Y             
+   ,'Y'                      -- IsShow       
+from 
+  (
+    select distinct Prod as SeriesIdx,ProductName as Series
+    from tblMktDefHospital
+    where Mkt = 'ARV' and Molecule = 'N' AND prod NOT IN ('000')
+    -- select distinct Prod as SeriesIdx,ProductName as Series
+    -- from tblMktDef_MRBIChina
+    -- where Mkt = 'ARV' and Molecule = 'N' AND prod NOT IN ('700', '800', '000')
+    -- UNION all
+    -- SELECT DISTINCT prod, Productname 
+    -- FROM BMSChinaCIA_IMS.dbo.tblMktDef_MRBIChina_For_OtherETV 
+  ) a, 
+  (
+    SELECT RMName AS x, RANK() OVER( ORDER BY  RMName) as XIdx 
+    FROM (
+        SELECT DISTINCT RMName  from OutputBALHospitalDataByGeo 
+      ) AS a 
+  ) b, 
+  (
+    select 'Value' as Category, 'RMB' as Currency 
+    union all
+    select 'Volume' as Category,'UNIT' as Currency 
+  ) c
+go
+
+update OutputHospital_All 
+set Y = 
+  case when a.category = 'Value' and a.TimeFrame = 'MAT' then VMat1 
+        when a.category = 'Volume' and a.TimeFrame = 'MAT' then UMat1 
+        when a.category = 'Value' and a.TimeFrame = 'YTD' then VYTD
+        when a.category = 'Volume' and a.TimeFrame = 'YTD' then UYTD
+        when a.category = 'Value' and a.TimeFrame = 'MQT' then VR3M1 
+        when a.category = 'Volume' and a.TimeFrame = 'MQT' then UR3M1 
+        when a.category = 'Value' and a.TimeFrame = 'MTH' then VM1 
+        when a.category = 'Volume' and a.TimeFrame = 'MTH' then UM1 
+  end
+from OutputHospital_All a
+inner join OutputBALHospitalDataByGeo b on a.Product = b.mkt and a.SeriesIdx = cast(b.Prod as int) and a.X = b.RMName 
+where a.LinkChartCode = 'C170' 
+
+go 
+
+-- update OutputHospital_All 
+-- set X = X + '(' + CONVERT(VARCHAR(20), CONVERT(DECIMAL(22,6), Y)) + ')' 
+-- where LinkChartCode ='C170'
+GO 
+
+update OutputHospital_All 
+set Y = 
+	case  
+   when a.category = 'Value' and a.TimeFrame = 'MAT'  then case when b.vmat1 = 0 then null else a.Y/b.vmat1 end
+   when a.category = 'Volume' and a.TimeFrame = 'MAT'  then case when b.UMat1 = 0 then null else a.Y/b.UMat1 end
+   when a.category = 'Value' and a.TimeFrame = 'YTD'  then case when b.VYTD = 0 then null else a.Y/b.VYTD end
+   when a.category = 'Volume' and a.TimeFrame = 'YTD'  then case when b.UYTD = 0 then null else a.Y/b.UYTD end
+   when a.category = 'Value' and a.TimeFrame = 'MQT' then case when b.VR3M1 = 0 then null else a.Y/b.VR3M1 end
+   when a.category = 'Volume' and a.TimeFrame = 'MQT' then case when b.UR3M1 = 0 then null else a.Y/b.UR3M1 end
+   when a.category = 'Value' and a.TimeFrame = 'MTH' then case when b.VM1 = 0 then null else a.Y/b.VM1 end
+   when a.category = 'Volume' and a.TimeFrame = 'MTH' then case when b.UM1 = 0 then null else a.Y/b.UM1 end 
+   end ,
+   X =
+	case  
+	   when a.category = 'Value' and a.TimeFrame = 'MAT'  then   X + '(' + convert(varchar(20), convert(decimal(22, 0), b.vmat1 )) + ')'  
+	   when a.category = 'Volume' and a.TimeFrame = 'MAT' then   X + '(' + convert(varchar(20), convert(decimal(22, 0), b.UMat1 )) + ')'  
+	   when a.category = 'Value' and a.TimeFrame = 'YTD'  then   X + '(' + convert(varchar(20), convert(decimal(22, 0), b.VYTD  )) + ')'  
+	   when a.category = 'Volume' and a.TimeFrame = 'YTD' then   X + '(' + convert(varchar(20), convert(decimal(22, 0), b.UYTD  )) + ')'  
+	   when a.category = 'Value' and a.TimeFrame = 'MQT'  then   X + '(' + convert(varchar(20), convert(decimal(22, 0), b.VR3M1 )) + ')'  
+	   when a.category = 'Volume' and a.TimeFrame = 'MQT' then   X + '(' + convert(varchar(20), convert(decimal(22, 0), b.UR3M1 )) + ')'  
+	   when a.category = 'Value' and a.TimeFrame = 'MTH'  then   X + '(' + convert(varchar(20), convert(decimal(22, 0), b.VM1   )) + ')'  
+	   when a.category = 'Volume' and a.TimeFrame = 'MTH' then   X + '(' + convert(varchar(20), convert(decimal(22, 0), b.UM1   )) + ')'   
+	   END 
+from OutputHospital_All a
+inner join OutputBALHospitalDataRullupByProd b on  a.Product = b.Mkt  and a.X = b.RMName 
+where a.LinkChartCode = 'C170' 
+go
+
+go
+update OutputHospital_All 
+set Product = b.Product
+from OutputHospital_All a 
+inner join (select distinct Product,Mkt from tblMktDefHospital) b on a.Product = b.Mkt
+where a.LinkChartCode = 'C170'
+go
+insert into OutputHospital_All (LinkChartCode, Series, SeriesIdx, Category, Product, Lev, ParentGeo, Geo, Currency, TimeFrame, X, XIdx, Y, IsShow)
+select 
+    LinkChartCode
+  , Series
+  , SeriesIdx
+  , Category
+  , Product
+  , Lev
+  , ParentGeo
+  , Geo
+  , 'USD'
+  , TimeFrame
+  , X
+  , XIdx
+  , case when SeriesIdx <> 999 then cast(Y as Float)/(select Rate from BMSChinaCIA_IMS.dbo.tblRate) else Y end
+  , IsShow
+from OutputHospital_All 
+where LinkChartCode in ('C170') and Currency = 'RMB'
 go
 
 

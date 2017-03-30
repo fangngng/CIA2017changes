@@ -28,8 +28,8 @@ exec BMSChinaCIA_IMS.dbo.sp_Log_Event 'Hosp-RawData','CIA','Run_Once_Raw_data.sq
 declare @currentMonth varchar(10)
 declare @lastMonth varchar(10)
 declare @sql nvarchar(max)
-set @currentMonth='201612' -- todo
-set @lastMonth='201611' -- todo
+set @currentMonth='201701' -- todo
+set @lastMonth='201612' -- todo
 set @sql=' '
 ------------------------------------------------------------------------------------
 -- 1. CPA数据处理
@@ -64,7 +64,7 @@ set a.cpa_code=b.cpa_code
 from inCPAData_201406_All a 
 join (
 	select distinct cpa_code_Old,cpa_code 
-	from BMSChinaMRBI_test.dbo.tblHospitalMaster where datasource='CPA') b
+	from BMSChinaMRBI.dbo.tblHospitalMaster where datasource='CPA') b
 on a.cpa_code=b.cpa_code_Old
 --(1804698 row(s) affected)
 
@@ -252,6 +252,7 @@ select * from inCPA_'+@currentMonth+N'
 exec (@sql)
 
 -- 特殊处理
+-- 合并的医院
 set @sql=N'
 update inCPAData_'+@currentMonth+N'_All set cpa_code = ''1330'' where cpa_code = ''1324''
 ' --1324	吉林省	吉林市	吉林	吉林市医院	合入吉林市人民医院（1330）
@@ -259,7 +260,24 @@ update inCPAData_'+@currentMonth+N'_All set cpa_code = ''1330'' where cpa_code =
 exec (@sql)
 
 set @sql=N'
-update inCPAData_'+@currentMonth+N'_All set Product = N''凯素''
+update inCPAData_'+@currentMonth+N'_All set cpa_code = ''450191'' where cpa_code = ''450271''
+' 
+--450271	河南省	郑州	郑州大学第四附属医院（河南省口腔医院）	合入（450191）
+--print @sql
+exec (@sql)
+
+
+set @sql=N'
+update inCPAData_'+@currentMonth+N'_All set cpa_code = ''510011'' where cpa_code = ''510311''
+' 
+--510311	河南省	郑州	中山大学第一附属医院东山院区	合入（510011）
+--print @sql
+exec (@sql)
+
+-- 产品更新
+set @sql=N'
+update inCPAData_'+@currentMonth+N'_All 
+set Product = N''凯素''
 where Manufacture = ''American Pharmaceutical Partners,Inc'' and Product = N''紫杉醇''
 '
 --print @sql

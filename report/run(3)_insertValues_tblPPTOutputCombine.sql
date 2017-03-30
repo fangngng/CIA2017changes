@@ -1,4 +1,4 @@
-use BMSChina_ppt_test
+use BMSChina_ppt
 GO
 set nocount on
 
@@ -405,7 +405,7 @@ GO
 ------------------------------------------------------------------------------------
 --                        tblSlide                                       
 ------------------------------------------------------------------------------------
-use BMSChina_staging_test
+use BMSChina_staging
 go
 
 --backup
@@ -438,7 +438,7 @@ select
   ,'Y'                --status    
   ,1                  --prodid    
   ,1                  --categoryid
-from BMSChina_ppt_test.dbo.tblPPTOutputCombine
+from BMSChina_ppt.dbo.tblPPTOutputCombine
 where [ShoppingCardID] is not null 
 go
 
@@ -495,14 +495,14 @@ update tblSlide set SlideCode='Eliquis_R' where SlideCode='Eliquis VTEP_R' and s
 
 
 -- todo
--- make sure the date in BMSChina_ppt_test.dbo.tblDates is correct
+-- make sure the date in BMSChina_ppt.dbo.tblDates is correct
 
-select * from BMSChina_ppt_test.dbo.tblDates
+select * from BMSChina_ppt.dbo.tblDates
 go
 truncate table tblDates
 go
 insert into tblDates
-select * from BMSChina_ppt_test.dbo.tblDates
+select * from BMSChina_ppt.dbo.tblDates
 go
 select * from tblDates
 go

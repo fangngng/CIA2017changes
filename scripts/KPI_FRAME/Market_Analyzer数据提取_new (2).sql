@@ -463,7 +463,7 @@ while (@i<=48)
 
 		exec('insert into TempcityDashboard_For_CCB 
         select  B.Molecule,B.Class,B.mkt,B.mktname,B.mkt,B.prod,B.Productname,'+'''' +@MoneyType+''''+' as Moneytype, A.audi_cod,'''',''City'',null,'+@sql1+', '+@sql3+', '+@sqlMAT+', '+@sqlYTD+', '+@sqlQtr+'
-		from MTHCITY_MAX A inner join tblMktDef_MRBIChina_For_CCB B
+		from MTHCITY_PKAU A inner join tblMktDef_MRBIChina_For_CCB B
         on A.pack_cod=B.pack_cod where B.Active=''Y'' 
 		group by B.Molecule,B.Class,B.mkt,B.mktname,B.prod,B.Productname,A.audi_cod')
 	END
@@ -1214,7 +1214,7 @@ BEGIN
 		exec('insert into TempCityDashboard_For_Eliquis 
         select  B.Molecule,B.Class,B.mkt,B.mktname,B.mkt,B.prod,B.Productname,'+'''' +@MoneyType+''''+' as Moneytype, A.audi_cod,'''',''City'',null,'
 			+@sql1+', '+@sql3+', '+@sqlMAT+', '+@sqlYTD+', '+@sqlQtr+'
-		from MTHCITY_MAX A inner join tblMktDef_MRBIChina_For_Eliquis B
+		from MTHCITY_PKAU A inner join tblMktDef_MRBIChina_For_Eliquis B
         on A.pack_cod=B.pack_cod where B.Active=''Y'' and  b.prod<>''000'' and b.ProductName <>''Pradaxa''
 		group by B.Molecule,B.Class,B.mkt,B.mktname,B.prod,B.Productname,A.audi_cod,B.RAT')
 	END
@@ -2646,7 +2646,7 @@ BEGIN
 		exec('insert into TempCityDashboard_For_Eliquis_NOAC 
         select  B.Molecule,B.Class,B.mkt,B.mktname,B.mkt,B.prod,B.Productname,'+'''' +@MoneyType+''''+' as Moneytype, A.audi_cod,'''',''City'',null,'
 		+@sql1+', '+@sql3+', '+@sqlMAT+', '+@sqlYTD+', '+@sqlQtr+'
-		from MTHCITY_MAX A 
+		from MTHCITY_PKAU A 
 		inner join tblMktDef_MRBIChina_For_Eliquis_NOAC B
         on A.pack_cod=B.pack_cod 
 		inner join inEliquis_NOAC_DOT_Transfer c
@@ -4806,7 +4806,7 @@ FROM (
 		sum(MTH04UN) AS MTH04,sum(MTH05UN) AS MTH05,sum(MTH06UN) AS MTH06,sum(MTH07UN) AS MTH07,
 		sum(MTH08UN) AS MTH08,sum(MTH09UN) AS MTH09,sum(MTH10UN) AS MTH10,sum(MTH11UN) AS MTH11,
 		sum(MTH12UN) AS MTH12,sum(mat00UN) as MAT00,sum(mat12UN) as MAT12
-	 from MTHCITY_MAX A inner join tblMktDef_MRBIChina B
+	 from MTHCITY_PKAU A inner join tblMktDef_MRBIChina B
         on A.pack_cod=B.pack_cod where B.Active='Y' AND b.prod_name='Victoza' and b.mkt='niad' and b.Molecule='N' and b.class='N' 
         and b.prod='000'
 	group by B.Molecule,B.Class,B.mkt,B.mktname,B.prod_name ,a.Audi_cod       
@@ -4816,7 +4816,7 @@ FROM (
 		sum(MTH04US) AS MTH04,sum(MTH05US) AS MTH05,sum(MTH06US) AS MTH06,sum(MTH07US) AS MTH07,
 		sum(MTH08US) AS MTH08,sum(MTH09US) AS MTH09,sum(MTH10US) AS MTH10,sum(MTH11US) AS MTH11,
 		sum(MTH12US) AS MTH12,sum(mat00US) as MAT00,sum(mat12US) as MAT12
-	 from MTHCITY_MAX A inner join tblMktDef_MRBIChina B
+	 from MTHCITY_PKAU A inner join tblMktDef_MRBIChina B
         on A.pack_cod=B.pack_cod where B.Active='Y' AND b.prod_name='Victoza' and b.mkt='niad' and b.Molecule='N' and b.class='N'
         and b.prod='000'
 	group by B.Molecule,B.Class,B.mkt,B.mktname,B.prod_name ,a.Audi_cod         
@@ -4926,7 +4926,7 @@ while (@i<=48)
 
 		exec('insert into TempCityDashboard_For_Onglyza 
         select  B.Molecule,B.Class,B.mkt,B.mktname,B.mkt,B.prod,B.Productname,'+'''' +@MoneyType+''''+' as Moneytype, A.audi_cod,'''',''City'',null,'+@sql1+', '+@sql3+', '+@sqlMAT+', '+@sqlYTD+', '+@sqlQtr+'
-		from MTHCITY_MAX A inner join tblMktDef_MRBIChina_For_Onglyza B
+		from MTHCITY_PKAU A inner join tblMktDef_MRBIChina_For_Onglyza B
         on A.pack_cod=B.pack_cod where B.Active=''Y''
 		group by B.Molecule,B.Class,B.mkt,B.mktname,B.prod,B.Productname,A.audi_cod')
 	END
@@ -6335,12 +6335,15 @@ select cast('PRDL' as varchar(10)) as DataSource,'MTH' as [TimeFrame],cast('US' 
 	sum(MTH10US) as MTH10,
 	sum(MTH11US) as MTH11
 into TempPRDLProvince 
-from MTHCITY_MAX 
+from MTHCITY_PKAU 
 where pack_cod in( 
-	select distinct pack_cod from tblMktDef_MRBIChina where Prod_Name in ('Byetta') and Molecule='N' and class='N'
-	and Mkt='NIAD') and city in
-	(select city from dbo.Dim_City where City_Name in
-	(select City_En from dbo.PRDL_Province_City_Mapping))
+		select distinct pack_cod from tblMktDef_MRBIChina 
+		where Prod_Name in ('Byetta') and Molecule='N' and class='N'
+		and Mkt='NIAD' 
+	) and city_ID in
+	(	select city_ID from dbo.Dim_City 
+		where City_Name in (select City_En from dbo.PRDL_Province_City_Mapping)
+	)
 go
 insert into TempPRDLProvince
 select 'PRDL','MTH','US' as MoneyType,'N','N','NIAD','NIAD Market','Glucophage','800','Victoza','Sales','Value',2 ,
@@ -6356,11 +6359,11 @@ sum(MTH08US) as MTH08,
 sum(MTH09US) as MTH09,
 sum(MTH10US) as MTH10,
 sum(MTH11US) as MTH11
-from MTHCITY_MAX 
+from MTHCITY_PKAU 
 where pack_cod in( 
 	select pack_cod from tblMktDef_MRBIChina where Prod_Name in ('Victoza') and Molecule='N' and class='N' and Prod='000'
-	and Mkt='NIAD') and city in
-	(select city from dbo.Dim_City where City_Name in
+	and Mkt='NIAD') and city_ID in
+	(select city_ID from dbo.Dim_City where City_Name in
 	(select City_En from dbo.PRDL_Province_City_Mapping))
 go
 

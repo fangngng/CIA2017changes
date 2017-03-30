@@ -1,6 +1,6 @@
 USE BMSChinaCIA_IMS--DB4
 
-update Config set [Value] = '201612' where Parameter = 'IMS'   --todo :月数据(备注：MaxMonth项表示 IMS一共出72个月的数据.)
+update Config set [Value] = '201701' where Parameter = 'IMS'   --todo :月数据(备注：MaxMonth项表示 IMS一共出72个月的数据.)
 update Config set [Value] = '201612' where Parameter = 'MAXDATA'   --todo 
 GO
 update Config set [Value] = '201612' where Parameter = 'HKAPI' --todo :(暂时没有用),HKAPI是季度数据

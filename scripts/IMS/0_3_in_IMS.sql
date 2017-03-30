@@ -1,4 +1,4 @@
-USE BMSChinaCIA_IMS_test
+USE BMSChinaCIA_IMS
 go
 
 --Time:00:19
@@ -36,6 +36,7 @@ exec('select * into Dim_Product from BMSChinaCIARawdata.dbo.Dim_Product_' + @Cur
 exec('select * into Dim_Product_Molecule from BMSChinaCIARawdata.dbo.Dim_Product_Molecule_' + @CurrMonth)
 exec('select * into Dim_Therapeutic_Class from BMSChinaCIARawdata.dbo.Dim_Therapeutic_Class_' + @CurrMonth)
 exec('select * into Max_Data from BMSChinaCIARawdata.dbo.Max_' + @CurrMonth)
+--exec('select * into Max_Data from BMSChinaCIARawdata.dbo.Max_201612')
 go
 
 

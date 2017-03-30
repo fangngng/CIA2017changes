@@ -1,4 +1,4 @@
-use BMSChinaCIA_IMS_test --db4
+use BMSChinaCIA_IMS --db4
 GO
 
 --17分钟
@@ -2077,7 +2077,7 @@ GO
 insert into [OutputKeyMNCsProdPerformance_HKAPI]
 ([Period],[MoneyType],[Prod_cod],[CurrRank],[PrevRank],[Mat00],[Mat12])
 select top 10 'YTD','RMB', [Product name],1,1,sum(isnull([YTD00LC],0))*1000,sum(isnull([YTD12LC],0))*1000
- from inHKAPI_New
+from inHKAPI_New
 where [Company name] in (select CORP_Cod from OutputKeyMNCsPerformance_HKAPI where Period='YTD')
 group by [Product name]
 order by sum(isnull([YTD00LC],0)) desc
@@ -2085,20 +2085,21 @@ go
 if exists(select * from [OutputKeyMNCsProdPerformance_HKAPI] 
 				  where Prod_Cod like '%Bara%' and Period='YTD' and MoneyType='RMB'
 		)
-print 'BARACLUDE Prod in Top 10 YTD'
+	print 'BARACLUDE Prod in Top 10 YTD'
 else
-insert into [OutputKeyMNCsProdPerformance_HKAPI]
-([Period],[MoneyType],[Prod_cod],[CurrRank],[PrevRank],[Mat00],[Mat12])
-select 'YTD','RMB', [Product name],1,1,sum(isnull([YTD00LC],0))*1000,sum(isnull([YTD12LC],0))*1000
- from inHKAPI_New
-where  [Product name] like '%Bara%'
-group by [Product name]
+	insert into [OutputKeyMNCsProdPerformance_HKAPI]
+		([Period],[MoneyType],[Prod_cod],[CurrRank],[PrevRank],[Mat00],[Mat12])
+	select 'YTD','RMB', [Product name],1,1,sum(isnull([YTD00LC],0))*1000,sum(isnull([YTD12LC],0))*1000
+	from inHKAPI_New
+	where  [Product name] like '%Bara%'
+	group by [Product name]
 go
 update [OutputKeyMNCsProdPerformance_HKAPI]
-set [Total]=B.sales from [OutputKeyMNCsProdPerformance_HKAPI] A ,
-(select sum(isnull([YTD00LC],0))*1000 as sales
-from inHKAPI_New
-where [Company name] in (select CORP_Cod from OutputKeyMNCsPerformance_HKAPI where Period='YTD')
+set [Total]=B.sales 
+from [OutputKeyMNCsProdPerformance_HKAPI] A ,
+(	select sum(isnull([YTD00LC],0))*1000 as sales
+	from inHKAPI_New
+	where [Company name] in (select CORP_Cod from OutputKeyMNCsPerformance_HKAPI where Period='YTD')
 ) B
 where A.[Period]='YTD'
 
@@ -2114,14 +2115,14 @@ go
 if exists(	select * from [OutputKeyMNCsProdPerformance_HKAPI] 
 			where Prod_Cod like '%Bara%' and Period='Last Year' and MoneyType='RMB'
 		)
-print 'BARACLUDE Prod in Top 10 LastYear'
+	print 'BARACLUDE Prod in Top 10 LastYear'
 else
-insert into [OutputKeyMNCsProdPerformance_HKAPI]
-	([Period],[MoneyType],[Prod_cod],[CurrRank],[PrevRank],[Mat00],[Mat12])
-select 'Last Year','RMB', [Product name],1,1,sum(isnull([LastYear00LC],0))*1000,sum(isnull([LastYear12LC],0))*1000
-from inHKAPI_New
-where  [Product name] like '%Bara%'
-group by [Product name]
+	insert into [OutputKeyMNCsProdPerformance_HKAPI]
+		([Period],[MoneyType],[Prod_cod],[CurrRank],[PrevRank],[Mat00],[Mat12])
+	select 'Last Year','RMB', [Product name],1,1,sum(isnull([LastYear00LC],0))*1000,sum(isnull([LastYear12LC],0))*1000
+	from inHKAPI_New
+	where  [Product name] like '%Bara%'
+	group by [Product name]
 go
 update [OutputKeyMNCsProdPerformance_HKAPI]
 set [Total]=B.sales 
@@ -3728,7 +3729,8 @@ BEGIN
 		set @sql4 = @sqlMAT+', '+@sqlYTD+', ' + @sqlQtr+'
 			from mthcity_pkau A 
 			inner join tblMktDef_MRBIChina B
-			on A.pack_cod=B.pack_cod where B.Active=''Y'' and A.audi_cod<>''ZJH_'' and b.mkt not like''eliquis%''
+			on A.pack_cod=B.pack_cod 
+			where B.Active=''Y'' and A.audi_cod<>''ZJH_'' and b.mkt not like''eliquis%''
 			group by B.Molecule,B.Class,B.mkt,B.mktname,B.prod,B.Productname,A.audi_cod'
 		exec (@sql2+@sql4)
 	END
@@ -7656,12 +7658,12 @@ delete from OutputCMLChinaMarketTrend where MoneyType='PN'
 --由于上面一段代码被注释，漏掉，最终导致C201这种PPT跑不出来，报BUG.
 
 --处理如下：
---select * into OutputCMLChinaMarketTrend_2013Q1 from BMSChinaCIA_IMS_test_201303.dbo.OutputCMLChinaMarketTrend
+--select * into OutputCMLChinaMarketTrend_2013Q1 from BMSChinaCIA_IMS_201303.dbo.OutputCMLChinaMarketTrend
 
 --select * into dbo.OutputCMLChinaMarketTrend_2012Q2 from IMSDBPlus.dbo.OutputCMLChinaMarketTrend_2012Q2
 --select * into dbo.OutputCMLChinaMarketTrend_2012Q3 from IMSDBPlus.dbo.OutputCMLChinaMarketTrend_2012Q3
 --select * into dbo.OutputCMLChinaMarketTrend_2012Q4 from IMSDBPlus.dbo.OutputCMLChinaMarketTrend_2012Q4
---select * into dbo.OutputCMLChinaMarketTrend_2013Q1 from BMSChinaCIA_IMS_test.dbo.OutputCMLChinaMarketTrend_2013Q1
+--select * into dbo.OutputCMLChinaMarketTrend_2013Q1 from BMSChinaCIA_IMS.dbo.OutputCMLChinaMarketTrend_2013Q1
 --GO
 
 if exists(select * from tblmonthlist where Month%3=0 and monseq=1)
@@ -9669,13 +9671,13 @@ FROM
 	-- case when b.H8 is null or b.H8=0 then 0 else 1.0*a.H8/b.H8 end as H8 --20161109
 	from (
 			select Lev,Geo,Product,Mkt,Prod,Department,H7,H6,H5,H4,H3,H2,H1
-			from BMSChinaMRBI_test.dbo.tempoutputRx 
+			from BMSChinaMRBI.dbo.tempoutputRx 
 			where product='eliquis' and Lev='nat' and Department=115
 		 )a join 
 		 (
 			select Lev,Geo,Product,Mkt,Prod, 'All Dept' Department, 
 			SUM(H7) AS H7,SUM(H6) AS H6,SUM(H5) AS H5,SUM(H4) AS H4,SUM(H3) AS H3,SUM(H2) AS H2,SUM(H1) AS H1
-			from BMSChinaMRBI_test.dbo.tempoutputRx 
+			from BMSChinaMRBI.dbo.tempoutputRx 
 			where product='eliquis' and Lev='nat'	
 			group by Lev,Geo,Product,Mkt,Prod
 		 ) b on a.Lev=b.Lev and a.geo=b.geo and a.product=b.product and a.mkt=b.mkt and a.prod=b.prod
@@ -9687,7 +9689,7 @@ FROM
 		from
 		(
 			select '20'+left(H,2) AS [Year], 'H'+cast(Idx as varchar(3)) AS HalfYear 
-			from BMSChinaMRBI_test.dbo.tblRxHalfYearList where Idx <8
+			from BMSChinaMRBI.dbo.tblRxHalfYearList where Idx <8
 		) t
 	) t2 where rowNum=1
 ) b on a.halfyear=b.halfyear	
@@ -10046,7 +10048,8 @@ BEGIN
 
 		exec('insert into TempCityDashboard_For_OtherETV 
         select  B.Molecule,B.Class,B.mkt,B.mktname,B.mkt,B.prod,B.Productname,'+'''' +@MoneyType+''''+' as Moneytype, A.audi_cod,'''',''City'',null,'+@sql1+', '+@sql3+', '+@sqlMAT+', '+@sqlYTD+', '+@sqlQtr+'
-		from mthcity_pkau A inner join tblMktDef_MRBIChina_For_OtherETV B
+		from mthcity_pkau A 
+		inner join tblMktDef_MRBIChina_For_OtherETV B
         on A.pack_cod=B.pack_cod where B.Active=''Y'' and A.audi_cod<>''ZJH_''
 		group by B.Molecule,B.Class,B.mkt,B.mktname,B.prod,B.Productname,A.audi_cod')
 	END
@@ -10357,7 +10360,8 @@ DECLARE @SQL2 VARCHAR(max)
 		exec('
 		insert into TempRegionCityDashboard_For_OtherETV
 		select [Molecule],[Class],[mkt],[mktname],Market,[prod],[Productname],MoneyType,
-			''China'',''China'',''China'','+@sql1+', '+@sql3+', '+@sqlMAT+', '+@sqlYTD+', '+@sqlQtr+',''China'' from TempCityDashboard_For_OtherETV A
+			''China'',''China'',''China'','+@sql1+', '+@sql3+', '+@sqlMAT+', '+@sqlYTD+', '+@sqlQtr+',''China'' 
+		from TempCityDashboard_For_OtherETV A
         where exists(select * from dbo.outputgeo B 
 					where (A.Market=B.Product and A.audi_des=b.geo and a.mkt not in (''Eliquis VTEp'',''Eliquis NOAC'',''Eliquis VTEt''))
 						or (left(A.Market,7)=B.Product and A.audi_des=b.geo and a.mkt in (''Eliquis VTEp'',''Eliquis NOAC'',''Eliquis VTEt'') ))

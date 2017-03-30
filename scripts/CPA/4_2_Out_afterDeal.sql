@@ -1,4 +1,4 @@
-use BMSChinaMRBI_test --DB4
+use BMSChinaMRBI --DB4
 go
 exec dbo.sp_Log_Event 'output','CIA_CPA','4_2_Out_afterDeal.sql','Start',null,null
 --Time:00:11
@@ -149,7 +149,7 @@ update OutputHospital set
 	g=b.g,
 	b=b.b 
 from OutputHospital A 
-inner join DB82.BMSChina_ppt_test.dbo.tblColorDef B on A.series=b.name
+inner join DB82.BMSChina_ppt.dbo.tblColorDef B on A.series=b.name
 where a.IsShow = 'Y'
 go
 
@@ -159,7 +159,7 @@ update OutputHospital set
 	g=b.g,
 	b=b.b 
 from OutputHospital A 
-inner join DB82.BMSChina_ppt_test.dbo.tblColorDef B 
+inner join DB82.BMSChina_ppt.dbo.tblColorDef B 
 on b.Mkt = 'All' and A.seriesidx=b.name
 where a.LinkChartCode in ('R192','R252','R202','R262','R212','R272','R222','R282','R232','R292','R242','R302','R902','R962','R912','R972','R922','R982','R932','R992') and a.IsShow = 'Y'
 go

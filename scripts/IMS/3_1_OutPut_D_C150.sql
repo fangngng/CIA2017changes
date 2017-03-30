@@ -1,4 +1,4 @@
-use BMSChinaCIA_IMS_test
+use BMSChinaCIA_IMS
 GO
 
 

@@ -17,7 +17,7 @@
 
 ----------------------------------------------
 --172.20.0.4
-use BMSChinaMRBI_test
+use BMSChinaMRBI
 
 select c.Region,a.[cpa name] as Hospital,b.city_en as city,d.CurrentRank as CurrentRank,
 convert(int,isnull(e.[Monopril Last Year YTD]/14,0)) as [Monopril Last Year YTD],

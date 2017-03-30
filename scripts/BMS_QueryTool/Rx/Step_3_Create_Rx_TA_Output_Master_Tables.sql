@@ -13,7 +13,7 @@
 
 
 
-use BMSCNProc2_test
+use BMSCNProc2
 go
 
 exec dbo.sp_Log_Event 'Process','QT_Rx','Step_3_Create_Rx_TA_Output_Master_Tables.sql','Start',null,null

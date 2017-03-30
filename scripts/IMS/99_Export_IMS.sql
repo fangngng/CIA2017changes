@@ -1,5 +1,5 @@
 --Ensure linked with server 172.20.0.82
-if not exists(select 1 from master.dbo.sysdatabases where name='BMSChina_ppt_test')
+if not exists(select 1 from master.dbo.sysdatabases where name='BMSChina_ppt')
 BEGIN
 	RAISERROR ('The connection server is not 172.20.0.82, please re-connect the correct server!!',21,1) with log
 END
@@ -16,39 +16,39 @@ GO
 --backup
 declare @curDate_IMS varchar(6), @lastDate_IMS varchar(6)
   
-select @curDate_IMS= [Value] from DB4.BMSChinaCIA_IMS_test.dbo.Config where Parameter = 'IMS'
+select @curDate_IMS= [Value] from DB4.BMSChinaCIA_IMS.dbo.Config where Parameter = 'IMS'
 set @lastDate_IMS = convert(varchar(6), dateadd(month, -1, cast(@curDate_IMS+'01' as datetime)), 112)
 --staging
 exec('
 if object_id(N''output_'+@lastDate_IMS+''',N''U'') is null
    select * into output_'+@lastDate_IMS+'
-   from BMSChina_staging_test.dbo.output
+   from BMSChina_staging.dbo.output
 ');
 exec('
 if object_id(N''WebChartTitle_'+@lastDate_IMS+''',N''U'') is null
    select * into WebChartTitle_'+@lastDate_IMS+'
-   from BMSChina_staging_test.dbo.WebChartTitle
+   from BMSChina_staging.dbo.WebChartTitle
 ');
 exec('
 if object_id(N''WebChartSeries_'+@lastDate_IMS+''',N''U'') is null
    select * into WebChartSeries_'+@lastDate_IMS+'
-   from BMSChina_staging_test.dbo.WebChartSeries
+   from BMSChina_staging.dbo.WebChartSeries
 ');
 exec('
 if object_id(N''Outputgeo_'+@lastDate_IMS+''',N''U'') is null
    select * into Outputgeo_'+@lastDate_IMS+'
-   from BMSChina_staging_test.dbo.Outputgeo
+   from BMSChina_staging.dbo.Outputgeo
 ');
 --PPT
 exec('
 if object_id(N''output_ppt_'+@lastDate_IMS+''',N''U'') is null
    select * into output_ppt_'+@lastDate_IMS+'
-   from BMSChina_ppt_test.dbo.output_ppt
+   from BMSChina_ppt.dbo.output_ppt
 ');
 exec('
 if object_id(N''tblcharttitle_'+@lastDate_IMS+''',N''U'') is null
    select * into tblcharttitle_'+@lastDate_IMS+'
-   from BMSChina_ppt_test.dbo.tblcharttitle
+   from BMSChina_ppt.dbo.tblcharttitle
 ')
 GO
 
@@ -65,7 +65,7 @@ print (N'
 2.                  导入staging
 ------------------------------------------------------------------------------------------------------------
 ')
-USE BMSChina_staging_test
+USE BMSChina_staging
 GO
 
 if not exists(select 1 from   syscolumns   where   id=object_id('[output]')   and   name='DataSource' )
@@ -120,7 +120,7 @@ select
       ,[G]
       ,[B] 
       ,[IsShow] 
-from db4.BMSChinaCIA_IMS_test.dbo.output
+from db4.BMSChinaCIA_IMS.dbo.output
 where linkchartcode not like 'R%'
 go
 
@@ -156,7 +156,7 @@ set Y=OtherParameters where linkchartcode in ('R420','R430') and isshow='N'
 --where linkchartcode in (select linkchartcode from tblOutputlinkchartcode)
 
 insert into dbo.webChartTitle(LinkGeoID,LinkProductID,[LinkChartCode],[Category],[Product],[Lev] ,ParentGeo,[Geo],[Currency],[TimeFrame] ,[Caption],[SubCaption],slidetitle,YAxisName,[PYAxisName],[SYAxisName] ,[Templatename],[Outputname],[ParentCode],[CategoryIdx],TimeFrameIdx,DataSource)
-select * from db4.BMSChinaCIA_IMS_test.dbo.WebChartTitle
+select * from db4.BMSChinaCIA_IMS.dbo.WebChartTitle
 
 
 
@@ -169,7 +169,7 @@ select * from db4.BMSChinaCIA_IMS_test.dbo.WebChartTitle
 select  
       code
       ,count( code)
-from db4.BMSChinaCIA_IMS_test.dbo.WebChartSeries
+from db4.BMSChinaCIA_IMS.dbo.WebChartSeries
 group by code having count( code)>1
 
 insert into dbo.webChartSeries(DataSource,[Code]
@@ -197,7 +197,7 @@ select  DataSource,
       ,[AnchorBorderThickness]
       ,[IsSingle]
       ,[Remark]  
-from db4.BMSChinaCIA_IMS_test.dbo.WebChartSeries
+from db4.BMSChinaCIA_IMS.dbo.WebChartSeries
 
 go
 print 'webchartseries'
@@ -210,8 +210,8 @@ set a.HighChartSeriesType =
                   or a.series like '%CAGR%' 
                   then 'line'
 		 else 'StackedColumn' end 
-from BMSChina_staging_test.dbo.WebChartSeries as a
-inner join BMSChina_staging_test.dbo.WebChart as b on a.LinkChartCode = b.Code
+from BMSChina_staging.dbo.WebChartSeries as a
+inner join BMSChina_staging.dbo.WebChart as b on a.LinkChartCode = b.Code
 where b.highChartType = 'StackedColumnLineDY'
       or b.HighChartType = 'ColumnLineDY'
 go 
@@ -221,15 +221,15 @@ go
 insert into dbo.weboutputgeo
       (ID,geo,geoname,lev,idx,Parentid,ParentGeo,linkproductid,Product)
 select id,geo,geoname,lev,geoIDx,Parentid,ParentGeo,productid ,Product
-from  db4.BMSChinaCIA_IMS_test.dbo.outputgeo
+from  db4.BMSChinaCIA_IMS.dbo.outputgeo
 
 
 
 
-delete FROM [BMSChina_staging_test].[dbo].[WebChartTitle] 
+delete FROM [BMSChina_staging].[dbo].[WebChartTitle] 
 where linkchartcode IN('R401','R411') and timeframe='MTH' and Product in ('Taxol','Paraplatin')
 
-UPDATE [BMSChina_staging_test].[dbo].[WebChartTitle] 
+UPDATE [BMSChina_staging].[dbo].[WebChartTitle] 
 SET SubCaption = 'RDPAC'
 WHERE SubCaption LIKE '%HKAPI%'
 
@@ -239,7 +239,7 @@ print (N'
 3.                  导入PPT
 ------------------------------------------------------------------------------------------------------------
 ')
-use BMSChina_ppt_test
+use BMSChina_ppt
 go
 
 if not exists(select 1 from   syscolumns   where   id=object_id('[output_ppt]')   and   name='DataSource' )
@@ -282,7 +282,7 @@ select DataSource,
       ,[G]
       ,[B] 
       ,[IsShow] 
-from db4.BMSChinaCIA_IMS_test.dbo.output 
+from db4.BMSChinaCIA_IMS.dbo.output 
 
 
 DELETE FROM dbo.output_ppt 
@@ -326,10 +326,10 @@ select distinct DataSource,
       , 1 as [XIdx]
       , b.Region as Y
       ,[IsShow] 
-from db4.BMSChinaCIA_IMS_test.dbo.output a 
+from db4.BMSChinaCIA_IMS.dbo.output a 
 join (
 	select Geo as city, ParentGeo as Region 
-	from db4.BMSChinaCIA_IMS_test.dbo.outputgeo 
+	from db4.BMSChinaCIA_IMS.dbo.outputgeo 
       where (product='coniel' and lev=2) or parentgeo is null
 ) b  on a.Series= case when b.city='China' then 'China(CHPA)' else b.city end
 where a.LinkChartCode in ('R630','R620','R720','R730')
@@ -356,7 +356,7 @@ select DataSource,
       ,[Outputname]
       ,[ParentCode]
       ,[CategoryIdx] 
-from db4.BMSChinaCIA_IMS_test.dbo.WebChartTitle
+from db4.BMSChinaCIA_IMS.dbo.WebChartTitle
 go
 
 insert into dbo.outputgeo(ID,geo,geoname,lev,product,ParentGeo,Geoidx)
@@ -368,7 +368,7 @@ select
       ,product
       ,ParentGeo
       ,Geoidx 
-from db4.BMSChinaCIA_IMS_test.dbo.outputgeo
+from db4.BMSChinaCIA_IMS.dbo.outputgeo
 
 
 
@@ -386,7 +386,7 @@ print (N'
 ------------------------------------------------------------------------------------------------------------
 --')
 
-use BMSChina_staging_test
+use BMSChina_staging
 go
 
 --insert into webchartexplain (Code ,timeframe,productID,Product,DataSource,DataSource_CN,Explain,Explain_CN)
@@ -403,11 +403,11 @@ go
 
 --下载数据：--todo
 update webpage 
-set ImageURL = replace(imageurl,'2016 Nov','2016 Dec')    
+set ImageURL = replace(imageurl,'2016 Dec','2017 Jan')    
 where id in (248,293,307)
 
 -- update tblVersionInfo 
--- set CN = N'数据月: 2016年11月', EN = 'Data Month: Nov.-16' where Name = 'DataMonth'
+-- set CN = N'数据月: 2016年11月', EN = 'Data Month: Dec.-16' where Name = 'DataMonth'
 -- select * from tblVersionInfo where Name = 'DataMonth'
 GO
 
@@ -415,24 +415,24 @@ GO
 -- todo
 --每月修改
 update dbo.WebChartExplain
-set datasource=replace(datasource,'Nov''16','Dec''16'),
-	datasource_cn=replace(datasource_cn,'Nov''16','Dec''16')
+set datasource=replace(datasource,'Dec''16','Jan''17'),
+	datasource_cn=replace(datasource_cn,'Dec''16','Jan''17')
 where datasource like '%IMS%'
 select * from WebChartExplain where datasource like '%ims%' order  by code
 
 update WebChartExplain set 
-	DataSource='Data Source: IMS CHPA CITY Dec''16',
-	DataSource_CN='Data Source: IMS CHPA CITY Dec''16'
+	DataSource='Data Source: IMS CHPA CITY Jan''17',
+	DataSource_CN='Data Source: IMS CHPA CITY Jan''17'
 where code like 'C16%' 
 and Product in ('Paraplatin')
 
 
 --每个季度末才修改
 update dbo.WebChartExplain
-set datasource=replace(datasource,'Sep''16','Dec''16'),
-	datasource_cn=replace(datasource_cn,'Sep''16','Dec''16')
-where datasource like '%HKAPI%'
-select * from WebChartExplain where datasource like '%HKAPI%' order  by code
+set datasource=replace(datasource,'Sep''16','Jan''17'),
+	datasource_cn=replace(datasource_cn,'Sep''16','Jan''17')
+where datasource like '%RDPAC%'
+select * from WebChartExplain where datasource like '%RDPAC%' order  by code
 
 --RX
 update dbo.WebChartExplain
@@ -441,15 +441,15 @@ set datasource=replace(datasource,'2014 H2','2016 H1'),
 where datasource like '%Rx%'
 
 -- todo
-update tbldates set DateValue='Dec''16' where DateSource='MonthDate' --每月修改
+update tbldates set DateValue='Jan''17' where DateSource='MonthDate' --每月修改
 
-update tbldates set DateValue='Dec''16' where DateSource='HKAPITime'  --每个季度末才修改
+update tbldates set DateValue='Jan''16' where DateSource='HKAPITime'  --每个季度末才修改
 
-update tbldates set DateValue='MAT Dec''12 to MAT Dec''16' where DateSource='CAGRMATDate' --每月修改
+update tbldates set DateValue='MAT Jan''13 to MAT Jan''17' where DateSource='CAGRMATDate' --每月修改
 
-update tbldates set DateValue='MQT Jun''14 to MQT Dec''16' where DateSource='CAGR3MthsDate' --每月修改
+update tbldates set DateValue='MQT Jun''14 to MQT Jan''17' where DateSource='CAGR3MthsDate' --每月修改
 
-update tbldates set DateValue= 'Dec''16 vs. Dec''15' where DateSource='CurrVSLast'  --每月修改
+update tbldates set DateValue= 'Jan''17 vs. Jan''16' where DateSource='CurrVSLast'  --每月修改
 
 update tbldates set DateValue='MAT 12Q4 to MAT 16Q4' where DateSource='CAGRMATQuarterDate' --每个季度末才修改
 
@@ -477,22 +477,22 @@ select * from tbldates
 
 
 
-use BMSChina_ppt_test
+use BMSChina_ppt
 GO
 
 
-update tbldates set DateValue='Dec''16' where DateSource='MonthDate'  --每月修改
+update tbldates set DateValue='Jan''17' where DateSource='MonthDate'  --每月修改
 
-update tbldates set DateValue='Dec''16' where DateSource='HKAPITime' --只有在一个季度的最后一个月才需要修改
+update tbldates set DateValue='Jan''17' where DateSource='HKAPITime' --只有在一个季度的最后一个月才需要修改
 
 --insert into tbldates ( DateSource , DateValue ) --Added by Xiaoyu.Chen on 20130906
 --values('CurrVSLast','Jun''13 vs. Jun''12')
 
-update tbldates set DateValue= 'Dec''16 vs. Dec''15' where DateSource='CurrVSLast'  --每月修改
+update tbldates set DateValue= 'Jan''17 vs. Jan''16' where DateSource='CurrVSLast'  --每月修改
 
-update tbldates set DateValue='MAT Dec''12 to MAT Dec''16' where DateSource='CAGRMATDate'  --每月修改
+update tbldates set DateValue='MAT Jan''13 to MAT Jan''17' where DateSource='CAGRMATDate'  --每月修改
 
-update tbldates set DateValue='MQT Jun''14 to MQT Dec''16' where DateSource='CAGR3MthsDate'  --每月修改
+update tbldates set DateValue='MQT Jun''14 to MQT Jan''17' where DateSource='CAGR3MthsDate'  --每月修改
 
 update tbldates set DateValue='MAT 12Q4 to MAT 16Q4' where DateSource='CAGRMATQuarterDate'	--todo 只有在一个季度的最后一个月才需要修改
 

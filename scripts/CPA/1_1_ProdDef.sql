@@ -12,7 +12,7 @@
 */
 --Time:01:30
 
-use BMSChinaMRBI_test--DB4
+use BMSChinaMRBI--DB4
 GO
 
 exec dbo.sp_Log_Event 'process data','CIA_CPA','1_1_ProdDef.sql','Start',null,null
@@ -274,6 +274,9 @@ GO
 select N'本次手工网上Google翻译的 厂商：'
 select * from test_tblDefManufacture_CN_EN where Manu_EN is null
 GO
+
+
+
 
 
 update test_tblDefManufacture_CN_EN  set Manu_EN=b.[name]

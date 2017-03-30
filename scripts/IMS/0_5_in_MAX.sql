@@ -7,7 +7,8 @@ go
 
 -- import from RawData database for current month data 
 declare @CurrMonth varchar(10)
-select @CurrMonth = [Value] from Config where Parameter = 'IMS'
+--select @CurrMonth = [Value] from Config where Parameter = 'IMS'
+select @CurrMonth = '201612'
 print @CurrMonth
 exec('select * into Max_Data from BMSChinaCIARawdata.dbo.Max_' + @CurrMonth)
 
@@ -173,28 +174,28 @@ set ATC1_Cod  = i.ATC1_Cod,
 	[Gene_Cod] = i.[Gene_Cod]
 from	Max_Data as l
 	, (
-	select distinct
-			a.[ATC1_Cod], a.[ATC1_Des], a.[ATC2_Cod], a.[ATC2_Des], a.[ATC3_Cod], a.[ATC3_Des], 
-			a.[ATC4_Cod], a.[ATC4_Des], a.[Mole_cod], a.[Mole_des],
-			c.Pack_cod as Pack_Cod, null as Pack_Des, c.Prod_cod as Prod_cod, null as Prod_Des, b.[Corp_cod], b.[Corp_Des],   
-			b.[manu_cod], b.[Manu_des], b.[MNC],
-			b.Gene_Cod, IMS_Manu, [通用名（标准_英文）], final_Prod
-	from	MAXDataNotInIMS as c
-	inner join dbo.[tblMktDef_Inline] as a on a.Mole_des = c.[通用名（标准_英文）]
-	inner join dbo.[tblMktDef_Inline] as b on b.Manu_des = c.IMS_Manu 
-	where b.Mkt in ( 'arv' )
-	union all 
-	select distinct
-			a.[ATC1_Cod], a.[ATC1_Des], a.[ATC2_Cod], a.[ATC2_Des], a.[ATC3_Cod], a.[ATC3_Des], 
-			a.[ATC4_Cod], a.[ATC4_Des], a.[Mole_cod], a.[Mole_des],
-			c.Pack_Cod as Pack_Cod, null as Pack_Des, c.Prod_Cod as Prod_cod, null as Prod_Des, null as Corp_cod, null as Corp_Des,   
-			null as manu_cod, null as Manu_des, '' as MNC,
-			'N' as Gene_Cod, IMS_Manu, [通用名（标准_英文）], final_Prod
-	from	MAXDataNotInIMS as c
-	inner join dbo.[tblMktDef_Inline] as a on a.Mole_des = c.[通用名（标准_英文）]
-	left join dbo.[tblMktDef_Inline] as b on b.Manu_des = c.IMS_Manu 
-	where b.Manu_des is null 
-) as  i
+		select distinct
+				a.[ATC1_Cod], a.[ATC1_Des], a.[ATC2_Cod], a.[ATC2_Des], a.[ATC3_Cod], a.[ATC3_Des], 
+				a.[ATC4_Cod], a.[ATC4_Des], a.[Mole_cod], a.[Mole_des],
+				c.Pack_cod as Pack_Cod, null as Pack_Des, c.Prod_cod as Prod_cod, null as Prod_Des, b.[Corp_cod], b.[Corp_Des],   
+				b.[manu_cod], b.[Manu_des], b.[MNC],
+				b.Gene_Cod, IMS_Manu, [通用名（标准_英文）], final_Prod
+		from	MAXDataNotInIMS as c
+		inner join dbo.[tblMktDef_Inline] as a on a.Mole_des = c.[通用名（标准_英文）]
+		inner join dbo.[tblMktDef_Inline] as b on b.Manu_des = c.IMS_Manu 
+		where b.Mkt in ( 'arv' )
+		union all 
+		select distinct
+				a.[ATC1_Cod], a.[ATC1_Des], a.[ATC2_Cod], a.[ATC2_Des], a.[ATC3_Cod], a.[ATC3_Des], 
+				a.[ATC4_Cod], a.[ATC4_Des], a.[Mole_cod], a.[Mole_des],
+				c.Pack_Cod as Pack_Cod, null as Pack_Des, c.Prod_Cod as Prod_cod, null as Prod_Des, null as Corp_cod, null as Corp_Des,   
+				null as manu_cod, null as Manu_des, '' as MNC,
+				'N' as Gene_Cod, IMS_Manu, [通用名（标准_英文）], final_Prod
+		from	MAXDataNotInIMS as c
+		inner join dbo.[tblMktDef_Inline] as a on a.Mole_des = c.[通用名（标准_英文）]
+		left join dbo.[tblMktDef_Inline] as b on b.Manu_des = c.IMS_Manu 
+		where b.Manu_des is null 
+	) as  i
 where l.IMS_Manu = i.IMS_Manu 
 	 and l.[通用名（标准_英文）] = l.[通用名（标准_英文）]
 	 and l.final_Prod = i.final_Prod

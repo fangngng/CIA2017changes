@@ -1,4 +1,4 @@
-USE BMSChinaMRBI_test
+USE BMSChinaMRBI
 GO
 --------------------------------------------
 --	KPI: Hospital Performance
@@ -664,7 +664,7 @@ insert into KPI_Frame_CPA_Part_Market_Product_Mapping (productname,prod,mkt,mktn
 select distinct case when productname='TRAJENTA' then 'Trajenta'
 					 when productname='JANUMET' then 'Janumet' end as productname,
 prod,mkt,mktname
-from BMSChinaCIA_IMS_test.dbo.tblMktDef_MRBIChina_For_Onglyza  where productname in ('TRAJENTA','JANUMET')
+from BMSChinaCIA_IMS.dbo.tblMktDef_MRBIChina_For_Onglyza  where productname in ('TRAJENTA','JANUMET')
 
 IF EXISTS(SELECT 1 FROM dbo.sysobjects where id=object_id(N'TempKPIFrame_CPAPart') and type='U')
 BEGIN
@@ -1714,7 +1714,7 @@ BEGIN
 	DROP TABLE KPI_Frame_AnalyzerMarket_HospitalPerformance
 END
 declare @CPAMonth varchar(50)
-select @CPAMonth=left(A.MonthEN,3) from BMSChinaCIA_IMS_test.dbo.tblMonthlist a join tblDSDates b on a.Date=b.Value1 
+select @CPAMonth=left(A.MonthEN,3) from BMSChinaCIA_IMS.dbo.tblMonthlist a join tblDSDates b on a.Date=b.Value1 
 where b.item='CPA'
 --select @CPAMonth=Value1 from tblDSDates where Item='CPA'
 
@@ -2426,53 +2426,53 @@ update KPI_Frame_MarketAnalyzer_Hospital_Segment
 set series='Viread'
 where market='baraclude' and series='Tenofovir'
 
-USE BMSChinaCIA_IMS_test
+USE BMSChinaCIA_IMS
 GO
 
 
 --Transfer the data to BMSChina_CIA_IMS database
-IF EXISTS(SELECT 1 FROM BMSChinaCIA_IMS_test.dbo.sysobjects where id=object_id(N'dbo.KPI_Frame_AnalyzerMarket_HospitalPerformance') and type='U')
+IF EXISTS(SELECT 1 FROM BMSChinaCIA_IMS.dbo.sysobjects where id=object_id(N'dbo.KPI_Frame_AnalyzerMarket_HospitalPerformance') and type='U')
 BEGIN
-	DROP TABLE  BMSChinaCIA_IMS_test.dbo.KPI_Frame_AnalyzerMarket_HospitalPerformance
+	DROP TABLE  BMSChinaCIA_IMS.dbo.KPI_Frame_AnalyzerMarket_HospitalPerformance
 END
-SELECT * INTO  BMSChinaCIA_IMS_test.dbo.KPI_Frame_AnalyzerMarket_HospitalPerformance 
-FROM BMSChinaMRBI_test.dbo.KPI_Frame_AnalyzerMarket_HospitalPerformance
+SELECT * INTO  BMSChinaCIA_IMS.dbo.KPI_Frame_AnalyzerMarket_HospitalPerformance 
+FROM BMSChinaMRBI.dbo.KPI_Frame_AnalyzerMarket_HospitalPerformance
 
 
-IF EXISTS(SELECT 1 FROM  BMSChinaCIA_IMS_test.dbo.sysobjects where id=object_id(N'dbo.KPI_FRAME_BusinessSourceOfXarelto') and type='U')
+IF EXISTS(SELECT 1 FROM  BMSChinaCIA_IMS.dbo.sysobjects where id=object_id(N'dbo.KPI_FRAME_BusinessSourceOfXarelto') and type='U')
 BEGIN
-	DROP TABLE  BMSChinaCIA_IMS_test.dbo.KPI_FRAME_BusinessSourceOfXarelto
+	DROP TABLE  BMSChinaCIA_IMS.dbo.KPI_FRAME_BusinessSourceOfXarelto
 END
 SELECT * INTO dbo.KPI_FRAME_BusinessSourceOfXarelto 
-FROM BMSChinaMRBI_test.dbo.KPI_FRAME_BusinessSourceOfXarelto
+FROM BMSChinaMRBI.dbo.KPI_FRAME_BusinessSourceOfXarelto
 
 
-IF EXISTS(SELECT 1 FROM  BMSChinaCIA_IMS_test.dbo.sysobjects where id=object_id(N'dbo.KPI_Frame_CPA_Part_Market_Product_Mapping') and type='U')
+IF EXISTS(SELECT 1 FROM  BMSChinaCIA_IMS.dbo.sysobjects where id=object_id(N'dbo.KPI_Frame_CPA_Part_Market_Product_Mapping') and type='U')
 BEGIN
-	DROP TABLE  BMSChinaCIA_IMS_test.dbo.KPI_Frame_CPA_Part_Market_Product_Mapping
+	DROP TABLE  BMSChinaCIA_IMS.dbo.KPI_Frame_CPA_Part_Market_Product_Mapping
 END
-SELECT * INTO  BMSChinaCIA_IMS_test.dbo.KPI_Frame_CPA_Part_Market_Product_Mapping 
-FROM BMSChinaMRBI_test.dbo.KPI_Frame_CPA_Part_Market_Product_Mapping
+SELECT * INTO  BMSChinaCIA_IMS.dbo.KPI_Frame_CPA_Part_Market_Product_Mapping 
+FROM BMSChinaMRBI.dbo.KPI_Frame_CPA_Part_Market_Product_Mapping
 
-IF EXISTS(SELECT 1 FROM  BMSChinaCIA_IMS_test.dbo.sysobjects where id=object_id(N'dbo.KPI_FRAME_MoleculePerformanceInOrthopedics') and type='U')
+IF EXISTS(SELECT 1 FROM  BMSChinaCIA_IMS.dbo.sysobjects where id=object_id(N'dbo.KPI_FRAME_MoleculePerformanceInOrthopedics') and type='U')
 BEGIN
-	DROP TABLE  BMSChinaCIA_IMS_test.dbo.KPI_FRAME_MoleculePerformanceInOrthopedics
+	DROP TABLE  BMSChinaCIA_IMS.dbo.KPI_FRAME_MoleculePerformanceInOrthopedics
 END
-SELECT * INTO  BMSChinaCIA_IMS_test.dbo.KPI_FRAME_MoleculePerformanceInOrthopedics 
-FROM BMSChinaMRBI_test.dbo.KPI_FRAME_MoleculePerformanceInOrthopedics
+SELECT * INTO  BMSChinaCIA_IMS.dbo.KPI_FRAME_MoleculePerformanceInOrthopedics 
+FROM BMSChinaMRBI.dbo.KPI_FRAME_MoleculePerformanceInOrthopedics
 
-IF EXISTS(SELECT 1 FROM  BMSChinaCIA_IMS_test.dbo.sysobjects where id=object_id(N'dbo.KPI_Frame_MarketAnalyzer_BAL_Hospials') and type='U')
+IF EXISTS(SELECT 1 FROM  BMSChinaCIA_IMS.dbo.sysobjects where id=object_id(N'dbo.KPI_Frame_MarketAnalyzer_BAL_Hospials') and type='U')
 BEGIN
-	DROP TABLE  BMSChinaCIA_IMS_test.dbo.KPI_Frame_MarketAnalyzer_BAL_Hospials
+	DROP TABLE  BMSChinaCIA_IMS.dbo.KPI_Frame_MarketAnalyzer_BAL_Hospials
 END
-SELECT * INTO  BMSChinaCIA_IMS_test.dbo.KPI_Frame_MarketAnalyzer_BAL_Hospials 
-FROM BMSChinaMRBI_test.dbo.KPI_Frame_MarketAnalyzer_BAL_Hospials
+SELECT * INTO  BMSChinaCIA_IMS.dbo.KPI_Frame_MarketAnalyzer_BAL_Hospials 
+FROM BMSChinaMRBI.dbo.KPI_Frame_MarketAnalyzer_BAL_Hospials
 
-IF EXISTS(SELECT 1 FROM  BMSChinaCIA_IMS_test.dbo.sysobjects where id=object_id(N'dbo.KPI_Frame_MarketAnalyzer_Hospital_Segment') and type='U')
+IF EXISTS(SELECT 1 FROM  BMSChinaCIA_IMS.dbo.sysobjects where id=object_id(N'dbo.KPI_Frame_MarketAnalyzer_Hospital_Segment') and type='U')
 BEGIN
-	DROP TABLE  BMSChinaCIA_IMS_test.dbo.KPI_Frame_MarketAnalyzer_Hospital_Segment
+	DROP TABLE  BMSChinaCIA_IMS.dbo.KPI_Frame_MarketAnalyzer_Hospital_Segment
 END
-SELECT * INTO  BMSChinaCIA_IMS_test.dbo.KPI_Frame_MarketAnalyzer_Hospital_Segment 
-FROM BMSChinaMRBI_test.dbo.KPI_Frame_MarketAnalyzer_Hospital_Segment
+SELECT * INTO  BMSChinaCIA_IMS.dbo.KPI_Frame_MarketAnalyzer_Hospital_Segment 
+FROM BMSChinaMRBI.dbo.KPI_Frame_MarketAnalyzer_Hospital_Segment
 
 

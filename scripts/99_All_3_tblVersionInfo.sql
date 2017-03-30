@@ -1,4 +1,4 @@
-use BMSChina_ppt_test
+use BMSChina_ppt
 go
 
 
@@ -22,7 +22,7 @@ select @mth = left(dt,3) + '''' + right(dt,2) ,
 from(
 select convert(varchar(20),convert(datetime,value2,112),107) dt,
 	convert(varchar(20),dateadd(year,-2,convert(datetime,value2,112)),107) PrevDT
-from db4.BMSChinaMRBI_test.dbo.tbldsdates where item = 'cpa'
+from db4.BMSChinaMRBI.dbo.tbldsdates where item = 'cpa'
 ) a
 select @val = 'MAT ' + @prevMth + ' to MAT ' + @mth 
 
@@ -36,7 +36,7 @@ declare @mth varchar(10)
 
 select @mth = left(dt,3) + '''' + right(dt,2) from(
 	select convert(varchar(20),convert(datetime,value2,112),107) dt 
-	from db4.BMSChinaMRBI_test.dbo.tbldsdates where item = 'cpa'
+	from db4.BMSChinaMRBI.dbo.tbldsdates where item = 'cpa'
 ) a
 
 go
@@ -45,7 +45,7 @@ declare @mth varchar(10)
 
 select @mth = left(dt,3) + '''' + right(dt,2) from(
 	select convert(varchar(20),convert(datetime,value2,112),107) dt 
-	from db4.BMSChinaMRBI_test.dbo.tbldsdates where item = 'cpa'
+	from db4.BMSChinaMRBI.dbo.tbldsdates where item = 'cpa'
 ) a
 
 update tblDates set dateValue = @mth
@@ -73,7 +73,7 @@ go
 
 
 -----------------------------------------------------------------------------------------------------------------------------
-use BMSChina_staging_test
+use BMSChina_staging
 go
 
 
@@ -112,7 +112,7 @@ declare @mth varchar(10)
 
 select @mth = left(dt,3) + '''' + right(dt,2) from(
 select convert(varchar(20),convert(datetime,value2,112),107) dt 
-from db4.BMSChinaMRBI_test.dbo.tbldsdates where item = 'cpa'
+from db4.BMSChinaMRBI.dbo.tbldsdates where item = 'cpa'
 ) a
 
 update WebChartExplain set 

@@ -66,7 +66,7 @@
 
 --*/
 
---use BMSChinaMRBI_test--192.168.1.4
+--use BMSChinaMRBI--192.168.1.4
 --go
 
 
@@ -541,6 +541,69 @@ values(N'石家庄市康达制药厂', 'Shijiazhuang Kangda Pharmaceutical Co., 
 insert into inManuDef_Gool(NAMEC,NAME) 
 values(N'陕西必康制药集团控股有限公司', 'Shanxi Bicon Pharmaceutical Group Holding Co., Ltd.')
 
+-- 20170330
+insert into inManuDef_Gool(NAMEC,NAME) 
+values(N'瑞士巴塞尔豪夫迈.罗氏有限公司F. Hoffmann-La Roche Ltd.(上海罗氏制药分装)', 'F. Hoffmann-La Roche Ltd （SW）')
+insert into inManuDef_Gool(NAMEC,NAME) 
+values(N'F. Hoffmann-La Roche Ltd （SW）', 'F. Hoffmann-La Roche Ltd （SW）')
+insert into inManuDef_Gool(NAMEC,NAME) 
+values(N'ROCHE SpA （IT）', 'ROCHE S.p.A')
+insert into inManuDef_Gool(NAMEC,NAME) 
+values(N'云南医药工业股份有限公司昆明振华制药厂', 'Yunnan Pharmaceutical Industry Co., Ltd. Kunming Zhenhua Pharmaceutical Factory')
+insert into inManuDef_Gool(NAMEC,NAME) 
+values(N'兰州大得利生物化学制药（厂）有限公司', 'Lanzhou Dadeli Pharmaceutical Co., Ltd')
+insert into inManuDef_Gool(NAMEC,NAME) 
+values(N'厦门特宝生物工程股份有限公司', 'Xiamen Amoytop Biotech Engineering Co., Ltd')
+insert into inManuDef_Gool(NAMEC,NAME) 
+values(N'国药控股星鲨制药(厦门)有限公司', 'Sinopharm Xingsha Pharmaceutical(Xiamen) Co., Ltd')
+insert into inManuDef_Gool(NAMEC,NAME) 
+values(N'山东仁和制药有限公司', 'Shandong Renhe Pharmaceutical Co., Ltd')
+insert into inManuDef_Gool(NAMEC,NAME) 
+values(N'山西晋新双鹤药业有限责任公司', 'Shanxi Jinxin Shuanghe Pharmaceutical Co., Ltd.')
+insert into inManuDef_Gool(NAMEC,NAME) 
+values(N'山西银湖制药有限责任公司', 'Shanxi Yinhu Pharmaceutical Co., Ltd.')
+insert into inManuDef_Gool(NAMEC,NAME) 
+values(N'广东三才石岐制药股份有限公司', 'Guangdong Succhi Shiqi Pharmaceutical Co., Ltd.')
+insert into inManuDef_Gool(NAMEC,NAME) 
+values(N'广西圣保堂健康产业股份有限公司', 'Guangxi Sanpotel Health Industry Co., Ltd.')
+insert into inManuDef_Gool(NAMEC,NAME) 
+values(N'开封制药 （集团）有限公司', 'Kaifeng Pharmaceutical(Group) Co., Ltd.')
+insert into inManuDef_Gool(NAMEC,NAME) 
+values(N'德国诺华Novartis　Pharma　Produktions　GmbH', 'Novartis Pharmaceutical Co., Ltd.')
+insert into inManuDef_Gool(NAMEC,NAME) 
+values(N'必康制药江苏有限公司', 'Jiangsu Bicon Pharmaceutical Listed Company')
+insert into inManuDef_Gool(NAMEC,NAME) 
+values(N'江苏吴中实业股份有限公司苏州第六制药厂', 'Jiangsu Wuzhong Industrial Co., Ltd. Suzhou sixth pharmaceutical factory')
+insert into inManuDef_Gool(NAMEC,NAME) 
+values(N'江苏天际药业有限公司', 'Jiangsu Tianji Pharmaceutical Co., Ltd.')
+insert into inManuDef_Gool(NAMEC,NAME) 
+values(N'江苏悦兴药业有限公司', 'Jiangsu Yuexing Pharmaceutical Co., Ltd.')
+insert into inManuDef_Gool(NAMEC,NAME) 
+values(N'江苏普华克胜药业有限公司', 'Jiangsu Puhua kesheng Pharmaceutical Co., Ltd.')
+insert into inManuDef_Gool(NAMEC,NAME) 
+values(N'江苏远恒药业有限公司', 'Jiangsu Farever Pharmaceutical Co., Ltd.')
+insert into inManuDef_Gool(NAMEC,NAME) 
+values(N'江西上饶康达制药有限公司', 'Jiangxi Shangrao Kangda Pharmaceutical Co., Ltd.')
+insert into inManuDef_Gool(NAMEC,NAME) 
+values(N'江西汇仁药业有限公司', 'Jiangxi Huiren Pharmaceutical Co., Ltd.')
+insert into inManuDef_Gool(NAMEC,NAME) 
+values(N'沈阳绿洲制药有限责任公司', 'Shenyang Lvzhou Pharmaceutical Co., Ltd.')
+insert into inManuDef_Gool(NAMEC,NAME) 
+values(N'河南龙源药业股份有限公司', 'Henan Longyuan Pharmaceutical Co., Ltd')
+insert into inManuDef_Gool(NAMEC,NAME) values(N'泗水希尔康制药有限公司', 'Sishui Xierkang Pharmaceutical Co., Ltd')
+insert into inManuDef_Gool(NAMEC,NAME) values(N'浙江诚意药业股份有限公司', 'Zhejiang Chengyi Pharmaceutical Co., Ltd')
+insert into inManuDef_Gool(NAMEC,NAME) values(N'湖北清大康迪药业有限公司', 'Hubei Qingda Kangdi Pharmaceutical Co., Ltd')
+insert into inManuDef_Gool(NAMEC,NAME) values(N'湖南金健药业有限责任公司', 'Hunan Jinjian Pharmaceutical Co., Ltd')
+insert into inManuDef_Gool(NAMEC,NAME) values(N'爱尔兰先灵葆雅公司(Schering-Plough (Brinny) Co.)', 'Schering-Plough (Brinny) Co.')
+insert into inManuDef_Gool(NAMEC,NAME) values(N'瑞士巴塞尔豪夫迈.罗氏有限公司F. Hoffmann-La Roche Ltd.(上海罗氏制药分装)', 'F. Hoffmann-La Roche Ltd （SW）')
+insert into inManuDef_Gool(NAMEC,NAME) values(N'甘肃大得利制药有限公司', 'Gansu Dadeli Pharmaceutical Co., Ltd')
+insert into inManuDef_Gool(NAMEC,NAME) values(N'芜湖康奇制药有限公司', 'Wuhu Kangqi Pharmaceutical Co., Ltd')
+insert into inManuDef_Gool(NAMEC,NAME) values(N'裕松源药业有限公司', 'Yusongyuan Pharmaceutical Co., Ltd')
+insert into inManuDef_Gool(NAMEC,NAME) values(N'遂成药业股份有限公司', 'Suicheng Pharmaceutical Co., Ltd')
+insert into inManuDef_Gool(NAMEC,NAME) values(N'郑州卓峰制药厂', 'Zhengzhou CheukFeng Pharmaceutical Co., Ltd')
+insert into inManuDef_Gool(NAMEC,NAME) values(N'郑州卓峰制药有限公司', 'Zhengzhou CheukFeng Pharmaceutical Co., Ltd')
+insert into inManuDef_Gool(NAMEC,NAME) values(N'SP(brinny) Company', 'SP(brinny) Company')
+
 ******************************************************************************************************/
 
 
@@ -653,6 +716,13 @@ values(N'陕西必康制药集团控股有限公司', 'Shanxi Bicon Pharmaceutic
 --Eddy 2017/01/17
 -- insert into inProdDef_Gool(NAMEC,ENAME) values(N'易甘平','YI GAN PING')
 
+--Eddy 2017/03/30
+-- insert into inProdDef_Gool(NAMEC,ENAME) values(N'吉非替尼','Gefitinib')
+-- insert into inProdDef_Gool(NAMEC,ENAME) values(N'诺利宁','Norlyin')
+-- insert into inProdDef_Gool(NAMEC,ENAME) values(N'贝双定','Beishuangding')
+-- insert into inProdDef_Gool(NAMEC,ENAME) values(N'格尼可','Gurney')
+-- insert into inProdDef_Gool(NAMEC,ENAME) values(N'派格宾','Pigeon')
+-- insert into inProdDef_Gool(NAMEC,ENAME) values(N'昕维','Xinwei')
 
 
 

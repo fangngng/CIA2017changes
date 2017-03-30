@@ -4,7 +4,7 @@
 处理内容：MarketDefinition 
 
 前置依赖：
-DB4.BMSChinaMRBI_test.dbo.tblPackageXRefHosp 
+DB4.BMSChinaMRBI.dbo.tblPackageXRefHosp 
 */
 use BMSCNProc2
 go
@@ -45,7 +45,7 @@ select distinct a.MktType, a.Mkt, a.MktName, a.Class, a.Mole_Cod, a.Mole_Des,
                 b.Product_Code, upper(b.Product_EN) as Product_EN, b.Package_Code, 
                 upper(b.Package_Name) as Package_Name,  Null as Corp_Cod, null as Corp_Des
                 , b.Manu_ID, upper(b.Manu_EN) as Manu_EN, b.MNC, 'N' as ClsInd,1
-from DB4.BMSChinaMRBI_test.dbo.tblPackageXRefHosp  b 
+from DB4.BMSChinaMRBI.dbo.tblPackageXRefHosp  b 
 inner join (
            select distinct MktType, Mkt, MktName, Class, Mole_Cod, Mole_Des 
            from tblQueryToolDriverIMS 
@@ -74,7 +74,7 @@ delete from tblQueryToolDriverHosp where mkt like 'eliquis%'
 --   , Package_Code, upper(Package_Name) as Package_Name
 --   , Null as Corp_Cod, null as Corp_Des 
 --   , Manu_ID, upper(Manu_EN) as Manu_EN, MNC, 'N' as ClsInd,1
--- from DB4.BMSChinaMRBI_test.dbo.tblPackageXRefHosp 
+-- from DB4.BMSChinaMRBI.dbo.tblPackageXRefHosp 
 -- where Mole_Code_IMS in ('406260','408800','408827','413885','703259','704307','710047','711981','719372', '904100', '999999')
 --   and Product_EN <> '%CONTRACTUBEX%' -- 去掉复方
 -- --where ltrim(rtrim(substring(Product_EN,1,charindex('(',Product_EN)-1)))  in('Eliquis','Xarelto','FRAXIPARINE','CLEXANE','ARIXTRA') 
@@ -88,7 +88,7 @@ GO
 -- , Package_Code, upper(Package_Name) as Package_Name
 -- , Null as Corp_Cod, null as Corp_Des 
 -- , Manu_ID, upper(Manu_EN) as Manu_EN, MNC, 'N' as ClsInd,1
--- from DB4.BMSChinaMRBI_test.dbo.tblPackageXRefHosp 
+-- from DB4.BMSChinaMRBI.dbo.tblPackageXRefHosp 
 -- where ltrim(rtrim(substring(Product_EN,1,charindex('(',Product_EN)-1)))  in('Eliquis','XARELTO','PRADAXA')
 -- --FRAXIPARINE+CLEXANE+XARELTO+ELIQUIS+ARIXTRA（安卓）
 
@@ -101,7 +101,7 @@ GO
 --   , Package_Code, upper(Package_Name) as Package_Name
 --   , Null as Corp_Cod, null as Corp_Des 
 --   , Manu_ID, upper(Manu_EN) as Manu_EN, MNC, 'N' as ClsInd, 1
--- from DB4.BMSChinaMRBI_test.dbo.tblPackageXRefHosp 
+-- from DB4.BMSChinaMRBI.dbo.tblPackageXRefHosp 
 -- where Mole_Code_IMS in ('406260','408800','408827','413885','703259','704307','710047','711981','719372', '239900', '904100', '999999')
 --    and Product_EN <> '%CONTRACTUBEX%' -- 去掉复方
 GO

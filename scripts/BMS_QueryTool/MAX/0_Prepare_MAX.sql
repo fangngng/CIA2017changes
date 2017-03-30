@@ -10,11 +10,11 @@
 -- TempOutput.dbo.MTHCHPA_CMPS
 -- TempOutput.dbo.MTHCITY_CMPS
 
--- Db4.BMSChinaCIA_IMS_test.dbo.MTHCHPA_PKAU
--- Db4.BMSChinaCIA_IMS_test.dbo.MTHCITY_PKAU
+-- Db4.BMSChinaCIA_IMS.dbo.MTHCHPA_PKAU
+-- Db4.BMSChinaCIA_IMS.dbo.MTHCITY_PKAU
 
--- Db4.BMSChinaCIA_IMS_test.dbo.tblMktDef_ATCDriver
--- Db4.BMSChinaCIA_IMS_test.dbo.tblMktDef_GlobalTA
+-- Db4.BMSChinaCIA_IMS.dbo.tblMktDef_ATCDriver
+-- Db4.BMSChinaCIA_IMS.dbo.tblMktDef_GlobalTA
 
 
 use BMSCNProc2
@@ -31,7 +31,7 @@ if object_id(N'MTHCITY_MAX',N'U') is not null
 go
 
 select * into MTHCITY_MAX
-from Db4.BMSChinaCIA_IMS_test.dbo.inMAXData
+from Db4.BMSChinaCIA_IMS.dbo.inMAXData
 go
 alter table MTHCITY_MAX 
 add Audi_Cod varchar(20) 
@@ -47,7 +47,7 @@ go
 --Update city table
 insert into tblcitymax (City_ID,Audi_Cod,CIty,City_CN,Geo_Lvl)
 select city_ID,city_code+'_',city_name,city_name_ch,2 
-from db4.BMSChinaCIA_IMS_test.dbo.dim_city a
+from db4.BMSChinaCIA_IMS.dbo.dim_city a
 where not exists(select * from tblcitymax b where a.city_name=b.city or a.city_name_ch=b.city_cn)
 
 
@@ -98,7 +98,7 @@ select distinct  'Global TA' MktType,
 	b.corp_cod, b.corp_des,
 	b.Manu_cod, b.Manu_des,
 	b.MNC,'N' CLSInd,b.Gene_cod, @mth as AddMonth
-from Db4.BMSChinaCIA_IMS_test.dbo.tblMktDef_GlobalTA a
+from Db4.BMSChinaCIA_IMS.dbo.tblMktDef_GlobalTA a
 inner join tblQueryToolDriverATC b on a.pack_cod = b.Pack_cod
 GO
 
@@ -195,7 +195,7 @@ go
 -- 	Prod_Cod, Prod_Des + ' (' + Manu_cod + ')' as Prod_Des, 
 -- 	Pack_Cod, Pack_Des,Corp_Cod, Corp_Des,Manu_Cod, Manu_Des,
 -- 	MNC,'Y' CLSInd, Gene_Cod, @mth as AddMonth
--- from Db4.BMSChinaCIA_IMS_test.dbo.tblMktDef_Inline
+-- from Db4.BMSChinaCIA_IMS.dbo.tblMktDef_Inline
 -- where mkt in ('AGI','BI','DPP4','GLIN','GLP1','SU','TZD')
 go
 
@@ -249,7 +249,7 @@ begin
 		ATC3_Cod,'NA' Class, Mole_cod, Mole_des, Prod_cod, Prod_des + ' (' + Manu_cod + ')' as Prod_Des,
 		Pack_cod, Pack_des,Corp_cod, Corp_des, Manu_cod, Manu_des,
 		MNC, 'N' CLSInd, Gene_cod, '201206'
-	from Db4.BMSChinaCIA_IMS_test.dbo.tblMktDef_ATCDriver 
+	from Db4.BMSChinaCIA_IMS.dbo.tblMktDef_ATCDriver 
 	where prod_cod = '97029'
 end
 go
@@ -264,7 +264,7 @@ select distinct 'In-line Market' as MktType,
 	Prod_Cod, Prod_Des + ' (' + Manu_cod + ')' as Prod_Des, 
 	Pack_Cod, Pack_Des,Corp_Cod, Corp_Des,Manu_Cod, Manu_Des,
 	MNC,'N' CLSInd, Gene_Cod, @mth as AddMonth
-from Db4.BMSChinaCIA_IMS_test.dbo.tblMktDef_Inline
+from Db4.BMSChinaCIA_IMS.dbo.tblMktDef_Inline
 where mkt = 'arv'
 go
 delete a from tblQueryToolDriverMAX a 
@@ -417,7 +417,7 @@ select 'In-line Market' MktType, 'CML' Mkt, 'SPRYCEL MARKET' MktName ,
 	ATC3_Cod,'NA' Class, Mole_cod, Mole_des, Prod_cod, Prod_des + ' (' + Manu_cod + ')' as Prod_Des,
 	Pack_cod, Pack_des,Corp_cod, Corp_des, Manu_cod, Manu_des,
 	MNC, 'N' CLSInd, Gene_cod, '201206', '004157', 'DASATINIB'
-from Db4.BMSChinaCIA_IMS_test.dbo.tblMktDef_ATCDriver 
+from Db4.BMSChinaCIA_IMS.dbo.tblMktDef_ATCDriver 
 where prod_cod = '97029'
 GO
 --删除 箔类Mkt中Molecule Compsion 带“+”的

@@ -1,4 +1,4 @@
-use BMSChinaMRBI_test
+use BMSChinaMRBI
 go
 --3:13
 

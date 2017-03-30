@@ -1,4 +1,4 @@
-use BMSCNProc2_test
+use BMSCNProc2
 go
 --time:42min
 

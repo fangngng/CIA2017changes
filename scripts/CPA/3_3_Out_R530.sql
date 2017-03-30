@@ -1,4 +1,4 @@
-use  BMSChinaMRBI_test
+use  BMSChinaMRBI
 GO
 
 /*
@@ -372,7 +372,7 @@ LinkChartCode
 ,TimeFrame
 ,X
 ,XIdx
-,cast(Y as Float)/(select Rate from BMSChinaCIA_IMS_test.dbo.tblRate)--Y
+,cast(Y as Float)/(select Rate from BMSChinaCIA_IMS.dbo.tblRate)--Y
 ,Size
 ,IsShow
 from OutputHospital_All where LinkChartCode='R530' and Currency='RMB'

@@ -224,6 +224,10 @@ SELECT * FROM outputgeo_1
  --where Lev = 3
 
 
+INSERT INTO dbo.outputgeo ( Geo, GeoName, Lev, Product, ParentGeo, GeoIdx, ParentID, ProductID )
+SELECT 'BAL', 'BAL', 1, 'Baraclude', 'China', 39, 1, 1 
+
+
 go 
 
 drop table outputgeo 
@@ -240,7 +244,7 @@ SELECT * FROM dbo.outputgeo
 --insert into dbo.weboutputgeo
 --      (ID,geo,geoname,lev,idx,Parentid,ParentGeo,linkproductid,Product)
 --select id,geo,geoname,lev,geoIDx,Parentid,ParentGeo,productid ,Product
---from  db4.BMSChinaCIA_IMS_test.dbo.outputgeo
+--from  db4.BMSChinaCIA_IMS.dbo.outputgeo
 
 SELECT * 
 from WebPrivilege as a 
@@ -330,7 +334,7 @@ SELECT * FROM dbo.tblcaption order by LinkChartCode asc
 --set Caption = 'Baraclude Market: Key Brands’ Performance by Region - Non BAL'
 --where LinkChartCode = 'c140'
 
-use BMSChina_staging_test 
+use BMSChina_staging 
 go 
 
 select chartURL, highChartType, * from webchart
@@ -377,7 +381,7 @@ set HighChartSeriesType = 'line'
 where Series like '%growth%'
 
 
-use BMSChinaMRBI_test
+use BMSChinaMRBI
 go 
 
 SELECT * into tblSalesRegion FROM tblSalesRegion_201703
@@ -386,17 +390,17 @@ delete dbo.tblSalesRegion
 --SELECT * FROM tblSalesRegion
 where Product not in ('Baraclude')
 
-select * FROM BMSChinaCIA_IMS_test.dbo.outputgeo
+select * FROM BMSChinaCIA_IMS.dbo.outputgeo
 
 SELECT *,  replace(b.City, N'市', '')
 from tblSalesRegion as a 
-left join BMSChinaCIA_IMS_test.dbo.maxcity as b 
+left join BMSChinaCIA_IMS.dbo.maxcity as b 
 on a.Province1 = b.Province and a.City1 = replace(b.City, N'市', '')
 
 update  a 
 set a.IMSCity1 = replace(b.City, N'市', '')
 from tblSalesRegion as a 
-left join BMSChinaCIA_IMS_test.dbo.maxcity as b 
+left join BMSChinaCIA_IMS.dbo.maxcity as b 
 on a.Province1 = b.Province and a.City1 = replace(b.City, N'市', '')
 
 update a 
@@ -449,7 +453,7 @@ SELECT * FROM tblOutput_MAX_TA_Master_Inline
 
 SELECT * FROM tblcityIMS order by City_ID
 
-SELECT * FROM db4.BMSChinaCIA_IMS_test.dbo.maxcity
+SELECT * FROM db4.BMSChinaCIA_IMS.dbo.maxcity
 
 SELECT * into tblCityMAX from dbo.tblCityIMS where 1 = 0
 
@@ -460,7 +464,7 @@ SELECT * FROM tblCityMAX
 
 insert into tblcitymax 
 select  '', '', '', City, 2
-from db4.BMSChinaCIA_IMS_test.dbo.maxcity 
+from db4.BMSChinaCIA_IMS.dbo.maxcity 
 
 update tblcitymax
 set city_cn = replace(city_cn, N'市', '')
@@ -469,7 +473,7 @@ set city_cn = replace(city_cn, N'市', '')
 update tblcitymax
 set city = b.geo 
 from tblcitymax as a 
-inner join db4.BMSChinaCIA_IMS_test.dbo.outputgeo as b on a.city_cn = b.GeoName
+inner join db4.BMSChinaCIA_IMS.dbo.outputgeo as b on a.city_cn = b.GeoName
 
 update tblcitymax
 set city = b.city ,
@@ -481,18 +485,18 @@ where a.city = ''
 update tblcitymax
 set city = b.City_EN 
 from tblcitymax as a 
-inner join BMSChinaQueryToolNew_test.dbo.tblCityListForHospital as b on a.city_cn = b.City_CN
+inner join BMSChinaQueryToolNew.dbo.tblCityListForHospital as b on a.city_cn = b.City_CN
 where a.city = ''
 
-select * from db4.BMSChinaCIA_IMS_test.dbo.outputgeo
+select * from db4.BMSChinaCIA_IMS.dbo.outputgeo
 
 insert into tblcitymax 
 select distinct '', '', Province_EN, Province_CN, 1 
-from BMSChinaQueryToolNew_test.dbo.tblCityListForHospital
+from BMSChinaQueryToolNew.dbo.tblCityListForHospital
 where lev = 1 
 
 SELECT * FROM tblCityMAX
-select * from BMSChinaQueryToolNew_test.dbo.tblCityListForHospital
+select * from BMSChinaQueryToolNew.dbo.tblCityListForHospital
 
 SELECT * FROM tblcitymax where geo_lvl = 1
 delete tblcitymax	where geo_lvl = 1
@@ -524,7 +528,7 @@ update tblcitymax set city = 'fuzhou' where city_cn = N'抚州'
 update tblcitymax set city = 'changzhi' where city_cn = N'长治'
 update tblcitymax set city = 'pingxiang' where city_cn = N'萍乡'
 
-SELECT * FROM db4.BMSChinaCIA_IMS_test.dbo.maxcity
+SELECT * FROM db4.BMSChinaCIA_IMS.dbo.maxcity
 
 update dbo.tblcitymax
 set City = upper(left(City, 1)) + lower(right(City, len(City) - 1)) 
@@ -538,7 +542,7 @@ set IMSCity1 = b.city_CN,
 	IMSCity = b.city 
 	--SELECT * 
 from BMSChinaMRBI.dbo.tblSalesRegion as a 
-inner join BMSChinaCIA_IMS_test.dbo.tblcityMAX as b on a.City1 = b.city_CN
+inner join BMSChinaCIA_IMS.dbo.tblcityMAX as b on a.City1 = b.city_CN
 
 go 
 
@@ -554,7 +558,7 @@ update dbo.tblcitymax
 set City = upper(left(City, 1)) + lower(right(City, len(City) - 1)) 
 
 go 
-INSERT INTO BMSChina_ppt_test.dbo.tblColorDef
+INSERT INTO BMSChina_ppt.dbo.tblColorDef
 SELECT 'GEO', 'ARV', 'Viread', 189, 233, 45, '', 'BDE92D' 
 go 
 UPDATE dbo.tblCityMAX
@@ -571,4 +575,140 @@ UPDATE a
 SET Tier =  b.[city tier]
 FROM tblcitymax AS  a
 INNER JOIN dbo.maxcity AS b ON a.City_CN = b.City
+
+go 
+
+use BMSChinaMRBI
+go 
+
+UPDATE dbo.tblSalesRegion 
+SET region = 'EastI' 
+WHERE Region = 'East1'
+
+UPDATE dbo.tblSalesRegion 
+SET region = 'EastII' 
+WHERE Region = 'East2'
+
+go 
+use BMSChina_staging
+go 
+INSERT INTO dbo.WebChart ( Code, ChartName, ChartURL, ShowNames, ShowValues, ZoomInShowMaxNum, ShowXOrder, Conditions,
+							YAxisMaxValue, YAxisMinValue, RotateName, DecimalPrecision, ShowLegend, FormatNumberScale,
+							NumberPrefix, NumberSuffix, SNumberPrefix, SNumberSuffix, UseRoundEdges, IsExpanded,
+							IsZoomOut, IsZoomIn, IsShoppingCart, IsDownTable, ShowBorder, BorderColor, MaxColWidth,
+							FirstColumnWidth, DownTableColWidth, xAxisMinValue, xAxisMaxValue, yNumberPrefix,
+							yNumberSuffix, xNumberPrefix, xNumberSuffix, xAxisValueDecimals, HighChartType )
+SELECT 'c150', ChartName, ChartURL, ShowNames, ShowValues, ZoomInShowMaxNum, ShowXOrder, Conditions, YAxisMaxValue,
+	   YAxisMinValue, RotateName, DecimalPrecision, ShowLegend, FormatNumberScale, NumberPrefix, NumberSuffix,
+	   SNumberPrefix, SNumberSuffix, UseRoundEdges, IsExpanded, IsZoomOut, IsZoomIn, IsShoppingCart, IsDownTable,
+	   ShowBorder, BorderColor, MaxColWidth, FirstColumnWidth, DownTableColWidth, xAxisMinValue, xAxisMaxValue,
+	   yNumberPrefix, yNumberSuffix, xNumberPrefix, xNumberSuffix, xAxisValueDecimals, HighChartType 
+FROM dbo.WebChart WHERE Code = 'c140'
+
+go 
+use BMSChina_Framework_201204 
+go 
+
+INSERT INTO dbo.WebOutputGeo ( Id, Geo, GeoName, Lev, Idx, ParentId, ParentGeo, LinkProductId, Product )
+SELECT 47, 'BAL', 'BAL', '1', 39, 1, 'China', 1, 'Baraclude'
+
+
+INSERT INTO dbo.WebPrivilege ( LinkPageId, LinkGeoId, LinkChartCode, Permit )
+SELECT 12, 47, NULL, NULL 
+
+
+INSERT INTO dbo.WebUserPermit ( LinkUserId, LinkPrivilegeId )
+SELECT a.Id , b.Id
+FROM dbo.WebUserInfo AS a, dbo.WebPrivilege AS b
+
+
+go 
+use BMSChina_staging
+go 
+
+INSERT INTO dbo.webpagechart ( LinkPageId, LinkChartCode, ChartIdx, SectionId, IsShow )
+SELECT LinkPageId, 'c170', ChartIdx + 1, SectionId, IsShow FROM webpagechart WHERE LinkChartCode = 'c140'
+	
+
+UPDATE dbo.WebChartTitle
+SET caption = 'Baraclude Market: Key Brands’ Performance by Region - BAL',
+	DataSource = 'CPA'
+WHERE LinkChartCode = 'c170'
+
+
+INSERT INTO dbo.WebChartSeries ( Code, LinkChartCode, Geo, Series, SeriesIdx, Color, ParentYAxis, AnchorSide,
+								  AnchorRadius, AnchorBorderThickness, IsSingle, Remark, DataSource, HighChartSeriesType )
+SELECT REPLACE(Code, 'C140', 'C170'), 'C170', Geo, Series, SeriesIdx, Color, ParentYAxis, AnchorSide, AnchorRadius, AnchorBorderThickness,
+	   IsSingle, Remark, 'CPA', HighChartSeriesType 
+FROM dbo.WebChartSeries WHERE LinkChartCode = 'c140'
+
+
+go 
+
+insert into [BMSChinaQueryToolNew].[dbo].[tblDataPeriod] values('MAX',201701)
+go 
+
+use BMSChina_staging
+go 
+
+--SELECT * INTO WebChartExplain_20170329 FROM WebChartExplain 
+SELECT * FROM WebChartExplain WHERE Code = 'c020'
+
+SELECT * FROM WebChartExplain WHERE TimeFrame = 'MQT'
+				--INSERT INTO dbo.WebChartExplain ( Code, TimeFrame, ProductID, Product, DataSource, DataSource_CN, Explain, Explain_CN )
+				--SELECT Code, 'MTH', ProductID, Product, REPLACE(DataSource, 'MAT', 'MTH'), REPLACE(DataSource_CN, 'MAT', 'MTH'), 
+				--	REPLACE(Explain, 'MAT', 'MTH'), REPLACE(Explain_CN, 'MAT', 'MTH')
+				--FROM dbo.WebChartExplain 
+				--WHERE Code = 'c020' AND TimeFrame = 'MAT'
+
+
+DECLARE @periodT TABLE (
+	ID INT,
+	Period VARCHAR(20)
+)
+INSERT INTO @periodT ( ID, Period )
+SELECT 1, 'YTD' union
+SELECT 2, 'MTH' union
+SELECT 3, 'MQT' union
+SELECT 4, 'MAT' 
+
+DECLARE tempCursor CURSOR 
+READ_ONLY	
+FOR SELECT DISTINCT Code FROM WebChartExplain
+DECLARE @code VARCHAR(20), @sql VARCHAR(max)
+
+OPEN tempCursor 
+
+FETCH NEXT FROM tempCursor INTO @code
+WHILE (@@FETCH_STATUS <> -1)
+BEGIN
+	--WHILE (@@FETCH_STATUS <> -2)
+	--BEGIN
+		DECLARE @i INT 
+		SET @i = 1
+		WHILE @i <= 4
+		BEGIN
+			DECLARE @tempPeriod VARCHAR(20)
+			SET @tempPeriod = (SELECT period FROM @periodT WHERE ID = @i )
+			IF not EXISTS( SELECT * FROM WebChartExplain WHERE TimeFrame = @tempPeriod and code = @code)
+			BEGIN
+				
+				INSERT INTO dbo.WebChartExplain ( Code, TimeFrame, ProductID, Product, DataSource, DataSource_CN, Explain, Explain_CN )
+				SELECT Code, @tempPeriod, ProductID, Product, REPLACE(DataSource, 'MAT', @tempPeriod), REPLACE(DataSource_CN, 'MAT', @tempPeriod), 
+					REPLACE(Explain, 'MAT', @tempPeriod), REPLACE(Explain_CN, 'MAT', @tempPeriod)
+				FROM dbo.WebChartExplain 
+				WHERE Code = @code AND TimeFrame = 'MAT'
+
+			END	
+			PRINT @i 
+			SET @i = @i + 1
+		end
+	--END
+	PRINT @code
+	FETCH NEXT FROM tempCursor INTO @code
+END
+CLOSE tempCursor
+DEALLOCATE tempCursor
+
+go 
 

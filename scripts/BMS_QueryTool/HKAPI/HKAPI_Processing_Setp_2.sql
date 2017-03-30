@@ -1,4 +1,4 @@
-use BMSCNProc2_test
+use BMSCNProc2
 go
 
 exec dbo.sp_Log_Event 'Process','QT_HKAPI','HKAPI_Processing_Setp_2.sql','Start',null,null

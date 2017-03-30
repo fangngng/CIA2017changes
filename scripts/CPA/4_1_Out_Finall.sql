@@ -1,6 +1,6 @@
 /* 这个脚本对于数据在Web或者PPT中显示，进行了一些必要的格式化（设置颜色等）*/
 
-use BMSChinaMRBI_test --DB4
+use BMSChinaMRBI --DB4
 go
 
 

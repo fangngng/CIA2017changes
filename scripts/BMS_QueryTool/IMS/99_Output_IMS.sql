@@ -1,4 +1,4 @@
-use BMSChinaQueryToolNew_test
+use BMSChinaQueryToolNew
 go
 exec BMSCNProc2.dbo.sp_Log_Event 'output','QT_IMS','99_Output_IMS.sql','Start',null,null
 --34分钟
@@ -7,7 +7,7 @@ print '--dim_city'
 IF OBJECT_ID(N'dim_city',N'U') IS NOT NULL
 	DROP TABLE dim_city
 GO
-SELECT * INTO dim_city FROM db4.BMSChinaCIA_IMS_test.dbo.dim_city
+SELECT * INTO dim_city FROM db4.BMSChinaCIA_IMS.dbo.dim_city
 go
 
 

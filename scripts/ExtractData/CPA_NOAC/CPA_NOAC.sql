@@ -1,4 +1,4 @@
-use BMSChinaMRBI_test
+use BMSChinaMRBI
 go
 if object_id(N'inCPA_HYP_Data_Extract_eliquis','U') is not null
     drop table inCPA_HYP_Data_Extract_eliquis
@@ -29,7 +29,7 @@ h.[Eliquis hospital category] as CPA_type2,
 g.Molecular as Molecular,
 f.[BMS VTEP Market Brand level] as [BMS VTEP Market Brand level]
 into inCPA_HYP_Data_Extract_eliquis
-from db4.BMSChinaMRBI_test.dbo.inCPAData a join dbo.tblHospitalMaster c on a.cpa_id=c.id 
+from db4.BMSChinaMRBI.dbo.inCPAData a join dbo.tblHospitalMaster c on a.cpa_id=c.id 
                    left join (select * from tblsalesregion where product='eliquis') d on d.city=c.city_en
                   left join dbo.[tblDefProduct_CN_EN] b on a.Product = b.prod_cn
 				   left join tblHospitalMaster e

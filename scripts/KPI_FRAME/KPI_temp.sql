@@ -1576,10 +1576,10 @@ select a.HospCode, a.HospName, a.RMName, b.*
 into temp_BAL_CPAData
 from ( 
 	SELECT b.HospCode, b.HospName, b.RMName, a.[CPA Code] as CPA_Code, a.[City(Chinese)] as City, a.Povince
-	from BMSChinaMRBI_test.dbo.BMS_CPA_Hosp_Category as a
+	from BMSChinaMRBI.dbo.BMS_CPA_Hosp_Category as a
 	inner join tblBALHospital as b on a.[BMS Code] = b.HospCode
 ) as a 
-inner join BMSChinaMRBI_test.dbo.inCPAData as b on a.CPA_Code = b.CPA_Code
+inner join BMSChinaMRBI.dbo.inCPAData as b on a.CPA_Code = b.CPA_Code
 where a.CPA_Code <>'#N/A'
 	and b.Y >= '2015' and b.M >= 1
 
@@ -1598,7 +1598,7 @@ select RMName as Series, sum(Value) as Y
 into KPI_Frame_MAX_Region_BAL_Mid
 from temp_BAL_CPAData as a
 inner join (
-        SELECT distinct Prod_Des_CN, Prod_Des_EN  FROM BMSChinaMRBI_test.dbo.tblMktDefHospital where Mkt = 'Arv' 
+        SELECT distinct Prod_Des_CN, Prod_Des_EN  FROM BMSChinaMRBI.dbo.tblMktDefHospital where Mkt = 'Arv' 
     ) as b on a.Product = b.Prod_Des_CN
 -- inner join (
 --     select distinct prod_Des
@@ -1623,7 +1623,7 @@ select RMName as Series, c.mkt as X , sum(Value) as Y, null as Series_Idx, null 
 into KPI_Frame_MAX_Region_BAL
 from temp_BAL_CPAData as a
 inner join (
-        select distinct prod_Des_EN,Prod_Des_CN  from BMSChinaMRBI_test.dbo.tblMktDefHospital where Mkt = 'Arv' 
+        select distinct prod_Des_EN,Prod_Des_CN  from BMSChinaMRBI.dbo.tblMktDefHospital where Mkt = 'Arv' 
     ) as b on a.Product = b.Prod_Des_CN
 inner join ( 
         select distinct prod_Des, mkt
@@ -1674,7 +1674,7 @@ select RMName as Series, sum(Value) as YTD
 into temp_KPI_Frame_MAX_Region_BAL
 from temp_BAL_CPAData as a
 inner join (
-    select distinct prod_Des_EN,Prod_Des_CN  from BMSChinaMRBI_test.dbo.tblMktDefHospital  where Mkt = 'Arv' 
+    select distinct prod_Des_EN,Prod_Des_CN  from BMSChinaMRBI.dbo.tblMktDefHospital  where Mkt = 'Arv' 
 ) as b on a.Product = b.Prod_Des_CN
 inner join (
     select distinct prod_Des
@@ -1702,7 +1702,7 @@ inner join (
     select RMName as Series, sum(Value) as YTD 
     from temp_BAL_CPAData as a
     inner join (
-        select distinct prod_Des_EN,Prod_Des_CN  from BMSChinaMRBI_test.dbo.tblMktDefHospital  where Mkt = 'Arv' 
+        select distinct prod_Des_EN,Prod_Des_CN  from BMSChinaMRBI.dbo.tblMktDefHospital  where Mkt = 'Arv' 
     ) as b on a.Product = b.Prod_Des_CN
     inner join (
         select distinct prod_Des
@@ -1720,7 +1720,7 @@ inner join (
     select RMName as Series, sum(Value) as YTD 
     from temp_BAL_CPAData as a
     inner join (
-        select distinct prod_Des_EN,Prod_Des_CN  from BMSChinaMRBI_test.dbo.tblMktDefHospital  where Mkt = 'Arv' 
+        select distinct prod_Des_EN,Prod_Des_CN  from BMSChinaMRBI.dbo.tblMktDefHospital  where Mkt = 'Arv' 
     ) as b on a.Product = b.Prod_Des_CN
     inner join (
         select distinct prod_Des
@@ -1740,7 +1740,7 @@ inner join (
     select RMName as Series, sum(Value) as YTD 
     from temp_BAL_CPAData as a
     inner join (
-        select distinct prod_Des_EN,Prod_Des_CN  from BMSChinaMRBI_test.dbo.tblMktDefHospital  where Mkt = 'Arv' 
+        select distinct prod_Des_EN,Prod_Des_CN  from BMSChinaMRBI.dbo.tblMktDefHospital  where Mkt = 'Arv' 
     ) as b on a.Product = b.Prod_Des_CN
     inner join (
         select distinct prod_Des
@@ -1759,7 +1759,7 @@ inner join (
     select RMName as Series, sum(Value) as YTD 
     from temp_BAL_CPAData as a
     inner join (
-        select distinct prod_Des_EN,Prod_Des_CN  from BMSChinaMRBI_test.dbo.tblMktDefHospital  where Mkt = 'Arv' 
+        select distinct prod_Des_EN,Prod_Des_CN  from BMSChinaMRBI.dbo.tblMktDefHospital  where Mkt = 'Arv' 
     ) as b on a.Product = b.Prod_Des_CN
     inner join (
         select distinct prod_Des
@@ -1778,7 +1778,7 @@ inner join (
     select RMName as Series, sum(Value) as YTD 
     from temp_BAL_CPAData as a
     inner join (
-        select distinct prod_Des_EN,Prod_Des_CN  from BMSChinaMRBI_test.dbo.tblMktDefHospital  where Mkt = 'Arv' 
+        select distinct prod_Des_EN,Prod_Des_CN  from BMSChinaMRBI.dbo.tblMktDefHospital  where Mkt = 'Arv' 
     ) as b on a.Product = b.Prod_Des_CN
     inner join (
         select distinct prod_Des
@@ -1807,7 +1807,7 @@ inner join (
     select RMName as Series, sum(Value) as YTD 
     from temp_BAL_CPAData as a
     inner join (
-        select distinct prod_Des_EN,Prod_Des_CN  from BMSChinaMRBI_test.dbo.tblMktDefHospital  where Mkt = 'Arv' 
+        select distinct prod_Des_EN,Prod_Des_CN  from BMSChinaMRBI.dbo.tblMktDefHospital  where Mkt = 'Arv' 
     ) as b on a.Product = b.Prod_Des_CN
     inner join (
         select distinct prod_Des
@@ -1825,7 +1825,7 @@ inner join (
     select RMName as Series, sum(Value) as YTD 
     from temp_BAL_CPAData as a
     inner join (
-        select distinct prod_Des_EN,Prod_Des_CN  from BMSChinaMRBI_test.dbo.tblMktDefHospital  where Mkt = 'Arv' 
+        select distinct prod_Des_EN,Prod_Des_CN  from BMSChinaMRBI.dbo.tblMktDefHospital  where Mkt = 'Arv' 
     ) as b on a.Product = b.Prod_Des_CN
     inner join (
         select distinct prod_Des

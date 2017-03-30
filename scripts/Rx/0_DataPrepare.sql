@@ -122,7 +122,7 @@ CAP: tblMktDefRx
 
 
 */
-use BMSChinaMRBI_test
+use BMSChinaMRBI
 go
 
 
@@ -232,7 +232,7 @@ SET ansi_warnings OFF
 insert into tblMktDefRx 
 --select * from BMSChinaMRBI_Repository.dbo.tblMktDefHospital_201509--todos
 --union 
-select * from BMSChinaMRBI_test.dbo.tblMktDefHospital --where mkt='ccb'
+select * from BMSChinaMRBI.dbo.tblMktDefHospital --where mkt='ccb'
 GO
 SET ansi_warnings On
 

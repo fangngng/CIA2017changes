@@ -5,7 +5,7 @@
 
 
 
-use  BMSCNProc2_test
+use  BMSCNProc2
 go
 
 if object_id(N'fun_getYTDMonths_IMS()',N'U') is not null

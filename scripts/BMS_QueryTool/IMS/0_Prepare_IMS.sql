@@ -10,11 +10,11 @@
 -- TempOutput.dbo.MTHCHPA_CMPS
 -- TempOutput.dbo.MTHCITY_CMPS
 
--- Db4.BMSChinaCIA_IMS_test.dbo.MTHCHPA_PKAU
--- Db4.BMSChinaCIA_IMS_test.dbo.MTHCITY_PKAU
+-- Db4.BMSChinaCIA_IMS.dbo.MTHCHPA_PKAU
+-- Db4.BMSChinaCIA_IMS.dbo.MTHCITY_PKAU
 
--- Db4.BMSChinaCIA_IMS_test.dbo.tblMktDef_ATCDriver
--- Db4.BMSChinaCIA_IMS_test.dbo.tblMktDef_GlobalTA
+-- Db4.BMSChinaCIA_IMS.dbo.tblMktDef_ATCDriver
+-- Db4.BMSChinaCIA_IMS.dbo.tblMktDef_GlobalTA
 
 
 use BMSCNProc2
@@ -22,7 +22,7 @@ go
 --
 
 
-update tblDataPeriod set DataPeriod = '201612' --手工更新 IMS Data Month todo
+update tblDataPeriod set DataPeriod = '201701' --手工更新 IMS Data Month todo
 where QType = 'IMS'
 GO
 exec dbo.sp_Log_Event 'Prepare','QT_IMS','0_Prepare_IMS.sql','Start',null,null
@@ -257,7 +257,7 @@ if object_id(N'MTHCHPA_PKAU',N'U') is not null
 	drop table MTHCHPA_PKAU
 go
 select * into MTHCHPA_PKAU
-from Db4.BMSChinaCIA_IMS_test.dbo.MTHCHPA_PKAU
+from Db4.BMSChinaCIA_IMS.dbo.MTHCHPA_PKAU
 go
 create nonclustered index idx on MTHCHPA_PKAU(Pack_cod)
 go
@@ -267,7 +267,7 @@ go
 -- go
 
 -- select * into MTHCITY_PKAU
--- from Db4.BMSChinaCIA_IMS_test.dbo.MTHCITY_PKAU
+-- from Db4.BMSChinaCIA_IMS.dbo.MTHCITY_PKAU
 -- go
 -- create nonclustered index idx on MTHCITY_PKAU(Pack_cod)
 -- go
@@ -275,7 +275,7 @@ go
 --Update city table
 insert into tblCityIMS (City_ID,Audi_Cod,CIty,City_CN,Geo_Lvl)
 select city_ID,city_code+'_',city_name,city_name_ch,2 
-from db4.BMSChinaCIA_IMS_test.dbo.dim_city a
+from db4.BMSChinaCIA_IMS.dbo.dim_city a
 where not exists(select * from tblCityIMS b where a.city_name=b.city or a.city_name_ch=b.city_cn)
 
 
@@ -312,7 +312,7 @@ truncate table tblQueryToolDriverATC
 go
 insert into tblQueryToolDriverATC
 select distinct a.*, b.CMPS_Cod, b.CMPS_Des 
-from Db4.BMSChinaCIA_IMS_test.dbo.tblMktDef_ATCDriver a 
+from Db4.BMSChinaCIA_IMS.dbo.tblMktDef_ATCDriver a 
 inner join tblCmpsPack b
 on a.Pack_Cod=b.Pack_Cod
 go
@@ -379,7 +379,7 @@ select distinct  'Global TA' MktType,
 	b.corp_cod, b.corp_des,
 	b.Manu_cod, b.Manu_des,
 	b.MNC,'N' CLSInd,b.Gene_cod, @mth as AddMonth
-from Db4.BMSChinaCIA_IMS_test.dbo.tblMktDef_GlobalTA a
+from Db4.BMSChinaCIA_IMS.dbo.tblMktDef_GlobalTA a
 inner join tblQueryToolDriverATC b on a.pack_cod = b.Pack_cod
 GO
 
@@ -476,7 +476,7 @@ go
 -- 	Prod_Cod, Prod_Des + ' (' + Manu_cod + ')' as Prod_Des, 
 -- 	Pack_Cod, Pack_Des,Corp_Cod, Corp_Des,Manu_Cod, Manu_Des,
 -- 	MNC,'Y' CLSInd, Gene_Cod, @mth as AddMonth
--- from Db4.BMSChinaCIA_IMS_test.dbo.tblMktDef_Inline
+-- from Db4.BMSChinaCIA_IMS.dbo.tblMktDef_Inline
 -- where mkt in ('AGI','BI','DPP4','GLIN','GLP1','SU','TZD')
 go
 
@@ -530,7 +530,7 @@ begin
 		ATC3_Cod,'NA' Class, Mole_cod, Mole_des, Prod_cod, Prod_des + ' (' + Manu_cod + ')' as Prod_Des,
 		Pack_cod, Pack_des,Corp_cod, Corp_des, Manu_cod, Manu_des,
 		MNC, 'N' CLSInd, Gene_cod, '201206'
-	from Db4.BMSChinaCIA_IMS_test.dbo.tblMktDef_ATCDriver 
+	from Db4.BMSChinaCIA_IMS.dbo.tblMktDef_ATCDriver 
 	where prod_cod = '97029'
 end
 go
@@ -545,7 +545,7 @@ select distinct 'In-line Market' as MktType,
 	Prod_Cod, Prod_Des + ' (' + Manu_cod + ')' as Prod_Des, 
 	Pack_Cod, Pack_Des,Corp_Cod, Corp_Des,Manu_Cod, Manu_Des,
 	MNC,'N' CLSInd, Gene_Cod, @mth as AddMonth
-from Db4.BMSChinaCIA_IMS_test.dbo.tblMktDef_Inline
+from Db4.BMSChinaCIA_IMS.dbo.tblMktDef_Inline
 where mkt = 'arv'
 go
 delete a from tblQueryToolDriverIMS a 
@@ -698,7 +698,7 @@ select 'In-line Market' MktType, 'CML' Mkt, 'SPRYCEL MARKET' MktName ,
 	ATC3_Cod,'NA' Class, Mole_cod, Mole_des, Prod_cod, Prod_des + ' (' + Manu_cod + ')' as Prod_Des,
 	Pack_cod, Pack_des,Corp_cod, Corp_des, Manu_cod, Manu_des,
 	MNC, 'N' CLSInd, Gene_cod, '201206', '004157', 'DASATINIB'
-from Db4.BMSChinaCIA_IMS_test.dbo.tblMktDef_ATCDriver 
+from Db4.BMSChinaCIA_IMS.dbo.tblMktDef_ATCDriver 
 where prod_cod = '97029'
 GO
 --删除 箔类Mkt中Molecule Compsion 带“+”的
@@ -719,6 +719,6 @@ GO
 delete 
 from tblQueryToolDriverIMS
 where mkt not in ('ONCFCS', 'HYPM', 'CML', 'ARV')
-
+	AND MktType = 'In-line Market'
 
 exec dbo.sp_Log_Event 'Prepare','QT_IMS','0_Prepare_IMS.sql','End',null,null

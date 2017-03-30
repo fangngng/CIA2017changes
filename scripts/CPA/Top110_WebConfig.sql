@@ -1,4 +1,4 @@
-use BMSChina_staging_test
+use BMSChina_staging
 --db33������
 --select * from WebPage where ParentID= 29 order by Idx
 --select * from WebPage where ParentID= 30 order by Idx

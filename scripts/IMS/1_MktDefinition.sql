@@ -1,4 +1,4 @@
-USE BMSChinaCIA_IMS_test
+USE BMSChinaCIA_IMS
 GO
 --  这个脚本跑完以后，CPA 以及 QueryTool就可以开始跑了。
 
@@ -28,7 +28,7 @@ from (
      select distinct PROD_COD, GENE_COD from DB82.TempOutput.DBO.MTHCHPA_PKAU
      union all
     --  select distinct PROD_COD, GENE_COD from DB82.TempOutput.DBO.MTHCITY_PKAU
-     select distinct PROD_COD, GENE_COD from DB4.BMSChinaCIA_IMS_test.dbo.Max_Data
+     select distinct PROD_COD, GENE_COD from BMSChinaCIA_IMS.dbo.Max_Data
      ) a 
 go
 
@@ -132,6 +132,23 @@ inner join Dim_Manufacturer g on e.corporation_id = g.Manufacturer_ID
 inner join Dim_ManufacturerType f on e.ManufacturerType_ID = f.ManufacturerType_ID
 inner join Dim_Therapeutic_Class h on a.Therapeutic_ID = h.Therapeutic_ID
 go
+
+-- insert new data from maxdata 
+insert into tblMktDef_ATCDriver 
+select distinct 
+	a.ATC1_Cod, a.ATC1_Des,
+	a.ATC2_Cod, a.ATC2_Des,
+	a.ATC3_Cod, a.ATC3_Des,
+	a.ATC4_Cod, a.ATC4_Des,
+	a.Mole_cod, a.Mole_des,
+	a.Prod_cod, a.Prod_Des,
+	a.Pack_Cod, a.Pack_Des,
+	a.Corp_cod, a.Corp_Des,
+	a.manu_cod, a.Manu_des,
+	a.MNC, a.Gene_Cod
+from Max_Data as a 
+left join tblMktDef_ATCDriver as b on a.pack_cod = b.Pack_Cod
+where b.Pack_Cod is null 
 
 -- 20161102 添加分子式:LOW MOLECULAR WEIGHT HEPARIN CALCIUM
 insert into dbo.tblMktDef_ATCDriver ( ATC1_Cod, ATC1_Des, ATC2_Cod, ATC2_Des, ATC3_Cod, ATC3_Des, ATC4_Cod, ATC4_Des,

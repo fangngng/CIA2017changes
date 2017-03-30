@@ -8,7 +8,7 @@ create proc ProcImportCIAIMSDim
 as
 	--����ʱ������,��Config����ȡ��IMS�������ݵ��·�
 	declare @IMSMonth char(6)
-	select @IMSMonth=value from BMSChinaCIA_IMS_test.dbo.Config where Parameter='IMS' 
+	select @IMSMonth=value from BMSChinaCIA_IMS.dbo.Config where Parameter='IMS' 
 
 	--Dim_City
 	if EXISTS(SELECT 1 FROM sysobjects WHERE name='Dim_City_'+@IMSMonth)

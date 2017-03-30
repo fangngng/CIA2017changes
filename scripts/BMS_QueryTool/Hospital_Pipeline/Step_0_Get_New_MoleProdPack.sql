@@ -1,4 +1,4 @@
-use BMSCNProc2_test
+use BMSCNProc2
 go
 
 
@@ -197,7 +197,7 @@ GO
 -- eddy use hospital cn_en 
 select distinct isnull(b.Molecule_Code, a.Mole_Code) as Mole_Code, a.Mole_EN as Mole_EN, a.Mole_CN as Mole_CN
 into tblDefMolecule_CN_EN_PipeLine
-from DB4.BMSChinaMRBI_test.dbo.tblDefMolecule_CN_EN  a ----include All Molecule EN-CN for pipeline
+from DB4.BMSChinaMRBI.dbo.tblDefMolecule_CN_EN  a ----include All Molecule EN-CN for pipeline
 left join (
           select distinct Molecule_Code, Molecule_Name
           from Db4.BMSChinaCIA_IMS.dbo.Dim_Molecule where Molecule_Name in(
@@ -248,7 +248,7 @@ from (
             )
     ) a 
 left join tblDefMolecule_CN_EN_PipeLine b on a.NewMole = b.Mole_CN 
-left join DB4.BMSChinaMRBI_test.dbo.tblDefProduct_CN_EN c  on a.NewProd=c.Prod_CN
+left join DB4.BMSChinaMRBI.dbo.tblDefProduct_CN_EN c  on a.NewProd=c.Prod_CN
 order by NewMole, NewProd
 GO
 
@@ -260,7 +260,7 @@ GO
 
 update TempNewProducts_pipeline  set Prod_EN=b.[ENAME]  -- select *  
 from TempNewProducts_pipeline a 
-inner join DB4.BMSChinaMRBI_test.dbo.inProdDef_Gool b on a.NewProd=b.[NAMEC]
+inner join DB4.BMSChinaMRBI.dbo.inProdDef_Gool b on a.NewProd=b.[NAMEC]
 where a.Prod_EN is null
 GO
 
@@ -272,10 +272,10 @@ select *  from TempNewProducts_pipeline where Prod_EN is null
 
 人工翻译：
 --2013/5/22 17:11:10
-insert into DB4.BMSChinaMRBI_test.dbo.inProdDef_Gool(NAMEC,ENAME) values (N'噻氯匹定','Ticlopidine')
+insert into DB4.BMSChinaMRBI.dbo.inProdDef_Gool(NAMEC,ENAME) values (N'噻氯匹定','Ticlopidine')
 
 --2013/11/19
-insert into DB4.BMSChinaMRBI_test.dbo.inProdDef_Gool(NAMEC,ENAME) values (N'泰毕全','PRADAXA (B.I)')
+insert into DB4.BMSChinaMRBI.dbo.inProdDef_Gool(NAMEC,ENAME) values (N'泰毕全','PRADAXA (B.I)')
 GO
 
 
@@ -284,7 +284,7 @@ GO
 update a
 set a.Prod_EN=b.ENAME
 --select *
-from TempNewProducts_pipeline a join DB4.BMSChinaMRBI_test.dbo.inProdDef_Gool b
+from TempNewProducts_pipeline a join DB4.BMSChinaMRBI.dbo.inProdDef_Gool b
 on a.NewProd=b.namec
 where a.Prod_EN is null
 

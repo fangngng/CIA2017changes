@@ -1,4 +1,4 @@
-
+﻿
 SELECT * FROM dbo.WebChartTitle
 where Product not in ('baraclude', 'Monopril', 'Taxol', 'Sprycel' )
 
@@ -53,7 +53,7 @@ select Mkt,'Units' as Category,Department as X,H1Rank as XIdx
 --select dbo.fun_upperFirst
 --select dbo.fun_upperFirst
 
-use BMSChina_staging_test 
+use BMSChina_staging 
 go 
 
 --select chartURL, highChartType, * from webchart
@@ -81,3 +81,11 @@ go
 SELECT *  FROM sys.objects as a 
 inner join sys.syscomments as b on a.object_id = b.id 
 where b.text like '%1%'
+
+select distinct LinkChartCode,LinkProductId,LinkGeoId,Category,TimeFrame,CategoryIdx,TimeFrameIdx from WebChartTitle 
+WHERE LinkChartCode = 'd081'
+
+SELECT * FROM dbo.WebChartTitle WHERE LinkChartCode = 'c140'
+SELECT * FROM dbo.WebChart WHERE Code = 'c140'
+
+

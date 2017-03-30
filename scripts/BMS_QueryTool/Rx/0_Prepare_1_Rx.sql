@@ -6,7 +6,7 @@
 time:20min
 */
 
-use BMSCNProc2_test
+use BMSCNProc2
 go
 
 update tblDataPeriod set DataPeriod = '201603' where QType = 'Rx'--todo

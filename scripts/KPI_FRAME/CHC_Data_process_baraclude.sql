@@ -31,9 +31,9 @@ go
 
 update a set a.molecule=b.mole_en,a.product=c.prod_en
 from inCMHdata_baraclude a
-left join BMSChinaMRBI_test.dbo.tblDefMolecule_CN_EN b
+left join BMSChinaMRBI.dbo.tblDefMolecule_CN_EN b
 on a.molecule_cn=b.mole_cn
-left join BMSChinaMRBI_test.dbo.tblDefProduct_CN_EN c
+left join BMSChinaMRBI.dbo.tblDefProduct_CN_EN c
 on a.product_cn=c.prod_cn
 where a.producttype='Product'
 
@@ -105,7 +105,7 @@ alter table tblCMDData_baraclude add DM varchar(5);
 go
 update a set a.DM=b.DM
 from tblCMDData_baraclude a
-inner join db82.BMSCNProc2_test.dbo.tblDatamonthConv b
+inner join db82.BMSCNProc2.dbo.tblDatamonthConv b
 on a.x=b.datamonth
 
 alter table tblCMDData_baraclude alter column X VARCHAR(20);

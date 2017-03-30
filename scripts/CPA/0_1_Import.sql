@@ -1,6 +1,6 @@
 /* 预处理 */
 
-use BMSChinaMRBI_test --DB4
+use BMSChinaMRBI --DB4
 go
 
 --time 04:42
@@ -11,8 +11,8 @@ exec dbo.sp_Log_Event 'Init','CIA_CPA','0_1_Import.sql','Start',null,null
 
 
 update tblDSDates set 
-	Value2 = '20161231', -- todo -- 注意选择每月的最后一天
-	Value1 = '201612'    -- todo
+	Value2 = '20170131', -- todo -- 注意选择每月的最后一天
+	Value1 = '201701'    -- todo
 where Item = 'CPA'  
 go
 
@@ -31,6 +31,13 @@ join
 	(select distinct INS_CODE,INS_NAME from  db6.[BMSChinaCSR2013_DBDev].[dbo].[inHospitalMaster] ) b
 on a.BMS_Code=b.INS_CODE
 ---end
+
+-- update BAL hospital 
+if object_id(N'tblBALHospital',N'U') is not null
+	drop table tblBALHospital
+go 
+SELECT * INTO tblBALHospital FROM DB36.[BMSChinaCSR_Testing].[dbo].Output_BAL_Hospital_ForCIA
+
 
 print '-----------------------------------
          inCPAData
@@ -72,6 +79,7 @@ update inCPAData set cpa_code='230233' where cpa_code='230231'
 -- 医院合并 --Eddy 20170117
 update inCPAData set cpa_code='510011' where cpa_code='510311'
 update inCPAData set cpa_code='450191' where cpa_code='450271'
+
 
 GO 
 
@@ -195,6 +203,22 @@ update inCPAData set Manufacture=N'武汉李时珍药业有限公司' where Manu
 update inCPAData set Manufacture=N'浙江万晟药业有限公司' where Manufacture=N'浙江万马药业有限公司'
 update inCPAData set Manufacture=N'北京赛诺菲-安万特制药有限公司' where Manufacture=N'德国安万特贝林有限公司'
 update inCPAData set Manufacture=N'北京协和药厂' where Manufacture=N'北京协和制药厂'
+
+
+-- 生产企业更新
+
+update inCPAData set Manufacture = N'海正辉瑞制药有限公司' where Manufacture = N'浙江海正药业股份有限公司' and Product = N'多西他赛' and Molecule = N'多西他赛'  
+update inCPAData set Manufacture = N'齐鲁制药有限公司' where Manufacture = 'N山东齐鲁制药有限公司' and Product in ( N'多帕菲') and Molecule = N'多西他赛'  
+update inCPAData set Manufacture = N'齐鲁制药有限公司' where Manufacture = N'山东齐鲁制药有限公司' and Product = N'亿来芬' and Molecule = N'阿德福韦酯' 
+update inCPAData set Manufacture = N'深圳万乐药业有限公司' where Manufacture = N'广东深圳万乐药业有限公司' and Product in ( N'希存' ) and Molecule = N'多西他赛' 
+update inCPAData set Manufacture = N'深圳万乐药业有限公司' where Manufacture = N'广东深圳万乐药业有限公司' and Product = N'杉素' and Molecule = N'紫杉醇' 
+update inCPAData set Manufacture = N'美国百时美施贵宝制药公司 （US）' where Manufacture = N'美国百时美施贵宝制药公司 (US)' and Product = N'泰素' and Molecule = N'紫杉醇' 
+update inCPAData set Manufacture = N'苏州东瑞制药有限公司' where Manufacture = N'江苏苏州东瑞制药有限公司' and Product = N'雷易得' and Molecule = N'恩替卡韦' 
+update inCPAData set Manufacture = N'深圳海王药业有限公司' where Manufacture = N'广东深圳海王药业有限公司' and Product = N'紫杉醇' and Molecule = N'紫杉醇' 
+update inCPAData set Manufacture = N'北京协和药厂' where Manufacture = N'北京协和制药厂' and Product = N'紫素' and Molecule = N'紫杉醇' 
+update inCPAData set Manufacture = N'北京双鹭药业股份有限公司' where Manufacture = N'北京双鹭药业有限公司' and Product = N'紫杉醇' and Molecule = N'紫杉醇' 
+update inCPAData set Manufacture = N'北京双鹭药业股份有限公司' where Manufacture = N'北京双鹭药业有限公司' and Product = N'北京双鹭药业有限公司' and Molecule = N'阿德福韦酯' 
+
 
 /**********************************更新医院的名称************************************/
 

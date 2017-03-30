@@ -2,7 +2,7 @@ use BMSChinaOtherDB
 GO
 
 --Time: 00:05
-exec BMSChinaCIA_IMS_test.dbo.sp_Log_Event 'In','CIA','0_2_in_HKAPI.sql','Start',null,null
+exec BMSChinaCIA_IMS.dbo.sp_Log_Event 'In','CIA','0_2_in_HKAPI.sql','Start',null,null
 
 ----create table hkapi_Time_Config (Quarter varchar(10))
 --insert into BMSChinaOtherDB.dbo.hkapi_Time_Config (Quarter)
@@ -33,9 +33,9 @@ exec BMSChinaCIA_IMS_test.dbo.sp_Log_Event 'In','CIA','0_2_in_HKAPI.sql','Start'
 --select '2013Q4'
 declare @currQuarter varchar(10)
 select @currQuarter = convert(varchar(6),Year)+Qtr
-from BMSChinaCIA_IMS_test.dbo.tblDateHKAPI 
+from BMSChinaCIA_IMS.dbo.tblDateHKAPI 
 --print @currQuarter
---select * from BMSChinaCIA_IMS_test.dbo.tblDateHKAPI
+--select * from BMSChinaCIA_IMS.dbo.tblDateHKAPI
 
 if not exists(select 1 from BMSChinaOtherDB.dbo.hkapi_Time_Config where Quarter=@currQuarter)
 begin
@@ -81,7 +81,7 @@ deallocate updateProduct
 GO
 declare @currQuarter varchar(10)
 select @currQuarter = convert(varchar(6),Year)+Qtr
-from BMSChinaCIA_IMS_test.dbo.tblDateHKAPI 
+from BMSChinaCIA_IMS.dbo.tblDateHKAPI 
 print @currQuarter
 
 
@@ -2211,7 +2211,7 @@ set [06Q1US]=A.[06Q1LC]/B.Rate
 	  ,[15Q4US]=A.[15Q4LC]/B.Rate
 	  ,[16Q1US]=A.[16Q1LC]/B.Rate	  
 	  --todo
-from inHKAPI_Linda A,db4.BMSChinaCIA_IMS_test.dbo.tblRate B
+from inHKAPI_Linda A,db4.BMSChinaCIA_IMS.dbo.tblRate B
 go
 ---IMSDBPlus_201109.dbo.tblRate
 
@@ -2231,7 +2231,7 @@ if object_id(N'inHKAPI_2016Q1',N'U') is not null
 	drop table inHKAPI_2016Q1
 select * into dbo.inHKAPI_2016Q1 from dbo.inHKAPI_Linda
 
-exec BMSChinaCIA_IMS_test.dbo.sp_Log_Event 'In','CIA','0_2_in_HKAPI.sql','End',null,null
+exec BMSChinaCIA_IMS.dbo.sp_Log_Event 'In','CIA','0_2_in_HKAPI.sql','End',null,null
 /*
 select *
  from inHKAPI_New A where  exists(select * from 

@@ -1,10 +1,21 @@
-use BMSChinaCIA_IMS_test --db4
+use BMSChinaCIA_IMS --db4
 GO
 --
 exec dbo.sp_Log_Event 'Output','CIA','3_3_OutPut_afterDeal.sql','Start',null,null
 
 update output_stage
 set DataSource= case when linkchartcode in ('C100','C110','C210','C220','R320') then 'RDPAC' else 'IMS' end
+
+update output_stage
+set DataSource= 'IMS/MAX' 
+where linkchartcode in ('C140')
+
+
+update output_stage
+set DataSource= 'MAX' 
+where linkchartcode in ('d020', 'D050', 'D090', 'D080', 'D110', 'D130')
+
+
 go
 if object_id(N'output',N'U') is not null
 	drop table output
@@ -269,14 +280,14 @@ go
 -- update color 
 ----------------------------------------
 update output set Color='4E71D1' 
-where linkchartcode in (select distinct Code from db82.BMSChina_staging_test.dbo.WebChart where charturl = '../Charts/Column2D.swf')
+where linkchartcode in (select distinct Code from db82.BMSChina_staging.dbo.WebChart where charturl = '../Charts/Column2D.swf')
 go
 update output
 set color=B.rgb,
    	r=b.r,
 	g=b.g,
 	b=b.b 
-from output A inner join   db82.BMSChina_ppt_test.dbo.tblColorDef B
+from output A inner join   db82.BMSChina_ppt.dbo.tblColorDef B
 on replace(replace(A.series,' contrib.',''),' value','')=b.name where B.mkt='Prod'
 go
 update output
@@ -284,7 +295,7 @@ set color=B.rgb,
 	r=b.r,
 	g=b.g,
 	b=b.b 
-from output A inner join   db82.BMSChina_ppt_test.dbo.tblColorDef B
+from output A inner join   db82.BMSChina_ppt.dbo.tblColorDef B
 on A.series=b.name where B.mkt='Prod'
 go
 update output
@@ -292,7 +303,7 @@ set color=B.rgb,
    r=b.r,
 	g=b.g,
 	b=b.b 
-from output A inner join   db82.BMSChina_ppt_test.dbo.tblColorDef B
+from output A inner join   db82.BMSChina_ppt.dbo.tblColorDef B
 on A.seriesidx=b.name 
 where B.mkt='ALL' and A.series in(select geo from outputgeo)
 go
@@ -405,7 +416,7 @@ set
    r=b.r,
 	g=b.g,
 	b=b.b 
-from output A inner join   db82.BMSChina_ppt_test.dbo.tblRGBToColor B
+from output A inner join   db82.BMSChina_ppt.dbo.tblRGBToColor B
 on A.color=b.rgb 
 go
 
@@ -548,8 +559,8 @@ set ProductID=B.ID
 from Output A 
 inner join
    (	select * 
-   		from db82.BMSChina_staging_test.dbo.WebPage 
-		where ParentID=(	select ID from db82.BMSChina_staging_test.dbo.WebPage 
+   		from db82.BMSChina_staging.dbo.WebPage 
+		where ParentID=(	select ID from db82.BMSChina_staging.dbo.WebPage 
                            	where Code='DashBoard')
 	) B
 on A.Product=B.Code 
@@ -558,8 +569,8 @@ update Output
 set ProductID=B.ID 
 from Output A 
 inner join
-   (	select * from db82.BMSChina_staging_test.dbo.WebPage 
-		where ParentID=(	select ID from db82.BMSChina_staging_test.dbo.WebPage 
+   (	select * from db82.BMSChina_staging.dbo.WebPage 
+		where ParentID=(	select ID from db82.BMSChina_staging.dbo.WebPage 
                            	where Code='DashBoard')
 	) B
 on left(A.Product,7)=B.Code  where a.product like 'eliquis%'

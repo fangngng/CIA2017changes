@@ -6,7 +6,7 @@
 
 */
 
-use BMSCNProc2_test
+use BMSCNProc2
 go
 
 
@@ -90,7 +90,7 @@ GO
 --       ,[Way]
 --       ,[Manufacture]
 -- into inCPAData_pipeline_2016Q3 --todo 修改表明为最新的季度表
--- FROM [BMSCNProc2_test].[dbo].[inCPAData]
+-- FROM [BMSCNProc2].[dbo].[inCPAData]
 -- where Y='2016' and Q='3'--todo 修改为最新的季度
 -- GO
 

@@ -2,7 +2,7 @@
 outputgeo��һ�㲻���䣬ֻ�пͻ���Ҫ�䶯��ʱ�����ֹ�����һ�¡�
 
 */
-use BMSChinaCIA_IMS_test --db4
+use BMSChinaCIA_IMS --db4
 GO
 
 
@@ -24,11 +24,11 @@ GO
 --
 --
 --insert outputgeo(Geo,Geoname,lev,Product,parentGeo,Geoidx)
---select  distinct IMSCity as geo,IMSCity as GeoName,2 as lev,Product,Region as ParentGeo,1 from BMSChinaMRBI_test.dbo.tblSalesRegion
+--select  distinct IMSCity as geo,IMSCity as GeoName,2 as lev,Product,Region as ParentGeo,1 from BMSChinaMRBI.dbo.tblSalesRegion
 --where IMSCity is not null
 --
 --insert outputgeo(Geo,Geoname,lev,Product,parentGeo,Geoidx)
---select distinct Region,Region,1,Product,'China' ,1 from BMSChinaMRBI_test.dbo.tblSalesRegion
+--select distinct Region,Region,1,Product,'China' ,1 from BMSChinaMRBI.dbo.tblSalesRegion
 --where IMSCity is not null
 --go
 --insert outputgeo(Geo,Geoname,lev,Product,parentGeo,Geoidx)
@@ -39,7 +39,7 @@ GO
 --go
 ----
 --update outputgeo
---set geoname=B.geoname from outputgeo A inner join BMSChinaCIA_IMS_test_201109.dbo.outputgeo B
+--set geoname=B.geoname from outputgeo A inner join BMSChinaCIA_IMS_201109.dbo.outputgeo B
 --on A.geo=B.geo
 --go
 --update outputgeo
@@ -101,7 +101,7 @@ GO
 --      ,[GeoIdx]
 --      ,[ParentID]
 --      ,[ProductID]
---FROM [BMSChinaCIA_IMS_test].[dbo].[outputgeo]
+--FROM [BMSChinaCIA_IMS].[dbo].[outputgeo]
 --where Product = 'Taxol'
 --
 --2013/8/6 17:34:22
@@ -117,10 +117,10 @@ GO
 
 --Add Eliquis's Geo Information
 
---insert into BMSChinaCIA_IMS_test.dbo.outputgeo (Geo,GeoName,Lev,Product,ParentGeo,GeoIdx,parentID,ProductID)
+--insert into BMSChinaCIA_IMS.dbo.outputgeo (Geo,GeoName,Lev,Product,ParentGeo,GeoIdx,parentID,ProductID)
 --select 
 --Geo,GeoName,Lev,'Eliquis',ParentGeo,GeoIdx,parentID,19 as ProductID
---from BMSChinaCIA_IMS_test.dbo.outputgeo where product='Monopril'
+--from BMSChinaCIA_IMS.dbo.outputgeo where product='Monopril'
 
 
 

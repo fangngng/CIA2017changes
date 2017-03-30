@@ -1,4 +1,4 @@
-USE BMSChinaCIA_IMS_test--DB4
+USE BMSChinaCIA_IMS--DB4
 GO
 
 --time 00:01
@@ -254,6 +254,7 @@ create function dbo.fn_RepeatString
   @BeforeString varchar(200) ,
   @Field varchar(50) ,
   @AfterString varchar(200) ,
+  @AsField varchar(50), 
   @ConnectString varchar(200) ,
   @Period int
 )
@@ -262,13 +263,32 @@ as
 begin
 	declare	@i as int;
 	declare	@sql as varchar(max);
-	
+	declare @PeriodLen as int 
+
+	set @PeriodLen = len(convert(varchar(10), @Period ))
 	set @sql = '';
-	set @i = 1;
+	set @i = 0;
 	while @i <= cast(@Period as int)
 	begin
-		set @sql = @sql + @BeforeString + cast(@Field as varchar) + ''
-			+ cast(@i as varchar) + @AfterString + @ConnectString;
+		if @AsField = '' 
+		begin 
+			set @sql = 
+				@sql 
+				+ @BeforeString 
+				+ '[' + cast(@Field as varchar) + '' + right('000' + cast(@i as varchar) , @PeriodLen) + ']'
+				+ @AfterString 
+				+ @ConnectString;
+		end 
+		else 
+		begin 
+			set @sql = 
+				@sql 
+				+ @BeforeString 
+				+ '[' + cast(@Field as varchar) + '' + right('000' + cast(@i as varchar) , @PeriodLen) + ']'
+				+ @AfterString 
+				+ '[' + cast(@AsField as varchar) + '' + right('000' + cast(@i as varchar) , @PeriodLen) + ']'
+				+ @ConnectString;
+		end 
 		set @i = @i + 1;
 	end;
 
@@ -276,7 +296,6 @@ begin
 	return @sql;
 end;
 go
-
 
 
 
@@ -364,7 +383,7 @@ print (N'
 ------------------------------------------------------------------------------------------------------------
 ')
 
-USE [BMSChinaCIA_IMS_test]
+USE [BMSChinaCIA_IMS]
 GO
 
 

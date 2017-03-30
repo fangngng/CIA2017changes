@@ -1,4 +1,4 @@
-use BMSChinaQueryToolNew_test
+use BMSChinaQueryToolNew
 go
 exec BMSCNProc2.dbo.sp_Log_Event 'output','QT_MAX','99_Output_MAX.sql','Start',null,null
 

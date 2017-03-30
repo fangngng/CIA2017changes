@@ -4,7 +4,7 @@
 3_1_OutPut_D.sql
 
 */
-use BMSChinaCIA_IMS_test --db4
+use BMSChinaCIA_IMS --db4
 GO
 --6分钟
 --5分钟
@@ -3350,7 +3350,7 @@ GO
 -- 		 when a.MoneyType = ''LC'' then ''RMB'' end as Currency'+@mqt_GR+'
 -- 	from tempCityDashboard_ForPre a join(
 -- 			select Geo as city, ParentGeo as Region 
--- 			from db4.BMSChinaCIA_IMS_test.dbo.outputgeo where (product=''coniel'' and lev=2) or parentgeo is null
+-- 			from db4.BMSChinaCIA_IMS.dbo.outputgeo where (product=''coniel'' and lev=2) or parentgeo is null
 -- 	)b on a.Audi_des=b.city
 -- 	where mkt in (''ACE'',''CCB'') AND MoneyType <>''PN'' 
 -- 	group by molecule,class,a.mkt,a.mktname,a.market,a.prod,a.productname,b.Region,a.MoneyType
@@ -3373,6 +3373,6 @@ GO
 
 
 update output_stage
-set DataSource= case when linkchartcode in ('C100','C110','C210','C220','R320') then 'HKAPI' else 'IMS' end
+set DataSource= case when linkchartcode in ('C100','C110','C210','C220','R320') then 'RDPAC' else 'IMS' end
 
 exec dbo.sp_Log_Event 'Output','CIA','3_2_Output_R.sql','End',null,null

@@ -1,4 +1,4 @@
-use BMSCNProc2_test
+use BMSCNProc2
 go 
 
 
@@ -28,7 +28,7 @@ and y='2012'
 order by [Area],[Y],[Q],[M],[Molecule],[Product]
 
 select t1.* 
-from DB4.BMSChinaMRBI_test.dbo.inCPAData t1 
+from DB4.BMSChinaMRBI.dbo.inCPAData t1 
 inner join tblPackageXRefHosp t2
 on t1.Molecule=t2.Molecule_CN_Src and t1.Product=t2.Product_CN_Src 
 	 and Form_Src=Form and t1.Specification=t2.Specification_Src 

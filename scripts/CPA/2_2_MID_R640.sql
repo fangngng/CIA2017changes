@@ -3,7 +3,7 @@
 --	CIA-CV Modification: Slide 8
 -----------------------------------
 
-use BMSChinaMRBI_test
+use BMSChinaMRBI
 go
 	
 exec dbo.sp_Log_Event 'Mid R640','CIA_CPA','2_2_MID_R640.sql','Start',null,null

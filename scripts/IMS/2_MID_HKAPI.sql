@@ -1,4 +1,4 @@
-use BMSChinaCIA_IMS_test --db4
+use BMSChinaCIA_IMS --db4
 GO
 
 
@@ -42,21 +42,23 @@ Add
     [MAT36US] float,
     [MAT48US] float
 go
+declare @rate float 
+set @rate = (SELECT Rate FROM db4.BMSChinaCIA_IMS.dbo.tblRate )
 update inHKAPI_New
 set [YTD00LC]=isnull([YTD 16Q4LC],0),--todo
     [YTD12LC]=isnull([YTD 15Q4LC],0),
-    [YTD24LC]=isnull([YTD 15Q3LC],0),
-    [YTD36LC]=isnull([YTD 15Q2LC],0),
-    [YTD48LC]=isnull([YTD 15Q1LC],0),
-    [YTD00US]=isnull(1.0*[YTD 16Q4LC]/6.34888,0),
-    [YTD12US]=isnull(1.0*[YTD 15Q4LC]/6.34888,0),
-    [YTD24US]=isnull(1.0*[YTD 15Q3LC]/6.34888,0),
-    [YTD36US]=isnull(1.0*[YTD 15Q2LC]/6.34888,0),
-    [YTD48US]=isnull(1.0*[YTD 15Q1LC]/6.34888,0),
+    [YTD24LC]=isnull([YTD 14Q4LC],0),
+    [YTD36LC]=isnull([YTD 13Q4LC],0),
+    [YTD48LC]=isnull([YTD 12Q4LC],0),
+    [YTD00US]=isnull(1.0*[YTD 16Q4LC]/@rate,0),
+    [YTD12US]=isnull(1.0*[YTD 15Q4LC]/@rate,0),
+    [YTD24US]=isnull(1.0*[YTD 14Q4LC]/@rate,0),
+    [YTD36US]=isnull(1.0*[YTD 13Q4LC]/@rate,0),
+    [YTD48US]=isnull(1.0*[YTD 12Q4LC]/@rate,0),
     [LastYear00LC]=isnull([YTD 15Q4LC],0),
     [LastYear12LC]=isnull([YTD 14Q4LC],0),
-    [LastYear00US]=isnull(1.0*[YTD 15Q4LC]/6.34888,0),
-    [LastYear12US]=isnull(1.0*[YTD 14Q4LC]/6.34888,0),
+    [LastYear00US]=isnull(1.0*[YTD 15Q4LC]/@rate,0),
+    [LastYear12US]=isnull(1.0*[YTD 14Q4LC]/@rate,0),
     [MAT00LC]=isnull([16Q3LC],0)+isnull([16Q2LC],0)+isnull([16Q1LC],0)+isnull([16Q4LC],0),
     [MAT12LC]=isnull([15Q3LC],0)+isnull([15Q2LC],0)+isnull([15Q1LC],0)+isnull([15Q4LC],0),
     [MAT24LC]=isnull([14Q3LC],0)+isnull([14Q2LC],0)+isnull([14Q1LC],0)+isnull([14Q4LC],0),
@@ -171,9 +173,10 @@ go
 
 
 --MQT
-declare @MQT00 varchar(10), @MQT12 varchar(10), @sql varchar(max)
-set @MQT00 = right((SELECT convert(varchar(10), year) + Quarter FROM dbo.tblMonthList where MonSeq = 1 ), 4) + 'LC'
-set @MQT12 = right((SELECT convert(varchar(10), year) + Quarter FROM dbo.tblMonthList where MonSeq = 12 ), 4) + 'LC'
+declare @MQT00 varchar(10), @MQT12 varchar(10), @sql varchar(max), @currRDPACMonSeq int 
+set @currRDPACMonSeq = (SELECT MonSeq FROM dbo.tblMonthList WHERE Date = (SELECT value FROM dbo.Config WHERE Parameter = 'HKAPI'))
+set @MQT00 = right((SELECT convert(varchar(10), year) + Quarter FROM dbo.tblMonthList where MonSeq = @currRDPACMonSeq ), 4) + 'LC'
+set @MQT12 = right((SELECT convert(varchar(10), year) + Quarter FROM dbo.tblMonthList where MonSeq = 11 + @currRDPACMonSeq ), 4) + 'LC'
 
 set @sql = '
 insert into [OutputKeyMNCsPerformance_HKAPI]
@@ -341,7 +344,7 @@ print (N'
 ------------------------------------------------------------------------------------------------------------
 ')
 if exists (select * from dbo.sysobjects where id = object_id(N'OutputKeyMNCsProdPerformance_HKAPI') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
-drop table OutputKeyMNCsProdPerformance_HKAPI
+    drop table OutputKeyMNCsProdPerformance_HKAPI
 go
 CREATE TABLE [dbo].[OutputKeyMNCsProdPerformance_HKAPI](
 	[Period] [varchar](20)  NULL,
@@ -361,8 +364,9 @@ GO
 insert into [OutputKeyMNCsProdPerformance_HKAPI]
     ([Period],[MoneyType],[Prod_cod],[CurrRank],[PrevRank],[Mat00],[Mat12])
 select top 10 'YTD','RMB', [Product name],1,1,sum(isnull([YTD00LC],0))*1000,sum(isnull([YTD12LC],0))*1000
-from inHKAPI_New
+from inHKAPI_New A 
 where [Company name] in (select CORP_Cod from OutputKeyMNCsPerformance_HKAPI where Period='YTD')
+    and [Product name] not like '%Albumin%' and [Product name] not like '%Pulmicort%'
 group by [Product name]
 order by sum(isnull([YTD00LC],0)) desc
 go
@@ -370,14 +374,14 @@ if exists(  select *
             from [OutputKeyMNCsProdPerformance_HKAPI] 
 			where Prod_Cod like '%Bara%' and Period='YTD' and MoneyType='RMB'
 		)
-print 'BARACLUDE Prod in Top 10 YTD'
+    print 'BARACLUDE Prod in Top 10 YTD'
 else
-insert into [OutputKeyMNCsProdPerformance_HKAPI]
-    ([Period],[MoneyType],[Prod_cod],[CurrRank],[PrevRank],[Mat00],[Mat12])
-select 'YTD','RMB', [Product name],1,1,sum(isnull([YTD00LC],0))*1000,sum(isnull([YTD12LC],0))*1000
-from inHKAPI_New
-where  [Product name] like '%Bara%'
-group by [Product name]
+    insert into [OutputKeyMNCsProdPerformance_HKAPI]
+        ([Period],[MoneyType],[Prod_cod],[CurrRank],[PrevRank],[Mat00],[Mat12])
+    select 'YTD','RMB', [Product name],1,1,sum(isnull([YTD00LC],0))*1000,sum(isnull([YTD12LC],0))*1000
+    from inHKAPI_New
+    where  [Product name] like '%Bara%'
+    group by [Product name]
 go
 update [OutputKeyMNCsProdPerformance_HKAPI]
 set [Total]=B.sales from [OutputKeyMNCsProdPerformance_HKAPI] A ,
@@ -391,8 +395,9 @@ where A.[Period]='YTD'
 insert into [OutputKeyMNCsProdPerformance_HKAPI]
     ([Period],[MoneyType],[Prod_cod],[CurrRank],[PrevRank],[Mat00],[Mat12])
 select top 10 'MAT','RMB', [Product name],1,1,sum(isnull([MAT00LC],0))*1000,sum(isnull([MAT12LC],0))*1000
-from inHKAPI_New
+from inHKAPI_New A 
 where [Company name] in (select CORP_Cod from OutputKeyMNCsPerformance_HKAPI where Period='MAT')
+    and [Product name] not like '%Albumin%' and [Product name] not like '%Pulmicort%'
 group by [Product name]
 order by sum(isnull([MAT00LC],0)) desc
 go
@@ -400,14 +405,14 @@ if exists(  select *
             from [OutputKeyMNCsProdPerformance_HKAPI] 
 			where Prod_Cod like '%Bara%' and Period='MAT' and MoneyType='RMB'
 		)
-print 'BARACLUDE Prod in Top 10 MAT'
+    print 'BARACLUDE Prod in Top 10 MAT'
 else
-insert into [OutputKeyMNCsProdPerformance_HKAPI]
-    ([Period],[MoneyType],[Prod_cod],[CurrRank],[PrevRank],[Mat00],[Mat12])
-select 'MAT','RMB', [Product name],1,1,sum(isnull([MAT00LC],0))*1000,sum(isnull([MAT12LC],0))*1000
-from inHKAPI_New
-where  [Product name] like '%Bara%'
-group by [Product name]
+    insert into [OutputKeyMNCsProdPerformance_HKAPI]
+        ([Period],[MoneyType],[Prod_cod],[CurrRank],[PrevRank],[Mat00],[Mat12])
+    select 'MAT','RMB', [Product name],1,1,sum(isnull([MAT00LC],0))*1000,sum(isnull([MAT12LC],0))*1000
+    from inHKAPI_New
+    where  [Product name] like '%Bara%'
+    group by [Product name]
 go
 update [OutputKeyMNCsProdPerformance_HKAPI]
 set [Total]=B.sales from [OutputKeyMNCsProdPerformance_HKAPI] A ,
@@ -419,18 +424,18 @@ where A.[Period]='MAT'
 
 
 --MQT
-declare @MQT00 varchar(10), @MQT12 varchar(10), @sql varchar(max)
-set @MQT00 = right((SELECT convert(varchar(10), year) + Quarter FROM dbo.tblMonthList where MonSeq = 1 ), 4) + 'LC'
-set @MQT12 = right((SELECT convert(varchar(10), year) + Quarter FROM dbo.tblMonthList where MonSeq = 12 ), 4) + 'LC'
+declare @MQT00 varchar(10), @MQT12 varchar(10), @sql varchar(max), @currRDPACMonSeq int 
+set @currRDPACMonSeq = (SELECT MonSeq FROM dbo.tblMonthList WHERE Date = (SELECT value FROM dbo.Config WHERE Parameter = 'HKAPI'))
+set @MQT00 = right((SELECT convert(varchar(10), year) + Quarter FROM dbo.tblMonthList where MonSeq = @currRDPACMonSeq ), 4) + 'LC'
+set @MQT12 = right((SELECT convert(varchar(10), year) + Quarter FROM dbo.tblMonthList where MonSeq = 11 + @currRDPACMonSeq ), 4) + 'LC'
 
 set @sql = '
 insert into [OutputKeyMNCsProdPerformance_HKAPI]
     ([Period],[MoneyType],[Prod_cod],[CurrRank],[PrevRank],[Mat00],[Mat12])
 select top 10 ''MQT'',''RMB'', [Product name],1,1,sum(isnull([' + @MQT00 + '],0))*1000,sum(isnull([' + @MQT12 + '],0))*1000
 from inHKAPI_New A 
-left join dbo.Dim_Product C on A.[Product name] = c.Product_Name
 where [Company name] in (select CORP_Cod from OutputKeyMNCsPerformance_HKAPI where Period=''MQT'')
-    	and c.Product_Name not in (''Albumin human'', ''Pulmicort resp'')
+    	and [Product name] not like ''%Albumin%'' and [Product name] not like ''%Pulmicort%''
 group by [Product name]
 order by sum(isnull([' + @MQT00 + '],0)) desc
 
@@ -466,12 +471,12 @@ insert into [OutputKeyMNCsProdPerformance_HKAPI]
     ([Period],[MoneyType],[Prod_cod],[CurrRank],[PrevRank],[Mat00],[Mat12])
 select top 10 'Last Year','RMB', [Product name],1,1,sum(isnull([LastYear00LC],0))*1000,sum(isnull([LastYear12LC],0))*1000
 from inHKAPI_New A 
-left join dbo.Dim_Product C on A.[Product name] = c.Product_Name
 where [Company name] in (select CORP_Cod from OutputKeyMNCsPerformance_HKAPI where Period='Last Year')
-    	and c.Product_Name not in ('Albumin human', 'Pulmicort resp')
+    	and [Product name] not like '%Albumin%' and [Product name] not like '%Pulmicort%'
 group by [Product name]
 order by sum(isnull([LastYear00LC],0)) desc
 go
+
 if exists(select * from [OutputKeyMNCsProdPerformance_HKAPI] 
 				  where Prod_Cod like '%Bara%' and Period='Last Year' and MoneyType='RMB'
 		)
@@ -640,12 +645,13 @@ group by [Product Name]
 
 -- MQT 
 declare @MQT00 varchar(10), @MQT12 varchar(10), @MQT24 varchar(10), @MQT36 varchar(10), @MQT48 varchar(10), 
-    @sql varchar(max)
-set @MQT00 = right((SELECT convert(varchar(10), year) + Quarter FROM dbo.tblMonthList where MonSeq = 1 ), 4) + 'US'
-set @MQT12 = right((SELECT convert(varchar(10), year) + Quarter FROM dbo.tblMonthList where MonSeq = 12 ), 4) + 'US'
-set @MQT24 = right((SELECT convert(varchar(10), year) + Quarter FROM dbo.tblMonthList where MonSeq = 24 ), 4) + 'US'
-set @MQT36 = right((SELECT convert(varchar(10), year) + Quarter FROM dbo.tblMonthList where MonSeq = 36 ), 4) + 'US'
-set @MQT48 = right((SELECT convert(varchar(10), year) + Quarter FROM dbo.tblMonthList where MonSeq = 48 ), 4) + 'US'
+    @sql varchar(max), @currRDPACMonSeq int 
+set @currRDPACMonSeq = (SELECT MonSeq FROM dbo.tblMonthList WHERE Date = (SELECT value FROM dbo.Config WHERE Parameter = 'HKAPI'))
+set @MQT00 = right((SELECT convert(varchar(10), year) + Quarter FROM dbo.tblMonthList where MonSeq = @currRDPACMonSeq  ), 4) + 'US'
+set @MQT12 = right((SELECT convert(varchar(10), year) + Quarter FROM dbo.tblMonthList where MonSeq = @currRDPACMonSeq + 11 ), 4) + 'US'
+set @MQT24 = right((SELECT convert(varchar(10), year) + Quarter FROM dbo.tblMonthList where MonSeq = @currRDPACMonSeq + 23 ), 4) + 'US'
+set @MQT36 = right((SELECT convert(varchar(10), year) + Quarter FROM dbo.tblMonthList where MonSeq = @currRDPACMonSeq + 35 ), 4) + 'US'
+set @MQT48 = right((SELECT convert(varchar(10), year) + Quarter FROM dbo.tblMonthList where MonSeq = @currRDPACMonSeq + 47 ), 4) + 'US'
 
 set @sql = '
 insert into OutputCMLChina_HKAPI
@@ -708,12 +714,13 @@ group by [Product Name]
 
 -- MQT 
 declare @MQT00 varchar(10), @MQT12 varchar(10), @MQT24 varchar(10), @MQT36 varchar(10), @MQT48 varchar(10), 
-    @sql varchar(max)
-set @MQT00 = right((SELECT convert(varchar(10), year) + Quarter FROM dbo.tblMonthList where MonSeq = 1 ), 4) + 'LC'
-set @MQT12 = right((SELECT convert(varchar(10), year) + Quarter FROM dbo.tblMonthList where MonSeq = 12 ), 4) + 'LC'
-set @MQT24 = right((SELECT convert(varchar(10), year) + Quarter FROM dbo.tblMonthList where MonSeq = 24 ), 4) + 'LC'
-set @MQT36 = right((SELECT convert(varchar(10), year) + Quarter FROM dbo.tblMonthList where MonSeq = 36 ), 4) + 'LC'
-set @MQT48 = right((SELECT convert(varchar(10), year) + Quarter FROM dbo.tblMonthList where MonSeq = 48 ), 4) + 'LC'
+    @sql varchar(max), @currRDPACMonSeq int 
+set @currRDPACMonSeq = (SELECT MonSeq FROM dbo.tblMonthList WHERE Date = (SELECT value FROM dbo.Config WHERE Parameter = 'HKAPI'))
+set @MQT00 = right((SELECT convert(varchar(10), year) + Quarter FROM dbo.tblMonthList where MonSeq = @currRDPACMonSeq  ), 4) + 'LC'
+set @MQT12 = right((SELECT convert(varchar(10), year) + Quarter FROM dbo.tblMonthList where MonSeq = @currRDPACMonSeq + 11 ), 4) + 'LC'
+set @MQT24 = right((SELECT convert(varchar(10), year) + Quarter FROM dbo.tblMonthList where MonSeq = @currRDPACMonSeq + 23 ), 4) + 'LC'
+set @MQT36 = right((SELECT convert(varchar(10), year) + Quarter FROM dbo.tblMonthList where MonSeq = @currRDPACMonSeq + 35 ), 4) + 'LC'
+set @MQT48 = right((SELECT convert(varchar(10), year) + Quarter FROM dbo.tblMonthList where MonSeq = @currRDPACMonSeq + 47 ), 4) + 'LC'
 
 set @sql = '
 insert into OutputCMLChina_HKAPI

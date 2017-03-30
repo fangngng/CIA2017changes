@@ -1,4 +1,4 @@
-USE BMSChinaCIA_IMS_test --db4
+USE BMSChinaCIA_IMS --db4
 GO
 
 if not exists(select 1 from   syscolumns   where   id=object_id('WebChartSeries')   and   name='DataSource' )
@@ -27,7 +27,7 @@ update Webchartseries set parentyaxis='P' where linkchartcode in('D021','D023','
 update Webchartseries set AnchorSide='4',AnchorRadius='4',AnchorBorderThickness='1',ParentYAxis='S'
 --select * from Webchartseries
 where linkchartcode in (
-                        select distinct Code from db82.BMSChina_staging_test.dbo.WebChart 
+                        select distinct Code from db82.BMSChina_staging.dbo.WebChart 
                         where charturl in( '../Charts/MSCombiDY2D.swf','../Charts/StackedColumn3DLineDY.swf', '../Charts/MSStackedColumn2DLineDY.swf')
                         )
 	and (Series like '%Growth%' or Series like '%Share%')
@@ -37,25 +37,25 @@ where linkchartcode in (
 update Webchartseries set AnchorSide='4',AnchorRadius='4',AnchorBorderThickness='1',ParentYAxis='S'
 --select * from Webchartseries
 where linkchartcode in (
-	select distinct Code from db82.BMSChina_staging_test.dbo.WebChart where charturl = '../Charts/StackedColumn3DLineDY.swf'
+	select distinct Code from db82.BMSChina_staging.dbo.WebChart where charturl = '../Charts/StackedColumn3DLineDY.swf'
 )
 	and Seriesidx=10000
 
 update Webchartseries set AnchorSide='4',AnchorRadius='4',AnchorBorderThickness='1'
 where linkchartcode in (
-	select distinct Code from db82.BMSChina_staging_test.dbo.WebChart where charturl = '../Charts/MSLine.swf'
+	select distinct Code from db82.BMSChina_staging.dbo.WebChart where charturl = '../Charts/MSLine.swf'
 )
 
 --only one series
 update Webchartseries set IsSingle='Y' 
 where linkchartcode in (
-	select distinct Code from db82.BMSChina_staging_test.dbo.WebChart where charturl = '../Charts/Column2D.swf'
+	select distinct Code from db82.BMSChina_staging.dbo.WebChart where charturl = '../Charts/Column2D.swf'
 )
 
 -- like %
 update Webchartseries set ParentYAxis='P'
 where linkchartcode in (
-	select distinct Code from db82.BMSChina_staging_test.dbo.WebChart where charturl = '../Charts/MSLine.swf'
+	select distinct Code from db82.BMSChina_staging.dbo.WebChart where charturl = '../Charts/MSLine.swf'
 )
 
 update webchartseries set parentyaxis='P' where linkchartcode in ('d084','d088','d094','d104')
@@ -84,7 +84,7 @@ set a.HighChartSeriesType =
 	case when a.series like '%growth%' or a.series like '%G R%' or a.series like '%share%' then 'line'
 		 else 'StackedColumn' end 
 from WebChartSeries as a
-inner join db82.BMSChina_staging_test.dbo.WebChart as b on a.LinkChartCode = b.Code
+inner join db82.BMSChina_staging.dbo.WebChart as b on a.LinkChartCode = b.Code
 where b.highChartType = 'StackedColumnLineDY'
 
 -------------------------------------
@@ -430,7 +430,7 @@ where  A.LinkChartCode ='C160'
 go
 --todo
 update WebChartTitle set SYAxisName='Growth %'
-where linkchartcode in (select code from db82.BMSChina_staging_test.dbo.Webchart where snumbersuffix='%')
+where linkchartcode in (select code from db82.BMSChina_staging.dbo.Webchart where snumbersuffix='%')
 go
 update WebChartTitle
 set SYAxisName='Market Growth %' where LinkChartCode IN ('C120','C121')
@@ -446,7 +446,7 @@ set SYAxisName='' where LinkChartCode IN('R680','C660','C690','C661','C691')
 
 update webcharttitle
 set YAxisName=PYAxisName where linkchartcode in 
-(select distinct Code from db82.BMSChina_staging_test.dbo.Webchart 
+(select distinct Code from db82.BMSChina_staging.dbo.Webchart 
 where ChartURL in('../Charts/Column2D.swf','../Charts/MSColumn2D.swf','../Charts/MSLine.swf','../Charts/StackedColumn3D.swf'))
 
 update WebChartTitle

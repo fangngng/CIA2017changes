@@ -26,7 +26,7 @@ go
 */
 
 
-use BMSChinaMRBI_test
+use BMSChinaMRBI
 go
 
 --Time:22:54 20160511

@@ -24,11 +24,11 @@ select * from dbo.WebPage
 
 select B.ID, a.* 
 from output A 
-inner join  Db4.BMSChinaCIA_IMS_test.dbo.Outputgeo B
+inner join  Db4.BMSChinaCIA_IMS.dbo.Outputgeo B
 on A.Geo=B.Geo and A.ParentGeo=B.ParentGeo and A.Product=B.Product
 where linkproductID = 11 and A.LinkGeoId = 445
 
-SELECT * FROM Db4.BMSChinaCIA_IMS_test.dbo.Outputgeo 
+SELECT * FROM Db4.BMSChinaCIA_IMS.dbo.Outputgeo 
 
 SELECT distinct LinkChartCode FROM output 
 
@@ -42,7 +42,7 @@ order by g.Lev,g.Idx
 
 SELECT * FROM WebUserPermit 
 
---SELECT * into WebOutputGeo FROM BMSChina_staging_test.dbo.WebOutputGeo 
+--SELECT * into WebOutputGeo FROM BMSChina_staging.dbo.WebOutputGeo 
 
 --	SELECT * into WebOutputGeo_2016 FROM WebOutputGeo 
 --	SELECT * into WebPrivilege_201703 FROM WebPrivilege 
@@ -88,7 +88,7 @@ order by g.Lev,g.Idx
 --insert into dbo.weboutputgeo
 --      (ID,geo,geoname,lev,idx,Parentid,ParentGeo,linkproductid,Product)
 --select id,geo,geoname,lev,geoIDx,Parentid,ParentGeo,productid ,Product
---from  db4.BMSChinaCIA_IMS_test.dbo.outputgeo
+--from  db4.BMSChinaCIA_IMS.dbo.outputgeo
 
 SELECT * 
 from WebPrivilege as a 
@@ -166,7 +166,7 @@ insert	into dbo.output ( DataSource, LinkGeoID, LinkProductID, [LinkChartCode], 
 select	DataSource, GeoID, ProductID, [LinkChartCode], [LinkSeriesCode], [Series], [SeriesIdx], [Category], [Product],
 		[Lev], [ParentGeo], [Geo], [Currency], [TimeFrame], [X], [XIdx], cast(cast([Y] as decimal(25, 12)) as varchar),
 		[LinkedY], [Size], [OtherParameters], [Color], [R], [G], [B], [IsShow]
-from	db4.BMSChinaCIA_IMS_test.dbo.output_stage
+from	db4.BMSChinaCIA_IMS.dbo.output_stage
 where	linkchartcode = 'c020' 
 
 
@@ -227,7 +227,8 @@ on a.LinkChartCode = b.LinkChartCode
 	and a.Series = b.Series and a.Geo = b.Geo and a.DataSource = b.DataSource
 where a.Color is null and b.color is not null and a.LinkChartCode = 'd050'
 
-select * FROM BMSChina_ppt_test.dbo.tblColorDef 
+select * FROM BMSChina_ppt.dbo.tblColorDef WHERE name = 'viread'
+
 
 select DataSource,DataSource_CN,Explain,Explain_CN 
 from WebChartExplain where Code='C020' and TimeFrame='MQT' and ProductID=11
@@ -287,4 +288,16 @@ WHERE LinkChartCode = 'c130'
 SELECT * FROM dbo.WebChartSeries WHERE LinkChartCode = 'c210'
 SELECT * FROM dbo.WebChart  WHERE code = 'c210'
 
+select top 1250 GEO,Market_Name,VU_YTD_3,VU_YTD_2,VU_YTD_1 from tblOutput_MAX_TA_YTD_Inline where 1=1 and MktType='In-line Market' and Mkt in ('ARV') and geo in ('CHINA','anhui','DANDONG') and Prod_Lvl='MK'  order by Geo_Lvl, Geo, Market_Name, Class_Name, Prod_Lvl desc, CMPS_Name, Product_Name, Package_Name
+SELECT * FROM tblOutput_MAX_TA_YTD_Inline 
+SELECT * FROM tblOutput_MAX_TA_Master_Inline 
+SELECT * FROM tblOutput_MAX_TA_Master 
+SELECT * FROM tblcitymax 
+SELECT * FROM dbo.tblCityListForMAX
+
+SELECT * FROM tblcitymax 
+--UPDATE dbo.tblCityMAX
+--SET city = UPPER(LEFT(City, 1)) + LOWER(RIGHT(city, LEN(City) - 1))
+
+SELECT DISTINCT Audi_Cod FROM dbo.MTHCITY_MAX
 

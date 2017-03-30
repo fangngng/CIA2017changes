@@ -1,4 +1,4 @@
-
+Ôªø
 
 
 SELECT distinct Product FROM output_stage where LinkChartCode = 'r020'
@@ -146,32 +146,32 @@ SELECT * FROM Config
 insert into Config 
 select 'MAXDATA', 201612, 'Monthly update', '2016Q3', '2016Q4'
 
---SELECT Province, City, Product,  [º¡–Õ£®±Í◊º_”¢Œƒ£©] as Package, [“©∆∑πÊ∏Ò£®±Í◊º_”¢Œƒ£©] as Specification, 
---	   [201201 Value£®RMB£©] as [201201LC], [201202 Value£®RMB£©] as [201202LC], [201203 Value£®RMB£©] as [201203LC], [201204 Value£®RMB£©] as [201204LC], [201205 Value£®RMB£©] as [201205LC],
---	   [201206 Value£®RMB£©] as [201206LC], [201207 Value£®RMB£©] as [201207LC], [201208 Value£®RMB£©] as [201208LC], [201209 Value£®RMB£©] as [201209LC], [201210 Value£®RMB£©] as [201210LC],
---	   [201211 Value£®RMB£©] as [201211LC], [201212 Value£®RMB£©] as [201212LC], [201301 Value£®RMB£©] as [201301LC], [201302 Value£®RMB£©] as [201302LC], [201303 Value£®RMB£©] as [201303LC],
---	   [201304 Value£®RMB£©] as [201304LC], [201305 Value£®RMB£©] as [201305LC], [201306 Value£®RMB£©] as [201306LC], [201307 Value£®RMB£©] as [201307LC], [201308 Value£®RMB£©] as [201308LC],
---	   [201309 Value£®RMB£©] as [201309LC], [201310 Value£®RMB£©] as [201310LC], [201311 Value£®RMB£©] as [201311LC], [201312 Value£®RMB£©] as [201312LC], [201401 Value£®RMB£©] as [201401LC],
---	   [201402 Value£®RMB£©] as [201402LC], [201403 Value£®RMB£©] as [201403LC], [201404 Value£®RMB£©] as [201404LC], [201405 Value£®RMB£©] as [201405LC], [201406 Value£®RMB£©] as [201406LC],
---	   [201407 Value£®RMB£©] as [201407LC], [201408 Value£®RMB£©] as [201408LC], [201409 Value£®RMB£©] as [201409LC], [201410 Value£®RMB£©] as [201410LC], [201411 Value£®RMB£©] as [201411LC],
---	   [201412 Value£®RMB£©] as [201412LC], [201501 Value£®RMB£©] as [201501LC], [201502 Value£®RMB£©] as [201502LC], [201503 Value£®RMB£©] as [201503LC], [201504 Value£®RMB£©] as [201504LC],
---	   [201505 Value£®RMB£©] as [201505LC], [201506 Value£®RMB£©] as [201506LC], [201507 Value£®RMB£©] as [201507LC], [201508 Value£®RMB£©] as [201508LC], [201509 Value£®RMB£©] as [201509LC],
---	   [201510 Value£®RMB£©] as [201510LC], [201511 Value£®RMB£©] as [201511LC], [201512 Value£®RMB£©] as [201512LC], [201601 Value£®RMB£©] as [201601LC], [201602 Value£®RMB£©] as [201602LC],
---	   [201603 Value£®RMB£©] as [201603LC], [201604 Value£®RMB£©] as [201604LC], [201605 Value£®RMB£©] as [201605LC], [201606 Value£®RMB£©] as [201606LC], [201607 Value£®RMB£©] as [201607LC],
---	   [201608 Value£®RMB£©] as [201608LC], [201609 Value£®RMB£©] as [201609LC], [201610 Value£®RMB£©] as [201610LC], [201611 Value£®RMB£©] as [201611LC], [201612 Value£®RMB£©] as [201612LC],
+--SELECT Province, City, Product,  [ÂâÇÂûãÔºàÊ†áÂáÜ_Ëã±ÊñáÔºâ] as Package, [ËçØÂìÅËßÑÊ†ºÔºàÊ†áÂáÜ_Ëã±ÊñáÔºâ] as Specification, 
+--	   [201201 ValueÔºàRMBÔºâ] as [201201LC], [201202 ValueÔºàRMBÔºâ] as [201202LC], [201203 ValueÔºàRMBÔºâ] as [201203LC], [201204 ValueÔºàRMBÔºâ] as [201204LC], [201205 ValueÔºàRMBÔºâ] as [201205LC],
+--	   [201206 ValueÔºàRMBÔºâ] as [201206LC], [201207 ValueÔºàRMBÔºâ] as [201207LC], [201208 ValueÔºàRMBÔºâ] as [201208LC], [201209 ValueÔºàRMBÔºâ] as [201209LC], [201210 ValueÔºàRMBÔºâ] as [201210LC],
+--	   [201211 ValueÔºàRMBÔºâ] as [201211LC], [201212 ValueÔºàRMBÔºâ] as [201212LC], [201301 ValueÔºàRMBÔºâ] as [201301LC], [201302 ValueÔºàRMBÔºâ] as [201302LC], [201303 ValueÔºàRMBÔºâ] as [201303LC],
+--	   [201304 ValueÔºàRMBÔºâ] as [201304LC], [201305 ValueÔºàRMBÔºâ] as [201305LC], [201306 ValueÔºàRMBÔºâ] as [201306LC], [201307 ValueÔºàRMBÔºâ] as [201307LC], [201308 ValueÔºàRMBÔºâ] as [201308LC],
+--	   [201309 ValueÔºàRMBÔºâ] as [201309LC], [201310 ValueÔºàRMBÔºâ] as [201310LC], [201311 ValueÔºàRMBÔºâ] as [201311LC], [201312 ValueÔºàRMBÔºâ] as [201312LC], [201401 ValueÔºàRMBÔºâ] as [201401LC],
+--	   [201402 ValueÔºàRMBÔºâ] as [201402LC], [201403 ValueÔºàRMBÔºâ] as [201403LC], [201404 ValueÔºàRMBÔºâ] as [201404LC], [201405 ValueÔºàRMBÔºâ] as [201405LC], [201406 ValueÔºàRMBÔºâ] as [201406LC],
+--	   [201407 ValueÔºàRMBÔºâ] as [201407LC], [201408 ValueÔºàRMBÔºâ] as [201408LC], [201409 ValueÔºàRMBÔºâ] as [201409LC], [201410 ValueÔºàRMBÔºâ] as [201410LC], [201411 ValueÔºàRMBÔºâ] as [201411LC],
+--	   [201412 ValueÔºàRMBÔºâ] as [201412LC], [201501 ValueÔºàRMBÔºâ] as [201501LC], [201502 ValueÔºàRMBÔºâ] as [201502LC], [201503 ValueÔºàRMBÔºâ] as [201503LC], [201504 ValueÔºàRMBÔºâ] as [201504LC],
+--	   [201505 ValueÔºàRMBÔºâ] as [201505LC], [201506 ValueÔºàRMBÔºâ] as [201506LC], [201507 ValueÔºàRMBÔºâ] as [201507LC], [201508 ValueÔºàRMBÔºâ] as [201508LC], [201509 ValueÔºàRMBÔºâ] as [201509LC],
+--	   [201510 ValueÔºàRMBÔºâ] as [201510LC], [201511 ValueÔºàRMBÔºâ] as [201511LC], [201512 ValueÔºàRMBÔºâ] as [201512LC], [201601 ValueÔºàRMBÔºâ] as [201601LC], [201602 ValueÔºàRMBÔºâ] as [201602LC],
+--	   [201603 ValueÔºàRMBÔºâ] as [201603LC], [201604 ValueÔºàRMBÔºâ] as [201604LC], [201605 ValueÔºàRMBÔºâ] as [201605LC], [201606 ValueÔºàRMBÔºâ] as [201606LC], [201607 ValueÔºàRMBÔºâ] as [201607LC],
+--	   [201608 ValueÔºàRMBÔºâ] as [201608LC], [201609 ValueÔºàRMBÔºâ] as [201609LC], [201610 ValueÔºàRMBÔºâ] as [201610LC], [201611 ValueÔºàRMBÔºâ] as [201611LC], [201612 ValueÔºàRMBÔºâ] as [201612LC],
 
---	   [201201 Value£®USD£©] as [201201US], [201202 Value£®USD£©] as [201202US], [201203 Value£®USD£©] as [201203US], [201204 Value£®USD£©] as [201204US], [201205 Value£®USD£©] as [201205US],
---	   [201206 Value£®USD£©] as [201206US], [201207 Value£®USD£©] as [201207US], [201208 Value£®USD£©] as [201208US], [201209 Value£®USD£©] as [201209US], [201210 Value£®USD£©] as [201210US],
---	   [201211 Value£®USD£©] as [201211US], [201212 Value£®USD£©] as [201212US], [201301 Value£®USD£©] as [201301US], [201302 Value£®USD£©] as [201302US], [201303 Value£®USD£©] as [201303US],
---	   [201304 Value£®USD£©] as [201304US], [201305 Value£®USD£©] as [201305US], [201306 Value£®USD£©] as [201306US], [201307 Value£®USD£©] as [201307US], [201308 Value£®USD£©] as [201308US],
---	   [201309 Value£®USD£©] as [201309US], [201310 Value£®USD£©] as [201310US], [201311 Value£®USD£©] as [201311US], [201312 Value£®USD£©] as [201312US], [201401 Value£®USD£©] as [201401US],
---	   [201402 Value£®USD£©] as [201402US], [201403 Value£®USD£©] as [201403US], [201404 Value£®USD£©] as [201404US], [201405 Value£®USD£©] as [201405US], [201406 Value£®USD£©] as [201406US],
---	   [201407 Value£®USD£©] as [201407US], [201408 Value£®USD£©] as [201408US], [201409 Value£®USD£©] as [201409US], [201410 Value£®USD£©] as [201410US], [201411 Value£®USD£©] as [201411US],
---	   [201412 Value£®USD£©] as [201412US], [201501 Value£®USD£©] as [201501US], [201502 Value£®USD£©] as [201502US], [201503 Value£®USD£©] as [201503US], [201504 Value£®USD£©] as [201504US],
---	   [201505 Value£®USD£©] as [201505US], [201506 Value£®USD£©] as [201506US], [201507 Value£®USD£©] as [201507US], [201508 Value£®USD£©] as [201508US], [201509 Value£®USD£©] as [201509US],
---	   [201510 Value£®USD£©] as [201510US], [201511 Value£®USD£©] as [201511US], [201512 Value£®USD£©] as [201512US], [201601 Value£®USD£©] as [201601US], [201602 Value£®USD£©] as [201602US],
---	   [201603 Value£®USD£©] as [201603US], [201604 Value£®USD£©] as [201604US], [201605 Value£®USD£©] as [201605US], [201606 Value£®USD£©] as [201606US], [201607 Value£®USD£©] as [201607US],
---	   [201608 Value£®USD£©] as [201608US], [201609 Value£®USD£©] as [201609US], [201610 Value£®USD£©] as [201610US], [201611 Value£®USD£©] as [201611US], [201612 Value£®USD£©] as [201612US],
+--	   [201201 ValueÔºàUSDÔºâ] as [201201US], [201202 ValueÔºàUSDÔºâ] as [201202US], [201203 ValueÔºàUSDÔºâ] as [201203US], [201204 ValueÔºàUSDÔºâ] as [201204US], [201205 ValueÔºàUSDÔºâ] as [201205US],
+--	   [201206 ValueÔºàUSDÔºâ] as [201206US], [201207 ValueÔºàUSDÔºâ] as [201207US], [201208 ValueÔºàUSDÔºâ] as [201208US], [201209 ValueÔºàUSDÔºâ] as [201209US], [201210 ValueÔºàUSDÔºâ] as [201210US],
+--	   [201211 ValueÔºàUSDÔºâ] as [201211US], [201212 ValueÔºàUSDÔºâ] as [201212US], [201301 ValueÔºàUSDÔºâ] as [201301US], [201302 ValueÔºàUSDÔºâ] as [201302US], [201303 ValueÔºàUSDÔºâ] as [201303US],
+--	   [201304 ValueÔºàUSDÔºâ] as [201304US], [201305 ValueÔºàUSDÔºâ] as [201305US], [201306 ValueÔºàUSDÔºâ] as [201306US], [201307 ValueÔºàUSDÔºâ] as [201307US], [201308 ValueÔºàUSDÔºâ] as [201308US],
+--	   [201309 ValueÔºàUSDÔºâ] as [201309US], [201310 ValueÔºàUSDÔºâ] as [201310US], [201311 ValueÔºàUSDÔºâ] as [201311US], [201312 ValueÔºàUSDÔºâ] as [201312US], [201401 ValueÔºàUSDÔºâ] as [201401US],
+--	   [201402 ValueÔºàUSDÔºâ] as [201402US], [201403 ValueÔºàUSDÔºâ] as [201403US], [201404 ValueÔºàUSDÔºâ] as [201404US], [201405 ValueÔºàUSDÔºâ] as [201405US], [201406 ValueÔºàUSDÔºâ] as [201406US],
+--	   [201407 ValueÔºàUSDÔºâ] as [201407US], [201408 ValueÔºàUSDÔºâ] as [201408US], [201409 ValueÔºàUSDÔºâ] as [201409US], [201410 ValueÔºàUSDÔºâ] as [201410US], [201411 ValueÔºàUSDÔºâ] as [201411US],
+--	   [201412 ValueÔºàUSDÔºâ] as [201412US], [201501 ValueÔºàUSDÔºâ] as [201501US], [201502 ValueÔºàUSDÔºâ] as [201502US], [201503 ValueÔºàUSDÔºâ] as [201503US], [201504 ValueÔºàUSDÔºâ] as [201504US],
+--	   [201505 ValueÔºàUSDÔºâ] as [201505US], [201506 ValueÔºàUSDÔºâ] as [201506US], [201507 ValueÔºàUSDÔºâ] as [201507US], [201508 ValueÔºàUSDÔºâ] as [201508US], [201509 ValueÔºàUSDÔºâ] as [201509US],
+--	   [201510 ValueÔºàUSDÔºâ] as [201510US], [201511 ValueÔºàUSDÔºâ] as [201511US], [201512 ValueÔºàUSDÔºâ] as [201512US], [201601 ValueÔºàUSDÔºâ] as [201601US], [201602 ValueÔºàUSDÔºâ] as [201602US],
+--	   [201603 ValueÔºàUSDÔºâ] as [201603US], [201604 ValueÔºàUSDÔºâ] as [201604US], [201605 ValueÔºàUSDÔºâ] as [201605US], [201606 ValueÔºàUSDÔºâ] as [201606US], [201607 ValueÔºàUSDÔºâ] as [201607US],
+--	   [201608 ValueÔºàUSDÔºâ] as [201608US], [201609 ValueÔºàUSDÔºâ] as [201609US], [201610 ValueÔºàUSDÔºâ] as [201610US], [201611 ValueÔºàUSDÔºâ] as [201611US], [201612 ValueÔºàUSDÔºâ] as [201612US],
 
 --	   [201201 Dosage Unit] as [201201UN], [201202 Dosage Unit] as [201202UN], [201203 Dosage Unit] as [201203UN], [201204 Dosage Unit] as [201204UN], [201205 Dosage Unit] as [201205UN],
 --	   [201206 Dosage Unit] as [201206UN], [201207 Dosage Unit] as [201207UN], [201208 Dosage Unit] as [201208UN], [201209 Dosage Unit] as [201209UN], [201210 Dosage Unit] as [201210UN],
@@ -191,7 +191,7 @@ select 'MAXDATA', 201612, 'Monthly update', '2016Q3', '2016Q4'
 ----into inMaxData
 --from dbo.Max_Data
 
-SELECT top 100 * FROM BMSChinaCIA_IMS_test.dbo.Max_Data 
+SELECT top 100 * FROM BMSChinaCIA_IMS.dbo.Max_Data 
 
 SELECT top 100 * FROM dbo.inCPAData
 
@@ -423,7 +423,7 @@ select mth00, mth05, * from TempCityDashboard where prod = 200 and audi_des = 'L
 
 select mth00lc, * from mthcity_pkau where audi_cod = 'LNY_'
 
-select mth00lc, * from inmaxdata where city like N'%¡Ÿ“ %'
+select mth00lc, * from inmaxdata where city like N'%‰∏¥Ê≤Ç%'
 
 select * from tblcitymax where audi_cod = 'LNY_'
 
@@ -431,13 +431,13 @@ select abs(-6594.31355183151)
 
 select * from output_stage where linkchartcode = 'd094' and TimeFrame = 'MAT' and currency = 'USD' and geo = 'shanghai'
 
-SELECT * from dbo.inMAXData where City = N'∂´”™'
+SELECT * from dbo.inMAXData where City = N'‰∏úËê•'
 
-SELECT * FROM dbo.tblcitymax where City_CN = N'∂´”™'
+SELECT * FROM dbo.tblcitymax where City_CN = N'‰∏úËê•'
 
 update dbo.tblcitymax
 set Audi_Cod = 'DNY_' 
-where City_CN = N'∂´”™'
+where City_CN = N'‰∏úËê•'
 
 SELECT * FROM output_stage where LinkChartCode = 'c050'
 
@@ -574,9 +574,9 @@ SELECT * FROM TempCityDashboard  WHERE  Audi_des = 'wuhan'  AND Moneytype = 'lc'
 
 SELECT mat48lc, * FROM mthcity_pkau WHERE  AUDI_COD = 'YZW_' 
 
-SELECT mat37lc, mat26us, MTH49LC, * FROM dbo.inMAXData WHERE City = N'Œ‰∫∫'
+SELECT mat37lc, mat26us, MTH49LC, * FROM dbo.inMAXData WHERE City = N'Ê≠¶Ê±â'
 
-SELECT [201212 Value£®RMB£©],* FROM dbo.Max_Data WHERE City = N'Œ‰∫∫ –'
+SELECT [201212 ValueÔºàRMBÔºâ],* FROM dbo.Max_Data WHERE City = N'Ê≠¶Ê±âÂ∏Ç'
 
 SELECT * FROM output_stage WHERE LinkChartCode = 'c130' AND Product = 'sprycel' AND Currency = 'RMB' AND x = '2016Q4'
 
@@ -597,4 +597,227 @@ select * from inHKAPI_New
 select * from Dim_Product
 
 select * from OutputCMLChinaMarketTrend 
+
+SELECT * FROM dbo.output_stage WHERE LinkChartCode = 'd081' AND geo = 'dongying' AND IsShow = 'Y'
+
+SELECT * FROM dbo.WebChartTitle WHERE LinkChartCode = 'D110' AND geo = 'dongying' 
+
+SELECT * FROM OutputKeyMNCsProdPerformance_HKAPI 
+
+select distinct case Chart when 'Volume Trend' then 'Y' else 'N' end as isshow,
+			Region,Audi_des,MoneyType,market,Productname,Prod 
+		from dbo.OutputCityPerformanceByBrand_For_OtherETV 
+		where Chart in('Volume Trend','CAGR') and Class='N' and molecule='N' 
+			and Mkt not in ('DPP4','Eliquis NOAC','Eliquis VTet')
+			and not (mkt = 'Eliquis VTep' and Prod = '600'  )
+			AND Audi_des = 'Dongying'
+
+SELECT * FROM OutputCityPerformanceByBrand_For_OtherETV 
+
+SELECT * FROM dbo.output_stage WHERE LinkChartCode = 'd084' AND geo = 'dongying'
+
+SELECT¬†DISTINCT¬†LinkChartCode,LinkProductId,LinkGeoId,Category,TimeFrame,CategoryIdx,TimeFrameIdx¬†FROM¬†WebChartTitle¬†
+WHERE¬†LinkChartCode¬†=¬†'D110'
+
+SELECT * FROM dbo.WebChartTitle WHERE LinkChartCode = 'd081'
+
+SELECT * FROM dbo.outputgeo
+
+INSERT INTO dbo.outputgeo ( Geo, GeoName, Lev, Product, ParentGeo, GeoIdx, ParentID, ProductID )
+SELECT 'BAL', 'BAL', 1, 'Baraclude', 'China', 39, 1, 1 
+
+SELECT * FROM dbo.output_stage WHERE LinkChartCode = 'c140'
+
+SELECT * FROM OutputKeyBrandPerformanceByRegion_For_OtherETV
+
+SELECT * FROM dbo.output_stage
+WHERE LinkChartCode = 'c210' AND TimeFrame = 'YTD' AND series = 'glivec'
+
+SELECT * FROM OutputCMLChina_HKAPI 
+SELECT * FROM inHKAPI_New 
+
+select 'Sprycel','YTD',[Product Name] as Product,1,'RMB' as Moneytype,
+	SUM(YTD36LC)*1000 as YTD36 
+from BMSChinaOtherDB.dbo.inHKAPI_New 
+where [Product Name] like '%spycel%' or  [Product Name] in(select distinct Prod_name from tblMktDef_MRBIChina where mkt='CML')
+group by [Product Name]
+
+--48290.6906241731 
+
+SELECT ytd36lC, [Product Name], [YTD 13Q4LC], [13Q3LC], [13Q2LC], [13Q1LC], [14Q1LC], * 
+FROM inHKAPI_New 
+where [Product Name] like '%spycel%' or  [Product Name] in(select distinct Prod_name from tblMktDef_MRBIChina where mkt='CML')
+
+SELECT [Product Name], [YTD 13Q4LC]
+from BMSChinaOtherDB.dbo.inHKAPI_Linda 
+where [Product Name] like '%spycel%' or  [Product Name] in(select distinct Prod_name from tblMktDef_MRBIChina where mkt='CML')
+
+
+SELECT [Product Name], [YTD 13Q4LC]
+from inHKAPI_New 
+where [Product Name] like '%spycel%' or  [Product Name] in(select distinct Prod_name from tblMktDef_MRBIChina where mkt='CML')
+
+
+SELECT * FROM dbo.output_stage WHERE LinkChartCode = 'C140'
+	AND  product IN ('Taxol', 'Monopril')
+
+
+SELECT MAT00, prod, * FROM TempRegionCityDashboard 
+WHERE Moneytype = 'un' AND audi_des = 'dongying'  
+	AND mkt = 'arv' AND prod = '000'
+
+SELECT * FROM TempRegionCityDashboard 
+WHERE Moneytype = 'un' AND audi_des = 'dongying'  
+
+SELECT mat00,* FROM TempCityDashboard 
+WHERE Moneytype = 'un' AND audi_des = 'dongying'  
+	AND mkt = 'arv' AND prod = '000'
+
+SELECT SUM(YTD00) FROM TempCityDashboard 
+WHERE Moneytype = 'un' AND prod = '000' AND Audi_cod IN ('wuhan', 'jinan', 'linyi', 'dongying', 'zhengzhou')
+	AND molecule = 'Y'
+
+SELECT SUM(YTD01UN) FROM mthcity_pkau 
+WHERE Audi_cod IN ('wuhan', 'jinan', 'linyi', 'dongying', 'zhengzhou')
+
+SELECT * FROM dbo.inMAXData
+WHERE city IN (N'Ê≠¶Ê±â', N'ÊµéÂçó', N'‰∏¥Ê≤Ç', N'‰∏úËê•', N'ÈÉëÂ∑û')
+
+SELECT 
+	SUM([201601 Dosage Unit] + [201602 Dosage Unit] + [201603 Dosage Unit] + [201604 Dosage Unit] + [201605 Dosage Unit] + [201606 Dosage Unit] + 
+	[201607 Dosage Unit] + [201608 Dosage Unit] + [201609 Dosage Unit] + [201610 Dosage Unit] + [201611 Dosage Unit] + [201612 Dosage Unit] )
+FROM BMSChinaCIARawdata.dbo.Max_201612
+WHERE city IN (N'Ê≠¶Ê±âÂ∏Ç', N'ÊµéÂçóÂ∏Ç', N'‰∏¥Ê≤ÇÂ∏Ç', N'‰∏úËê•Â∏Ç', N'ÈÉëÂ∑ûÂ∏Ç')
+
+
+SELECT * 
+FROM dbo.Max_Data 
+WHERE city IN (N'ÈùíÂ≤õÂ∏Ç')
+
+SELECT * FROM dbo.maxcity
+
+SELECT * FROM dbo.Dim_Product WHERE Product_Name = 'Gefitinib'
+
+
+SELECT * FROM Dim_City 
+
+
+SELECT * FROM dbo.MAXRegionCity
+
+--SELECT  * FROM CMHrawdata_baraclude WHERE YM = '201701'
+--SELECT TOP 100 * FROM tempRetail
+
+
+--INSERT INTO dbo.CMHrawdata_baraclude ( YM, Êï∞ÊçÆËåÉÂõ¥,  ‰∫ßÂìÅID, ‰∏≠Ë•øËçØ, Â§ÑÊñπÊÄßË¥®, ÂàÜÁ±ª1, ÂàÜÁ±ª2, ÂìÅÁâå, Molecule, ÂâÇÂûã,
+-- 										Product, ÂìÅÂêç, ÂéÇÂÆ∂, ËßÑÊ†º, Áâá, ÂüéÂ∏ÇÊï∞Â≠óÈì∫Ë¥ßÁéá, ÂüéÂ∏ÇÂä†ÊùÉÈì∫Ë¥ßÁéá,  Âçï‰ª∑, Value, [ÊîæÂ§ßÈîÄÂîÆÈáèÔºàÁõíÔºâ], Volume )
+--SELECT YM, Âú∞Âå∫, ‰∫ßÂìÅID, ZX, OTC_Rx, SORT1, SORT2, ÂìÅÁâå, Molecule, JX, Product, PM,  CJ, GG, Áâá, Êï∞Â≠óÈì∫Ë¥ßÁéá, Âä†ÊùÉÈì∫Ë¥ßÁéá,    Âπ≥ÂùáÂçï‰ª∑, Value,
+--		[ÈîÄÂîÆÈáèÔºàÁõíÔºâ], Volume  
+--FROM tempRetail
+
+
+
+SELECT * 
+from mthcity_pkau A 
+inner join tblMktDef_MRBIChina B
+on A.pack_cod=B.pack_cod 
+WHERE B.Active='Y' and A.audi_cod<>'ZJH_' and b.mkt not like'eliquis%'
+	and a.audi_cod = 'dongying'
+--group by B.Molecule,B.Class,B.mkt,B.mktname,B.prod,B.Productname,A.audi_cod
+
+SELECT DISTINCT ProductName FROM tblMktDef_MRBIChina WHERE mkt = 'arv' AND Molecule = 'N'
+
+SELECT * FROM OutputKeyBrandPerformanceByRegion_For_OtherETV WHERE mkt = 'arv' AND Molecule = 'N'
+
+SELECT  DISTINCT mkt, prod, Productname FROM TempCityDashboard_For_OtherETV WHERE mkt = 'arv' AND Molecule = 'N'
+
+SELECT DISTINCT mkt, prod, Productname FROM TempCityDashboard WHERE mkt = 'arv' AND Molecule = 'N'
+
+SELECT DISTINCT  mkt, prod, Productname FROM tblMktDef_MRBIChina_For_OtherETV WHERE mkt = 'arv' AND Molecule = 'N'
+
+SELECT * FROM OutputCMLChina_HKAPI WHERE Moneytype = 'usd'
+
+select distinct X , TimeFrame from dbo.[output_stage] where LinkChartCode= 'c220'
+select * from dbo.[output_stage] where LinkChartCode= 'c220'
+
+select distinct 
+	a.ATC1_Cod, a.ATC1_Des,
+	a.ATC2_Cod, a.ATC2_Des,
+	a.ATC3_Cod, a.ATC3_Des,
+	a.ATC4_Cod, a.ATC4_Des,
+	a.Mole_cod, a.Mole_des,
+	a.Prod_cod, a.Prod_Des,
+	a.Pack_Cod, a.Pack_Des,
+	a.Corp_cod, a.Corp_Des,
+	a.manu_cod, a.Manu_des,
+	a.MNC, a.Gene_Cod
+from Max_Data as a 
+left join tblMktDef_ATCDriver as b on a.pack_cod = b.Pack_Cod
+where b.Pack_Cod is null 
+
+SELECT * FROM Max_Data 
+SELECT * FROM tblMktDef_ATCDriver 
+
+
+ SELECT * FROM OutputKeyMNCsProdPerformance_HKAPI 
+
+ select  'YTD','RMB', [Product name],1,1,sum(isnull([YTD00LC],0))*1000,sum(isnull([YTD12LC],0))*1000
+from inHKAPI_New A 
+--left join dbo.Dim_Product C on A.[Product name] = c.Product_Name 
+where [Company name] in (select CORP_Cod from OutputKeyMNCsPerformance_HKAPI where Period='YTD')
+    and [Product name] not in ('Albumin human', 'Pulmicort resp')
+group by [Product name]
+order by sum(isnull([YTD00LC],0)) DESC
+
+SELECT * FROM dbo.inHKAPI_New
+WHERE [Product Name] LIKE '%ADALAT%'
+
+SELECT * FROM Dim_Product 
+WHERE Product_Name LIKE '%ADALAT%' 
+
+SELECT * FROM Dim_Product 
+WHERE Product_Name = 'Albumin human'
+
+SELECT mth00un, MTH01UN, * FROM dbo.MTHCHPA_PKAU WHERE PACK_ID = '100215'
+SELECT mth00un, mth01un, * FROM BMSChinaCIA_IMS.dbo.MTHCHPA_PKAU WHERE PACK_ID = '100215'
+
+SELECT [Value] from Config where Parameter = 'IMS'
+
+SELECT * FROM OutputKeyMNCsProdPerformance_HKAPI 
+SELECT * FROM inHKAPI_New WHERE [Product Name] LIKE '%Pulmicort%'
+
+SELECT value FROM dbo.Config WHERE Parameter = 'HKAPI'
+SELECT MonSeq FROM dbo.tblMonthList WHERE Date = (SELECT value FROM dbo.Config WHERE Parameter = 'HKAPI')
+
+SELECT * FROM OutputCMLChina_HKAPI 
+SELECT [16Q4US], YTD00US, MAT00US, * FROM inHKAPI_New 
+
+SELECT * FROM OutputKeyMNCsProdPerformance_HKAPI
+
+SELECT * FROM dbo.output_stage WHERE LinkChartCode = 'c220'
+SELECT * FROM dbo.WebChartTitle WHERE LinkChartCode = 'c220'
+SELECT * FROM dbo.WebChartSeries WHERE LinkChartCode = 'c220'
+
+SELECT * FROM output_stage WHERE geo = 'east I' OR ParentGeo = 'east I'
+
+SELECT * FROM db82.BMSChina_ppt.dbo.tblColorDef WHERE name = 'viread'
+
+INSERT INTO db82.BMSChina_ppt.dbo.tblColorDef 
+SELECT 'Prod', Abvgeo, Name, R, G, B, ColorName, RGB FROM db82.BMSChina_ppt.dbo.tblColorDef 
+WHERE name = 'viread'
+
+SELECT * FROM OutputKeyMNCsPerformance_HKAPI 
+SELECT * FROM output_stage WHERE LinkChartCode = 'c100' AND TimeFrame = 'MQT'
+SELECT * FROM tblDateHKAPI 
+
+SELECT * FROM dbo.output WHERE DataSource IS  null
+
+
+
+
+
+
+
+
+
+
 

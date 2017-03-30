@@ -3,7 +3,7 @@
 */
 
 
-use BMSCNProc2_test
+use BMSCNProc2
 go
 
 
@@ -65,7 +65,7 @@ GO
 
 
 --2013/5/22 10:03:05
-insert into BMSCNProc2_test.dbo.tblCityIMS values
+insert into BMSCNProc2.dbo.tblCityIMS values
 ('28','NCG_','Nanchang',N'�ϲ�',2)
 GO
 

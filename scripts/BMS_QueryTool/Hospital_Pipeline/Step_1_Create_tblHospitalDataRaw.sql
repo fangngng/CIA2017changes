@@ -1,4 +1,4 @@
-use BMSCNProc2_test
+use BMSCNProc2
 go
 
 exec dbo.sp_Log_Event 'Process','QT_CPA_Inline','Step_1_Create_tblHospitalDataRaw.sql','Start',null,null
