@@ -6,7 +6,7 @@ exec dbo.sp_Log_Event 'Process','QT_CPA_Inline','Step_1_Create_tblHospitalDataRa
 
 -- add new hospital -> tblHospitalList_Pipeline
 insert into tblHospitalList_Pipeline
-select CPA_code, CPA_Name, CPA_Name_ENglish, Tier, Province, City, City_en 
+select CPA_code, CPA_Name, CPA_Name_ENglish, Tier, Province, City, City_en , ''
 from tblHospitalMaster where
 CPA_CODE in (
             select distinct [医院_编码] from inCPAData_pipeline a
@@ -29,6 +29,20 @@ where Hosp_ID in (
                                    where a.[医院_编码]=b.CPA_code
                                    )
                  )
+
+
+UPDATE a 
+SET a.Province_EN = b.Province_EN
+--SELECT DISTINCT a.province, b.Province_CN, b.Province_EN 
+FROM dbo.tblHospitalList_Pipeline AS a
+INNER JOIN dbo.tblCityListForHospital AS b ON a.Province = b.Province_CN
+
+
+UPDATE a 
+SET a.Province_EN = b.Province_EN
+--SELECT DISTINCT a.province, b.Province_CN, b.Province_EN 
+FROM dbo.tblHospitalMaster AS a
+INNER JOIN dbo.tblCityListForHospital AS b ON a.Province = b.Province_CN
 
 
 

@@ -1778,9 +1778,10 @@ from (
 		case sum(A.MTH10) when 0 then null else sum(B.MTH10)*1.0/sum(A.MTH10) end as MTH10,
 		case sum(A.MTH11) when 0 then null else sum(B.MTH11)*1.0/sum(A.MTH11) end as MTH11,
 		case sum(A.MTH12) when 0 then null else sum(B.MTH12)*1.0/sum(A.MTH12) end as MTH12
-		from TempCHPAPreReports_For_Baraclude A inner join TempCHPAPreReports_For_Baraclude B
+		from TempCHPAPreReports_For_Baraclude A 
+		inner join TempCHPAPreReports_For_Baraclude B
 		on A.mkt=b.mkt and A.Moneytype=b.Moneytype and A.class=B.class and A.Molecule=B.Molecule
-		and A.Market=B.Market and A.prod='000' and B.prod<>'000'
+			and A.Market=B.Market and A.prod='000' and B.prod<>'000'
 		where ((B.class='N' and B.Molecule='N') or (b.molecule='Y' and b.class='N' and b.market='baraclude' and b.productname in ('Entecavir','Adefovir Dipivoxil','Tenofovir Disoproxil'))) and b.Moneytype IN ('US','UN') and b.Mktname in ('ARV Market') and b.productname not in ('ARV Others')
 		group by B.Moneytype,B.Mkt,A.Molecule,A.Class,B.Mktname,B.Market,B.Prod,B.Productname
 		union all
@@ -5950,16 +5951,18 @@ INTO KPI_Frame_MarketAnalyzer_XareltoValue_For_Eliquis
 from 
 (
 	SELECT convert(varchar(5),'MAT') as TimeFrame,MoneyType,Molecule,Class,Mkt,Mktname,Market,Prod,
-	convert(varchar(200),Productname+' Sales Value') as Series,convert(varchar(50),null) as DataType,convert(varchar(20),null) as Category,
-	convert(decimal(20,8),MAT00) AS Y,Audi_des as X, 1 AS Series_Idx
-	, row_number() over(partition by MoneyType,Molecule,Class,Mkt,Mktname,Market,Prod order by MAT00 desc) as X_Idx
+		convert(varchar(200),Productname+' Sales Value') as Series,convert(varchar(50),null) as DataType,convert(varchar(20),null) as Category,
+		convert(decimal(20,8),MAT00) AS Y,Audi_des as X, 1 AS Series_Idx
+		, row_number() over(partition by MoneyType,Molecule,Class,Mkt,Mktname,Market,Prod order by MAT00 desc) as X_Idx
 	FROM tempCityDashboard_AllCity 
 	WHERE MARKET='Eliquis VTEp' AND PRODUCTNAME='XARELTO'  AND moneyType='US' and Molecule='N' and Class='N' and audi_des<>'Guangdong'
+	
 	union all
+	
 	SELECT convert(varchar(5),'MAT') as TimeFrame,MoneyType,Molecule,Class,Mkt,Mktname,Market,Prod,
-	convert(varchar(200),Productname+' Sales Value') as Series,convert(varchar(50),null) as DataType,convert(varchar(20),null) as Category,
-	convert(decimal(20,8),MAT00) AS Y,Audi_des as X, 1 AS Series_Idx
-	, 1000 as X_Idx
+		convert(varchar(200),Productname+' Sales Value') as Series,convert(varchar(50),null) as DataType,convert(varchar(20),null) as Category,
+		convert(decimal(20,8),MAT00) AS Y,Audi_des as X, 1 AS Series_Idx
+		, 1000 as X_Idx
 	FROM tempCityDashboard_AllCity 
 	WHERE MARKET='Eliquis VTEp' AND PRODUCTNAME='XARELTO'  AND moneyType='US' and Molecule='N' and Class='N' and audi_des='Guangdong'
 	

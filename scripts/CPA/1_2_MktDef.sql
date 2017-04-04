@@ -320,337 +320,337 @@ GO
 
 
 
--- --4. Paraplatin
--- delete from tblMktDefHospital where [Mkt] = 'Platinum'
--- GO
--- insert into tblMktDefHospital
--- select distinct
--- 	'Platinum'          as [Mkt]          
--- 	,'Platinum Market'   as [MktName]      
--- 	,'000'               as [Prod]         
--- 	,'Platinum Market'   as [ProductName]  
--- 	,'N'                 as [Molecule]     
--- 	,'N'                 as [Class]        
--- 	,'L01X'              as [ATC3_Cod]     
--- 	,ATC_Code            as [ATC_CPA]      
--- 	,Molecule_CN_Src     as [Mole_Des_CN]  
--- 	,Molecule_EN         as [Mole_Des_EN]  
--- 	,Product_CN_Src      as [Prod_Des_CN]  
--- 	,subString(Product_EN,0,charindex('(',Product_EN)) as [Prod_Des_EN]  
--- 	,case when Product_CN_Src in (N'伯尔定',N'波贝',N'诺欣',N'顺铂',N'奥先达',N'捷佰舒',N'鲁贝') then 'Y' 
--- 		else 'N'                 
--- 		end            as [FocusedBrand] 
--- 	,Mole_Code_IMS       as [IMSMoleCode]  
--- 	,''                  as [IMSProdCode]  
--- 	,'Paraplatin'        as [Product] 
--- from tblPackageXRefHosp
--- where Molecule_CN_Src in (N'卡铂',N'顺铂',N'奈达铂')
--- GO
+--4. Paraplatin
+delete from tblMktDefHospital where [Mkt] = 'Platinum'
+GO
+insert into tblMktDefHospital
+select distinct
+	'Platinum'          as [Mkt]          
+	,'Platinum Market'   as [MktName]      
+	,'000'               as [Prod]         
+	,'Platinum Market'   as [ProductName]  
+	,'N'                 as [Molecule]     
+	,'N'                 as [Class]        
+	,'L01X'              as [ATC3_Cod]     
+	,ATC_Code            as [ATC_CPA]      
+	,Molecule_CN_Src     as [Mole_Des_CN]  
+	,Molecule_EN         as [Mole_Des_EN]  
+	,Product_CN_Src      as [Prod_Des_CN]  
+	,subString(Product_EN,0,charindex('(',Product_EN)) as [Prod_Des_EN]  
+	,case when Product_CN_Src in (N'伯尔定',N'波贝',N'诺欣',N'顺铂',N'奥先达',N'捷佰舒',N'鲁贝') then 'Y' 
+		else 'N'                 
+		end            as [FocusedBrand] 
+	,Mole_Code_IMS       as [IMSMoleCode]  
+	,''                  as [IMSProdCode]  
+	,'Paraplatin'        as [Product] 
+from tblPackageXRefHosp
+where Molecule_CN_Src in (N'卡铂',N'顺铂',N'奈达铂')
+GO
 
--- insert into tblMktDefHospital
--- select distinct 
---  'Platinum'          as [Mkt]          
--- ,'Platinum Market'   as [MktName]      
--- ,case when Molecule_CN_Src=N'卡铂' then '010'  
---       when Molecule_CN_Src=N'顺铂'   then '020'   
---       when Molecule_CN_Src=N'奈达铂'   then '030'
---       end            as [Prod]         
--- ,Molecule_EN         as [ProductName]  
--- ,'Y'                 as [Molecule]     
--- ,'N'                 as [Class]        
--- ,'L01X'              as [ATC3_Cod]     
--- ,ATC_Code            as [ATC_CPA]      
--- ,Molecule_CN_Src     as [Mole_Des_CN]  
--- ,Molecule_EN         as [Mole_Des_EN]  
--- ,Product_CN_Src      as [Prod_Des_CN]  
--- ,subString(Product_EN,0,charindex('(',Product_EN)) as [Prod_Des_EN]  
--- ,'Y'                 as [FocusedBrand] 
--- ,Mole_Code_IMS       as [IMSMoleCode]  
--- ,''                  as [IMSProdCode]  
--- ,'Paraplatin'        as [Product]  
--- from tblPackageXRefHosp
--- where Molecule_CN_Src in (N'卡铂',N'顺铂',N'奈达铂')
--- GO
+insert into tblMktDefHospital
+select distinct 
+ 'Platinum'          as [Mkt]          
+,'Platinum Market'   as [MktName]      
+,case when Molecule_CN_Src=N'卡铂' then '010'  
+      when Molecule_CN_Src=N'顺铂'   then '020'   
+      when Molecule_CN_Src=N'奈达铂'   then '030'
+      end            as [Prod]         
+,Molecule_EN         as [ProductName]  
+,'Y'                 as [Molecule]     
+,'N'                 as [Class]        
+,'L01X'              as [ATC3_Cod]     
+,ATC_Code            as [ATC_CPA]      
+,Molecule_CN_Src     as [Mole_Des_CN]  
+,Molecule_EN         as [Mole_Des_EN]  
+,Product_CN_Src      as [Prod_Des_CN]  
+,subString(Product_EN,0,charindex('(',Product_EN)) as [Prod_Des_EN]  
+,'Y'                 as [FocusedBrand] 
+,Mole_Code_IMS       as [IMSMoleCode]  
+,''                  as [IMSProdCode]  
+,'Paraplatin'        as [Product]  
+from tblPackageXRefHosp
+where Molecule_CN_Src in (N'卡铂',N'顺铂',N'奈达铂')
+GO
 
--- insert into tblMktDefHospital
--- select distinct 
---  'Platinum'          as [Mkt]          
--- ,'Platinum Market'   as [MktName]      
--- ,case when Product_CN_Src=N'伯尔定' then '100'  
---       when Product_CN_Src=N'波贝'   then '200'   
---       when Product_CN_Src=N'诺欣'   then '300'
---       when Product_CN_Src=N'顺铂'   then '400'
---       when Product_CN_Src=N'奥先达' then '500'
---       when Product_CN_Src=N'捷佰舒' then '600'
---       when Product_CN_Src=N'鲁贝'   then '700'
---       else '888' 
---       end            as [Prod]         
--- ,subString(Product_EN,0,charindex('(',Product_EN)) as [ProductName]  
--- ,'N'                 as [Molecule]     
--- ,'N'                 as [Class]        
--- ,'L01X'              as [ATC3_Cod]     
--- ,ATC_Code            as [ATC_CPA]      
--- ,Molecule_CN_Src     as [Mole_Des_CN]  
--- ,Molecule_EN         as [Mole_Des_EN]  
--- ,Product_CN_Src      as [Prod_Des_CN]  
--- ,subString(Product_EN,0,charindex('(',Product_EN)) as [Prod_Des_EN]  
--- ,'Y'                 as [FocusedBrand] 
--- ,Mole_Code_IMS       as [IMSMoleCode]  
--- ,''                  as [IMSProdCode]  
--- ,'Paraplatin'        as [Product]  
--- from tblPackageXRefHosp
--- where Molecule_CN_Src in (N'卡铂',N'顺铂',N'奈达铂')
--- GO
+insert into tblMktDefHospital
+select distinct 
+ 'Platinum'          as [Mkt]          
+,'Platinum Market'   as [MktName]      
+,case when Product_CN_Src=N'伯尔定' then '100'  
+      when Product_CN_Src=N'波贝'   then '200'   
+      when Product_CN_Src=N'诺欣'   then '300'
+      when Product_CN_Src=N'顺铂'   then '400'
+      when Product_CN_Src=N'奥先达' then '500'
+      when Product_CN_Src=N'捷佰舒' then '600'
+      when Product_CN_Src=N'鲁贝'   then '700'
+      else '888' 
+      end            as [Prod]         
+,subString(Product_EN,0,charindex('(',Product_EN)) as [ProductName]  
+,'N'                 as [Molecule]     
+,'N'                 as [Class]        
+,'L01X'              as [ATC3_Cod]     
+,ATC_Code            as [ATC_CPA]      
+,Molecule_CN_Src     as [Mole_Des_CN]  
+,Molecule_EN         as [Mole_Des_EN]  
+,Product_CN_Src      as [Prod_Des_CN]  
+,subString(Product_EN,0,charindex('(',Product_EN)) as [Prod_Des_EN]  
+,'Y'                 as [FocusedBrand] 
+,Mole_Code_IMS       as [IMSMoleCode]  
+,''                  as [IMSProdCode]  
+,'Paraplatin'        as [Product]  
+from tblPackageXRefHosp
+where Molecule_CN_Src in (N'卡铂',N'顺铂',N'奈达铂')
+GO
 
--- update tblMktDefHospital set [ProductName] = 'Others',[FocusedBrand] = 'N'
--- where [Mkt] = 'Platinum' and [Prod] = '888'
--- GO
+update tblMktDefHospital set [ProductName] = 'Others',[FocusedBrand] = 'N'
+where [Mkt] = 'Platinum' and [Prod] = '888'
+GO
 
--- SET ansi_warnings OFF
--- --Eliquis Product Level
--- delete from tblMktDefHospital where [Mkt] = 'Eliquis VTEp'
--- GO
--- --insert market
--- insert into tblMktDefHospital
--- select distinct
--- 	 'Eliquis VTEp'          as [Mkt]          
--- 	,'Eliquis (VTEp) Market'   as [MktName]      
--- 	,'000'             as [Prod]         
--- 	,'Eliquis (VTEp) Market'   as [ProductName]  
--- 	,'N'                 as [Molecule]     
--- 	,'N'                 as [Class]        
--- 	,''          as [ATC3_Cod]     
--- 	,ATC_Code            as [ATC_CPA]      
--- 	,Molecule_CN_Src     as [Mole_Des_CN]  
--- 	,Molecule_EN         as [Mole_Des_EN]  
--- 	,Product_CN_Src      as [Prod_Des_CN]  
--- 	,subString(Product_EN,0,charindex('(',Product_EN)) as [Prod_Des_EN]  
--- 	,'Y' as [FocusedBrand] 
--- 	,Mole_Code_IMS       as [IMSMoleCode]  
--- 	,''                  as [IMSProdCode]  
--- 	,'Eliquis VTEp'        as [Product] 
--- from tblPackageXRefHosp a 
--- join (select *  from BMSChinaCIA_IMS.dbo.tblMktDef_MRBIChina_All where molecule='N' and class='N' ) b 
--- 	on subString(a.Product_EN,0,charindex('(',a.Product_EN))=b.ProductName
--- --where  subString(a.Product_EN,0,charindex('(',a.Product_EN)) in('FRAXIPARINE','CLEXANE','XARELTO','ELIQUIS','ARIXTRA')
--- where a.Mole_Code_IMS in ('406260','408800','408827','413885','703259','704307','711981','719372', '904100', '999999')
--- go
+SET ansi_warnings OFF
+--Eliquis Product Level
+delete from tblMktDefHospital where [Mkt] = 'Eliquis VTEp'
+GO
+--insert market
+insert into tblMktDefHospital
+select distinct
+	 'Eliquis VTEp'          as [Mkt]          
+	,'Eliquis (VTEp) Market'   as [MktName]      
+	,'000'             as [Prod]         
+	,'Eliquis (VTEp) Market'   as [ProductName]  
+	,'N'                 as [Molecule]     
+	,'N'                 as [Class]        
+	,''          as [ATC3_Cod]     
+	,ATC_Code            as [ATC_CPA]      
+	,Molecule_CN_Src     as [Mole_Des_CN]  
+	,Molecule_EN         as [Mole_Des_EN]  
+	,Product_CN_Src      as [Prod_Des_CN]  
+	,subString(Product_EN,0,charindex('(',Product_EN)) as [Prod_Des_EN]  
+	,'Y' as [FocusedBrand] 
+	,Mole_Code_IMS       as [IMSMoleCode]  
+	,''                  as [IMSProdCode]  
+	,'Eliquis VTEp'        as [Product] 
+from tblPackageXRefHosp a 
+join (select *  from BMSChinaCIA_IMS.dbo.tblMktDef_MRBIChina_All where molecule='N' and class='N' ) b 
+	on subString(a.Product_EN,0,charindex('(',a.Product_EN))=b.ProductName
+--where  subString(a.Product_EN,0,charindex('(',a.Product_EN)) in('FRAXIPARINE','CLEXANE','XARELTO','ELIQUIS','ARIXTRA')
+where a.Mole_Code_IMS in ('406260','408800','408827','413885','703259','704307','711981','719372', '904100', '999999')
+go
 
--- -- insert product
--- insert into tblMktDefHospital
--- select distinct
--- 	 'Eliquis VTEp'          as [Mkt]          
--- 	,'Eliquis (VTEp) Market'   as [MktName]      
--- 	,b.Prod              as [Prod]         
--- 	,b.ProductName   as [ProductName]  
--- 	,'N'                 as [Molecule]     
--- 	,'N'                 as [Class]        
--- 	, b.ATC3_COD          as [ATC3_Cod]     
--- 	,ATC_Code            as [ATC_CPA]      
--- 	,Molecule_CN_Src     as [Mole_Des_CN]  
--- 	,Molecule_EN         as [Mole_Des_EN]  
--- 	,Product_CN_Src      as [Prod_Des_CN]  
--- 	,subString(Product_EN,0,charindex('(',Product_EN)) as [Prod_Des_EN]  
--- 	,'Y' as [FocusedBrand] 
--- 	,Mole_Code_IMS       as [IMSMoleCode]  
--- 	,''                  as [IMSProdCode]  
--- 	,'Eliquis VTEp'        as [Product] 
--- from tblPackageXRefHosp a 
--- 	join (	select *  from BMSChinaCIA_IMS.dbo.tblMktDef_MRBIChina_All 
--- 			where molecule='N' and class='N' and Prod <> '600'
--- 		) b 
--- 	on subString(a.Product_EN,0,charindex('(',a.Product_EN))=b.ProductName
--- where  b.Mkt='Eliquis VTEp'
+-- insert product
+insert into tblMktDefHospital
+select distinct
+	 'Eliquis VTEp'          as [Mkt]          
+	,'Eliquis (VTEp) Market'   as [MktName]      
+	,b.Prod              as [Prod]         
+	,b.ProductName   as [ProductName]  
+	,'N'                 as [Molecule]     
+	,'N'                 as [Class]        
+	, b.ATC3_COD          as [ATC3_Cod]     
+	,ATC_Code            as [ATC_CPA]      
+	,Molecule_CN_Src     as [Mole_Des_CN]  
+	,Molecule_EN         as [Mole_Des_EN]  
+	,Product_CN_Src      as [Prod_Des_CN]  
+	,subString(Product_EN,0,charindex('(',Product_EN)) as [Prod_Des_EN]  
+	,'Y' as [FocusedBrand] 
+	,Mole_Code_IMS       as [IMSMoleCode]  
+	,''                  as [IMSProdCode]  
+	,'Eliquis VTEp'        as [Product] 
+from tblPackageXRefHosp a 
+	join (	select *  from BMSChinaCIA_IMS.dbo.tblMktDef_MRBIChina_All 
+			where molecule='N' and class='N' and Prod <> '600'
+		) b 
+	on subString(a.Product_EN,0,charindex('(',a.Product_EN))=b.ProductName
+where  b.Mkt='Eliquis VTEp'
 
--- go
--- -- 20161103 add VTEt
--- delete from tblMktDefHospital where [Mkt] = 'Eliquis VTEt'
--- go
--- insert into tblMktDefHospital
--- select distinct
--- 	 'Eliquis VTEt'          as [Mkt]          
--- 	,'Eliquis (VTEt) Market'   as [MktName]      
--- 	,'000'             as [Prod]         
--- 	,'Eliquis (VTEt) Market'   as [ProductName]  
--- 	,'N'                 as [Molecule]     
--- 	,'N'                 as [Class]        
--- 	, b.ATC3_COD          as [ATC3_Cod]     
--- 	,ATC_Code            as [ATC_CPA]      
--- 	,Molecule_CN_Src     as [Mole_Des_CN]  
--- 	,Molecule_EN         as [Mole_Des_EN]  
--- 	,Product_CN_Src      as [Prod_Des_CN]  
--- 	,subString(Product_EN,0,charindex('(',Product_EN)) as [Prod_Des_EN]  
--- 	,'Y' as [FocusedBrand] 
--- 	,Mole_Code_IMS       as [IMSMoleCode]  
--- 	,''                  as [IMSProdCode]  
--- 	,'Eliquis VTEt'        as [Product] 
--- from tblPackageXRefHosp a 
--- join (	select *  from BMSChinaCIA_IMS.dbo.tblMktDef_MRBIChina_All where molecule='N' and class='N'
--- 		) b 
--- 	on subString(a.Product_EN,0,charindex('(',a.Product_EN))=b.ProductName
--- where a.Mole_Code_IMS in ('239900', '406260','408800','408827','413885','703259','704307','711981', '904100', '999999')
+go
+-- 20161103 add VTEt
+delete from tblMktDefHospital where [Mkt] = 'Eliquis VTEt'
+go
+insert into tblMktDefHospital
+select distinct
+	 'Eliquis VTEt'          as [Mkt]          
+	,'Eliquis (VTEt) Market'   as [MktName]      
+	,'000'             as [Prod]         
+	,'Eliquis (VTEt) Market'   as [ProductName]  
+	,'N'                 as [Molecule]     
+	,'N'                 as [Class]        
+	, b.ATC3_COD          as [ATC3_Cod]     
+	,ATC_Code            as [ATC_CPA]      
+	,Molecule_CN_Src     as [Mole_Des_CN]  
+	,Molecule_EN         as [Mole_Des_EN]  
+	,Product_CN_Src      as [Prod_Des_CN]  
+	,subString(Product_EN,0,charindex('(',Product_EN)) as [Prod_Des_EN]  
+	,'Y' as [FocusedBrand] 
+	,Mole_Code_IMS       as [IMSMoleCode]  
+	,''                  as [IMSProdCode]  
+	,'Eliquis VTEt'        as [Product] 
+from tblPackageXRefHosp a 
+join (	select *  from BMSChinaCIA_IMS.dbo.tblMktDef_MRBIChina_All where molecule='N' and class='N'
+		) b 
+	on subString(a.Product_EN,0,charindex('(',a.Product_EN))=b.ProductName
+where a.Mole_Code_IMS in ('239900', '406260','408800','408827','413885','703259','704307','711981', '904100', '999999')
 
--- go
--- insert into tblMktDefHospital
--- select distinct
--- 	 'Eliquis VTEt'          as [Mkt]          
--- 	,'Eliquis (VTEt) Market'   as [MktName]      
--- 	,b.Prod              as [Prod]         
--- 	,b.ProductName   as [ProductName]  
--- 	,'N'                 as [Molecule]     
--- 	,'N'                 as [Class]        
--- 	, b.ATC3_COD          as [ATC3_Cod]     
--- 	,ATC_Code            as [ATC_CPA]      
--- 	,Molecule_CN_Src     as [Mole_Des_CN]  
--- 	,Molecule_EN         as [Mole_Des_EN]  
--- 	,Product_CN_Src      as [Prod_Des_CN]  
--- 	,subString(Product_EN,0,charindex('(',Product_EN)) as [Prod_Des_EN]  
--- 	,'Y' as [FocusedBrand] 
--- 	,Mole_Code_IMS       as [IMSMoleCode]  
--- 	,''                  as [IMSProdCode]  
--- 	,'Eliquis VTEt'        as [Product] 
--- from tblPackageXRefHosp a 
--- 	join (	select *  from BMSChinaCIA_IMS.dbo.tblMktDef_MRBIChina_All 
--- 			where molecule='N' and class='N' and Prod <> '600'
--- 		) b 
--- 	on subString(a.Product_EN,0,charindex('(',a.Product_EN))=b.ProductName
--- where  b.Mkt='Eliquis VTEt' 
--- go
+go
+insert into tblMktDefHospital
+select distinct
+	 'Eliquis VTEt'          as [Mkt]          
+	,'Eliquis (VTEt) Market'   as [MktName]      
+	,b.Prod              as [Prod]         
+	,b.ProductName   as [ProductName]  
+	,'N'                 as [Molecule]     
+	,'N'                 as [Class]        
+	, b.ATC3_COD          as [ATC3_Cod]     
+	,ATC_Code            as [ATC_CPA]      
+	,Molecule_CN_Src     as [Mole_Des_CN]  
+	,Molecule_EN         as [Mole_Des_EN]  
+	,Product_CN_Src      as [Prod_Des_CN]  
+	,subString(Product_EN,0,charindex('(',Product_EN)) as [Prod_Des_EN]  
+	,'Y' as [FocusedBrand] 
+	,Mole_Code_IMS       as [IMSMoleCode]  
+	,''                  as [IMSProdCode]  
+	,'Eliquis VTEt'        as [Product] 
+from tblPackageXRefHosp a 
+	join (	select *  from BMSChinaCIA_IMS.dbo.tblMktDef_MRBIChina_All 
+			where molecule='N' and class='N' and Prod <> '600'
+		) b 
+	on subString(a.Product_EN,0,charindex('(',a.Product_EN))=b.ProductName
+where  b.Mkt='Eliquis VTEt' 
+go
 
--- delete from tblMktDefHospital where [Mkt] = 'Eliquis NOAC'
--- go
--- insert into tblMktDefHospital
--- select distinct
--- 	 'Eliquis NOAC'          as [Mkt]          
--- 	,'Eliquis (NOAC) Market'   as [MktName]      
--- 	,'000'             as [Prod]         
--- 	,'Eliquis (NOAC) Market'   as [ProductName]  
--- 	,'N'                 as [Molecule]     
--- 	,'N'                 as [Class]        
--- 	, b.ATC3_COD          as [ATC3_Cod]     
--- 	,ATC_Code            as [ATC_CPA]      
--- 	,Molecule_CN_Src     as [Mole_Des_CN]  
--- 	,Molecule_EN         as [Mole_Des_EN]  
--- 	,Product_CN_Src      as [Prod_Des_CN]  
--- 	,subString(Product_EN,0,charindex('(',Product_EN)) as [Prod_Des_EN]  
--- 	,'Y' as [FocusedBrand] 
--- 	,Mole_Code_IMS       as [IMSMoleCode]  
--- 	,''                  as [IMSProdCode]  
--- 	,'Eliquis NOAC'        as [Product] 
--- from tblPackageXRefHosp a 
--- join (select *  from BMSChinaCIA_IMS.dbo.tblMktDef_MRBIChina_All where molecule='N' and class='N'
--- 		) b 
--- 	on subString(a.Product_EN,0,charindex('(',a.Product_EN))=b.ProductName
--- where  subString(a.Product_EN,0,charindex('(',a.Product_EN)) in('Eliquis','XARELTO','PRADAXA')
+delete from tblMktDefHospital where [Mkt] = 'Eliquis NOAC'
+go
+insert into tblMktDefHospital
+select distinct
+	 'Eliquis NOAC'          as [Mkt]          
+	,'Eliquis (NOAC) Market'   as [MktName]      
+	,'000'             as [Prod]         
+	,'Eliquis (NOAC) Market'   as [ProductName]  
+	,'N'                 as [Molecule]     
+	,'N'                 as [Class]        
+	, b.ATC3_COD          as [ATC3_Cod]     
+	,ATC_Code            as [ATC_CPA]      
+	,Molecule_CN_Src     as [Mole_Des_CN]  
+	,Molecule_EN         as [Mole_Des_EN]  
+	,Product_CN_Src      as [Prod_Des_CN]  
+	,subString(Product_EN,0,charindex('(',Product_EN)) as [Prod_Des_EN]  
+	,'Y' as [FocusedBrand] 
+	,Mole_Code_IMS       as [IMSMoleCode]  
+	,''                  as [IMSProdCode]  
+	,'Eliquis NOAC'        as [Product] 
+from tblPackageXRefHosp a 
+join (select *  from BMSChinaCIA_IMS.dbo.tblMktDef_MRBIChina_All where molecule='N' and class='N'
+		) b 
+	on subString(a.Product_EN,0,charindex('(',a.Product_EN))=b.ProductName
+where  subString(a.Product_EN,0,charindex('(',a.Product_EN)) in('Eliquis','XARELTO','PRADAXA')
 
--- go
--- insert into tblMktDefHospital
--- select distinct
--- 	 'Eliquis NOAC'          as [Mkt]          
--- 	,'Eliquis (NOAC) Market'   as [MktName]      
--- 	,b.Prod              as [Prod]         
--- 	,b.ProductName   as [ProductName]  
--- 	,'N'                 as [Molecule]     
--- 	,'N'                 as [Class]        
--- 	, b.ATC3_COD          as [ATC3_Cod]     
--- 	,ATC_Code            as [ATC_CPA]      
--- 	,Molecule_CN_Src     as [Mole_Des_CN]  
--- 	,Molecule_EN         as [Mole_Des_EN]  
--- 	,Product_CN_Src      as [Prod_Des_CN]  
--- 	,subString(Product_EN,0,charindex('(',Product_EN)) as [Prod_Des_EN]  
--- 	,'Y' as [FocusedBrand] 
--- 	,Mole_Code_IMS       as [IMSMoleCode]  
--- 	,''                  as [IMSProdCode]  
--- 	,'Eliquis NOAC'        as [Product] 
--- from tblPackageXRefHosp a 
--- 	join (select *  from BMSChinaCIA_IMS.dbo.tblMktDef_MRBIChina_All where molecule='N' and class='N'
--- 		) b 
--- 	on subString(a.Product_EN,0,charindex('(',a.Product_EN))=b.ProductName
--- where  b.Mkt='Eliquis NOAC' 
+go
+insert into tblMktDefHospital
+select distinct
+	 'Eliquis NOAC'          as [Mkt]          
+	,'Eliquis (NOAC) Market'   as [MktName]      
+	,b.Prod              as [Prod]         
+	,b.ProductName   as [ProductName]  
+	,'N'                 as [Molecule]     
+	,'N'                 as [Class]        
+	, b.ATC3_COD          as [ATC3_Cod]     
+	,ATC_Code            as [ATC_CPA]      
+	,Molecule_CN_Src     as [Mole_Des_CN]  
+	,Molecule_EN         as [Mole_Des_EN]  
+	,Product_CN_Src      as [Prod_Des_CN]  
+	,subString(Product_EN,0,charindex('(',Product_EN)) as [Prod_Des_EN]  
+	,'Y' as [FocusedBrand] 
+	,Mole_Code_IMS       as [IMSMoleCode]  
+	,''                  as [IMSProdCode]  
+	,'Eliquis NOAC'        as [Product] 
+from tblPackageXRefHosp a 
+	join (select *  from BMSChinaCIA_IMS.dbo.tblMktDef_MRBIChina_All where molecule='N' and class='N'
+		) b 
+	on subString(a.Product_EN,0,charindex('(',a.Product_EN))=b.ProductName
+where  b.Mkt='Eliquis NOAC' 
 
--- SET ansi_warnings ON
--- GO
+SET ansi_warnings ON
+GO
 
 -- add vtep and vtet rat
 -- update tblMktDefHospital
 -- set rat = 0
 -- where 
 
--- --------------------------------------------------
--- --	Coinel Market
--- --------------------------------------------------
--- delete from tblMktDefHospital where [Mkt] = 'CCB'
+--------------------------------------------------
+--	Coinel Market
+--------------------------------------------------
+delete from tblMktDefHospital where [Mkt] = 'CCB'
 
--- insert into tblMktDefHospital
--- select distinct
--- 	'CCB'          as [Mkt]          
--- 	,'CCB Market'   as [MktName]      
--- 	,b.Prod              as [Prod]         
--- 	,b.ProductName   as [ProductName]  
--- 	,b.[Molecule]     
--- 	,b.[Class]        
--- 	, b.ATC3_COD          as [ATC3_Cod]     
--- 	,ATC_Code            as [ATC_CPA]      
--- 	,Molecule_CN_Src     as [Mole_Des_CN]  
--- 	,Molecule_EN         as [Mole_Des_EN]  
--- 	,Product_CN_Src      as [Prod_Des_CN]  
--- 	,subString(Product_EN,0,charindex('(',Product_EN)) as [Prod_Des_EN]  
--- 	,'Y' as [FocusedBrand] 
--- 	,Mole_Code_IMS       as [IMSMoleCode]  
--- 	,''                  as [IMSProdCode]  
--- 	,'Coniel'        as [Product] 
--- from tblPackageXRefHosp a 
--- 	join BMSChinaCIA_IMS.dbo.tblMktDef_MRBIChina_All b 
--- 	on a.mole_code_ims =b.mole_cod 
--- 	and
--- 	left(a.Product_EN,len(a.product_en)-5)=b.prod_name
--- 	--subString(a.Product_EN,0,charindex('(',a.Product_EN))=b.prod_name
--- where  b.Mkt='ccb' and class <>'Y' 
--- --and b.prod_name not in ('Coniel','Yuan Zhi','Zanidip','Lacipil','Norvasc','Adalat','Plendil')
+insert into tblMktDefHospital
+select distinct
+	'CCB'          as [Mkt]          
+	,'CCB Market'   as [MktName]      
+	,b.Prod              as [Prod]         
+	,b.ProductName   as [ProductName]  
+	,b.[Molecule]     
+	,b.[Class]        
+	, b.ATC3_COD          as [ATC3_Cod]     
+	,ATC_Code            as [ATC_CPA]      
+	,Molecule_CN_Src     as [Mole_Des_CN]  
+	,Molecule_EN         as [Mole_Des_EN]  
+	,Product_CN_Src      as [Prod_Des_CN]  
+	,subString(Product_EN,0,charindex('(',Product_EN)) as [Prod_Des_EN]  
+	,'Y' as [FocusedBrand] 
+	,Mole_Code_IMS       as [IMSMoleCode]  
+	,''                  as [IMSProdCode]  
+	,'Coniel'        as [Product] 
+from tblPackageXRefHosp a 
+	join BMSChinaCIA_IMS.dbo.tblMktDef_MRBIChina_All b 
+	on a.mole_code_ims =b.mole_cod 
+	and
+	left(a.Product_EN,len(a.product_en)-5)=b.prod_name
+	--subString(a.Product_EN,0,charindex('(',a.Product_EN))=b.prod_name
+where  b.Mkt='ccb' and class <>'Y' 
+--and b.prod_name not in ('Coniel','Yuan Zhi','Zanidip','Lacipil','Norvasc','Adalat','Plendil')
 
 
 
--- insert into tblMktDefHospital
--- select t1.*
--- from (
--- 	select distinct
--- 	 'CCB'          as [Mkt]          
--- 	,'CCB Market'   as [MktName]      
--- 	,b.Prod              as [Prod]         
--- 	,b.ProductName   as [ProductName]  
--- 	,b.[Molecule]     
--- 	,b.[Class]        
--- 	, b.ATC3_COD          as [ATC3_Cod]     
--- 	,ATC_Code            as [ATC_CPA]      
--- 	,Molecule_CN_Src     as [Mole_Des_CN]  
--- 	,Molecule_EN         as [Mole_Des_EN]  
--- 	,Product_CN_Src      as [Prod_Des_CN]  
--- 	,subString(Product_EN,0,charindex('(',Product_EN)) as [Prod_Des_EN]  
--- 	,'Y' as [FocusedBrand] 
--- 	,Mole_Code_IMS       as [IMSMoleCode]  
--- 	,''                  as [IMSProdCode]  
--- 	,'Coniel'        as [Product] 
--- 	from (select t1.* from tblPackageXRefHosp t1 except (
--- 				select distinct a.*
--- 				from tblPackageXRefHosp a 
--- 					join BMSChinaCIA_IMS.dbo.tblMktDef_MRBIChina_All b 
--- 					on 
--- 					left(a.Product_EN,len(a.product_en)-5)=b.prod_name
--- 					--subString(a.Product_EN,0,charindex('(',a.Product_EN))=b.prod_name
--- 				where  b.Mkt='ccb' and class <>'Y' 
--- 			)
--- 	) a 
--- 	join BMSChinaCIA_IMS.dbo.tblMktDef_MRBIChina_All b 
--- 	on a.mole_code_ims =b.mole_cod 
--- 	where  b.Mkt='ccb' and class <>'Y' 
--- ) t1 where not exists (	
--- 	select 1 from tblMktDefHospital t2
--- 	where t2.mkt='ccb' and t1.prod=t2.prod and t1.prod_des_en=t2.prod_des_en and t2.prod in ('000','940')
--- )	and not exists(
--- 	select 1 from tblMktDefHospital t3
--- 	where t3.mkt='ccb' and t1.prod=t3.prod and t1.productname=t3.productname and t3.prod not in ('000','940')
--- )
--- 	--and b.prod_name in ('Coniel','Yuan Zhi','Zanidip','Lacipil','Norvasc','Adalat','Plendil')
+insert into tblMktDefHospital
+select t1.*
+from (
+	select distinct
+	 'CCB'          as [Mkt]          
+	,'CCB Market'   as [MktName]      
+	,b.Prod              as [Prod]         
+	,b.ProductName   as [ProductName]  
+	,b.[Molecule]     
+	,b.[Class]        
+	, b.ATC3_COD          as [ATC3_Cod]     
+	,ATC_Code            as [ATC_CPA]      
+	,Molecule_CN_Src     as [Mole_Des_CN]  
+	,Molecule_EN         as [Mole_Des_EN]  
+	,Product_CN_Src      as [Prod_Des_CN]  
+	,subString(Product_EN,0,charindex('(',Product_EN)) as [Prod_Des_EN]  
+	,'Y' as [FocusedBrand] 
+	,Mole_Code_IMS       as [IMSMoleCode]  
+	,''                  as [IMSProdCode]  
+	,'Coniel'        as [Product] 
+	from (select t1.* from tblPackageXRefHosp t1 except (
+				select distinct a.*
+				from tblPackageXRefHosp a 
+					join BMSChinaCIA_IMS.dbo.tblMktDef_MRBIChina_All b 
+					on 
+					left(a.Product_EN,len(a.product_en)-5)=b.prod_name
+					--subString(a.Product_EN,0,charindex('(',a.Product_EN))=b.prod_name
+				where  b.Mkt='ccb' and class <>'Y' 
+			)
+	) a 
+	join BMSChinaCIA_IMS.dbo.tblMktDef_MRBIChina_All b 
+	on a.mole_code_ims =b.mole_cod 
+	where  b.Mkt='ccb' and class <>'Y' 
+) t1 where not exists (	
+	select 1 from tblMktDefHospital t2
+	where t2.mkt='ccb' and t1.prod=t2.prod and t1.prod_des_en=t2.prod_des_en and t2.prod in ('000','940')
+)	and not exists(
+	select 1 from tblMktDefHospital t3
+	where t3.mkt='ccb' and t1.prod=t3.prod and t1.productname=t3.productname and t3.prod not in ('000','940')
+)
+	--and b.prod_name in ('Coniel','Yuan Zhi','Zanidip','Lacipil','Norvasc','Adalat','Plendil')
 
 
 
@@ -704,11 +704,11 @@ where Mkt = 'Eliquis VTEp'
 	and Prod_Des_en = 'XARELTO'
 	and mole_des_en <> 'RIVAROXABAN'
 
-
+  
 --20170321
 --only need Baraclude, Monopril, Taxol, Sprycel market 
-delete tblMktDefHospital 
-where mkt not in ('ARV', 'ONCFCS', 'CML', 'HYPFCS', 'HYP', 'ACE') 
+-- delete tblMktDefHospital 
+-- where mkt not in ('ARV', 'ONCFCS', 'CML', 'HYPFCS', 'HYP', 'ACE') 
 
 exec dbo.sp_Log_Event 'Market Define','CIA_CPA','1_2_MktDef.sql','End',null,null
 print 'over!'

@@ -44,7 +44,7 @@ select
     MTH_40*rat, MTH_39*rat, MTH_38*rat, MTH_37*rat, MTH_36*rat, MTH_35*rat, MTH_34*rat, MTH_33*rat, MTH_32*rat, MTH_31*rat, 
     MTH_30*rat, MTH_29*rat, MTH_28*rat, MTH_27*rat, MTH_26*rat, MTH_25*rat, MTH_24*rat, MTH_23*rat, MTH_22*rat, MTH_21*rat, 
     MTH_20*rat, MTH_19*rat, MTH_18*rat, MTH_17*rat, MTH_16*rat, MTH_15*rat, MTH_14*rat, MTH_13*rat, MTH_12*rat, MTH_11*rat,
-    MTH_10*rat, MTH_9*rat, MTH_8*rat, MTH_7*rat, MTH_6*rat, MTH_5*rat, MTH_4*rat, MTH_3*rat, MTH_2*rat, MTH_1*rat
+    MTH_10*rat, MTH_9*rat, MTH_8*rat, MTH_7*rat, MTH_6*rat, MTH_5*rat, MTH_4*rat, MTH_3*rat, MTH_2*rat, MTH_1*rat, null 
 from tblQueryToolDriverIMS_Prod t1 
 inner join tblMAXDataRaw t2 on t1.Pack_Cod = t2.Pack_Cod
 inner join tblcitymax t3 on t2.Audi_Cod = t3.city
@@ -60,7 +60,7 @@ SELECT	DataType, MktType, Mkt, Market_Name, t2.Province_EN AS Geo, 1, Class, Cla
 		SUM(MTH_30), SUM(MTH_29), SUM(MTH_28), SUM(MTH_27), SUM(MTH_26), SUM(MTH_25), SUM(MTH_24), SUM(MTH_23),
 		SUM(MTH_22), SUM(MTH_21), SUM(MTH_20), SUM(MTH_19), SUM(MTH_18), SUM(MTH_17), SUM(MTH_16), SUM(MTH_15),
 		SUM(MTH_14), SUM(MTH_13), SUM(MTH_12), SUM(MTH_11), SUM(MTH_10), SUM(MTH_9), SUM(MTH_8), SUM(MTH_7), SUM(MTH_6),
-		SUM(MTH_5), SUM(MTH_4), SUM(MTH_3), SUM(MTH_2), SUM(MTH_1)
+		SUM(MTH_5), SUM(MTH_4), SUM(MTH_3), SUM(MTH_2), SUM(MTH_1), null 
 FROM	tblOutput_MAX_TA_Master t1
 INNER JOIN tblCityListForMAX t2 ON t1.geo = t2.city_EN
 GROUP BY DataType, MktType, Mkt, Market_Name, t2.Province_EN , Class, Class_Name, Prod_Lvl, Uniq_Prod, Product_Name, Product_Code,
@@ -77,7 +77,7 @@ SELECT	DataType, MktType, Mkt, Market_Name, 'China' AS Geo, 0, Class, Class_Name
 		SUM(MTH_30), SUM(MTH_29), SUM(MTH_28), SUM(MTH_27), SUM(MTH_26), SUM(MTH_25), SUM(MTH_24), SUM(MTH_23),
 		SUM(MTH_22), SUM(MTH_21), SUM(MTH_20), SUM(MTH_19), SUM(MTH_18), SUM(MTH_17), SUM(MTH_16), SUM(MTH_15),
 		SUM(MTH_14), SUM(MTH_13), SUM(MTH_12), SUM(MTH_11), SUM(MTH_10), SUM(MTH_9), SUM(MTH_8), SUM(MTH_7), SUM(MTH_6),
-		SUM(MTH_5), SUM(MTH_4), SUM(MTH_3), SUM(MTH_2), SUM(MTH_1)
+		SUM(MTH_5), SUM(MTH_4), SUM(MTH_3), SUM(MTH_2), SUM(MTH_1), null 
 FROM	tblOutput_MAX_TA_Master t1
 GROUP BY DataType, MktType, Mkt, Market_Name, Class, Class_Name, Prod_Lvl, Uniq_Prod, Product_Name, Product_Code,
 		CMPS_Name, CMPS_CODE, Package_Name, Package_Code, Corp_Name, Corp_Code, Manuf_Name, Manuf_Code, MNC,
@@ -108,7 +108,7 @@ select
     sum(MTH_40), sum(MTH_39), sum(MTH_38), sum(MTH_37), sum(MTH_36), sum(MTH_35), sum(MTH_34), sum(MTH_33), sum(MTH_32), sum(MTH_31), 
     sum(MTH_30), sum(MTH_29), sum(MTH_28), sum(MTH_27), sum(MTH_26), sum(MTH_25), sum(MTH_24), sum(MTH_23), sum(MTH_22), sum(MTH_21), 
     sum(MTH_20), sum(MTH_19), sum(MTH_18), sum(MTH_17), sum(MTH_16), sum(MTH_15), sum(MTH_14), sum(MTH_13), sum(MTH_12), sum(MTH_11), 
-    sum(MTH_10), sum(MTH_9), sum(MTH_8), sum(MTH_7), sum(MTH_6), sum(MTH_5), sum(MTH_4), sum(MTH_3), sum(MTH_2), sum(MTH_1)
+    sum(MTH_10), sum(MTH_9), sum(MTH_8), sum(MTH_7), sum(MTH_6), sum(MTH_5), sum(MTH_4), sum(MTH_3), sum(MTH_2), sum(MTH_1), null 
 from tblOutput_MAX_TA_Master 
 where prod_Lvl='PK'
 group by DataType, MktType, Mkt, Market_Name, Geo, Geo_Lvl, Class, Class_Name, Uniq_Prod
@@ -135,7 +135,7 @@ select
     sum(MTH_40), sum(MTH_39), sum(MTH_38), sum(MTH_37), sum(MTH_36), sum(MTH_35), sum(MTH_34), sum(MTH_33), sum(MTH_32), sum(MTH_31), 
     sum(MTH_30), sum(MTH_29), sum(MTH_28), sum(MTH_27), sum(MTH_26), sum(MTH_25), sum(MTH_24), sum(MTH_23), sum(MTH_22), sum(MTH_21), 
     sum(MTH_20), sum(MTH_19), sum(MTH_18), sum(MTH_17), sum(MTH_16), sum(MTH_15), sum(MTH_14), sum(MTH_13), sum(MTH_12), sum(MTH_11), 
-    sum(MTH_10), sum(MTH_9), sum(MTH_8), sum(MTH_7), sum(MTH_6), sum(MTH_5), sum(MTH_4), sum(MTH_3), sum(MTH_2), sum(MTH_1)
+    sum(MTH_10), sum(MTH_9), sum(MTH_8), sum(MTH_7), sum(MTH_6), sum(MTH_5), sum(MTH_4), sum(MTH_3), sum(MTH_2), sum(MTH_1), null 
 from tblOutput_MAX_TA_Master 
 where prod_Lvl='PK'
 group by DataType, MktType, Mkt, Market_Name, Geo, Geo_Lvl, Class, Class_Name, Uniq_Prod
@@ -162,7 +162,7 @@ select
     sum(MTH_40), sum(MTH_39), sum(MTH_38), sum(MTH_37), sum(MTH_36), sum(MTH_35), sum(MTH_34), sum(MTH_33), sum(MTH_32), sum(MTH_31), 
     sum(MTH_30), sum(MTH_29), sum(MTH_28), sum(MTH_27), sum(MTH_26), sum(MTH_25), sum(MTH_24), sum(MTH_23), sum(MTH_22), sum(MTH_21), 
     sum(MTH_20), sum(MTH_19), sum(MTH_18), sum(MTH_17), sum(MTH_16), sum(MTH_15), sum(MTH_14), sum(MTH_13), sum(MTH_12), sum(MTH_11), 
-    sum(MTH_10), sum(MTH_9), sum(MTH_8), sum(MTH_7), sum(MTH_6), sum(MTH_5), sum(MTH_4), sum(MTH_3), sum(MTH_2), sum(MTH_1)
+    sum(MTH_10), sum(MTH_9), sum(MTH_8), sum(MTH_7), sum(MTH_6), sum(MTH_5), sum(MTH_4), sum(MTH_3), sum(MTH_2), sum(MTH_1), null 
 from tblOutput_MAX_TA_Master 
 where prod_Lvl='PK' and Mkt='NIAD'
 group by DataType, MktType, Mkt, Market_Name, Geo, Geo_Lvl, Class, Class_Name, Uniq_Prod
@@ -190,7 +190,7 @@ select
     sum(MTH_40), sum(MTH_39), sum(MTH_38), sum(MTH_37), sum(MTH_36), sum(MTH_35), sum(MTH_34), sum(MTH_33), sum(MTH_32), sum(MTH_31), 
     sum(MTH_30), sum(MTH_29), sum(MTH_28), sum(MTH_27), sum(MTH_26), sum(MTH_25), sum(MTH_24), sum(MTH_23), sum(MTH_22), sum(MTH_21), 
     sum(MTH_20), sum(MTH_19), sum(MTH_18), sum(MTH_17), sum(MTH_16), sum(MTH_15), sum(MTH_14), sum(MTH_13), sum(MTH_12), sum(MTH_11), 
-    sum(MTH_10), sum(MTH_9), sum(MTH_8), sum(MTH_7), sum(MTH_6), sum(MTH_5), sum(MTH_4), sum(MTH_3), sum(MTH_2), sum(MTH_1)
+    sum(MTH_10), sum(MTH_9), sum(MTH_8), sum(MTH_7), sum(MTH_6), sum(MTH_5), sum(MTH_4), sum(MTH_3), sum(MTH_2), sum(MTH_1), null 
 from tblOutput_MAX_TA_Master 
 where prod_Lvl='PK'
 group by DataType
@@ -221,7 +221,7 @@ select
     sum(MTH_40), sum(MTH_39), sum(MTH_38), sum(MTH_37), sum(MTH_36), sum(MTH_35), sum(MTH_34), sum(MTH_33), sum(MTH_32), sum(MTH_31), 
     sum(MTH_30), sum(MTH_29), sum(MTH_28), sum(MTH_27), sum(MTH_26), sum(MTH_25), sum(MTH_24), sum(MTH_23), sum(MTH_22), sum(MTH_21), 
     sum(MTH_20), sum(MTH_19), sum(MTH_18), sum(MTH_17), sum(MTH_16), sum(MTH_15), sum(MTH_14), sum(MTH_13), sum(MTH_12), sum(MTH_11), 
-    sum(MTH_10), sum(MTH_9), sum(MTH_8), sum(MTH_7), sum(MTH_6), sum(MTH_5), sum(MTH_4), sum(MTH_3), sum(MTH_2), sum(MTH_1)
+    sum(MTH_10), sum(MTH_9), sum(MTH_8), sum(MTH_7), sum(MTH_6), sum(MTH_5), sum(MTH_4), sum(MTH_3), sum(MTH_2), sum(MTH_1), null 
 from tblOutput_MAX_TA_Master 
 where prod_Lvl='PK'
 group by DataType
@@ -250,7 +250,7 @@ select
     sum(MTH_40), sum(MTH_39), sum(MTH_38), sum(MTH_37), sum(MTH_36), sum(MTH_35), sum(MTH_34), sum(MTH_33), sum(MTH_32), sum(MTH_31), 
     sum(MTH_30), sum(MTH_29), sum(MTH_28), sum(MTH_27), sum(MTH_26), sum(MTH_25), sum(MTH_24), sum(MTH_23), sum(MTH_22), sum(MTH_21), 
     sum(MTH_20), sum(MTH_19), sum(MTH_18), sum(MTH_17), sum(MTH_16), sum(MTH_15), sum(MTH_14), sum(MTH_13), sum(MTH_12), sum(MTH_11), 
-    sum(MTH_10), sum(MTH_9), sum(MTH_8), sum(MTH_7), sum(MTH_6), sum(MTH_5), sum(MTH_4), sum(MTH_3), sum(MTH_2), sum(MTH_1)
+    sum(MTH_10), sum(MTH_9), sum(MTH_8), sum(MTH_7), sum(MTH_6), sum(MTH_5), sum(MTH_4), sum(MTH_3), sum(MTH_2), sum(MTH_1), null 
 from tblOutput_MAX_TA_Master 
 where prod_Lvl='PK'
 group by DataType, MktType, Mkt, Market_Name, Geo, Geo_Lvl, Uniq_Prod
@@ -266,16 +266,43 @@ go
 
 
 --Process Inline Market Data:
-truncate table tblOutput_MAX_TA_Master_Inline
-go
-Insert into tblOutput_MAX_TA_Master_Inline
+
+if object_id(N'tblOutput_MAX_TA_Master_Inline',N'U') is not null
+	drop table tblOutput_MAX_TA_Master_Inline
+go  
 select *, 
-    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+    convert(real, 0) as MTH_SHR_60, convert(real, 0) as MTH_SHR_59, convert(real, 0) as MTH_SHR_58, convert(real, 0) as MTH_SHR_57, 
+    convert(real, 0) as MTH_SHR_56, convert(real, 0) as MTH_SHR_55, convert(real, 0) as MTH_SHR_54, convert(real, 0) as MTH_SHR_53, 
+    convert(real, 0) as MTH_SHR_52, convert(real, 0) as MTH_SHR_51, convert(real, 0) as MTH_SHR_50, convert(real, 0) as MTH_SHR_49, 
+    convert(real, 0) as MTH_SHR_48, convert(real, 0) as MTH_SHR_47, convert(real, 0) as MTH_SHR_46, convert(real, 0) as MTH_SHR_45, 
+    convert(real, 0) as MTH_SHR_44, convert(real, 0) as MTH_SHR_43, convert(real, 0) as MTH_SHR_42, convert(real, 0) as MTH_SHR_41,
+    convert(real, 0) as MTH_SHR_40, convert(real, 0) as MTH_SHR_39, convert(real, 0) as MTH_SHR_38, convert(real, 0) as MTH_SHR_37, 
+    convert(real, 0) as MTH_SHR_36, convert(real, 0) as MTH_SHR_35, convert(real, 0) as MTH_SHR_34, convert(real, 0) as MTH_SHR_33, 
+    convert(real, 0) as MTH_SHR_32, convert(real, 0) as MTH_SHR_31, convert(real, 0) as MTH_SHR_30, convert(real, 0) as MTH_SHR_29, 
+    convert(real, 0) as MTH_SHR_28, convert(real, 0) as MTH_SHR_27, convert(real, 0) as MTH_SHR_26, convert(real, 0) as MTH_SHR_25, 
+    convert(real, 0) as MTH_SHR_24, convert(real, 0) as MTH_SHR_23, convert(real, 0) as MTH_SHR_22, convert(real, 0) as MTH_SHR_21,
+    convert(real, 0) as MTH_SHR_20, convert(real, 0) as MTH_SHR_19, convert(real, 0) as MTH_SHR_18, convert(real, 0) as MTH_SHR_17, 
+    convert(real, 0) as MTH_SHR_16, convert(real, 0) as MTH_SHR_15, convert(real, 0) as MTH_SHR_14, convert(real, 0) as MTH_SHR_13, 
+    convert(real, 0) as MTH_SHR_12, convert(real, 0) as MTH_SHR_11, convert(real, 0) as MTH_SHR_10, convert(real, 0) as MTH_SHR_9, 
+    convert(real, 0) as MTH_SHR_8,  convert(real, 0) as MTH_SHR_7,  convert(real, 0) as MTH_SHR_6,  convert(real, 0) as MTH_SHR_5, 
+    convert(real, 0) as MTH_SHR_4,  convert(real, 0) as MTH_SHR_3,  convert(real, 0) as MTH_SHR_2,  convert(real, 0) as MTH_SHR_1
+into tblOutput_MAX_TA_Master_Inline
 from tblOutput_MAX_TA_Master
 where MktType='In-line Market'
 go
+
+
+-- -- update GeoLevName 
+-- alter table tblOutput_MAX_TA_Master 
+-- add GeoLevName varchar(20)
+-- go 
+
+update a 
+set a.GeoLevName = b.GeoLev 
+from tblOutput_MAX_TA_Master as a 
+inner join tblGeoLevList as b on a.geo_lvl = b.GeoLevID 
+go 
+
 
 drop table tblOutput_MAX_TA_Master_Inline_Mkt
 go
@@ -346,7 +373,7 @@ Set MTH_SHR_60=(Case t2.MTH_60 When 0 Then 0 Else t1.MTH_60*1.0/t2.MTH_60 END),
     MTH_SHR_1=(Case t2.MTH_1 When 0 Then 0 Else t1.MTH_1*1.0/t2.MTH_1 End)
 from tblOutput_MAX_TA_Master_Inline t1 
 inner join tblOutput_MAX_TA_Master_InLine_Mkt t2
-on t1.DataType=t2.DataType and t1.Mkt=t2.Mkt and t1.Geo=t2.Geo
+on t1.DataType=t2.DataType and t1.Mkt=t2.Mkt and t1.Geo=t2.Geo and t1.geo_lvl = t2.geo_lvl 
 go
 
 

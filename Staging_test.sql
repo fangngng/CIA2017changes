@@ -301,3 +301,7 @@ SELECT * FROM tblcitymax
 
 SELECT DISTINCT Audi_Cod FROM dbo.MTHCITY_MAX
 
+SELECT * FROM dbo.tblCityListForMAX
+SELECT * FROM tblCityListForhospital
+
+

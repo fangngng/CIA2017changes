@@ -7,8 +7,8 @@ go
 
 -- import from RawData database for current month data 
 declare @CurrMonth varchar(10)
---select @CurrMonth = [Value] from Config where Parameter = 'IMS'
-select @CurrMonth = '201612'
+select @CurrMonth = [Value] from Config where Parameter = 'MAXDATA'
+-- select @CurrMonth = '201612'
 print @CurrMonth
 exec('select * into Max_Data from BMSChinaCIARawdata.dbo.Max_' + @CurrMonth)
 

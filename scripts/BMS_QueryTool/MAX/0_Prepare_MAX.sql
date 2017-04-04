@@ -21,6 +21,9 @@ use BMSCNProc2
 go
 --
 
+update tblDataPeriod set DataPeriod = '201701' --手工更新 MAX Data Month todo
+where QType = 'MAX'
+go 
 
 PRINT '(--------------------------------
               (4).importing   MAX
@@ -61,7 +64,7 @@ PRINT '(--------------------------------
 
 -- Backup driver tables
 declare @curIMSMth varchar(6), @lastIMSMth varchar(6)
-select @curIMSMth= DataPeriod from tblDataPeriod where QType = 'IMS'
+select @curIMSMth= DataPeriod from tblDataPeriod where QType = 'MAX'
 set @lastIMSMth = convert(varchar(6), dateadd(month, -1, cast(@curIMSMth+'01' as datetime)), 112)
 --市场定义表
 exec('

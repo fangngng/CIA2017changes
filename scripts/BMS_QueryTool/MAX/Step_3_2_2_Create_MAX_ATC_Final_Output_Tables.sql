@@ -9,62 +9,90 @@ exec dbo.sp_Log_Event 'Process','QT_IMS','Step_3_2_2_Create_MAX_ATC_Final_Output
 
 
 --MTH:
-truncate table tblOutput_MAX_ATC_RMB_MTH
-Insert into tblOutput_MAX_ATC_RMB_MTH select * from tblOutput_MAX_ATC_Master where DataType='MTHRMB'
+
+if object_id(N'tblOutput_MAX_ATC_RMB_MTH',N'U') is not null
+	drop table tblOutput_MAX_ATC_RMB_MTH
+go  
+select * into tblOutput_MAX_ATC_RMB_MTH  from tblOutput_MAX_ATC_Master where DataType='MTHRMB'
 go
 
-truncate table tblOutput_MAX_ATC_USD_MTH
-Insert into tblOutput_MAX_ATC_USD_MTH select * from tblOutput_MAX_ATC_Master where DataType='MTHUSD' 
+if object_id(N'tblOutput_MAX_ATC_USD_MTH',N'U') is not null
+	drop table tblOutput_MAX_ATC_USD_MTH
+go  
+select * into tblOutput_MAX_ATC_USD_MTH  from tblOutput_MAX_ATC_Master where DataType='MTHUSD' 
 go
 
-truncate table tblOutput_MAX_ATC_UNT_MTH
-Insert into tblOutput_MAX_ATC_UNT_MTH select * from tblOutput_MAX_ATC_Master where DataType='MTHUNT' 
+if object_id(N'tblOutput_MAX_ATC_UNT_MTH',N'U') is not null
+	drop table tblOutput_MAX_ATC_UNT_MTH
+go  
+select * into tblOutput_MAX_ATC_UNT_MTH  from tblOutput_MAX_ATC_Master where DataType='MTHUNT' 
 go
 
 
 
 
 --MQT:
-truncate table tblOutput_MAX_ATC_RMB_MQT
-Insert into tblOutput_MAX_ATC_RMB_MQT select * from tblOutput_MAX_ATC_Master where DataType='MQTRMB' 
+
+if object_id(N'tblOutput_MAX_ATC_RMB_MQT',N'U') is not null
+	drop table tblOutput_MAX_ATC_RMB_MQT
+go   
+select * into tblOutput_MAX_ATC_RMB_MQT  from tblOutput_MAX_ATC_Master where DataType='MQTRMB' 
 go
 
-truncate table tblOutput_MAX_ATC_USD_MQT
-Insert into tblOutput_MAX_ATC_USD_MQT select * from tblOutput_MAX_ATC_Master where DataType='MQTUSD' 
+if object_id(N'tblOutput_MAX_ATC_USD_MQT',N'U') is not null
+	drop table tblOutput_MAX_ATC_USD_MQT
+go  
+select * into tblOutput_MAX_ATC_USD_MQT  from tblOutput_MAX_ATC_Master where DataType='MQTUSD' 
 go
 
-truncate table tblOutput_MAX_ATC_UNT_MQT
-Insert into tblOutput_MAX_ATC_UNT_MQT select * from tblOutput_MAX_ATC_Master where DataType='MQTUNT' 
+if object_id(N'tblOutput_MAX_ATC_UNT_MQT',N'U') is not null
+	drop table tblOutput_MAX_ATC_UNT_MQT
+go  
+ select * into tblOutput_MAX_ATC_UNT_MQT from tblOutput_MAX_ATC_Master where DataType='MQTUNT' 
 go
 
 
 
 
 --MAT:
-truncate table tblOutput_MAX_ATC_RMB_MAT
-Insert into tblOutput_MAX_ATC_RMB_MAT select * from tblOutput_MAX_ATC_Master where DataType='MATRMB' 
+
+if object_id(N'tblOutput_MAX_ATC_RMB_MAT',N'U') is not null
+	drop table tblOutput_MAX_ATC_RMB_MAT
+go  
+ select * into tblOutput_MAX_ATC_RMB_MAT from tblOutput_MAX_ATC_Master where DataType='MATRMB' 
 go
 
-truncate table tblOutput_MAX_ATC_USD_MAT
-Insert into tblOutput_MAX_ATC_USD_MAT select * from tblOutput_MAX_ATC_Master where DataType='MATUSD' 
+if object_id(N'tblOutput_MAX_ATC_USD_MAT',N'U') is not null
+	drop table tblOutput_MAX_ATC_USD_MAT
+go  
+ select * into tblOutput_MAX_ATC_USD_MAT from tblOutput_MAX_ATC_Master where DataType='MATUSD' 
 go
 
-truncate table tblOutput_MAX_ATC_UNT_MAT
-Insert into tblOutput_MAX_ATC_UNT_MAT select * from tblOutput_MAX_ATC_Master where DataType='MATUNT' 
+if object_id(N'tblOutput_MAX_ATC_UNT_MAT',N'U') is not null
+	drop table tblOutput_MAX_ATC_UNT_MAT
+go  
+ select * into tblOutput_MAX_ATC_UNT_MAT from tblOutput_MAX_ATC_Master where DataType='MATUNT' 
 GO
 
 
 --YTD:
-truncate table tblOutput_MAX_ATC_RMB_YTD
-Insert into tblOutput_MAX_ATC_RMB_YTD select * from tblOutput_MAX_ATC_Master where DataType='YTDRMB' 
+
+if object_id(N'tblOutput_MAX_ATC_RMB_YTD',N'U') is not null
+	drop table tblOutput_MAX_ATC_RMB_YTD
+go  
+ select * into tblOutput_MAX_ATC_RMB_YTD from tblOutput_MAX_ATC_Master where DataType='YTDRMB' 
 go
 
-truncate table tblOutput_MAX_ATC_USD_YTD
-Insert into tblOutput_MAX_ATC_USD_YTD select * from tblOutput_MAX_ATC_Master where DataType='YTDUSD' 
+if object_id(N'tblOutput_MAX_ATC_USD_YTD',N'U') is not null
+	drop table tblOutput_MAX_ATC_USD_YTD
+go  
+select * into tblOutput_MAX_ATC_USD_YTD  from tblOutput_MAX_ATC_Master where DataType='YTDUSD' 
 go
 
-truncate table tblOutput_MAX_ATC_UNT_YTD
-Insert into tblOutput_MAX_ATC_UNT_YTD select * from tblOutput_MAX_ATC_Master where DataType='YTDUNT'
+if object_id(N'tblOutput_MAX_ATC_UNT_YTD',N'U') is not null
+	drop table tblOutput_MAX_ATC_UNT_YTD
+go  
+select * into tblOutput_MAX_ATC_UNT_YTD from tblOutput_MAX_ATC_Master where DataType='YTDUNT'
 go
 
 

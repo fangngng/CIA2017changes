@@ -778,10 +778,11 @@ GO
 	set @mktGlucophage='NIAD'
 	--计算所有的医院数=匹配医院个数+未匹配医院个数
 	select convert(varchar(20),'Total') as Tier,a.DataSource,a.mkt,a.prod,a.ProductName,
-	count(distinct cpa_id) AS Mapped_Hosp,sum(VYTD) as VYTD,sum(VYTDStly) as VYTDStly
+		count(distinct cpa_id) AS Mapped_Hosp,sum(VYTD) as VYTD,sum(VYTDStly) as VYTDStly
 	INTO Mid_KPIFrame_CPAPart_NIAD
-	from TempKPIFrame_CPAPart a join (SELECT DISTINCT id,cpa_code FROM tblHospitalMaster where DataSource='CPA') b on a.cpa_id = b.id left join 
-		 (select distinct [cpa code] from BMS_CPA_Hosp_Category where [cpa name]<> '#N/A' and [cpa name] is not null and [cpa code] is not null and [Glucophage Hospital Category]<>'#N/A') c on c.[cpa code]=b.cpa_code
+	from TempKPIFrame_CPAPart a 
+	join (SELECT DISTINCT id,cpa_code FROM tblHospitalMaster where DataSource='CPA') b on a.cpa_id = b.id 
+	left join (select distinct [cpa code] from BMS_CPA_Hosp_Category where [cpa name]<> '#N/A' and [cpa name] is not null and [cpa code] is not null and [Glucophage Hospital Category]<>'#N/A') c on c.[cpa code]=b.cpa_code
 	where mkt=@mktGlucophage
 	group by a.DataSource,a.mkt,a.prod,a.ProductName
 
@@ -789,17 +790,19 @@ GO
 	INSERT INTO Mid_KPIFrame_CPAPart_NIAD (Tier,DataSource,mkt,prod,productname,Mapped_Hosp,VYTD,VYTDStly)
 	select convert(varchar(20),'Total Targeted') as Tier,a.DataSource,a.mkt,a.prod,a.ProductName,
 	count(distinct cpa_id) AS Mapped_Hosp,sum(VYTD) as VYTD,sum(VYTDStly) as VYTDStly
-	from TempKPIFrame_CPAPart a join (SELECT DISTINCT id,cpa_code FROM tblHospitalMaster where DataSource='CPA') b on a.cpa_id = b.id join 
-		 (select distinct [cpa code] from BMS_CPA_Hosp_Category where [cpa name]<> '#N/A' and [cpa name] is not null and [cpa code] is not null and [Glucophage Hospital Category]<>'#N/A') c on c.[cpa code]=b.cpa_code
+	from TempKPIFrame_CPAPart a 
+	join (SELECT DISTINCT id,cpa_code FROM tblHospitalMaster where DataSource='CPA') b on a.cpa_id = b.id 
+	join (select distinct [cpa code] from BMS_CPA_Hosp_Category where [cpa name]<> '#N/A' and [cpa name] is not null and [cpa code] is not null and [Glucophage Hospital Category]<>'#N/A') c on c.[cpa code]=b.cpa_code
 	where mkt=@mktGlucophage
 	group by a.DataSource,a.mkt,a.prod,a.ProductName
 
 	--计算所有的未匹配的医院个数
 	INSERT INTO Mid_KPIFrame_CPAPart_NIAD (Tier,DataSource,mkt,prod,productname,Mapped_Hosp,VYTD,VYTDStly)
 	select convert(varchar(20),'Non-Targeted') as Tier,a.DataSource,a.mkt,a.prod,a.ProductName,
-	count(distinct cpa_id) AS Mapped_Hosp,sum(VYTD) as VYTD,sum(VYTDStly) as VYTDStly
-	from TempKPIFrame_CPAPart a join (SELECT DISTINCT id,cpa_code FROM tblHospitalMaster where DataSource='CPA') b on a.cpa_id = b.id left join 
-		 (select distinct [cpa code] from BMS_CPA_Hosp_Category where [cpa name]<> '#N/A' and [cpa name] is not null and [cpa code] is not null and [Glucophage Hospital Category]<>'#N/A') c on c.[cpa code]=b.cpa_code
+		count(distinct cpa_id) AS Mapped_Hosp,sum(VYTD) as VYTD,sum(VYTDStly) as VYTDStly
+	from TempKPIFrame_CPAPart a 
+	join (SELECT DISTINCT id,cpa_code FROM tblHospitalMaster where DataSource='CPA') b on a.cpa_id = b.id 
+	left join (select distinct [cpa code] from BMS_CPA_Hosp_Category where [cpa name]<> '#N/A' and [cpa name] is not null and [cpa code] is not null and [Glucophage Hospital Category]<>'#N/A') c on c.[cpa code]=b.cpa_code
 	where mkt=@mktGlucophage and c.[cpa code] is null
 	group by a.DataSource,a.mkt,a.prod,a.ProductName
 
@@ -808,8 +811,9 @@ GO
 	  --A,B,C,D tier
 	select c.[Glucophage Hospital Category] as tier,a.DataSource,a.mkt,a.prod,a.ProductName,
 	count(distinct cpa_id) AS Mapped_Hosp,sum(VYTD) as VYTD,sum(VYTDStly) as VYTDStly
-	from TempKPIFrame_CPAPart a join (SELECT DISTINCT id,cpa_code FROM tblHospitalMaster where DataSource='CPA') b on a.cpa_id = b.id join 
-		 (select distinct [cpa code],[Glucophage Hospital Category] from BMS_CPA_Hosp_Category where [cpa name]<> '#N/A' and [cpa name] is not null and [cpa code] is not null and [Glucophage Hospital Category]<>'#N/A') c 
+	from TempKPIFrame_CPAPart a 
+	join (SELECT DISTINCT id,cpa_code FROM tblHospitalMaster where DataSource='CPA') b on a.cpa_id = b.id 
+	join (select distinct [cpa code],[Glucophage Hospital Category] from BMS_CPA_Hosp_Category where [cpa name]<> '#N/A' and [cpa name] is not null and [cpa code] is not null and [Glucophage Hospital Category]<>'#N/A') c 
 			on c.[cpa code]=b.cpa_code
 	where a.mkt=@mktGlucophage	 
 	group by c.[Glucophage Hospital Category] ,a.DataSource,a.mkt,a.prod,a.ProductName
@@ -1475,8 +1479,8 @@ END
 	into Output_KPI_Frame_CPAPart
 	from (
 		select  a.Tier,a.DataSource,a.mkt,a.prod,a.ProductName,convert(decimal(20,8), a.Mapped_Hosp) as Mapped_Hosp, 
-		convert(decimal(20,8),case when b.VYTD is null or b.VYTD=0 then 0 else 1.0*a.VYTD/b.VYTD end) as [Market Size],
-		convert(decimal(20,8),a.VYTD) as [Market Size Value]
+			convert(decimal(20,8),case when b.VYTD is null or b.VYTD=0 then 0 else 1.0*a.VYTD/b.VYTD end) as [Market Size],
+			convert(decimal(20,8),a.VYTD) as [Market Size Value]
 		from (
 			select * from  Mid_KPIFrame_CPAPart_NIAD where prod='000'
 		  ) a join 

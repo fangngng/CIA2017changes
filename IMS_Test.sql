@@ -811,10 +811,21 @@ SELECT * FROM tblDateHKAPI
 
 SELECT * FROM dbo.output WHERE DataSource IS  null
 
+SELECT * FROM KPI_Frame_MarketAnalyzer_IMSAudit_CHPA WHERE Sveries = 'glucophage'
 
+select Series,X,Series_Idx,X_Idx,Y from KPI_Frame_MarketAnalyzer_XareltoValue_For_Eliquis where market='Eliquis' order by Series_Idx,X_Idx
+select Category,Series,X,Series_Idx,Category_Idx,X_Idx,Y from KPI_Frame_MarketAnalyzer_IMSAudit_CHPA where lev='Nation' and market='Glucophage' and DataType='Share' order by Category_Idx,Series_Idx,X_Idx
 
+SELECT * FROM mthCHPA_pkau 
+SELECT * FROM KPI_Frame_MarketAnalyzer_XareltoValue_For_Eliquis 
 
+SELECT * FROM tblMktDef_MRBIChina_All WHERE ProductName LIKE '%glucophage%'
 
+SELECT * FROM CMHrawdata_baraclude 
+WHERE ym = '201612'
+
+SELECT * FROM dbo.output_stage 
+WHERE LinkChartCode = 'c020' AND TimeFrame = 'mth' AND currency = 'usd' AND 
 
 
 

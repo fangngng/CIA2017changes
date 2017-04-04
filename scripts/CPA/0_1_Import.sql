@@ -20,7 +20,7 @@ go
 ----begin
 --code
 update tblHospitalMaster set BMS_Code=b.PAR_CUST_CD
-from tblHospitalMaster a
+from tblHospitalMaster a 
 join 
 	(select distinct CUST_CD,PAR_CUST_CD from  db6.[BMSChinaCSR2013_DBDev].[dbo].[inCustomer_Merge] ) b
 on a.BMS_Code=b.CUST_CD
@@ -51,7 +51,7 @@ set @sql = '
 select * into inCPAData 
 from BMSChinaOtherDB.dbo.inCPAData_' + @mth + '_All a' + '
 where left(convert(varchar(8),convert(datetime,a.m+''/1/''+a.y,101),112),6) <=''' + @mth + '''
-and left(convert(varchar(8),convert(datetime,a.m+''/1/''+a.y,101),112),6) >=''200901''
+	and left(convert(varchar(8),convert(datetime,a.m+''/1/''+a.y,101),112),6) >=''200901''
 '
 --print @sql
 exec (@sql)
