@@ -119,7 +119,7 @@ set isshow=case when seriesidx in (1,2,10,20) then 'Y' when seriesidx in (3) the
 where linkchartcode='c020'
 GO
 update output_stage
-set X = (select MonthEN from tblMonthList where MonSeq = convert(int, right(X, 2)))
+set X = (select MonthEN from tblMonthList where MonSeq = convert(int, right(X, 2)) + 1)
 from tblMonthList as b
 where linkchartcode='c020' and TimeFrame = 'MTH'
 GO
@@ -1541,10 +1541,10 @@ begin
 	'
 	set @i=@i+1
 end
-set  @sql=left(@sql,len(@sql)-12)+' 
-	Union all
-	select  ''YTD'' as Period,''YTD00'' as series,''D'' as ishow,21 as SeriesIdx union all
-	select  ''YTD'' as Period,''YTD12'' as series,''D'' as ishow,20 as SeriesIdx
+set  @sql=left(@sql,len(@sql)-12) + ' 
+	-- Union all
+	-- select  ''YTD'' as Period,''YTD00'' as series,''D'' as ishow,21 as SeriesIdx union all
+	-- select  ''YTD'' as Period,''YTD12'' as series,''D'' as ishow,20 as SeriesIdx
 	) a, (
 		select distinct MoneyType,mkt,Market,Prod,Productname,Audi_cod,Audi_des,region 
 		from  dbo.OutputGeoHBVSummaryT1 where Class=''N'' and Mkt<>''DPP4'' and mkt <> ''Eliquis NOAC'' and Market<>''Paraplatin''

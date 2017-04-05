@@ -2640,10 +2640,11 @@ insert into OutputProdSalesPerformanceInChina([TypeIdx],[Type] ,[Period],[MoneyT
 	,[YTD00],[YTD12],[YTD24],[YTD36],[YTD48]
 	,[Mth06],[Mth07],[Mth08],[Mth09],[Mth10],[Mth11],[Mth12])
 select 4,'Market Growth',A.Period,A.Moneytype,A.Market,a.prod_cod,a.prod_des,
-	case mat12 when 0 then 0 else (mat00-mat12)/mat12 end,
-	case mat24 when 0 then 0 else (mat12-mat24)/mat24 end,
-	case mat36 when 0 then 0 else (mat24-mat36)/mat36 end,
-	case mat48 when 0 then 0 else (mat36-mat48)/mat48 end, '',
+	case mat12 when 0 then 0 else (mat00-MTH13)/MTH13 end,
+	case mat24 when 0 then 0 else (mat12-MTH14)/MTH14 end,
+	case mat36 when 0 then 0 else (mat24-MTH15)/MTH15 end,
+	case mat48 when 0 then 0 else (mat36-MTH16)/MTH16 end, 
+	case MTH06 when 0 then 0 else (mat48-MTH17)/MTH17 end,
 	case MQT12 when 0 then 0 else (MQT00-MQT12)/MQT12 end,
 	case MQT24 when 0 then 0 else (MQT12-MQT24)/MQT24 end,
 	case MQT36 when 0 then 0 else (MQT24-MQT36)/MQT36 end,
@@ -2652,13 +2653,13 @@ select 4,'Market Growth',A.Period,A.Moneytype,A.Market,a.prod_cod,a.prod_des,
 	case YTD24 when 0 then 0 else (YTD12-YTD24)/YTD24 end,
 	case YTD36 when 0 then 0 else (YTD24-YTD36)/YTD36 end,
 	case YTD48 when 0 then 0 else (YTD36-YTD48)/YTD48 end, '',
-	case MTH06 when 0 then 0 else (mat48-MTH06)/MTH06 end,
-	case MTH07 when 0 then 0 else (MTH06-MTH07)/MTH07 end,
-	case MTH08 when 0 then 0 else (MTH07-MTH08)/MTH08 end,
-	case MTH09 when 0 then 0 else (MTH08-MTH09)/MTH09 end,
-	case MTH10 when 0 then 0 else (MTH09-MTH10)/MTH10 end,
-	case MTH11 when 0 then 0 else (MTH10-MTH11)/MTH11 end,
-	case MTH12 when 0 then 0 else (MTH11-MTH12)/MTH12 end
+	case MTH07 when 0 then 0 else (MTH06-MTH18)/MTH18 end,
+	case MTH08 when 0 then 0 else (MTH07-MTH19)/MTH19 end,
+	case MTH09 when 0 then 0 else (MTH08-MTH20)/MTH20 end,
+	case MTH10 when 0 then 0 else (MTH09-MTH21)/MTH21 end,
+	case MTH11 when 0 then 0 else (MTH10-MTH22)/MTH22 end,
+	case MTH12 when 0 then 0 else (MTH11-MTH23)/MTH23 end,
+	case MTH13 when 0 then 0 else (MTH12-MTH23)/MTH24 end
 from OutputProdSalesPerformanceInChina a where [type]='Market Size' and period<>'MTH'
 go
 
@@ -2668,10 +2669,11 @@ insert into OutputProdSalesPerformanceInChina([TypeIdx],[Type] ,[Period],[MoneyT
 	,[YTD00],[YTD12],[YTD24],[YTD36],[YTD48]
 	,[Mth06],[Mth07],[Mth08],[Mth09],[Mth10],[Mth11],[Mth12])
 select 5,A.Prod_des+' Growth',A.Period,A.Moneytype,A.Market,a.prod_cod,a.prod_des,
-	case mat12 when 0 then 0 else (mat00-mat12)/mat12 end,
-	case mat24 when 0 then 0 else (mat12-mat24)/mat24 end,
-	case mat36 when 0 then 0 else (mat24-mat36)/mat36 end,
-	case mat48 when 0 then 0 else (mat36-mat48)/mat48 end, '',
+	case mat12 when 0 then 0 else (mat00-MTH13)/MTH13 end,
+	case mat24 when 0 then 0 else (mat12-MTH14)/MTH14 end,
+	case mat36 when 0 then 0 else (mat24-MTH15)/MTH15 end,
+	case mat48 when 0 then 0 else (mat36-MTH16)/MTH16 end, 
+	case MTH06 when 0 then 0 else (mat48-MTH17)/MTH17 end,
 	case MQT12 when 0 then 0 else (MQT00-MQT12)/MQT12 end,
 	case MQT24 when 0 then 0 else (MQT12-MQT24)/MQT24 end,
 	case MQT36 when 0 then 0 else (MQT24-MQT36)/MQT36 end,
@@ -2680,13 +2682,13 @@ select 5,A.Prod_des+' Growth',A.Period,A.Moneytype,A.Market,a.prod_cod,a.prod_de
 	case YTD24 when 0 then 0 else (YTD12-YTD24)/YTD24 end,
 	case YTD36 when 0 then 0 else (YTD24-YTD36)/YTD36 end,
 	case YTD48 when 0 then 0 else (YTD36-YTD48)/YTD48 end, '',
-	case MTH06 when 0 then 0 else (mat48-MTH06)/MTH06 end,
-	case MTH07 when 0 then 0 else (MTH06-MTH07)/MTH07 end,
-	case MTH08 when 0 then 0 else (MTH07-MTH08)/MTH08 end,
-	case MTH09 when 0 then 0 else (MTH08-MTH09)/MTH09 end,
-	case MTH10 when 0 then 0 else (MTH09-MTH10)/MTH10 end,
-	case MTH11 when 0 then 0 else (MTH10-MTH11)/MTH11 end,
-	case MTH12 when 0 then 0 else (MTH11-MTH12)/MTH12 end
+	case MTH07 when 0 then 0 else (MTH06-MTH18)/MTH18 end,
+	case MTH08 when 0 then 0 else (MTH07-MTH19)/MTH19 end,
+	case MTH09 when 0 then 0 else (MTH08-MTH20)/MTH20 end,
+	case MTH10 when 0 then 0 else (MTH09-MTH21)/MTH21 end,
+	case MTH11 when 0 then 0 else (MTH10-MTH22)/MTH22 end,
+	case MTH12 when 0 then 0 else (MTH11-MTH23)/MTH23 end,
+	case MTH13 when 0 then 0 else (MTH12-MTH23)/MTH24 end
  from OutputProdSalesPerformanceInChina a where [type]='Product'  and period<>'MTH'
 go
 
@@ -2696,10 +2698,11 @@ insert into OutputProdSalesPerformanceInChina([TypeIdx],[Type] ,[Period],[MoneyT
 	,[YTD00],[YTD12],[YTD24],[YTD36],[YTD48]
 	,[Mth06],[Mth07],[Mth08],[Mth09],[Mth10],[Mth11],[Mth12])
 select 4,'Market Growth',A.Period,A.Moneytype,A.Market,a.prod_cod,a.prod_des,
-	case mat12 when 0 then 0 else (mat00-mat12)/mat12 end,
-	case mat24 when 0 then 0 else (mat12-mat24)/mat24 end,
-	case mat36 when 0 then 0 else (mat24-mat36)/mat36 end,
-	case mat48 when 0 then 0 else (mat36-mat48)/mat48 end, '',
+	case mat12 when 0 then 0 else (mat00-MTH13)/MTH13 end,
+	case mat24 when 0 then 0 else (mat12-MTH14)/MTH14 end,
+	case mat36 when 0 then 0 else (mat24-MTH15)/MTH15 end,
+	case mat48 when 0 then 0 else (mat36-MTH16)/MTH16 end, 
+	case MTH06 when 0 then 0 else (mat48-MTH17)/MTH17 end,
 	case MQT12 when 0 then 0 else (MQT00-MQT12)/MQT12 end,
 	case MQT24 when 0 then 0 else (MQT12-MQT24)/MQT24 end,
 	case MQT36 when 0 then 0 else (MQT24-MQT36)/MQT36 end,
@@ -2708,13 +2711,13 @@ select 4,'Market Growth',A.Period,A.Moneytype,A.Market,a.prod_cod,a.prod_des,
 	case YTD24 when 0 then 0 else (YTD12-YTD24)/YTD24 end,
 	case YTD36 when 0 then 0 else (YTD24-YTD36)/YTD36 end,
 	case YTD48 when 0 then 0 else (YTD36-YTD48)/YTD48 end, '',
-	case MTH06 when 0 then 0 else (mat48-MTH06)/MTH06 end,
-	case MTH07 when 0 then 0 else (MTH06-MTH07)/MTH07 end,
-	case MTH08 when 0 then 0 else (MTH07-MTH08)/MTH08 end,
-	case MTH09 when 0 then 0 else (MTH08-MTH09)/MTH09 end,
-	case MTH10 when 0 then 0 else (MTH09-MTH10)/MTH10 end,
-	case MTH11 when 0 then 0 else (MTH10-MTH11)/MTH11 end,
-	case MTH12 when 0 then 0 else (MTH11-MTH12)/MTH12 end
+	case MTH07 when 0 then 0 else (MTH06-MTH18)/MTH18 end,
+	case MTH08 when 0 then 0 else (MTH07-MTH19)/MTH19 end,
+	case MTH09 when 0 then 0 else (MTH08-MTH20)/MTH20 end,
+	case MTH10 when 0 then 0 else (MTH09-MTH21)/MTH21 end,
+	case MTH11 when 0 then 0 else (MTH10-MTH22)/MTH22 end,
+	case MTH12 when 0 then 0 else (MTH11-MTH23)/MTH23 end,
+	case MTH13 when 0 then 0 else (MTH12-MTH23)/MTH24 end
  from OutputProdSalesPerformanceInChina a where [type]='Market Size' and period='MTH'
 go
 
@@ -2724,10 +2727,11 @@ insert into OutputProdSalesPerformanceInChina([TypeIdx],[Type] ,[Period],[MoneyT
 	,[YTD00],[YTD12],[YTD24],[YTD36],[YTD48]
 	,[Mth06],[Mth07],[Mth08],[Mth09],[Mth10],[Mth11],[Mth12])
 select 5,A.Prod_des+' Growth',A.Period,A.Moneytype,A.Market,a.prod_cod,a.prod_des,
-	case mat12 when 0 then 0 else (mat00-mat12)/mat12 end,
-	case mat24 when 0 then 0 else (mat12-mat24)/mat24 end,
-	case mat36 when 0 then 0 else (mat24-mat36)/mat36 end,
-	case mat48 when 0 then 0 else (mat36-mat48)/mat48 end, '',
+	case mat12 when 0 then 0 else (mat00-MTH13)/MTH13 end,
+	case mat24 when 0 then 0 else (mat12-MTH14)/MTH14 end,
+	case mat36 when 0 then 0 else (mat24-MTH15)/MTH15 end,
+	case mat48 when 0 then 0 else (mat36-MTH16)/MTH16 end, 
+	case MTH06 when 0 then 0 else (mat48-MTH17)/MTH17 end,
 	case MQT12 when 0 then 0 else (MQT00-MQT12)/MQT12 end,
 	case MQT24 when 0 then 0 else (MQT12-MQT24)/MQT24 end,
 	case MQT36 when 0 then 0 else (MQT24-MQT36)/MQT36 end,
@@ -2736,13 +2740,13 @@ select 5,A.Prod_des+' Growth',A.Period,A.Moneytype,A.Market,a.prod_cod,a.prod_de
 	case YTD24 when 0 then 0 else (YTD12-YTD24)/YTD24 end,
 	case YTD36 when 0 then 0 else (YTD24-YTD36)/YTD36 end,
 	case YTD48 when 0 then 0 else (YTD36-YTD48)/YTD48 end, '',
-	case MTH06 when 0 then 0 else (mat48-MTH06)/MTH06 end,
-	case MTH07 when 0 then 0 else (MTH06-MTH07)/MTH07 end,
-	case MTH08 when 0 then 0 else (MTH07-MTH08)/MTH08 end,
-	case MTH09 when 0 then 0 else (MTH08-MTH09)/MTH09 end,
-	case MTH10 when 0 then 0 else (MTH09-MTH10)/MTH10 end,
-	case MTH11 when 0 then 0 else (MTH10-MTH11)/MTH11 end,
-	case MTH12 when 0 then 0 else (MTH11-MTH12)/MTH12 end
+	case MTH07 when 0 then 0 else (MTH06-MTH18)/MTH18 end,
+	case MTH08 when 0 then 0 else (MTH07-MTH19)/MTH19 end,
+	case MTH09 when 0 then 0 else (MTH08-MTH20)/MTH20 end,
+	case MTH10 when 0 then 0 else (MTH09-MTH21)/MTH21 end,
+	case MTH11 when 0 then 0 else (MTH10-MTH22)/MTH22 end,
+	case MTH12 when 0 then 0 else (MTH11-MTH23)/MTH23 end,
+	case MTH13 when 0 then 0 else (MTH12-MTH23)/MTH24 end
  from OutputProdSalesPerformanceInChina a where [type]='Product'  and period='MTH'
 go
 
@@ -3728,7 +3732,7 @@ BEGIN
         
 		set @sql4 = @sqlMAT+', '+@sqlYTD+', ' + @sqlQtr+'
 			from mthcity_pkau A 
-			inner join tblMktDef_MRBIChina B
+			inner join tblMktDef_MAX B
 			on A.pack_cod=B.pack_cod 
 			where B.Active=''Y'' and A.audi_cod<>''ZJH_'' and b.mkt not like''eliquis%''
 			group by B.Molecule,B.Class,B.mkt,B.mktname,B.prod,B.Productname,A.audi_cod'
@@ -3811,7 +3815,7 @@ BEGIN
         
 		set @sql4 = @sqlMAT+', '+@sqlYTD+', ' + @sqlQtr+'
 			from mthcity_pkau A 
-			inner join tblMktDef_MRBIChina B
+			inner join tblMktDef_MAX B
 			on A.pack_cod=B.pack_cod 
 			where B.Active=''Y'' and A.audi_cod<>''ZJH_'' and b.mkt like''eliquis%''
 			group by B.Molecule,B.Class,B.mkt,B.mktname,B.prod,B.Productname,A.audi_cod'
@@ -3945,7 +3949,8 @@ BEGIN
         select  B.Molecule,B.Class,B.mkt,B.mktname,B.mkt,B.prod,B.Productname,'+'''' +left(@MoneyType,2)+''''+' as Moneytype, A.audi_cod,'''',''City'',null,'+@sql1+', '+@sql3+', '
         
 		set @sql4 = @sqlMAT+', '+@sqlYTD+', ' + @sqlQtr+'
-		from mthcity_pkau A inner join tblMktDef_MRBIChina_Mole B
+		from mthcity_pkau A 
+		inner join tblMktDef_MAX B
         on A.pack_cod=B.pack_cod where B.Active=''Y'' and A.audi_cod <>''ZJH_''
 		group by B.Molecule,B.Class,B.mkt,B.mktname,B.prod,B.Productname,A.audi_cod'
 		exec (@sql2+@sql4)
@@ -8232,42 +8237,42 @@ BEGIN
 
 		set @SQL2='insert into MID_OutputProdSalesPerformanceInChina_R777
 		select 1,''Product'',''MTH'','+'''' +@MoneyType+''''+',B.mkt,a.prod_cod,''''
-        ,sum(MTH00' +@MoneyType+')
-		,sum(MTH01' +@MoneyType+')
-		,sum(MTH02' +@MoneyType+')
-		,sum(MTH03' +@MoneyType+')
-		,sum(MTH04' +@MoneyType+')
-		,sum(MTH05' +@MoneyType+')
-		,sum(MTH06' +@MoneyType+')
-		,sum(MTH07' +@MoneyType+')
-		,sum(MTH08' +@MoneyType+')
-		,sum(MTH09' +@MoneyType+')
-		,sum(MTH10' +@MoneyType+')
-		,sum(MTH11' +@MoneyType+')
-		,sum(MTH12' +@MoneyType+')
-		,sum(MTH13' +@MoneyType+')
-		,sum(MTH14' +@MoneyType+')
-		,sum(MTH15' +@MoneyType+')
-		,sum(MTH16' +@MoneyType+')
-		,sum(MTH17' +@MoneyType+')
-		,sum(MTH18' +@MoneyType+')
-		,sum(MTH19' +@MoneyType+')
-		,sum(MTH20' +@MoneyType+')
-		,sum(MTH21' +@MoneyType+')
-		,sum(MTH22' +@MoneyType+')
-		,sum(MTH23' +@MoneyType+')
-		,sum(MTH24' +@MoneyType+')
-		,sum(MTH25' +@MoneyType+')
-		,sum(MTH26' +@MoneyType+')
-		,sum(MTH27' +@MoneyType+')
-		,sum(MTH28' +@MoneyType+')
-		,sum(MTH29' +@MoneyType+')
-		,sum(MTH30' +@MoneyType+')
-		,sum(MTH31' +@MoneyType+')
-		,sum(MTH32' +@MoneyType+')
-		,sum(MTH33' +@MoneyType+')
-		,sum(MTH34' +@MoneyType+')
-		,sum(MTH35' +@MoneyType+')		
+			,sum(MTH00' +@MoneyType+')
+			,sum(MTH01' +@MoneyType+')
+			,sum(MTH02' +@MoneyType+')
+			,sum(MTH03' +@MoneyType+')
+			,sum(MTH04' +@MoneyType+')
+			,sum(MTH05' +@MoneyType+')
+			,sum(MTH06' +@MoneyType+')
+			,sum(MTH07' +@MoneyType+')
+			,sum(MTH08' +@MoneyType+')
+			,sum(MTH09' +@MoneyType+')
+			,sum(MTH10' +@MoneyType+')
+			,sum(MTH11' +@MoneyType+')
+			,sum(MTH12' +@MoneyType+')
+			,sum(MTH13' +@MoneyType+')
+			,sum(MTH14' +@MoneyType+')
+			,sum(MTH15' +@MoneyType+')
+			,sum(MTH16' +@MoneyType+')
+			,sum(MTH17' +@MoneyType+')
+			,sum(MTH18' +@MoneyType+')
+			,sum(MTH19' +@MoneyType+')
+			,sum(MTH20' +@MoneyType+')
+			,sum(MTH21' +@MoneyType+')
+			,sum(MTH22' +@MoneyType+')
+			,sum(MTH23' +@MoneyType+')
+			,sum(MTH24' +@MoneyType+')
+			,sum(MTH25' +@MoneyType+')
+			,sum(MTH26' +@MoneyType+')
+			,sum(MTH27' +@MoneyType+')
+			,sum(MTH28' +@MoneyType+')
+			,sum(MTH29' +@MoneyType+')
+			,sum(MTH30' +@MoneyType+')
+			,sum(MTH31' +@MoneyType+')
+			,sum(MTH32' +@MoneyType+')
+			,sum(MTH33' +@MoneyType+')
+			,sum(MTH34' +@MoneyType+')
+			,sum(MTH35' +@MoneyType+')		
 		from mthchpa_pkau A 
         inner join(
            select distinct A.mkt,B.PRod_cod from tblMktDef_MRBIChina A inner join tblProddef B
@@ -8279,42 +8284,42 @@ BEGIN
 
         insert into MID_OutputProdSalesPerformanceInChina_R777
 		select 2,''Molecule'',''MTH'','+'''' +@MoneyType+''''+',B.mkt,''010'',''''
-        ,sum(MTH00' +@MoneyType+')
-		,sum(MTH01' +@MoneyType+')
-		,sum(MTH02' +@MoneyType+')
-		,sum(MTH03' +@MoneyType+')
-		,sum(MTH04' +@MoneyType+')
-		,sum(MTH05' +@MoneyType+')
-		,sum(MTH06' +@MoneyType+')
-		,sum(MTH07' +@MoneyType+')
-		,sum(MTH08' +@MoneyType+')
-		,sum(MTH09' +@MoneyType+')
-		,sum(MTH10' +@MoneyType+')
-		,sum(MTH11' +@MoneyType+')
-		,sum(MTH12' +@MoneyType+')
-		,sum(MTH13' +@MoneyType+')
-		,sum(MTH14' +@MoneyType+')
-		,sum(MTH15' +@MoneyType+')
-		,sum(MTH16' +@MoneyType+')
-		,sum(MTH17' +@MoneyType+')
-		,sum(MTH18' +@MoneyType+')
-		,sum(MTH19' +@MoneyType+')
-		,sum(MTH20' +@MoneyType+')
-		,sum(MTH21' +@MoneyType+')
-		,sum(MTH22' +@MoneyType+')
-		,sum(MTH23' +@MoneyType+')
-		,sum(MTH24' +@MoneyType+')
-		,sum(MTH25' +@MoneyType+')
-		,sum(MTH26' +@MoneyType+')
-		,sum(MTH27' +@MoneyType+')
-		,sum(MTH28' +@MoneyType+')
-		,sum(MTH29' +@MoneyType+')
-		,sum(MTH30' +@MoneyType+')
-		,sum(MTH31' +@MoneyType+')
-		,sum(MTH32' +@MoneyType+')
-		,sum(MTH33' +@MoneyType+')
-		,sum(MTH34' +@MoneyType+')
-		,sum(MTH35' +@MoneyType+')		
+			,sum(MTH00' +@MoneyType+')
+			,sum(MTH01' +@MoneyType+')
+			,sum(MTH02' +@MoneyType+')
+			,sum(MTH03' +@MoneyType+')
+			,sum(MTH04' +@MoneyType+')
+			,sum(MTH05' +@MoneyType+')
+			,sum(MTH06' +@MoneyType+')
+			,sum(MTH07' +@MoneyType+')
+			,sum(MTH08' +@MoneyType+')
+			,sum(MTH09' +@MoneyType+')
+			,sum(MTH10' +@MoneyType+')
+			,sum(MTH11' +@MoneyType+')
+			,sum(MTH12' +@MoneyType+')
+			,sum(MTH13' +@MoneyType+')
+			,sum(MTH14' +@MoneyType+')
+			,sum(MTH15' +@MoneyType+')
+			,sum(MTH16' +@MoneyType+')
+			,sum(MTH17' +@MoneyType+')
+			,sum(MTH18' +@MoneyType+')
+			,sum(MTH19' +@MoneyType+')
+			,sum(MTH20' +@MoneyType+')
+			,sum(MTH21' +@MoneyType+')
+			,sum(MTH22' +@MoneyType+')
+			,sum(MTH23' +@MoneyType+')
+			,sum(MTH24' +@MoneyType+')
+			,sum(MTH25' +@MoneyType+')
+			,sum(MTH26' +@MoneyType+')
+			,sum(MTH27' +@MoneyType+')
+			,sum(MTH28' +@MoneyType+')
+			,sum(MTH29' +@MoneyType+')
+			,sum(MTH30' +@MoneyType+')
+			,sum(MTH31' +@MoneyType+')
+			,sum(MTH32' +@MoneyType+')
+			,sum(MTH33' +@MoneyType+')
+			,sum(MTH34' +@MoneyType+')
+			,sum(MTH35' +@MoneyType+')		
 		from mthchpa_pkau A 
         inner join(
            select distinct A.mkt,A.PRod_cod from tblMktDef_MRBIChina A 
@@ -8325,42 +8330,42 @@ BEGIN
         
 		insert into MID_OutputProdSalesPerformanceInChina_R777
 		select 3,''Market'',''MTH'','+'''' +@MoneyType+''''+',B.mkt,B.mkt,''''
-        ,sum(MTH00' +@MoneyType+')
-		,sum(MTH01' +@MoneyType+')
-		,sum(MTH02' +@MoneyType+')
-		,sum(MTH03' +@MoneyType+')
-		,sum(MTH04' +@MoneyType+')
-		,sum(MTH05' +@MoneyType+')
-		,sum(MTH06' +@MoneyType+')
-		,sum(MTH07' +@MoneyType+')
-		,sum(MTH08' +@MoneyType+')
-		,sum(MTH09' +@MoneyType+')
-		,sum(MTH10' +@MoneyType+')
-		,sum(MTH11' +@MoneyType+')
-		,sum(MTH12' +@MoneyType+')
-		,sum(MTH13' +@MoneyType+')
-		,sum(MTH14' +@MoneyType+')
-		,sum(MTH15' +@MoneyType+')
-		,sum(MTH16' +@MoneyType+')
-		,sum(MTH17' +@MoneyType+')
-		,sum(MTH18' +@MoneyType+')
-		,sum(MTH19' +@MoneyType+')
-		,sum(MTH20' +@MoneyType+')
-		,sum(MTH21' +@MoneyType+')
-		,sum(MTH22' +@MoneyType+')
-		,sum(MTH23' +@MoneyType+')
-		,sum(MTH24' +@MoneyType+')
-		,sum(MTH25' +@MoneyType+')
-		,sum(MTH26' +@MoneyType+')
-		,sum(MTH27' +@MoneyType+')
-		,sum(MTH28' +@MoneyType+')
-		,sum(MTH29' +@MoneyType+')
-		,sum(MTH30' +@MoneyType+')
-		,sum(MTH31' +@MoneyType+')
-		,sum(MTH32' +@MoneyType+')
-		,sum(MTH33' +@MoneyType+')
-		,sum(MTH34' +@MoneyType+')
-		,sum(MTH35' +@MoneyType+')	
+			,sum(MTH00' +@MoneyType+')
+			,sum(MTH01' +@MoneyType+')
+			,sum(MTH02' +@MoneyType+')
+			,sum(MTH03' +@MoneyType+')
+			,sum(MTH04' +@MoneyType+')
+			,sum(MTH05' +@MoneyType+')
+			,sum(MTH06' +@MoneyType+')
+			,sum(MTH07' +@MoneyType+')
+			,sum(MTH08' +@MoneyType+')
+			,sum(MTH09' +@MoneyType+')
+			,sum(MTH10' +@MoneyType+')
+			,sum(MTH11' +@MoneyType+')
+			,sum(MTH12' +@MoneyType+')
+			,sum(MTH13' +@MoneyType+')
+			,sum(MTH14' +@MoneyType+')
+			,sum(MTH15' +@MoneyType+')
+			,sum(MTH16' +@MoneyType+')
+			,sum(MTH17' +@MoneyType+')
+			,sum(MTH18' +@MoneyType+')
+			,sum(MTH19' +@MoneyType+')
+			,sum(MTH20' +@MoneyType+')
+			,sum(MTH21' +@MoneyType+')
+			,sum(MTH22' +@MoneyType+')
+			,sum(MTH23' +@MoneyType+')
+			,sum(MTH24' +@MoneyType+')
+			,sum(MTH25' +@MoneyType+')
+			,sum(MTH26' +@MoneyType+')
+			,sum(MTH27' +@MoneyType+')
+			,sum(MTH28' +@MoneyType+')
+			,sum(MTH29' +@MoneyType+')
+			,sum(MTH30' +@MoneyType+')
+			,sum(MTH31' +@MoneyType+')
+			,sum(MTH32' +@MoneyType+')
+			,sum(MTH33' +@MoneyType+')
+			,sum(MTH34' +@MoneyType+')
+			,sum(MTH35' +@MoneyType+')	
 		from mthchpa_pkau A inner join tblMktDef_MRBIChina B
 		on A.pack_cod=b.pack_cod
 		where B.prod=''000'' and B.mkt in(''ARV'') and Molecule=''N'' and Class=''N''and B.Active=''Y''
@@ -8401,44 +8406,44 @@ go
 
 insert into MID_OutputProdSalesPerformanceInChina_R777--([Type] ,[Period],[MoneyType],Market,[Prod_cod],[Prod_des],[Mat00],[Mat12],[Mat24],[Mat36],[Mat48])
 select 4,A.prod_des+' Share',A.Period,A.Moneytype,A.Market,B.prod_cod,B.prod_des,
-case A.MTH00 when 0 then 0 else 1.0*B.MTH00/A.MTH00 end,
-case A.MTH01 when 0 then 0 else 1.0*B.MTH01/A.MTH01 end,
-case A.MTH02 when 0 then 0 else 1.0*B.MTH02/A.MTH02 end,
-case A.MTH03 when 0 then 0 else 1.0*B.MTH03/A.MTH03 end,
-case A.MTH04 when 0 then 0 else 1.0*B.MTH04/A.MTH04 end,
-case A.MTH05 when 0 then 0 else 1.0*B.MTH05/A.MTH05 end,
-case A.MTH06 when 0 then 0 else 1.0*B.MTH06/A.MTH06 end,
-case A.MTH07 when 0 then 0 else 1.0*B.MTH07/A.MTH07 end,
-case A.MTH08 when 0 then 0 else 1.0*B.MTH08/A.MTH08 end,
-case A.MTH09 when 0 then 0 else 1.0*B.MTH09/A.MTH09 end,
-case A.MTH10 when 0 then 0 else 1.0*B.MTH10/A.MTH10 end,
-case A.MTH11 when 0 then 0 else 1.0*B.MTH11/A.MTH11 end,
+	case A.MTH00 when 0 then 0 else 1.0*B.MTH00/A.MTH00 end,
+	case A.MTH01 when 0 then 0 else 1.0*B.MTH01/A.MTH01 end,
+	case A.MTH02 when 0 then 0 else 1.0*B.MTH02/A.MTH02 end,
+	case A.MTH03 when 0 then 0 else 1.0*B.MTH03/A.MTH03 end,
+	case A.MTH04 when 0 then 0 else 1.0*B.MTH04/A.MTH04 end,
+	case A.MTH05 when 0 then 0 else 1.0*B.MTH05/A.MTH05 end,
+	case A.MTH06 when 0 then 0 else 1.0*B.MTH06/A.MTH06 end,
+	case A.MTH07 when 0 then 0 else 1.0*B.MTH07/A.MTH07 end,
+	case A.MTH08 when 0 then 0 else 1.0*B.MTH08/A.MTH08 end,
+	case A.MTH09 when 0 then 0 else 1.0*B.MTH09/A.MTH09 end,
+	case A.MTH10 when 0 then 0 else 1.0*B.MTH10/A.MTH10 end,
+	case A.MTH11 when 0 then 0 else 1.0*B.MTH11/A.MTH11 end,
 
-case A.MTH12 when 0 then 0 else 1.0*B.MTH12/A.MTH12 end,
-case A.MTH13 when 0 then 0 else 1.0*B.MTH13/A.MTH13 end,
-case A.MTH14 when 0 then 0 else 1.0*B.MTH14/A.MTH14 end,
-case A.MTH15 when 0 then 0 else 1.0*B.MTH15/A.MTH15 end,
-case A.MTH16 when 0 then 0 else 1.0*B.MTH16/A.MTH16 end,
-case A.MTH17 when 0 then 0 else 1.0*B.MTH17/A.MTH17 end,
-case A.MTH18 when 0 then 0 else 1.0*B.MTH18/A.MTH18 end,
-case A.MTH19 when 0 then 0 else 1.0*B.MTH19/A.MTH19 end,
-case A.MTH20 when 0 then 0 else 1.0*B.MTH20/A.MTH20 end,
-case A.MTH21 when 0 then 0 else 1.0*B.MTH21/A.MTH21 end,
-case A.MTH22 when 0 then 0 else 1.0*B.MTH22/A.MTH22 end,
-case A.MTH23 when 0 then 0 else 1.0*B.MTH23/A.MTH23 end,
+	case A.MTH12 when 0 then 0 else 1.0*B.MTH12/A.MTH12 end,
+	case A.MTH13 when 0 then 0 else 1.0*B.MTH13/A.MTH13 end,
+	case A.MTH14 when 0 then 0 else 1.0*B.MTH14/A.MTH14 end,
+	case A.MTH15 when 0 then 0 else 1.0*B.MTH15/A.MTH15 end,
+	case A.MTH16 when 0 then 0 else 1.0*B.MTH16/A.MTH16 end,
+	case A.MTH17 when 0 then 0 else 1.0*B.MTH17/A.MTH17 end,
+	case A.MTH18 when 0 then 0 else 1.0*B.MTH18/A.MTH18 end,
+	case A.MTH19 when 0 then 0 else 1.0*B.MTH19/A.MTH19 end,
+	case A.MTH20 when 0 then 0 else 1.0*B.MTH20/A.MTH20 end,
+	case A.MTH21 when 0 then 0 else 1.0*B.MTH21/A.MTH21 end,
+	case A.MTH22 when 0 then 0 else 1.0*B.MTH22/A.MTH22 end,
+	case A.MTH23 when 0 then 0 else 1.0*B.MTH23/A.MTH23 end,
 
-case A.MTH24 when 0 then 0 else 1.0*B.MTH24/A.MTH24 end,
-case A.MTH25 when 0 then 0 else 1.0*B.MTH25/A.MTH25 end,
-case A.MTH26 when 0 then 0 else 1.0*B.MTH26/A.MTH26 end,
-case A.MTH27 when 0 then 0 else 1.0*B.MTH27/A.MTH27 end,
-case A.MTH28 when 0 then 0 else 1.0*B.MTH28/A.MTH28 end,
-case A.MTH29 when 0 then 0 else 1.0*B.MTH29/A.MTH29 end,
-case A.MTH30 when 0 then 0 else 1.0*B.MTH30/A.MTH30 end,
-case A.MTH31 when 0 then 0 else 1.0*B.MTH31/A.MTH31 end,
-case A.MTH32 when 0 then 0 else 1.0*B.MTH32/A.MTH32 end,
-case A.MTH33 when 0 then 0 else 1.0*B.MTH33/A.MTH33 end,
-case A.MTH34 when 0 then 0 else 1.0*B.MTH34/A.MTH34 end,
-case A.MTH35 when 0 then 0 else 1.0*B.MTH35/A.MTH35 end
+	case A.MTH24 when 0 then 0 else 1.0*B.MTH24/A.MTH24 end,
+	case A.MTH25 when 0 then 0 else 1.0*B.MTH25/A.MTH25 end,
+	case A.MTH26 when 0 then 0 else 1.0*B.MTH26/A.MTH26 end,
+	case A.MTH27 when 0 then 0 else 1.0*B.MTH27/A.MTH27 end,
+	case A.MTH28 when 0 then 0 else 1.0*B.MTH28/A.MTH28 end,
+	case A.MTH29 when 0 then 0 else 1.0*B.MTH29/A.MTH29 end,
+	case A.MTH30 when 0 then 0 else 1.0*B.MTH30/A.MTH30 end,
+	case A.MTH31 when 0 then 0 else 1.0*B.MTH31/A.MTH31 end,
+	case A.MTH32 when 0 then 0 else 1.0*B.MTH32/A.MTH32 end,
+	case A.MTH33 when 0 then 0 else 1.0*B.MTH33/A.MTH33 end,
+	case A.MTH34 when 0 then 0 else 1.0*B.MTH34/A.MTH34 end,
+	case A.MTH35 when 0 then 0 else 1.0*B.MTH35/A.MTH35 end
 
 from (select * from MID_OutputProdSalesPerformanceInChina_R777 where [type]='Market') A 
 left join (select * from MID_OutputProdSalesPerformanceInChina_R777 where [type]='product' ) B

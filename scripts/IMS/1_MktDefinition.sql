@@ -134,21 +134,21 @@ inner join Dim_Therapeutic_Class h on a.Therapeutic_ID = h.Therapeutic_ID
 go
 
 -- insert new data from maxdata 
-insert into tblMktDef_ATCDriver 
-select distinct 
-	a.ATC1_Cod, a.ATC1_Des,
-	a.ATC2_Cod, a.ATC2_Des,
-	a.ATC3_Cod, a.ATC3_Des,
-	a.ATC4_Cod, a.ATC4_Des,
-	a.Mole_cod, a.Mole_des,
-	a.Prod_cod, a.Prod_Des,
-	a.Pack_Cod, a.Pack_Des,
-	a.Corp_cod, a.Corp_Des,
-	a.manu_cod, a.Manu_des,
-	a.MNC, a.Gene_Cod
-from Max_Data as a 
-left join tblMktDef_ATCDriver as b on a.pack_cod = b.Pack_Cod
-where b.Pack_Cod is null 
+-- insert into tblMktDef_ATCDriver 
+-- select distinct 
+-- 	a.ATC1_Cod, a.ATC1_Des,
+-- 	a.ATC2_Cod, a.ATC2_Des,
+-- 	a.ATC3_Cod, a.ATC3_Des,
+-- 	a.ATC4_Cod, a.ATC4_Des,
+-- 	a.Mole_cod, a.Mole_des,
+-- 	a.Prod_cod, a.Prod_Des,
+-- 	a.Pack_Cod, a.Pack_Des,
+-- 	a.Corp_cod, a.Corp_Des,
+-- 	a.manu_cod, a.Manu_des,
+-- 	a.MNC, a.Gene_Cod
+-- from Max_Data as a 
+-- left join tblMktDef_ATCDriver as b on a.pack_cod = b.Pack_Cod
+-- where b.Pack_Cod is null 
 
 -- 20161102 添加分子式:LOW MOLECULAR WEIGHT HEPARIN CALCIUM
 insert into dbo.tblMktDef_ATCDriver ( ATC1_Cod, ATC1_Des, ATC2_Cod, ATC2_Des, ATC3_Cod, ATC3_Des, ATC4_Cod, ATC4_Des,
@@ -550,10 +550,15 @@ select distinct
   , a.Prod,a.ProductName
   , a.Molecule
   , a.Class
-  , a.ATC1_Cod,a.ATC2_Cod,a.ATC3_Cod,a.ATC4_Cod
+  , a.ATC1_Cod
+  , a.ATC2_Cod
+  , a.ATC3_Cod
+  , a.ATC4_Cod
   , b.pack_cod, b.Pack_des
-  , b.Prod_cod,b.Prod_des as Prod_Name,b.Prod_des + ' (' +b.Manu_cod +')' as Prod_FullName
-  , '' as Mole_cod,'' as Mole_Name
+  , b.Prod_cod,b.Prod_des as Prod_Name
+  , b.Prod_des + ' (' +b.Manu_cod +')' as Prod_FullName
+  , '' as Mole_cod
+  ,'' as Mole_Name
   , b.Corp_cod
   , b.Manu_Cod
   , b.Gene_Cod
@@ -562,16 +567,16 @@ select distinct
   ,1--rat
 from (
      select distinct 
-     Mkt,MktName
-     ,Prod,dbo.fun_upperFirst(ProductName)  as ProductName
-     ,Molecule
-     ,Class
-     ,ATC1_cod,ATC2_cod,ATC3_cod,ATC4_cod
-     ,Prod_cod
---     ,corp_cod
---     ,manu_cod
---     ,gene_cod
---     ,active
+		Mkt,MktName
+		,Prod,dbo.fun_upperFirst(ProductName)  as ProductName
+		,Molecule
+		,Class
+		,ATC1_cod,ATC2_cod,ATC3_cod,ATC4_cod
+		,Prod_cod
+	--     ,corp_cod
+	--     ,manu_cod
+	--     ,gene_cod
+	--     ,active
      from tblMktDef_MRBIChina_correct d
      where prod between '100' and '899' and productname not like '%other%'
 ) a 

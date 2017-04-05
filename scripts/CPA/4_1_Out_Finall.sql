@@ -64,34 +64,20 @@ select
   , AddY
 from OutputHospital_All
 where Product in('Sprycel','Taxol','Glucophage','Monopril','Coniel','Eliquis NOAC','Eliquis VTEP') and LinkChartCode like 'D%'
-go
-insert into OutputHospital(LinkChartCode, LinkSeriesCode, Series, SeriesIdx, Category, Product, Lev, ParentGeo, Geo, Currency, TimeFrame, X, XIdx, Y, LinkedY, Size, OtherParameters, Color, R, G, B, IsShow,AddY)
-select 
-    LinkChartCode
-  , LinkSeriesCode
-  , Series
-  , SeriesIdx
-  , Category
-  , Product
-  , Lev
-  , ParentGeo
-  , Geo
-  , Currency
-  , TimeFrame
-  , X
-  , XIdx
-  , Y
-  , LinkedY
-  , Size
-  , OtherParameters
-  , Color
-  , R
-  , G
-  , B
-  , IsShow
-  , AddY
-from OutputHospital_All
-where Product in('Sprycel','Taxol','Glucophage','Monopril','Coniel','Eliquis NOAC','Eliquis VTEP') and TimeFrame <> 'YTD' and LinkChartCode not like 'D%'
+GO
+
+INSERT  INTO OutputHospital ( LinkChartCode, LinkSeriesCode, Series, SeriesIdx,
+                              Category, Product, Lev, ParentGeo, Geo, Currency,
+                              TimeFrame, X, XIdx, Y, LinkedY, Size,
+                              OtherParameters, Color, R, G, B, IsShow, AddY )
+SELECT  LinkChartCode, LinkSeriesCode, Series, SeriesIdx, Category, Product,
+        Lev, ParentGeo, Geo, Currency, TimeFrame, X, XIdx, Y, LinkedY, Size,
+        OtherParameters, Color, R, G, B, IsShow, AddY
+FROM    OutputHospital_All
+WHERE   Product IN ( 'Sprycel', 'Taxol', 'Glucophage', 'Monopril', 'Coniel',
+                     'Eliquis NOAC', 'Eliquis VTEP' )
+        AND TimeFrame <> 'YTD'
+        AND LinkChartCode NOT LIKE 'D%';
 
 --------------------------------
 --	CIA-CV Modification: Slide8 Xiaoyu.Chen 20130905

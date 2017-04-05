@@ -133,6 +133,53 @@ right join Max_Data as l
 --where	l.[通用名（标准_英文）] in ( 'ADEFOVIR DIPIVOXIL', 'LAMIVUDINE', 'TENOFOVIR DISOPROXIL', 'TELBIVUDINE', 'ENTECAVIR' )
 
 
+truncate table tblMktDef_MAX
+go
+insert into tblMktDef_MAX
+select distinct 
+    a.Mkt,a.MktName
+  , a.Prod,a.ProductName
+  , a.Molecule
+  , a.Class
+  , a.ATC1_Cod
+  , a.ATC2_Cod
+  , a.ATC3_Cod
+  , a.ATC4_Cod
+  , b.pack_cod, b.Pack_des
+  , b.Prod_cod,b.Prod_des as Prod_Name
+  , b.Prod_des + ' (' +b.Manu_cod +')' as Prod_FullName
+  , '' as Mole_cod
+  ,'' as Mole_Name
+  , b.Corp_cod
+  , b.Manu_Cod
+  , b.Gene_Cod
+  , 'Y' as Active
+  , GetDate() as Date, '201203 add new packages of focused brands' 
+  ,1--rat
+from (
+     select distinct 
+		Mkt,MktName
+		,Prod,dbo.fun_upperFirst(ProductName)  as ProductName
+		,Molecule
+		,Class
+		,ATC1_cod,ATC2_cod,ATC3_cod,ATC4_cod
+		,Prod_cod
+	--     ,corp_cod
+	--     ,manu_cod
+	--     ,gene_cod
+	--     ,active
+     from tblMktDef_MRBIChina_correct d
+     where prod between '100' and '899' and productname not like '%other%'
+) a 
+inner join tblMktDef_ATCDriver b 
+on a.atc1_cod = b.atc1_cod
+   and a.atc2_cod = b.atc2_cod
+   and a.atc3_cod = b.atc3_cod
+   and a.atc4_cod = b.atc4_cod
+   and a.Prod_cod = b.Prod_cod
+go
+
+
 if object_id(N'MAXDataNotInIMS',N'U') is not null
 	drop table MAXDataNotInIMS
 go
@@ -201,6 +248,98 @@ where l.IMS_Manu = i.IMS_Manu
 	 and l.final_Prod = i.final_Prod
 
 go 
+
+-- 
+
+-- SELECT  *
+-- INTO    tblMktDef_MAX
+-- FROM    tblMktDef_MRBIChina 
+-- WHERE 1 = 0 
+
+-- SELECT  *
+-- INTO    tblMktDef_MAX_temp 
+-- FROM    tblMktDef_MRBIChina 
+-- WHERE 1 = 0 
+              
+-- SELECT * FROM tblMktDef_MAX
+
+TRUNCATE TABLE dbo.tblMktDef_MAX
+TRUNCATE TABLE dbo.tblMktDef_MAX_temp
+
+INSERT INTO dbo.tblMktDef_MAX_temp ( Mkt, MktName, Prod, ProductName, Molecule,
+                                 Class, ATC1_COD, ATC2_COD, ATC3_COD, ATC4_COD,
+                                 Pack_Cod, Pack_Des, Prod_Cod, Prod_Name,
+                                 Prod_FullName, Mole_Cod, Mole_Name, Corp_COD,
+                                 Manu_COD, Gene_COD, Active, Date, Comment,
+                                 rat )
+
+SELECT  DISTINCT NULL , NULL, NULL, NULL, NULL, NULL, 
+		ATC1_Cod,
+        ATC2_Cod,ATC3_Cod, ATC4_Cod, NULL,  Prod_Des + ' ' + [剂型（标准_英文）] + ' ' + [药品规格（标准_英文）]  ,
+        Prod_cod, Prod_Des, NULL , Mole_cod, Mole_des, Corp_cod,
+        manu_cod, Gene_Cod, 'Y', GETDATE(), '' , 1
+FROM    dbo.Max_Data
+
+UPDATE dbo.tblMktDef_MAX_temp
+SET Pack_Cod = CONVERT(VARCHAR(10), a.Prod_Cod) + RIGHT('00' + CONVERT(VARCHAR(2), 2 * a.Idx  ), 2)
+FROM (
+	SELECT *, RANK() OVER(PARTITION BY Prod_Cod ORDER BY pack_des ASC	) AS Idx
+	FROM dbo.tblMktDef_MAX_temp
+) AS a 
+
+
+INSERT INTO dbo.tblMktDef_MAX ( Mkt, MktName, Prod, ProductName, Molecule,
+                                 Class, ATC1_COD, ATC2_COD, ATC3_COD, ATC4_COD,
+                                 Pack_Cod, Pack_Des, Prod_Cod, Prod_Name,
+                                 Prod_FullName, Mole_Cod, Mole_Name, Corp_COD,
+                                 Manu_COD, Gene_COD, Active, Date, Comment,
+                                 rat )
+SELECT a.Mkt, a.MktName, a.Prod, a.ProductName, a.Molecule, a.Class,
+       a.ATC1_COD, a.ATC2_COD, a.ATC3_COD, a.ATC4_COD, b.Pack_Cod, b.Pack_Des,
+       a.Prod_Cod, a.Prod_Name, a.Prod_FullName, a.Mole_Cod, a.Mole_Name,
+       a.Corp_COD, a.Manu_COD, a.Gene_COD, a.Active, a.Date, a.Comment, a.rat
+FROM (
+	SELECT DISTINCT Mkt, MktName, Prod, ProductName, Molecule, Class, ATC1_COD, ATC2_COD,
+       ATC3_COD, ATC4_COD, NULL AS Pack_Cod, NULL AS Pack_Des, Prod_Cod, Prod_Name,
+       Prod_FullName, Mole_Cod, Mole_Name, Corp_COD, Manu_COD, Gene_COD,
+       Active, Date, Comment, rat 
+	FROM tblMktDef_MRBIChina 
+	WHERE Mkt = 'arv'
+) AS a 
+RIGHT JOIN dbo.tblMktDef_MAX_temp AS b 
+ON a.ATC1_COD = b.ATC1_COD
+	AND a.ATC2_COD = b.ATC2_COD
+	AND a.ATC3_COD = b.ATC3_COD
+	AND a.ATC4_COD = b.ATC4_COD
+	AND a.Prod_Cod = b.Prod_Cod
+	AND a.Corp_COD = b.Corp_COD
+	AND a.Manu_COD = b.Manu_COD
+	AND a.Gene_COD = b.Gene_COD
+
+-- SELECT * FROM dbo.tblMktDef_MAX		
+------------------------------
+
+
+update a 
+set a.Pack_Cod = b.Pack_Cod,
+	a.Pack_Des = b.Pack_Des
+FROM dbo.Max_Data AS a
+INNER join (
+	SELECT distinct ATC1_COD, ATC2_COD,
+           ATC3_COD, ATC4_COD, Pack_Cod, Pack_Des, Prod_Cod, Prod_Name,
+           Mole_Cod, Mole_Name, Corp_COD, Manu_COD, Gene_COD 
+	FROM dbo.tblMktDef_MAX ) AS b 
+ON a.ATC1_COD = b.ATC1_COD
+	AND a.ATC2_COD = b.ATC2_COD
+	AND a.ATC3_COD = b.ATC3_COD
+	AND a.ATC4_COD = b.ATC4_COD
+	AND a.Prod_Cod = b.Prod_Cod
+	AND a.Corp_COD = b.Corp_COD
+	AND a.Manu_COD = b.Manu_COD
+	AND a.Gene_COD = b.Gene_COD
+	AND a.Mole_cod = b.Mole_Cod
+	AND a.Prod_Des + ' ' + a.[剂型（标准_英文）] + ' ' + a.[药品规格（标准_英文）]  = b.Pack_Des
+
 
 -------------------------------
 -- inMAXData
