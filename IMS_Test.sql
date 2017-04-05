@@ -918,14 +918,19 @@ SELECT Province, City, Product, [生产厂家（标准_中文）], [通用名（
 FROM Max_Data 
 
 SELECT * FROM dbo.tblMktDef_MRBIChina
+SELECT * FROM dbo.tblMktDef_MAX
 
+SELECT * INTO Max_Data_20170404 FROM Max_Data
+SELECT *  FROM Max_Data
 
-update Max_Data 
-set 
-
-SELECT * 
+update a 
+set a.Pack_Cod = b.Pack_Cod,
+	a.Pack_Des = b.Pack_Des
 FROM dbo.Max_Data AS a
-LEFT join dbo.tblMktDef_MAX AS b 
+INNER join (
+	SELECT distinct ATC1_COD, ATC2_COD,
+           ATC3_COD, ATC4_COD, Pack_Cod, Pack_Des, Prod_Cod, Prod_Name,
+           Mole_Cod, Mole_Name, Corp_COD, Manu_COD, Gene_COD FROM dbo.tblMktDef_MAX ) AS b 
 ON a.ATC1_COD = b.ATC1_COD
 	AND a.ATC2_COD = b.ATC2_COD
 	AND a.ATC3_COD = b.ATC3_COD
@@ -934,6 +939,11 @@ ON a.ATC1_COD = b.ATC1_COD
 	AND a.Corp_COD = b.Corp_COD
 	AND a.Manu_COD = b.Manu_COD
 	AND a.Gene_COD = b.Gene_COD
+	AND a.Mole_cod = b.Mole_Cod
+	AND a.Prod_Des + ' ' + a.[剂型（标准_英文）] + ' ' + a.[药品规格（标准_英文）]  = b.Pack_Des
+
+
+SELECT  COUNT(*) FROM Max_Data AS a
 WHERE a.ATC4_Cod = 'J05B1'
 
 INSERT INTO dbo.tblMktDef_MAX ( Mkt, MktName, Prod, ProductName, Molecule,
@@ -960,7 +970,7 @@ INSERT INTO dbo.tblMktDef_MAX ( Mkt, MktName, Prod, ProductName, Molecule,
                                  rat )
 SELECT a.Mkt, a.MktName, a.Prod, a.ProductName, a.Molecule, a.Class,
        a.ATC1_COD, a.ATC2_COD, a.ATC3_COD, a.ATC4_COD, b.Pack_Cod, b.Pack_Des,
-       a.Prod_Cod, a.Prod_Name, a.Prod_FullName, a.Mole_Cod, a.Mole_Name,
+       a.Prod_Cod, a.Prod_Name, a.Prod_FullName, b.Mole_Cod, b.Mole_Name,
        a.Corp_COD, a.Manu_COD, a.Gene_COD, a.Active, a.Date, a.Comment, a.rat
 FROM (
 	SELECT DISTINCT Mkt, MktName, Prod, ProductName, Molecule, Class, ATC1_COD, ATC2_COD,
@@ -982,3 +992,25 @@ ON a.ATC1_COD = b.ATC1_COD
 
 	
 -- SELECT * FROM dbo.tblMktDef_MAX		
+
+SELECT * FROM tblMktDef_MRBIChina_For_OtherETV
+
+SELECT *  
+from mthcity_pkau A 
+inner join tblMktDef_MAX B
+on A.pack_cod=B.pack_cod 
+where B.Active='Y' and A.audi_cod<>'ZJH_' and b.mkt not like'eliquis%'
+
+SELECT * FROM tblMktDef_MAX 
+
+SELECT * FROM dbo.output_stage
+WHERE LinkChartCode = 'c020' AND Currency = 'RMB' AND TimeFrame = 'mth'
+
+SELECT * FROM [OurputKey10TAVSTotalMkt] 
+SELECT * FROM tblcaption WHERE LinkChartCode = 'd021'
+
+UPDATE dbo.tblcaption
+SET SubCaption = REPLACE(SubCaption, 'MAT' , '#TimeFrame')
+WHERE LinkChartCode = 'd021'
+
+
