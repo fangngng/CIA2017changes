@@ -242,113 +242,113 @@ where
   and Prod_des <> 'Epivir'
 go
 
--- ----2. Diabetes Market
--- insert into tblMktDef_Inline
--- select cast('DIA' as varchar(50)) as Mkt,cast('Diabetes Market' as varchar(50)) as MktName,* 
--- from tblMktDef_ATCDriver
--- where ATC2_cod ='A10' 
--- 	and ATC3_cod <>'A10E' and ATC3_Cod<>'A10X' --Added by Xiaoyu.chen on 20131023
--- go
+----2. Diabetes Market
+insert into tblMktDef_Inline
+select cast('DIA' as varchar(50)) as Mkt,cast('Diabetes Market' as varchar(50)) as MktName,* 
+from tblMktDef_ATCDriver
+where ATC2_cod ='A10' 
+	and ATC3_cod <>'A10E' and ATC3_Cod<>'A10X' --Added by Xiaoyu.chen on 20131023
+go
 
--- 	---2.1 Insulin Market
--- insert into tblMktDef_Inline
--- select 'Insulin' as Mkt,'Insulin Market' as MktName,
--- 	ATC1_Cod,ATC1_Des,ATC2_Cod,ATC2_Des,ATC3_Cod,ATC3_Des,ATC4_Cod,ATC4_Des,
--- 	Mole_cod,Mole_des,Prod_cod,Prod_Des,Pack_Cod,Pack_Des,
--- 	Corp_cod,Corp_Des,manu_cod,Manu_des,MNC,Gene_Cod
--- from tblMktDef_Inline
--- where Mkt = 'Dia' and ATC3_cod in ('A10C','A10D')--,'A10E'):Change this line scripts by Xiaoyu.Chen on 20131023
--- go
+	---2.1 Insulin Market
+insert into tblMktDef_Inline
+select 'Insulin' as Mkt,'Insulin Market' as MktName,
+	ATC1_Cod,ATC1_Des,ATC2_Cod,ATC2_Des,ATC3_Cod,ATC3_Des,ATC4_Cod,ATC4_Des,
+	Mole_cod,Mole_des,Prod_cod,Prod_Des,Pack_Cod,Pack_Des,
+	Corp_cod,Corp_Des,manu_cod,Manu_des,MNC,Gene_Cod
+from tblMktDef_Inline
+where Mkt = 'Dia' and ATC3_cod in ('A10C','A10D')--,'A10E'):Change this line scripts by Xiaoyu.Chen on 20131023
+go
 
--- 	---2.2 NIAD Market
--- insert into tblMktDef_Inline
--- select 'NIAD' as Mkt,'NIAD Market' as MktName,
--- 	ATC1_Cod,ATC1_Des,ATC2_Cod,ATC2_Des,ATC3_Cod,ATC3_Des,ATC4_Cod,ATC4_Des,
--- 	Mole_cod,Mole_des,Prod_cod,Prod_Des,Pack_Cod,Pack_Des,
--- 	Corp_cod,Corp_Des,manu_cod,Manu_des,MNC,Gene_Cod
--- from tblMktDef_Inline
--- where Mkt = 'Dia' and ATC3_cod in ('A10S','A10N','A10M','A10L','A10K','A10J','A10H')
--- go
+	---2.2 NIAD Market
+insert into tblMktDef_Inline
+select 'NIAD' as Mkt,'NIAD Market' as MktName,
+	ATC1_Cod,ATC1_Des,ATC2_Cod,ATC2_Des,ATC3_Cod,ATC3_Des,ATC4_Cod,ATC4_Des,
+	Mole_cod,Mole_des,Prod_cod,Prod_Des,Pack_Cod,Pack_Des,
+	Corp_cod,Corp_Des,manu_cod,Manu_des,MNC,Gene_Cod
+from tblMktDef_Inline
+where Mkt = 'Dia' and ATC3_cod in ('A10S','A10N','A10M','A10L','A10K','A10J','A10H')
+go
 
--- 		--2.2.1 AGI Class
--- insert into tblMktDef_Inline
--- select 'AGI' as Mkt,'AGI Class' as MktName,
--- 	ATC1_Cod,ATC1_Des,ATC2_Cod,ATC2_Des,ATC3_Cod,ATC3_Des,ATC4_Cod,ATC4_Des,
--- 	Mole_cod,Mole_des,Prod_cod,Prod_Des,Pack_Cod,Pack_Des,
--- 	Corp_cod,Corp_Des,manu_cod,Manu_des,MNC,Gene_Cod
--- from tblMktDef_Inline
--- where Mkt = 'NIAD' and ATC3_cod  = 'A10L'
--- go
+		--2.2.1 AGI Class
+insert into tblMktDef_Inline
+select 'AGI' as Mkt,'AGI Class' as MktName,
+	ATC1_Cod,ATC1_Des,ATC2_Cod,ATC2_Des,ATC3_Cod,ATC3_Des,ATC4_Cod,ATC4_Des,
+	Mole_cod,Mole_des,Prod_cod,Prod_Des,Pack_Cod,Pack_Des,
+	Corp_cod,Corp_Des,manu_cod,Manu_des,MNC,Gene_Cod
+from tblMktDef_Inline
+where Mkt = 'NIAD' and ATC3_cod  = 'A10L'
+go
 
--- 		--2.2.2 BI Class
--- insert into tblMktDef_Inline
--- select 'BI' as Mkt,'BI Class' as MktName,
--- 	ATC1_Cod,ATC1_Des,ATC2_Cod,ATC2_Des,ATC3_Cod,ATC3_Des,ATC4_Cod,ATC4_Des,
--- 	Mole_cod,Mole_des,Prod_cod,Prod_Des,Pack_Cod,Pack_Des,
--- 	Corp_cod,Corp_Des,manu_cod,Manu_des,MNC,Gene_Cod
--- from tblMktDef_Inline
--- where Mkt = 'NIAD' and ATC3_cod  = 'A10J'
--- go
+		--2.2.2 BI Class
+insert into tblMktDef_Inline
+select 'BI' as Mkt,'BI Class' as MktName,
+	ATC1_Cod,ATC1_Des,ATC2_Cod,ATC2_Des,ATC3_Cod,ATC3_Des,ATC4_Cod,ATC4_Des,
+	Mole_cod,Mole_des,Prod_cod,Prod_Des,Pack_Cod,Pack_Des,
+	Corp_cod,Corp_Des,manu_cod,Manu_des,MNC,Gene_Cod
+from tblMktDef_Inline
+where Mkt = 'NIAD' and ATC3_cod  = 'A10J'
+go
 
--- 		--2.2.3 DPP4 Class
--- insert into tblMktDef_Inline
--- select 'DPP4' as Mkt,'DPP4 Class' as MktName,
--- 	ATC1_Cod,ATC1_Des,ATC2_Cod,ATC2_Des,ATC3_Cod,ATC3_Des,ATC4_Cod,ATC4_Des,
--- 	Mole_cod,Mole_des,Prod_cod,Prod_Des,Pack_Cod,Pack_Des,
--- 	Corp_cod,Corp_Des,manu_cod,Manu_des,MNC,Gene_Cod
--- from tblMktDef_Inline
--- where Mkt = 'NIAD' and ATC3_cod  = 'A10N'
--- go
+		--2.2.3 DPP4 Class
+insert into tblMktDef_Inline
+select 'DPP4' as Mkt,'DPP4 Class' as MktName,
+	ATC1_Cod,ATC1_Des,ATC2_Cod,ATC2_Des,ATC3_Cod,ATC3_Des,ATC4_Cod,ATC4_Des,
+	Mole_cod,Mole_des,Prod_cod,Prod_Des,Pack_Cod,Pack_Des,
+	Corp_cod,Corp_Des,manu_cod,Manu_des,MNC,Gene_Cod
+from tblMktDef_Inline
+where Mkt = 'NIAD' and ATC3_cod  = 'A10N'
+go
 
--- 		--2.2.4 GLIN Class
--- insert into tblMktDef_Inline
--- select 'GLIN' as Mkt,'GLIN Class' as MktName,
--- 	ATC1_Cod,ATC1_Des,ATC2_Cod,ATC2_Des,ATC3_Cod,ATC3_Des,ATC4_Cod,ATC4_Des,
--- 	Mole_cod,Mole_des,Prod_cod,Prod_Des,Pack_Cod,Pack_Des,
--- 	Corp_cod,Corp_Des,manu_cod,Manu_des,MNC,Gene_Cod
--- from tblMktDef_Inline
--- where Mkt = 'NIAD' and ATC3_cod  = 'A10M'
--- go
+		--2.2.4 GLIN Class
+insert into tblMktDef_Inline
+select 'GLIN' as Mkt,'GLIN Class' as MktName,
+	ATC1_Cod,ATC1_Des,ATC2_Cod,ATC2_Des,ATC3_Cod,ATC3_Des,ATC4_Cod,ATC4_Des,
+	Mole_cod,Mole_des,Prod_cod,Prod_Des,Pack_Cod,Pack_Des,
+	Corp_cod,Corp_Des,manu_cod,Manu_des,MNC,Gene_Cod
+from tblMktDef_Inline
+where Mkt = 'NIAD' and ATC3_cod  = 'A10M'
+go
 
--- 		--2.2.5 GLP1 Class
--- insert into tblMktDef_Inline
--- select 'GLP1' as Mkt,'GLP1 Class' as MktName,
--- 	ATC1_Cod,ATC1_Des,ATC2_Cod,ATC2_Des,ATC3_Cod,ATC3_Des,ATC4_Cod,ATC4_Des,
--- 	Mole_cod,Mole_des,Prod_cod,Prod_Des,Pack_Cod,Pack_Des,
--- 	Corp_cod,Corp_Des,manu_cod,Manu_des,MNC,Gene_Cod
--- from tblMktDef_Inline
--- where Mkt = 'NIAD' and ATC3_cod  = 'A10S'
--- go
+		--2.2.5 GLP1 Class
+insert into tblMktDef_Inline
+select 'GLP1' as Mkt,'GLP1 Class' as MktName,
+	ATC1_Cod,ATC1_Des,ATC2_Cod,ATC2_Des,ATC3_Cod,ATC3_Des,ATC4_Cod,ATC4_Des,
+	Mole_cod,Mole_des,Prod_cod,Prod_Des,Pack_Cod,Pack_Des,
+	Corp_cod,Corp_Des,manu_cod,Manu_des,MNC,Gene_Cod
+from tblMktDef_Inline
+where Mkt = 'NIAD' and ATC3_cod  = 'A10S'
+go
 
--- 		--2.2.6 SU Class
--- insert into tblMktDef_Inline
--- select 'SU' as Mkt,'SU Class' as MktName,
--- 	ATC1_Cod,ATC1_Des,ATC2_Cod,ATC2_Des,ATC3_Cod,ATC3_Des,ATC4_Cod,ATC4_Des,
--- 	Mole_cod,Mole_des,Prod_cod,Prod_Des,Pack_Cod,Pack_Des,
--- 	Corp_cod,Corp_Des,manu_cod,Manu_des,MNC,Gene_Cod
--- from tblMktDef_Inline
--- where Mkt = 'NIAD' and ATC3_cod  = 'A10H'
--- go
+		--2.2.6 SU Class
+insert into tblMktDef_Inline
+select 'SU' as Mkt,'SU Class' as MktName,
+	ATC1_Cod,ATC1_Des,ATC2_Cod,ATC2_Des,ATC3_Cod,ATC3_Des,ATC4_Cod,ATC4_Des,
+	Mole_cod,Mole_des,Prod_cod,Prod_Des,Pack_Cod,Pack_Des,
+	Corp_cod,Corp_Des,manu_cod,Manu_des,MNC,Gene_Cod
+from tblMktDef_Inline
+where Mkt = 'NIAD' and ATC3_cod  = 'A10H'
+go
 
--- 		--2.2.7 TZD Class
--- insert into tblMktDef_Inline
--- select 'TZD' as Mkt,'TZD Class' as MktName,
--- 	ATC1_Cod,ATC1_Des,ATC2_Cod,ATC2_Des,ATC3_Cod,ATC3_Des,ATC4_Cod,ATC4_Des,
--- 	Mole_cod,Mole_des,Prod_cod,Prod_Des,Pack_Cod,Pack_Des,
--- 	Corp_cod,Corp_Des,manu_cod,Manu_des,MNC,Gene_Cod
--- from tblMktDef_Inline
--- where Mkt = 'NIAD' and ATC3_cod  = 'A10K'
--- go
+		--2.2.7 TZD Class
+insert into tblMktDef_Inline
+select 'TZD' as Mkt,'TZD Class' as MktName,
+	ATC1_Cod,ATC1_Des,ATC2_Cod,ATC2_Des,ATC3_Cod,ATC3_Des,ATC4_Cod,ATC4_Des,
+	Mole_cod,Mole_des,Prod_cod,Prod_Des,Pack_Cod,Pack_Des,
+	Corp_cod,Corp_Des,manu_cod,Manu_des,MNC,Gene_Cod
+from tblMktDef_Inline
+where Mkt = 'NIAD' and ATC3_cod  = 'A10K'
+go
 
--- 	--2.3 OAD Market
--- insert into tblMktDef_Inline
--- select 'OAD' as Mkt,'OAD Market' as MktName,
--- 	ATC1_Cod,ATC1_Des,ATC2_Cod,ATC2_Des,ATC3_Cod,ATC3_Des,ATC4_Cod,ATC4_Des,
--- 	Mole_cod,Mole_des,Prod_cod,Prod_Des,Pack_Cod,Pack_Des,
--- 	Corp_cod,Corp_Des,manu_cod,Manu_des,MNC,Gene_Cod
--- from tblMktDef_Inline
--- where Mkt = 'Dia' and ATC3_cod in ('A10N','A10M','A10L','A10K','A10J','A10H')
--- go
+	--2.3 OAD Market
+insert into tblMktDef_Inline
+select 'OAD' as Mkt,'OAD Market' as MktName,
+	ATC1_Cod,ATC1_Des,ATC2_Cod,ATC2_Des,ATC3_Cod,ATC3_Des,ATC4_Cod,ATC4_Des,
+	Mole_cod,Mole_des,Prod_cod,Prod_Des,Pack_Cod,Pack_Des,
+	Corp_cod,Corp_Des,manu_cod,Manu_des,MNC,Gene_Cod
+from tblMktDef_Inline
+where Mkt = 'Dia' and ATC3_cod in ('A10N','A10M','A10L','A10K','A10J','A10H')
+go
 
 ----3. Hypertension Market
 insert into tblMktDef_Inline
@@ -471,14 +471,14 @@ from tblMktDef_ATCDriver
 where Mole_cod in ('706886','718136','716708')
 go
 
--- ----6. Platinum Market
--- insert into tblMktDef_Inline
--- select cast('PLATINUM' as varchar(50)) as Mkt,cast('Platinum Market' as varchar(50)) as MktName,* 
--- from tblMktDef_ATCDriver
--- where Mole_cod in ('031172','501750','398650')
--- go
+----6. Platinum Market
+insert into tblMktDef_Inline
+select cast('PLATINUM' as varchar(50)) as Mkt,cast('Platinum Market' as varchar(50)) as MktName,* 
+from tblMktDef_ATCDriver
+where Mole_cod in ('031172','501750','398650')
+go
 
-----7. Eliquis VTEp Market
+--7. Eliquis VTEp Market
 
 /*
 prod_cod	prod_des
@@ -487,11 +487,11 @@ prod_cod	prod_des
 40785	XARELTO
 53099	ELIQUIS
 */
---add new product for Eliquis VTEp market:( ARIXTRA)
--- insert into tblMktDef_Inline
--- select cast('ELIQUIS VTEp' as varchar(50)) as Mkt,cast('Eliquis (VTEp) Market' as varchar(50)) as MktName,* 
--- from tblMktDef_ATCDriver
--- where prod_cod in ('40785','06253','08621','53099','37977') 
+-- add new product for Eliquis VTEp market:( ARIXTRA)
+insert into tblMktDef_Inline
+select cast('ELIQUIS VTEp' as varchar(50)) as Mkt,cast('Eliquis (VTEp) Market' as varchar(50)) as MktName,* 
+from tblMktDef_ATCDriver
+where prod_cod in ('40785','06253','08621','53099','37977') 
 
 -- 20161102 
 -- modify the eliquis vtep market to contain these molecure: 
@@ -506,31 +506,31 @@ prod_cod	prod_des
 -- NADROPARIN CALCIUM
 -- and add new molecure: LOW MOLECULAR WEIGHT HEPARIN CALCIUM
 
--- insert into tblMktDef_Inline
--- select cast('ELIQUIS VTEp' as varchar(50)) as Mkt,cast('Eliquis (VTEp) Market' as varchar(50)) as MktName,* 
--- from tblMktDef_ATCDriver
--- where Mole_cod in ('406260','408800','408827','413885','703259','704307','711981','719372', '904100') 
+insert into tblMktDef_Inline
+select cast('ELIQUIS VTEp' as varchar(50)) as Mkt,cast('Eliquis (VTEp) Market' as varchar(50)) as MktName,* 
+from tblMktDef_ATCDriver
+where Mole_cod in ('406260','408800','408827','413885','703259','704307','711981','719372', '904100') 
 
 
 
 
--- ----7.1 Eliquis(NOAC) Market
+----7.1 Eliquis(NOAC) Market
 
--- --add new product for Eliquis NOAC market: ('Eliquis','XARELTO','PRADAXA')
--- insert into tblMktDef_Inline
--- select cast('ELIQUIS NOAC' as varchar(50)) as Mkt,cast('Eliquis (NOAC) Market' as varchar(50)) as MktName,* 
--- from tblMktDef_ATCDriver
--- where prod_cod in ('40785','52911','53099') 
+--add new product for Eliquis NOAC market: ('Eliquis','XARELTO','PRADAXA')
+insert into tblMktDef_Inline
+select cast('ELIQUIS NOAC' as varchar(50)) as Mkt,cast('Eliquis (NOAC) Market' as varchar(50)) as MktName,* 
+from tblMktDef_ATCDriver
+where prod_cod in ('40785','52911','53099') 
 
--- -- 20161102 add VTEt
--- ----7.2 Eliquis(VTEt) Market
--- insert into tblMktDef_Inline
--- select cast('ELIQUIS VTEt' as varchar(50)) as Mkt,cast('Eliquis (VTEt) Market' as varchar(50)) as MktName,* 
--- from tblMktDef_ATCDriver
--- where Mole_cod in ('406260','408800','408827','413885','703259','704307','711981','239900', '904100') 
+-- 20161102 add VTEt
+----7.2 Eliquis(VTEt) Market
+insert into tblMktDef_Inline
+select cast('ELIQUIS VTEt' as varchar(50)) as Mkt,cast('Eliquis (VTEt) Market' as varchar(50)) as MktName,* 
+from tblMktDef_ATCDriver
+where Mole_cod in ('406260','408800','408827','413885','703259','704307','711981','239900', '904100') 
 
 
-----8. OTC Markets
+--8. OTC Markets
 
 
 
@@ -1265,452 +1265,452 @@ WHERE a.Mkt = 'HYP' and NOT EXISTS(
 GO
 
 
--- ------------------------------------------------------
--- --	ELIQUIS VTEp : Add this market by Xiaoyu.Chen
--- ------------------------------------------------------
--- -- mkt
--- insert into tblMktDef_MRBIChina
--- SELECT distinct 
---   'Eliquis VTEp' Mkt,'Eliquis (VTEp) Market' MktName
---   ,'000' as Prod,'Eliquis (VTEp) Market' as ProductName
---   ,'N' as Molecule
---   ,'N' as Class
---   ,ATC1_Cod,ATC2_Cod,ATC3_Cod,ATC4_Cod
---   ,pack_cod, Pack_des
---   ,Prod_cod,Prod_des as Prod_Name,Prod_des + ' (' +Manu_cod +')' as Prod_FullName
---   , Mole_cod
---   ,mole_des as Mole_Name
---   ,Corp_cod
---   ,Manu_Cod
---   ,Gene_Cod
---   ,'Y' as Active
---   ,GetDate() as Date, '201306 add new products & packages' as Comment
---   ,1--rat
--- FROM tblMktDef_Inline A WHERE A.MKT = 'Eliquis VTEp'
--- GO
+------------------------------------------------------
+--	ELIQUIS VTEp : Add this market by Xiaoyu.Chen
+------------------------------------------------------
+-- mkt
+insert into tblMktDef_MRBIChina
+SELECT distinct 
+  'Eliquis VTEp' Mkt,'Eliquis (VTEp) Market' MktName
+  ,'000' as Prod,'Eliquis (VTEp) Market' as ProductName
+  ,'N' as Molecule
+  ,'N' as Class
+  ,ATC1_Cod,ATC2_Cod,ATC3_Cod,ATC4_Cod
+  ,pack_cod, Pack_des
+  ,Prod_cod,Prod_des as Prod_Name,Prod_des + ' (' +Manu_cod +')' as Prod_FullName
+  , Mole_cod
+  ,mole_des as Mole_Name
+  ,Corp_cod
+  ,Manu_Cod
+  ,Gene_Cod
+  ,'Y' as Active
+  ,GetDate() as Date, '201306 add new products & packages' as Comment
+  ,1--rat
+FROM tblMktDef_Inline A WHERE A.MKT = 'Eliquis VTEp'
+GO
 
--- --insert into tblMktDef_MRBIChina
--- --SELECT distinct 
--- --  'Eliquis VTEp' Mkt,'Eliquis (VTEp) Market' MktName
--- --  ,'000' as Prod,'Eliquis (VTEp) Market' as ProductName
--- --  ,'Y' as Molecule
--- --  ,'N' as Class
--- --  ,ATC1_Cod,ATC2_Cod,ATC3_Cod,ATC4_Cod
--- --  ,pack_cod, Pack_des
--- --  ,Prod_cod,Prod_des as Prod_Name,Prod_des + ' (' +Manu_cod +')' as Prod_FullName
--- --  , Mole_cod
--- --  ,mole_des as Mole_Name
--- --  ,Corp_cod
--- --  ,Manu_Cod
--- --  ,Gene_Cod
--- --  ,'Y' as Active
--- --  ,GetDate() as Date, '201306 add new products & packages' as Comment
--- --  ,1--rat
--- --FROM tblMktDef_Inline A WHERE A.MKT = 'Eliquis VTEp'
--- --GO
+--insert into tblMktDef_MRBIChina
+--SELECT distinct 
+--  'Eliquis VTEp' Mkt,'Eliquis (VTEp) Market' MktName
+--  ,'000' as Prod,'Eliquis (VTEp) Market' as ProductName
+--  ,'Y' as Molecule
+--  ,'N' as Class
+--  ,ATC1_Cod,ATC2_Cod,ATC3_Cod,ATC4_Cod
+--  ,pack_cod, Pack_des
+--  ,Prod_cod,Prod_des as Prod_Name,Prod_des + ' (' +Manu_cod +')' as Prod_FullName
+--  , Mole_cod
+--  ,mole_des as Mole_Name
+--  ,Corp_cod
+--  ,Manu_Cod
+--  ,Gene_Cod
+--  ,'Y' as Active
+--  ,GetDate() as Date, '201306 add new products & packages' as Comment
+--  ,1--rat
+--FROM tblMktDef_Inline A WHERE A.MKT = 'Eliquis VTEp'
+--GO
 
--- -- Prod
+-- Prod
 
--- /*
--- 06253	FRAXIPARINE
--- 08621	CLEXANE
--- 40785	XARELTO
--- 53099	ELIQUIS
--- */
--- insert into tblMktDef_MRBIChina
--- SELECT distinct 
---    'Eliquis VTEp' as Mkt
---   ,'Eliquis (VTEp) Market' as MktName
---   ,case when a.Prod_Des='ELIQUIS' then '100'   
---         when a.Prod_Des='CLEXANE' then '200'     
---         when a.Prod_Des='XARELTO' then '300'        
---         when a.Prod_Des='FRAXIPARINE' then '400'   
--- 		when a.Prod_Des='ARIXTRA' then '500'  
--- 		else '600'
---         end   as [Prod]         
---   ,a.Prod_Des as ProductName
---   ,'N'        as Molecule
---   ,'N'        as Class 
---   ,ATC1_Cod,ATC2_Cod,ATC3_Cod,ATC4_Cod
---   ,pack_cod, Pack_des
---   ,Prod_cod,Prod_des as Prod_Name,Prod_des + ' (' +Manu_cod +')' as Prod_FullName
---   , Mole_cod,Mole_Des as  Mole_Name
---   ,Corp_cod
---   ,Manu_Cod
---   ,Gene_Cod
---   ,'Y'       as Active
---   ,GetDate() as Date, '201306 add new products & packages'   --select * 
---   ,1--rat
--- FROM tblMktDef_Inline A 
--- WHERE A.MKT = 'Eliquis VTEp' 
--- GO
-
-
--- /*
-
--- prod_des	mole_des
--- CLEXANE	ENOXAPARIN SODIUM
--- ELIQUIS	APIXABAN
--- FRAXIPARINE	NADROPARIN CALCIUM
--- XARELTO	RIVAROXABAN
--- */
-
--- --Mole
--- --insert into tblMktDef_MRBIChina
--- --SELECT distinct 
--- --   'Eliquis VTEp' as Mkt
--- --  ,'Eliquis (VTEp) Market' as MktName
--- --  ,case when a.Prod_Des='ELIQUIS' then '100'   
--- --        when a.Prod_Des='CLEXANE' then '200'     
--- --        when a.Prod_Des='XARELTO' then '300'        
--- --        when a.Prod_Des='FRAXIPARINE' then '400'   
--- --		when a.Prod_Des='ARIXTRA' then '500'   
--- --        end   as [Prod]         
--- --  ,a.Mole_des as ProductName
--- --  ,'Y'        as Molecule
--- --  ,'N'        as Class 
--- --  ,ATC1_Cod,ATC2_Cod,ATC3_Cod,ATC4_Cod
--- --  ,pack_cod, Pack_des
--- --  ,Prod_cod,Prod_des as Prod_Name,Prod_des + ' (' +Manu_cod +')' as Prod_FullName
--- --  ,Mole_cod,Mole_Des as Mole_Name
--- --  ,Corp_cod
--- --  ,Manu_Cod
--- --  ,Gene_Cod
--- --  ,'Y'       as Active
--- --  ,GetDate() as Date, '201306 add new products & packages'  -- select * 
--- --  ,1--rat
--- --FROM tblMktDef_Inline A 
--- --WHERE A.MKT = 'Eliquis VTEp' 
--- --go
-
--- -- 20161103 change NOAC to VTEt
--- ------------------------------------------------------
--- --	ELIQUIS VTEt Market
--- ------------------------------------------------------
--- --mkt
--- insert into tblMktDef_MRBIChina
--- SELECT distinct 
---   'Eliquis VTEt' Mkt,'Eliquis (VTEt) Market' MktName
---   ,'000' as Prod,'Eliquis (VTEt) Market' as ProductName
---   ,'N' as Molecule
---   ,'N' as Class
---   ,ATC1_Cod,ATC2_Cod,ATC3_Cod,ATC4_Cod
---   ,pack_cod, Pack_des
---   ,Prod_cod,Prod_des as Prod_Name,Prod_des + ' (' +Manu_cod +')' as Prod_FullName
---   , Mole_cod
---   ,mole_des as Mole_Name
---   ,Corp_cod
---   ,Manu_Cod
---   ,Gene_Cod
---   ,'Y' as Active
---   ,GetDate() as Date, '201306 add new products & packages' as Comment
---   ,1--rat
--- FROM tblMktDef_Inline A WHERE A.MKT = 'Eliquis VTEt'
--- GO
-
--- insert into tblMktDef_MRBIChina
--- SELECT distinct 
---   'Eliquis NOAC' Mkt,'Eliquis (NOAC) Market' MktName
---   ,'000' as Prod,'Eliquis (NOAC) Market' as ProductName
---   ,'N' as Molecule
---   ,'N' as Class
---   ,ATC1_Cod,ATC2_Cod,ATC3_Cod,ATC4_Cod
---   ,pack_cod, Pack_des
---   ,Prod_cod,Prod_des as Prod_Name,Prod_des + ' (' +Manu_cod +')' as Prod_FullName
---   , Mole_cod
---   ,mole_des as Mole_Name
---   ,Corp_cod
---   ,Manu_Cod
---   ,Gene_Cod
---   ,'Y' as Active
---   ,GetDate() as Date, '201306 add new products & packages' as Comment
---   ,1--rat
--- FROM tblMktDef_Inline A WHERE A.MKT = 'Eliquis NOAC'
--- GO
-
--- --prod
--- insert into tblMktDef_MRBIChina
--- SELECT distinct 
---    'Eliquis VTEt' as Mkt
---   ,'Eliquis (VTEt) Market' as MktName
---   ,case when a.Prod_Des='ELIQUIS' then '100'   
---         when a.Prod_Des='CLEXANE' then '200'     
---         when a.Prod_Des='XARELTO' then '300'        
---         when a.Prod_Des='FRAXIPARINE' then '400'   
--- 		when a.Prod_Des='ARIXTRA' then '500'  
--- 		else '600'
---         end   as [Prod]         
---   ,a.Prod_Des as ProductName
---   ,'N'        as Molecule
---   ,'N'        as Class 
---   ,ATC1_Cod,ATC2_Cod,ATC3_Cod,ATC4_Cod
---   ,pack_cod, Pack_des
---   ,Prod_cod,Prod_des as Prod_Name,Prod_des + ' (' +Manu_cod +')' as Prod_FullName
---   , Mole_cod,Mole_Des as  Mole_Name
---   ,Corp_cod
---   ,Manu_Cod
---   ,Gene_Cod
---   ,'Y'       as Active
---   ,GetDate() as Date, '201306 add new products & packages'   --select * 
---   ,1--rat
--- FROM tblMktDef_Inline A 
--- WHERE A.MKT = 'Eliquis VTEt' 
--- go
-
--- insert into tblMktDef_MRBIChina
--- SELECT distinct 
--- 	'Eliquis NOAC' as Mkt
--- 	,'Eliquis (NOAC) Market' as MktName
--- 	,case when a.Prod_Des='Eliquis' then '100'   
--- 		when a.Prod_Des='XARELTO' then '200'     
--- 		when a.Prod_Des='PRADAXA' then '300' 
--- 		end   as [Prod]         
--- 	,a.Prod_Des as ProductName
--- 	,'N'        as Molecule
--- 	,'N'        as Class 
--- 	,ATC1_Cod,ATC2_Cod,ATC3_Cod,ATC4_Cod
--- 	,pack_cod, Pack_des
--- 	,Prod_cod,Prod_des as Prod_Name,Prod_des + ' (' +Manu_cod +')' as Prod_FullName
--- 	, Mole_cod,Mole_Des as  Mole_Name
--- 	,Corp_cod
--- 	,Manu_Cod
--- 	,Gene_Cod
--- 	,'Y'       as Active
--- 	,GetDate() as Date, '201306 add new products & packages'   --select * 
--- 	,1--rat
--- FROM tblMktDef_Inline A 
--- WHERE A.MKT = 'Eliquis NOAC' 
--- GO
-
--- -- 20161108 add a rat table 
-
--- -- vtep and vtet rat
--- update a
--- set a.rat = b.rat
--- from tblMktDef_MRBIChina  as a 
--- inner join dbo.inMktDef_MRBIChina_rat as b 
--- on a.Mkt = b.Mkt and a.Mole_Cod = b.Mole_Cod and b.IsMole = 'Y'
-
--- -- noac rat
--- update a
--- set a.rat = b.rat
--- from tblMktDef_MRBIChina  as a 
--- inner join dbo.inMktDef_MRBIChina_rat as b 
--- on a.Mkt = b.Mkt and a.ProductName = b.Prod_Des and b.IsProd = 'Y'
+/*
+06253	FRAXIPARINE
+08621	CLEXANE
+40785	XARELTO
+53099	ELIQUIS
+*/
+insert into tblMktDef_MRBIChina
+SELECT distinct 
+   'Eliquis VTEp' as Mkt
+  ,'Eliquis (VTEp) Market' as MktName
+  ,case when a.Prod_Des='ELIQUIS' then '100'   
+        when a.Prod_Des='CLEXANE' then '200'     
+        when a.Prod_Des='XARELTO' then '300'        
+        when a.Prod_Des='FRAXIPARINE' then '400'   
+		when a.Prod_Des='ARIXTRA' then '500'  
+		else '600'
+        end   as [Prod]         
+  ,a.Prod_Des as ProductName
+  ,'N'        as Molecule
+  ,'N'        as Class 
+  ,ATC1_Cod,ATC2_Cod,ATC3_Cod,ATC4_Cod
+  ,pack_cod, Pack_des
+  ,Prod_cod,Prod_des as Prod_Name,Prod_des + ' (' +Manu_cod +')' as Prod_FullName
+  , Mole_cod,Mole_Des as  Mole_Name
+  ,Corp_cod
+  ,Manu_Cod
+  ,Gene_Cod
+  ,'Y'       as Active
+  ,GetDate() as Date, '201306 add new products & packages'   --select * 
+  ,1--rat
+FROM tblMktDef_Inline A 
+WHERE A.MKT = 'Eliquis VTEp' 
+GO
 
 
--- update tblMktDef_MRBIChina set rat=1
--- where mkt like 'eliquis VTEp' and prod_name='ARIXTRA'
--- update tblMktDef_MRBIChina set rat=1
--- where mkt like 'eliquis VTEp%' and prod_name='CLEXANE'
--- update tblMktDef_MRBIChina set rat=1
--- where mkt like 'eliquis VTEp%' and prod_name='ELIQUIS'
--- update tblMktDef_MRBIChina set rat=1
--- where mkt like 'eliquis VTEp%' and prod_name='FRAXIPARINE'
--- update tblMktDef_MRBIChina set rat=1
--- where mkt like 'eliquis VTEp%' and prod_name='XARELTO'
+/*
+
+prod_des	mole_des
+CLEXANE	ENOXAPARIN SODIUM
+ELIQUIS	APIXABAN
+FRAXIPARINE	NADROPARIN CALCIUM
+XARELTO	RIVAROXABAN
+*/
+
+--Mole
+--insert into tblMktDef_MRBIChina
+--SELECT distinct 
+--   'Eliquis VTEp' as Mkt
+--  ,'Eliquis (VTEp) Market' as MktName
+--  ,case when a.Prod_Des='ELIQUIS' then '100'   
+--        when a.Prod_Des='CLEXANE' then '200'     
+--        when a.Prod_Des='XARELTO' then '300'        
+--        when a.Prod_Des='FRAXIPARINE' then '400'   
+--		when a.Prod_Des='ARIXTRA' then '500'   
+--        end   as [Prod]         
+--  ,a.Mole_des as ProductName
+--  ,'Y'        as Molecule
+--  ,'N'        as Class 
+--  ,ATC1_Cod,ATC2_Cod,ATC3_Cod,ATC4_Cod
+--  ,pack_cod, Pack_des
+--  ,Prod_cod,Prod_des as Prod_Name,Prod_des + ' (' +Manu_cod +')' as Prod_FullName
+--  ,Mole_cod,Mole_Des as Mole_Name
+--  ,Corp_cod
+--  ,Manu_Cod
+--  ,Gene_Cod
+--  ,'Y'       as Active
+--  ,GetDate() as Date, '201306 add new products & packages'  -- select * 
+--  ,1--rat
+--FROM tblMktDef_Inline A 
+--WHERE A.MKT = 'Eliquis VTEp' 
+--go
+
+-- 20161103 change NOAC to VTEt
+------------------------------------------------------
+--	ELIQUIS VTEt Market
+------------------------------------------------------
+--mkt
+insert into tblMktDef_MRBIChina
+SELECT distinct 
+  'Eliquis VTEt' Mkt,'Eliquis (VTEt) Market' MktName
+  ,'000' as Prod,'Eliquis (VTEt) Market' as ProductName
+  ,'N' as Molecule
+  ,'N' as Class
+  ,ATC1_Cod,ATC2_Cod,ATC3_Cod,ATC4_Cod
+  ,pack_cod, Pack_des
+  ,Prod_cod,Prod_des as Prod_Name,Prod_des + ' (' +Manu_cod +')' as Prod_FullName
+  , Mole_cod
+  ,mole_des as Mole_Name
+  ,Corp_cod
+  ,Manu_Cod
+  ,Gene_Cod
+  ,'Y' as Active
+  ,GetDate() as Date, '201306 add new products & packages' as Comment
+  ,1--rat
+FROM tblMktDef_Inline A WHERE A.MKT = 'Eliquis VTEt'
+GO
+
+insert into tblMktDef_MRBIChina
+SELECT distinct 
+  'Eliquis NOAC' Mkt,'Eliquis (NOAC) Market' MktName
+  ,'000' as Prod,'Eliquis (NOAC) Market' as ProductName
+  ,'N' as Molecule
+  ,'N' as Class
+  ,ATC1_Cod,ATC2_Cod,ATC3_Cod,ATC4_Cod
+  ,pack_cod, Pack_des
+  ,Prod_cod,Prod_des as Prod_Name,Prod_des + ' (' +Manu_cod +')' as Prod_FullName
+  , Mole_cod
+  ,mole_des as Mole_Name
+  ,Corp_cod
+  ,Manu_Cod
+  ,Gene_Cod
+  ,'Y' as Active
+  ,GetDate() as Date, '201306 add new products & packages' as Comment
+  ,1--rat
+FROM tblMktDef_Inline A WHERE A.MKT = 'Eliquis NOAC'
+GO
+
+--prod
+insert into tblMktDef_MRBIChina
+SELECT distinct 
+   'Eliquis VTEt' as Mkt
+  ,'Eliquis (VTEt) Market' as MktName
+  ,case when a.Prod_Des='ELIQUIS' then '100'   
+        when a.Prod_Des='CLEXANE' then '200'     
+        when a.Prod_Des='XARELTO' then '300'        
+        when a.Prod_Des='FRAXIPARINE' then '400'   
+		when a.Prod_Des='ARIXTRA' then '500'  
+		else '600'
+        end   as [Prod]         
+  ,a.Prod_Des as ProductName
+  ,'N'        as Molecule
+  ,'N'        as Class 
+  ,ATC1_Cod,ATC2_Cod,ATC3_Cod,ATC4_Cod
+  ,pack_cod, Pack_des
+  ,Prod_cod,Prod_des as Prod_Name,Prod_des + ' (' +Manu_cod +')' as Prod_FullName
+  , Mole_cod,Mole_Des as  Mole_Name
+  ,Corp_cod
+  ,Manu_Cod
+  ,Gene_Cod
+  ,'Y'       as Active
+  ,GetDate() as Date, '201306 add new products & packages'   --select * 
+  ,1--rat
+FROM tblMktDef_Inline A 
+WHERE A.MKT = 'Eliquis VTEt' 
+go
+
+insert into tblMktDef_MRBIChina
+SELECT distinct 
+	'Eliquis NOAC' as Mkt
+	,'Eliquis (NOAC) Market' as MktName
+	,case when a.Prod_Des='Eliquis' then '100'   
+		when a.Prod_Des='XARELTO' then '200'     
+		when a.Prod_Des='PRADAXA' then '300' 
+		end   as [Prod]         
+	,a.Prod_Des as ProductName
+	,'N'        as Molecule
+	,'N'        as Class 
+	,ATC1_Cod,ATC2_Cod,ATC3_Cod,ATC4_Cod
+	,pack_cod, Pack_des
+	,Prod_cod,Prod_des as Prod_Name,Prod_des + ' (' +Manu_cod +')' as Prod_FullName
+	, Mole_cod,Mole_Des as  Mole_Name
+	,Corp_cod
+	,Manu_Cod
+	,Gene_Cod
+	,'Y'       as Active
+	,GetDate() as Date, '201306 add new products & packages'   --select * 
+	,1--rat
+FROM tblMktDef_Inline A 
+WHERE A.MKT = 'Eliquis NOAC' 
+GO
+
+-- 20161108 add a rat table 
+
+-- vtep and vtet rat
+update a
+set a.rat = b.rat
+from tblMktDef_MRBIChina  as a 
+inner join dbo.inMktDef_MRBIChina_rat as b 
+on a.Mkt = b.Mkt and a.Mole_Cod = b.Mole_Cod and b.IsMole = 'Y'
+
+-- noac rat
+update a
+set a.rat = b.rat
+from tblMktDef_MRBIChina  as a 
+inner join dbo.inMktDef_MRBIChina_rat as b 
+on a.Mkt = b.Mkt and a.ProductName = b.Prod_Des and b.IsProd = 'Y'
+
+
+update tblMktDef_MRBIChina set rat=1
+where mkt like 'eliquis VTEp' and prod_name='ARIXTRA'
+update tblMktDef_MRBIChina set rat=1
+where mkt like 'eliquis VTEp%' and prod_name='CLEXANE'
+update tblMktDef_MRBIChina set rat=1
+where mkt like 'eliquis VTEp%' and prod_name='ELIQUIS'
+update tblMktDef_MRBIChina set rat=1
+where mkt like 'eliquis VTEp%' and prod_name='FRAXIPARINE'
+update tblMktDef_MRBIChina set rat=1
+where mkt like 'eliquis VTEp%' and prod_name='XARELTO'
 
 --NOAC
--- update tblMktDef_MRBIChina set rat=1
--- where mkt like 'eliquis noac' and prod_name='Eliquis'
--- update tblMktDef_MRBIChina set rat=1
--- where mkt like 'eliquis noac' and prod_name='Xarelto'
--- update tblMktDef_MRBIChina set rat=1
--- where mkt like 'eliquis noac' and prod_name='Pradaxa'
+update tblMktDef_MRBIChina set rat=1
+where mkt like 'eliquis noac' and prod_name='Eliquis'
+update tblMktDef_MRBIChina set rat=1
+where mkt like 'eliquis noac' and prod_name='Xarelto'
+update tblMktDef_MRBIChina set rat=1
+where mkt like 'eliquis noac' and prod_name='Pradaxa'
 
 
 
 go
--- -----------------------------------------------
--- --			Coniel
--- -----------------------------------------------
--- --mkt
--- insert into tblMktDef_MRBIChina
--- SELECT distinct 
---   'CCB' Mkt,'CCB Market' MktName
---   ,'000' as Prod,'CCB Market' as ProductName
---   ,'N' as Molecule
---   ,'N' as Class
---   ,ATC1_Cod,ATC2_Cod,ATC3_Cod,ATC4_Cod
---   ,pack_cod, Pack_des
---   ,Prod_cod,Prod_des as Prod_Name,Prod_des + ' (' +Manu_cod +')' as Prod_FullName
---   ,Mole_cod
---   ,Mole_des as Mole_Name
---   ,Corp_cod
---   ,Manu_Cod
---   ,Gene_Cod
---   ,'Y' as Active
---   ,GetDate() as Date, '201404 add new products & packages' as Comment
---   ,1--rat
--- FROM tblMktDef_Inline A WHERE A.MKT = 'CCB'
--- --GO
+-----------------------------------------------
+--			Coniel
+-----------------------------------------------
+--mkt
+insert into tblMktDef_MRBIChina
+SELECT distinct 
+  'CCB' Mkt,'CCB Market' MktName
+  ,'000' as Prod,'CCB Market' as ProductName
+  ,'N' as Molecule
+  ,'N' as Class
+  ,ATC1_Cod,ATC2_Cod,ATC3_Cod,ATC4_Cod
+  ,pack_cod, Pack_des
+  ,Prod_cod,Prod_des as Prod_Name,Prod_des + ' (' +Manu_cod +')' as Prod_FullName
+  ,Mole_cod
+  ,Mole_des as Mole_Name
+  ,Corp_cod
+  ,Manu_Cod
+  ,Gene_Cod
+  ,'Y' as Active
+  ,GetDate() as Date, '201404 add new products & packages' as Comment
+  ,1--rat
+FROM tblMktDef_Inline A WHERE A.MKT = 'CCB'
+--GO
 
--- --insert into tblMktDef_MRBIChina
--- --SELECT distinct 
--- --  'CCB' Mkt,'CCB Market' MktName
--- --  ,'000' as Prod,'CCB Market' as ProductName
--- --  ,'Y' as Molecule
--- --  ,'N' as Class
--- --  ,ATC1_Cod,ATC2_Cod,ATC3_Cod,ATC4_Cod
--- --  ,pack_cod, Pack_des
--- --  ,Prod_cod,Prod_des as Prod_Name,Prod_des + ' (' +Manu_cod +')' as Prod_FullName
--- --  ,'' Mole_cod
--- --  ,'' Mole_Name
--- --  ,Corp_cod
--- --  ,Manu_Cod
--- --  ,Gene_Cod
--- --  ,'Y' as Active
--- --  ,GetDate() as Date, '201404 add new products & packages' as Comment
--- --FROM tblMktDef_Inline A WHERE A.MKT = 'CCB'
--- GO
+--insert into tblMktDef_MRBIChina
+--SELECT distinct 
+--  'CCB' Mkt,'CCB Market' MktName
+--  ,'000' as Prod,'CCB Market' as ProductName
+--  ,'Y' as Molecule
+--  ,'N' as Class
+--  ,ATC1_Cod,ATC2_Cod,ATC3_Cod,ATC4_Cod
+--  ,pack_cod, Pack_des
+--  ,Prod_cod,Prod_des as Prod_Name,Prod_des + ' (' +Manu_cod +')' as Prod_FullName
+--  ,'' Mole_cod
+--  ,'' Mole_Name
+--  ,Corp_cod
+--  ,Manu_Cod
+--  ,Gene_Cod
+--  ,'Y' as Active
+--  ,GetDate() as Date, '201404 add new products & packages' as Comment
+--FROM tblMktDef_Inline A WHERE A.MKT = 'CCB'
+GO
 
--- -- Prod
+-- Prod
 
--- insert into tblMktDef_MRBIChina
--- SELECT distinct 
---    'CCB' as Mkt
---   ,'CCB Market' as MktName
---   ,case when a.Prod_Des='Coniel'  then '100'   
--- 		when a.Prod_Des='YUAN ZHI' then '200' 
--- 		when a.Prod_Des='LACIPIL' then '300'
--- 		when a.Prod_Des='ZANIDIP' then '400'
--- 		when a.Prod_Des='NORVASC' then '500'
--- 		when a.Prod_Des='ADALAT'  then '600'
--- 		when a.Prod_Des='PLENDIL' then '700'
--- 		else '940'
---         end   as [Prod]         
---   ,
---   case when a.Prod_Des='Coniel'  then prod_des
--- 		when a.Prod_Des='YUAN ZHI' then prod_des
--- 		when a.Prod_Des='LACIPIL' then prod_des
--- 		when a.Prod_Des='ZANIDIP' then prod_des
--- 		when a.Prod_Des='NORVASC' then prod_des
--- 		when a.Prod_Des='ADALAT' then prod_des
--- 		when a.Prod_Des='PLENDIL' then prod_des
--- 		else 'CCB Others'
---         end   as ProductName
---   ,'N'        as Molecule
---   ,'N'        as Class 
---   ,ATC1_Cod,ATC2_Cod,ATC3_Cod,ATC4_Cod
---   ,pack_cod, Pack_des
---   ,Prod_cod,Prod_des as Prod_Name,Prod_des + ' (' +Manu_cod +')' as Prod_FullName
---   ,Mole_cod
---   ,Mole_des as Mole_Name
---   ,Corp_cod
---   ,Manu_Cod
---   ,Gene_Cod
---   ,'Y'       as Active
---   ,GetDate() as Date, '201404 add new products & packages'  -- select * 
---   ,1--rat
--- FROM tblMktDef_Inline A 
--- WHERE A.MKT = 'CCB' 
--- GO
+insert into tblMktDef_MRBIChina
+SELECT distinct 
+   'CCB' as Mkt
+  ,'CCB Market' as MktName
+  ,case when a.Prod_Des='Coniel'  then '100'   
+		when a.Prod_Des='YUAN ZHI' then '200' 
+		when a.Prod_Des='LACIPIL' then '300'
+		when a.Prod_Des='ZANIDIP' then '400'
+		when a.Prod_Des='NORVASC' then '500'
+		when a.Prod_Des='ADALAT'  then '600'
+		when a.Prod_Des='PLENDIL' then '700'
+		else '940'
+        end   as [Prod]         
+  ,
+  case when a.Prod_Des='Coniel'  then prod_des
+		when a.Prod_Des='YUAN ZHI' then prod_des
+		when a.Prod_Des='LACIPIL' then prod_des
+		when a.Prod_Des='ZANIDIP' then prod_des
+		when a.Prod_Des='NORVASC' then prod_des
+		when a.Prod_Des='ADALAT' then prod_des
+		when a.Prod_Des='PLENDIL' then prod_des
+		else 'CCB Others'
+        end   as ProductName
+  ,'N'        as Molecule
+  ,'N'        as Class 
+  ,ATC1_Cod,ATC2_Cod,ATC3_Cod,ATC4_Cod
+  ,pack_cod, Pack_des
+  ,Prod_cod,Prod_des as Prod_Name,Prod_des + ' (' +Manu_cod +')' as Prod_FullName
+  ,Mole_cod
+  ,Mole_des as Mole_Name
+  ,Corp_cod
+  ,Manu_Cod
+  ,Gene_Cod
+  ,'Y'       as Active
+  ,GetDate() as Date, '201404 add new products & packages'  -- select * 
+  ,1--rat
+FROM tblMktDef_Inline A 
+WHERE A.MKT = 'CCB' 
+GO
 
--- ------------------------------------------------------
--- -- Platinum
--- ------------------------------------------------------
+------------------------------------------------------
+-- Platinum
+------------------------------------------------------
 
--- -- mkt
--- insert into tblMktDef_MRBIChina
--- SELECT distinct 
---   'Platinum' Mkt,'Platinum Market' MktName
---   ,'000' as Prod,'Platinum Market' as ProductName
---   ,'N' as Molecule
---   ,'N' as Class
---   ,ATC1_Cod,ATC2_Cod,ATC3_Cod,ATC4_Cod
---   ,pack_cod, Pack_des
---   ,Prod_cod,Prod_des as Prod_Name,Prod_des + ' (' +Manu_cod +')' as Prod_FullName
---   ,'' Mole_cod
---   ,'' Mole_Name
---   ,Corp_cod
---   ,Manu_Cod
---   ,Gene_Cod
---   ,'Y' as Active
---   ,GetDate() as Date, '201203 add new products & packages' as Comment
---   ,1--rat
--- FROM tblMktDef_Inline A WHERE A.MKT = 'Platinum'
--- GO
+-- mkt
+insert into tblMktDef_MRBIChina
+SELECT distinct 
+  'Platinum' Mkt,'Platinum Market' MktName
+  ,'000' as Prod,'Platinum Market' as ProductName
+  ,'N' as Molecule
+  ,'N' as Class
+  ,ATC1_Cod,ATC2_Cod,ATC3_Cod,ATC4_Cod
+  ,pack_cod, Pack_des
+  ,Prod_cod,Prod_des as Prod_Name,Prod_des + ' (' +Manu_cod +')' as Prod_FullName
+  ,'' Mole_cod
+  ,'' Mole_Name
+  ,Corp_cod
+  ,Manu_Cod
+  ,Gene_Cod
+  ,'Y' as Active
+  ,GetDate() as Date, '201203 add new products & packages' as Comment
+  ,1--rat
+FROM tblMktDef_Inline A WHERE A.MKT = 'Platinum'
+GO
 
--- insert into tblMktDef_MRBIChina
--- SELECT distinct 
---   'Platinum' Mkt,'Platinum Market' MktName
---   ,'000' as Prod,'Platinum Market' as ProductName
---   ,'Y' as Molecule
---   ,'N' as Class
---   ,ATC1_Cod,ATC2_Cod,ATC3_Cod,ATC4_Cod
---   ,pack_cod, Pack_des
---   ,Prod_cod,Prod_des as Prod_Name,Prod_des + ' (' +Manu_cod +')' as Prod_FullName
---   ,'' Mole_cod
---   ,'' Mole_Name
---   ,Corp_cod
---   ,Manu_Cod
---   ,Gene_Cod
---   ,'Y' as Active
---   ,GetDate() as Date, '201203 add new products & packages' as Comment
---   ,1--rat
--- FROM tblMktDef_Inline A WHERE A.MKT = 'Platinum'
--- GO
+insert into tblMktDef_MRBIChina
+SELECT distinct 
+  'Platinum' Mkt,'Platinum Market' MktName
+  ,'000' as Prod,'Platinum Market' as ProductName
+  ,'Y' as Molecule
+  ,'N' as Class
+  ,ATC1_Cod,ATC2_Cod,ATC3_Cod,ATC4_Cod
+  ,pack_cod, Pack_des
+  ,Prod_cod,Prod_des as Prod_Name,Prod_des + ' (' +Manu_cod +')' as Prod_FullName
+  ,'' Mole_cod
+  ,'' Mole_Name
+  ,Corp_cod
+  ,Manu_Cod
+  ,Gene_Cod
+  ,'Y' as Active
+  ,GetDate() as Date, '201203 add new products & packages' as Comment
+  ,1--rat
+FROM tblMktDef_Inline A WHERE A.MKT = 'Platinum'
+GO
 
--- -- Mole
--- insert into tblMktDef_MRBIChina
--- SELECT distinct 
---   dbo.fun_upperFirst(a.Mkt)
---   ,MktName
---   ,case a.Mole_des when 'Carboplatin' then '010'
---                    when 'Cisplatin' then '020'
---                    when 'Nedaplatin' then '030' end as  Prod
---   ,a.Mole_des as ProductName
---   ,'Y' as Molecule
---   ,'N' as Class
---   ,ATC1_Cod,ATC2_Cod,ATC3_Cod,ATC4_Cod
---   ,pack_cod, Pack_des
---   ,Prod_cod,Prod_des as Prod_Name,Prod_des + ' (' +Manu_cod +')' as Prod_FullName
---   ,'' Mole_cod,'' Mole_Name
---   ,Corp_cod
---   ,Manu_Cod
---   ,Gene_Cod
---   ,'Y' as Active
---   ,GetDate() as Date, '201203 add new products & packages'
---   ,1--rat
--- FROM tblMktDef_Inline A 
--- WHERE A.MKT = 'Platinum' 
--- GO
+-- Mole
+insert into tblMktDef_MRBIChina
+SELECT distinct 
+  dbo.fun_upperFirst(a.Mkt)
+  ,MktName
+  ,case a.Mole_des when 'Carboplatin' then '010'
+                   when 'Cisplatin' then '020'
+                   when 'Nedaplatin' then '030' end as  Prod
+  ,a.Mole_des as ProductName
+  ,'Y' as Molecule
+  ,'N' as Class
+  ,ATC1_Cod,ATC2_Cod,ATC3_Cod,ATC4_Cod
+  ,pack_cod, Pack_des
+  ,Prod_cod,Prod_des as Prod_Name,Prod_des + ' (' +Manu_cod +')' as Prod_FullName
+  ,'' Mole_cod,'' Mole_Name
+  ,Corp_cod
+  ,Manu_Cod
+  ,Gene_Cod
+  ,'Y' as Active
+  ,GetDate() as Date, '201203 add new products & packages'
+  ,1--rat
+FROM tblMktDef_Inline A 
+WHERE A.MKT = 'Platinum' 
+GO
 
 
--- -- Prod
--- insert into tblMktDef_MRBIChina
--- SELECT distinct 
---    'Platinum' as Mkt
---   ,'Platinum Market' as MktName
---   ,case when a.Prod_Des='PARAPLATIN' then '100'   --N'伯尔定' 
---         when a.Prod_Des='BO BEI' then '200'       --N'波贝'   
---         when a.Prod_Des='NUO XIN' then '300'      --N'诺欣'   
---         when a.Prod_Des='CISPLATIN' then '400'    --N'顺铂'   
---         when a.Prod_Des='AO XIAN DA' then '500'   --N'奥先达' 
---         when a.Prod_Des='JIE BAI SHU' then '600'  --N'捷佰舒' 
---         when a.Prod_Des='LU BEI' then '700'       --N'鲁贝'   
---         else '990'                                --others
---         end   as [Prod]         
---   ,a.Prod_Des as ProductName
---   ,'N'        as Molecule
---   ,'N'        as Class 
---   ,ATC1_Cod,ATC2_Cod,ATC3_Cod,ATC4_Cod
---   ,pack_cod, Pack_des
---   ,Prod_cod,Prod_des as Prod_Name,Prod_des + ' (' +Manu_cod +')' as Prod_FullName
---   ,'' Mole_cod,'' Mole_Name
---   ,Corp_cod
---   ,Manu_Cod
---   ,Gene_Cod
---   ,'Y'       as Active
---   ,GetDate() as Date, '201203 add new products & packages'  -- select * 
---   ,1--rat
--- FROM tblMktDef_Inline A 
--- WHERE A.MKT = 'Platinum' 
--- GO
+-- Prod
+insert into tblMktDef_MRBIChina
+SELECT distinct 
+   'Platinum' as Mkt
+  ,'Platinum Market' as MktName
+  ,case when a.Prod_Des='PARAPLATIN' then '100'   --N'伯尔定' 
+        when a.Prod_Des='BO BEI' then '200'       --N'波贝'   
+        when a.Prod_Des='NUO XIN' then '300'      --N'诺欣'   
+        when a.Prod_Des='CISPLATIN' then '400'    --N'顺铂'   
+        when a.Prod_Des='AO XIAN DA' then '500'   --N'奥先达' 
+        when a.Prod_Des='JIE BAI SHU' then '600'  --N'捷佰舒' 
+        when a.Prod_Des='LU BEI' then '700'       --N'鲁贝'   
+        else '990'                                --others
+        end   as [Prod]         
+  ,a.Prod_Des as ProductName
+  ,'N'        as Molecule
+  ,'N'        as Class 
+  ,ATC1_Cod,ATC2_Cod,ATC3_Cod,ATC4_Cod
+  ,pack_cod, Pack_des
+  ,Prod_cod,Prod_des as Prod_Name,Prod_des + ' (' +Manu_cod +')' as Prod_FullName
+  ,'' Mole_cod,'' Mole_Name
+  ,Corp_cod
+  ,Manu_Cod
+  ,Gene_Cod
+  ,'Y'       as Active
+  ,GetDate() as Date, '201203 add new products & packages'  -- select * 
+  ,1--rat
+FROM tblMktDef_Inline A 
+WHERE A.MKT = 'Platinum' 
+GO
 
--- update tblMktDef_MRBIChina set [ProductName] = 'Platinum Others'
--- where [Mkt] = 'Platinum' and [Prod] = '990'
--- GO
+update tblMktDef_MRBIChina set [ProductName] = 'Platinum Others'
+where [Mkt] = 'Platinum' and [Prod] = '990'
+GO
 
 if object_id(N'tblMktDef_MRBIChina_All',N'U') is not null
 	drop table tblMktDef_MRBIChina_All

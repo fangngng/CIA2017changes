@@ -52,6 +52,7 @@ if object_id(N'tblBALHospital',N'U') is not null
 	drop table tblBALHospital
 go 
 SELECT * INTO tblBALHospital FROM DB36.[BMSChinaCSR_Testing].[dbo].Output_BAL_Hospital_ForCIA
+SELECT * FROM DB36.[BMSChinaCSR_Testing].[dbo].Output_BAL_Hospital_ForCIA
 
 SELECT product, parentGeo,  datasource, a.mkt, a.Prod , SUM(UM1)
 FROM tempBALHospitalDataByGeo AS a 

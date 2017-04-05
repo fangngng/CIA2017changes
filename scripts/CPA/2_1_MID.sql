@@ -272,7 +272,7 @@ alter table tempHospitalData add
 GO
 
 declare @cnt int, @sql varchar(max)
-select @cnt = max(idx) from tblHospitalMthlist where Left(Mth,4) = (select left(Mth,4) from tblHospitalMthList where Idx = 1)
+select @cnt =select  max(idx) from tblHospitalMthlist where Left(Mth,4) = (select left(Mth,4) from tblHospitalMthList where Idx = 1)
 set @sql = '
 UPDATE tempHospitalData SET
 	UYTD = (' + DBO.f_assemble_sum('UM',1, @cnt) + '),

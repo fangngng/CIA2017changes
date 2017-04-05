@@ -7129,19 +7129,21 @@ set Productname=replace(Productname,'Hypertension Market','HPN Market')+' Value'
 go
 --select * from OutputKeyMarketPerfByCity
 if exists (select * from dbo.sysobjects where id = object_id(N'OutputKeyBrandPerfByCity') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
-drop table OutputKeyBrandPerfByCity
+	drop table OutputKeyBrandPerfByCity
 go
-select A.Molecule,A.Class,A.mkt,A.mktname,A.Market,A.Prod,A.productname,A.Moneytype,A.Audi_cod,A.audi_des,cast(null as int) as Tier,cast(null as int) as RankMAT,cast(null as int) as RankMQT,
-A.MAT00,A.R3M00,A.YTD00,
-case B.MAT00 when 0 then 0 else A.MAT00*1.0/B.MAT00 end as MarketShareMAT,
-case B.R3M00 when 0 then 0 else A.R3M00*1.0/B.R3M00 end as MarketShareMQT,
-case B.R3M00 when 0 then 0 else A.YTD00*1.0/B.YTD00 end as MarketShareYTD
+select A.Molecule,A.Class,A.mkt,A.mktname,A.Market,A.Prod,A.productname,A.Moneytype,A.Audi_cod,A.audi_des,
+	cast(null as int) as Tier,cast(null as int) as RankMAT,cast(null as int) as RankMQT,
+	A.MAT00,A.R3M00,A.YTD00,
+	case B.MAT00 when 0 then 0 else A.MAT00*1.0/B.MAT00 end as MarketShareMAT,
+	case B.R3M00 when 0 then 0 else A.R3M00*1.0/B.R3M00 end as MarketShareMQT,
+	case B.R3M00 when 0 then 0 else A.YTD00*1.0/B.YTD00 end as MarketShareYTD
 into OutputKeyBrandPerfByCity
-from TempCityDashboard_forPre A inner join TempCityDashboard_forPre B
+from TempCityDashboard_forPre A 
+inner join TempCityDashboard_forPre B
 on a.Molecule=B.Molecule and A.Class=B.Class and a.mkt=b.mkt and a.market=b.market
-and a.Moneytype=b.Moneytype and a.audi_cod=b.audi_cod 
+	and a.Moneytype=b.Moneytype and a.audi_cod=b.audi_cod 
 where A.Molecule='N' and A.class='N' and A.mkt in ('ARV','NIAD','HYP','ONCFCS','Platinum','CCB')
-and A.Prod<>'000' and B.Prod='000' 
+	and A.Prod<>'000' and B.Prod='000' 
 go
 
 -- insert into OutputKeyBrandPerfByCity
