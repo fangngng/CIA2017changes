@@ -1208,9 +1208,11 @@ BEGIN
 
 		set @SQL2='
 		update [output_stage]
-		set Y=B.['+@Series+ '] from [output_stage] A inner join dbo.OutputPreCityPerformance B
+		set Y=B.['+@Series+ '] 
+		from [output_stage] A 
+		inner join dbo.OutputPreCityPerformance B
 		on A.TimeFrame=B.Period and A.Currency=B.MoneyType and A.X=B.Audi_des and A.product=B.Market
-		and a.LinkChartCode = '+''''+@code+''''+' and A.Series='+''''+@Series+''''+' and mkt not in (''Dia'',''ACE'',''DPP4'') and prod=''000'''
+			and a.LinkChartCode = '+''''+@code+''''+' and A.Series='+''''+@Series+''''+' and mkt not in (''Dia'',''ACE'',''DPP4'') and prod=''000'''
 		print @SQL2
 		exec( @SQL2)
 
@@ -1395,7 +1397,9 @@ set @code = 'R120'
 insert into [output_stage] (isshow,ParentGeo,Geo,Product,lev,TimeFrame,LinkChartCode, Series, SeriesIdx,Currency, X, XIdx,Y)
 select 'Y','China','China',Market,'China',Period, @code as Code, Productname,Prod,MoneyType,b.Audi_des,CurrRank,share
 from (
-	select Period,MoneyType,Market,mkt,case when Productname like '%Generics%' then 10000 else Prod end as Prod,productname,Audi_des,share,CurrRank from OutputPreCityPerformance2
+	select Period,MoneyType,Market,mkt,case when Productname like '%Generics%' then 10000 else Prod end as Prod,
+		productname,Audi_des,share,CurrRank 
+	from OutputPreCityPerformance2
 ) b
 go
 

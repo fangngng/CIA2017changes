@@ -89,7 +89,7 @@ alter table tblQueryToolDriverMAX drop column CMPS_Name
 GO
 
 declare @mth varchar(10)
-select @mth =DataPeriod from tblDataPeriod where QType = 'IMS'
+select @mth =DataPeriod from tblDataPeriod where QType = 'MAX'
 
 insert into tblQueryToolDriverMAX
 select distinct  'Global TA' MktType,
@@ -103,24 +103,25 @@ select distinct  'Global TA' MktType,
 	b.MNC,'N' CLSInd,b.Gene_cod, @mth as AddMonth
 from Db4.BMSChinaCIA_IMS.dbo.tblMktDef_GlobalTA a
 inner join tblQueryToolDriverATC b on a.pack_cod = b.Pack_cod
+where 1 = 0
 GO
 
-delete a from tblQueryToolDriverMAX a 
-where not exists(select * from mthchpa_pkau b where a.pack_cod = b.pack_cod)
-	-- and not exists(select * from mthcity_pkau b where a.pack_cod = b.pack_cod)
-	and not exists(select * from MTHCITY_MAX b where a.pack_cod = b.pack_cod)
-	and MktType = 'Global TA'
-go
+-- delete a from tblQueryToolDriverMAX a 
+-- where not exists(select * from mthchpa_pkau b where a.pack_cod = b.pack_cod)
+-- 	-- and not exists(select * from mthcity_pkau b where a.pack_cod = b.pack_cod)
+-- 	and not exists(select * from MTHCITY_MAX b where a.pack_cod = b.pack_cod)
+-- 	and MktType = 'Global TA'
+-- go
 
 
-select N'比较前后2个月的 Global Market:'
-select count(*) from tblQueryToolDriverMAX where MktType = 'Global TA'
-declare @curIMSMth varchar(6), @lastIMSMth varchar(6)
-select @curIMSMth= DataPeriod from tblDataPeriod where QType = 'IMS'
-set @lastIMSMth = convert(varchar(6), dateadd(month, -1, cast(@curIMSMth+'01' as datetime)), 112)
-exec('
-select count(*) from BMSCNProc_bak.dbo.tblQueryToolDriverIMS_'+@lastIMSMth+'
-where MktType = ''Global TA'' ')
+-- select N'比较前后2个月的 Global Market:'
+-- select count(*) from tblQueryToolDriverMAX where MktType = 'Global TA'
+-- declare @curIMSMth varchar(6), @lastIMSMth varchar(6)
+-- select @curIMSMth= DataPeriod from tblDataPeriod where QType = 'MAX'
+-- set @lastIMSMth = convert(varchar(6), dateadd(month, -1, cast(@curIMSMth+'01' as datetime)), 112)
+-- exec('
+-- select count(*) from BMSCNProc_bak.dbo.tblQueryToolDriverIMS_'+@lastIMSMth+'
+-- where MktType = ''Global TA'' ')
 go
 
 
@@ -144,7 +145,7 @@ go
 
 -- print 'In-line Market Hypertention'
 -- declare @mth varchar(10)
--- select @mth =DataPeriod from tblDataPeriod where QType = 'IMS'
+-- select @mth =DataPeriod from tblDataPeriod where QType = 'MAX'
 -- insert into tblQueryToolDriverMAX
 -- select distinct 
 --    'In-line Market' as MktType
@@ -160,7 +161,7 @@ GO
 
 -- print 'In-line Market PLATINUM'
 -- declare @mth varchar(10)
--- select @mth =DataPeriod from tblDataPeriod where QType = 'IMS'
+-- select @mth =DataPeriod from tblDataPeriod where QType = 'MAX'
 -- insert into tblQueryToolDriverMAX
 -- select distinct 
 --    'In-line Market' as MktType
@@ -176,7 +177,7 @@ go
 
 print 'In-line Market ONCFCS'
 declare @mth varchar(10)
-select @mth =DataPeriod from tblDataPeriod where QType = 'IMS'
+select @mth =DataPeriod from tblDataPeriod where QType = 'MAX'
 insert into tblQueryToolDriverMAX
 select distinct 'In-line Market' as MktType, 
 	'ONCFCS' as Mkt, 'TAXOL MARKET' as MktName,
@@ -190,7 +191,7 @@ go
 
 -- print 'In-line Market NIAD'
 -- declare @mth varchar(10)
--- select @mth =DataPeriod from tblDataPeriod where QType = 'IMS'
+-- select @mth =DataPeriod from tblDataPeriod where QType = 'MAX'
 -- insert into tblQueryToolDriverMAX
 -- select distinct 'In-line Market' as MktType,
 -- 	'NIAD' as Mkt, 'GLUCOPHAGE MARKET' as MktName,
@@ -204,7 +205,7 @@ go
 
 print 'In-line Market HYPM'
 declare @mth varchar(10)
-select @mth =DataPeriod from tblDataPeriod where QType = 'IMS'
+select @mth =DataPeriod from tblDataPeriod where QType = 'MAX'
 insert into tblQueryToolDriverMAX
 select distinct 'In-line Market' as MktType, 
 	'HYPM' as Mkt, 'MONOPRIL MARKET' as MktName,
@@ -219,7 +220,7 @@ go
 
 -- print 'In-line Market CCB'
 -- declare @mth varchar(10)
--- select @mth =DataPeriod from tblDataPeriod where QType = 'IMS'
+-- select @mth =DataPeriod from tblDataPeriod where QType = 'MAX'
 -- insert into tblQueryToolDriverMAX
 -- select distinct 'In-line Market' as MktType, 
 -- 	'CCB' as Mkt, 'CONIEL MARKET' as MktName,
@@ -233,7 +234,7 @@ go
 
 print 'In-line Market CML'
 declare @mth varchar(10)
-select @mth =DataPeriod from tblDataPeriod where QType = 'IMS'
+select @mth =DataPeriod from tblDataPeriod where QType = 'MAX'
 insert into tblQueryToolDriverMAX
 select distinct 'In-line Market' as MktType, 
 	'CML' as Mkt, 'SPRYCEL MARKET' as MktName,
@@ -259,7 +260,7 @@ go
 
 print 'In-line Market ARV'
 declare @mth varchar(10)
-select @mth =DataPeriod from tblDataPeriod where QType = 'IMS'
+select @mth =DataPeriod from tblDataPeriod where QType = 'MAX'
 insert into tblQueryToolDriverMAX
 select distinct 'In-line Market' as MktType,
 	'ARV' as Mkt, 'BARACLUDE MARKET' as MktName,
@@ -270,10 +271,25 @@ select distinct 'In-line Market' as MktType,
 from Db4.BMSChinaCIA_IMS.dbo.tblMktDef_Inline
 where mkt = 'arv'
 go
+
+declare @mth varchar(10)
+select @mth =DataPeriod from tblDataPeriod where QType = 'MAX'
+insert into dbo.tblQueryToolDriverMAX 
+select distinct 'In-line Market' as MktType,
+	'ARV' as Mkt, 'BARACLUDE MARKET' as MktName,
+	a.ATC3_Cod, 'NA' as Class, a.Mole_Cod, a.Mole_des, 
+	a.Prod_Cod, a.Prod_Des + ' (' + isnull(a.Manu_cod, '') + ')' as Prod_Des, 
+	a.Pack_Cod, a.Pack_Des,a.Corp_Cod, a.Corp_Des, a.Manu_Cod, a.Manu_Des,
+	'' AS MNC,'N' AS CLSInd, a.Gene_Cod, @mth as AddMonth
+from MTHCITY_MAX AS a 
+left JOIN tblQueryToolDriverMAX AS b ON a.Pack_Cod = b.Pack_Cod
+where b.Pack_Cod IS NULL 
+go 
+
 delete a from tblQueryToolDriverMAX a 
 where not exists(select * from mthchpa_pkau b where a.pack_cod = b.pack_cod)
-	and not exists(select * from mthcity_pkau b where a.pack_cod = b.pack_cod)
-	-- and not exists(select * from MTHCITY_MAX b where a.pack_cod = b.pack_cod)
+	--and not exists(select * from mthcity_pkau b where a.pack_cod = b.pack_cod)
+	 and not exists(select * from MTHCITY_MAX b where a.pack_cod = b.pack_cod)
 	and a.MktType = ('In-line Market')
 go
 
@@ -281,7 +297,7 @@ SET ansi_warnings OFF
 
 -- print 'In-line Market Eliquis(VTEp)'
 -- declare @mth varchar(10)
--- select @mth =DataPeriod from tblDataPeriod where QType = 'IMS'
+-- select @mth =DataPeriod from tblDataPeriod where QType = 'MAX'
 -- insert into tblQueryToolDriverMAX
 -- select distinct 'In-line Market' as MktType, 
 -- 	'Eliquis(VTEp)' as Mkt, 'Eliquis(VTEp) MARKET' as MktName,
@@ -301,7 +317,7 @@ go
 
 -- print 'In-line Market Eliquis(NOAC)'
 -- declare @mth varchar(10)
--- select @mth =DataPeriod from tblDataPeriod where QType = 'IMS'
+-- select @mth =DataPeriod from tblDataPeriod where QType = 'MAX'
 -- insert into tblQueryToolDriverMAX
 -- select distinct 'In-line Market' as MktType, 
 -- 	'Eliquis(NOAC)' as Mkt, 'Eliquis(NOAC) MARKET' as MktName,
@@ -316,7 +332,7 @@ go
 -- -- 20161102 change NOAC to VTEt
 -- print 'In-line Market Eliquis(VTEt)'
 -- declare @mth varchar(10)
--- select @mth =DataPeriod from tblDataPeriod where QType = 'IMS'
+-- select @mth =DataPeriod from tblDataPeriod where QType = 'MAX'
 -- insert into tblQueryToolDriverMAX
 -- select distinct 'In-line Market' as MktType, 
 -- 	'Eliquis(VTEt)' as Mkt, 'Eliquis(VTEt) MARKET' as MktName,
@@ -334,7 +350,7 @@ SET ansi_warnings on
 select N'比较前后2个月的 In-line  Market:' 
 select count(*) from tblQueryToolDriverMAX where MktType = 'In-line Market'
 declare @curIMSMth varchar(6), @lastIMSMth varchar(6)
-select @curIMSMth= DataPeriod from tblDataPeriod where QType = 'IMS'
+select @curIMSMth= DataPeriod from tblDataPeriod where QType = 'MAX'
 set @lastIMSMth = convert(varchar(6), dateadd(month, -1, cast(@curIMSMth+'01' as datetime)), 112)
 exec('
 select count(*) from BMSCNProc_bak.dbo.tblQueryToolDriverIMS_'+@lastIMSMth+' 
@@ -354,7 +370,7 @@ go
 print 'Refresh the MD for Pipeine Market'
 go
 declare @curIMSMth varchar(6), @lastIMSMth varchar(6)
-select @curIMSMth= DataPeriod from tblDataPeriod where QType = 'IMS'
+select @curIMSMth= DataPeriod from tblDataPeriod where QType = 'MAX'
 set @lastIMSMth = convert(varchar(6), dateadd(month, -1, cast(@curIMSMth+'01' as datetime)), 112)
 exec('
 insert into tblQueryToolDriverMAX
@@ -372,7 +388,7 @@ where a.Mole_Des is not null
 ')
 go
 
-delete a from tblQueryToolDriverMAX a 
+delete a FROM tblQueryToolDriverMAX a 
 where not exists(select * from mthchpa_pkau b where a.pack_cod = b.pack_cod)
 	-- and not exists(select * from mthcity_pkau b where a.pack_cod = b.pack_cod)
 	and not exists(select * from MTHCITY_MAX b where a.pack_cod = b.pack_cod)
@@ -382,7 +398,7 @@ go
 select N'比较前后2个月的 Pipeine Market:' 
 select count(*) from tblQueryToolDriverMAX where MktType = 'Pipeline Market'
 declare @curIMSMth varchar(6), @lastIMSMth varchar(6)
-select @curIMSMth= DataPeriod from tblDataPeriod where QType = 'IMS'
+select @curIMSMth= DataPeriod from tblDataPeriod where QType = 'MAX'
 set @lastIMSMth = convert(varchar(6), dateadd(month, -1, cast(@curIMSMth+'01' as datetime)), 112)
 exec('
 select count(*) from BMSCNProc_bak.dbo.tblQueryToolDriverIMS_'+@lastIMSMth+' 
@@ -404,7 +420,7 @@ inner join tblCmpsPack b
 on a.Pack_Cod=b.Pack_Cod
 GO
 --Remove package which have no Comps code
-delete from tblQueryToolDriverMAX where cmps_code is null
+--delete from tblQueryToolDriverMAX where cmps_code is null
 GO
 
 
@@ -444,3 +460,5 @@ where mkt not in ('ONCFCS', 'HYPM', 'CML', 'ARV')
 
 
 exec dbo.sp_Log_Event 'Prepare','QT_MAX','0_Prepare_MAX.sql','End',null,null
+
+

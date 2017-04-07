@@ -1477,7 +1477,7 @@ set @sql = 'SELECT c.Region, b.Mkt,
 set @sql = @sql + 'sum([' + convert(varchar(4), (select max(Year) from tblMonthList)) + 'YTDUS]) as [' + convert(varchar(4), (select max(Year) from tblMonthList)) + 'YTDUS], '
 set @sql = @sql + 'sum([' + convert(varchar(4), (select max(Year) - 1 from tblMonthList)) + 'YTDUS]) as [' + convert(varchar(4), (select max(Year) - 1 from tblMonthList)) + 'YTDUS], '
 set @sql = @sql + 'sum([' + convert(varchar(6), (select Date from tblMonthList where MonSeq = 1)) + 'US]) as [Mth00YTDUS], '
-set @sql = @sql + 'sum([' + convert(varchar(6), (select Date from tblMonthList where MonSeq = 13)) + 'US]) as [Mth12YTDUS] '
+set @sql = @sql + 'sum([' + convert(varchar(6), (select Date from tblMonthList where MonSeq = 2)) + 'US]) as [Mth01YTDUS] '
 set @sql = @sql + '
 into MAXData_Rollup_Region_MAXMkt_Mid
 from MAXData_Rollup_CityProdMth as a 
@@ -1509,7 +1509,7 @@ select Region,
     sum([' + convert(varchar(4), @Year) + 'YTDUS]) as YTDUS,
     sum([' + convert(varchar(4), @LastYear) + 'YTDUS]) as LastYTDUS,
     sum([Mth00YTDUS]) as [Mth00YTDUS],
-    sum([Mth12YTDUS]) as [Mth12YTDUS]
+    sum([Mth01YTDUS]) as [Mth01YTDUS]
 into MAXData_Rollup_Region_All_Mid
 from MAXData_Rollup_Region_MAXMkt_Mid
 group by Region 
@@ -1784,7 +1784,7 @@ inner join (
         select distinct prod_Des
         from tblMktDef_Inline_MAX 
     ) as c on b.prod_Des_EN = c.prod_Des 
-    where  M = @LastMth and Y = @Year
+    where  M = @LastMth and Y = YEAR(DATEADD(MONTH, -1, CONVERT(DATETIME, @Year + '0101')))
         and c.Prod_Des = 'Baraclude'
     group by RMName 
 ) as b on a.Series = b.Series 
@@ -1831,7 +1831,7 @@ inner join (
         select distinct prod_Des
         from tblMktDef_Inline_MAX 
     ) as c on b.prod_Des_EN = c.prod_Des 
-    where  M = @LastMth and Y = @Year
+    where  M = @LastMth and Y = YEAR(DATEADD(MONTH, -1, CONVERT(DATETIME, @Year + '0101')))
     group by RMName 
 ) as b on a.Series = b.Series 
 
@@ -1872,7 +1872,7 @@ select series, X, Y , null as Series_Idx, null as X_Idx
 from 
 (
     SELECT a.Region as Series ,
-        a.[Mth00YTDUS]/b.Mth00YTDUS - a.Mth12YTDUS/b.Mth12YTDUS as ''Baraclude Month Share Change vs. Last Mth'',
+        a.[Mth00YTDUS]/b.Mth00YTDUS - a.Mth01YTDUS/b.Mth01YTDUS as ''Baraclude Month Share Change vs. Last Mth'',
         a.[' + @Year + 'YTDUS]/b.YTDUS - a.[' + @LastYear + 'YTDUS]/b.LastYTDUS as ''Baraclude YTD share Change(Y2Y)'',
         (a.[' + @Year + 'YTDUS] / a.[' + @LastYear + 'YTDUS]) - 1 as ''Baraclude YTD Growth(Y2Y)'',
         (b.YTDUS / b.LastYTDUS) - 1 as ''Market YTD Growth(Y2Y)''

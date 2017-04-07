@@ -299,6 +299,26 @@ TRUNCATE TABLE tblMktDef_MAX
 --		AND Prod_des <> 'Epivir'
 --GO
 
+insert into tblMktDef_MAX 
+SELECT DISTINCT
+		a.Mkt, a.MktName, a.Prod, a.ProductName, a.Molecule, a.Class, a.ATC1_Cod, a.ATC2_Cod, a.ATC3_Cod, a.ATC4_Cod,
+		b.pack_cod, b.Pack_des, b.Prod_cod, b.Prod_Name ,
+		b.Prod_Name + ' (' + b.Manu_cod + ')' AS Prod_FullName, '' AS Mole_cod, '' AS Mole_Name, b.Corp_cod, b.Manu_Cod,
+		b.Gene_Cod, 'Y' AS Active, GETDATE() AS Date, '201203 add new packages of focused brands', 1--rat
+FROM	(
+		  SELECT DISTINCT
+					Mkt, MktName, Prod, dbo.fun_upperFirst(ProductName) AS ProductName, Molecule, Class, ATC1_cod,
+					ATC2_cod, ATC3_cod, ATC4_cod, Prod_cod
+		  FROM		tblMktDef_MRBIChina_correct d
+		  WHERE		prod BETWEEN '100' AND '899'
+					AND productname NOT LIKE '%other%'
+		) a
+INNER JOIN tblMktDef_MAX_temp b ON a.atc1_cod = b.atc1_cod
+								   AND a.atc2_cod = b.atc2_cod
+								   AND a.atc3_cod = b.atc3_cod
+								   AND a.atc4_cod = b.atc4_cod
+								   AND a.Prod_cod = b.Prod_cod
+
 
 -- ARV 000
 IF OBJECT_ID(N'tmpMD', N'U') IS NOT NULL
@@ -332,46 +352,46 @@ FROM	tmpMD
 GO
 
 
--- ARV: 010,020,030,040,050 --todo add 050
-INSERT	INTO tblMktDef_MAX
-SELECT DISTINCT
-		'ARV' AS Mkt, 'ARV Market' AS Mktname, CASE a.Mole_des
-						WHEN 'Entecavir' THEN '010'
-						WHEN 'Adefovir Dipivoxil' THEN '020'
-						WHEN 'Lamivudine' THEN '030'
-						WHEN 'Telbivudine' THEN '040'
-						WHEN 'Tenofovir Disoproxil' THEN '050'
-					  END AS Prod, a.Mole_des AS ProductName, 'Y' AS Molecule, 'N' AS Class, ATC1_Cod, ATC2_Cod,
-		ATC3_Cod, ATC4_Cod, '' as pack_cod, Prod_Des + ' ' + [剂型（标准_英文）] + ' ' + [药品规格（标准_英文）]  as Pack_des, Prod_cod, Prod_des AS Prod_Name,
-		Prod_des + ' (' + Manu_cod + ')' AS Prod_FullName, '' Mole_cod, '' Mole_Name, Corp_cod, Manu_Cod, Gene_Cod,
-		'Y' AS Active, GETDATE() AS Date, '201203 add new products & packages', 1--rat
-FROM	dbo.Max_Data A
-GO
-UPDATE	tblMktDef_MAX
-SET		ProductName = 'Entecavir'
-WHERE	Prod = '010'
-		AND Mkt = 'ARV'
-GO
-UPDATE	tblMktDef_MAX
-SET		ProductName = 'Adefovir Dipivoxil'
-WHERE	Prod = '020'
-		AND Mkt = 'ARV'
-GO
-UPDATE	tblMktDef_MAX
-SET		ProductName = 'Lamivudine'
-WHERE	Prod = '030'
-		AND Mkt = 'ARV'
-GO
-UPDATE	tblMktDef_MAX
-SET		ProductName = 'Telbivudine'
-WHERE	Prod = '040'
-		AND Mkt = 'ARV'
-GO
-UPDATE	tblMktDef_MAX
-SET		ProductName = 'Tenofovir Disoproxil'
-WHERE	Prod = '050'
-		AND Mkt = 'ARV'
-GO
+-- -- ARV: 010,020,030,040,050 --todo add 050
+-- INSERT	INTO tblMktDef_MAX
+-- SELECT DISTINCT
+-- 		'ARV' AS Mkt, 'ARV Market' AS Mktname, CASE a.Mole_des
+-- 						WHEN 'Entecavir' THEN '010'
+-- 						WHEN 'Adefovir Dipivoxil' THEN '020'
+-- 						WHEN 'Lamivudine' THEN '030'
+-- 						WHEN 'Telbivudine' THEN '040'
+-- 						WHEN 'Tenofovir Disoproxil' THEN '050'
+-- 					  END AS Prod, a.Mole_des AS ProductName, 'Y' AS Molecule, 'N' AS Class, ATC1_Cod, ATC2_Cod,
+-- 		ATC3_Cod, ATC4_Cod, '' as pack_cod, Prod_Des + ' ' + [剂型（标准_英文）] + ' ' + [药品规格（标准_英文）]  as Pack_des, Prod_cod, Prod_des AS Prod_Name,
+-- 		Prod_des + ' (' + Manu_cod + ')' AS Prod_FullName, '' Mole_cod, '' Mole_Name, Corp_cod, Manu_Cod, Gene_Cod,
+-- 		'Y' AS Active, GETDATE() AS Date, '201203 add new products & packages', 1--rat
+-- FROM	dbo.Max_Data A
+-- GO
+-- UPDATE	tblMktDef_MAX
+-- SET		ProductName = 'Entecavir'
+-- WHERE	Prod = '010'
+-- 		AND Mkt = 'ARV'
+-- GO
+-- UPDATE	tblMktDef_MAX
+-- SET		ProductName = 'Adefovir Dipivoxil'
+-- WHERE	Prod = '020'
+-- 		AND Mkt = 'ARV'
+-- GO
+-- UPDATE	tblMktDef_MAX
+-- SET		ProductName = 'Lamivudine'
+-- WHERE	Prod = '030'
+-- 		AND Mkt = 'ARV'
+-- GO
+-- UPDATE	tblMktDef_MAX
+-- SET		ProductName = 'Telbivudine'
+-- WHERE	Prod = '040'
+-- 		AND Mkt = 'ARV'
+-- GO
+-- UPDATE	tblMktDef_MAX
+-- SET		ProductName = 'Tenofovir Disoproxil'
+-- WHERE	Prod = '050'
+-- 		AND Mkt = 'ARV'
+-- GO
 
 -- ARV: Other Enecavir
 INSERT	INTO tblMktDef_MAX
@@ -515,7 +535,7 @@ begin
 				where b.name = 'Max_Data' and a.name = @columnName
 		)
 		begin 
-			set @sql = @sql + ' isnull(abs([' + @columnName + ']), 0) , '
+			set @sql = @sql + ' isnull([' + @columnName + '], 0) , '
 		end 
 		else 
 		begin
@@ -759,7 +779,7 @@ select	'', b.city, Pack_Cod, Pack_Des, ATC1_Cod, ATC2_Cod, ATC3_Cod, ATC4_Cod, P
 		YTD27UN, YTD28UN, YTD29UN, YTD30UN, YTD31UN, YTD32UN, YTD33UN, YTD34UN, YTD35UN, YTD36UN, YTD37UN, YTD38UN,
 		YTD39UN, YTD40UN, YTD41UN, YTD42UN, YTD43UN, YTD44UN, YTD45UN, YTD46UN, YTD47UN, YTD48UN
 from	inmaxdata as a
-left join tblCityMAX as b on a.City = b.City_CN 
+left join tblCityMAX as b on a.City = b.City_CN AND b.Geo_Lvl = 2
 
 go
 --create index idxPACK_cod on MTHCITY_PKAU(PACK_ID,PACK_COD,PACK_DES)

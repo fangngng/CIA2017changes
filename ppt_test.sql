@@ -27,7 +27,9 @@ SELECT * FROM dbo.tblPPTSection
 where Page = 'brandreport' and Product in ('baraclude')
 
 use BMSChina_ppt
-go 
+GO 
+
+-- c170
 
 
 SELECT * FROM dbo.Output_PPT 
@@ -39,7 +41,8 @@ where LinkChartCode = 'R350'
 SELECT * FROM tblChartTitle 
 where LinkChartCode = 'r351'
 
-
+SELECT * FROM tblPPTGraphDef 
+SELECT * FROM Temp_DataSource 
 
 select Mkt,'Units' as Category,Department as X,H1Rank as XIdx  
 	from tempOutputRx where Lev  = 'Nat' and Mkt in('NIAD','HYPFCS','ARV','ONCFCS','Platinum','CCB') and Prod = '000' 
@@ -88,4 +91,28 @@ WHERE LinkChartCode = 'd081'
 SELECT * FROM dbo.WebChartTitle WHERE LinkChartCode = 'c140'
 SELECT * FROM dbo.WebChart WHERE Code = 'c140'
 
+SELECT * FROM tblPPTOutputCombine 
 
+ select distinct case left(OutputName,1) when 'R' then 'BrandReport' else 'Dashboard' end as Page,
+   product,lev,parentgeo,geo 
+   from tblPPTOutputCombine 
+   where lev<>'' 
+
+   SELECT * FROM tblPPTSection 
+
+	SELECT a.Code, a.IsSection,a.IsCover,b.OutputName
+     from (
+       select Code,IsSection, IsCover,id from tblPPTSection
+       where Page = 'Dashboard' and Product = 'Baraclude' and Lev = 'nation'
+			AND Product IN ('Monopril', 'Taxol', 'Sprycel', 'Baraclude', 'Portfolio')
+			AND code NOT IN ('c140', 'c170')
+     ) a left join (
+         select OutputName,OutputName4Rank
+         From tblPPTOutputCombine
+         where Product = 'Baraclude' and Lev = 'nation' and Parentgeo = 'China' and Geo = 'China'
+               and outputname not like '%NOAC%' 
+     ) b on a.code = left(b.OutputName,4)
+     order by a.id,b.OutputName4Rank
+
+
+SELECT * FROM tblcharttitle

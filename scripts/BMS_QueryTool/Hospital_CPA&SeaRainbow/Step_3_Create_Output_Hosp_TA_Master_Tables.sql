@@ -51,6 +51,7 @@ go
 --go
 --Append Molecule/Package level data:
 
+-- city 
 Insert into tblOutput_Hosp_TA_Master
 select DataType, MktType, Mkt, MktName, City_EN as Geo, 
 	'2' as Geo_Lvl, 'H' as Grp_Lvl, Hosp_ID, Hosp_Des_EN, 
@@ -193,6 +194,154 @@ inner join tblHospitalList t3 on t2.CPA_ID=t3.Hosp_ID
 group by DataType, MktType, Mkt, MktName, City_EN, Hosp_ID, Hosp_Des_EN, Tier
 go
 
+-- province 
+
+Insert into tblOutput_Hosp_TA_Master
+select DataType, MktType, Mkt, MktName, Province_EN as Geo, 
+	'1' as Geo_Lvl, 'H' as Grp_Lvl, Hosp_ID, Hosp_Des_EN, 
+	Tier, Class, Class as Class_Name
+	, 'PK' as Prod_Lvl,'N', Mole_Des, 
+	Mole_Cod, Prod_Des, Prod_Cod, Pack_Des, t1.Pack_Cod,  Manu_Des, Manu_Cod, MNC, 
+	sum(M48*rat), sum(M47*rat), sum(M46*rat), sum(M45*rat), sum(M44*rat), sum(M43*rat), sum(M42*rat), sum(M41*rat), sum(M40*rat), sum(M39*rat), sum(M38*rat), sum(M37*rat), 
+	sum(M36*rat), sum(M35*rat), sum(M34*rat), sum(M33*rat), sum(M32*rat), sum(M31*rat), sum(M30*rat), sum(M29*rat), sum(M28*rat), sum(M27*rat), sum(M26*rat), sum(M25*rat), 
+	sum(M24*rat), sum( M23*rat), sum( M22*rat), sum( M21*rat), sum( M20*rat), sum( M19*rat), sum( M18*rat), sum( M17*rat), sum( M16*rat), sum( M15*rat), sum( M14*rat), sum( M13*rat), 
+	sum(M12*rat), sum( M11*rat), sum( M10*rat), sum( M09*rat), sum( M08*rat), sum( M07*rat), sum( M06*rat), sum( M05*rat), sum( M04*rat), sum( M03*rat), sum( M02*rat), sum( M01*rat)
+from tblQueryToolDriverHosp t1
+inner join tblHospitalDataCT t2 on t1.Pack_Cod=t2.Pack_Cod
+inner join tblHospitalList t3 on t2.CPA_ID=t3.Hosp_ID
+group by DataType, MktType, Mkt, MktName, Province_EN , Hosp_ID, Hosp_Des_EN, Tier, Class, Class ,
+	Mole_Des,Mole_Cod, Prod_Des, Prod_Cod, Pack_Des, t1.Pack_Cod,  Manu_Des, Manu_Cod, MNC
+go
+Update t1 
+set t1.Uniq_Prod='Y' 
+from tblOutput_Hosp_TA_Master t1 
+inner join tblProdMoleUnique t2 on t1.Molecule_Code =t2.Mole_cod and t1.Product_Code=t2.Prod_cod
+go
+
+--Append Molecule/Product level data:
+truncate table tblOutput_Hosp_TA_Product
+go
+Insert into tblOutput_Hosp_TA_Product
+select DataType, MktType, Mkt, MktName, Province_EN as Geo
+	, '1' as Geo_Lvl, 'H' as Grp_Lvl, Hosp_ID, Hosp_Des_EN, 
+	Tier, Class
+	, 'PD' as Prod_Lvl, Prod_Des+' TOTAL', Prod_Cod, Manu_Des, Manu_Cod, MNC, 
+	sum(M48*rat),sum(M47*rat),sum(M46*rat),sum(M45*rat),sum(M44*rat),sum(M43*rat),sum(M42*rat),sum(M41*rat),sum(M40*rat),sum(M39*rat),sum(M38*rat),sum(M37*rat),
+	sum(M36*rat),sum(M35*rat),sum(M34*rat),sum(M33*rat),sum(M32*rat),sum(M31*rat),sum(M30*rat),sum(M29*rat),sum(M28*rat),sum(M27*rat),sum(M26*rat),sum(M25*rat),
+	sum(M24*rat),sum(M23*rat),sum(M22*rat),sum(M21*rat),sum(M20*rat),sum(M19*rat),sum(M18*rat),sum(M17*rat),sum(M16*rat),sum(M15*rat),sum(M14*rat),sum(M13*rat), 
+	sum(M12*rat), sum(M11*rat),sum(M10*rat),sum(M09*rat),sum(M08*rat),sum(M07*rat),sum(M06*rat),sum(M05*rat),sum(M04*rat),sum(M03*rat),sum(M02*rat),sum(M01*rat)
+from tblQueryToolDriverHosp_Prod t1 
+inner join tblHospitalDataCT t2 on t1.Pack_Cod=t2.Pack_Cod
+inner join tblHospitalList t3 on t2.CPA_ID=t3.Hosp_ID
+group by DataType, MktType, Mkt, MktName, Province_EN, Hosp_ID, Hosp_Des_EN, Tier, Class, Prod_Des, Prod_Cod, Manu_Des, Manu_Cod, MNC
+go
+Insert into tblOutput_Hosp_TA_Master
+select DataType, MktType, Mkt, Market_Name, Geo, Geo_Lvl, Grp_Lvl, Hosp_ID, Hosp_Des_EN, Tier, Class, Class as Class_Name, 
+	Prod_Lvl, Uniq_Prod, Mole_Des, Mole_Cod, Product_Name, Product_Code, null, '0000000', Manuf_Name, Manuf_Code, MNC, 
+	MTH_48,MTH_47,MTH_46,MTH_45,MTH_44,MTH_43,MTH_42,MTH_41,MTH_40,MTH_39,MTH_38,MTH_37,
+	MTH_36,MTH_35,MTH_34,MTH_33,MTH_32,MTH_31,MTH_30,MTH_29,MTH_28,MTH_27,MTH_26,MTH_25,
+	MTH_24, MTH_23, MTH_22, MTH_21, MTH_20, MTH_19, MTH_18, MTH_17, MTH_16, MTH_15, MTH_14, MTH_13, 
+	MTH_12, MTH_11, MTH_10, MTH_9, MTH_8, MTH_7, MTH_6, MTH_5, MTH_4, MTH_3, MTH_2, MTH_1
+from tblOutput_Hosp_TA_Product t1 
+inner join tblProdMoleCode_HS t2 on t1.Product_Code=t2.Prod_Cod
+go
+
+--Append Molecule level data:
+Insert into tblOutput_Hosp_TA_Master
+select 
+	DataType, MktType, Mkt, MktName, Province_EN as Geo
+	, '1' as Geo_Lvl, 'H' as Grp_Lvl
+	, Hosp_ID, Hosp_Des_EN, Tier
+	, 'NA' as Class, 'NA' as Class_Name
+	, 'MO' as Prod_Lvl, 'N'
+	,Mole_Des+' TOTAL', Mole_Cod
+	, null, '000000000', null, '00000000000', null, null, null, 
+	sum(M48*rat),sum(M47*rat),sum(M46*rat),sum(M45*rat),sum(M44*rat),sum(M43*rat),sum(M42*rat),sum(M41*rat),sum(M40*rat),sum(M39*rat),sum(M38*rat),sum(M37*rat),
+	sum(M36*rat),sum(M35*rat),sum(M34*rat),sum(M33*rat),sum(M32*rat),sum(M31*rat),sum(M30*rat),sum(M29*rat),sum(M28*rat),sum(M27*rat),sum(M26*rat),sum(M25*rat),
+	sum(M24*rat),sum(M23*rat),sum(M22*rat),sum(M21*rat),sum(M20*rat),sum(M19*rat),sum(M18*rat),sum(M17*rat),sum(M16*rat),sum(M15*rat),sum(M14*rat),sum(M13*rat), 
+	sum(M12*rat),sum(M11*rat),sum(M10*rat),sum(M09*rat),sum(M08*rat),sum(M07*rat),sum(M06*rat),sum(M05*rat),sum(M04*rat),sum(M03*rat),sum(M02*rat),sum(M01*rat)
+from (select distinct MktType, Mkt, MktName, Mole_Des, Mole_Cod,Pack_Cod,rat from tblQueryToolDriverHosp ) t1 
+inner join tblHospitalDataCT t2 on t1.Pack_Cod=t2.Pack_Cod 
+inner join tblHospitalList t3 on t2.CPA_ID=t3.Hosp_ID
+group by DataType, MktType, Mkt, MktName, Province_EN, Hosp_ID, Hosp_Des_EN, Tier, Mole_Des, Mole_Cod
+go
+
+--Append Class/Molecule level data:
+Insert into tblOutput_Hosp_TA_Master
+select 
+	DataType, MktType, Mkt, MktName, Province_EN as Geo
+	, '1' as Geo_Lvl, 'H' as Grp_Lvl
+	, Hosp_ID, Hosp_Des_EN, Tier
+	, Class, Class as Class_Name
+	, 'MO' as Prod_Lvl, 'N'
+	, Mole_Des+' TOTAL', Mole_Cod
+	, null, '000000000', null, '00000000000', null, null, null, 
+	sum(M48*rat),sum(M47*rat),sum(M46*rat),sum(M45*rat),sum(M44*rat),sum(M43*rat),sum(M42*rat),sum(M41*rat),sum(M40*rat),sum(M39*rat),sum(M38*rat),sum(M37*rat),
+	sum(M36*rat),sum(M35*rat),sum(M34*rat),sum(M33*rat),sum(M32*rat),sum(M31*rat),sum(M30*rat),sum(M29*rat),sum(M28*rat),sum(M27*rat),sum(M26*rat),sum(M25*rat),
+	sum(M24*rat),sum(M23*rat),sum(M22*rat),sum(M21*rat),sum(M20*rat),sum(M19*rat),sum(M18*rat),sum(M17*rat),sum(M16*rat),sum(M15*rat),sum(M14*rat),sum(M13*rat), 
+	sum(M12*rat),sum(M11*rat),sum(M10*rat),sum(M09*rat),sum(M08*rat),sum(M07*rat),sum(M06*rat),sum(M05*rat),sum(M04*rat),sum(M03*rat),sum(M02*rat),sum(M01*rat)
+from (select distinct MktType, Mkt, MktName,Class, Mole_Des, Mole_Cod,Pack_Cod,rat from tblQueryToolDriverHosp ) t1 
+inner join tblHospitalDataCT t2 on t1.Pack_Cod=t2.Pack_Cod inner join tblHospitalList t3 on t2.CPA_ID=t3.Hosp_ID
+Where Mkt='NIAD'
+group by DataType, MktType, Mkt, MktName, Province_EN, Hosp_ID, Hosp_Des_EN, Tier, Class, Mole_Des, Mole_Cod
+go
+
+--Append Class level data:
+Insert into tblOutput_Hosp_TA_Master
+select DataType, MktType, Mkt, MktName, Province_EN as Geo, '1' as Geo_Lvl, 'H' as Grp_Lvl, Hosp_ID, Hosp_Des_EN, 
+	Tier, Class, Class + ' TOTAL' as Class_Name
+	, 'CS' as Prod_Lvl, 'Y' as Uniq_Prod,
+	null, '000000', null, '000000000', null, '00000000000', null, null, null, 
+	sum(M48*rat),sum(M47*rat),sum(M46*rat),sum(M45*rat),sum(M44*rat),sum(M43*rat),sum(M42*rat),sum(M41*rat),sum(M40*rat),sum(M39*rat),sum(M38*rat),sum(M37*rat),
+	sum(M36*rat),sum(M35*rat),sum(M34*rat),sum(M33*rat),sum(M32*rat),sum(M31*rat),sum(M30*rat),sum(M29*rat),sum(M28*rat),sum(M27*rat),sum(M26*rat),sum(M25*rat),
+	sum(M24*rat),sum(M23*rat),sum(M22*rat),sum(M21*rat),sum(M20*rat),sum(M19*rat),sum(M18*rat),sum(M17*rat),sum(M16*rat),sum(M15*rat),sum(M14*rat),sum(M13*rat), 
+	sum(M12*rat),sum(M11*rat),sum(M10*rat),sum(M09*rat),sum(M08*rat),sum(M07*rat),sum(M06*rat),sum(M05*rat),sum(M04*rat),sum(M03*rat),sum(M02*rat),sum(M01*rat)
+from tblQueryToolDriverHosp_Prod t1 inner join tblHospitalDataCT t2 on t1.Pack_Cod=t2.Pack_Cod
+inner join tblHospitalList t3 on t2.CPA_ID=t3.Hosp_ID
+Where Mkt='NIAD'
+group by DataType, MktType, Mkt, MktName, Province_EN, Hosp_ID, Hosp_Des_EN, Tier, Class
+go
+
+--Append Manufacturer level data:
+Insert into tblOutput_Hosp_TA_Master
+select 
+	DataType, MktType, Mkt, MktName, Province_EN as Geo
+	, '1' as Geo_Lvl, 'H' as Grp_Lvl
+	, Hosp_ID, Hosp_Des_EN, Tier
+	,  'MNF' as Class, null as Class_Name
+	, 'MNF' as Prod_Lvl, 'Y' as Uniq_Prod
+	,null, '000000', null, '000000000', null, '00000000000'
+	,Manu_Des, Manu_Cod, MNC, 
+	sum(M48*rat),sum(M47*rat),sum(M46*rat),sum(M45*rat),sum(M44*rat),sum(M43*rat),sum(M42*rat),sum(M41*rat),sum(M40*rat),sum(M39*rat),sum(M38*rat),sum(M37*rat),
+	sum(M36*rat),sum(M35*rat),sum(M34*rat),sum(M33*rat),sum(M32*rat),sum(M31*rat),sum(M30*rat),sum(M29*rat),sum(M28*rat),sum(M27*rat),sum(M26*rat),sum(M25*rat),
+	sum(M24*rat),sum(M23*rat),sum(M22*rat),sum(M21*rat),sum(M20*rat),sum(M19*rat),sum(M18*rat),sum(M17*rat),sum(M16*rat),sum(M15*rat),sum(M14*rat),sum(M13*rat), 
+	sum(M12*rat),sum(M11*rat),sum(M10*rat),sum(M09*rat),sum(M08*rat),sum(M07*rat),sum(M06*rat),sum(M05*rat),sum(M04*rat),sum(M03*rat),sum(M02*rat),sum(M01*rat)
+from tblQueryToolDriverHosp_Prod t1 
+inner join tblHospitalDataCT t2 on t1.Pack_Cod=t2.Pack_Cod
+inner join tblHospitalList t3 on t2.CPA_ID=t3.Hosp_ID
+group by DataType, MktType, Mkt, MktName, Province_EN
+	, Hosp_ID, Hosp_Des_EN, Tier
+	,Manu_Des, Manu_Cod, MNC
+go
+
+--Append Market level data:
+Insert into tblOutput_Hosp_TA_Master
+select DataType, MktType, Mkt, MktName+ ' TOTAL' as MktName
+	, Province_EN as Geo, '1' as Geo_Lvl, 'H' as Grp_Lvl
+	, Hosp_ID, Hosp_Des_EN, Tier
+	, 'MK' as Class, null as Class_Name, 'MK' as Prod_Lvl, 'Y' as Uniq_Prod,
+	null, '000000', null, '000000000', null, '00000000000', null, null, null, 
+	sum(M48*rat),sum(M47*rat),sum(M46*rat),sum(M45*rat),sum(M44*rat),sum(M43*rat),sum(M42*rat),sum(M41*rat),sum(M40*rat),sum(M39*rat),sum(M38*rat),sum(M37*rat),
+	sum(M36*rat),sum(M35*rat),sum(M34*rat),sum(M33*rat),sum(M32*rat),sum(M31*rat),sum(M30*rat),sum(M29*rat),sum(M28*rat),sum(M27*rat),sum(M26*rat),sum(M25*rat),
+	sum(M24*rat),sum(M23*rat),sum(M22*rat),sum(M21*rat),sum(M20*rat),sum(M19*rat),sum(M18*rat),sum(M17*rat),sum(M16*rat),sum(M15*rat),sum(M14*rat),sum(M13*rat), 
+	sum(M12*rat),sum(M11*rat),sum(M10*rat),sum(M09*rat),sum(M08*rat),sum(M07*rat),sum(M06*rat),sum(M05*rat),sum(M04*rat),sum(M03*rat),sum(M02*rat),sum(M01*rat)
+from (select distinct MktType, Mkt, MktName,Pack_Cod,rat from tblQueryToolDriverHosp_Prod) t1 
+inner join tblHospitalDataCT t2 on t1.Pack_Cod=t2.Pack_Cod 
+inner join tblHospitalList t3 on t2.CPA_ID=t3.Hosp_ID
+group by DataType, MktType, Mkt, MktName, Province_EN, Hosp_ID, Hosp_Des_EN, Tier
+go
+
+
 --Append Geo/Tier level data:
 Insert into tblOutput_Hosp_TA_Master
 select DataType, MktType, Mkt, Market_Name,  Geo, Geo_Lvl, 'G' as Grp_Lvl, '99999', null, Tier, Class, Class_Name, 
@@ -223,7 +372,7 @@ go
 
 --Append China level data:
 Insert into tblOutput_Hosp_TA_Master
-select DataType, MktType, Mkt, Market_Name,  'CHINA' as Geo, 1 as Geo_Lvl, Grp_Lvl, '99999', null, Tier, Class, Class_Name, Prod_Lvl, 
+select DataType, MktType, Mkt, Market_Name,  'CHINA' as Geo, 0 as Geo_Lvl, Grp_Lvl, '99999', null, Tier, Class, Class_Name, Prod_Lvl, 
 	Uniq_Prod, Molecule_Name, Molecule_Code, Product_Name, Product_Code, Package_Name, Package_Code,  Manuf_Name, Manuf_Code, MNC, 
 	sum(MTH_48),sum(MTH_47),sum(MTH_46),sum(MTH_45),sum(MTH_44),sum(MTH_43),sum(MTH_42),sum(MTH_41),sum(MTH_40),sum(MTH_39),sum(MTH_38),sum(MTH_37),
 	sum(MTH_36),sum(MTH_35),sum(MTH_34),sum(MTH_33),sum(MTH_32),sum(MTH_31),sum(MTH_30),sum(MTH_29),sum(MTH_28),sum(MTH_27),sum(MTH_26),sum(MTH_25),

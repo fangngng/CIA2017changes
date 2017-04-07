@@ -81,6 +81,8 @@ GO
 -- insert into tblMktDefHospital 
 -- select 'ARV','ARV Market','700','ARV Others','N','N','J05B','',N'拉米夫定','Lamivudine',N'银丁','Yin Ding','N','700025','','',1
 -- insert into tblMktDefHospital 
+-- select 'ARV','ARV Market','700','ARV Others','N','N','J05B','',N'拉米夫定','Lamivudine',N'益平维','EPIVIR','N','700025','','',1
+-- insert into tblMktDefHospital 
 -- select 'ARV','ARV Market','700','ARV Others','N','N','J05B','',N'阿德福韦酯','Adefovir dipivoxil',N'爱路韦','Ai Lu Wei','N','704405','','',1
 
 

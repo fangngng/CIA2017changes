@@ -2242,6 +2242,11 @@ CREATE TABLE [dbo].OutputProdSalesPerformanceInChina(
 	[YTD36] [float] NULL,
 	[YTD48] [float] NULL,
 
+	[Mth01] [float] NULL,
+	[Mth02] [float] NULL,
+	[Mth03] [float] NULL,
+	[Mth04] [float] NULL,
+	[Mth05] [float] NULL,
     [Mth06] [float] NULL,
 	[Mth07] [float] NULL,
 	[Mth08] [float] NULL,
@@ -2355,7 +2360,8 @@ BEGIN
 	    print @SQL2
 		exec( @SQL2)
 
-       set @SQL2='insert into OutputProdSalesPerformanceInChina([TypeIdx],[Type] ,[Period],[MoneyType],Market,[Prod_cod],[Prod_des],[Mat00],[Mat12],[Mat24],[Mat36],[Mat48],
+       set @SQL2='insert into OutputProdSalesPerformanceInChina([TypeIdx],[Type] ,[Period],[MoneyType],Market,[Prod_cod],[Prod_des],
+	   		[Mth01],[Mth02],[Mth03],[Mth04],[Mth05],
 	   		[Mth06], [Mth07], [Mth08], [Mth09], [Mth10], [Mth11], [Mth12], [Mth13], [Mth14], [Mth15], [Mth16], [Mth17], [Mth18], [Mth19], [Mth20], [Mth21], [Mth22], [Mth23], [Mth24])
 		select 1,''Product'',''MTH'','+'''' +@MoneyType+''''+',B.mkt,a.prod_cod,''''
 			,sum(MTH00' +@MoneyType+@Rat+')
@@ -2395,7 +2401,8 @@ BEGIN
         group by B.mkt,a.prod_cod
 
 
-		insert into OutputProdSalesPerformanceInChina([TypeIdx],[Type] ,[Period],[MoneyType],Market,[Prod_cod],[Prod_des],[Mat00],[Mat12],[Mat24],[Mat36],[Mat48],
+		insert into OutputProdSalesPerformanceInChina([TypeIdx],[Type] ,[Period],[MoneyType],Market,[Prod_cod],[Prod_des],
+			[Mth01],[Mth02],[Mth03],[Mth04],[Mth05],
 	   		[Mth06], [Mth07], [Mth08], [Mth09], [Mth10], [Mth11], [Mth12], [Mth13], [Mth14], [Mth15], [Mth16], [Mth17], [Mth18], [Mth19], [Mth20], [Mth21], [Mth22], [Mth23], [Mth24])
 		select 3,''Market Size'',''MTH'','+'''' +@MoneyType+''''+',B.mkt,B.mkt,''''
 			,sum(MTH00' +@MoneyType+@Rat+')
@@ -2523,7 +2530,8 @@ BEGIN
 	    print @SQL2
 		exec( @SQL2)
 
-       set @SQL2='insert into OutputProdSalesPerformanceInChina([TypeIdx],[Type] ,[Period],[MoneyType],Market,[Prod_cod],[Prod_des],[Mat00],[Mat12],[Mat24],[Mat36],[Mat48],
+       set @SQL2='insert into OutputProdSalesPerformanceInChina([TypeIdx],[Type] ,[Period],[MoneyType],Market,[Prod_cod],[Prod_des],
+	   		[Mth01],[Mth02],[Mth03],[Mth04],[Mth05],
 	   		[Mth06], [Mth07], [Mth08], [Mth09], [Mth10], [Mth11], [Mth12], [Mth13], [Mth14], [Mth15], [Mth16], [Mth17], [Mth18], [Mth19], [Mth20], [Mth21], [Mth22], [Mth23], [Mth24])
 		select 1,''Product'',''MTH'','+'''' +@MoneyType+''''+',B.mkt,a.prod_cod,'''',sum(MTH00' +@MoneyType+@Rat+')
 			,sum(MTH01' +@MoneyType+@Rat+')
@@ -2558,7 +2566,8 @@ BEGIN
         group by B.mkt,a.prod_cod
 
 
-		insert into OutputProdSalesPerformanceInChina([TypeIdx],[Type] ,[Period],[MoneyType],Market,[Prod_cod],[Prod_des],[Mat00],[Mat12],[Mat24],[Mat36],[Mat48],
+		insert into OutputProdSalesPerformanceInChina([TypeIdx],[Type] ,[Period],[MoneyType],Market,[Prod_cod],[Prod_des],
+			[Mth01],[Mth02],[Mth03],[Mth04],[Mth05],
 	   		[Mth06], [Mth07], [Mth08], [Mth09], [Mth10], [Mth11], [Mth12], [Mth13], [Mth14], [Mth15], [Mth16], [Mth17], [Mth18], [Mth19], [Mth20], [Mth21], [Mth22], [Mth23], [Mth24])
 		select 3,''Market Size'',''MTH'','+'''' +@MoneyType+''''+',B.mkt,B.mkt,'''',sum(MTH00' +@MoneyType+@Rat+')
 			,sum(MTH01' +@MoneyType+@Rat+')
@@ -2638,13 +2647,13 @@ insert into OutputProdSalesPerformanceInChina([TypeIdx],[Type] ,[Period],[MoneyT
 	,[Mat00],[Mat12],[Mat24],[Mat36],[Mat48]
 	,[MQT00],[MQT12],[MQT24],[MQT36],[MQT48]
 	,[YTD00],[YTD12],[YTD24],[YTD36],[YTD48]
+	,[Mth01],[Mth02],[Mth03],[Mth04],[Mth05]
 	,[Mth06],[Mth07],[Mth08],[Mth09],[Mth10],[Mth11],[Mth12])
 select 4,'Market Growth',A.Period,A.Moneytype,A.Market,a.prod_cod,a.prod_des,
-	case mat12 when 0 then 0 else (mat00-MTH13)/MTH13 end,
-	case mat24 when 0 then 0 else (mat12-MTH14)/MTH14 end,
-	case mat36 when 0 then 0 else (mat24-MTH15)/MTH15 end,
-	case mat48 when 0 then 0 else (mat36-MTH16)/MTH16 end, 
-	case MTH06 when 0 then 0 else (mat48-MTH17)/MTH17 end,
+	case mat12 when 0 then 0 else (mat00-mat12)/mat12 end,
+	case mat24 when 0 then 0 else (mat12-mat24)/mat24 end,
+	case mat36 when 0 then 0 else (mat24-mat36)/mat36 end,
+	case mat48 when 0 then 0 else (mat36-mat48)/mat48 end, '',
 	case MQT12 when 0 then 0 else (MQT00-MQT12)/MQT12 end,
 	case MQT24 when 0 then 0 else (MQT12-MQT24)/MQT24 end,
 	case MQT36 when 0 then 0 else (MQT24-MQT36)/MQT36 end,
@@ -2653,13 +2662,18 @@ select 4,'Market Growth',A.Period,A.Moneytype,A.Market,a.prod_cod,a.prod_des,
 	case YTD24 when 0 then 0 else (YTD12-YTD24)/YTD24 end,
 	case YTD36 when 0 then 0 else (YTD24-YTD36)/YTD36 end,
 	case YTD48 when 0 then 0 else (YTD36-YTD48)/YTD48 end, '',
-	case MTH07 when 0 then 0 else (MTH06-MTH18)/MTH18 end,
-	case MTH08 when 0 then 0 else (MTH07-MTH19)/MTH19 end,
-	case MTH09 when 0 then 0 else (MTH08-MTH20)/MTH20 end,
-	case MTH10 when 0 then 0 else (MTH09-MTH21)/MTH21 end,
-	case MTH11 when 0 then 0 else (MTH10-MTH22)/MTH22 end,
-	case MTH12 when 0 then 0 else (MTH11-MTH23)/MTH23 end,
-	case MTH13 when 0 then 0 else (MTH12-MTH23)/MTH24 end
+	case MTH13 when 0 then 0 else (MTH01-MTH13)/MTH13 end,
+	case MTH14 when 0 then 0 else (MTH02-MTH14)/MTH14 end,
+	case MTH15 when 0 then 0 else (MTH03-MTH15)/MTH15 end,
+	case MTH16 when 0 then 0 else (MTH04-MTH16)/MTH16 end,
+	case MTH17 when 0 then 0 else (MTH05-MTH17)/MTH17 end,
+	case MTH18 when 0 then 0 else (MTH06-MTH18)/MTH18 end,
+	case MTH19 when 0 then 0 else (MTH07-MTH19)/MTH19 end,
+	case MTH20 when 0 then 0 else (MTH08-MTH20)/MTH20 end,
+	case MTH21 when 0 then 0 else (MTH09-MTH21)/MTH21 end,
+	case MTH22 when 0 then 0 else (MTH10-MTH22)/MTH22 end,
+	case MTH23 when 0 then 0 else (MTH11-MTH23)/MTH23 end,
+	case MTH24 when 0 then 0 else (MTH12-MTH24)/MTH24 end
 from OutputProdSalesPerformanceInChina a where [type]='Market Size' and period<>'MTH'
 go
 
@@ -2667,13 +2681,13 @@ insert into OutputProdSalesPerformanceInChina([TypeIdx],[Type] ,[Period],[MoneyT
 	,[Mat00],[Mat12],[Mat24],[Mat36],[Mat48]
 	,[MQT00],[MQT12],[MQT24],[MQT36],[MQT48]
 	,[YTD00],[YTD12],[YTD24],[YTD36],[YTD48]
+	,[Mth01],[Mth02],[Mth03],[Mth04],[Mth05]
 	,[Mth06],[Mth07],[Mth08],[Mth09],[Mth10],[Mth11],[Mth12])
 select 5,A.Prod_des+' Growth',A.Period,A.Moneytype,A.Market,a.prod_cod,a.prod_des,
-	case mat12 when 0 then 0 else (mat00-MTH13)/MTH13 end,
-	case mat24 when 0 then 0 else (mat12-MTH14)/MTH14 end,
-	case mat36 when 0 then 0 else (mat24-MTH15)/MTH15 end,
-	case mat48 when 0 then 0 else (mat36-MTH16)/MTH16 end, 
-	case MTH06 when 0 then 0 else (mat48-MTH17)/MTH17 end,
+	case mat12 when 0 then 0 else (mat00-mat12)/mat12 end,
+	case mat24 when 0 then 0 else (mat12-mat24)/mat24 end,
+	case mat36 when 0 then 0 else (mat24-mat36)/mat36 end,
+	case mat48 when 0 then 0 else (mat36-mat48)/mat48 end, '',
 	case MQT12 when 0 then 0 else (MQT00-MQT12)/MQT12 end,
 	case MQT24 when 0 then 0 else (MQT12-MQT24)/MQT24 end,
 	case MQT36 when 0 then 0 else (MQT24-MQT36)/MQT36 end,
@@ -2682,13 +2696,18 @@ select 5,A.Prod_des+' Growth',A.Period,A.Moneytype,A.Market,a.prod_cod,a.prod_de
 	case YTD24 when 0 then 0 else (YTD12-YTD24)/YTD24 end,
 	case YTD36 when 0 then 0 else (YTD24-YTD36)/YTD36 end,
 	case YTD48 when 0 then 0 else (YTD36-YTD48)/YTD48 end, '',
-	case MTH07 when 0 then 0 else (MTH06-MTH18)/MTH18 end,
-	case MTH08 when 0 then 0 else (MTH07-MTH19)/MTH19 end,
-	case MTH09 when 0 then 0 else (MTH08-MTH20)/MTH20 end,
-	case MTH10 when 0 then 0 else (MTH09-MTH21)/MTH21 end,
-	case MTH11 when 0 then 0 else (MTH10-MTH22)/MTH22 end,
-	case MTH12 when 0 then 0 else (MTH11-MTH23)/MTH23 end,
-	case MTH13 when 0 then 0 else (MTH12-MTH23)/MTH24 end
+	case MTH13 when 0 then 0 else (MTH01-MTH13)/MTH13 end,
+	case MTH14 when 0 then 0 else (MTH02-MTH14)/MTH14 end,
+	case MTH15 when 0 then 0 else (MTH03-MTH15)/MTH15 end,
+	case MTH16 when 0 then 0 else (MTH04-MTH16)/MTH16 end,
+	case MTH17 when 0 then 0 else (MTH05-MTH17)/MTH17 end,
+	case MTH18 when 0 then 0 else (MTH06-MTH18)/MTH18 end,
+	case MTH19 when 0 then 0 else (MTH07-MTH19)/MTH19 end,
+	case MTH20 when 0 then 0 else (MTH08-MTH20)/MTH20 end,
+	case MTH21 when 0 then 0 else (MTH09-MTH21)/MTH21 end,
+	case MTH22 when 0 then 0 else (MTH10-MTH22)/MTH22 end,
+	case MTH23 when 0 then 0 else (MTH11-MTH23)/MTH23 end,
+	case MTH24 when 0 then 0 else (MTH12-MTH24)/MTH24 end
  from OutputProdSalesPerformanceInChina a where [type]='Product'  and period<>'MTH'
 go
 
@@ -2696,13 +2715,13 @@ insert into OutputProdSalesPerformanceInChina([TypeIdx],[Type] ,[Period],[MoneyT
 	,[Mat00],[Mat12],[Mat24],[Mat36],[Mat48]
 	,[MQT00],[MQT12],[MQT24],[MQT36],[MQT48]
 	,[YTD00],[YTD12],[YTD24],[YTD36],[YTD48]
+	,[Mth01],[Mth02],[Mth03],[Mth04],[Mth05]
 	,[Mth06],[Mth07],[Mth08],[Mth09],[Mth10],[Mth11],[Mth12])
 select 4,'Market Growth',A.Period,A.Moneytype,A.Market,a.prod_cod,a.prod_des,
-	case mat12 when 0 then 0 else (mat00-MTH13)/MTH13 end,
-	case mat24 when 0 then 0 else (mat12-MTH14)/MTH14 end,
-	case mat36 when 0 then 0 else (mat24-MTH15)/MTH15 end,
-	case mat48 when 0 then 0 else (mat36-MTH16)/MTH16 end, 
-	case MTH06 when 0 then 0 else (mat48-MTH17)/MTH17 end,
+	case mat12 when 0 then 0 else (mat00-mat12)/mat12 end,
+	case mat24 when 0 then 0 else (mat12-mat24)/mat24 end,
+	case mat36 when 0 then 0 else (mat24-mat36)/mat36 end,
+	case mat48 when 0 then 0 else (mat36-mat48)/mat48 end, '',
 	case MQT12 when 0 then 0 else (MQT00-MQT12)/MQT12 end,
 	case MQT24 when 0 then 0 else (MQT12-MQT24)/MQT24 end,
 	case MQT36 when 0 then 0 else (MQT24-MQT36)/MQT36 end,
@@ -2711,13 +2730,18 @@ select 4,'Market Growth',A.Period,A.Moneytype,A.Market,a.prod_cod,a.prod_des,
 	case YTD24 when 0 then 0 else (YTD12-YTD24)/YTD24 end,
 	case YTD36 when 0 then 0 else (YTD24-YTD36)/YTD36 end,
 	case YTD48 when 0 then 0 else (YTD36-YTD48)/YTD48 end, '',
-	case MTH07 when 0 then 0 else (MTH06-MTH18)/MTH18 end,
-	case MTH08 when 0 then 0 else (MTH07-MTH19)/MTH19 end,
-	case MTH09 when 0 then 0 else (MTH08-MTH20)/MTH20 end,
-	case MTH10 when 0 then 0 else (MTH09-MTH21)/MTH21 end,
-	case MTH11 when 0 then 0 else (MTH10-MTH22)/MTH22 end,
-	case MTH12 when 0 then 0 else (MTH11-MTH23)/MTH23 end,
-	case MTH13 when 0 then 0 else (MTH12-MTH23)/MTH24 end
+	case MTH13 when 0 then 0 else (MTH01-MTH13)/MTH13 end,
+	case MTH14 when 0 then 0 else (MTH02-MTH14)/MTH14 end,
+	case MTH15 when 0 then 0 else (MTH03-MTH15)/MTH15 end,
+	case MTH16 when 0 then 0 else (MTH04-MTH16)/MTH16 end,
+	case MTH17 when 0 then 0 else (MTH05-MTH17)/MTH17 end,
+	case MTH18 when 0 then 0 else (MTH06-MTH18)/MTH18 end,
+	case MTH19 when 0 then 0 else (MTH07-MTH19)/MTH19 end,
+	case MTH20 when 0 then 0 else (MTH08-MTH20)/MTH20 end,
+	case MTH21 when 0 then 0 else (MTH09-MTH21)/MTH21 end,
+	case MTH22 when 0 then 0 else (MTH10-MTH22)/MTH22 end,
+	case MTH23 when 0 then 0 else (MTH11-MTH23)/MTH23 end,
+	case MTH24 when 0 then 0 else (MTH12-MTH24)/MTH24 end
  from OutputProdSalesPerformanceInChina a where [type]='Market Size' and period='MTH'
 go
 
@@ -2725,13 +2749,13 @@ insert into OutputProdSalesPerformanceInChina([TypeIdx],[Type] ,[Period],[MoneyT
 	,[Mat00],[Mat12],[Mat24],[Mat36],[Mat48]
 	,[MQT00],[MQT12],[MQT24],[MQT36],[MQT48]
 	,[YTD00],[YTD12],[YTD24],[YTD36],[YTD48]
+	,[Mth01],[Mth02],[Mth03],[Mth04],[Mth05]
 	,[Mth06],[Mth07],[Mth08],[Mth09],[Mth10],[Mth11],[Mth12])
 select 5,A.Prod_des+' Growth',A.Period,A.Moneytype,A.Market,a.prod_cod,a.prod_des,
-	case mat12 when 0 then 0 else (mat00-MTH13)/MTH13 end,
-	case mat24 when 0 then 0 else (mat12-MTH14)/MTH14 end,
-	case mat36 when 0 then 0 else (mat24-MTH15)/MTH15 end,
-	case mat48 when 0 then 0 else (mat36-MTH16)/MTH16 end, 
-	case MTH06 when 0 then 0 else (mat48-MTH17)/MTH17 end,
+	case mat12 when 0 then 0 else (mat00-mat12)/mat12 end,
+	case mat24 when 0 then 0 else (mat12-mat24)/mat24 end,
+	case mat36 when 0 then 0 else (mat24-mat36)/mat36 end,
+	case mat48 when 0 then 0 else (mat36-mat48)/mat48 end, '',
 	case MQT12 when 0 then 0 else (MQT00-MQT12)/MQT12 end,
 	case MQT24 when 0 then 0 else (MQT12-MQT24)/MQT24 end,
 	case MQT36 when 0 then 0 else (MQT24-MQT36)/MQT36 end,
@@ -2740,13 +2764,18 @@ select 5,A.Prod_des+' Growth',A.Period,A.Moneytype,A.Market,a.prod_cod,a.prod_de
 	case YTD24 when 0 then 0 else (YTD12-YTD24)/YTD24 end,
 	case YTD36 when 0 then 0 else (YTD24-YTD36)/YTD36 end,
 	case YTD48 when 0 then 0 else (YTD36-YTD48)/YTD48 end, '',
-	case MTH07 when 0 then 0 else (MTH06-MTH18)/MTH18 end,
-	case MTH08 when 0 then 0 else (MTH07-MTH19)/MTH19 end,
-	case MTH09 when 0 then 0 else (MTH08-MTH20)/MTH20 end,
-	case MTH10 when 0 then 0 else (MTH09-MTH21)/MTH21 end,
-	case MTH11 when 0 then 0 else (MTH10-MTH22)/MTH22 end,
-	case MTH12 when 0 then 0 else (MTH11-MTH23)/MTH23 end,
-	case MTH13 when 0 then 0 else (MTH12-MTH23)/MTH24 end
+	case MTH13 when 0 then 0 else (MTH01-MTH13)/MTH13 end,
+	case MTH14 when 0 then 0 else (MTH02-MTH14)/MTH14 end,
+	case MTH15 when 0 then 0 else (MTH03-MTH15)/MTH15 end,
+	case MTH16 when 0 then 0 else (MTH04-MTH16)/MTH16 end,
+	case MTH17 when 0 then 0 else (MTH05-MTH17)/MTH17 end,
+	case MTH18 when 0 then 0 else (MTH06-MTH18)/MTH18 end,
+	case MTH19 when 0 then 0 else (MTH07-MTH19)/MTH19 end,
+	case MTH20 when 0 then 0 else (MTH08-MTH20)/MTH20 end,
+	case MTH21 when 0 then 0 else (MTH09-MTH21)/MTH21 end,
+	case MTH22 when 0 then 0 else (MTH10-MTH22)/MTH22 end,
+	case MTH23 when 0 then 0 else (MTH11-MTH23)/MTH23 end,
+	case MTH24 when 0 then 0 else (MTH12-MTH24)/MTH24 end
  from OutputProdSalesPerformanceInChina a where [type]='Product'  and period='MTH'
 go
 
@@ -6441,20 +6470,22 @@ ON A.Period=B.Period and A.MoneyType=B.MoneyType and A.market=B.market  and A.mk
 UNION
 
 SELECT A.[Period],A.Moneytype,A.market,A.Molecule,A.Class,A.Mkt,A.MKtName,A.Prod,A.ProductName,A.Audi_cod,A.Audi_des,
-case B.YTD00 when 0 then 0 else A.YTD00*1.0/B.YTD00 end as Share FROM 
-(select Cast('YTD' as varchar(10)) as [Period],Moneytype,market,Molecule,Class,Mkt,MKtName,Prod,ProductName,Audi_cod,Audi_des,sum(YTD00) AS YTD00
-from dbo.TempCityDashboard_forPre
-where lev='city' and Productname in ('Onglyza','Januvia','Galvus','Metformin'
-,'Glucophage','Monopril','Baraclude','Entecavir','Taxol','Paraplatin','Coniel')
-and mkt<>'ACE' AND Moneytype='UN' 
-GROUP BY Moneytype,market,Molecule,Class,Mkt,MKtName,Prod,ProductName,Audi_cod,Audi_des) A
+	case B.YTD00 when 0 then 0 else A.YTD00*1.0/B.YTD00 end as Share 
+FROM 
+(	select Cast('YTD' as varchar(10)) as [Period],Moneytype,market,Molecule,Class,Mkt,MKtName,Prod,ProductName,Audi_cod,Audi_des,sum(YTD00) AS YTD00
+	from dbo.TempCityDashboard_forPre
+	where lev='city' and Productname in ('Onglyza','Januvia','Galvus','Metformin' ,'Glucophage','Monopril','Baraclude','Entecavir','Taxol','Paraplatin','Coniel')
+	and mkt<>'ACE' AND Moneytype='UN' 
+	GROUP BY Moneytype,market,Molecule,Class,Mkt,MKtName,Prod,ProductName,Audi_cod,Audi_des
+) A
 INNER JOIN
 (
-select Cast('YTD' as varchar(10)) as [Period],Moneytype,market,Molecule,Class,Mkt,MKtName,Prod,ProductName,Audi_cod,Audi_des,sum(YTD00)AS YTD00
-from dbo.TempCityDashboard_forPre
-where lev='city' AND Moneytype='UN' AND mkt in ('ARV','NIAD','HYP','ONCFCS','Platinum','CCB') and Prod='000' AND MOLECULE='N' AND CLASS='N'
-and mkt<>'ACE' 
-GROUP BY Moneytype,market,Molecule,Class,Mkt,MKtName,Prod,ProductName,Audi_cod,Audi_des) B
+	select Cast('YTD' as varchar(10)) as [Period],Moneytype,market,Molecule,Class,Mkt,MKtName,Prod,ProductName,Audi_cod,Audi_des,sum(YTD00)AS YTD00
+	from dbo.TempCityDashboard_forPre
+	where lev='city' AND Moneytype='UN' AND mkt in ('ARV','NIAD','HYP','ONCFCS','Platinum','CCB') and Prod='000' AND MOLECULE='N' AND CLASS='N'
+	and mkt<>'ACE' 
+	GROUP BY Moneytype,market,Molecule,Class,Mkt,MKtName,Prod,ProductName,Audi_cod,Audi_des
+) B
 ON A.Period=B.Period and A.MoneyType=B.MoneyType and A.market=B.market  and A.mkt=b.mkt and a.mktname=B.mktname and A.AUDI_COD=B.AUDI_COD
 GO
 update OutputPreCityPerformance2
@@ -6465,35 +6496,47 @@ insert into OutputPreCityPerformance2
 select Period, Moneytype, market, Molecule, Class, Mkt, MKtName, Prod, ProductName, Audi_cod, Audi_des, 0 
 from (
 	select distinct A.Period, A.MoneyType, A.Market, A.Molecule, A.Class, A.mkt, A.MKtName,A.Prod, A.productname,B.Audi_cod,B.Audi_des
-	from OutputPreCityPerformance2 A ,OutputPreCityPerformance2 B where A.Market='Onglyza' and A.Market=B.Market) B
+	from OutputPreCityPerformance2 A ,OutputPreCityPerformance2 B 
+	where A.Market='Onglyza' and A.Market=B.Market
+) B
 where not exists(
 	select * from OutputPreCityPerformance2 A
-	where A.Period=B.Period and A.MoneyType=B.MoneyType and A.market=B.market  and A.mkt=b.mkt  and A.AUDI_des=B.AUDI_des and A.Productname=B.Productname
+	where A.Period=B.Period and A.MoneyType=B.MoneyType and A.market=B.market  and A.mkt=b.mkt  
+		and A.AUDI_des=B.AUDI_des and A.Productname=B.Productname
 ) and Market='Onglyza'
 go
 Alter table OutputPreCityPerformance2 add CurrRank int
 go
 update OutputPreCityPerformance2
-set CurrRank=B.Rank from OutputPreCityPerformance2 A inner join(
-select A.*,
-dense_Rank ( )OVER (PARTITION BY Period,MoneyType,Market,mkt order by Share desc) as Rank from OutputPreCityPerformance2 A
-where (Market in ('Baraclude','Glucophage') and Molecule='Y') or Market not in ('Baraclude','Glucophage')) B
+set CurrRank=B.Rank 
+from OutputPreCityPerformance2 A 
+inner join(
+	select A.*, dense_Rank ( )OVER (PARTITION BY Period,MoneyType,Market,mkt order by Share desc) as Rank 
+	from OutputPreCityPerformance2 A
+	where (Market in ('Baraclude','Glucophage') 
+	-- and Molecule='Y'
+	) or Market not in ('Baraclude','Glucophage')
+) B
 on A.Period=B.Period and A.MoneyType=B.MoneyType and A.market=B.market  and A.mkt=b.mkt and a.mktname=B.mktname and A.AUDI_COD=B.AUDI_COD
 go
 update OutputPreCityPerformance2
-set CurrRank=B.Rank from OutputPreCityPerformance2 A inner join(
-select A.*,
-dense_Rank ( )OVER (PARTITION BY Period,MoneyType,Market,mkt order by Share desc) as Rank from 
-(
-select Period, Moneytype, market, Molecule, Class, Mkt, MKtName,  Audi_cod, Audi_des, sum(Share) as Share
- from OutputPreCityPerformance2 where Market='Onglyza'
-group by Period, Moneytype, market, Molecule, Class, Mkt, MKtName,  Audi_cod, Audi_des) A
+set CurrRank=B.Rank 
+from OutputPreCityPerformance2 A 
+inner join(
+	select A.*, dense_Rank ( )OVER (PARTITION BY Period,MoneyType,Market,mkt order by Share desc) as Rank 
+	from 
+	(
+		select Period, Moneytype, market, Molecule, Class, Mkt, MKtName,  Audi_cod, Audi_des, sum(Share) as Share
+		from OutputPreCityPerformance2 
+		where Market='Onglyza'
+		group by Period, Moneytype, market, Molecule, Class, Mkt, MKtName,  Audi_cod, Audi_des
+	) A
 ) B
 on A.Period=B.Period and A.MoneyType=B.MoneyType and A.market=B.market  and A.mkt=b.mkt and a.mktname=B.mktname and A.AUDI_COD=B.AUDI_COD
 go
 insert into OutputPreCityPerformance2
 select A.[Period],A.Moneytype,A.market,A.Molecule,A.Class,A.Mkt,A.MKtName,A.Prod,A.ProductName+' Generics',A.Audi_cod,A.Audi_des,
-A.Share-B.share,A.CurrRank
+	A.Share-B.share,A.CurrRank
 from OutputPreCityPerformance2 A 
 inner join  OutputPreCityPerformance2 B
 on A.Period=B.Period and A.MoneyType=B.MoneyType and A.Audi_cod=b.Audi_cod 
