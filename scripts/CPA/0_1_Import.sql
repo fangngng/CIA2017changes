@@ -32,11 +32,11 @@ join
 on a.BMS_Code=b.INS_CODE
 ---end
 
--- update BAL hospital 
-if object_id(N'tblBALHospital',N'U') is not null
-	drop table tblBALHospital
-go 
-SELECT * INTO tblBALHospital FROM DB36.[BMSChinaCSR_Testing].[dbo].Output_BAL_Hospital_ForCIA
+-- -- update BAL hospital 
+-- if object_id(N'tblBALHospital',N'U') is not null
+-- 	drop table tblBALHospital
+-- go 
+-- SELECT * INTO tblBALHospital FROM DB36.[BMSChinaCSR_Testing].[dbo].Output_BAL_Hospital_ForCIA
 
 
 print '-----------------------------------

@@ -427,7 +427,7 @@ where A.[Period]='MAT'
 declare @MQT00 varchar(10), @MQT12 varchar(10), @sql varchar(max), @currRDPACMonSeq int 
 set @currRDPACMonSeq = (SELECT MonSeq FROM dbo.tblMonthList WHERE Date = (SELECT value FROM dbo.Config WHERE Parameter = 'HKAPI'))
 set @MQT00 = right((SELECT convert(varchar(10), year) + Quarter FROM dbo.tblMonthList where MonSeq = @currRDPACMonSeq ), 4) + 'LC'
-set @MQT12 = right((SELECT convert(varchar(10), year) + Quarter FROM dbo.tblMonthList where MonSeq = 11 + @currRDPACMonSeq ), 4) + 'LC'
+set @MQT12 = right((SELECT convert(varchar(10), year) + Quarter FROM dbo.tblMonthList where MonSeq = 12 + @currRDPACMonSeq ), 4) + 'LC'
 
 set @sql = '
 insert into [OutputKeyMNCsProdPerformance_HKAPI]

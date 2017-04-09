@@ -124,10 +124,10 @@ update a set x_idx=case when x='YTD00US' then 1
 						end
 from KPI_Frame_MNC_Company_Ranking_RDPAC a
 
-update a set x=case when right(left(x,5),2)='00' then period+' '+(select monthen from tblmonthlist where monseq=1) 
-				  when right(left(x,5),2)='12' then period+' '+(select monthen from tblmonthlist where monseq=13)
-				  when X='currRank' then period+' '+(select monthen from tblmonthlist where monseq=1)+' Ranking'
-				  when X='PrevRank' then period+' '+(select monthen from tblmonthlist where monseq=13)+' Ranking'
+update a set x=case when right(left(x,5),2)='00' then 'YTD Dec''16'  -- todo 
+				  when right(left(x,5),2)='12' then 'YTD Dec''15'
+				  when X='currRank' then period+' Dec''16 Ranking'
+				  when X='PrevRank' then period+' Dec''15 Ranking'
 				  else x end
 from KPI_Frame_MNC_Company_Ranking_RDPAC a
 
@@ -255,10 +255,10 @@ set x_idx=case when x='YTD00US' then 1
 from KPI_Frame_MNC_Brand_Ranking_RDPAC a
 
 update a 
-set x=case when right(left(x,5),2)='00' then period+' '+(select monthen from tblmonthlist where monseq=1) 
-            when right(left(x,5),2)='12' then period+' '+(select monthen from tblmonthlist where monseq=13)
-            when X='currRank' then period+' '+(select monthen from tblmonthlist where monseq=1)+' Ranking'
-            when X='PrevRank' then period+' '+(select monthen from tblmonthlist where monseq=13)+' Ranking'
+set x=case when right(left(x,5),2)='00' then 'YTD Dec''16' -- todo 
+            when right(left(x,5),2)='12' then 'YTD Dec''15' 
+            when X='currRank' then period+' YTD Dec''16 Ranking'
+            when X='PrevRank' then period+' YTD Dec''15 Ranking'
             else x end
 from KPI_Frame_MNC_Brand_Ranking_RDPAC a
 
@@ -941,7 +941,7 @@ set @YTDNum = (
 )
 
 
-set @sql = 'SELECT a.Province, a.City, Prod_cod, Prod_Des, Mole_cod, Mole_des, Pack_Cod, Pack_des, 
+set @sql = 'SELECT a.Province, replace(a.city, N''市'', '''') as city, Prod_cod, Prod_Des, Mole_cod, Mole_des, Pack_Cod, Pack_des, 
  '
 -- month 
 declare @i int , @j int , @k int
@@ -1009,7 +1009,7 @@ set @sql = left(@sql, len(@sql) - 1) + ') as [' + convert(varchar(4), (select ma
 set @sql = @sql + ' 
 into MAXData_Rollup_CityProdMth
 from dbo.Max_Data as a 
-inner join dbo.MaxCity as b on a.city = b.city
+inner join dbo.MaxCity as b on replace(a.city, N''市'', '''' ) = b.city
 group by a.City, Prod_cod, Prod_Des, a.Province,Mole_cod, Mole_des, Pack_Cod, Pack_des '
 print @sql 
 exec(@sql) 
@@ -1073,7 +1073,7 @@ into MAXData_Rollup_ProvProd_ARV
 from MAXData_Rollup_CityProdMth as a 
 inner join tblMktDef_Inline_MAX as b on a.Mole_cod = b.Mole_cod
 	and a.Prod_cod = b.Prod_cod and a.Pack_Cod = b.Pack_Cod 
-inner join MaxCity as c on a.City = c.city     
+inner join MaxCity as c on replace(a.city, N''市'', '''' ) = c.city     
 group by a.Province, a.Prod_Des, a.Prod_cod '
 print @sql 
 exec(@sql) 
@@ -1248,11 +1248,11 @@ go
 select distinct * , 0 as Idx , convert(varchar(50), '') as mkt, convert(varchar(50), '') as MktName
 into tblMktDef_Inline_MAX 
 FROM (
-select  distinct ATC1_Des, ATC2_Cod, ATC2_Des, ATC3_Cod, ATC3_Des, ATC4_Cod,
-	   ATC4_Des, Mole_cod, Mole_des, Prod_cod, Prod_Des, Pack_Cod, Pack_Des, 
-	   Corp_cod, Corp_Des, manu_cod, Manu_des,
-	   MNC, Gene_Cod
-from dbo.Max_Data
+    select  distinct ATC1_Des, ATC2_Cod, ATC2_Des, ATC3_Cod, ATC3_Des, ATC4_Cod,
+        ATC4_Des, Mole_cod, Mole_des, Prod_cod, Prod_Des, Pack_Cod, Pack_Des, 
+        Corp_cod, Corp_Des, manu_cod, Manu_des,
+        MNC, Gene_Cod
+    from dbo.Max_Data
 ) as a 
 
 update tblMktDef_Inline_MAX
@@ -1318,34 +1318,34 @@ go
 select * , 1 as Idx 
 into tblMaxCity_KeyCity 
 from MaxCity
-where City in (N'北京市' )
+where City in (N'北京' )
 
 insert into tblMaxCity_KeyCity 
-select * , 2 as Idx from MaxCity where City in (N'上海市' )
+select * , 2 as Idx from MaxCity where City in (N'上海')
 
 insert into tblMaxCity_KeyCity 
-select * , 3 as Idx from MaxCity where City in (N'广州市' )
+select * , 3 as Idx from MaxCity where City in (N'广州')
 
 insert into tblMaxCity_KeyCity 
-select * , 4 as Idx from MaxCity where City in (N'杭州市' )
+select * , 4 as Idx from MaxCity where City in (N'杭州')
 
 insert into tblMaxCity_KeyCity 
-select * , 5 as Idx from MaxCity where City in (N'武汉市' )
+select * , 5 as Idx from MaxCity where City in (N'武汉')
 
 insert into tblMaxCity_KeyCity 
-select * , 6 as Idx from MaxCity where City in (N'成都市' )
+select * , 6 as Idx from MaxCity where City in (N'成都')
 
 insert into tblMaxCity_KeyCity 
-select * , 7 as Idx from MaxCity where City in (N'深圳市' )
+select * , 7 as Idx from MaxCity where City in (N'深圳')
 
 insert into tblMaxCity_KeyCity 
-select * , 8 as Idx from MaxCity where City in (N'南京市' )
+select * , 8 as Idx from MaxCity where City in (N'南京')
 
 insert into tblMaxCity_KeyCity 
-select * , 9 as Idx from MaxCity where City in (N'重庆市' )
+select * , 9 as Idx from MaxCity where City in (N'重庆')
 
 insert into tblMaxCity_KeyCity 
-select * ,10 as Idx from MaxCity where City in (N'西安市' )
+select * ,10 as Idx from MaxCity where City in (N'西安')
 
 GO
 
@@ -1383,7 +1383,7 @@ inner join (
 	from tblMktDef_Inline_MAX 
 ) as b on a.Mole_cod = b.Mole_cod
 	and a.Prod_cod = b.Prod_cod and a.Pack_Cod = b.Pack_Cod 
-inner join tblMaxCity_KeyCity as c on a.City = c.city    
+inner join tblMaxCity_KeyCity as c on replace(a.city, N''市'', '''' ) = c.city    
 group by a.City, b.Mkt '
 print @sql 
 exec(@sql) 
@@ -1477,7 +1477,7 @@ set @sql = 'SELECT c.Region, b.Mkt,
 set @sql = @sql + 'sum([' + convert(varchar(4), (select max(Year) from tblMonthList)) + 'YTDUS]) as [' + convert(varchar(4), (select max(Year) from tblMonthList)) + 'YTDUS], '
 set @sql = @sql + 'sum([' + convert(varchar(4), (select max(Year) - 1 from tblMonthList)) + 'YTDUS]) as [' + convert(varchar(4), (select max(Year) - 1 from tblMonthList)) + 'YTDUS], '
 set @sql = @sql + 'sum([' + convert(varchar(6), (select Date from tblMonthList where MonSeq = 1)) + 'US]) as [Mth00YTDUS], '
-set @sql = @sql + 'sum([' + convert(varchar(6), (select Date from tblMonthList where MonSeq = 13)) + 'US]) as [Mth12YTDUS] '
+set @sql = @sql + 'sum([' + convert(varchar(6), (select Date from tblMonthList where MonSeq = 2)) + 'US]) as [Mth01YTDUS] '
 set @sql = @sql + '
 into MAXData_Rollup_Region_MAXMkt_Mid
 from MAXData_Rollup_CityProdMth as a 
@@ -1486,7 +1486,7 @@ inner join (
 	from tblMktDef_Inline_MAX 
 )  as b on a.Mole_cod = b.Mole_cod
 	and a.Prod_cod = b.Prod_cod and a.Pack_Cod = b.Pack_Cod 
-inner join MAXRegionCity as c on a.City = c.city    and c.type = ''Dashboard''
+inner join MAXRegionCity as c on replace(a.city, N''市'', '''' ) = c.city    and c.type = ''Dashboard''
 group by c.Region, b.Mkt '
 print @sql 
 exec(@sql) 
@@ -1509,7 +1509,7 @@ select Region,
     sum([' + convert(varchar(4), @Year) + 'YTDUS]) as YTDUS,
     sum([' + convert(varchar(4), @LastYear) + 'YTDUS]) as LastYTDUS,
     sum([Mth00YTDUS]) as [Mth00YTDUS],
-    sum([Mth12YTDUS]) as [Mth12YTDUS]
+    sum([Mth01YTDUS]) as [Mth01YTDUS]
 into MAXData_Rollup_Region_All_Mid
 from MAXData_Rollup_Region_MAXMkt_Mid
 group by Region 
@@ -1572,12 +1572,12 @@ set @Year = ( select Year from tblMonthList where MonSeq = 1 )
 set @LastYear = ( select Year - 1 from tblMonthList where MonSeq = 1 )
 
 
-select a.HospCode, a.HospName, a.RMName, b.*
+select a.HospitalCode, a.HospitalName, a.RMName, b.*
 into temp_BAL_CPAData
 from ( 
-	SELECT b.HospCode, b.HospName, b.RMName, a.[CPA Code] as CPA_Code, a.[City(Chinese)] as City, a.Povince
+	SELECT b.HospitalCode, b.HospitalName, b.RMName, a.[CPA Code] as CPA_Code, a.[City(Chinese)] as City, a.Povince
 	from BMSChinaMRBI.dbo.BMS_CPA_Hosp_Category as a
-	inner join tblBALHospital as b on a.[BMS Code] = b.HospCode
+	inner join tblBALHospital as b on a.[BMS Code] = b.HospitalCode
 ) as a 
 inner join BMSChinaMRBI.dbo.inCPAData as b on a.CPA_Code = b.CPA_Code
 where a.CPA_Code <>'#N/A'
@@ -1784,7 +1784,7 @@ inner join (
         select distinct prod_Des
         from tblMktDef_Inline_MAX 
     ) as c on b.prod_Des_EN = c.prod_Des 
-    where  M = @LastMth and Y = @Year
+    where  M = @LastMth and Y = YEAR(DATEADD(MONTH, -1, CONVERT(DATETIME, @Year + '0101')))
         and c.Prod_Des = 'Baraclude'
     group by RMName 
 ) as b on a.Series = b.Series 
@@ -1831,7 +1831,7 @@ inner join (
         select distinct prod_Des
         from tblMktDef_Inline_MAX 
     ) as c on b.prod_Des_EN = c.prod_Des 
-    where  M = @LastMth and Y = @Year
+    where  M = @LastMth and Y = YEAR(DATEADD(MONTH, -1, CONVERT(DATETIME, @Year + '0101')))
     group by RMName 
 ) as b on a.Series = b.Series 
 
@@ -1872,7 +1872,7 @@ select series, X, Y , null as Series_Idx, null as X_Idx
 from 
 (
     SELECT a.Region as Series ,
-        a.[Mth00YTDUS]/b.Mth00YTDUS - a.Mth12YTDUS/b.Mth12YTDUS as ''Baraclude Month Share Change vs. Last Mth'',
+        a.[Mth00YTDUS]/b.Mth00YTDUS - a.Mth01YTDUS/b.Mth01YTDUS as ''Baraclude Month Share Change vs. Last Mth'',
         a.[' + @Year + 'YTDUS]/b.YTDUS - a.[' + @LastYear + 'YTDUS]/b.LastYTDUS as ''Baraclude YTD share Change(Y2Y)'',
         (a.[' + @Year + 'YTDUS] / a.[' + @LastYear + 'YTDUS]) - 1 as ''Baraclude YTD Growth(Y2Y)'',
         (b.YTDUS / b.LastYTDUS) - 1 as ''Market YTD Growth(Y2Y)''
@@ -1898,7 +1898,14 @@ set Series_Idx =
                     when 'VIR BAM III' then 2
                     when 'VIR BAM IV' then 3
                     when 'VIR BAM V' then 4
-                    else 5 end 
+                    when 'North' then 5
+                    when 'North East' then 6
+                    when 'Central' then 7
+                    when 'West' then 8
+                    when 'East I' then 9
+                    when 'East II' then 10
+                    when 'South' then 11
+                    else 12 end 
         ,
     X_Idx = case X when 'Baraclude Month Share Change vs. Last Mth' then 1
                     when 'Baraclude YTD share Change(Y2Y)' then 2
@@ -1916,63 +1923,63 @@ set series = X,
 
 
 -------------------------------------------------------------------------------------
-select	Category, Series, X, Series_Idx, Category_Idx, X_Idx, Y
-from	KPI_Frame_MarketAnalyzer_IMSAudit_CHPA
-where	market = 'Monopril'
-		and lev = 'FocusCity'
-		and DataType = 'Growth'
-order by Category_Idx, Series_Idx, X_Idx
+--select	Category, Series, X, Series_Idx, Category_Idx, X_Idx, Y
+--from	KPI_Frame_MarketAnalyzer_IMSAudit_CHPA
+--where	market = 'Monopril'
+--		and lev = 'FocusCity'
+--		and DataType = 'Growth'
+--order by Category_Idx, Series_Idx, X_Idx
 
-SELECT * FROM TempCityDashboard_For_Eliquis_NOAC 
-select * from inCV_Focus_City 
+--SELECT * FROM TempCityDashboard_For_Eliquis_NOAC 
+--select * from inCV_Focus_City 
 
-select --a.City_Code,a.City_Name,a.City_Name_CH 
-	c.Molecule,c.Class,c.Mkt,c.MktName,c.Market,c.prod,c.productname,c.Moneytype,'FocusCity' as Audi_des,
-	sum(MTH00) AS MTH00, sum(MTH01) as MTH01,sum(MTH02) as MTH02,sum(MTH03) as MTH03,sum(MTH04) as MTH04,sum(MTH05) as MTH05,
-	sum(MTH06) AS MTH06, sum(MTH07) as MTH07,sum(MTH08) as MTH08,sum(MTH09) as MTH09,sum(MTH10) as MTH10,sum(MTH11) as MTH11, sum(MTH12) as MTH12,
-	sum(YTD00) as YTD00,sum(YTD12) as YTD12,sum(MAT00) AS MAT00,sum(MAT12) AS MAT12,sum(R3M00) AS R3M00,sum(R3M03) AS R3M03,sum(r3m12) as r3m12
-from dim_city a 
-join inCV_Focus_City b 
-on a.city_name_ch=b.city_cn
-join TempCityDashboard_For_Eliquis c on a.city_code+'_'=c.Audi_Cod and c.market=b.product
-group by c.Molecule,c.Class,c.Mkt,c.MktName,c.Market,c.prod,c.productname,c.Moneytype
+--select --a.City_Code,a.City_Name,a.City_Name_CH 
+--	c.Molecule,c.Class,c.Mkt,c.MktName,c.Market,c.prod,c.productname,c.Moneytype,'FocusCity' as Audi_des,
+--	sum(MTH00) AS MTH00, sum(MTH01) as MTH01,sum(MTH02) as MTH02,sum(MTH03) as MTH03,sum(MTH04) as MTH04,sum(MTH05) as MTH05,
+--	sum(MTH06) AS MTH06, sum(MTH07) as MTH07,sum(MTH08) as MTH08,sum(MTH09) as MTH09,sum(MTH10) as MTH10,sum(MTH11) as MTH11, sum(MTH12) as MTH12,
+--	sum(YTD00) as YTD00,sum(YTD12) as YTD12,sum(MAT00) AS MAT00,sum(MAT12) AS MAT12,sum(R3M00) AS R3M00,sum(R3M03) AS R3M03,sum(r3m12) as r3m12
+--from dim_city a 
+--join inCV_Focus_City b 
+--on a.city_name_ch=b.city_cn
+--join TempCityDashboard_For_Eliquis c on a.city_code+'_'=c.Audi_Cod and c.market=b.product
+--group by c.Molecule,c.Class,c.Mkt,c.MktName,c.Market,c.prod,c.productname,c.Moneytype
 
---SELECT * FROM BMSChinaCIARawdata.dbo.Dim_City_201612
-SELECT * FROM dbo.Dim_City
-SELECT * FROM TempCityDashboard_For_Eliquis 
-SELECT * into MTHCITY_MAX FROM db82.BMSCNProc2.dbo.MTHCITY_MAX
+----SELECT * FROM BMSChinaCIARawdata.dbo.Dim_City_201612
+--SELECT * FROM dbo.Dim_City
+--SELECT * FROM TempCityDashboard_For_Eliquis 
+--SELECT * into MTHCITY_MAX FROM db82.BMSCNProc2.dbo.MTHCITY_MAX
 
-select * 
-from inmaxdata A inner join tblMktDef_MRBIChina_For_Eliquis B
-on A.pack_cod=B.pack_cod 
-where B.Active='Y' and  b.prod<>'000' and b.ProductName <>'Pradaxa'
-		SELECT * FROM tblMoneyType 
-SELECT * into tblMoneyType_201612 FROM tblMoneyType 		
-delete dbo.tblMoneyType where Type = 'PN'
-select cast('PRDL' as varchar(10)) as DataSource,'MTH' as [TimeFrame],cast('US' as varchar(5)) as MoneyType,
-	'N' as molecule,'N' as Class,'NIAD' as Mkt,'NIAD Market' as MktName,'Glucophage' as market,convert(varchar(5),'300') as Prod,
-	convert(varchar(30),'Byetta') as Series,cast('Sales' as Varchar(20)) as DataType,cast('Value' as varchar(20)) as Category, 
-	1 as [Series_Idx],
-	sum(MTH00US) as MTH00,
-	sum(MTH01US) as MTH01,
-	sum(MTH02US) as MTH02,
-	sum(MTH03US) as MTH03,
-	sum(MTH04US) as MTH04,
-	sum(MTH05US) as MTH05,
-	sum(MTH06US) as MTH06,
-	sum(MTH07US) as MTH07,
-	sum(MTH08US) as MTH08,
-	sum(MTH09US) as MTH09,
-	sum(MTH10US) as MTH10,
-	sum(MTH11US) as MTH11
---into TempPRDLProvince 
-from MTHCITY_MAX 
-where pack_cod in( 
-	select distinct pack_cod from tblMktDef_MRBIChina where Prod_Name in ('Byetta') and Molecule='N' and class='N'
-	and Mkt='NIAD') and city in
-	(select city from dbo.Dim_City where City_Name in
-	(select City_En from dbo.PRDL_Province_City_Mapping))
-go
+--select * 
+--from inmaxdata A inner join tblMktDef_MRBIChina_For_Eliquis B
+--on A.pack_cod=B.pack_cod 
+--where B.Active='Y' and  b.prod<>'000' and b.ProductName <>'Pradaxa'
+--		SELECT * FROM tblMoneyType 
+--SELECT * into tblMoneyType_201612 FROM tblMoneyType 		
+--delete dbo.tblMoneyType where Type = 'PN'
+--select cast('PRDL' as varchar(10)) as DataSource,'MTH' as [TimeFrame],cast('US' as varchar(5)) as MoneyType,
+--	'N' as molecule,'N' as Class,'NIAD' as Mkt,'NIAD Market' as MktName,'Glucophage' as market,convert(varchar(5),'300') as Prod,
+--	convert(varchar(30),'Byetta') as Series,cast('Sales' as Varchar(20)) as DataType,cast('Value' as varchar(20)) as Category, 
+--	1 as [Series_Idx],
+--	sum(MTH00US) as MTH00,
+--	sum(MTH01US) as MTH01,
+--	sum(MTH02US) as MTH02,
+--	sum(MTH03US) as MTH03,
+--	sum(MTH04US) as MTH04,
+--	sum(MTH05US) as MTH05,
+--	sum(MTH06US) as MTH06,
+--	sum(MTH07US) as MTH07,
+--	sum(MTH08US) as MTH08,
+--	sum(MTH09US) as MTH09,
+--	sum(MTH10US) as MTH10,
+--	sum(MTH11US) as MTH11
+----into TempPRDLProvince 
+--from MTHCITY_MAX 
+--where pack_cod in( 
+--	select distinct pack_cod from tblMktDef_MRBIChina where Prod_Name in ('Byetta') and Molecule='N' and class='N'
+--	and Mkt='NIAD') and city in
+--	(select city from dbo.Dim_City where City_Name in
+--	(select City_En from dbo.PRDL_Province_City_Mapping))
+--go
 --alter table Dim_City
 --alter column city_name_CH nvarchar(20)
 

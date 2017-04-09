@@ -51,7 +51,7 @@ select
     MTH_10, MTH_9, MTH_8, MTH_7, MTH_6, MTH_5, MTH_4, MTH_3, MTH_2, MTH_1
 from tblQueryToolDriverATC_Prod t1 
 inner join tblMAXDataRaw t2 on t1.Pack_Cod=t2.Pack_Cod
-inner join tblCityMax t3 on t2.Audi_Cod=t3.City
+inner join tblCityMax t3 on t2.Audi_Cod=t3.City 
 go
 
 --2. Append Product level data:

@@ -616,6 +616,7 @@ SELECT 47, 'BAL', 'BAL', '1', 39, 1, 'China', 1, 'Baraclude'
 INSERT INTO dbo.WebPrivilege ( LinkPageId, LinkGeoId, LinkChartCode, Permit )
 SELECT 12, 47, NULL, NULL 
 
+tblMaxCity_KeyCity
 
 INSERT INTO dbo.WebUserPermit ( LinkUserId, LinkPrivilegeId )
 SELECT a.Id , b.Id

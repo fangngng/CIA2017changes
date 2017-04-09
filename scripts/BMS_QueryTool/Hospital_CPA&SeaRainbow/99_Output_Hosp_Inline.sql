@@ -271,10 +271,10 @@ select 'MTH' as datatype,a.mkttype,a.mkt,a.market_name,a.geo,a.geo_lvl,a.grp_lvl
 	c.VU_MTH_SHR_12,c.VU_MTH_SHR_11,c.VU_MTH_SHR_10,c.VU_MTH_SHR_9,c.VU_MTH_SHR_8,c.VU_MTH_SHR_7,c.VU_MTH_SHR_6,c.VU_MTH_SHR_5,c.VU_MTH_SHR_4,c.VU_MTH_SHR_3,c.VU_MTH_SHR_2,c.VU_MTH_SHR_1
 from tblOutput_Hosp_TA_UNT_MTH_Inline a
 inner join tblOutput_Hosp_TA_RMB_MTH_Inline b
-on a.mkt=b.mkt and a.geo=b.geo and a.grp_lvl=b.grp_lvl and a.tier=b.tier and a.hosp_id=b.hosp_id and a.class=b.class and a.prod_lvl=b.prod_lvl and a.molecule_code=b.molecule_code and a.product_code=b.product_code 
+on a.mkt=b.mkt and a.geo=b.geo AND a.Geo_Lvl = b.Geo_Lvl and a.grp_lvl=b.grp_lvl and a.tier=b.tier and a.hosp_id=b.hosp_id and a.class=b.class and a.prod_lvl=b.prod_lvl and a.molecule_code=b.molecule_code and a.product_code=b.product_code 
 	and a.package_code=b.package_code and case when a.manuf_code is null then '' else a.manuf_code end = case when b.manuf_code is null then '' else b.manuf_code end
 inner join tblOutput_Hosp_TA_USD_MTH_Inline c
-on a.mkt=c.mkt and a.geo=c.geo and a.grp_lvl=c.grp_lvl and a.tier=c.tier and a.hosp_id=c.hosp_id and a.class=c.class and a.prod_lvl=c.prod_lvl and a.molecule_code=c.molecule_code and a.product_code=c.product_code 
+on a.mkt=c.mkt and a.geo=c.geo AND a.Geo_Lvl = c.Geo_Lvl and a.grp_lvl=c.grp_lvl and a.tier=c.tier and a.hosp_id=c.hosp_id and a.class=c.class and a.prod_lvl=c.prod_lvl and a.molecule_code=c.molecule_code and a.product_code=c.product_code 
 	and a.package_code=c.package_code and case when a.manuf_code is null then '' else a.manuf_code end = case when c.manuf_code is null then '' else c.manuf_code end
 
 go
@@ -312,10 +312,10 @@ select 'MAT' as datatype,a.mkttype,a.mkt,a.market_name,a.geo,a.geo_lvl,a.grp_lvl
 	c.VU_MAT_SHR_12,c.VU_MAT_SHR_11,c.VU_MAT_SHR_10,c.VU_MAT_SHR_9,c.VU_MAT_SHR_8,c.VU_MAT_SHR_7,c.VU_MAT_SHR_6,c.VU_MAT_SHR_5,c.VU_MAT_SHR_4,c.VU_MAT_SHR_3,c.VU_MAT_SHR_2,c.VU_MAT_SHR_1
 from tblOutput_Hosp_TA_UNT_MAT_Inline a
 inner join tblOutput_Hosp_TA_RMB_MAT_Inline b
-on a.mkt=b.mkt and a.geo=b.geo and a.grp_lvl=b.grp_lvl and a.tier=b.tier and a.hosp_id=b.hosp_id and a.class=b.class and a.prod_lvl=b.prod_lvl and a.molecule_code=b.molecule_code and a.product_code=b.product_code 
+on a.mkt=b.mkt and a.geo=b.geo AND a.Geo_Lvl = b.Geo_Lvl and a.grp_lvl=b.grp_lvl and a.tier=b.tier and a.hosp_id=b.hosp_id and a.class=b.class and a.prod_lvl=b.prod_lvl and a.molecule_code=b.molecule_code and a.product_code=b.product_code 
 	and a.package_code=b.package_code and case when a.manuf_code is null then '' else a.manuf_code end = case when b.manuf_code is null then '' else b.manuf_code end
 inner join tblOutput_Hosp_TA_USD_MAT_Inline c
-on a.mkt=c.mkt and a.geo=c.geo and a.grp_lvl=c.grp_lvl and a.tier=c.tier and a.hosp_id=c.hosp_id and a.class=c.class and a.prod_lvl=c.prod_lvl and a.molecule_code=c.molecule_code and a.product_code=c.product_code 
+on a.mkt=c.mkt and a.geo=c.geo AND a.Geo_Lvl = c.Geo_Lvl and a.grp_lvl=c.grp_lvl and a.tier=c.tier and a.hosp_id=c.hosp_id and a.class=c.class and a.prod_lvl=c.prod_lvl and a.molecule_code=c.molecule_code and a.product_code=c.product_code 
 	and a.package_code=c.package_code and case when a.manuf_code is null then '' else a.manuf_code end = case when c.manuf_code is null then '' else c.manuf_code end
 
 GO
@@ -354,10 +354,10 @@ select 'MQT' as datatype,a.mkttype,a.mkt,a.market_name,a.geo,a.geo_lvl,a.grp_lvl
 	c.VU_MQT_SHR_12,c.VU_MQT_SHR_11,c.VU_MQT_SHR_10,c.VU_MQT_SHR_9,c.VU_MQT_SHR_8,c.VU_MQT_SHR_7,c.VU_MQT_SHR_6,c.VU_MQT_SHR_5,c.VU_MQT_SHR_4,c.VU_MQT_SHR_3,c.VU_MQT_SHR_2,c.VU_MQT_SHR_1
 from tblOutput_Hosp_TA_UNT_MQT_Inline a
 inner join tblOutput_Hosp_TA_RMB_MQT_Inline b
-on a.mkt=b.mkt and a.geo=b.geo and a.grp_lvl=b.grp_lvl and a.tier=b.tier and a.hosp_id=b.hosp_id and a.class=b.class and a.prod_lvl=b.prod_lvl and a.molecule_code=b.molecule_code and a.product_code=b.product_code 
+on a.mkt=b.mkt and a.geo=b.geo AND a.Geo_Lvl = b.Geo_Lvl and a.grp_lvl=b.grp_lvl and a.tier=b.tier and a.hosp_id=b.hosp_id and a.class=b.class and a.prod_lvl=b.prod_lvl and a.molecule_code=b.molecule_code and a.product_code=b.product_code 
 	and a.package_code=b.package_code and case when a.manuf_code is null then '' else a.manuf_code end = case when b.manuf_code is null then '' else b.manuf_code end
 inner join tblOutput_Hosp_TA_USD_MQT_Inline c
-on a.mkt=c.mkt and a.geo=c.geo and a.grp_lvl=c.grp_lvl and a.tier=c.tier and a.hosp_id=c.hosp_id and a.class=c.class and a.prod_lvl=c.prod_lvl and a.molecule_code=c.molecule_code and a.product_code=c.product_code 
+on a.mkt=c.mkt and a.geo=c.geo AND a.Geo_Lvl = c.Geo_Lvl and a.grp_lvl=c.grp_lvl and a.tier=c.tier and a.hosp_id=c.hosp_id and a.class=c.class and a.prod_lvl=c.prod_lvl and a.molecule_code=c.molecule_code and a.product_code=c.product_code 
 	and a.package_code=c.package_code and case when a.manuf_code is null then '' else a.manuf_code end = case when c.manuf_code is null then '' else c.manuf_code end
 
 GO
@@ -397,10 +397,10 @@ select 'YTD' as datatype,a.mkttype,a.mkt,a.market_name,a.geo,a.geo_lvl,a.grp_lvl
 	c.VU_YTD_SHR_12,c.VU_YTD_SHR_11,c.VU_YTD_SHR_10,c.VU_YTD_SHR_9,c.VU_YTD_SHR_8,c.VU_YTD_SHR_7,c.VU_YTD_SHR_6,c.VU_YTD_SHR_5,c.VU_YTD_SHR_4,c.VU_YTD_SHR_3,c.VU_YTD_SHR_2,c.VU_YTD_SHR_1
 from tblOutput_Hosp_TA_UNT_YTD_Inline a
 inner join tblOutput_Hosp_TA_RMB_YTD_Inline b
-on a.mkt=b.mkt and a.geo=b.geo and a.grp_lvl=b.grp_lvl and a.tier=b.tier and a.hosp_id=b.hosp_id and a.class=b.class and a.prod_lvl=b.prod_lvl and a.molecule_code=b.molecule_code and a.product_code=b.product_code 
+on a.mkt=b.mkt and a.geo=b.geo AND a.Geo_Lvl = b.Geo_Lvl and a.grp_lvl=b.grp_lvl and a.tier=b.tier and a.hosp_id=b.hosp_id and a.class=b.class and a.prod_lvl=b.prod_lvl and a.molecule_code=b.molecule_code and a.product_code=b.product_code 
 	and a.package_code=b.package_code and case when a.manuf_code is null then '' else a.manuf_code end = case when b.manuf_code is null then '' else b.manuf_code end
 inner join tblOutput_Hosp_TA_USD_YTD_Inline c
-on a.mkt=c.mkt and a.geo=c.geo and a.grp_lvl=c.grp_lvl and a.tier=c.tier and a.hosp_id=c.hosp_id and a.class=c.class and a.prod_lvl=c.prod_lvl and a.molecule_code=c.molecule_code and a.product_code=c.product_code 
+on a.mkt=c.mkt and a.geo=c.geo AND a.Geo_Lvl = c.Geo_Lvl and a.grp_lvl=c.grp_lvl and a.tier=c.tier and a.hosp_id=c.hosp_id and a.class=c.class and a.prod_lvl=c.prod_lvl and a.molecule_code=c.molecule_code and a.product_code=c.product_code 
 	and a.package_code=c.package_code and case when a.manuf_code is null then '' else a.manuf_code end = case when c.manuf_code is null then '' else c.manuf_code end
 
 GO

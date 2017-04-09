@@ -5012,39 +5012,41 @@ END
 GO
 
 --Growth :
-select 
-case when mkt in ('arv','NIAD','Eliquis','Platinum','ONCFCS') then
-		convert(varchar(5),'MAT') 
-	 when mkt ='DPP4' then 
-		convert(varchar(5),'MQT') 
-	 when mkt IN('HYP','CCB') then 
-		convert(varchar(5),'YTD') end as  TimeFrame,
-MoneyType,
-Molecule,
-Class,
-Mkt,
-Mktname,
-Market,
-Prod,
-case when Productname ='Oncology Focused Brands' then 'Oncology Market' else Productname end
- + case when mkt='dpp4' then ' GR(vs.last Quarter)' else  ' GR(Y2Y)' end as Series,
-convert(varchar(50),'Growth') as DataType,
-convert(varchar(20),'Value') as Category,
-case when mkt in ('arv','NIAD','Eliquis','Platinum','ONCFCS') then
-		convert(decimal(20,8), case when MAT12 is null or MAT12 = 0 then null else 1.0*(MAT00-MAT12)/MAT12 end) 
-	 when mkt ='DPP4' then 
-		convert(decimal(20,8), case when R3M03 is null or R3M03 = 0 then null else 1.0*(R3M00-R3M03)/R3M03 end) 
-	 when mkt IN('HYP','CCB') then 
-		convert(decimal(20,8), case when YTD12 is null or YTD12 = 0 then null else 1.0*(YTD00-YTD12)/YTD12 end)  end as Y, 
-Audi_des as X,
-row_number() over(partition by Molecule,class,mkt,mktname,market order by (
-		case when mkt in ('arv','NIAD','Eliquis','Platinum','ONCFCS') then MAT00				
-			 when mkt ='DPP4' then R3M00		
-			 when mkt IN('HYP','CCB')  then YTD00 end) desc) as X_Idx,
-case when prod='000' then convert(int,prod)+1	else convert(int,prod) end as Series_Idx
-into KPI_Frame_MarketAnalyzer_IMSAudit_KeyCity
-from TempCityDashboard_For_KPI_FRAME where Mkt in ('arv','NIAD','Eliquis','Platinum','ONCFCS','DPP4','HYP','CCB')
-and  MoneyType='US' and Molecule='N' and class='N' and Lev='City' and Prod='000'
+SELECT
+	CASE WHEN mkt IN ('arv','NIAD','Eliquis','Platinum','ONCFCS') THEN
+		CONVERT(VARCHAR(5),'MAT') 
+	 WHEN mkt ='DPP4' THEN 
+		CONVERT(VARCHAR(5),'MQT') 
+	 WHEN mkt IN('HYP','CCB') THEN 
+		CONVERT(VARCHAR(5),'YTD') END AS  TimeFrame,
+	MoneyType,
+	Molecule,
+	Class,
+	Mkt,
+	Mktname,
+	Market,
+	Prod,
+	CASE WHEN Productname ='Oncology Focused Brands' THEN 'Oncology Market' ELSE Productname END
+ 		+ CASE WHEN mkt='dpp4' THEN ' GR(vs.last Quarter)' ELSE  ' GR(Y2Y)' END AS Series,
+	CONVERT(VARCHAR(50),'Growth') AS DataType,
+	CONVERT(VARCHAR(20),'Value') AS Category,
+	CASE WHEN mkt IN ('arv','NIAD','Eliquis','Platinum','ONCFCS') THEN
+		CONVERT(DECIMAL(20,8), CASE WHEN MAT12 IS NULL OR MAT12 = 0 THEN NULL ELSE 1.0*(MAT00-MAT12)/MAT12 END) 
+	 WHEN mkt ='DPP4' THEN 
+		CONVERT(DECIMAL(20,8), CASE WHEN R3M03 IS NULL OR R3M03 = 0 THEN NULL ELSE 1.0*(R3M00-R3M03)/R3M03 END) 
+	 WHEN mkt IN('HYP','CCB') THEN 
+		CONVERT(DECIMAL(20,8), CASE WHEN YTD12 IS NULL OR YTD12 = 0 THEN NULL ELSE 1.0*(YTD00-YTD12)/YTD12 END)  END AS Y,
+	Audi_des AS X,
+	row_number() OVER(partition BY Molecule,class,mkt,mktname,market ORDER BY (
+		CASE WHEN mkt IN ('arv','NIAD','Eliquis','Platinum','ONCFCS') THEN MAT00				
+			 WHEN mkt ='DPP4' THEN R3M00		
+			 WHEN mkt IN('HYP','CCB')  THEN YTD00 END) DESC) AS X_Idx,
+	CASE WHEN prod='000' THEN CONVERT(INT,prod)+1	ELSE CONVERT(INT,prod) END AS Series_Idx
+INTO KPI_Frame_MarketAnalyzer_IMSAudit_KeyCity
+FROM TempCityDashboard_For_KPI_FRAME
+WHERE Mkt IN ('arv','NIAD','Eliquis','Platinum','ONCFCS','DPP4','HYP','CCB')
+	-- AND MoneyType='US' 
+	AND Molecule='N' AND class='N' AND Lev='City' AND Prod='000'
 
 --Taxol??Taxol??????
 update b
@@ -5053,7 +5055,8 @@ from (
 	select mkt,mktname,market,Audi_des,
 	row_number() over(partition by Molecule,class,mkt,mktname,market  order by MAT00 desc) as audi_Rank
 	from TempCityDashboard_For_KPI_FRAME where Mkt ='ONCFCS'
-	and  MoneyType='US' and Molecule='N' and class='N' and Lev='City' and Prod='100'
+	-- and  MoneyType='US' 
+	and Molecule='N' and class='N' and Lev='City' and Prod='100'
 ) a join KPI_Frame_MarketAnalyzer_IMSAudit_KeyCity b on a.mkt=b.mkt and a.mktname=b.mktname and a.market=b.market 
 and a.Audi_des=b.x
 where b.mkt='ONCFCS' and b.Series like 'Oncology Market%'
@@ -5062,42 +5065,44 @@ where b.mkt='ONCFCS' and b.Series like 'Oncology Market%'
 insert into KPI_Frame_MarketAnalyzer_IMSAudit_KeyCity(TimeFrame,MoneyType,Molecule,Class,Mkt,Mktname,Market,prod,Series,
 	DataType,Category,Y,X,X_Idx,Series_Idx)
 select 
-case when mkt in ('arv','NIAD','Eliquis','Platinum','ONCFCS') then
-		convert(varchar(5),'MAT') 
-	 when mkt ='DPP4' then 
-		convert(varchar(5),'MQT') 
-	 when mkt IN('HYP','CCB')  then 
-		convert(varchar(5),'YTD') end as  TimeFrame,
-MoneyType,
-Molecule,
-Class,
-Mkt,
-Mktname,
-Market,
-Prod,
-Productname+ case when mkt='dpp4' then ' GR(vs.last Quarter)' else  ' GR(Y2Y)' end  as Series,
-convert(varchar(50),'Growth') as DataType,
-convert(varchar(20),'Value') as Category,
-case when mkt in ('arv','NIAD','Eliquis','Platinum','ONCFCS') then
-		convert(decimal(20,8), case when MAT12 is null or MAT12 = 0 then null else 1.0*(MAT00-MAT12)/MAT12 end) 
-	 when mkt ='DPP4' then 
-		convert(decimal(20,8), case when R3M03 is null or R3M03 = 0 then null else 1.0*(R3M00-R3M03)/R3M03 end) 
-	 when mkt IN('HYP','CCB')  then 
-		convert(decimal(20,8), case when YTD12 is null or YTD12 = 0 then null else 1.0*(YTD00-YTD12)/YTD12 end)  end as Y,
-Audi_des as X,
-null as X_Idx,
-case when prod='000' then convert(int,prod)+1	else convert(int,prod) end as Series_Idx
-from TempCityDashboard_For_KPI_FRAME where (
- (Mkt='ARV' and productName in ('Baraclude','Run Zhong','Heptodin','Sebivo') ) or
- (Mkt='DPP4' and productName in ('Onglyza ','Januvia','Galvus','TRAJENTA','JANUMET') ) or
- (Mkt='Eliquis' and productName in ('Eliquis','Xarelto') ) or
- (Mkt='HYP' and productName in ('Monopril','Lotensin','Acertil') ) or --Monopril ,Lotensin,Acertil
- (Mkt='NIAD' and productName in ('Glucophage','Glucobay','Amaryl') ) or --Glucophage,Glucobay,NovoNorm
- (Mkt='ONCFCS' and productName in ('Taxol','Taxotere','Gemzar')) or --Taxol ,Taxotere,Gemzar
- (Mkt='Platinum' and productName in ('PARAPLATIN') ) or-- 
- (Mkt='CCB' and productName in ('ADALAT','CONIEL','LACIPIL','NORVASC','PLENDIL','YUAN ZHI','ZANIDIP') ) 
-)  --
-and  MoneyType='US' and Molecule='N' and class='N' and Lev='City' and Prod<>'000'
+	case when mkt in ('arv','NIAD','Eliquis','Platinum','ONCFCS') then
+			convert(varchar(5),'MAT') 
+		when mkt ='DPP4' then 
+			convert(varchar(5),'MQT') 
+		when mkt IN('HYP','CCB')  then 
+			convert(varchar(5),'YTD') end as  TimeFrame,
+	MoneyType,
+	Molecule,
+	Class,
+	Mkt,
+	Mktname,
+	Market,
+	Prod,
+	Productname+ case when mkt='dpp4' then ' GR(vs.last Quarter)' else  ' GR(Y2Y)' end  as Series,
+	convert(varchar(50),'Growth') as DataType,
+	convert(varchar(20),'Value') as Category,
+	case when mkt in ('arv','NIAD','Eliquis','Platinum','ONCFCS') then
+			convert(decimal(20,8), case when MAT12 is null or MAT12 = 0 then null else 1.0*(MAT00-MAT12)/MAT12 end) 
+		when mkt ='DPP4' then 
+			convert(decimal(20,8), case when R3M03 is null or R3M03 = 0 then null else 1.0*(R3M00-R3M03)/R3M03 end) 
+		when mkt IN('HYP','CCB')  then 
+			convert(decimal(20,8), case when YTD12 is null or YTD12 = 0 then null else 1.0*(YTD00-YTD12)/YTD12 end)  end as Y,
+	Audi_des as X,
+	null as X_Idx,
+	case when prod='000' then convert(int,prod)+1	else convert(int,prod) end as Series_Idx
+from TempCityDashboard_For_KPI_FRAME 
+where (
+	(Mkt='ARV' and productName in ('Baraclude','Run Zhong','Heptodin','Sebivo') ) or
+	(Mkt='DPP4' and productName in ('Onglyza ','Januvia','Galvus','TRAJENTA','JANUMET') ) or
+	(Mkt='Eliquis' and productName in ('Eliquis','Xarelto') ) or
+	(Mkt='HYP' and productName in ('Monopril','Lotensin','Acertil') ) or --Monopril ,Lotensin,Acertil
+	(Mkt='NIAD' and productName in ('Glucophage','Glucobay','Amaryl') ) or --Glucophage,Glucobay,NovoNorm
+	(Mkt='ONCFCS' and productName in ('Taxol','Taxotere','Gemzar')) or --Taxol ,Taxotere,Gemzar
+	(Mkt='Platinum' and productName in ('PARAPLATIN') ) or-- 
+	(Mkt='CCB' and productName in ('ADALAT','CONIEL','LACIPIL','NORVASC','PLENDIL','YUAN ZHI','ZANIDIP') ) 
+	)  --
+	-- and  MoneyType='US' 
+	and Molecule='N' and class='N' and Lev='City' and Prod<>'000'
 
 --Share
 declare @currentMonth varchar(10)
@@ -5105,41 +5110,46 @@ select @currentMonth=MonthEN from tblMonthList where MonSeq=1
 insert into KPI_Frame_MarketAnalyzer_IMSAudit_KeyCity(TimeFrame,MoneyType,Molecule,Class,Mkt,Mktname,Market,prod,Series,
 	DataType,Category,Y,X,X_Idx,Series_Idx)
 select 
-case when a.mkt in ('arv','NIAD','Eliquis','Platinum','ONCFCS') then
-		convert(varchar(5),'MAT') 
-	 when a.mkt ='DPP4' then 
-		convert(varchar(5),'MQT') 
-	 when a.mkt in ('HYP','CCB') then 
-		convert(varchar(5),'YTD') end as  TimeFrame,
-a.MoneyType,a.molecule,a.class,a.mkt,a.Mktname,a.Market,a.Prod,
-a.Productname+' Share('+  case when a.mkt in ('arv','NIAD','Eliquis','Platinum','ONCFCS') then 'MAT ' 
-							   when a.mkt ='DPP4' then 'MQT '
-							   when a.mkt in ('HYP','CCB') then 'YTD ' end +@currentMonth+')' as Series,
-'Share' as DateType, 'Value' as Category,
-case when a.mkt in ('arv','NIAD','Eliquis','Platinum','ONCFCS') then
-		(case when b.MAT00 is null or b.MAT00 = 0 then 0 else 1.0*a.MAT00/b.MAT00 end)
-	 when a.mkt ='DPP4' then 
-		(case when b.R3M00 is null or b.R3M00 = 0 then 0 else 1.0*a.R3M00/b.R3M00 end)
-	 when a.mkt in ('HYP','CCB') then 
-		(case when b.YTD00 is null or b.YTD00 = 0 then 0 else 1.0*a.YTD00/b.YTD00 end)  end as Y,
-a.Audi_des as X, null as X_Idx, convert(int,a.prod)+2 as Series_Idx
+	case when a.mkt in ('arv','NIAD','Eliquis','Platinum','ONCFCS') then
+			convert(varchar(5),'MAT') 
+		when a.mkt ='DPP4' then 
+			convert(varchar(5),'MQT') 
+		when a.mkt in ('HYP','CCB') then 
+			convert(varchar(5),'YTD') end as  TimeFrame,
+	a.MoneyType,a.molecule,a.class,a.mkt,a.Mktname,a.Market,a.Prod,
+	a.Productname+' Share('+  case when a.mkt in ('arv','NIAD','Eliquis','Platinum','ONCFCS') then 'MAT ' 
+								when a.mkt ='DPP4' then 'MQT '
+								when a.mkt in ('HYP','CCB') then 'YTD ' end +@currentMonth+')' as Series,
+	'Share' as DateType, 'Value' as Category,
+	case when a.mkt in ('arv','NIAD','Eliquis','Platinum','ONCFCS') then
+			(case when b.MAT00 is null or b.MAT00 = 0 then 0 else 1.0*a.MAT00/b.MAT00 end)
+		when a.mkt ='DPP4' then 
+			(case when b.R3M00 is null or b.R3M00 = 0 then 0 else 1.0*a.R3M00/b.R3M00 end)
+		when a.mkt in ('HYP','CCB') then 
+			(case when b.YTD00 is null or b.YTD00 = 0 then 0 else 1.0*a.YTD00/b.YTD00 end)  end as Y,
+	a.Audi_des as X, null as X_Idx, convert(int,a.prod)+2 as Series_Idx
 from (
 	select *  
 	from TempCityDashboard_For_KPI_FRAME 
 	where (
-	 (Mkt='ARV' and productName in ('Baraclude','Run Zhong','Heptodin','Sebivo') ) or
-	 (Mkt='DPP4' and productName in ('Onglyza ','Januvia','Galvus','TRAJENTA','JANUMET') ) or
-	 (Mkt='Eliquis' and productName in ('Eliquis','Xarelto') ) or
-	 (Mkt='HYP' and productName in ('Monopril','Lotensin','Acertil') ) or --Monopril ,Lotensin,Acertil
-	 (Mkt='NIAD' and productName in ('Glucophage','Glucobay','Amaryl') ) or --Glucophage,Glucobay,NovoNorm
-	 (Mkt='ONCFCS' and productName in ('Taxol','Taxotere','Gemzar')) or --Taxol ,Taxotere,Gemzar
-	 (Mkt='Platinum' and productName in ('PARAPLATIN') ) or
-	 (Mkt='CCB' and productName in ('ADALAT','CONIEL','LACIPIL','NORVASC','PLENDIL','YUAN ZHI','ZANIDIP') ) -- 
-)  and  MoneyType='US' and Molecule='N' and class='N' and prod <> '000' --
-) a join (
+			(Mkt='ARV' and productName in ('Baraclude','Run Zhong','Heptodin','Sebivo') ) or
+			(Mkt='DPP4' and productName in ('Onglyza ','Januvia','Galvus','TRAJENTA','JANUMET') ) or
+			(Mkt='Eliquis' and productName in ('Eliquis','Xarelto') ) or
+			(Mkt='HYP' and productName in ('Monopril','Lotensin','Acertil') ) or --Monopril ,Lotensin,Acertil
+			(Mkt='NIAD' and productName in ('Glucophage','Glucobay','Amaryl') ) or --Glucophage,Glucobay,NovoNorm
+			(Mkt='ONCFCS' and productName in ('Taxol','Taxotere','Gemzar')) or --Taxol ,Taxotere,Gemzar
+			(Mkt='Platinum' and productName in ('PARAPLATIN') ) or
+			(Mkt='CCB' and productName in ('ADALAT','CONIEL','LACIPIL','NORVASC','PLENDIL','YUAN ZHI','ZANIDIP') ) -- 
+		)  
+		-- and  MoneyType='US' 
+		and Molecule='N' and class='N' and prod <> '000' --
+) a 
+join (
 	select *  
 	from TempCityDashboard_For_KPI_FRAME 
-	where Mkt in ('arv','NIAD','Eliquis','Platinum','ONCFCS','DPP4','HYP','CCB')  and  MoneyType='US' and Molecule='N' and class='N' and prod ='000' --
+	where Mkt in ('arv','NIAD','Eliquis','Platinum','ONCFCS','DPP4','HYP','CCB')  
+	-- and  MoneyType='US' 
+	and Molecule='N' and class='N' and prod ='000' --
 ) b on a.Molecule=b.molecule and a.class=b.class and a.mkt=b.mkt and a.mktname=b.mktname and a.Market=b.Market 
 	and a.MoneyType=b.MoneyType and a.Audi_des=b.Audi_des and a.Audi_cod=b.Audi_cod
 	
@@ -5147,21 +5157,21 @@ from (
 insert into KPI_Frame_MarketAnalyzer_IMSAudit_KeyCity(TimeFrame,MoneyType,Molecule,Class,Mkt,Mktname,Market,prod,Series,
 	DataType,Category,Y,X,X_Idx,Series_Idx)
 select 
-case when a.mkt in ('arv','NIAD','Eliquis','Platinum','ONCFCS') then
-		convert(varchar(5),'MAT') 
-	 when a.mkt ='DPP4' then 
-		convert(varchar(5),'MQT') 
-	 when a.mkt in ('HYP','CCB') then 
-		convert(varchar(5),'YTD') end as  TimeFrame,
-a.MoneyType,a.molecule,a.class,a.mkt,a.Mktname,a.Market,a.Prod,
-a.Productname+ case when a.mkt='dpp4' then ' Share Change(vs.last Quarter)' else  ' Share Change(Y2Y)' end as Series,'CurrShare vs. LastShare' as DateType, 'Value' as Category,
-case when a.mkt in ('arv','NIAD','Eliquis','Platinum','ONCFCS') then
-		(case when b.MAT00 is null or b.MAT00 = 0 then 0 else 1.0*a.MAT00/b.MAT00 end - case when b.MAT12 is null or b.MAT12=0 then 0 else 1.0*a.MAT12/b.MAT12 end)
-	 when a.mkt ='DPP4' then 
-		(case when b.R3M00 is null or b.R3M00 = 0 then 0 else 1.0*a.R3M00/b.R3M00 end - case when b.R3M03 is null or b.R3M03=0 then 0 else 1.0*a.R3M03/b.R3M03 end)
-	 when a.mkt in ('HYP','CCB') then 
-		(case when b.YTD00 is null or b.YTD00 = 0 then 0 else 1.0*a.YTD00/b.YTD00 end - case when b.YTD12 is null or b.YTD12=0 then 0 else 1.0*a.YTD12/b.YTD12 end)  end as Y,
-a.Audi_des as X, null as X_Idx, convert(int,a.prod)+3 as Series_Idx
+	case when a.mkt in ('arv','NIAD','Eliquis','Platinum','ONCFCS') then
+			convert(varchar(5),'MAT') 
+		when a.mkt ='DPP4' then 
+			convert(varchar(5),'MQT') 
+		when a.mkt in ('HYP','CCB') then 
+			convert(varchar(5),'YTD') end as  TimeFrame,
+	a.MoneyType,a.molecule,a.class,a.mkt,a.Mktname,a.Market,a.Prod,
+	a.Productname+ case when a.mkt='dpp4' then ' Share Change(vs.last Quarter)' else  ' Share Change(Y2Y)' end as Series,'CurrShare vs. LastShare' as DateType, 'Value' as Category,
+	case when a.mkt in ('arv','NIAD','Eliquis','Platinum','ONCFCS') then
+			(case when b.MAT00 is null or b.MAT00 = 0 then 0 else 1.0*a.MAT00/b.MAT00 end - case when b.MAT12 is null or b.MAT12=0 then 0 else 1.0*a.MAT12/b.MAT12 end)
+		when a.mkt ='DPP4' then 
+			(case when b.R3M00 is null or b.R3M00 = 0 then 0 else 1.0*a.R3M00/b.R3M00 end - case when b.R3M03 is null or b.R3M03=0 then 0 else 1.0*a.R3M03/b.R3M03 end)
+		when a.mkt in ('HYP','CCB') then 
+			(case when b.YTD00 is null or b.YTD00 = 0 then 0 else 1.0*a.YTD00/b.YTD00 end - case when b.YTD12 is null or b.YTD12=0 then 0 else 1.0*a.YTD12/b.YTD12 end)  end as Y,
+	a.Audi_des as X, null as X_Idx, convert(int,a.prod)+3 as Series_Idx
 from (
 	select *  
 	from TempCityDashboard_For_KPI_FRAME 
@@ -5169,11 +5179,14 @@ from (
 			or  (Mkt='Platinum' and prod='100') or (Mkt='ONCFCS' and prod='100') or (Mkt='DPP4' and prod='100') 
 			or (Mkt='HYP' and prod='100')  or (Mkt='CCB' and prod='100')
 	) -- 
-	   and  MoneyType='US' and Molecule='N' and class='N' 
+	--    and  MoneyType='US' 
+	   and Molecule='N' and class='N' 
 ) a join (
 	select *  
 	from TempCityDashboard_For_KPI_FRAME 
-	where Mkt in ('arv','NIAD','Eliquis','Platinum','ONCFCS','DPP4','HYP','CCB') and  MoneyType='US' and Molecule='N' and class='N' and prod ='000'
+	where Mkt in ('arv','NIAD','Eliquis','Platinum','ONCFCS','DPP4','HYP','CCB') 
+	-- and  MoneyType='US' 
+	and Molecule='N' and class='N' and prod ='000'
 ) b on a.Molecule=b.molecule and a.class=b.class and a.mkt=b.mkt and a.mktname=b.mktname and a.Market=b.Market 
 	and a.MoneyType=b.MoneyType and a.Audi_des=b.Audi_des and a.Audi_cod=b.Audi_cod
 
@@ -5182,74 +5195,78 @@ GO
 insert into KPI_Frame_MarketAnalyzer_IMSAudit_KeyCity(TimeFrame,MoneyType,Molecule,Class,Mkt,Mktname,Market,prod,Series,
 	DataType,Category,Y,X,X_Idx,Series_Idx)
 select 
-case when mkt in ('arv','NIAD','Eliquis','Platinum','ONCFCS') then
-		convert(varchar(5),'MAT') 
-	 when mkt ='DPP4' then 
-		convert(varchar(5),'MQT') 
-	 when mkt in ('HYP','CCB') then 
-		convert(varchar(5),'YTD') end as  TimeFrame,
-MoneyType,
-Molecule,
-Class,
-Mkt,
-Mktname,
-Market,
-Prod,
-case when Productname ='Oncology Focused Brands' then 'Oncology Market' else Productname end
- + case when mkt='dpp4' then ' GR(vs.last Quarter)' else  ' GR(Y2Y)' end as Series,
-convert(varchar(50),'Growth') as DataType,
-convert(varchar(20),'Value') as Category,
-case when mkt in ('arv','NIAD','Eliquis','Platinum','ONCFCS') then
-		convert(decimal(20,8), case when MAT12 is null or MAT12 = 0 then null else 1.0*(MAT00-MAT12)/MAT12 end) 
-	 when mkt ='DPP4' then 
-		convert(decimal(20,8), case when R3M03 is null or R3M03 = 0 then null else 1.0*(R3M00-R3M03)/R3M03 end) 
-	 when mkt in ('HYP','CCB') then 
-		convert(decimal(20,8), case when YTD12 is null or YTD12 = 0 then null else 1.0*(YTD00-YTD12)/YTD12 end)  end as Y, 
-'National' as X,
-100 as X_Idx,
-case when prod='000' then convert(int,prod)+1	else convert(int,prod) end as Series_Idx
-from TempCHPAPreReports_For_KPI_FRAME where Mkt in ('arv','NIAD','Eliquis','Platinum','ONCFCS','DPP4','HYP','CCB')
-and  MoneyType='US' and Molecule='N' and class='N'  and Prod='000'
+	case when mkt in ('arv','NIAD','Eliquis','Platinum','ONCFCS') then
+			convert(varchar(5),'MAT') 
+		when mkt ='DPP4' then 
+			convert(varchar(5),'MQT') 
+		when mkt in ('HYP','CCB') then 
+			convert(varchar(5),'YTD') end as  TimeFrame,
+	MoneyType,
+	Molecule,
+	Class,
+	Mkt,
+	Mktname,
+	Market,
+	Prod,
+	case when Productname ='Oncology Focused Brands' then 'Oncology Market' else Productname end
+	+ case when mkt='dpp4' then ' GR(vs.last Quarter)' else  ' GR(Y2Y)' end as Series,
+	convert(varchar(50),'Growth') as DataType,
+	convert(varchar(20),'Value') as Category,
+	case when mkt in ('arv','NIAD','Eliquis','Platinum','ONCFCS') then
+			convert(decimal(20,8), case when MAT12 is null or MAT12 = 0 then null else 1.0*(MAT00-MAT12)/MAT12 end) 
+		when mkt ='DPP4' then 
+			convert(decimal(20,8), case when R3M03 is null or R3M03 = 0 then null else 1.0*(R3M00-R3M03)/R3M03 end) 
+		when mkt in ('HYP','CCB') then 
+			convert(decimal(20,8), case when YTD12 is null or YTD12 = 0 then null else 1.0*(YTD00-YTD12)/YTD12 end)  end as Y, 
+	'National' as X,
+	100 as X_Idx,
+	case when prod='000' then convert(int,prod)+1	else convert(int,prod) end as Series_Idx
+from TempCHPAPreReports_For_KPI_FRAME 
+where Mkt in ('arv','NIAD','Eliquis','Platinum','ONCFCS','DPP4','HYP','CCB')
+	-- and  MoneyType='US' 
+	and Molecule='N' and class='N'  and Prod='000'
 
 insert into KPI_Frame_MarketAnalyzer_IMSAudit_KeyCity(TimeFrame,MoneyType,Molecule,Class,Mkt,Mktname,Market,prod,Series,
 	DataType,Category,Y,X,X_Idx,Series_Idx)
 select 
-case when mkt in ('arv','NIAD','Eliquis','Platinum','ONCFCS') then
-		convert(varchar(5),'MAT') 
-	 when mkt ='DPP4' then 
-		convert(varchar(5),'MQT') 
-	 when mkt in ('HYP','CCB') then 
-		convert(varchar(5),'YTD') end as  TimeFrame,
-MoneyType,
-Molecule,
-Class,
-Mkt,
-Mktname,
-Market,
-Prod,
-Productname+ case when mkt='dpp4' then ' GR(vs.last Quarter)' else  ' GR(Y2Y)' end as Series,
-convert(varchar(50),'Growth') as DataType,
-convert(varchar(20),'Value') as Category,
-case when mkt in ('arv','NIAD','Eliquis','Platinum','ONCFCS') then
-		convert(decimal(20,8), case when MAT12 is null or MAT12 = 0 then null else 1.0*(MAT00-MAT12)/MAT12 end) 
-	 when mkt ='DPP4' then 
-		convert(decimal(20,8), case when R3M03 is null or R3M03 = 0 then null else 1.0*(R3M00-R3M03)/R3M03 end) 
-	 when mkt in ('HYP','CCB') then 
-		convert(decimal(20,8), case when YTD12 is null or YTD12 = 0 then null else 1.0*(YTD00-YTD12)/YTD12 end)  end as Y,
-'National' as X,
-100 as X_Idx,
-case when prod='000' then convert(int,prod)+1	else convert(int,prod) end as Series_Idx
-from TempCHPAPreReports_For_KPI_FRAME where (
- (Mkt='ARV' and productName in ('Baraclude','Run Zhong','Heptodin','Sebivo') ) or
- (Mkt='DPP4' and productName in ('Onglyza ','Januvia','Galvus','TRAJENTA','JANUMET') ) or
- (Mkt='Eliquis' and productName in ('Eliquis','Xarelto') ) or
- (Mkt='HYP' and productName in ('Monopril','Lotensin','Acertil') ) or --Monopril ,Lotensin,Acertil
- (Mkt='NIAD' and productName in ('Glucophage','Glucobay','Amaryl') ) or --Glucophage,Glucobay,NovoNorm
- (Mkt='ONCFCS' and productName in ('Taxol','Taxotere','Gemzar')) or --Taxol ,Taxotere,Gemzar
- (Mkt='Platinum' and productName in ('PARAPLATIN') ) or
- (Mkt='CCB' and productName in ('ADALAT','CONIEL','LACIPIL','NORVASC','PLENDIL','YUAN ZHI','ZANIDIP') ) 
-)  --
-and  MoneyType='US' and Molecule='N' and class='N' and Prod<>'000'
+	case when mkt in ('arv','NIAD','Eliquis','Platinum','ONCFCS') then
+			convert(varchar(5),'MAT') 
+		when mkt ='DPP4' then 
+			convert(varchar(5),'MQT') 
+		when mkt in ('HYP','CCB') then 
+			convert(varchar(5),'YTD') end as  TimeFrame,
+	MoneyType,
+	Molecule,
+	Class,
+	Mkt,
+	Mktname,
+	Market,
+	Prod,
+	Productname+ case when mkt='dpp4' then ' GR(vs.last Quarter)' else  ' GR(Y2Y)' end as Series,
+	convert(varchar(50),'Growth') as DataType,
+	convert(varchar(20),'Value') as Category,
+	case when mkt in ('arv','NIAD','Eliquis','Platinum','ONCFCS') then
+			convert(decimal(20,8), case when MAT12 is null or MAT12 = 0 then null else 1.0*(MAT00-MAT12)/MAT12 end) 
+		when mkt ='DPP4' then 
+			convert(decimal(20,8), case when R3M03 is null or R3M03 = 0 then null else 1.0*(R3M00-R3M03)/R3M03 end) 
+		when mkt in ('HYP','CCB') then 
+			convert(decimal(20,8), case when YTD12 is null or YTD12 = 0 then null else 1.0*(YTD00-YTD12)/YTD12 end)  end as Y,
+	'National' as X,
+	100 as X_Idx,
+	case when prod='000' then convert(int,prod)+1	else convert(int,prod) end as Series_Idx
+from TempCHPAPreReports_For_KPI_FRAME 
+where (
+	(Mkt='ARV' and productName in ('Baraclude','Run Zhong','Heptodin','Sebivo') ) or
+	(Mkt='DPP4' and productName in ('Onglyza ','Januvia','Galvus','TRAJENTA','JANUMET') ) or
+	(Mkt='Eliquis' and productName in ('Eliquis','Xarelto') ) or
+	(Mkt='HYP' and productName in ('Monopril','Lotensin','Acertil') ) or --Monopril ,Lotensin,Acertil
+	(Mkt='NIAD' and productName in ('Glucophage','Glucobay','Amaryl') ) or --Glucophage,Glucobay,NovoNorm
+	(Mkt='ONCFCS' and productName in ('Taxol','Taxotere','Gemzar')) or --Taxol ,Taxotere,Gemzar
+	(Mkt='Platinum' and productName in ('PARAPLATIN') ) or
+	(Mkt='CCB' and productName in ('ADALAT','CONIEL','LACIPIL','NORVASC','PLENDIL','YUAN ZHI','ZANIDIP') ) 
+	)  --
+	-- and  MoneyType='US' 
+	and Molecule='N' and class='N' and Prod<>'000'
 
 --Share
 declare @currentMonth varchar(10)
@@ -5257,41 +5274,46 @@ select @currentMonth=MonthEN from tblMonthList where MonSeq=1
 insert into KPI_Frame_MarketAnalyzer_IMSAudit_KeyCity(TimeFrame,MoneyType,Molecule,Class,Mkt,Mktname,Market,prod,Series,
 	DataType,Category,Y,X,X_Idx,Series_Idx)
 select 
-case when a.mkt in ('arv','NIAD','Eliquis','Platinum','ONCFCS') then
-		convert(varchar(5),'MAT') 
-	 when a.mkt ='DPP4' then 
-		convert(varchar(5),'MQT') 
-	 when a.mkt in('HYP','CCB') then 
-		convert(varchar(5),'YTD') end as  TimeFrame,
-a.MoneyType,a.molecule,a.class,a.mkt,a.Mktname,a.Market,a.Prod,
-a.Productname+' Share('+  case when a.mkt in ('arv','NIAD','Eliquis','Platinum','ONCFCS') then 'MAT ' 
-							   when a.mkt ='DPP4' then 'MQT '
-							   when a.mkt in ('HYP','CCB') then 'YTD ' end +@currentMonth+')' as Series,
-'Share' as DateType, 'Value' as Category,
-case when a.mkt in ('arv','NIAD','Eliquis','Platinum','ONCFCS') then
-		(case when b.MAT00 is null or b.MAT00 = 0 then 0 else 1.0*a.MAT00/b.MAT00 end)
-	 when a.mkt ='DPP4' then 
-		(case when b.R3M00 is null or b.R3M00 = 0 then 0 else 1.0*a.R3M00/b.R3M00 end)
-	 when a.mkt in ('HYP','CCB') then 
-		(case when b.YTD00 is null or b.YTD00 = 0 then 0 else 1.0*a.YTD00/b.YTD00 end)  end as Y,
-'National' as X, 100 as X_Idx, convert(int,a.prod)+2 as Series_Idx
+	case when a.mkt in ('arv','NIAD','Eliquis','Platinum','ONCFCS') then
+			convert(varchar(5),'MAT') 
+		when a.mkt ='DPP4' then 
+			convert(varchar(5),'MQT') 
+		when a.mkt in('HYP','CCB') then 
+			convert(varchar(5),'YTD') end as  TimeFrame,
+	a.MoneyType,a.molecule,a.class,a.mkt,a.Mktname,a.Market,a.Prod,
+	a.Productname+' Share('+  case when a.mkt in ('arv','NIAD','Eliquis','Platinum','ONCFCS') then 'MAT ' 
+								when a.mkt ='DPP4' then 'MQT '
+								when a.mkt in ('HYP','CCB') then 'YTD ' end +@currentMonth+')' as Series,
+	'Share' as DateType, 'Value' as Category,
+	case when a.mkt in ('arv','NIAD','Eliquis','Platinum','ONCFCS') then
+			(case when b.MAT00 is null or b.MAT00 = 0 then 0 else 1.0*a.MAT00/b.MAT00 end)
+		when a.mkt ='DPP4' then 
+			(case when b.R3M00 is null or b.R3M00 = 0 then 0 else 1.0*a.R3M00/b.R3M00 end)
+		when a.mkt in ('HYP','CCB') then 
+			(case when b.YTD00 is null or b.YTD00 = 0 then 0 else 1.0*a.YTD00/b.YTD00 end)  end as Y,
+	'National' as X, 100 as X_Idx, convert(int,a.prod)+2 as Series_Idx
 from (
 	select *  
 	from TempCHPAPreReports_For_KPI_FRAME 
 	where (
-	 (Mkt='ARV' and productName in ('Baraclude','Run Zhong','Heptodin','Sebivo') ) or
-	 (Mkt='DPP4' and productName in ('Onglyza ','Januvia','Galvus','TRAJENTA','JANUMET') ) or
-	 (Mkt='Eliquis' and productName in ('Eliquis','Xarelto') ) or
-	 (Mkt='HYP' and productName in ('Monopril','Lotensin','Acertil') ) or --Monopril ,Lotensin,Acertil
-	 (Mkt='NIAD' and productName in ('Glucophage','Glucobay','Amaryl') ) or --Glucophage,Glucobay,NovoNorm
-	 (Mkt='ONCFCS' and productName in ('Taxol','Taxotere','Gemzar')) or --Taxol ,Taxotere,Gemzar
-	 (Mkt='Platinum' and productName in ('PARAPLATIN') ) or
-	 (Mkt='CCB' and productName in ('ADALAT','CONIEL','LACIPIL','NORVASC','PLENDIL','YUAN ZHI','ZANIDIP') )  
-)  and  MoneyType='US' and Molecule='N' and class='N' and prod <> '000' --
-) a join (
+		(Mkt='ARV' and productName in ('Baraclude','Run Zhong','Heptodin','Sebivo') ) or
+		(Mkt='DPP4' and productName in ('Onglyza ','Januvia','Galvus','TRAJENTA','JANUMET') ) or
+		(Mkt='Eliquis' and productName in ('Eliquis','Xarelto') ) or
+		(Mkt='HYP' and productName in ('Monopril','Lotensin','Acertil') ) or --Monopril ,Lotensin,Acertil
+		(Mkt='NIAD' and productName in ('Glucophage','Glucobay','Amaryl') ) or --Glucophage,Glucobay,NovoNorm
+		(Mkt='ONCFCS' and productName in ('Taxol','Taxotere','Gemzar')) or --Taxol ,Taxotere,Gemzar
+		(Mkt='Platinum' and productName in ('PARAPLATIN') ) or
+		(Mkt='CCB' and productName in ('ADALAT','CONIEL','LACIPIL','NORVASC','PLENDIL','YUAN ZHI','ZANIDIP') )  
+	)  
+	-- and  MoneyType='US' 
+	and Molecule='N' and class='N' and prod <> '000' --
+) a 
+join (
 	select *  
 	from TempCHPAPreReports_For_KPI_FRAME 
-	where Mkt in ('arv','NIAD','Eliquis','Platinum','ONCFCS','DPP4','HYP','CCB')  and  MoneyType='US' and Molecule='N' and class='N' and prod ='000' --
+	where Mkt in ('arv','NIAD','Eliquis','Platinum','ONCFCS','DPP4','HYP','CCB')  
+	-- and  MoneyType='US' 
+	and Molecule='N' and class='N' and prod ='000' --
 ) b on a.Molecule=b.molecule and a.class=b.class and a.mkt=b.mkt and a.mktname=b.mktname and a.Market=b.Market 
 	and a.MoneyType=b.MoneyType 
 	
@@ -5299,21 +5321,21 @@ from (
 insert into KPI_Frame_MarketAnalyzer_IMSAudit_KeyCity(TimeFrame,MoneyType,Molecule,Class,Mkt,Mktname,Market,prod,Series,
 	DataType,Category,Y,X,X_Idx,Series_Idx)
 select 
-case when a.mkt in ('arv','NIAD','Eliquis','Platinum','ONCFCS') then
-		convert(varchar(5),'MAT') 
-	 when a.mkt ='DPP4' then 
-		convert(varchar(5),'MQT') 
-	 when a.mkt in ('HYP','CCB') then 
-		convert(varchar(5),'YTD') end as  TimeFrame,
-a.MoneyType,a.molecule,a.class,a.mkt,a.Mktname,a.Market,a.Prod,
-a.Productname+ case when a.mkt='dpp4' then ' Share Change(vs.last Quarter)' else ' Share Change(Y2Y)' end as Series,'CurrShare vs. LastShare' as DateType, 'Value' as Category,
-case when a.mkt in ('arv','NIAD','Eliquis','Platinum','ONCFCS') then
-		(case when b.MAT00 is null or b.MAT00 = 0 then 0 else 1.0*a.MAT00/b.MAT00 end - case when b.MAT12 is null or b.MAT12=0 then 0 else 1.0*a.MAT12/b.MAT12 end)
-	 when a.mkt ='DPP4' then 
-		(case when b.R3M00 is null or b.R3M00 = 0 then 0 else 1.0*a.R3M00/b.R3M00 end - case when b.R3M03 is null or b.R3M03=0 then 0 else 1.0*a.R3M03/b.R3M03 end)
-	 when a.mkt in ('HYP','CCB') then 
-		(case when b.YTD00 is null or b.YTD00 = 0 then 0 else 1.0*a.YTD00/b.YTD00 end - case when b.YTD12 is null or b.YTD12=0 then 0 else 1.0*a.YTD12/b.YTD12 end)  end as Y,
-'National' as X, 100 as X_Idx, convert(int,a.prod)+3 as Series_Idx
+	case when a.mkt in ('arv','NIAD','Eliquis','Platinum','ONCFCS') then
+			convert(varchar(5),'MAT') 
+		when a.mkt ='DPP4' then 
+			convert(varchar(5),'MQT') 
+		when a.mkt in ('HYP','CCB') then 
+			convert(varchar(5),'YTD') end as  TimeFrame,
+	a.MoneyType,a.molecule,a.class,a.mkt,a.Mktname,a.Market,a.Prod,
+	a.Productname+ case when a.mkt='dpp4' then ' Share Change(vs.last Quarter)' else ' Share Change(Y2Y)' end as Series,'CurrShare vs. LastShare' as DateType, 'Value' as Category,
+	case when a.mkt in ('arv','NIAD','Eliquis','Platinum','ONCFCS') then
+			(case when b.MAT00 is null or b.MAT00 = 0 then 0 else 1.0*a.MAT00/b.MAT00 end - case when b.MAT12 is null or b.MAT12=0 then 0 else 1.0*a.MAT12/b.MAT12 end)
+		when a.mkt ='DPP4' then 
+			(case when b.R3M00 is null or b.R3M00 = 0 then 0 else 1.0*a.R3M00/b.R3M00 end - case when b.R3M03 is null or b.R3M03=0 then 0 else 1.0*a.R3M03/b.R3M03 end)
+		when a.mkt in ('HYP','CCB') then 
+			(case when b.YTD00 is null or b.YTD00 = 0 then 0 else 1.0*a.YTD00/b.YTD00 end - case when b.YTD12 is null or b.YTD12=0 then 0 else 1.0*a.YTD12/b.YTD12 end)  end as Y,
+	'National' as X, 100 as X_Idx, convert(int,a.prod)+3 as Series_Idx
 from (
 	select *  
 	from TempCHPAPreReports_For_KPI_FRAME 
@@ -5321,11 +5343,15 @@ from (
 			or  (Mkt='Platinum' and prod='100') or (Mkt='ONCFCS' and prod='100') or (Mkt='DPP4' and prod='100') 
 			or (Mkt='HYP' and prod='100') or (Mkt='CCB' and prod='100')
 	) -- 
-	   and  MoneyType='US' and Molecule='N' and class='N' 
-) a join (
+	--    and  MoneyType='US' 
+	   and Molecule='N' and class='N' 
+) a 
+join (
 	select *  
 	from TempCHPAPreReports_For_KPI_FRAME 
-	where Mkt in ('arv','NIAD','Eliquis','Platinum','ONCFCS','DPP4','HYP','CCB') and  MoneyType='US' and Molecule='N' and class='N' and prod ='000'
+	where Mkt in ('arv','NIAD','Eliquis','Platinum','ONCFCS','DPP4','HYP','CCB') 
+	-- and  MoneyType='US' 
+	and Molecule='N' and class='N' and prod ='000'
 ) b on a.Molecule=b.molecule and a.class=b.class and a.mkt=b.mkt and a.mktname=b.mktname and a.Market=b.Market 
 	and a.MoneyType=b.MoneyType 
 
@@ -7001,36 +7027,41 @@ go
 select top 15 cast('MTH' as varchar(20)) as [Period],1 as CurrRank,1 as PrevRank,CORP_cod,replace(replace(b.Manufacturer_Name,' GROUP',''),' GRP','') as corp_des,
 		sum(MTH00US) as MTH00US,sum(MTH12US) as MTH12US
 into KPI_Frame_MNC_Company_Ranking_data
-		from dbo.MTHCHPA_PKAU A 
-		INNER JOIN Dim_Manufacturer b
-		on A.CORP_cod=B.Corporation_ID
-		and B.Manufacturer_ID=B.Corporation_ID
-		where exists(select * from MTHCHPA_PKAU B  
-		where A.CORP_Cod=B.CORP_Cod and B.MNFL_COD IN ('I','J'))
-		group by CORP_cod,b.Manufacturer_Name
-		order by
-		sum(MTH00US) desc
+from dbo.MTHCHPA_PKAU A 
+INNER JOIN Dim_Manufacturer b
+on A.CORP_cod=B.Corporation_ID
+	and B.Manufacturer_ID=B.Corporation_ID
+where exists(
+	select * from MTHCHPA_PKAU B  
+	where A.CORP_Cod = B.CORP_Cod and B.MNFL_COD IN ('I','J')
+)
+group by CORP_cod,b.Manufacturer_Name
+order by sum(MTH00US) desc
 
 INSERT INTO KPI_Frame_MNC_Company_Ranking_data
 select top 15 cast('YTD' as varchar(20)) as [Period],1 as CurrRank,1 as PrevRank,CORP_cod,replace(replace(b.Manufacturer_Name,' GROUP',''),' GRP','') as corp_des,
 		sum(YTD00US) as YTD00US,sum(YTD12US) as YTD12US
-		from dbo.MTHCHPA_PKAU A 
-		INNER JOIN Dim_Manufacturer b
-		on A.CORP_cod=B.Corporation_ID
-		and B.Manufacturer_ID=B.Corporation_ID
-		where exists(select * from MTHCHPA_PKAU B  
-		where A.CORP_Cod=B.CORP_Cod and B.MNFL_COD IN ('I','J'))
-		group by CORP_cod,b.Manufacturer_Name
-		order by
-		sum(YTD00US) desc
+from dbo.MTHCHPA_PKAU A 
+INNER JOIN Dim_Manufacturer b
+on A.CORP_cod=B.Corporation_ID
+	and B.Manufacturer_ID=B.Corporation_ID
+where exists(
+	select * from MTHCHPA_PKAU B  
+	where A.CORP_Cod=B.CORP_Cod and B.MNFL_COD IN ('I','J')
+)
+group by CORP_cod,b.Manufacturer_Name
+order by sum(YTD00US) desc
 go
 
 update KPI_Frame_MNC_Company_Ranking_data
-		set CurrRank=B.Rank from KPI_Frame_MNC_Company_Ranking_data A inner join (
-							select RANK ( )OVER (order by sum(MTH00US) desc ) as Rank,CORP_cod,sum(MTH00US) as MTH00US
-							from dbo.MTHCHPA_PKAU A where exists(select * from MTHCHPA_PKAU B  
-								where A.CORP_Cod=B.CORP_Cod and B.MNFL_COD IN ('I','J'))
-							group by CORP_cod) B
+		set CurrRank=B.Rank 
+		from KPI_Frame_MNC_Company_Ranking_data A 
+		inner join (
+			select RANK ( )OVER (order by sum(MTH00US) desc ) as Rank,CORP_cod,sum(MTH00US) as MTH00US
+			from dbo.MTHCHPA_PKAU A where exists(select * from MTHCHPA_PKAU B  
+				where A.CORP_Cod=B.CORP_Cod and B.MNFL_COD IN ('I','J'))
+			group by CORP_cod
+		) B
 		on A.CORP_cod=B.CORP_cod and A.[Period]='MTH'
 
 update KPI_Frame_MNC_Company_Ranking_data
@@ -7050,11 +7081,16 @@ update KPI_Frame_MNC_Company_Ranking_data
 		on A.CORP_cod=B.CORP_cod and A.[Period]='MTH' 
 
 update KPI_Frame_MNC_Company_Ranking_data
-		set PrevRank=B.Rank from KPI_Frame_MNC_Company_Ranking_data A inner join (
-							select RANK ( )OVER (order by sum(YTD12US) desc ) as Rank,CORP_cod,sum(YTD12US) as YTD12US
-							from dbo.MTHCHPA_PKAU A where exists(select * from MTHCHPA_PKAU B  
-								where A.CORP_Cod=B.CORP_Cod and B.MNFL_COD IN ('I','J'))
-							group by CORP_cod) B
+		set PrevRank=B.Rank from KPI_Frame_MNC_Company_Ranking_data A 
+		inner join (
+			select RANK ( )OVER (order by sum(YTD12US) desc ) as Rank,CORP_cod,sum(YTD12US) as YTD12US
+			from dbo.MTHCHPA_PKAU A 
+			where exists(
+				select * from MTHCHPA_PKAU B  
+				where A.CORP_Cod=B.CORP_Cod and B.MNFL_COD IN ('I','J')
+			)
+			group by CORP_cod
+		) B
 		on A.CORP_cod=B.CORP_cod and A.[Period]='YTD' 
 
 ALTER TABLE KPI_Frame_MNC_Company_Ranking_data ADD Series_Idx varchar(10),X_Idx varchar(10),[Y2Y GR] float
@@ -7118,45 +7154,42 @@ from KPI_Frame_MNC_Company_Ranking a
 --MNC Brand Ranking
 IF OBJECT_ID(N'KPI_Frame_MNC_Brand_Ranking_data',N'U') IS NOT NULL
 	DROP TABLE KPI_Frame_MNC_Brand_Ranking_data
-	go
+go
 
-	select top 14 cast('MTH' as varchar(20)) as [Period],1 as CurrRank,1 as PrevRank,a.Prod_cod,b.product_name,
+select top 14 cast('MTH' as varchar(20)) as [Period],1 as CurrRank,1 as PrevRank,a.Prod_cod,b.product_name,
 	sum(MTH00US) as MTH00US ,sum(MTH12US) as MTH12US
-	into KPI_Frame_MNC_Brand_Ranking_data
-	from MTHCHPA_PKAU  a
-	inner join dim_product b
+into KPI_Frame_MNC_Brand_Ranking_data
+from MTHCHPA_PKAU  a
+inner join dim_product b
 	on A.Prod_cod=B.product_code
-	where exists(select * from MTHCHPA_PKAU B  where A.PROD_COD=B.PROD_COD and B.MNFL_COD IN ('I','J')) and b.product_name not in ('PULMICORT RESP','ALBUMIN HUMAN')
-	group by a.Prod_cod,b.product_name
-	order by
-	sum(MTH00US) desc
+where exists(
+		select * from MTHCHPA_PKAU B  
+		where A.PROD_COD=B.PROD_COD and B.MNFL_COD IN ('I','J')) 
+			and b.product_name not in ('PULMICORT RESP','ALBUMIN HUMAN')
+group by a.Prod_cod,b.product_name
+order by sum(MTH00US) desc
 
-	if exists(select * from KPI_Frame_MNC_Brand_Ranking_data 
-		where product_name like '%GLUCOPHAGE%' and period='MTH')
+if exists(select * from KPI_Frame_MNC_Brand_Ranking_data  where product_name like '%GLUCOPHAGE%' and period='MTH')
 	print 'GLUCOPHAGE in Top 14 MTH US'
-	else
+else
 	insert into KPI_Frame_MNC_Brand_Ranking_data
-	select 'YTD',1,1,'06470',b.product_name, sum(YTD00US),sum(YTD12US)
+	select 'MTH',1,1,'06470',b.product_name, sum(YTD00US),sum(YTD12US)
 	from dbo.MTHCHPA_PKAU A 
-	inner join dim_product b
-	on A.Prod_cod=B.Product_code
+	inner join dim_product b on A.Prod_cod=B.Product_code
 	where product_name like '%GLUCOPHAGE%'
 	group by b.product_name
 
 insert into KPI_Frame_MNC_Brand_Ranking_data
-	select top 14 cast('YTD' as varchar(20)) as [Period],1 as CurrRank,1 as PrevRank,a.Prod_cod,b.product_name,
-		sum(YTD00US) as YTD00US ,sum(YTD12US) as YTD12US
-		from MTHCHPA_PKAU  a
-		inner join dim_product b
-		on A.Prod_cod=B.Product_code
-		where exists(select * from MTHCHPA_PKAU B  where A.PROD_COD=B.PROD_COD and B.MNFL_COD IN ('I','J')) and b.product_name not in ('PULMICORT RESP','ALBUMIN HUMAN')
-		group by a.Prod_cod,b.product_name
-		order by
-		sum(YTD00US) desc
+select top 14 cast('YTD' as varchar(20)) as [Period],1 as CurrRank,1 as PrevRank,a.Prod_cod,b.product_name,
+	sum(YTD00US) as YTD00US ,sum(YTD12US) as YTD12US
+from MTHCHPA_PKAU  a
+inner join dim_product b on A.Prod_cod=B.Product_code
+where exists(select * from MTHCHPA_PKAU B  where A.PROD_COD=B.PROD_COD and B.MNFL_COD IN ('I','J')) and b.product_name not in ('PULMICORT RESP','ALBUMIN HUMAN')
+group by a.Prod_cod,b.product_name
+order by sum(YTD00US) desc
 
-if exists(select * from KPI_Frame_MNC_Brand_Ranking_data 
-	where product_name like '%GLUCOPHAGE%' and period='YTD')
-	print 'GLUCOPHAGE in Top 14 MTH US'
+if exists(select * from KPI_Frame_MNC_Brand_Ranking_data  where product_name like '%GLUCOPHAGE%' and period='YTD')
+	print 'GLUCOPHAGE in Top 14 YTD US'
 else
 	insert into KPI_Frame_MNC_Brand_Ranking_data
 	select 'YTD',1,1,'06470',b.product_name, sum(YTD00US),sum(YTD12US)
@@ -7169,36 +7202,77 @@ else
 
 	
 	update KPI_Frame_MNC_Brand_Ranking_data
-			set CurrRank=B.Rank from KPI_Frame_MNC_Brand_Ranking_data A inner join (
-								select RANK ( )OVER (order by sum(MTH00US) desc ) as Rank,PROD_COD,sum(MTH00US) as MTH00US
-								from dbo.MTHCHPA_PKAU A where exists(select * from MTHCHPA_PKAU B  
-									where A.PROD_COD=B.PROD_COD and B.MNFL_COD IN ('I','J'))
-								group by PROD_COD) B
-			on A.PROD_COD=B.PROD_COD and A.[Period]='MTH'
+	set CurrRank= B.Rank 
+	from KPI_Frame_MNC_Brand_Ranking_data A 
+	inner join (
+		SELECT RANK ()OVER (PARTITION BY A.Period ORDER by MTH00US desc ) as Rank,*
+		from dbo.KPI_Frame_MNC_Brand_Ranking_data A 
+	) B
+	on A.PROD_COD=B.PROD_COD and a.PERIOD = b.PERIOD and A.[Period]='MTH' 
 	
 	update KPI_Frame_MNC_Brand_Ranking_data
-			set CurrRank=B.Rank from KPI_Frame_MNC_Brand_Ranking_data A inner join (
-								select RANK ( )OVER (order by sum(YTD00US) desc ) as Rank,PROD_COD,sum(YTD00US) as YTD00US
-								from dbo.MTHCHPA_PKAU A where exists(select * from MTHCHPA_PKAU B  
-									where A.PROD_COD=B.PROD_COD and B.MNFL_COD IN ('I','J'))
-								group by PROD_COD) B
-			on A.PROD_COD=B.PROD_COD and A.[Period]='YTD'
+	set CurrRank=B.Rank 
+	from KPI_Frame_MNC_Brand_Ranking_data A 
+	inner join (
+		SELECT RANK ()OVER (PARTITION BY A.Period ORDER by MTH00US desc ) as Rank,*
+		from dbo.KPI_Frame_MNC_Brand_Ranking_data A
+	) B
+	on A.PROD_COD=B.PROD_COD and a.PERIOD = b.PERIOD  and A.[Period]='YTD'
 	
 	update KPI_Frame_MNC_Brand_Ranking_data
-			set PrevRank=B.Rank from KPI_Frame_MNC_Brand_Ranking_data A inner join (
-								select RANK ( )OVER (order by sum(MTH12US) desc ) as Rank,PROD_COD,sum(MTH12US) as MTH12US
-								from dbo.MTHCHPA_PKAU A where exists(select * from MTHCHPA_PKAU B  
-									where A.PROD_COD=B.PROD_COD and B.MNFL_COD IN ('I','J'))
-								group by PROD_COD) B
-			on A.PROD_COD=B.PROD_COD and A.[Period]='MTH' 
+	set PrevRank=B.Rank 
+	from KPI_Frame_MNC_Brand_Ranking_data A 
+	inner join (
+		SELECT RANK ()OVER (PARTITION BY A.Period ORDER by MTH12US desc ) as Rank,*
+		from dbo.KPI_Frame_MNC_Brand_Ranking_data A
+	) B
+	on A.PROD_COD=B.PROD_COD and a.PERIOD = b.PERIOD  and A.[Period]='MTH' 
 	
 	update KPI_Frame_MNC_Brand_Ranking_data
-			set PrevRank=B.Rank from KPI_Frame_MNC_Brand_Ranking_data A inner join (
-								select RANK ( )OVER (order by sum(YTD12US) desc ) as Rank,PROD_COD,sum(YTD12US) as YTD12US
-								from dbo.MTHCHPA_PKAU A where exists(select * from MTHCHPA_PKAU B  
-									where A.PROD_COD=B.PROD_COD and B.MNFL_COD IN ('I','J'))
-								group by PROD_COD) B
-			on A.PROD_COD=B.PROD_COD and A.[Period]='YTD' 
+	set PrevRank=B.Rank 
+	from KPI_Frame_MNC_Brand_Ranking_data A 
+	inner join (
+		SELECT RANK ()OVER (PARTITION BY A.Period ORDER by MTH12US desc ) as Rank,*
+		from dbo.KPI_Frame_MNC_Brand_Ranking_data A
+	) B
+	on A.PROD_COD=B.PROD_COD  and a.PERIOD = b.PERIOD and A.[Period]='YTD' 
+
+	-- update GLUCOPHAGE
+	update a
+	set PrevRank=B.Rank 
+	from KPI_Frame_MNC_Brand_Ranking_data A 
+	inner join (
+		SELECT RANK () OVER (ORDER by sum(MTH00US) desc ) as Rank, a.Prod_cod,b.product_name
+		from MTHCHPA_PKAU  a
+		inner join dim_product b on A.Prod_cod=B.product_code
+		where exists(
+				select * from MTHCHPA_PKAU B  
+				where A.PROD_COD=B.PROD_COD and B.MNFL_COD IN ('I','J')
+				) 
+			and b.product_name not in ('PULMICORT RESP','ALBUMIN HUMAN')
+		group by a.Prod_cod,b.product_name
+	) B
+	on A.PROD_COD=B.PROD_COD   
+	where a.product_name like '%GLUCOPHAGE%' 
+
+	update a
+	set CurrRank=B.Rank 
+	from KPI_Frame_MNC_Brand_Ranking_data A 
+	inner join (
+		SELECT RANK () OVER (ORDER by sum(MTH12US) desc ) as Rank, a.Prod_cod,b.product_name
+		from MTHCHPA_PKAU  a
+		inner join dim_product b on A.Prod_cod=B.product_code
+		where exists(
+				select * from MTHCHPA_PKAU B  
+				where A.PROD_COD=B.PROD_COD and B.MNFL_COD IN ('I','J')
+				) 
+			and b.product_name not in ('PULMICORT RESP','ALBUMIN HUMAN')
+		group by a.Prod_cod,b.product_name
+	) B
+	on A.PROD_COD=B.PROD_COD   
+	where a.product_name like '%GLUCOPHAGE%' 
+
+	------
 	
 	ALTER TABLE KPI_Frame_MNC_Brand_Ranking_data ADD Series_Idx varchar(10),X_Idx varchar(10),[Y2Y GR] float
 	go

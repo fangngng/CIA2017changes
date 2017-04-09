@@ -81,6 +81,8 @@ GO
 -- insert into tblMktDefHospital 
 -- select 'ARV','ARV Market','700','ARV Others','N','N','J05B','',N'拉米夫定','Lamivudine',N'银丁','Yin Ding','N','700025','','',1
 -- insert into tblMktDefHospital 
+-- select 'ARV','ARV Market','700','ARV Others','N','N','J05B','',N'拉米夫定','Lamivudine',N'益平维','EPIVIR','N','700025','','',1
+-- insert into tblMktDefHospital 
 -- select 'ARV','ARV Market','700','ARV Others','N','N','J05B','',N'阿德福韦酯','Adefovir dipivoxil',N'爱路韦','Ai Lu Wei','N','704405','','',1
 
 
@@ -217,7 +219,12 @@ update tblCPAResults set Product = 'Eliquis' where Mkt in ('Eliquis')
 update tblCPAResults set Product = 'Coniel' where Mkt in ('CCB')
 go
 
-insert into tblMktDefHospital select * from tblCPAResults
+insert into dbo.tblMktDefHospital ( Mkt, MktName, Prod, ProductName, Molecule, Class, ATC3_Cod, ATC_CPA, Mole_Des_CN,
+									 Mole_Des_EN, Prod_Des_CN, Prod_Des_EN, FocusedBrand, IMSMoleCode, IMSProdCode,
+									 Product )
+select mkt, mktname, Prod, ProductName, molecule, class, ATC3_cod, atc_cpa, mole_des_cn, mole_des_en, prod_des_cn,
+									 prod_des_en, focusedbrand, IMSMoleCode, IMSProdCode, Product 
+FROM tblCPAResults
 go
 
 
@@ -699,10 +706,10 @@ update tblMktDefHospital set rat=1 where  mkt not like 'eliquis%'
 --select * into tblMktDefHospital_eliquis from tblMktDefHospital
 
 -- delete the error history data
-delete tblMktDefHospital
-where Mkt = 'Eliquis VTEp'
-	and Prod_Des_en = 'XARELTO'
-	and mole_des_en <> 'RIVAROXABAN'
+--delete tblMktDefHospital
+--where Mkt = 'Eliquis VTEp'
+--	and Prod_Des_en = 'XARELTO'
+--	and mole_des_en <> 'RIVAROXABAN'
 
   
 --20170321

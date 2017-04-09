@@ -199,6 +199,7 @@ delete from tblCMDData_baraclude where datatype='share' and period_type<>'MTH'
 delete from tblCMDData_baraclude where datatype='share' and product =''
 delete from tblCMDData_baraclude where datatype='growth' and DM<>'m01'
 delete from tblCMDData_baraclude where datatype='growth' and x not in  ('MAT Growth','YTD Growth','MTH Growth','YTD Share','YTD Share Change')
+delete from tblCMDData_baraclude where DM IS NULL
 go
 update tblCMDData_baraclude set datatype='share' where datatype='sales'
 update a set x=convert(varchar(5),b.year)+left(b.MonthEN,3)

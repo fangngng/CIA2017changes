@@ -2822,7 +2822,7 @@ go
 SELECT b.RMName, c.* 
 into tempBALHospitalDataByGeo
 FROM tblHospitalMaster AS a
-RIGHT JOIN tblBALHospital AS b ON a.BMS_Code = b.HospitalCode
+RIGHT JOIN tblBALHospital AS b ON a.BMS_Code = b.HospCode
 INNER JOIN tempHospitalDataByGeo AS c ON a.id = c.Cpa_id
 
 
@@ -2849,7 +2849,8 @@ set @sql = @sql + '
 into OutputBALHospitalDataByGeo
 FROM tempBALHospitalDataByGeo AS a 
 INNER JOIN tblMktDef_MRBIChina AS b ON a.prod = b.prod AND a.mkt = b.mkt
-WHERE b.mkt = ''arv'' and b.Molecule = ''N''
+WHERE a.mkt = ''arv'' and a.lev = ''nat'' 
+	and b.molecule = ''N''
 GROUP BY Product, RMName, datasource, a.mkt, a.Prod 
 '
 print @sql 

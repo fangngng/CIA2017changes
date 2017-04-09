@@ -77,13 +77,10 @@ if object_id(N'tblQtrForPivot',N'U') is not null
 go
 
 select rank() over(order by DataQrt desc) as QSeq
-,DataQrt, right(DataQrt,4)+'LC' as Fld_LC, right(DataQrt, 4)+'US' as Fld_US
+  ,DataQrt, right(DataQrt,4)+'LC' as Fld_LC, right(DataQrt, 4)+'US' as Fld_US
 into tblQtrForPivot
 from tblPeriod
 GO
-
-
-
 
 
 --db4.BMSChinaOtherDB.dbo.inHKAPI_new --> tblHKAPIMaster_RMB, tblHKAPIMaster_USD -->tblHKAPIDataMaster

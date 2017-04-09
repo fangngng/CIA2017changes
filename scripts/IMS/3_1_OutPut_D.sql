@@ -721,8 +721,36 @@ from (
 	select 'MAT12' as Series,	21 as SeriesIdx union all
 	select 'MAT24' as Series,	20 as SeriesIdx union all
 	select 'MAT36' as Series,	19 as SeriesIdx union all
-	select 'MAT48' as Series,	18 as SeriesIdx union all
+	select 'MAT48' as Series,	18 as SeriesIdx 
 
+) a, (
+	select distinct [type], typeIdx,Period,MoneyType,market 
+    from dbo.OutputProdSalesPerformanceInChina where market<>'Paraplatin' and MoneyType<>'PN'
+    union all
+    select distinct [type], typeIdx,Period,MoneyType,market 
+    from dbo.OutputProdSalesPerformanceInChina where market='Paraplatin'  and MoneyType<>'UN'
+) b
+where b.market not in ( 'Eliquis (NOAC)','Eliquis (VTet)') and b.[Period] in ('MAT', 'MQT', 'YTD')
+
+insert into [output_stage] (Product,isshow,geo,lev,TimeFrame,LinkChartCode, Series, SeriesIdx,Currency, X, XIdx)
+select 
+	B.market            --Product      
+	, 'Y'               --isshow       
+	,'China'            --geo          
+	,'Nation'           --lev          
+	,Period             --TimeFrame    
+	, @code as Code     --LinkChartCode
+	, b.[type]          -- Series      
+	,b.typeIdx          -- SeriesIdx   
+	,MoneyType          --Currency     
+	, a.Series          -- X           
+	,a.SeriesIdx        -- XIdx        
+from (
+	select 'Mth01' as Series,	12 as SeriesIdx union all
+	select 'Mth02' as Series,	11 as SeriesIdx union all
+	select 'Mth03' as Series,	10 as SeriesIdx union all
+	select 'Mth04' as Series,	9 as SeriesIdx union all
+	select 'Mth05' as Series,	8 as SeriesIdx union all
 	select 'Mth06' as Series,	7 as SeriesIdx union all
 	select 'Mth07' as Series,	6 as SeriesIdx union all
 	select 'Mth08' as Series,	5 as SeriesIdx union all
@@ -732,17 +760,18 @@ from (
 	select 'Mth12' as Series,	1 as SeriesIdx
 ) a, (
 	select distinct [type], typeIdx,Period,MoneyType,market 
-    from dbo.OutputProdSalesPerformanceInChina where market<>'Paraplatin' and MoneyType<>'PN'
+    from dbo.OutputProdSalesPerformanceInChina where market<>'Paraplatin' and MoneyType<>'PN' 
     union all
     select distinct [type], typeIdx,Period,MoneyType,market 
     from dbo.OutputProdSalesPerformanceInChina where market='Paraplatin'  and MoneyType<>'UN'
 ) b
-where b.market not in ( 'Eliquis (NOAC)','Eliquis (VTet)')
+where b.market not in ( 'Eliquis (NOAC)','Eliquis (VTet)') and b.[Period] = 'MTH'
 
 update [dbo].[output_stage]
 set X = case 
 	when TimeFrame = 'YTD' and X not like 'Mth%' then 'YTD' + right(X, 2) 
 	when TimeFrame = 'MQT' and X not like 'Mth%' then 'MQT' + right(X, 2) 
+	when TimeFrame = 'MAT' and X not like 'Mth%' then 'MAT' + right(X, 2) 
 	else X end 
 where LinkChartCode = @code
 
@@ -877,6 +906,11 @@ set series=case series
 			when 'YTD36' then TimeFrame + ' '+(select [MonthEN] from tblMonthList where monseq=4)
 			when 'YTD48' then TimeFrame + ' '+(select [MonthEN] from tblMonthList where monseq=5)
 
+			when 'Mth01' then TimeFrame + ' '+(select [MonthEN] from tblMonthList where monseq=1)
+			when 'Mth02' then TimeFrame + ' '+(select [MonthEN] from tblMonthList where monseq=2)
+			when 'Mth03' then TimeFrame + ' '+(select [MonthEN] from tblMonthList where monseq=3)
+			when 'Mth04' then TimeFrame + ' '+(select [MonthEN] from tblMonthList where monseq=4)
+			when 'Mth05' then TimeFrame + ' '+(select [MonthEN] from tblMonthList where monseq=5)
 			when 'Mth06' then TimeFrame + ' '+(select [MonthEN] from tblMonthList where monseq=6)
 			when 'Mth07' then TimeFrame + ' '+(select [MonthEN] from tblMonthList where monseq=7)
 			when 'Mth08' then TimeFrame + ' '+(select [MonthEN] from tblMonthList where monseq=8)
@@ -908,6 +942,11 @@ set X=case X
 		when 'YTD36' then TimeFrame + ' '+(select [MonthEN] from tblMonthList where monseq=4)
 		when 'YTD48' then TimeFrame + ' '+(select [MonthEN] from tblMonthList where monseq=5)
 
+		when 'Mth01' then TimeFrame + ' '+(select [MonthEN] from tblMonthList where monseq=1)
+		when 'Mth02' then TimeFrame + ' '+(select [MonthEN] from tblMonthList where monseq=2)
+		when 'Mth03' then TimeFrame + ' '+(select [MonthEN] from tblMonthList where monseq=3)
+		when 'Mth04' then TimeFrame + ' '+(select [MonthEN] from tblMonthList where monseq=4)
+		when 'Mth05' then TimeFrame + ' '+(select [MonthEN] from tblMonthList where monseq=5)
 		when 'Mth06' then TimeFrame + ' '+(select [MonthEN] from tblMonthList where monseq=6)
 		when 'Mth07' then TimeFrame + ' '+(select [MonthEN] from tblMonthList where monseq=7)
 		when 'Mth08' then TimeFrame + ' '+(select [MonthEN] from tblMonthList where monseq=8)

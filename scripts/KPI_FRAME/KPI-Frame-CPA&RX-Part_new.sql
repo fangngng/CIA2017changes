@@ -707,7 +707,7 @@ BEGIN
 END
 
 select case when a.DataSource is not null then a.DataSource else 'CPA' end as DataSource ,
-b.Mkt,b.Prod,b.ProductName,a.cpa_id,ISNULL(a.VM1,0) as VM1,ISNULL(a.VM13,0) as VM13,ISNULL(a.UM1,0) as UM1,ISNULL(a.UM13,0) as UM13,
+	b.Mkt,b.Prod,b.ProductName,a.cpa_id,ISNULL(a.VM1,0) as VM1,ISNULL(a.VM13,0) as VM13,ISNULL(a.UM1,0) as UM1,ISNULL(a.UM13,0) as UM13,
 	ISNULL(a.VYTD,0) as VYTD, ISNULL(a.VYTDStly,0) as VYTDStly,ISNULL(a.VR3M1,0) as VR3M1, ISNULL(a.VR3M13,0) as VR3M13,ISNULL(a.UYTD,0) as UYTD,ISNULL(a.UYTDStly,0) as UYTDStly
 INTO TempKPIFrame_CPAPart
 from (select * from tempHospitalData_All_For_KPI_Frame where DataSource='CPA')  a 
@@ -967,9 +967,11 @@ GO
 	set @mktConiel='CCB'
 	--计算所有的医院数=匹配医院个数+未匹配医院个数
 	select convert(varchar(20),'Total') as Tier,a.DataSource,a.mkt,a.prod,a.ProductName,
-	count(distinct cpa_id) AS Mapped_Hosp,sum(VYTD) as VYTD,sum(VYTDStly) as VYTDStly
+		count(distinct cpa_id) AS Mapped_Hosp,sum(VYTD) as VYTD,sum(VYTDStly) as VYTDStly
 	INTO Mid_KPIFrame_CPAPart_CCB
-	from TempKPIFrame_CPAPart a join (SELECT DISTINCT id,cpa_code FROM tblHospitalMaster where DataSource='CPA') b on a.cpa_id = b.id left join 
+	from TempKPIFrame_CPAPart a 
+	join (SELECT DISTINCT id,cpa_code FROM tblHospitalMaster where DataSource='CPA') b on a.cpa_id = b.id 
+	left join 
 		 (select distinct [cpa code] from BMS_CPA_Hosp_Category where [cpa name]<> '#N/A' and [cpa name] is not null and [cpa code] is not null and [Coniel Hospital Category]<>'#N/A') c on c.[cpa code]=b.cpa_code
 	where mkt=@mktConiel
 	group by a.DataSource,a.mkt,a.prod,a.ProductName
@@ -978,7 +980,9 @@ GO
 	INSERT INTO Mid_KPIFrame_CPAPart_CCB (Tier,DataSource,mkt,prod,productname,Mapped_Hosp,VYTD,VYTDStly)
 	select convert(varchar(20),'Total Targeted') as Tier,a.DataSource,a.mkt,a.prod,a.ProductName,
 	count(distinct cpa_id) AS Mapped_Hosp,sum(VYTD) as VYTD,sum(VYTDStly) as VYTDStly
-	from TempKPIFrame_CPAPart a join (SELECT DISTINCT id,cpa_code FROM tblHospitalMaster where DataSource='CPA') b on a.cpa_id = b.id join 
+	from TempKPIFrame_CPAPart a 
+	join (SELECT DISTINCT id,cpa_code FROM tblHospitalMaster where DataSource='CPA') b on a.cpa_id = b.id 
+	left join 
 		 (select distinct [cpa code] from BMS_CPA_Hosp_Category where [cpa name]<> '#N/A' and [cpa name] is not null and [cpa code] is not null and [Coniel Hospital Category]<>'#N/A') c on c.[cpa code]=b.cpa_code
 	where mkt=@mktConiel
 	group by a.DataSource,a.mkt,a.prod,a.ProductName
@@ -987,7 +991,9 @@ GO
 	INSERT INTO Mid_KPIFrame_CPAPart_CCB (Tier,DataSource,mkt,prod,productname,Mapped_Hosp,VYTD,VYTDStly)
 	select convert(varchar(20),'Non-Targeted') as Tier,a.DataSource,a.mkt,a.prod,a.ProductName,
 	count(distinct cpa_id) AS Mapped_Hosp,sum(VYTD) as VYTD,sum(VYTDStly) as VYTDStly
-	from TempKPIFrame_CPAPart a join (SELECT DISTINCT id,cpa_code FROM tblHospitalMaster where DataSource='CPA') b on a.cpa_id = b.id left join 
+	from TempKPIFrame_CPAPart a 
+	join (SELECT DISTINCT id,cpa_code FROM tblHospitalMaster where DataSource='CPA') b on a.cpa_id = b.id 
+	left join 
 		 (select distinct [cpa code] from BMS_CPA_Hosp_Category where [cpa name]<> '#N/A' and [cpa name] is not null and [cpa code] is not null and [Coniel Hospital Category]<>'#N/A') c on c.[cpa code]=b.cpa_code
 	where mkt=@mktConiel and c.[cpa code] is null
 	group by a.DataSource,a.mkt,a.prod,a.ProductName
@@ -997,7 +1003,9 @@ GO
 	  --A,B,C,D tier
 	select c.[Coniel Hospital Category] as tier,a.DataSource,a.mkt,a.prod,a.ProductName,
 	count(distinct cpa_id) AS Mapped_Hosp,sum(VYTD) as VYTD,sum(VYTDStly) as VYTDStly
-	from TempKPIFrame_CPAPart a join (SELECT DISTINCT id,cpa_code FROM tblHospitalMaster where DataSource='CPA') b on a.cpa_id = b.id join 
+	from TempKPIFrame_CPAPart a 
+	join (SELECT DISTINCT id,cpa_code FROM tblHospitalMaster where DataSource='CPA') b on a.cpa_id = b.id 
+	left join 
 		 (select distinct [cpa code],[Coniel Hospital Category] from BMS_CPA_Hosp_Category where [cpa name]<> '#N/A' and [cpa name] is not null and [cpa code] is not null and [Coniel Hospital Category]<>'#N/A') c 
 			on c.[cpa code]=b.cpa_code
 	where a.mkt=@mktConiel	 
@@ -1426,48 +1434,48 @@ GO
 
 
 
---DPP4 part
---declare @mktOnglyza varchar(20)
---set @mktOnglyza='DPP4'
+-- -- DPP4 part
+-- declare @mktOnglyza varchar(20)
+-- set @mktOnglyza='DPP4'
 
---select convert(varchar(20),'Total') as Tier,a.DataSource,a.mkt,a.prod,a.ProductName,
---count(distinct cpa_id) AS Mapped_Hosp,sum(VYTD) as VYTD,sum(VYTDStly) as VYTDStly
---INTO Mid_KPIFrame_CPAPart_DPP4
---from TempKPIFrame_CPAPart a join (SELECT DISTINCT id,cpa_code FROM tblHospitalMaster where DataSource='CPA') b on a.cpa_id = b.id join 
---	 (select distinct [cpa code] from BMS_CPA_Hosp_Category where [cpa name]<> '#N/A' and [cpa name] is not null and [cpa code] is not null and [Onglyza  Hospital Category]<>'#N/A') c on c.[cpa code]=b.cpa_code
---where mkt=@mktOnglyza
---group by a.DataSource,a.mkt,a.prod,a.ProductName
+-- select convert(varchar(20),'Total') as Tier,a.DataSource,a.mkt,a.prod,a.ProductName,
+-- count(distinct cpa_id) AS Mapped_Hosp,sum(VYTD) as VYTD,sum(VYTDStly) as VYTDStly
+-- INTO Mid_KPIFrame_CPAPart_DPP4
+-- from TempKPIFrame_CPAPart a join (SELECT DISTINCT id,cpa_code FROM tblHospitalMaster where DataSource='CPA') b on a.cpa_id = b.id join 
+-- 	 (select distinct [cpa code] from BMS_CPA_Hosp_Category where [cpa name]<> '#N/A' and [cpa name] is not null and [cpa code] is not null and [Onglyza  Hospital Category]<>'#N/A') c on c.[cpa code]=b.cpa_code
+-- where mkt=@mktOnglyza
+-- group by a.DataSource,a.mkt,a.prod,a.ProductName
 
---INSERT INTO Mid_KPIFrame_CPAPart_DPP4 (Tier,DataSource,mkt,prod,productname,Mapped_Hosp,VYTD,VYTDStly)
+-- INSERT INTO Mid_KPIFrame_CPAPart_DPP4 (Tier,DataSource,mkt,prod,productname,Mapped_Hosp,VYTD,VYTDStly)
 --  --A,B,C,D tier
---select c.[Onglyza  Hospital Category] as tier,a.DataSource,a.mkt,a.prod,a.ProductName,
---count(distinct cpa_id) AS Mapped_Hosp,sum(VYTD) as VYTD,sum(VYTDStly) as VYTDStly
---from TempKPIFrame_CPAPart a join (SELECT DISTINCT id,cpa_code FROM tblHospitalMaster where DataSource='CPA') b on a.cpa_id = b.id join 
---	 (select distinct [cpa code],[Onglyza  Hospital Category] from BMS_CPA_Hosp_Category where [cpa name]<> '#N/A' and [cpa name] is not null and [cpa code] is not null and [Onglyza  Hospital Category]<>'#N/A') c 
---		on c.[cpa code]=b.cpa_code
---where a.mkt=@mktOnglyza	 
---group by c.[Onglyza  Hospital Category] ,a.DataSource,a.mkt,a.prod,a.ProductName
+-- select c.[Onglyza  Hospital Category] as tier,a.DataSource,a.mkt,a.prod,a.ProductName,
+-- count(distinct cpa_id) AS Mapped_Hosp,sum(VYTD) as VYTD,sum(VYTDStly) as VYTDStly
+-- from TempKPIFrame_CPAPart a join (SELECT DISTINCT id,cpa_code FROM tblHospitalMaster where DataSource='CPA') b on a.cpa_id = b.id join 
+-- 	 (select distinct [cpa code],[Onglyza  Hospital Category] from BMS_CPA_Hosp_Category where [cpa name]<> '#N/A' and [cpa name] is not null and [cpa code] is not null and [Onglyza  Hospital Category]<>'#N/A') c 
+-- 		on c.[cpa code]=b.cpa_code
+-- where a.mkt=@mktOnglyza	 
+-- group by c.[Onglyza  Hospital Category] ,a.DataSource,a.mkt,a.prod,a.ProductName
 
 
 -- --Not zero data hospital part
---select convert(varchar(20),'Total') as Tier,a.DataSource,a.mkt,a.prod,a.ProductName,
---count(distinct cpa_id) AS Mapped_Hosp,sum(VYTD) as VYTD,sum(VYTDStly) as VYTDStly
---INTO Mid_KPIFrame_CPAPart_DPP4_NOTZero_Hosp
---from TempKPIFrame_CPAPart a join (SELECT DISTINCT id,cpa_code FROM tblHospitalMaster where DataSource='CPA') b on a.cpa_id = b.id join 
---	 (select distinct [cpa code] from BMS_CPA_Hosp_Category where [cpa name]<> '#N/A' and [cpa name] is not null and [cpa code] is not null and [Onglyza  Hospital Category]<>'#N/A') c on c.[cpa code]=b.cpa_code
---where mkt=@mktOnglyza and VYTD>0
---group by a.DataSource,a.mkt,a.prod,a.ProductName
+-- select convert(varchar(20),'Total') as Tier,a.DataSource,a.mkt,a.prod,a.ProductName,
+-- count(distinct cpa_id) AS Mapped_Hosp,sum(VYTD) as VYTD,sum(VYTDStly) as VYTDStly
+-- INTO Mid_KPIFrame_CPAPart_DPP4_NOTZero_Hosp
+-- from TempKPIFrame_CPAPart a join (SELECT DISTINCT id,cpa_code FROM tblHospitalMaster where DataSource='CPA') b on a.cpa_id = b.id join 
+-- 	 (select distinct [cpa code] from BMS_CPA_Hosp_Category where [cpa name]<> '#N/A' and [cpa name] is not null and [cpa code] is not null and [Onglyza  Hospital Category]<>'#N/A') c on c.[cpa code]=b.cpa_code
+-- where mkt=@mktOnglyza and VYTD>0
+-- group by a.DataSource,a.mkt,a.prod,a.ProductName
 
---INSERT INTO Mid_KPIFrame_CPAPart_DPP4_NOTZero_Hosp (Tier,DataSource,mkt,prod,productname,Mapped_Hosp,VYTD,VYTDStly)
+-- INSERT INTO Mid_KPIFrame_CPAPart_DPP4_NOTZero_Hosp (Tier,DataSource,mkt,prod,productname,Mapped_Hosp,VYTD,VYTDStly)
 --  --A,B,C,D tier
---select c.[Onglyza  Hospital Category] as tier,a.DataSource,a.mkt,a.prod,a.ProductName,
---count(distinct cpa_id) AS Mapped_Hosp,sum(VYTD) as VYTD,sum(VYTDStly) as VYTDStly
---from TempKPIFrame_CPAPart a join (SELECT DISTINCT id,cpa_code FROM tblHospitalMaster where DataSource='CPA') b on a.cpa_id = b.id join 
---	 (select distinct [cpa code],[Onglyza  Hospital Category] from BMS_CPA_Hosp_Category where [cpa name]<> '#N/A' and [cpa name] is not null and [cpa code] is not null and [Onglyza  Hospital Category]<>'#N/A') c 
---		on c.[cpa code]=b.cpa_code
---where a.mkt=@mktOnglyza	 and VYTD>0
---group by c.[Onglyza  Hospital Category] ,a.DataSource,a.mkt,a.prod,a.ProductName
---go
+-- select c.[Onglyza  Hospital Category] as tier,a.DataSource,a.mkt,a.prod,a.ProductName,
+-- count(distinct cpa_id) AS Mapped_Hosp,sum(VYTD) as VYTD,sum(VYTDStly) as VYTDStly
+-- from TempKPIFrame_CPAPart a join (SELECT DISTINCT id,cpa_code FROM tblHospitalMaster where DataSource='CPA') b on a.cpa_id = b.id join 
+-- 	 (select distinct [cpa code],[Onglyza  Hospital Category] from BMS_CPA_Hosp_Category where [cpa name]<> '#N/A' and [cpa name] is not null and [cpa code] is not null and [Onglyza  Hospital Category]<>'#N/A') c 
+-- 		on c.[cpa code]=b.cpa_code
+-- where a.mkt=@mktOnglyza	 and VYTD>0
+-- group by c.[Onglyza  Hospital Category] ,a.DataSource,a.mkt,a.prod,a.ProductName
+-- go
 
 --select * from Mid_KPIFrame_CPAPart_DPP4
 IF EXISTS(SELECT 1 FROM dbo.sysobjects where id=object_id(N'Output_KPI_Frame_CPAPart') and type='U')
@@ -1515,43 +1523,43 @@ END
 
 	
 
-----DPP4
---insert into Output_KPI_Frame_CPAPart(Tier,DataSource,mkt,prod,ProductName,y,x)
---select Tier,DataSource,mkt,prod,ProductName,y,x
---from (
---	select  a.Tier,a.DataSource,a.mkt,a.prod,a.ProductName,convert(decimal(20,8), a.Mapped_Hosp) as Mapped_Hosp, 
---	convert(decimal(20,8),case when b.VYTD is null or b.VYTD=0 then 0 else 1.0*a.VYTD/b.VYTD end) as [Market Size]
---	from (
---		select * from  Mid_KPIFrame_CPAPart_DPP4 where prod='000'
---	  ) a join 
---		 (
---		select * from  Mid_KPIFrame_CPAPart_DPP4 where  prod='000' and Tier ='Total'
---	  ) b on a.DataSource=b.DataSource and a.mkt=b.mkt and a.prod=b.prod and a.ProductName=b.ProductName
+-- --DPP4
+-- insert into Output_KPI_Frame_CPAPart(Tier,DataSource,mkt,prod,ProductName,y,x)
+-- select Tier,DataSource,mkt,prod,ProductName,y,x
+-- from (
+-- 	select  a.Tier,a.DataSource,a.mkt,a.prod,a.ProductName,convert(decimal(20,8), a.Mapped_Hosp) as Mapped_Hosp, 
+-- 	convert(decimal(20,8),case when b.VYTD is null or b.VYTD=0 then 0 else 1.0*a.VYTD/b.VYTD end) as [Market Size]
+-- 	from (
+-- 		select * from  Mid_KPIFrame_CPAPart_DPP4 where prod='000'
+-- 	  ) a join 
+-- 		 (
+-- 		select * from  Mid_KPIFrame_CPAPart_DPP4 where  prod='000' and Tier ='Total'
+-- 	  ) b on a.DataSource=b.DataSource and a.mkt=b.mkt and a.prod=b.prod and a.ProductName=b.ProductName
 -- ) t1 unpivot (
---	Y for X in (Mapped_Hosp,[Market Size])
---)  t2
---union all
---select  Tier,DataSource,mkt,prod,ProductName,y,x
---from (
---	select a.Tier,a.DataSource,a.mkt,a.prod,a.ProductName,
---		convert(decimal(20,8),case when a.VYTDStly is null or a.VYTDStly=0 then null else 1.0*(a.VYTD-a.VYTDStly)/a.VYTDStly end) as [ProductMarketGrowth],
---		convert(decimal(20,8),case when b.VYTD is null or b.VYTD =0 then 0 else 1.0*a.VYTD/b.VYTD end) as [ProductMarketShare]
---	from (select * from   Mid_KPIFrame_CPAPart_DPP4 where prod <>'000') a join
---		(select * from Mid_KPIFrame_CPAPart_DPP4 where prod='000') b on a.Tier=b.Tier and a.DataSource=b.DataSource and a.mkt=b.mkt
---) t1 unpivot (
---	Y for X in ([ProductMarketGrowth],[ProductMarketShare])
---)	t2	
+-- 	Y for X in (Mapped_Hosp,[Market Size])
+-- )  t2
+-- union all
+-- select  Tier,DataSource,mkt,prod,ProductName,y,x
+-- from (
+-- 	select a.Tier,a.DataSource,a.mkt,a.prod,a.ProductName,
+-- 		convert(decimal(20,8),case when a.VYTDStly is null or a.VYTDStly=0 then null else 1.0*(a.VYTD-a.VYTDStly)/a.VYTDStly end) as [ProductMarketGrowth],
+-- 		convert(decimal(20,8),case when b.VYTD is null or b.VYTD =0 then 0 else 1.0*a.VYTD/b.VYTD end) as [ProductMarketShare]
+-- 	from (select * from   Mid_KPIFrame_CPAPart_DPP4 where prod <>'000') a join
+-- 		(select * from Mid_KPIFrame_CPAPart_DPP4 where prod='000') b on a.Tier=b.Tier and a.DataSource=b.DataSource and a.mkt=b.mkt
+-- ) t1 unpivot (
+-- 	Y for X in ([ProductMarketGrowth],[ProductMarketShare])
+-- )	t2	
 
 --  --Hosp. # (Onglyza sales>0): Specified Series to DPP4
---insert into Output_KPI_Frame_CPAPart(Tier,DataSource,mkt,prod,ProductName,y,x)
---select Tier,DataSource,mkt,prod,ProductName,y,x
---from (
---	select  a.Tier,a.DataSource,a.mkt,a.prod,a.ProductName,convert(decimal(20,8), a.Mapped_Hosp) as Mapped_Hosp_NotZeroSales
---	from (
---		select * from  Mid_KPIFrame_CPAPart_DPP4_NOTZero_Hosp where prod='100'
---	  ) a )t1 unpivot (
---	Y for X in (Mapped_Hosp_NotZeroSales)
---)  t2
+-- insert into Output_KPI_Frame_CPAPart(Tier,DataSource,mkt,prod,ProductName,y,x)
+-- select Tier,DataSource,mkt,prod,ProductName,y,x
+-- from (
+-- 	select  a.Tier,a.DataSource,a.mkt,a.prod,a.ProductName,convert(decimal(20,8), a.Mapped_Hosp) as Mapped_Hosp_NotZeroSales
+-- 	from (
+-- 		select * from  Mid_KPIFrame_CPAPart_DPP4_NOTZero_Hosp where prod='100'
+-- 	  ) a )t1 unpivot (
+-- 	Y for X in (Mapped_Hosp_NotZeroSales)
+-- )  t2
 
 --HYP	
 	insert into Output_KPI_Frame_CPAPart(Tier,DataSource,mkt,prod,ProductName,y,x)
@@ -1600,11 +1608,12 @@ END
 	select Tier,DataSource,mkt,prod,ProductName,y,x
 	from (
 		select  a.Tier,a.DataSource,a.mkt,a.prod,a.ProductName,convert(decimal(20,8), a.Mapped_Hosp) as Mapped_Hosp, 
-		convert(decimal(20,8),case when b.VYTD is null or b.VYTD=0 then 0 else 1.0*a.VYTD/b.VYTD end) as [Market Size],
-		convert(decimal(20,8),a.VYTD) as [Market Size Value]
+			convert(decimal(20,8),case when b.VYTD is null or b.VYTD=0 then 0 else 1.0*a.VYTD/b.VYTD end) as [Market Size],
+			convert(decimal(20,8),a.VYTD) as [Market Size Value]
 		from (
 			select * from  Mid_KPIFrame_CPAPart_CCB where prod='000'
-		  ) a join 
+		  ) a 
+		join 
 			 (
 			select * from  Mid_KPIFrame_CPAPart_CCB where  prod='000' and Tier ='Total'
 		  ) b on a.DataSource=b.DataSource and a.mkt=b.mkt and a.prod=b.prod and a.ProductName=b.ProductName
@@ -1630,6 +1639,7 @@ END
 		from Mid_KPIFrame_CPAPart_CCB_For_Prod a where prod<>'000') b unpivot (
 		Y for X in (Mapped_Hosp_Prod)) t
 	) t2
+
 	delete from Output_KPI_Frame_CPAPart where mkt='CCB' and prod='000' and x='ProductMarketShare'
 	--delete from Output_KPI_Frame_CPAPart where mkt='CCB' and ProductName in ('Lacipil','Yuan Zhi')
 

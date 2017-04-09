@@ -7,6 +7,23 @@ exec dbo.sp_Log_Event 'Process','QT_IMS','Step_2_1_2_Create_MAX_TA_Output_Master
 
 
 
+
+
+if OBJECT_ID(N'tblQueryToolDriverMAX_Prod',N'U') is not null
+	drop table tblQueryToolDriverMAX_Prod
+
+select distinct 
+   MktType, Mkt, MktName
+   , Class
+   , Prod_Des, Prod_Cod
+   , CMPS_Name, CMPS_Code
+   , Pack_Des, Pack_Cod
+   , Corp_Des, Corp_Cod
+   , Manu_Des, Manu_Cod
+   , MNC, Gene_Cod ,cast(1 as decimal(5,3)) as rat
+into tblQueryToolDriverMAX_Prod 
+from tblQueryToolDriverMAX
+
 --------------------------------------
 -- max data 
 --------------------------------------
@@ -16,7 +33,8 @@ PRINT '(--------------------------------
           tblOutput_MAX_TA_Master
 ----------------------------------------)'
 truncate table tblOutput_MAX_TA_Master
-if exists(select 1 from sys.indexes where object_id=object_id(N'tblOutput_MAX_TA_Master') and name='idxDataType')
+
+IF exists(select 1 from sys.indexes where object_id=object_id(N'tblOutput_MAX_TA_Master') and name='idxDataType')
 	drop index tblOutput_MAX_TA_Master.idxDataType
 
 if exists(select 1 from sys.indexes where object_id=object_id(N'tblOutput_MAX_TA_Master') and name='idxDataMktType')
@@ -35,7 +53,7 @@ select
     , 'PK' as Prod_Lvl,'Y' as Uniq_Prod
     , Prod_Des, Prod_Cod
     , CMPS_Name, CMPS_CODE
-    , Pack_Des, t1.Pack_Cod
+    , Pack_Des, ISNULL(t1.Pack_Cod, t2.Pack_Cod)
     , Corp_Des, Corp_Cod
     , Manu_Des, Manu_Cod
     , MNC, Gene_Cod,
@@ -45,9 +63,9 @@ select
     MTH_30*rat, MTH_29*rat, MTH_28*rat, MTH_27*rat, MTH_26*rat, MTH_25*rat, MTH_24*rat, MTH_23*rat, MTH_22*rat, MTH_21*rat, 
     MTH_20*rat, MTH_19*rat, MTH_18*rat, MTH_17*rat, MTH_16*rat, MTH_15*rat, MTH_14*rat, MTH_13*rat, MTH_12*rat, MTH_11*rat,
     MTH_10*rat, MTH_9*rat, MTH_8*rat, MTH_7*rat, MTH_6*rat, MTH_5*rat, MTH_4*rat, MTH_3*rat, MTH_2*rat, MTH_1*rat, null 
-from tblQueryToolDriverIMS_Prod t1 
-inner join tblMAXDataRaw t2 on t1.Pack_Cod = t2.Pack_Cod
-inner join tblcitymax t3 on t2.Audi_Cod = t3.city
+from tblQueryToolDriverMAX_Prod t1 
+INNER join tblMAXDataRaw t2 on t1.Pack_Cod = t2.Pack_Cod
+inner join tblcitymax t3 on t2.Audi_Cod = t3.city and Geo_Lvl = 2
 
 
 INSERT	INTO dbo.tblOutput_MAX_TA_Master 
