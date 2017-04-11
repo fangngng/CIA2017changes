@@ -304,4 +304,24 @@ SELECT DISTINCT Audi_Cod FROM dbo.MTHCITY_MAX
 SELECT * FROM dbo.tblCityListForMAX
 SELECT * FROM tblCityListForhospital
 
+SELECT * FROM dbo.WebChartSeries WHERE LinkChartCode = 'd021'
+SELECT * FROM dbo.WebChartTitle  WHERE LinkChartCode = 'd021'
+SELECT * FROM dbo.WebChartExplain WHERE Code = 'd021'
+
+SELECT * FROM dbo.tblCityListForHospital
+
+SELECT * FROM tblcitymax WHERE city_CN = N'六安'
+
+SELECT * FROM dbo.tblCityListForMAX
+SELECT * FROM dbo.tblCityListForHospital
+WHERE province_CN = N'陕西'
+
+UPDATE dbo.tblCityListForHospital 
+SET province_en = 'SHAANXI'
+WHERE province_CN = N'陕西'
+
+SELECT * FROM tblHospitalList 
+
+ALTER TABLE dbo.tblHospitalList 
+add  province_EN VARCHAR(50)
 
