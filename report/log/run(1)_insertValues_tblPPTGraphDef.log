@@ -39,8 +39,8 @@
 1> 2> 3> 4> (0 rows affected)
 1> 2> 3> 4> 5> (0 rows affected)
 1> 2> 3> 4> 5> (0 rows affected)
-1> 2> 3> 4> 5> 6> (1 row affected)
-1> 2> 3> 4> (1 row affected)
+1> 2> 3> 4> 5> 6> (2 rows affected)
+1> 2> 3> 4> (2 rows affected)
 1> 2> 3> 4> (0 rows affected)
 1> 2> 3> 4> (0 rows affected)
 1> 2> 3> 4> 5> (1 row affected)
@@ -70,11 +70,11 @@
 1> 2> 3> 4> 5> 6> 7> 8> 9> 10> ---------------------
 				city Lev
 ----------------------
-(1 row affected)
-1> 2> 3> 4> 5> (1 row affected)
+(2 rows affected)
+1> 2> 3> 4> 5> (2 rows affected)
 1> 2> 3> 4> (0 rows affected)
 1> 2> 3> 4> 5> (0 rows affected)
-1> 2> 3> 4> 5> (0 rows affected)
+1> 2> 3> 4> 5> (1 row affected)
 1> 2> 3> 4> 5> 6> 7> (0 rows affected)
 1> 2> 3> 4> 5> 6> 7> 8> 9> 10> 11> 12> 13> ---------------------
 				Brand Reports:R020
@@ -163,10 +163,10 @@
 1> 2> 3> 4> 5> 6> 7> 8> 9> ---------------------
 				R170
 ----------------------
-(5 rows affected)
-1> 2> 3> 4> (5 rows affected)
-1> 2> 3> 4> (5 rows affected)
-1> 2> 3> 4> (5 rows affected)
+(6 rows affected)
+1> 2> 3> 4> (6 rows affected)
+1> 2> 3> 4> (6 rows affected)
+1> 2> 3> 4> (6 rows affected)
 1> 2> 3> 4> 5> 6> 7> 8> 9> ---------------------
 				R180
 ----------------------
@@ -189,9 +189,9 @@
 1> 2> 3> 4> 5> 6> 7> ---------------------
 				R210
 ----------------------
-(4 rows affected)
-1> 2> 3> 4> (3 rows affected)
+(5 rows affected)
 1> 2> 3> 4> (4 rows affected)
+1> 2> 3> 4> (5 rows affected)
 1> 2> 3> 4> 5> 6> 7> 8> 9> ---------------------
 				R220
 ----------------------
@@ -201,9 +201,9 @@
 1> 2> 3> 4> 5> 6> 7> 8> 9> ---------------------
 				R230
 ----------------------
-(5 rows affected)
-1> 2> 3> 4> (5 rows affected)
-1> 2> 3> 4> (5 rows affected)
+(6 rows affected)
+1> 2> 3> 4> (6 rows affected)
+1> 2> 3> 4> (6 rows affected)
 1> 2> 3> 4> 5> 6> 7> 8> ---------------------
 				R240
 ----------------------
@@ -225,9 +225,9 @@
 1> 2> 3> 4> 5> 6> 7> 8> ---------------------
 				R270
 ----------------------
-(4 rows affected)
-1> 2> 3> 4> (4 rows affected)
-1> 2> 3> 4> (4 rows affected)
+(5 rows affected)
+1> 2> 3> 4> (5 rows affected)
+1> 2> 3> 4> (5 rows affected)
 1> 2> 3> 4> 5> 6> 7> 8> ---------------------
 				R280
 ----------------------
@@ -237,9 +237,9 @@
 1> 2> 3> 4> 5> 6> 7> ---------------------
 				R290
 ----------------------
-(5 rows affected)
-1> 2> 3> 4> (5 rows affected)
-1> 2> 3> 4> (5 rows affected)
+(6 rows affected)
+1> 2> 3> 4> (6 rows affected)
+1> 2> 3> 4> (6 rows affected)
 1> 2> 3> 4> 5> 6> 7> 8> ---------------------
 				R300
 ----------------------
@@ -383,7 +383,7 @@
 (1 row affected)
 1> 2> 3> 4> (1 row affected)
 1> 2> 3> 4> 5> 6> 7> -- R480
-(4 rows affected)
+(5 rows affected)
 1> 2> 3> 4> 5> 6> 7> -- R490
 (1 row affected)
 1> 2> 3> 4> (1 row affected)
@@ -432,7 +432,7 @@
 (1 row affected)
              
  ----------- 
-         501 
+         523 
 
 (1 row affected)
              
@@ -462,7 +462,7 @@
 (1 row affected)
              
  ----------- 
-          16 
+          21 
 
 (1 row affected)
              
@@ -477,7 +477,7 @@
 (1 row affected)
              
  ----------- 
-         432 
+         449 
 
 (1 row affected)
              
@@ -725,26 +725,6 @@
 	SpecialTable                                       D      
 	Series||                                                     1 
 	          1 
-         212 D130                           D130                           
-	Baraclude                      Baraclude                      
-	Chart                                              Y      
-	Series||X                                                    1 
-	          1 
-         213 D130                           D130                           
-	Glucophage                     Glucophage                     
-	Chart                                              Y      
-	Series||X                                                    1 
-	          1 
-         214 D130                           D130                           
-	Paraplatin                     Paraplatin                     
-	Chart                                              Y      
-	Series||X                                                    1 
-	          1 
-         215 D130                           D130                           
-	Taxol                          Taxol                          
-	Chart                                              Y      
-	Series||X                                                    1 
-	          1 
          216 D150                           D150                           
 	Coniel                         Coniel                         
 	Chart                                              Y      
@@ -951,7 +931,7 @@
 	Series||X                                                    1 
 	          1 
 
-(91 rows affected)
+(87 rows affected)
 1> 2> 3> 4>  id          Code                           LinkChartCode                  
 	Product                        LinkChartProduct               
 	GraphType                                          Active 
@@ -1272,16 +1252,6 @@
 	sheet1                                             L      
 	Series||                                                     1 
 	          1 
-         118 D050                           D050                           
-	Baraclude                      Baraclude                      
-	Chart                                              Y      
-	Series||X                                                    1 
-	          1 
-         119 D050                           D050                           
-	Baraclude                      Baraclude                      
-	SpecialTable                                       D      
-	Series||                                                     1 
-	          1 
          120 D050                           D050                           
 	Coniel                         Coniel                         
 	Chart                                              Y      
@@ -1592,16 +1562,6 @@
 	Chart4                                             Y      
 	Series||X                                                    1 
 	          1 
-         194 D110                           D110                           
-	Baraclude                      Baraclude                      
-	Chart                                              Y      
-	Series||X                                                    1 
-	          1 
-         195 D110                           D110                           
-	Baraclude                      Baraclude                      
-	SpecialTable                                       D      
-	Series||                                                     1 
-	          1 
          196 D110                           D110                           
 	Coniel                         Coniel                         
 	Chart                                              Y      
@@ -1671,11 +1631,6 @@
 	Eliquis NOAC                   Eliquis NOAC                   
 	SpecialTable                                       D      
 	Series||                                                     1 
-	          1 
-         212 D130                           D130                           
-	Baraclude                      Baraclude                      
-	Chart                                              Y      
-	Series||X                                                    1 
 	          1 
          213 D130                           D130                           
 	Glucophage                     Glucophage                     
@@ -2037,86 +1992,6 @@
 	Chart                                              Y      
 	Series||X                                                    1 
 	          1 
-         369 R170                           R171                           
-	Baraclude                      Baraclude                      
-	Chart1                                             Y      
-	Series||X                                                    1 
-	          1 
-         375 R170                           R172                           
-	Baraclude                      Baraclude                      
-	Chart2                                             Y      
-	Series||X                                                    1 
-	          1 
-         381 R170                           R173                           
-	Baraclude                      Baraclude                      
-	Chart3                                             Y      
-	Series||X                                                    1 
-	          1 
-         387 R170                           R174                           
-	Baraclude                      Baraclude                      
-	Chart4                                             Y      
-	Series||X                                                    1 
-	          1 
-         423 R210                           R211                           
-	Baraclude                      Baraclude                      
-	Chart1                                             Y      
-	Series||X                                                    1 
-	          1 
-         424 R210                           R211                           
-	Baraclude                      Baraclude                      
-	sheet                                              D      
-	Series||                                                     1 
-	          1 
-         435 R210                           R212                           
-	Baraclude                      Baraclude                      
-	Chart2                                             Y      
-	Series||X                                                    1 
-	          1 
-         442 R230                           R231                           
-	Baraclude                      Baraclude                      
-	Chart1                                             Y      
-	Series||X                                                    1 
-	          1 
-         443 R230                           R231                           
-	Baraclude                      Baraclude                      
-	sheet                                              D      
-	Series||                                                     1 
-	          1 
-         454 R230                           R232                           
-	Baraclude                      Baraclude                      
-	Chart2                                             Y      
-	Series||X                                                    1 
-	          1 
-         478 R270                           R271                           
-	Baraclude                      Baraclude                      
-	Chart1                                             Y      
-	Series||X                                                    1 
-	          1 
-         479 R270                           R271                           
-	Baraclude                      Baraclude                      
-	sheet                                              D      
-	Series||                                                     1 
-	          1 
-         490 R270                           R272                           
-	Baraclude                      Baraclude                      
-	Chart2                                             Y      
-	Series||X                                                    1 
-	          1 
-         499 R290                           R291                           
-	Baraclude                      Baraclude                      
-	Chart1                                             Y      
-	Series||X                                                    1 
-	          1 
-         500 R290                           R291                           
-	Baraclude                      Baraclude                      
-	sheet                                              D      
-	Series||                                                     1 
-	          1 
-         511 R290                           R292                           
-	Baraclude                      Baraclude                      
-	Chart2                                             Y      
-	Series||X                                                    1 
-	          1 
          535 R350                           R351                           
 	NULL                           NULL                           
 	Chart1                                             Y      
@@ -2247,11 +2122,6 @@
 	SpecialTable                                       Y      
 	Series||X                                                    1 
 	          1 
-         622 R480                           R480                           
-	Baraclude                      Baraclude                      
-	Chart                                              Y      
-	Series||X                                                    1 
-	          1 
          628 R491                           R491                           
 	Coniel                         Coniel                         
 	Chart                                              Y      
@@ -2333,7 +2203,7 @@
 	Series||X                                                    1 
 	          1 
 
-(274 rows affected)
+(252 rows affected)
 1> 2> 3> 4> 5> 6> 7>  Code                           LinkChartCode                  
 	Product                        LinkChartProduct               
 	GraphType                                          Active 
@@ -6051,6 +5921,6 @@
 	          1 
 
 (741 rows affected)
-1> 2> 3> 4> 5> 6> 7> 8> 9> 10> 11> 12> 13> 14> 15> 16> (462 rows affected)
-(462 rows affected)
+1> 2> 3> 4> 5> 6> 7> 8> 9> 10> 11> 12> 13> 14> 15> 16> (484 rows affected)
+(484 rows affected)
 over!

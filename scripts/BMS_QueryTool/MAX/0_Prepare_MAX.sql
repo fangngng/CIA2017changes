@@ -106,22 +106,6 @@ inner join tblQueryToolDriverATC b on a.pack_cod = b.Pack_cod
 where 1 = 0
 GO
 
--- delete a from tblQueryToolDriverMAX a 
--- where not exists(select * from mthchpa_pkau b where a.pack_cod = b.pack_cod)
--- 	-- and not exists(select * from mthcity_pkau b where a.pack_cod = b.pack_cod)
--- 	and not exists(select * from MTHCITY_MAX b where a.pack_cod = b.pack_cod)
--- 	and MktType = 'Global TA'
--- go
-
-
--- select N'比较前后2个月的 Global Market:'
--- select count(*) from tblQueryToolDriverMAX where MktType = 'Global TA'
--- declare @curIMSMth varchar(6), @lastIMSMth varchar(6)
--- select @curIMSMth= DataPeriod from tblDataPeriod where QType = 'MAX'
--- set @lastIMSMth = convert(varchar(6), dateadd(month, -1, cast(@curIMSMth+'01' as datetime)), 112)
--- exec('
--- select count(*) from BMSCNProc_bak.dbo.tblQueryToolDriverIMS_'+@lastIMSMth+'
--- where MktType = ''Global TA'' ')
 go
 
 
@@ -293,59 +277,6 @@ where not exists(select * from mthchpa_pkau b where a.pack_cod = b.pack_cod)
 	and a.MktType = ('In-line Market')
 go
 
-SET ansi_warnings OFF
-
--- print 'In-line Market Eliquis(VTEp)'
--- declare @mth varchar(10)
--- select @mth =DataPeriod from tblDataPeriod where QType = 'MAX'
--- insert into tblQueryToolDriverMAX
--- select distinct 'In-line Market' as MktType, 
--- 	'Eliquis(VTEp)' as Mkt, 'Eliquis(VTEp) MARKET' as MktName,
--- 	ATC3_Cod, 'NA' as Class, Mole_Cod,Mole_Des,
--- 	Prod_Cod,Prod_Des as Prod_Des, 
--- 	Pack_Cod, Pack_Des,Corp_Cod, Corp_Des,Manu_Cod, Manu_Des,
--- 	MNC,'N' CLSInd, Gene_Cod, @mth as AddMonth
--- from tblQueryToolDriverATC
--- where Mole_cod in ('406260','408800','408827','413885','703259','704307','710047','711981','719372', '904100') 
--- 	and Prod_cod <> '14146' -- 去掉复方
-
--- 20161102 modify VTEp market to APIXABAN,RIVAROXABAN,DABIGATRAN ETEXILATE,ENOXAPARIN SODIUM,DALTEPARIN SODIUM,
---	LOW MOLECULAR WEIGHT HEPARIN,HEPARIN,FONDAPARINUX SODIUM,NADROPARIN CALCIUM molecule
--- where Prod_cod in ('06253','08621','40785','53099','37977')
---FRAXIPARINE+CLEXANE+XARELTO+ELIQUIS+ARIXTRA（安卓）
-go
-
--- print 'In-line Market Eliquis(NOAC)'
--- declare @mth varchar(10)
--- select @mth =DataPeriod from tblDataPeriod where QType = 'MAX'
--- insert into tblQueryToolDriverMAX
--- select distinct 'In-line Market' as MktType, 
--- 	'Eliquis(NOAC)' as Mkt, 'Eliquis(NOAC) MARKET' as MktName,
--- 	ATC3_Cod, 'NA' as Class, Mole_Cod,Mole_Des,
--- 	Prod_Cod,Prod_Des as Prod_Des, 
--- 	Pack_Cod, Pack_Des,Corp_Cod, Corp_Des,Manu_Cod, Manu_Des,
--- 	MNC,'N' CLSInd, Gene_Cod, @mth as AddMonth
--- from tblQueryToolDriverATC
--- where Prod_cod in ('53099','40785','52911')
--- --Eliquis+XARELTO+PRADAXA（泰毕全）
-
--- -- 20161102 change NOAC to VTEt
--- print 'In-line Market Eliquis(VTEt)'
--- declare @mth varchar(10)
--- select @mth =DataPeriod from tblDataPeriod where QType = 'MAX'
--- insert into tblQueryToolDriverMAX
--- select distinct 'In-line Market' as MktType, 
--- 	'Eliquis(VTEt)' as Mkt, 'Eliquis(VTEt) MARKET' as MktName,
--- 	ATC3_Cod, 'NA' as Class, Mole_Cod,Mole_Des,
--- 	Prod_Cod,Prod_Des as Prod_Des, 
--- 	Pack_Cod, Pack_Des,Corp_Cod, Corp_Des,Manu_Cod, Manu_Des,
--- 	MNC,'N' CLSInd, Gene_Cod, @mth as AddMonth
--- from tblQueryToolDriverATC
--- where Mole_cod in ('406260','408800','408827','413885','703259','710047','704307','711981','719372','239900', '904100')
--- 	and Prod_cod <> '14146' -- 去掉复方
-go
-
-SET ansi_warnings on
 
 select N'比较前后2个月的 In-line  Market:' 
 select count(*) from tblQueryToolDriverMAX where MktType = 'In-line Market'
@@ -457,6 +388,22 @@ GO
 delete 
 from tblQueryToolDriverMAX
 where mkt not in ('ONCFCS', 'HYPM', 'CML', 'ARV')
+
+go 
+
+update b 
+set b.prod_des = a.Final_Prod 
+FROM mthcity_max AS a 
+INNER JOIN tblQueryToolDriverMAX AS b ON a.Prod_cod = b.Prod_cod
+
+
+go 
+
+
+
+-- select * 
+-- into tblQueryToolDriverATCMAX
+-- from tblQueryToolDriverATC
 
 
 exec dbo.sp_Log_Event 'Prepare','QT_MAX','0_Prepare_MAX.sql','End',null,null

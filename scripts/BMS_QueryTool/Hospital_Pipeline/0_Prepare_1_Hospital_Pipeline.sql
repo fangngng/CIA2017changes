@@ -13,7 +13,7 @@ go
 
 
 
-update tblDataPeriod set DataPeriod = '201609' --todo
+update tblDataPeriod set DataPeriod = '201612' --todo
 where QType = 'HOSP_P'
 GO
 

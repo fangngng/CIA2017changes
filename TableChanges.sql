@@ -582,11 +582,11 @@ use BMSChinaMRBI
 go 
 
 UPDATE dbo.tblSalesRegion 
-SET region = 'EastI' 
+SET region = 'East I' 
 WHERE Region = 'East1'
 
 UPDATE dbo.tblSalesRegion 
-SET region = 'EastII' 
+SET region = 'East II' 
 WHERE Region = 'East2'
 
 go 

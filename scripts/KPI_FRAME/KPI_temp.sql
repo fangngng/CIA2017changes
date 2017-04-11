@@ -1602,7 +1602,7 @@ inner join (
     ) as b on a.Product = b.Prod_Des_CN
 -- inner join (
 --     select distinct prod_Des
--- 	from tblMktDef_Inline_MAX 
+-- 	from tblMktDef_Inline 
 -- )  as c on b.prod_Des_EN = c.prod_Des 
 where Y >= @Year and M >= 1
 group by RMName 
@@ -1642,7 +1642,7 @@ set Series_Idx =
     end
     , X_Idx = b.Idx 
 from KPI_Frame_MAX_Region_BAL as a
-inner join tblMktDef_Inline_MAX as b on a.X = b.Mkt
+inner join dbo.tblMktDef_Inline_MAX as b on a.X = b.Mkt
 
 update a 
 set a.Y = a.Y / b.Y 
@@ -1670,17 +1670,21 @@ set @LastMth = ( select Month from tblMonthList where MonSeq = 2 )
 set @YTDMth = ( select Month from tblMonthList where MonSeq = 13 )
 
 
+-- BaracludeYTDShr 
+SELECT a.BaracludeYTD / a.YTD 
+from temp_KPI_Frame_MAX_Region_BAL as a 
+
 select RMName as Series, sum(Value) as YTD 
 into temp_KPI_Frame_MAX_Region_BAL
 from temp_BAL_CPAData as a
 inner join (
     select distinct prod_Des_EN,Prod_Des_CN  from BMSChinaMRBI.dbo.tblMktDefHospital  where Mkt = 'Arv' 
 ) as b on a.Product = b.Prod_Des_CN
-inner join (
+left join (
     select distinct prod_Des
 	from tblMktDef_Inline_MAX 
 ) as c on b.prod_Des_EN = c.prod_Des 
-where Y >= @Year and M >= 1
+where Y >= @Year and M >= 1 
 group by RMName 
 
 alter table temp_KPI_Frame_MAX_Region_BAL 
@@ -1704,11 +1708,11 @@ inner join (
     inner join (
         select distinct prod_Des_EN,Prod_Des_CN  from BMSChinaMRBI.dbo.tblMktDefHospital  where Mkt = 'Arv' 
     ) as b on a.Product = b.Prod_Des_CN
-    inner join (
+    left join (
         select distinct prod_Des
         from tblMktDef_Inline_MAX 
     ) as c on b.prod_Des_EN = c.prod_Des 
-    where Y >= @LastYear and M >= 1 and Y < @Year
+    where Y >= @LastYear and M >= 1 and Y < @Year and M <= @currMth
     group by RMName 
 ) as b on a.Series = b.Series 
 
@@ -1722,11 +1726,11 @@ inner join (
     inner join (
         select distinct prod_Des_EN,Prod_Des_CN  from BMSChinaMRBI.dbo.tblMktDefHospital  where Mkt = 'Arv' 
     ) as b on a.Product = b.Prod_Des_CN
-    inner join (
+    left join (
         select distinct prod_Des
         from tblMktDef_Inline_MAX 
     ) as c on b.prod_Des_EN = c.prod_Des 
-    where Y >= @LastYear and M >= 1 and Y < @Year
+    where Y >= @LastYear and M >= 1 and Y < @Year and M <= @currMth
         and c.Prod_Des = 'Baraclude'
     group by RMName 
 ) as b on a.Series = b.Series 
@@ -1742,11 +1746,11 @@ inner join (
     inner join (
         select distinct prod_Des_EN,Prod_Des_CN  from BMSChinaMRBI.dbo.tblMktDefHospital  where Mkt = 'Arv' 
     ) as b on a.Product = b.Prod_Des_CN
-    inner join (
+    left join (
         select distinct prod_Des
         from tblMktDef_Inline_MAX 
     ) as c on b.prod_Des_EN = c.prod_Des 
-    where  M >= 1 and Y >= @Year
+    where  M >= 1 and Y >= @Year and M <= @currMth
         and c.Prod_Des = 'Baraclude'
     group by RMName 
 ) as b on a.Series = b.Series 
@@ -1761,11 +1765,11 @@ inner join (
     inner join (
         select distinct prod_Des_EN,Prod_Des_CN  from BMSChinaMRBI.dbo.tblMktDefHospital  where Mkt = 'Arv' 
     ) as b on a.Product = b.Prod_Des_CN
-    inner join (
+    left join (
         select distinct prod_Des
         from tblMktDef_Inline_MAX 
     ) as c on b.prod_Des_EN = c.prod_Des 
-    where  M = @currMth and Y = @Year
+    where  M = @currMth and Y = @Year 
         and c.Prod_Des = 'Baraclude'
     group by RMName 
 ) as b on a.Series = b.Series 
@@ -1780,7 +1784,7 @@ inner join (
     inner join (
         select distinct prod_Des_EN,Prod_Des_CN  from BMSChinaMRBI.dbo.tblMktDefHospital  where Mkt = 'Arv' 
     ) as b on a.Product = b.Prod_Des_CN
-    inner join (
+    left join (
         select distinct prod_Des
         from tblMktDef_Inline_MAX 
     ) as c on b.prod_Des_EN = c.prod_Des 

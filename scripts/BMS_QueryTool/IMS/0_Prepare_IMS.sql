@@ -381,7 +381,21 @@ select distinct  'Global TA' MktType,
 	b.MNC,'N' CLSInd,b.Gene_cod, @mth as AddMonth
 from Db4.BMSChinaCIA_IMS.dbo.tblMktDef_GlobalTA a
 inner join tblQueryToolDriverATC b on a.pack_cod = b.Pack_cod
-GO
+
+
+insert into tblQueryToolDriverIMS
+select distinct  'Global TA' MktType,
+	'ARV', 'ARV Market',
+	a.ATC3_Cod, 'NA' Class,
+	a.Mole_cod, a.Mole_des,
+	a.Prod_cod, a.Prod_des,
+	a.Pack_cod, a.Pack_des,
+	a.corp_cod, a.corp_des,
+	a.Manu_cod, a.Manu_des,
+	a.MNC,'N' CLSInd, a.Gene_cod, @mth as AddMonth
+from MTHCITY_MAX as a 
+LEFT JOIN tblQueryToolDriverIMS AS b ON a.Pack_Cod = b.Pack_Cod
+WHERE b.Pack_Cod IS NULL 
 
 delete a from tblQueryToolDriverIMS a 
 where not exists(select * from mthchpa_pkau b where a.pack_cod = b.pack_cod)
@@ -557,54 +571,6 @@ go
 
 SET ansi_warnings OFF
 
--- print 'In-line Market Eliquis(VTEp)'
--- declare @mth varchar(10)
--- select @mth =DataPeriod from tblDataPeriod where QType = 'IMS'
--- insert into tblQueryToolDriverIMS
--- select distinct 'In-line Market' as MktType, 
--- 	'Eliquis(VTEp)' as Mkt, 'Eliquis(VTEp) MARKET' as MktName,
--- 	ATC3_Cod, 'NA' as Class, Mole_Cod,Mole_Des,
--- 	Prod_Cod,Prod_Des as Prod_Des, 
--- 	Pack_Cod, Pack_Des,Corp_Cod, Corp_Des,Manu_Cod, Manu_Des,
--- 	MNC,'N' CLSInd, Gene_Cod, @mth as AddMonth
--- from tblQueryToolDriverATC
--- where Mole_cod in ('406260','408800','408827','413885','703259','704307','710047','711981','719372', '904100') 
--- 	and Prod_cod <> '14146' -- 去掉复方
-
--- 20161102 modify VTEp market to APIXABAN,RIVAROXABAN,DABIGATRAN ETEXILATE,ENOXAPARIN SODIUM,DALTEPARIN SODIUM,
---	LOW MOLECULAR WEIGHT HEPARIN,HEPARIN,FONDAPARINUX SODIUM,NADROPARIN CALCIUM molecule
--- where Prod_cod in ('06253','08621','40785','53099','37977')
---FRAXIPARINE+CLEXANE+XARELTO+ELIQUIS+ARIXTRA（安卓）
-go
-
--- print 'In-line Market Eliquis(NOAC)'
--- declare @mth varchar(10)
--- select @mth =DataPeriod from tblDataPeriod where QType = 'IMS'
--- insert into tblQueryToolDriverIMS
--- select distinct 'In-line Market' as MktType, 
--- 	'Eliquis(NOAC)' as Mkt, 'Eliquis(NOAC) MARKET' as MktName,
--- 	ATC3_Cod, 'NA' as Class, Mole_Cod,Mole_Des,
--- 	Prod_Cod,Prod_Des as Prod_Des, 
--- 	Pack_Cod, Pack_Des,Corp_Cod, Corp_Des,Manu_Cod, Manu_Des,
--- 	MNC,'N' CLSInd, Gene_Cod, @mth as AddMonth
--- from tblQueryToolDriverATC
--- where Prod_cod in ('53099','40785','52911')
--- --Eliquis+XARELTO+PRADAXA（泰毕全）
-
--- -- 20161102 change NOAC to VTEt
--- print 'In-line Market Eliquis(VTEt)'
--- declare @mth varchar(10)
--- select @mth =DataPeriod from tblDataPeriod where QType = 'IMS'
--- insert into tblQueryToolDriverIMS
--- select distinct 'In-line Market' as MktType, 
--- 	'Eliquis(VTEt)' as Mkt, 'Eliquis(VTEt) MARKET' as MktName,
--- 	ATC3_Cod, 'NA' as Class, Mole_Cod,Mole_Des,
--- 	Prod_Cod,Prod_Des as Prod_Des, 
--- 	Pack_Cod, Pack_Des,Corp_Cod, Corp_Des,Manu_Cod, Manu_Des,
--- 	MNC,'N' CLSInd, Gene_Cod, @mth as AddMonth
--- from tblQueryToolDriverATC
--- where Mole_cod in ('406260','408800','408827','413885','703259','710047','704307','711981','719372','239900', '904100')
--- 	and Prod_cod <> '14146' -- 去掉复方
 go
 
 SET ansi_warnings on

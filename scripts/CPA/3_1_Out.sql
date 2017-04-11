@@ -550,8 +550,15 @@ go
 --where LinkChartCode = 'D050' and IsShow = 'D' and Product ='paraplatin' 
 
 update OutputHospital_All
-set geo = case geo when 'East1' then 'East I' when 'East2' then 'East II' else geo end ,
-    ParentGeo = case ParentGeo when 'East1' then 'East I' when 'East2' then 'East II' else ParentGeo end  
+set geo = case geo when 'East1' then 'East I'  
+                    when 'EastI' then 'East I' 
+                    when 'East2' then 'East II'
+                    when 'EastII' then 'East II'  else geo end ,
+    ParentGeo = case ParentGeo 
+                    when 'East1' then 'East I'  
+                    when 'EastI' then 'East I' 
+                    when 'East2' then 'East II'
+                    when 'EastII' then 'East II' else ParentGeo end  
 where LinkChartCode = 'D050'
 go
 
@@ -1060,6 +1067,10 @@ go
 
 update OutputHospital_All 
 set ParentGeo = replace(replace(ParentGeo, 'East1', 'East I'), 'East2', 'East II')
+where linkChartCode in ('D110', 'D130')
+
+update OutputHospital_All 
+set ParentGeo = replace(replace(ParentGeo, 'EastI', 'East I'), 'EastII', 'East II')
 where linkChartCode in ('D110', 'D130')
 go 
 
@@ -2815,6 +2826,8 @@ go
 ---------------------------------
 -- C170 -- baraclude nation BAL hospital data 
 ---------------------------------
+
+
 if object_id(N'tempBALHospitalDataByGeo',N'U') is not null
 	drop table tempBALHospitalDataByGeo
 go 
@@ -2827,8 +2840,8 @@ INNER JOIN tempHospitalDataByGeo AS c ON a.id = c.Cpa_id
 
 
 update tempBALHospitalDataByGeo 
-set geo = case geo when 'East1' then 'EastI' when 'East2' then 'EastII' else geo end ,
-    ParentGeo = case ParentGeo when 'East1' then 'EastI' when 'East2' then 'EastII' else ParentGeo end 
+set geo = case geo when 'East1' then 'East I' when 'East2' then 'East II' else geo end ,
+    ParentGeo = case ParentGeo when 'East1' then 'East I' when 'East2' then 'East II' else ParentGeo end 
 
 go 
 
@@ -2848,9 +2861,9 @@ SELECT product, RMName,  datasource, a.mkt, a.Prod ,
 set @sql = @sql + '
 into OutputBALHospitalDataByGeo
 FROM tempBALHospitalDataByGeo AS a 
-INNER JOIN tblMktDef_MRBIChina AS b ON a.prod = b.prod AND a.mkt = b.mkt
-WHERE a.mkt = ''arv'' and a.lev = ''nat'' 
-	and b.molecule = ''N''
+INNER JOIN (select distinct Prod  from BMSChinaMRBI.dbo.tblMktDefHospital  where Mkt = ''Arv'' and molecule = ''N'' ) AS b 
+ON a.prod = b.prod 
+WHERE a.mkt = ''arv'' and a.lev = ''nat'' and product = ''Baraclude'' 
 GROUP BY Product, RMName, datasource, a.mkt, a.Prod 
 '
 print @sql 
@@ -3078,29 +3091,13 @@ set Y =
    when a.category = 'Volume' and a.TimeFrame = 'MQT' then case when b.UR3M1 = 0 then null else a.Y/b.UR3M1 end
    when a.category = 'Value' and a.TimeFrame = 'MTH' then case when b.VM1 = 0 then null else a.Y/b.VM1 end
    when a.category = 'Volume' and a.TimeFrame = 'MTH' then case when b.UM1 = 0 then null else a.Y/b.UM1 end 
-   end ,
-   X =
-	case  
-	   when a.category = 'Value' and a.TimeFrame = 'MAT'  then   X + '(' + convert(varchar(20), convert(decimal(22, 0), b.vmat1 )) + ')'  
-	   when a.category = 'Volume' and a.TimeFrame = 'MAT' then   X + '(' + convert(varchar(20), convert(decimal(22, 0), b.UMat1 )) + ')'  
-	   when a.category = 'Value' and a.TimeFrame = 'YTD'  then   X + '(' + convert(varchar(20), convert(decimal(22, 0), b.VYTD  )) + ')'  
-	   when a.category = 'Volume' and a.TimeFrame = 'YTD' then   X + '(' + convert(varchar(20), convert(decimal(22, 0), b.UYTD  )) + ')'  
-	   when a.category = 'Value' and a.TimeFrame = 'MQT'  then   X + '(' + convert(varchar(20), convert(decimal(22, 0), b.VR3M1 )) + ')'  
-	   when a.category = 'Volume' and a.TimeFrame = 'MQT' then   X + '(' + convert(varchar(20), convert(decimal(22, 0), b.UR3M1 )) + ')'  
-	   when a.category = 'Value' and a.TimeFrame = 'MTH'  then   X + '(' + convert(varchar(20), convert(decimal(22, 0), b.VM1   )) + ')'  
-	   when a.category = 'Volume' and a.TimeFrame = 'MTH' then   X + '(' + convert(varchar(20), convert(decimal(22, 0), b.UM1   )) + ')'   
-	   END 
+   end 
 from OutputHospital_All a
 inner join OutputBALHospitalDataRullupByProd b on  a.Product = b.Mkt  and a.X = b.RMName 
 where a.LinkChartCode = 'C170' 
 go
 
 go
-update OutputHospital_All 
-set Product = b.Product
-from OutputHospital_All a 
-inner join (select distinct Product,Mkt from tblMktDefHospital) b on a.Product = b.Mkt
-where a.LinkChartCode = 'C170'
 go
 insert into OutputHospital_All (LinkChartCode, Series, SeriesIdx, Category, Product, Lev, ParentGeo, Geo, Currency, TimeFrame, X, XIdx, Y, IsShow)
 select 
@@ -3116,12 +3113,42 @@ select
   , TimeFrame
   , X
   , XIdx
-  , case when SeriesIdx <> 999 then cast(Y as Float)/(select Rate from BMSChinaCIA_IMS.dbo.tblRate) else Y end
+  , Y 
   , IsShow
 from OutputHospital_All 
 where LinkChartCode in ('C170') and Currency = 'RMB'
 go
 
+declare @rate float 
+set @rate = ( SELECT Rate FROM BMSChinaCIA_IMS.dbo.tblRate ) 
+
+update OutputHospital_All 
+set X =
+	case  
+	   when a.category = 'Value' and a.Currency = 'USD' and a.TimeFrame = 'MAT'  then   X + '(' + convert(varchar(20), convert(decimal(22, 0), b.vmat1/@rate )) + ')'  
+	   when a.category = 'Value' and a.Currency = 'USD' and a.TimeFrame = 'YTD'  then   X + '(' + convert(varchar(20), convert(decimal(22, 0), b.VYTD/@rate  )) + ')'  
+	   when a.category = 'Value' and a.Currency = 'USD' and a.TimeFrame = 'MQT'  then   X + '(' + convert(varchar(20), convert(decimal(22, 0), b.VR3M1/@rate )) + ')'  
+	   when a.category = 'Value' and a.Currency = 'USD' and a.TimeFrame = 'MTH'  then   X + '(' + convert(varchar(20), convert(decimal(22, 0), b.VM1/@rate   )) + ')'  
+	   when a.category = 'Value' and a.Currency = 'RMB' and a.TimeFrame = 'MAT'  then   X + '(' + convert(varchar(20), convert(decimal(22, 0), b.vmat1 )) + ')'  
+	   when a.category = 'Volume' and a.TimeFrame = 'MAT' then   X + '(' + convert(varchar(20), convert(decimal(22, 0), b.UMat1 )) + ')'  
+	   when a.category = 'Value' and a.Currency = 'RMB' and a.TimeFrame = 'YTD'  then   X + '(' + convert(varchar(20), convert(decimal(22, 0), b.VYTD  )) + ')'  
+	   when a.category = 'Volume' and a.TimeFrame = 'YTD' then   X + '(' + convert(varchar(20), convert(decimal(22, 0), b.UYTD  )) + ')'  
+	   when a.category = 'Value' and a.Currency = 'RMB' and a.TimeFrame = 'MQT'  then   X + '(' + convert(varchar(20), convert(decimal(22, 0), b.VR3M1 )) + ')'  
+	   when a.category = 'Volume' and a.TimeFrame = 'MQT' then   X + '(' + convert(varchar(20), convert(decimal(22, 0), b.UR3M1 )) + ')'  
+	   when a.category = 'Value' and a.Currency = 'RMB' and a.TimeFrame = 'MTH'  then   X + '(' + convert(varchar(20), convert(decimal(22, 0), b.VM1   )) + ')'  
+	   when a.category = 'Volume' and a.TimeFrame = 'MTH' then   X + '(' + convert(varchar(20), convert(decimal(22, 0), b.UM1   )) + ')'   
+	   END 
+from OutputHospital_All a
+inner join OutputBALHospitalDataRullupByProd b on  a.Product = b.Mkt  and a.X = b.RMName 
+where a.LinkChartCode = 'C170' 
+go 
+
+update OutputHospital_All 
+set Product = b.Product
+from OutputHospital_All a 
+inner join (select distinct Product,Mkt from tblMktDefHospital) b on a.Product = b.Mkt
+where a.LinkChartCode = 'C170'
+go 
 
 -- 通常要半小时多
 exec dbo.sp_Log_Event 'Output','CIA_CPA','3_1_Out.sql','End',null,null

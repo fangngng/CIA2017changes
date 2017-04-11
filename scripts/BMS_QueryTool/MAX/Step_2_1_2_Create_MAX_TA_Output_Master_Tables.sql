@@ -97,6 +97,8 @@ SELECT	DataType, MktType, Mkt, Market_Name, 'China' AS Geo, 0, Class, Class_Name
 		SUM(MTH_14), SUM(MTH_13), SUM(MTH_12), SUM(MTH_11), SUM(MTH_10), SUM(MTH_9), SUM(MTH_8), SUM(MTH_7), SUM(MTH_6),
 		SUM(MTH_5), SUM(MTH_4), SUM(MTH_3), SUM(MTH_2), SUM(MTH_1), null 
 FROM	tblOutput_MAX_TA_Master t1
+INNER JOIN tblCityListForMAX t2 ON t1.geo = t2.city_EN
+WHERE t1.Geo_Lvl = 2 
 GROUP BY DataType, MktType, Mkt, Market_Name, Class, Class_Name, Prod_Lvl, Uniq_Prod, Product_Name, Product_Code,
 		CMPS_Name, CMPS_CODE, Package_Name, Package_Code, Corp_Name, Corp_Code, Manuf_Name, Manuf_Code, MNC,
 		Generic_Code

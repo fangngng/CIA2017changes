@@ -14,11 +14,11 @@ SELECT * FROM tblPPTGraphDef
 SELECT * FROM tblPPTOutputCombine 
 
 SELECT distinct Code
-from tblPPTSection 
+from BMSChina_ppt.dbo.tblPPTSection 
 where Page = 'brandreport'
 	and Product = 'baraclude'
 
-SELECT * FROM tblPPTSection 
+SELECT * FROM BMSChina_ppt.dbo.tblPPTSection 
 where Page = 'Dashboard'
 	and Product in ('Portfolio', 'baraclude','Monopril', 'Taxol', 'Sprycel')
 order by Page, Product, Lev 
@@ -116,3 +116,19 @@ SELECT * FROM tblPPTOutputCombine
 
 
 SELECT * FROM tblcharttitle
+SELECT * FROM tblPPTSection
+
+DELETE tblPPtsection
+WHERE (product NOT IN ('Monopril', 'Taxol', 'Sprycel', 'Baraclude', 'Portfolio') AND page = 'Dashboard')
+	or (product NOT IN ('Baraclude') AND page = 'BrandReport')
+
+DELETE tblPPTSection 
+WHERE product NOT IN ('Baraclude') AND lev NOT IN ('Nation')
+
+SELECT DISTINCT page, product FROM tblPPTSection 
+
+ 
+ SELECT * FROM tblSlide 
+ WHERE  SlideName like 'R170%' 
+ and status='Y'
+
