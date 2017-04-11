@@ -827,158 +827,23 @@ WHERE ym = '201612'
 SELECT * FROM dbo.output_stage 
 WHERE LinkChartCode = 'c020' AND TimeFrame = 'mth' AND currency = 'usd' AND 
 
+SELECT * FROM dbo.output_stage WHERE LinkChartCode = 'd021'
 
-SELECT * FROM tblMktDef_MRBIChina 
+SELECT * FROM OutputGeoHBVSummaryT1 
 
-DROP TABLE tblMktDef_MAX 
+SELECT * FROM TempRegionCityDashboard 
 
+SELECT * FROM TempCityDashboard WHERE moneytype <> 'pn'
 
-SELECT  *
-INTO    tblMktDef_MAX
-FROM    tblMktDef_MRBIChina 
-WHERE 1 = 0 
-
-SELECT  *
-INTO    tblMktDef_MAX_temp 
-FROM    tblMktDef_MRBIChina 
-WHERE 1 = 0 
-              
-
-SELECT * FROM tblMktDef_MAX
-
-TRUNCATE TABLE dbo.tblMktDef_MAX
-
-INSERT INTO dbo.tblMktDef_MAX_temp ( Mkt, MktName, Prod, ProductName, Molecule,
-                                 Class, ATC1_COD, ATC2_COD, ATC3_COD, ATC4_COD,
-                                 Pack_Cod, Pack_Des, Prod_Cod, Prod_Name,
-                                 Prod_FullName, Mole_Cod, Mole_Name, Corp_COD,
-                                 Manu_COD, Gene_COD, Active, Date, Comment,
-                                 rat )
-
-SELECT  DISTINCT NULL , NULL, NULL, NULL, NULL, NULL, 
-		ATC1_Cod,
-        ATC2_Cod,ATC3_Cod, ATC4_Cod, NULL,  Prod_Des + ' ' + [剂型（标准_英文）] + ' ' + [药品规格（标准_英文）]  ,
-        Prod_cod, Prod_Des, NULL , Mole_cod, Mole_des, Corp_cod,
-        manu_cod, Gene_Cod, 'Y', GETDATE(), '' , 1
-FROM    dbo.Max_Data
-
-UPDATE a
-SET a.Pack_Cod = CONVERT(VARCHAR(10), b.Prod_Cod) + RIGHT('00' + CONVERT(VARCHAR(2), 2 * b.Idx  ), 2)
-FROM tblMktDef_MAX_temp AS a
-LEFT join (
-	SELECT *, RANK() OVER(PARTITION BY Prod_Cod ORDER BY pack_des ASC	) AS Idx
-	FROM dbo.tblMktDef_MAX_temp
-) AS b ON a.Pack_Des = b.Pack_Des
-
-
-INSERT  INTO dbo.tblMktDef_MAX ( Mkt, MktName, Prod, ProductName, Molecule,
-                                 Class, ATC1_COD, ATC2_COD, ATC3_COD, ATC4_COD,
-                                 Pack_Cod, Pack_Des, Prod_Cod, Prod_Name,
-                                 Prod_FullName, Mole_Cod, Mole_Name, Corp_COD,
-                                 Manu_COD, Gene_COD, Active, Date, Comment,
-                                 rat )
-SELECT  *
-FROM    (
-          SELECT    DISTINCT b.Mkt, b.MktName, b.prod, b.productName, b.Molecule,
-                    b.Class, a.ATC1_COD, a.ATC2_COD, a.ATC3_COD, a.ATC4_COD,
-                    a.Pack_Cod, a.Pack_Des, a.Prod_Cod, a.Prod_Name,
-                    b.Prod_FullName, a.Mole_Cod, a.Mole_Name, a.Corp_COD,
-                    a.Manu_COD, a.Gene_COD, a.Active, a.Date, a.Comment, a.rat
-          FROM      tblMktDef_MAX_temp AS a
-          LEFT JOIN (
-                      SELECT DISTINCT
-                                Mkt, MktName, Prod, ProductName, Molecule,
-                                Class, ATC1_COD, ATC2_COD, ATC3_COD, ATC4_COD,
-                                Prod_Cod, Prod_Name, Prod_FullName, Mole_Cod,
-                                Mole_Name, Corp_COD, Manu_COD, Gene_COD,
-                                Active, Date, Comment, rat
-                      FROM      dbo.tblMktDef_MRBIChina
-                    ) AS b ON a.ATC1_COD = b.ATC1_COD
-                              AND a.ATC2_COD = b.ATC2_COD
-                              AND a.ATC3_COD = b.ATC3_COD
-                              AND a.ATC4_COD = b.ATC4_COD
-                              AND a.Prod_Cod = b.Prod_Cod
-                              AND a.Corp_COD = b.Corp_COD
-                              AND a.Manu_COD = b.Manu_COD
-                              AND a.Gene_COD = b.Gene_COD
-							  AND a.ProductName = b.Mole_Name
-			WHERE	b.mkt = 'ARV' ORDER BY a.Pack_Cod
-        ) AS a 
-
-SELECT * FROM dbo.tblMktDef_MAX		
-SELECT * FROM tblMktDef_MAX_temp 
-
-SELECT Province, City, Product, [生产厂家（标准_中文）], [通用名（标准_中文）], [商品名（标准_中文）],
-       [剂型（标准_中文）], [药品规格（标准_中文）], [最小产品单位（标准_英文）], [生产厂家（标准_英文）],
-       [通用名（标准_英文）], [商品名（标准_英文）], [剂型（标准_英文）], [药品规格（标准_英文）],
-       [Product Name (Mapping)],IMS_Manu, Final_Prod, IMS_Prod, ATC1_Cod,
-       ATC1_Des, ATC2_Cod, ATC2_Des, ATC3_Cod, ATC3_Des, ATC4_Cod, ATC4_Des,
-       Mole_cod, Mole_des, Prod_cod, Prod_Des, Pack_Cod, Pack_Des, Corp_cod,
-       Corp_Des, manu_cod, Manu_des, MNC, Gene_Cod, MNFL_COD 
-FROM Max_Data 
-
-SELECT * FROM dbo.tblMktDef_MRBIChina
-
-
-update Max_Data 
-set 
+SELECT * FROM mthcity_pkau WHERE AUDI_COD = 'Foshan'
 
 SELECT * 
-FROM dbo.Max_Data AS a
-LEFT join dbo.tblMktDef_MAX AS b 
-ON a.ATC1_COD = b.ATC1_COD
-	AND a.ATC2_COD = b.ATC2_COD
-	AND a.ATC3_COD = b.ATC3_COD
-	AND a.ATC4_COD = b.ATC4_COD
-	AND a.Prod_Cod = b.Prod_Cod
-	AND a.Corp_COD = b.Corp_COD
-	AND a.Manu_COD = b.Manu_COD
-	AND a.Gene_COD = b.Gene_COD
-WHERE a.ATC4_Cod = 'J05B1'
+from mthcity_pkau A 
+inner join tblMktDef_MAX B
+on A.pack_cod=B.pack_cod 
+where B.Active='Y' and A.audi_cod<>'ZJH_' and b.mkt not like'eliquis%'
 
-INSERT INTO dbo.tblMktDef_MAX ( Mkt, MktName, Prod, ProductName, Molecule,
-                                 Class, ATC1_COD, ATC2_COD, ATC3_COD, ATC4_COD,
-                                 Pack_Cod, Pack_Des, Prod_Cod, Prod_Name,
-                                 Prod_FullName, Mole_Cod, Mole_Name, Corp_COD,
-                                 Manu_COD, Gene_COD, Active, Date, Comment,
-                                 rat )
-SELECT DISTINCT Mkt, MktName, Prod, ProductName, Molecule, Class, ATC1_COD, ATC2_COD,
-       ATC3_COD, ATC4_COD, NULL, NULL, Prod_Cod, Prod_Name,
-       Prod_FullName, Mole_Cod, Mole_Name, Corp_COD, Manu_COD, Gene_COD,
-       Active, Date, Comment, rat 
-FROM tblMktDef_MRBIChina 
-WHERE Mkt = 'arv'
+SELECT * FROM tblMktDef_MAX 
 
-SELECT * FROM tblMktDef_MAX ORDER BY Prod_Cod
+SELECT * FROM KPI_Frame_MAX_Region_Baraclude 
 
-
-INSERT INTO dbo.tblMktDef_MAX ( Mkt, MktName, Prod, ProductName, Molecule,
-                                 Class, ATC1_COD, ATC2_COD, ATC3_COD, ATC4_COD,
-                                 Pack_Cod, Pack_Des, Prod_Cod, Prod_Name,
-                                 Prod_FullName, Mole_Cod, Mole_Name, Corp_COD,
-                                 Manu_COD, Gene_COD, Active, Date, Comment,
-                                 rat )
-SELECT a.Mkt, a.MktName, a.Prod, a.ProductName, a.Molecule, a.Class,
-       a.ATC1_COD, a.ATC2_COD, a.ATC3_COD, a.ATC4_COD, b.Pack_Cod, b.Pack_Des,
-       a.Prod_Cod, a.Prod_Name, a.Prod_FullName, a.Mole_Cod, a.Mole_Name,
-       a.Corp_COD, a.Manu_COD, a.Gene_COD, a.Active, a.Date, a.Comment, a.rat
-FROM (
-	SELECT DISTINCT Mkt, MktName, Prod, ProductName, Molecule, Class, ATC1_COD, ATC2_COD,
-       ATC3_COD, ATC4_COD, NULL AS Pack_Cod, NULL AS Pack_Des, Prod_Cod, Prod_Name,
-       Prod_FullName, Mole_Cod, Mole_Name, Corp_COD, Manu_COD, Gene_COD,
-       Active, Date, Comment, rat 
-	FROM tblMktDef_MRBIChina 
-	WHERE Mkt = 'arv'
-) AS a 
-RIGHT JOIN dbo.tblMktDef_MAX_temp AS b 
-ON a.ATC1_COD = b.ATC1_COD
-	AND a.ATC2_COD = b.ATC2_COD
-	AND a.ATC3_COD = b.ATC3_COD
-	AND a.ATC4_COD = b.ATC4_COD
-	AND a.Prod_Cod = b.Prod_Cod
-	AND a.Corp_COD = b.Corp_COD
-	AND a.Manu_COD = b.Manu_COD
-	AND a.Gene_COD = b.Gene_COD
-
-	
--- SELECT * FROM dbo.tblMktDef_MAX		
