@@ -318,16 +318,16 @@ where B.Market is not null
 go
 
 update  WebChartTitle set 
-Caption=replace(Caption,'Taxol','Paraplatin')
-,SubCaption=replace(SubCaption,'Taxol','Paraplatin')
--- select * from WebChartTitle 
+	Caption=replace(Caption,'Taxol','Paraplatin')
+	,SubCaption=replace(SubCaption,'Taxol','Paraplatin')
+	-- select * from WebChartTitle 
 where Product='Paraplatin' and linkchartcode in ('D022','D024')
 
 
 update  WebChartTitle set 
-Caption=replace(Caption,'Taxol','Platinum')
-,SubCaption=replace(SubCaption,'Taxol','Paraplatin')
--- select * from WebChartTitle 
+	Caption=replace(Caption,'Taxol','Platinum')
+	,SubCaption=replace(SubCaption,'Taxol','Paraplatin')
+	-- select * from WebChartTitle 
 where Product='Paraplatin'   and ([Caption] like '%Taxol%' or SubCaption like '%Taxol%')
 go
 
@@ -390,13 +390,16 @@ go
 
 update WebChartTitle
 set Caption=replace(replace(B.caption,'#Region',A.geo),'#City',A.geo),
-    SubCaption=replace(replace(B.SubCaption,'#TimeFrame',A.Slidetitle),'#Category',A.Category) from WebChartTitle A inner join dbo.tblcaption
-B
+    SubCaption=replace(replace(B.SubCaption,'#TimeFrame',A.Slidetitle),'#Category',A.Category) 
+from WebChartTitle A 
+inner join dbo.tblcaption B
 on A.LinkChartCode=B.LinkChartCode and A.product=B.Market
 go
+
 update WebChartTitle
-set SubCaption=replace(B.SubCaption,'#Month',A.[Month])
-from WebChartTitle B,tblMonthList A where Monseq=1 and B.SubCaption like '%#Month%'
+set SubCaption=replace(B.SubCaption,'#Month',A.[MonthEN])
+from WebChartTitle B,tblMonthList A 
+where Monseq=1 and B.SubCaption like '%#Month%'
 go
 update WebChartTitle
 set Slidetitle=replace(Slidetitle,'(','(MQT/')

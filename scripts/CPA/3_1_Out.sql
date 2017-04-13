@@ -2849,25 +2849,22 @@ if object_id(N'OutputBALHospitalDataByGeo',N'U') is not null
 	drop table OutputBALHospitalDataByGeo
 go 
 
-declare @sql varchar(max), @i int 
-
-set @sql = '
 SELECT product, RMName,  datasource, a.mkt, a.Prod , 
   sum([UM1]) as [UM1], sum(VM1) as [VM1], 
+  sum([UM12]) as [UM12], sum(VM12) as [VM12], 
   sum([UR3M1]) as [UR3M1], sum([VR3M1]) as [VR3M1],
+  sum([UR3M12]) as [UR3M12], sum([VR3M12]) as [VR3M12],
   sum([UYTD]) as [UYTD], sum([VYTD]) as [VYTD],
-  sum([UMAT1]) as [UMAT1], sum([VMAT1]) as [VMAT1]
-  '
-set @sql = @sql + '
+  sum([UYTDStly]) as [UYTDStly], sum([VYTDStly]) as [VYTDStly],
+  sum([UMAT1]) as [UMAT1], sum([VMAT1]) as [VMAT1],
+  sum([UMAT2]) as [UMAT2], sum([VMAT2]) as [VMAT2]
 into OutputBALHospitalDataByGeo
 FROM tempBALHospitalDataByGeo AS a 
-INNER JOIN (select distinct Prod  from BMSChinaMRBI.dbo.tblMktDefHospital  where Mkt = ''Arv'' and molecule = ''N'' ) AS b 
+INNER JOIN (select distinct Prod  from BMSChinaMRBI.dbo.tblMktDefHospital  where Mkt = 'Arv' and molecule = 'N' ) AS b 
 ON a.prod = b.prod 
-WHERE a.mkt = ''arv'' and a.lev = ''nat'' and product = ''Baraclude'' 
+WHERE a.mkt = 'arv' and a.lev = 'nat' and product = 'Baraclude'
 GROUP BY Product, RMName, datasource, a.mkt, a.Prod 
-'
-print @sql 
-exec(@sql) 
+
 go 
 
 
@@ -2875,25 +2872,34 @@ if object_id(N'OutputBALHospitalDataRullupByProd',N'U') is not null
 	drop table OutputBALHospitalDataRullupByProd
 go 
 
-declare @sql varchar(max), @i int 
-
-set @sql = '
-
 SELECT product, RMName,  datasource, a.mkt , 
   sum([UM1]) as [UM1], sum(VM1) as [VM1], 
   sum([UR3M1]) as [UR3M1], sum([VR3M1]) as [VR3M1],
   sum([UYTD]) as [UYTD], sum([VYTD]) as [VYTD],
   sum([UMAT1]) as [UMAT1], sum([VMAT1]) as [VMAT1]
-  
 into OutputBALHospitalDataRullupByProd
 FROM OutputBALHospitalDataByGeo AS a 
-WHERE  prod <> ''000''
+WHERE  prod <> '000'
 GROUP BY product, RMName,  datasource, a.mkt 
-'
-print @sql 
-exec(@sql) 
+
 go 
 
+
+if object_id(N'OutputBALHospitalDataGrowth',N'U') is not null
+	drop table OutputBALHospitalDataGrowth
+go 
+
+
+SELECT product, RMName,  datasource, a.mkt ,  a.Prod , 
+  [UM1]/[UM12] - 1 as [UM1], VM1/VM12 - 1 as [VM1], 
+  [UR3M1]/[UR3M12] - 1 as [UR3M1], [VR3M1]/[VR3M12] - 1 as [VR3M1],
+  [UYTD]/[UYTDStly] - 1 as [UYTD], [VYTD]/[VYTDStly] - 1 as [VYTD],
+  [UMAT1]/[UMAT2] - 1 as [UMAT1], [VMAT1]/[VMAT2] - 1 as [VMAT1]
+into OutputBALHospitalDataGrowth
+FROM OutputBALHospitalDataByGeo AS a 
+
+
+go
 
 DELETE OutputHospital_All WHERE LinkChartCode = 'C170'
 go
@@ -2917,12 +2923,6 @@ from
     select distinct Prod as SeriesIdx,ProductName as Series
     from tblMktDefHospital
     where Mkt = 'ARV' and Molecule = 'N' AND prod NOT IN ('000')
-    -- select distinct Prod as SeriesIdx,ProductName as Series
-    -- from tblMktDef_MRBIChina
-    -- where Mkt = 'ARV' and Molecule = 'N' AND prod NOT IN ('700', '800', '000')
-    -- UNION all
-    -- SELECT DISTINCT prod, Productname 
-    -- FROM BMSChinaCIA_IMS.dbo.tblMktDef_MRBIChina_For_OtherETV 
 
   ) a, 
   (
@@ -2958,12 +2958,6 @@ from
     select distinct Prod as SeriesIdx,ProductName as Series
     from tblMktDefHospital
     where Mkt = 'ARV' and Molecule = 'N' AND prod NOT IN ('000')
-    -- select distinct Prod as SeriesIdx,ProductName as Series
-    -- from tblMktDef_MRBIChina
-    -- where Mkt = 'ARV' and Molecule = 'N' AND prod NOT IN ('700', '800', '000')
-    -- UNION all
-    -- SELECT DISTINCT prod, Productname 
-    -- FROM BMSChinaCIA_IMS.dbo.tblMktDef_MRBIChina_For_OtherETV 
   ) a, 
   (
     SELECT RMName AS x, RANK() OVER( ORDER BY  RMName) as XIdx 
@@ -2998,12 +2992,6 @@ from
     select distinct Prod as SeriesIdx,ProductName as Series
     from tblMktDefHospital
     where Mkt = 'ARV' and Molecule = 'N' AND prod NOT IN ('000')
-    -- select distinct Prod as SeriesIdx,ProductName as Series
-    -- from tblMktDef_MRBIChina
-    -- where Mkt = 'ARV' and Molecule = 'N' AND prod NOT IN ('700', '800', '000')
-    -- UNION all
-    -- SELECT DISTINCT prod, Productname 
-    -- FROM BMSChinaCIA_IMS.dbo.tblMktDef_MRBIChina_For_OtherETV 
   ) a, 
   (
     SELECT RMName AS x, RANK() OVER( ORDER BY  RMName) as XIdx 
@@ -3038,12 +3026,6 @@ from
     select distinct Prod as SeriesIdx,ProductName as Series
     from tblMktDefHospital
     where Mkt = 'ARV' and Molecule = 'N' AND prod NOT IN ('000')
-    -- select distinct Prod as SeriesIdx,ProductName as Series
-    -- from tblMktDef_MRBIChina
-    -- where Mkt = 'ARV' and Molecule = 'N' AND prod NOT IN ('700', '800', '000')
-    -- UNION all
-    -- SELECT DISTINCT prod, Productname 
-    -- FROM BMSChinaCIA_IMS.dbo.tblMktDef_MRBIChina_For_OtherETV 
   ) a, 
   (
     SELECT RMName AS x, RANK() OVER( ORDER BY  RMName) as XIdx 
@@ -3097,27 +3079,44 @@ inner join OutputBALHospitalDataRullupByProd b on  a.Product = b.Mkt  and a.X = 
 where a.LinkChartCode = 'C170' 
 go
 
-go
-go
+-- insert USD records according RMB 
 insert into OutputHospital_All (LinkChartCode, Series, SeriesIdx, Category, Product, Lev, ParentGeo, Geo, Currency, TimeFrame, X, XIdx, Y, IsShow)
-select 
-    LinkChartCode
-  , Series
-  , SeriesIdx
-  , Category
-  , Product
-  , Lev
-  , ParentGeo
-  , Geo
-  , 'USD'
-  , TimeFrame
-  , X
-  , XIdx
-  , Y 
-  , IsShow
-from OutputHospital_All 
-where LinkChartCode in ('C170') and Currency = 'RMB'
+SELECT	LinkChartCode, Series, SeriesIdx, Category, Product, Lev, ParentGeo, Geo, 'USD', TimeFrame, X, XIdx, Y, IsShow
+FROM	OutputHospital_All
+WHERE	LinkChartCode IN ( 'C170' )
+		AND Currency = 'RMB'
 go
+
+
+-- insert brandreport data about growth 
+insert into OutputHospital_All (LinkChartCode, Series, SeriesIdx, Category, Product, Lev, ParentGeo, Geo, Currency, TimeFrame, X, XIdx, Y, IsShow)
+SELECT	LinkChartCode, Series, SeriesIdx, Category, Product, Lev, ParentGeo, Geo, Currency, TimeFrame, X, XIdx, Y, 'L'
+from OutputHospital_All 
+where LinkChartCode in ('C170') 
+go 
+
+
+update a
+set Y = 
+	case  
+		when a.category = 'Value' 	and a.TimeFrame = 'MAT' and a.Currency = 'RMB'  then b.vmat1 
+		when a.category = 'Value' 	and a.TimeFrame = 'MAT' and a.Currency = 'USD'  then b.vmat1 
+		when a.category = 'Volume' 	and a.TimeFrame = 'MAT' and a.Currency = 'UNIT'  then b.UMat1  
+		when a.category = 'Value' 	and a.TimeFrame = 'YTD' and a.Currency = 'RMB'  then b.VYTD 
+		when a.category = 'Value' 	and a.TimeFrame = 'YTD' and a.Currency = 'USD'  then b.VYTD 
+		when a.category = 'Volume' 	and a.TimeFrame = 'YTD' and a.Currency = 'UNIT'  then b.UYTD 
+		when a.category = 'Value' 	and a.TimeFrame = 'MQT' and a.Currency = 'RMB'  then b.VR3M1  
+		when a.category = 'Value' 	and a.TimeFrame = 'MQT' and a.Currency = 'USD'  then b.VR3M1  
+		when a.category = 'Volume' 	and a.TimeFrame = 'MQT' and a.Currency = 'UNIT'  then b.UR3M1  
+		when a.category = 'Value' 	and a.TimeFrame = 'MTH' and a.Currency = 'RMB'  then b.VM1
+		when a.category = 'Value' 	and a.TimeFrame = 'MTH' and a.Currency = 'USD'  then b.VM1
+		when a.category = 'Volume' 	and a.TimeFrame = 'MTH' and a.Currency = 'UNIT'  then b.UM1 
+	end
+from OutputHospital_All as a
+inner join OutputBALHospitalDataGrowth b on  a.Product = b.Mkt  and a.X = b.RMName AND a.SeriesIdx = b.Prod
+where a.IsShow = 'L' and a.LinkChartCode = 'C170' 
+
+go 
 
 declare @rate float 
 set @rate = ( SELECT Rate FROM BMSChinaCIA_IMS.dbo.tblRate ) 
@@ -3149,6 +3148,9 @@ from OutputHospital_All a
 inner join (select distinct Product,Mkt from tblMktDefHospital) b on a.Product = b.Mkt
 where a.LinkChartCode = 'C170'
 go 
+
+
+
 
 -- 通常要半小时多
 exec dbo.sp_Log_Event 'Output','CIA_CPA','3_1_Out.sql','End',null,null

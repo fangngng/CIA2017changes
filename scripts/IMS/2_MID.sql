@@ -4039,7 +4039,11 @@ go
 if exists (select * from dbo.sysobjects where id = object_id(N'TempCityDashboard_forPre') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
 	drop table TempCityDashboard_forPre
 go
-select * into TempCityDashboard_forPre from TempCityDashboard where audi_des <>'Guangdong' and audi_des <>'Zhejiang'
+select c.* into TempCityDashboard_forPre 
+from TempCityDashboard as c
+INNER JOIN dbo.tblcitymax AS b ON c.Audi_des = b.city  AND b.Geo_Lvl = 2 
+inner join dbo.MAXRegionCity AS a on  a.City = b.City_CN
+WHERE a.Type = 'brand Report'
 go
 
 if exists (select * from dbo.sysobjects where id = object_id(N'TempCityDashboard_AllCity') and OBJECTPROPERTY(id, N'IsUserTable') = 1)
@@ -10023,8 +10027,48 @@ and NOT EXISTS(
 	WHERE B.MKT = 'ARV' AND B.Class='N' and molecule='N' and PROD between '100' and '500'
 		AND A.PACK_COD = B.PACK_COD and a.atc3_cod=b.atc3_cod
 )
+
 insert into tblMktDef_MRBIChina_For_OtherETV
 select * from tblMktDef_MRBIChina where mkt='arv' and prod='800'
+go
+
+
+IF EXISTS(SELECT 1 FROM DBO.SYSOBJECTS WHERE ID=OBJECT_ID(N'tblMktDef_MRBIChina_For_OtherETV_MAX') AND TYPE ='U')
+BEGIN
+	DROP TABLE tblMktDef_MRBIChina_For_OtherETV_MAX
+END
+SELECT distinct Mkt,MktName,
+	case 
+		when A.Prod_Name like '%HE EN%' then  '601'
+		when A.Prod_Name like '%LEI YI DE%' then '602'
+		when A.Prod_Name like '%WEI LI QING%' then '603'
+		when A.Prod_Name like '%ENTECAVIR%' then '604'
+		else '800' end as Prod ,
+	case 
+		when A.Prod_Name like '%HE EN%' then  'He En'
+		when A.Prod_Name like '%LEI YI DE%' then 'Lei Yi De'
+		when A.Prod_Name like '%WEI LI QING%' THEN 'Wei Li Qing'
+		WHEN A.Prod_Name LIKE '%ENTECAVIR%' then 'Other Entecavir(prod)'
+		else 'ARV Others'end  as Productname,
+	'N' as Molecule, 'N' as Class,
+	ATC1_Cod,ATC2_Cod,ATC3_Cod,ATC4_Cod,
+	pack_cod, Pack_des,Prod_cod,Prod_Name,
+	Prod_Name + ' (' +Manu_cod +')' as Prod_FullName,
+	'' Mole_cod,'' Mole_Name,
+	Corp_cod, Manu_Cod, Gene_Cod, 'Y' as Active,
+	GetDate() as Date, '201307 add new products & packages' AS Comment
+	,1 as Rat
+INTO tblMktDef_MRBIChina_For_OtherETV_MAX	
+FROM tblMktDef_MAX A 
+WHERE A.MKT = 'ARV' AND A.prod = '700'
+and NOT EXISTS(
+	SELECT * FROM tblMktDef_MRBIChina B 
+	WHERE B.MKT = 'ARV' AND B.Class='N' and molecule='N' and PROD between '100' and '500'
+		AND A.PACK_COD = B.PACK_COD and a.atc3_cod=b.atc3_cod
+)
+
+insert into tblMktDef_MRBIChina_For_OtherETV_MAX
+select * from tblMktDef_MAX where mkt='arv' and prod='800'
 go
 
 IF EXISTS(SELECT 1 FROM DBO.SYSOBJECTS WHERE ID = OBJECT_ID(N'TempCityDashboard_For_OtherETV') AND TYPE ='U')
@@ -10099,7 +10143,7 @@ BEGIN
 		exec('insert into TempCityDashboard_For_OtherETV 
         select  B.Molecule,B.Class,B.mkt,B.mktname,B.mkt,B.prod,B.Productname,'+'''' +@MoneyType+''''+' as Moneytype, A.audi_cod,'''',''City'',null,'+@sql1+', '+@sql3+', '+@sqlMAT+', '+@sqlYTD+', '+@sqlQtr+'
 		from mthcity_pkau A 
-		inner join tblMktDef_MRBIChina_For_OtherETV B
+		inner join tblMktDef_MRBIChina_For_OtherETV_MAX B
         on A.pack_cod=B.pack_cod where B.Active=''Y'' and A.audi_cod<>''ZJH_''
 		group by B.Molecule,B.Class,B.mkt,B.mktname,B.prod,B.Productname,A.audi_cod')
 	END
@@ -10589,32 +10633,32 @@ go
 delete from OutputGeoHBVSummaryT2_For_OtherETV where type='Product'
 delete from OutputGeoHBVSummaryT2_For_OtherETV where prod is null and productname is null
 go
---Add Onglyza Market
-insert into [OutputGeoHBVSummaryT2_For_OtherETV]
-SELECT 
-  lev
- ,[Type]
- ,[Molecule]
- ,[Class]
- ,[mkt]
- ,'Onglyza'
- ,[mktname]
- ,[prod]
- ,[Productname]
- ,[Moneytype]
- ,[Audi_cod]
- ,[Audi_des]
- ,[Region]
- ,[R3M00]
- ,[YTD00]
- ,[MAT00]
- ,[MTH00]
- ,[R3M12]
- ,[YTD12]
- ,[MAT12]
- ,[MTH12]
-FROM [dbo].[OutputGeoHBVSummaryT2_For_OtherETV]
-where Market='Glucophage' and Class='N' and lev='City'
+-- --Add Onglyza Market
+-- insert into [OutputGeoHBVSummaryT2_For_OtherETV]
+-- SELECT 
+--   lev
+--  ,[Type]
+--  ,[Molecule]
+--  ,[Class]
+--  ,[mkt]
+--  ,'Onglyza'
+--  ,[mktname]
+--  ,[prod]
+--  ,[Productname]
+--  ,[Moneytype]
+--  ,[Audi_cod]
+--  ,[Audi_des]
+--  ,[Region]
+--  ,[R3M00]
+--  ,[YTD00]
+--  ,[MAT00]
+--  ,[MTH00]
+--  ,[R3M12]
+--  ,[YTD12]
+--  ,[MAT12]
+--  ,[MTH12]
+-- FROM [dbo].[OutputGeoHBVSummaryT2_For_OtherETV]
+-- where Market='Glucophage' and Class='N' and lev='City'
 go
 
 

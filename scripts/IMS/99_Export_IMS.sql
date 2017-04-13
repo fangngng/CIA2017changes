@@ -418,6 +418,7 @@ update dbo.WebChartExplain
 set datasource=replace(datasource,'Dec''16','Jan''17'),
 	datasource_cn=replace(datasource_cn,'Dec''16','Jan''17')
 where datasource like '%IMS%'
+
 select * from WebChartExplain where datasource like '%ims%' order  by code
 
 update WebChartExplain set 
@@ -455,7 +456,7 @@ update tbldates set DateValue='MAT 12Q4 to MAT 16Q4' where DateSource='CAGRMATQu
 
 --每月修改 --todo
 update tbldates 
-set DateValue='201612'                            
+set DateValue='201701'                            
 where DateSource in  
       ('CurrentMonthlyDate',
       'Onglyza',
@@ -498,7 +499,7 @@ update tbldates set DateValue='MAT 12Q4 to MAT 16Q4' where DateSource='CAGRMATQu
 
 --每月修改 --todo
 update tbldates 
-set DateValue='201612'                                  
+set DateValue='201701'                                  
 where DateSource in                         
       ('CurrentMonthlyDate',
       'Onglyza',

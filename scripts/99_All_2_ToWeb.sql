@@ -350,23 +350,25 @@ where code like 'R430' and Product = 'Paraplatin'
 
 -- patch
 delete --  select * 
-from WebChartExplain where (
-code like 'R40%' 
-or code like 'R41%') -- web Dashboard datasource/ppt datasource
-and timeframe='MTH' and Product in ('Taxol','Paraplatin')
+from WebChartExplain 
+where (
+        code like 'R40%' 
+        or code like 'R41%') -- web Dashboard datasource/ppt datasource
+    and timeframe='MTH' and Product in ('Taxol','Paraplatin')
 
 delete --  select * 
-from tblSlide where (
-slidename like 'R40%'
-or slidename like '%R41%') -- web brand report/web shopping cart
-and SlideName like '%MTH%'  and (SlideCode like 'Taxol%' or SlideCode like 'Paraplatin')
+from tblSlide 
+where (
+        slidename like 'R40%'
+        or slidename like '%R41%') -- web brand report/web shopping cart
+    and SlideName like '%MTH%'  and (SlideCode like 'Taxol%' or SlideCode like 'Paraplatin')
 
 delete --  select * 
 from WebChartTitle where (
-linkchartcode like 'R40%'
-or linkchartCode like 'R41%'
-)-- web dashboard
-and timeframe='MTH' and  Product in ('Taxol','Paraplatin')
+        linkchartcode like 'R40%'
+        or linkchartCode like 'R41%'
+    )-- web dashboard
+    and timeframe='MTH' and  Product in ('Taxol','Paraplatin')
 
 --update output set XIdx=5-XIdx -- select * 
 --from output where linkchartcode = 'C150' and IsShow='Y'

@@ -49,9 +49,9 @@
 				city Lev(brand)
 ----------------------
 (1 row affected)
-1> 2> 3> 4> (0 rows affected)
 1> 2> 3> 4> (1 row affected)
-1> 2> 3> 4> (0 rows affected)
+1> 2> 3> 4> (1 row affected)
+1> 2> 3> 4> (1 row affected)
 1> 2> 3> 4> 5> 6> 7> 8> 9> 10> ---------------------
 				city Lev
 ----------------------
@@ -220,7 +220,7 @@
 				R260
 ----------------------
 (2 rows affected)
-1> 2> 3> 4> (2 rows affected)
+1> 2> 3> 4> (1 row affected)
 1> 2> 3> 4> (2 rows affected)
 1> 2> 3> 4> 5> 6> 7> 8> ---------------------
 				R270
@@ -344,6 +344,9 @@
 1> 2> 3> 4> (6 rows affected)
 1> 2> 3> 4> (0 rows affected)
 1> 2> 3> 4> (0 rows affected)
+1> 2> 3> 4> 5> -- c170
+(1 row affected)
+1> 2> 3> 4> (1 row affected)
 1> 2> 3> 4> 5> -- C900
 (0 rows affected)
 1> 2> 3> 4> 5> 6> 7> 8> 9> (0 rows affected)
@@ -432,7 +435,7 @@
 (1 row affected)
              
  ----------- 
-         523 
+         526 
 
 (1 row affected)
              
@@ -447,7 +450,7 @@
 (1 row affected)
              
  ----------- 
-          53 
+          55 
 
 (1 row affected)
              
@@ -462,7 +465,7 @@
 (1 row affected)
              
  ----------- 
-          21 
+          23 
 
 (1 row affected)
              
@@ -477,7 +480,7 @@
 (1 row affected)
              
  ----------- 
-         449 
+         448 
 
 (1 row affected)
              
@@ -644,56 +647,6 @@
 	Eliquis NOAC                   Eliquis NOAC                   
 	SpecialTable                                       D      
 	Series||                                                     1 
-	          1 
-         175 D090                           D092                           
-	Baraclude                      Baraclude                      
-	Chart2                                             Y      
-	Series||X                                                    1 
-	          1 
-         176 D090                           D092                           
-	Coniel                         Coniel                         
-	Chart2                                             Y      
-	Series||X                                                    1 
-	          1 
-         177 D090                           D092                           
-	Glucophage                     Glucophage                     
-	Chart2                                             Y      
-	Series||X                                                    1 
-	          1 
-         178 D090                           D092                           
-	Monopril                       Monopril                       
-	Chart2                                             Y      
-	Series||X                                                    1 
-	          1 
-         179 D090                           D092                           
-	Onglyza                        Onglyza                        
-	Chart2                                             Y      
-	Series||X                                                    1 
-	          1 
-         185 D090                           D094                           
-	Baraclude                      Baraclude                      
-	Chart4                                             Y      
-	Series||X                                                    1 
-	          1 
-         186 D090                           D094                           
-	Coniel                         Coniel                         
-	Chart4                                             Y      
-	Series||X                                                    1 
-	          1 
-         187 D090                           D094                           
-	Glucophage                     Glucophage                     
-	Chart4                                             Y      
-	Series||X                                                    1 
-	          1 
-         188 D090                           D094                           
-	Monopril                       Monopril                       
-	Chart4                                             Y      
-	Series||X                                                    1 
-	          1 
-         189 D090                           D094                           
-	Onglyza                        Onglyza                        
-	Chart4                                             Y      
-	Series||X                                                    1 
 	          1 
          190 D100                           D101                           
 	Onglyza                        Onglyza                        
@@ -931,7 +884,7 @@
 	Series||X                                                    1 
 	          1 
 
-(87 rows affected)
+(77 rows affected)
 1> 2> 3> 4>  id          Code                           LinkChartCode                  
 	Product                        LinkChartProduct               
 	GraphType                                          Active 
@@ -5921,6 +5874,6 @@
 	          1 
 
 (741 rows affected)
-1> 2> 3> 4> 5> 6> 7> 8> 9> 10> 11> 12> 13> 14> 15> 16> (484 rows affected)
-(484 rows affected)
+1> 2> 3> 4> 5> 6> 7> 8> 9> 10> 11> 12> 13> 14> 15> 16> (487 rows affected)
+(487 rows affected)
 over!

@@ -50,7 +50,13 @@ where product='Glucophage' and left(outputname,4) in (
 	select distinct parentcode 
 	from tblChartTitle where product='Glucophage' and category='Treatment Day'  and datasource='IMS'
 )and OutputName like '%Dosing Units%'
-			
+
+
+delete  
+FROM dbo.tblPPTOutputCombine
+WHERE product NOT IN ('Monopril', 'Taxol', 'Sprycel', 'Baraclude', 'Portfolio')
+		
+
 go
 use BMSChina_staging
 go

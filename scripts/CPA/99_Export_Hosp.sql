@@ -677,7 +677,7 @@ INSERT INTO dbo.tblChartTitle ( LinkChartCode, Category, Product, Lev, ParentGeo
 SELECT 'C170', Category, Product, Lev, ParentGeo, Geo, Currency, TimeFrame, REPLACE(Caption, 'Non BAL', 'BAL'), SubCaption, SlideTitle,
 		PYAxisName, SYAxisName, Templatename, Outputname, ParentCode, CategoryIdx, DataSource 
 FROM dbo.tblChartTitle 
-WHERE LinkChartCode = 'c140'
+WHERE LinkChartCode = 'c140' and product in ('Baraclude')
 
 
 

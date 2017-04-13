@@ -132,6 +132,24 @@ right join Max_Data as l
 		   and e.Manufacturer_name = l.[IMS_Manu]
 --where	l.[通用名（标准_英文）] in ( 'ADEFOVIR DIPIVOXIL', 'LAMIVUDINE', 'TENOFOVIR DISOPROXIL', 'TELBIVUDINE', 'ENTECAVIR' )
 
+update l
+set [Prod_cod] = b.[Prod_cod],
+	[Prod_Des] = b.[Prod_Des]
+from tblMktDef_ATCDriver as b
+inner join Max_Data as l on b.Prod_Des = l.IMS_Prod
+
+
+update l
+set [Mole_cod] = d.[Mole_cod],
+	[Mole_des] = d.[Mole_des]
+from tblMktDef_ATCDriver as d
+inner join Max_Data as l on d.Mole_des = l.[通用名（标准_英文）]
+
+update l 
+set [manu_cod] = e.[manu_cod],
+	[Manu_des] = e.[Manu_des]
+from tblMktDef_ATCDriver as e
+inner join Max_Data as l on e.Manu_des = l.[IMS_Manu]
 
 
 
@@ -352,46 +370,46 @@ FROM	tmpMD
 GO
 
 
--- -- ARV: 010,020,030,040,050 --todo add 050
--- INSERT	INTO tblMktDef_MAX
--- SELECT DISTINCT
--- 		'ARV' AS Mkt, 'ARV Market' AS Mktname, CASE a.Mole_des
--- 						WHEN 'Entecavir' THEN '010'
--- 						WHEN 'Adefovir Dipivoxil' THEN '020'
--- 						WHEN 'Lamivudine' THEN '030'
--- 						WHEN 'Telbivudine' THEN '040'
--- 						WHEN 'Tenofovir Disoproxil' THEN '050'
--- 					  END AS Prod, a.Mole_des AS ProductName, 'Y' AS Molecule, 'N' AS Class, ATC1_Cod, ATC2_Cod,
--- 		ATC3_Cod, ATC4_Cod, '' as pack_cod, Prod_Des + ' ' + [剂型（标准_英文）] + ' ' + [药品规格（标准_英文）]  as Pack_des, Prod_cod, Prod_des AS Prod_Name,
--- 		Prod_des + ' (' + Manu_cod + ')' AS Prod_FullName, '' Mole_cod, '' Mole_Name, Corp_cod, Manu_Cod, Gene_Cod,
--- 		'Y' AS Active, GETDATE() AS Date, '201203 add new products & packages', 1--rat
--- FROM	dbo.Max_Data A
--- GO
--- UPDATE	tblMktDef_MAX
--- SET		ProductName = 'Entecavir'
--- WHERE	Prod = '010'
--- 		AND Mkt = 'ARV'
--- GO
--- UPDATE	tblMktDef_MAX
--- SET		ProductName = 'Adefovir Dipivoxil'
--- WHERE	Prod = '020'
--- 		AND Mkt = 'ARV'
--- GO
--- UPDATE	tblMktDef_MAX
--- SET		ProductName = 'Lamivudine'
--- WHERE	Prod = '030'
--- 		AND Mkt = 'ARV'
--- GO
--- UPDATE	tblMktDef_MAX
--- SET		ProductName = 'Telbivudine'
--- WHERE	Prod = '040'
--- 		AND Mkt = 'ARV'
--- GO
--- UPDATE	tblMktDef_MAX
--- SET		ProductName = 'Tenofovir Disoproxil'
--- WHERE	Prod = '050'
--- 		AND Mkt = 'ARV'
--- GO
+-- ARV: 010,020,030,040,050 --todo add 050
+INSERT	INTO tblMktDef_MAX
+SELECT DISTINCT
+		'ARV' AS Mkt, 'ARV Market' AS Mktname, CASE a.Mole_des
+						WHEN 'Entecavir' THEN '010'
+						WHEN 'Adefovir Dipivoxil' THEN '020'
+						WHEN 'Lamivudine' THEN '030'
+						WHEN 'Telbivudine' THEN '040'
+						WHEN 'Tenofovir Disoproxil' THEN '050'
+					  END AS Prod, a.Mole_des AS ProductName, 'Y' AS Molecule, 'N' AS Class, ATC1_Cod, ATC2_Cod,
+		ATC3_Cod, ATC4_Cod, '' as pack_cod, Prod_Des + ' ' + [剂型（标准_英文）] + ' ' + [药品规格（标准_英文）]  as Pack_des, Prod_cod, Prod_des AS Prod_Name,
+		Prod_des + ' (' + Manu_cod + ')' AS Prod_FullName, '' Mole_cod, '' Mole_Name, Corp_cod, Manu_Cod, Gene_Cod,
+		'Y' AS Active, GETDATE() AS Date, '201203 add new products & packages', 1--rat
+FROM	dbo.Max_Data A
+GO
+UPDATE	tblMktDef_MAX
+SET		ProductName = 'Entecavir'
+WHERE	Prod = '010'
+		AND Mkt = 'ARV'
+GO
+UPDATE	tblMktDef_MAX
+SET		ProductName = 'Adefovir Dipivoxil'
+WHERE	Prod = '020'
+		AND Mkt = 'ARV'
+GO
+UPDATE	tblMktDef_MAX
+SET		ProductName = 'Lamivudine'
+WHERE	Prod = '030'
+		AND Mkt = 'ARV'
+GO
+UPDATE	tblMktDef_MAX
+SET		ProductName = 'Telbivudine'
+WHERE	Prod = '040'
+		AND Mkt = 'ARV'
+GO
+UPDATE	tblMktDef_MAX
+SET		ProductName = 'Tenofovir Disoproxil'
+WHERE	Prod = '050'
+		AND Mkt = 'ARV'
+GO
 
 -- ARV: Other Enecavir
 INSERT	INTO tblMktDef_MAX

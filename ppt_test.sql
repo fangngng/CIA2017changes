@@ -31,6 +31,15 @@ GO
 
 -- c170
 
+select distinct Product,Parentcode,parentgeo,Geo,
+    Currency,TimeFrame,Category,outputname,Caption, case when Product='Baraclude' and ParentCode='D020' and TimeFrame='MTH' then replace( SlideTitle,'MQT/MTH','MTH' ) else SlideTitle end as SlideTitle ,case when parentcode='c160' then subCaption else '-' end as subCaption
+from tblChartTitle A 
+where ( exists (select * from outputgeo B where a.geo=b.geo and ( a.product=b.product or left(a.product,7)=b.product)) 
+    or  a.linkchartcode  like'c%' or a.linkchartcode like 'r%' )
+    and not (ParentCode in('R400','R410','R500') and Category in ( 'Dosing Units','Adjusted patient number') ) 
+    AND A.ParentCode = 'c170'
+
+--DELETE tblChartTitle WHERE ParentCode = 'c170' AND Product NOT IN ('baraclude')
 
 SELECT * FROM dbo.Output_PPT 
 where LinkChartCode = 'r351'
@@ -131,4 +140,74 @@ SELECT DISTINCT page, product FROM tblPPTSection
  SELECT * FROM tblSlide 
  WHERE  SlideName like 'R170%' 
  and status='Y'
+
+-- brand report need output 
+  --select a.Code, a.IsSection,a.IsCover,b.OutputName
+  select DISTINCT a.Code
+    from (
+      select Code,IsSection, IsCover,id from tblPPTSection
+    ) a left join (
+        select OutputName,OutputName4Rank
+        From tblPPTOutputCombine
+    ) b on a.code = left(b.OutputName,4)
+    order by a.id,b.OutputName4Rank
+
+	  select distinct case left(OutputName,1) when 'R' then 'BrandReport' else 'Dashboard' end as Page,
+     product,lev,parentgeo,geo 
+     from tblPPTOutputCombine 
+     where lev<>'' 
+
+	 delete  
+	  FROM dbo.tblPPTOutputCombine
+	 WHERE product NOT IN ('Monopril', 'Taxol', 'Sprycel', 'Baraclude', 'Portfolio')
+
+	 SELECT * FROM tblpptsection
+	 SELECT * FROM tblpptsection_bak_20170407
+
+	 INSERT INTO tblpptsection
+	 SELECT *
+	 FROM		tblpptsection_bak_20170407
+			  WHERE		Page = 'Dashboard'
+						AND Product = 'Portfolio'
+						AND Lev = 'Portfolio'
+	 
+	 select a.Code, a.IsSection,a.IsCover,b.OutputName from (   select Code,IsSection, IsCover,id from tblPPTSection   where Page = 'Dashboard' and Product = 'Portfolio' and Lev = 'Portfolio' ) a left join (     select OutputName,OutputName4Rank     From tblPPTOutputCombine     where Product = 'Portfolio' and Lev = 'Portfolio' and Parentgeo = 'China' and Geo = 'China'           and outputname not like '%NOAC%'  ) b on a.code = left(b.OutputName,4) order by a.id,b.OutputName4Rank
+
+
+	  select a.Code, a.IsSection,a.IsCover,b.OutputName from (   select Code,IsSection, IsCover,id from tblPPTSection   where Page = 'Dashboard' and Product = 'Sprycel' and Lev = 'Nation' ) a left join (     select OutputName,OutputName4Rank     From tblPPTOutputCombine     where Product = 'Sprycel' and Lev = 'Nation' and Parentgeo = 'China' and Geo = 'China'           and outputname not like '%NOAC%'  ) b on a.code = left(b.OutputName,4) order by a.id,b.OutputName4Rank
+	  select a.Code, a.IsSection,a.IsCover,b.OutputName from (   select Code,IsSection, IsCover,id from tblPPTSection   where Page = 'Dashboard' and Product = 'Sprycel' and Lev = 'Nation' ) a left join (     select OutputName,OutputName4Rank     From tblPPTOutputCombine     where Product = 'Sprycel' and Lev = 'Nation' and Parentgeo = 'China' and Geo = 'China'           and outputname not like '%NOAC%'  ) b on a.code = left(b.OutputName,4) order by a.id,b.OutputName4Rank
+
+
+	  select * from tblPPTGraphDef where code IN ('c170' , 'c140')
+
+	  select Distinct Series,SeriesIdx from output_ppt 
+	  WHERE  IsShow = 'L' and LinkChartCode = 'c170' and Product='Baraclude' and parentgeo='China' and geo='China'  and Currency='USD'and Timeframe='MTH' and Category='Value' order by seriesidx
+
+	  select Distinct Series,SeriesIdx from output_ppt 
+	  WHERE  IsShow = 'L' and LinkChartCode = 'c140' and Product='Baraclude' and parentgeo='China' and geo='China'  and Currency='USD'and Timeframe='MTH' and Category='Value' order by seriesidx
+
+	  --UPDATE tblpptsection 
+	  --SET notes = 'MNCs Performance vs Total China Market'
+	  --WHERE code = 'c020'
+
+	  --UPDATE tblpptsection 
+	  --SET notes = 'Top MNCs Performance - IMS'
+	  --WHERE code = 'c040'
+
+	  
+	  --UPDATE tblpptsection 
+	  --SET notes = 'Top MNCs Performance - RDPAC'
+	  --WHERE code = 'c100'
+
+	  
+	  --UPDATE tblpptsection 
+	  --SET notes = 'Top MNCs Products Performance - IMS'
+	  --WHERE code = 'c050'
+
+	  --UPDATE tblpptsection 
+	  --SET notes = 'Top MNCs Products Performance - RDPAC'
+	  --WHERE code = 'c110'
+
+
+	  SELECT * FROM tblpptsection WHERE product = 'Portfolio'
 

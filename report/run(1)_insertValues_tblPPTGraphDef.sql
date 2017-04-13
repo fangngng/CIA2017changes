@@ -1109,6 +1109,15 @@ insert into tblPPTGraphDef
 select distinct 'C140','C141',product,product,'Sheet','L','Series||','1','1'	
 from tblChartTitle where linkchartcode='C141'
 go
+print '-- c170'
+insert into tblPPTGraphDef
+select distinct 'c170','c170',product,product,'Chart','Y','Series||X','1','1'	
+from tblChartTitle where linkchartcode='c170'
+go
+insert into tblPPTGraphDef
+select distinct 'c170','c170',product,product,'Sheet','L','Series||','1','1'	
+from tblChartTitle where linkchartcode='c170'
+go
 print '-- C900'
 insert into tblPPTGraphDef
 select distinct 'C900','C900',product,product,'Chart','Y','Series||X','1','1'	
