@@ -1283,9 +1283,17 @@ SELECT * FROM  tblDSDates where Item = 'CPA'
 
 SELECT Audi_cod FROM OutputPreCityPerformance 
 
-SELECT * FROM output_stage WHERE LinkChartCode = 'c140' and isshow = 'Y'
+SELECT * FROM output_stage WHERE LinkChartCode = 'c120'
+SELECT * FROM output 
 
 SELECT * FROM OutputKeyBrandPerformanceByRegionGrowth 
 
+SELECT * FROM BMS_CPA_Hosp_Category 
 
+SELECT * FROM dbo.tblDSDates
+
+SELECT * FROM output_stage WHERE LinkChartCode = 'd020'
+
+SELECT * FROM dbo.MTHCHPA_PKAU 
+SELECT * FROM db82.TempOutput.dbo.MTHCHPA_PKAU
 

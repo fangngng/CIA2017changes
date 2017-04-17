@@ -349,4 +349,28 @@ SELECT	LinkChartCode, Series, SeriesIdx, Category, Product, Lev, ParentGeo, Geo,
 FROM	OutputHospital_All
 WHERE	LinkChartCode IN ( 'C170' ) 
 
+SELECT 
+CASE  
+		WHEN a.category = 'Value' 	AND a.TimeFrame = 'MAT' AND a.Currency = 'RMB'  THEN b.vmat1 
+		WHEN a.category = 'Value' 	AND a.TimeFrame = 'MAT' AND a.Currency = 'USD'  THEN b.vmat1 
+		WHEN a.category = 'Volume' 	AND a.TimeFrame = 'MAT' AND a.Currency = 'UNIT'  THEN b.UMat1  
+		WHEN a.category = 'Value' 	AND a.TimeFrame = 'YTD' AND a.Currency = 'RMB'  THEN b.VYTD 
+		WHEN a.category = 'Value' 	AND a.TimeFrame = 'YTD' AND a.Currency = 'USD'  THEN b.VYTD 
+		WHEN a.category = 'Volume' 	AND a.TimeFrame = 'YTD' AND a.Currency = 'UNIT'  THEN b.UYTD 
+		WHEN a.category = 'Value' 	AND a.TimeFrame = 'MQT' AND a.Currency = 'RMB'  THEN b.VR3M1  
+		WHEN a.category = 'Value' 	AND a.TimeFrame = 'MQT' AND a.Currency = 'USD'  THEN b.VR3M1  
+		WHEN a.category = 'Volume' 	AND a.TimeFrame = 'MQT' AND a.Currency = 'UNIT'  THEN b.UR3M1  
+		WHEN a.category = 'Value' 	AND a.TimeFrame = 'MTH' AND a.Currency = 'RMB'  THEN b.VM1
+		WHEN a.category = 'Value' 	AND a.TimeFrame = 'MTH' AND a.Currency = 'USD'  THEN b.VM1
+		WHEN a.category = 'Volume' 	AND a.TimeFrame = 'MTH' AND a.Currency = 'UNIT'  THEN b.UM1 
+	END, * 		
+from OutputHospital_All as a
+inner join OutputBALHospitalDataGrowth b on  a.Product = b.Mkt  and a.X = b.RMName AND a.SeriesIdx = b.Prod
+where a.IsShow = 'L' and a.LinkChartCode = 'C170' AND a.Currency = 'UNIT'
+
+SELECT * FROM OutputHospital_All WHERE LinkChartCode = 'c170' AND IsShow = 'L'
+
+SELECT * FROM OutputHospital_All WHERE LinkChartCode = 'c202'
+
+SELECT * FROM dbo.tblMktDefHospital
 

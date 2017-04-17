@@ -1,52 +1,87 @@
 
 --NOAC相关PPT数据检查
-select * from BMSChinaCIA_IMS.dbo.output_stage  where linkchartcode='C121' and product='Eliquis NOAC' 
+SELECT *
+FROM BMSChinaCIA_IMS.dbo.output_stage
+WHERE linkchartcode='C121' AND product='Eliquis NOAC'
 
-select * from BMSChinaCIA_IMS.dbo.output_stage  where linkchartcode='C131' and product='Eliquis NOAC' 
+SELECT *
+FROM BMSChinaCIA_IMS.dbo.output_stage
+WHERE linkchartcode='C131' AND product='Eliquis NOAC'
 
-select * from BMSChinaCIA_IMS.dbo.output_stage  where linkchartcode='D023' and product='Eliquis NOAC' 
+SELECT *
+FROM BMSChinaCIA_IMS.dbo.output_stage
+WHERE linkchartcode='D023' AND product='Eliquis NOAC'
 
-select * from BMSChinaCIA_IMS.dbo.output_stage  where linkchartcode='D024' and product='Eliquis NOAC' 
+SELECT *
+FROM BMSChinaCIA_IMS.dbo.output_stage
+WHERE linkchartcode='D024' AND product='Eliquis NOAC'
 
-select * from BMSChinaCIA_IMS.dbo.output_stage  where linkchartcode='D085' and product='Eliquis NOAC' 
+SELECT *
+FROM BMSChinaCIA_IMS.dbo.output_stage
+WHERE linkchartcode='D085' AND product='Eliquis NOAC'
 
-select * from BMSChinaCIA_IMS.dbo.output_stage  where linkchartcode='D086' and product='Eliquis NOAC'
+SELECT *
+FROM BMSChinaCIA_IMS.dbo.output_stage
+WHERE linkchartcode='D086' AND product='Eliquis NOAC'
 
-select * from BMSChinaCIA_IMS.dbo.output_stage  where linkchartcode='D087' and product='Eliquis NOAC' 
+SELECT *
+FROM BMSChinaCIA_IMS.dbo.output_stage
+WHERE linkchartcode='D087' AND product='Eliquis NOAC'
 
-select * from BMSChinaCIA_IMS.dbo.output_stage  where linkchartcode='D088' and product='Eliquis NOAC'  
+SELECT *
+FROM BMSChinaCIA_IMS.dbo.output_stage
+WHERE linkchartcode='D088' AND product='Eliquis NOAC'
 
 --eliquis
-select * from  Mid_KPIFrame_CPAPart_Eliquis where prod='000'
-select * from OutputHospital_All where LinkChartCode = 'R640' and product='Eliquis VTEP' and x='Hosp. # matched with BMS hospital'
+SELECT *
+FROM Mid_KPIFrame_CPAPart_Eliquis
+WHERE prod='000'
+SELECT *
+FROM OutputHospital_All
+WHERE LinkChartCode = 'R640' AND product='Eliquis VTEP' AND x='Hosp. # matched with BMS hospital'
 
 --Monopril
-select * from Mid_KPIFrame_CPAPart_HYP where prod='000'
-select * from OutputPerformanceByHosp_CV_Modi_Slide8_Mid where y>1
-	 select * from OutputHospital_All where LinkChartCode = 'R640' and product='Monopril' and x='Hosp. # matched with BMS hospital'
+SELECT *
+FROM Mid_KPIFrame_CPAPart_HYP
+WHERE prod='000'
+SELECT *
+FROM OutputPerformanceByHosp_CV_Modi_Slide8_Mid
+WHERE y>1
+SELECT *
+FROM OutputHospital_All
+WHERE LinkChartCode = 'R640' AND product='Monopril' AND x='Hosp. # matched with BMS hospital'
+
 --Coniel
-	select* from Mid_KPIFrame_CPAPart_CCB where prod='000'
-	 select * from OutputHospital_All where LinkChartCode = 'R640' and product='Coniel' and x='Hosp. # matched with BMS hospital'
+SELECT*
+FROM Mid_KPIFrame_CPAPart_CCB
+WHERE prod='000'
+SELECT *
+FROM OutputHospital_All
+WHERE LinkChartCode = 'R640' AND product='Coniel' AND x='Hosp. # matched with BMS hospital'
 
 
-	 SELECT CAST('Total' AS NVARCHAR(100)) AS Type,a.DataSource, a.Mkt, a.Prod,c.ProductName,
-	   SUM(a.UYTD) AS UYTD,SUM(a.UYTDStly) AS UYTDStly,SUM(a.VYTD) AS VYTD,SUM(a.VYTDStly) AS VYTDStly,COUNT(DISTINCT a.Cpa_id) AS Hosp_Count
+SELECT CAST('Total' AS NVARCHAR(100)) AS Type, a.DataSource, a.Mkt, a.Prod, c.ProductName,
+	SUM(a.UYTD) AS UYTD, SUM(a.UYTDStly) AS UYTDStly, SUM(a.VYTD) AS VYTD, SUM(a.VYTDStly) AS VYTDStly, COUNT(DISTINCT a.Cpa_id) AS Hosp_Count
 --INTO OutputPerformanceByHosp_CV_Modi_Slide8_Coniel
-from dbo.tempHospitalData_CIA_CV_Modification_Slide8_Coniel a join
-(SELECT DISTINCT id,cpa_name,cpa_code FROM tblHospitalMaster) b on a.cpa_id = b.id join
-(SELECT DISTINCT MKT,PROD,ProductName FROM tblMktDefHospital) c on c.mkt = a.mkt and c.prod= a.prod join
-(
-	select distinct [cpa name] ,[CPA Code]
-	from BMS_CPA_Hosp_Category 
-	where [cpa name]<> '#N/A' and [cpa name] is not null and [cpa code] is not null and [Coniel Hospital Category] <> '#N/A' 	
+FROM dbo.tempHospitalData_CIA_CV_Modification_Slide8_Coniel a JOIN
+	(SELECT DISTINCT id, cpa_name, cpa_code
+	FROM tblHospitalMaster) b ON a.cpa_id = b.id JOIN
+	(SELECT DISTINCT MKT, PROD, ProductName
+	FROM tblMktDefHospital) c ON c.mkt = a.mkt AND c.prod= a.prod JOIN
+	(
+	SELECT DISTINCT [cpa name] , [CPA Code]
+	FROM BMS_CPA_Hosp_Category
+	WHERE [cpa name]<> '#N/A' AND [cpa name] IS NOT NULL AND [cpa code] IS NOT NULL AND [Coniel Hospital Category] <> '#N/A' 	
 ) d ON d.[cpa code]=b.cpa_code
-where a.mkt = 'CCB'
+WHERE a.mkt = 'CCB'
 GROUP BY a.DataSource,a.Mkt, a.Prod,c.ProductName
 
-	 SELECT *
-	FROM OutputPerformanceByHosp_CV_Modi_Slide8_Coniel WHERE TYPE = 'Total' AND Prod='000'
+SELECT *
+FROM OutputPerformanceByHosp_CV_Modi_Slide8_Coniel
+WHERE TYPE = 'Total' AND Prod='000'
 
-	 select Type,DataSource,Mkt,Prod,Productname,
-		cast(hosp_Count as float) as hosp_Count,cast(MarketContr as float) as MarketContr,
-		cast(ProductMarketShare as float) ProductMarketShare ,cast(ProductMarketGrowth as float) as ProductMarketGrowth
-		from OutputPerformanceByHosp_CV_Modi_Slide8_Output_Coniel where prod=100
+SELECT Type, DataSource, Mkt, Prod, Productname,
+	cast(hosp_Count AS FLOAT) AS hosp_Count, cast(MarketContr AS FLOAT) AS MarketContr,
+	cast(ProductMarketShare AS FLOAT) ProductMarketShare , cast(ProductMarketGrowth AS FLOAT) AS ProductMarketGrowth
+FROM OutputPerformanceByHosp_CV_Modi_Slide8_Output_Coniel
+WHERE prod=100

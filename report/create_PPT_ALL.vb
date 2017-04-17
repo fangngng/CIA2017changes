@@ -346,7 +346,7 @@ Private Sub Correct_Left()
 
 End Sub
 
-Private Sub fillGraphData(inSlide As Slide, inCode As String, inProduct As String, inParentGeo As String, inGeo As String, inCurrency As String, inTimeFrame As String, inCategory As String, inCaption As String, inSubTitle As String, inSubCaption As String)
+rivate Sub fillGraphData(inSlide As Slide, inCode As String, inProduct As String, inParentGeo As String, inGeo As String, inCurrency As String, inTimeFrame As String, inCategory As String, inCaption As String, inSubTitle As String, inSubCaption As String)
     Dim shp As Shape
     Dim trng As TextRange
     Dim Graphtype As String

@@ -152,25 +152,89 @@ SELECT DISTINCT page, product FROM tblPPTSection
     ) b on a.code = left(b.OutputName,4)
     order by a.id,b.OutputName4Rank
 
+	SELECT DISTINCT
+			Product, Parentcode, parentgeo, Geo, Currency, TimeFrame, Category, outputname, Caption,
+			CASE WHEN Product = 'Baraclude'
+					  AND ParentCode = 'D020'
+					  AND TimeFrame = 'MTH' THEN REPLACE(SlideTitle, 'MQT/MTH', 'MTH')
+				 ELSE SlideTitle
+			END AS SlideTitle, CASE	WHEN parentcode = 'c160' THEN subCaption
+									ELSE '-'
+							   END AS subCaption
+	FROM	tblChartTitle A
+	WHERE	(
+			  EXISTS ( SELECT	*
+					   FROM		outputgeo B
+					   WHERE	a.geo = b.geo
+								AND (
+									  a.product = b.product
+									  OR LEFT(a.product, 7) = b.product
+									) )
+			  OR a.linkchartcode LIKE 'c%'
+			  OR a.linkchartcode LIKE 'r%'
+			)
+			AND NOT (
+					  ParentCode IN ( 'R400', 'R410', 'R500' )
+					  AND Category IN ( 'Dosing Units', 'Adjusted patient number' )
+					)
+			AND parentcode IN ( 'd090' )
+	ORDER BY ParentCode DESC, product DESC, parentgeo DESC, geo DESC, currency DESC, timeframe DESC, category DESC 
+
+	 select * from tblPPTGraphDef where code='D090' and product='Baraclude'  order by id,Graphtype 
+
+	 SELECT	Y
+	 FROM	output_ppt
+	 WHERE	IsShow = 'Y'
+			AND LinkChartCode = 'D091'
+			AND Product = 'Baraclude'
+			AND parentgeo = 'West'
+			AND geo = 'Xian'
+			AND Currency = 'USD'
+			AND Timeframe = 'YTD'
+			AND Category = 'Value'
+	 ORDER BY seriesidx, xidx
+
+
+	 SELECT * FROM output WHERE LinkChartCode = 'c120'
+
+	 SELECT * FROM output_ppt 
+
 	  select distinct case left(OutputName,1) when 'R' then 'BrandReport' else 'Dashboard' end as Page,
      product,lev,parentgeo,geo 
      from tblPPTOutputCombine 
      where lev<>'' 
 
-	 delete  
-	  FROM dbo.tblPPTOutputCombine
-	 WHERE product NOT IN ('Monopril', 'Taxol', 'Sprycel', 'Baraclude', 'Portfolio')
+	 SELECT * FROM tblpptsection ORDER BY id 
+
+	 ALTER TABLE tblpptsection ADD idx INT 
+	 GO 
+
+
+	 
+
+		--delete  
+		--FROM dbo.tblPPTOutputCombine
+		--WHERE product NOT IN ('Monopril', 'Taxol', 'Sprycel', 'Baraclude', 'Portfolio')
 
 	 SELECT * FROM tblpptsection
 	 SELECT * FROM tblpptsection_bak_20170407
 
-	 INSERT INTO tblpptsection
-	 SELECT *
-	 FROM		tblpptsection_bak_20170407
-			  WHERE		Page = 'Dashboard'
-						AND Product = 'Portfolio'
-						AND Lev = 'Portfolio'
+	 --INSERT INTO tblpptsection
+	 --SELECT *
+	 --FROM		tblpptsection_bak_20170407
+		--	  WHERE		Page = 'Dashboard'
+		--				AND Product = 'Portfolio'
+		--				AND Lev = 'Portfolio'
 	 
+	 --INSERT INTO tblpptsection
+	 --SELECT *
+	 --FROM		tblpptsection_bak_20170407
+		--	  WHERE		Page = 'Dashboard'
+		--				AND Product = 'Portfolio'
+		--				AND Lev = 'Portfolio'
+	 
+	 SELECT * FROM tblpptsection ORDER BY id 
+
 	 select a.Code, a.IsSection,a.IsCover,b.OutputName from (   select Code,IsSection, IsCover,id from tblPPTSection   where Page = 'Dashboard' and Product = 'Portfolio' and Lev = 'Portfolio' ) a left join (     select OutputName,OutputName4Rank     From tblPPTOutputCombine     where Product = 'Portfolio' and Lev = 'Portfolio' and Parentgeo = 'China' and Geo = 'China'           and outputname not like '%NOAC%'  ) b on a.code = left(b.OutputName,4) order by a.id,b.OutputName4Rank
 
 
@@ -210,4 +274,16 @@ SELECT DISTINCT page, product FROM tblPPTSection
 
 
 	  SELECT * FROM tblpptsection WHERE product = 'Portfolio'
+
+	  SELECT	Y
+	  FROM		output_ppt
+	  WHERE		IsShow = 'Y'
+				AND LinkChartCode = 'C140'
+				AND Product = 'Paraplatin'
+				AND parentgeo = 'China'
+				AND geo = 'China'
+				AND Currency = 'USD'
+				AND Timeframe = 'YTD'
+				AND Category = 'Value'
+	  ORDER BY	seriesidx, xidx
 

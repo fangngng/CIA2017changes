@@ -97,7 +97,8 @@ select @mth = left(dt,3) + '-' + right(dt,2) from(
 select @mth2 = Datevalue
 from tblDates where dateSource = 'CurrentMonthlyDate' 
 
-update tblVersionInfo set
+update tblVersionInfo 
+set
 	CN = N'数据月: ' + left(@mth2,4) + N'年' + right(@mth2,2) + N'月',
 	EN = 'Data Month: ' + @mth
 where [Name] = 'DataMonth'

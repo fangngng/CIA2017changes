@@ -425,13 +425,13 @@ update WebChartExplain set
 	DataSource='Data Source: IMS CHPA CITY Jan''17',
 	DataSource_CN='Data Source: IMS CHPA CITY Jan''17'
 where code like 'C16%' 
-and Product in ('Paraplatin')
+	AND Product in ('Paraplatin')
 
 
 --每个季度末才修改
 update dbo.WebChartExplain
-set datasource=replace(datasource,'Sep''16','Jan''17'),
-	datasource_cn=replace(datasource_cn,'Sep''16','Jan''17')
+set datasource=replace(datasource,'Sep''16','Dec''16'),
+	datasource_cn=replace(datasource_cn,'Sep''16','Dec''16')
 where datasource like '%RDPAC%'
 select * from WebChartExplain where datasource like '%RDPAC%' order  by code
 
